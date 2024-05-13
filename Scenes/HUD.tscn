@@ -1,0 +1,77 @@
+[gd_scene load_steps=6 format=3 uid="uid://duv7i8yak343i"]
+
+[ext_resource type="Texture2D" uid="uid://c2ajpw4n83ctg" path="res://Assets/Sprites/Items.png" id="1_bp31y"]
+[ext_resource type="Script" path="res://Scripts/HUD.gd" id="1_slvuw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hawcc"]
+atlas = ExtResource("1_bp31y")
+region = Rect2(48, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yuxnv"]
+atlas = ExtResource("1_bp31y")
+region = Rect2(32, 32, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_b288l"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hawcc")
+}],
+"loop": true,
+"name": &"full_heart",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yuxnv")
+}],
+"loop": true,
+"name": &"half_heart",
+"speed": 5.0
+}]
+
+[node name="HUD" type="Control"]
+top_level = true
+z_index = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -1152.0
+offset_bottom = -648.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_slvuw")
+
+[node name="Heart_1" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_b288l")
+animation = &"full_heart"
+autoplay = "full_heart"
+speed_scale = 0.0
+
+[node name="Heart_2" type="AnimatedSprite2D" parent="."]
+position = Vector2(17, 0)
+sprite_frames = SubResource("SpriteFrames_b288l")
+animation = &"full_heart"
+autoplay = "full_heart"
+speed_scale = 0.0
+
+[node name="Heart_3" type="AnimatedSprite2D" parent="."]
+position = Vector2(34, 0)
+sprite_frames = SubResource("SpriteFrames_b288l")
+animation = &"full_heart"
+speed_scale = 0.0
+
+[node name="Heart_4" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(51, 0)
+sprite_frames = SubResource("SpriteFrames_b288l")
+animation = &"full_heart"
+speed_scale = 0.0
+
+[node name="Heart_5" type="AnimatedSprite2D" parent="."]
+visible = false
+position = Vector2(68, 0)
+sprite_frames = SubResource("SpriteFrames_b288l")
+animation = &"full_heart"
+speed_scale = 0.0

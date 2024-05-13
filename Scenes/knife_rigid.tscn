@@ -1,0 +1,33 @@
+[gd_scene load_steps=6 format=3 uid="uid://diaavao36ycpo"]
+
+[ext_resource type="Texture2D" uid="uid://c2ajpw4n83ctg" path="res://Assets/Sprites/Items.png" id="1_ghix0"]
+[ext_resource type="Script" path="res://Scripts/knife.gd" id="1_umpod"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_skm6n"]
+atlas = ExtResource("1_ghix0")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jmnwn"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_skm6n")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kdhal"]
+size = Vector2(6, 12)
+
+[node name="knife_rigid" type="RigidBody2D"]
+gravity_scale = 0.0
+script = ExtResource("1_umpod")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_jmnwn")
+flip_v = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_kdhal")

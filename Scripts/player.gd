@@ -1,0 +1,116 @@
+extends CharacterBody2D
+
+# constants
+const SPEED = 100.0
+const KNIFE_SPEED = 150.0
+
+# variables
+var lastMove = "default"
+var attacks_per_second = 1
+var attack_damage = 1
+var time_to_fire = 0.0
+var time_to_fire_max = 1.0
+var player_health = 6
+
+# object references
+@onready var animated_sprite = $AnimatedSprite2D
+@onready var attack_spawn_down = $AttackSpawnDown
+@onready var attack_spawn_up = $AttackSpawnUp
+@onready var attack_spawn_left = $AttackSpawnLeft
+@onready var attack_spawn_right = $AttackSpawnRight
+@onready var death_timer = $DeathTimer
+@onready var hud = %HUD
+
+var knife_scene = load("res://Scenes/knife.tscn")
+
+# runs on start
+func _ready():
+	attacks_per_second = 2
+	time_to_fire_max = time_to_fire_max / attacks_per_second
+
+# runs on every frame
+func _process(delta):
+	# if the time to fire is above 0, it reduces the timer
+	if time_to_fire > 0:
+		time_to_fire -= delta
+
+# runs on a set interval (fixed_update)
+func _physics_process(delta):
+	# controls player movement and normalizes the vector
+	var direction = Input.get_vector("MoveLeft", "MoveRight", "MoveUp", "MoveDown")
+	direction.normalized()
+	velocity = direction * SPEED
+	
+	# controls the animations for the movement
+	if direction.y == -1:
+		animated_sprite.play("move_up")
+		lastMove = "move_up"
+	elif direction.y == 1:
+		animated_sprite.play("move_down")
+		lastMove = "move_down"
+	elif direction.x < 0:
+		animated_sprite.play("move_left")
+		lastMove = "move_left"
+	elif direction.x > 0:
+		animated_sprite.play("move_right")
+		lastMove = "move_right"
+	else:
+		if lastMove == "move_right":
+			animated_sprite.play("idle_right")
+		elif lastMove == "move_left":
+			animated_sprite.play("idle_left")
+		elif lastMove == "move_up":
+			animated_sprite.play("idle_up")
+		else:
+			animated_sprite.play("idle_down")
+	
+	# moves the player
+	move_and_slide()
+	
+	# controls throwing knives
+	if Input.is_action_just_pressed("Attack"):
+		# checks to see if the player can fire
+		if time_to_fire <= 0:
+			# checks to see which direction is the click was 
+			var click_position = position - get_global_mouse_position()
+			var attack_instance = knife_scene.instantiate()
+			if abs(click_position.y) > abs(click_position.x):
+				if click_position.y > 0:
+					attack_instance.position = attack_spawn_up.position
+				else:
+					attack_instance.position = attack_spawn_down.position
+			else:
+				if click_position.x > 0:
+					attack_instance.position = attack_spawn_left.position
+				else:
+					attack_instance.position = attack_spawn_right.position
+			
+			# spawns a knife at that position
+			attack_instance.position += position
+			attack_instance.spawned(position)
+			get_parent().add_child(attack_instance)
+			
+			# resets the time to fire
+			time_to_fire = time_to_fire_max
+
+# runs when an enemy hits the player
+func player_take_damage():
+	player_health -= 1
+	hud.refresh_hearts(player_health)
+	if player_health <= 0:
+		Engine.time_scale = 0.5
+		death_timer.start()
+
+# when the death_timer runs out, the scene resets
+func _on_timer_timeout():
+	get_tree().reload_current_scene()
+	Engine.time_scale = 1
+
+# runs when an item is picked up
+func picked_up_item(item):
+	# there is probably a better way to do this but this will work for now
+	# it uses the scene names of the items (so heart_pickup is the name of node)
+	if item == "heart_pickup":
+		print("picked up heart")
+	elif item == "temp":
+		print("picked up temp item")
