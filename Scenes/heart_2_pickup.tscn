@@ -1,9 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://bycygvf0dkbr1"]
+[gd_scene load_steps=5 format=3 uid="uid://bycygvf0dkbr1"]
 
 [ext_resource type="PackedScene" uid="uid://jtiqth444hdl" path="res://Scenes/item.tscn" id="1_hw3d6"]
-[ext_resource type="Texture2D" uid="uid://c2ajpw4n83ctg" path="res://Assets/Sprites/Items.png" id="2_72okg"]
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_edv72"]
+[ext_resource type="Texture2D" uid="uid://ducxvedha26ik" path="res://Assets/Sprites/Items.png" id="2_72okg"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_i4n4t"]
 atlas = ExtResource("2_72okg")
@@ -20,12 +18,11 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="heart_pickup" type="Node2D"]
+[node name="heart_2_pickup" type="Node2D"]
 
 [node name="item" parent="." instance=ExtResource("1_hw3d6")]
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="item"]
-shape = SubResource("CircleShape2D_edv72")
+collision_mask = 2
+item_type = 1
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_jkp4k")

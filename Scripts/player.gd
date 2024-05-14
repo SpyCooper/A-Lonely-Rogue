@@ -1,8 +1,11 @@
 extends CharacterBody2D
 
+class_name Player
+
 # constants
 const SPEED = 100.0
 const KNIFE_SPEED = 150.0
+const PLAYER_HEALTH_MAX = 10
 
 # variables
 var lastMove = "default"
@@ -95,11 +98,7 @@ func _physics_process(delta):
 
 # runs when an enemy hits the player
 func player_take_damage():
-	player_health -= 1
-	hud.refresh_hearts(player_health)
-	if player_health <= 0:
-		Engine.time_scale = 0.5
-		death_timer.start()
+	player_adjust_health(-1)
 
 # when the death_timer runs out, the scene resets
 func _on_timer_timeout():
@@ -109,8 +108,22 @@ func _on_timer_timeout():
 # runs when an item is picked up
 func picked_up_item(item):
 	# there is probably a better way to do this but this will work for now
-	# it uses the scene names of the items (so heart_pickup is the name of node)
-	if item == "heart_pickup":
-		print("picked up heart")
-	elif item == "temp":
+	# check the enum in item.gd for the numbers
+	if item == 0:
 		print("picked up temp item")
+	elif item == 1:
+		player_adjust_health(2)
+	elif item == 2:
+		player_adjust_health(1)
+	elif item == 3:
+		print("picked up poisoned blades")
+
+func player_adjust_health(change : int):
+	if(player_health + change > PLAYER_HEALTH_MAX):
+		player_health = PLAYER_HEALTH_MAX
+	else:
+		player_health += change
+	hud.refresh_hearts(player_health)
+	if player_health <= 0:
+		Engine.time_scale = 0.5
+		death_timer.start()

@@ -213,7 +213,7 @@ sprite_frames = SubResource("SpriteFrames_ca6vv")
 animation = &"idle_down"
 autoplay = "idle_down"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+[node name="HitBox" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_1vf8k")
 
 [node name="DeathTimer" type="Timer" parent="."]

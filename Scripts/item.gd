@@ -1,10 +1,20 @@
 extends Area2D
 
+enum type
+{
+	temp,
+	health_2,
+	health_1,
+	poisoned_blades
+}
+
+@export var item_type : type
+
 func _on_body_entered(body):
 	# if the object has the method picked_up_item(),
 	# it is assumed to be the player
-	if body.has_method("picked_up_item"):
-		body.picked_up_item("temp")
+	if body.get_name() == "Player":
+		body.picked_up_item(item_type)
 	
-	# removes the knife from the screen
+	# removes the item from the screen
 	get_parent().queue_free()

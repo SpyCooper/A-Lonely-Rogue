@@ -1,5 +1,7 @@
 extends Area2D
 
+class_name Knife
+
 # constant variables
 const SPEED = 150
 

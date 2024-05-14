@@ -1,0 +1,28 @@
+[gd_scene load_steps=5 format=3 uid="uid://d0qa6b7ahnmm3"]
+
+[ext_resource type="PackedScene" uid="uid://jtiqth444hdl" path="res://Scenes/item.tscn" id="1_gh5bf"]
+[ext_resource type="Texture2D" uid="uid://ducxvedha26ik" path="res://Assets/Sprites/Items.png" id="2_eql42"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e6jwv"]
+atlas = ExtResource("2_eql42")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_oaxmr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e6jwv")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="poisoned_blades_item" type="Node2D"]
+
+[node name="item" parent="." instance=ExtResource("1_gh5bf")]
+item_type = 3
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_oaxmr")
+offset = Vector2(-1, 0)

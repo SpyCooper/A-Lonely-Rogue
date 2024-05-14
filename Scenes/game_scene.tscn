@@ -1,9 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://8jxi88fj77dd"]
+[gd_scene load_steps=10 format=3 uid="uid://8jxi88fj77dd"]
 
 [ext_resource type="PackedScene" uid="uid://duv7i8yak343i" path="res://Scenes/HUD.tscn" id="1_6twlt"]
 [ext_resource type="PackedScene" uid="uid://dahgvmrgtix2i" path="res://Scenes/player.tscn" id="1_37d31"]
 [ext_resource type="Texture2D" uid="uid://dksifwmyq21dv" path="res://Assets/Sprites/TileSet.png" id="1_rtpjg"]
-[ext_resource type="PackedScene" uid="uid://bycygvf0dkbr1" path="res://Scenes/heart_pickup.tscn" id="4_gpnpe"]
+[ext_resource type="PackedScene" uid="uid://bycygvf0dkbr1" path="res://Scenes/heart_2_pickup.tscn" id="4_gpnpe"]
+[ext_resource type="PackedScene" uid="uid://x2so2ayusjw6" path="res://Scenes/slime.tscn" id="5_jy1tw"]
+[ext_resource type="PackedScene" uid="uid://bd4j5c5ldoecs" path="res://Scenes/heart_1_pickup.tscn" id="5_rol0w"]
+[ext_resource type="PackedScene" uid="uid://d0qa6b7ahnmm3" path="res://Scenes/poisoned_blades_item.tscn" id="7_oalkx"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_o07x4"]
 texture = ExtResource("1_rtpjg")
@@ -156,4 +159,13 @@ offset_top = -96.0
 offset_right = -1332.0
 offset_bottom = -744.0
 
-[node name="heart_pickup" parent="." instance=ExtResource("4_gpnpe")]
+[node name="heart_2_pickup" parent="." instance=ExtResource("4_gpnpe")]
+
+[node name="heart_1_pickup" parent="." instance=ExtResource("5_rol0w")]
+position = Vector2(-43, -48)
+
+[node name="slime" parent="." instance=ExtResource("5_jy1tw")]
+position = Vector2(136, -52)
+
+[node name="poisoned_blades_item" parent="." instance=ExtResource("7_oalkx")]
+position = Vector2(-39, 56)
