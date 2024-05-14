@@ -19,6 +19,7 @@ animations = [{
 }]
 
 [node name="poisoned_blades_item" type="Node2D"]
+z_index = 1
 
 [node name="item" parent="." instance=ExtResource("1_gh5bf")]
 item_type = 3

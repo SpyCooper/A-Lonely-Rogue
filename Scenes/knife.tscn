@@ -4,6 +4,7 @@
 [ext_resource type="Script" path="res://Scripts/knife.gd" id="1_xp0xi"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_roxv2"]
+radius = 9.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_skm6n"]
 atlas = ExtResource("1_ee2pm")
@@ -86,6 +87,7 @@ collision_mask = 5
 script = ExtResource("1_xp0xi")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
 shape = SubResource("CircleShape2D_roxv2")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

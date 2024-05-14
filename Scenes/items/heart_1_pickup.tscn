@@ -21,6 +21,7 @@ animations = [{
 [node name="heart_1_pickup" type="Node2D"]
 
 [node name="item" parent="." instance=ExtResource("1_smaqb")]
+z_index = 1
 collision_mask = 2
 item_type = 2
 
