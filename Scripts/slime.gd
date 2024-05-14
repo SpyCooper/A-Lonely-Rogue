@@ -1,5 +1,11 @@
 extends CharacterBody2D
 
+enum look_direction
+{
+	right,
+	left
+}
+
 # constants
 const SPEED = 25.0
 
@@ -7,6 +13,7 @@ const SPEED = 25.0
 var player_position
 var target_position
 var health = 3
+var current_direction : look_direction
 
 # object references
 @onready var player = %Player
@@ -23,9 +30,21 @@ func _physics_process(delta):
 		
 		# flips the direction of the slime based on the if the target is on the left or right
 		if target_position.x < 0:
-			animated_sprite.play("look_left")
+			current_direction = look_direction.left
+			if animated_sprite.is_playing() == false:
+				animated_sprite.play("look_left")
+			elif animated_sprite.animation == "hit_right" :
+				var frame = animated_sprite.frame
+				animated_sprite.play("hit_left")
+				animated_sprite.frame = frame
 		elif target_position.x > 0:
-			animated_sprite.play("look_right")
+			current_direction = look_direction.right
+			if animated_sprite.is_playing() == false:
+				animated_sprite.play("look_right")
+			elif animated_sprite.animation == "hit_left" :
+				var frame = animated_sprite.frame
+				animated_sprite.play("hit_right")
+				animated_sprite.frame = frame
 
 	# moves the slime
 	if position.distance_to(player_position) > 1:
@@ -34,5 +53,9 @@ func _physics_process(delta):
 # runs when a knife (or other weapon) hits the enemy
 func hit():
 	health -= 1
+	if current_direction == look_direction.left:
+		animated_sprite.play("hit_left")
+	elif current_direction == look_direction.right:
+		animated_sprite.play("hit_right")
 	if health <= 0:
 		queue_free()
