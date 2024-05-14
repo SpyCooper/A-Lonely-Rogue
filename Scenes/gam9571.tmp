@@ -1,0 +1,66 @@
+[gd_scene load_steps=10 format=3 uid="uid://8jxi88fj77dd"]
+
+[ext_resource type="PackedScene" uid="uid://duv7i8yak343i" path="res://Scenes/HUD.tscn" id="1_6twlt"]
+[ext_resource type="PackedScene" uid="uid://cj7h10qvuo84a" path="res://Scenes/map/room.tscn" id="1_7srq3"]
+[ext_resource type="PackedScene" uid="uid://dahgvmrgtix2i" path="res://Scenes/player.tscn" id="1_37d31"]
+[ext_resource type="Script" path="res://Scripts/Transition Camera.gd" id="3_s8u8k"]
+[ext_resource type="PackedScene" uid="uid://bycygvf0dkbr1" path="res://Scenes/items/heart_2_pickup.tscn" id="4_gpnpe"]
+[ext_resource type="PackedScene" uid="uid://x2so2ayusjw6" path="res://Scenes/enemies/slime.tscn" id="5_jy1tw"]
+[ext_resource type="PackedScene" uid="uid://bd4j5c5ldoecs" path="res://Scenes/items/heart_1_pickup.tscn" id="5_rol0w"]
+[ext_resource type="PackedScene" uid="uid://d0qa6b7ahnmm3" path="res://Scenes/items/poisoned_blades_item.tscn" id="7_oalkx"]
+[ext_resource type="PackedScene" uid="uid://twwpuf30o87g" path="res://Scenes/HUD_control.tscn" id="9_ca386"]
+
+[node name="GameScene" type="Node2D"]
+
+[node name="Center" parent="." instance=ExtResource("1_7srq3")]
+
+[node name="Top" parent="." instance=ExtResource("1_7srq3")]
+position = Vector2(0, -208)
+
+[node name="heart_2_pickup" parent="Top" instance=ExtResource("4_gpnpe")]
+position = Vector2(63, -19)
+
+[node name="Bottom" parent="." instance=ExtResource("1_7srq3")]
+position = Vector2(0, 208)
+
+[node name="heart_1_pickup" parent="Bottom" instance=ExtResource("5_rol0w")]
+position = Vector2(-57, 14)
+
+[node name="Right" parent="." instance=ExtResource("1_7srq3")]
+position = Vector2(368, 0)
+
+[node name="slime" parent="Right" instance=ExtResource("5_jy1tw")]
+position = Vector2(79, -47)
+
+[node name="Left" parent="." instance=ExtResource("1_7srq3")]
+position = Vector2(-368, 0)
+
+[node name="poisoned_blades_item" parent="Left" instance=ExtResource("7_oalkx")]
+position = Vector2(49, -14)
+
+[node name="Player" parent="." instance=ExtResource("1_37d31")]
+unique_name_in_owner = true
+top_level = true
+position = Vector2(1, 0)
+collision_mask = 3
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 3
+follow_viewport_enabled = true
+
+[node name="HUD" parent="CanvasLayer" instance=ExtResource("1_6twlt")]
+unique_name_in_owner = true
+offset_left = -162.0
+offset_top = -86.0
+offset_right = -1314.0
+offset_bottom = -734.0
+
+[node name="Transition Camera" type="Camera2D" parent="."]
+zoom = Vector2(3.31, 3.31)
+position_smoothing_enabled = true
+position_smoothing_speed = 7.0
+script = ExtResource("3_s8u8k")
+
+[node name="Control" parent="Transition Camera" instance=ExtResource("9_ca386")]
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Transition Camera"]
