@@ -129,11 +129,11 @@ animations = [{
 radius = 6.0
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mj62a"]
-radius = 6.0
+radius = 8.0
 
 [node name="slime" type="CharacterBody2D"]
 z_index = 1
-collision_layer = 4
+collision_layer = 12
 script = ExtResource("1_fr1f0")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://duv7i8yak343i"]
 
-[ext_resource type="Texture2D" uid="uid://ducxvedha26ik" path="res://Assets/Sprites/Items.png" id="1_bp31y"]
+[ext_resource type="Texture2D" uid="uid://dh85ichhvi5y2" path="res://Assets/Sprites/Items.png" id="1_bp31y"]
 [ext_resource type="Script" path="res://Scripts/HUD.gd" id="1_slvuw"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hawcc"]
@@ -11,9 +11,9 @@ region = Rect2(48, 32, 16, 16)
 atlas = ExtResource("1_bp31y")
 region = Rect2(32, 32, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_qqif7"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_gjaa6"]
 atlas = ExtResource("1_bp31y")
-region = Rect2(80, 0, 16, 16)
+region = Rect2(96, 16, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_b288l"]
 animations = [{
@@ -35,7 +35,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_qqif7")
+"texture": SubResource("AtlasTexture_gjaa6")
 }],
 "loop": true,
 "name": &"no_heart",
@@ -45,43 +45,41 @@ animations = [{
 [node name="HUD" type="Control"]
 top_level = true
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_right = -1152.0
-offset_bottom = -648.0
-grow_horizontal = 2
-grow_vertical = 2
+anchors_preset = 0
+scale = Vector2(3.25, 3.25)
+size_flags_horizontal = 3
+size_flags_vertical = 3
 script = ExtResource("1_slvuw")
 
 [node name="Heart_1" type="AnimatedSprite2D" parent="."]
+position = Vector2(12, 12)
 sprite_frames = SubResource("SpriteFrames_b288l")
 animation = &"full_heart"
 autoplay = "full_heart"
 speed_scale = 0.0
 
 [node name="Heart_2" type="AnimatedSprite2D" parent="."]
-position = Vector2(17, 0)
+position = Vector2(29, 12)
 sprite_frames = SubResource("SpriteFrames_b288l")
 animation = &"full_heart"
 autoplay = "full_heart"
 speed_scale = 0.0
 
 [node name="Heart_3" type="AnimatedSprite2D" parent="."]
-position = Vector2(34, 0)
+position = Vector2(46, 12)
 sprite_frames = SubResource("SpriteFrames_b288l")
 animation = &"full_heart"
 autoplay = "full_heart"
 speed_scale = 0.0
 
 [node name="Heart_4" type="AnimatedSprite2D" parent="."]
-position = Vector2(51, 0)
+position = Vector2(63, 12)
 sprite_frames = SubResource("SpriteFrames_b288l")
-animation = &"full_heart"
+animation = &"no_heart"
 speed_scale = 0.0
 
 [node name="Heart_5" type="AnimatedSprite2D" parent="."]
-position = Vector2(68, 0)
+position = Vector2(80, 12)
 sprite_frames = SubResource("SpriteFrames_b288l")
-animation = &"full_heart"
+animation = &"no_heart"
 speed_scale = 0.0

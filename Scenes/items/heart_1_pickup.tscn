@@ -1,17 +1,17 @@
 [gd_scene load_steps=5 format=3 uid="uid://bd4j5c5ldoecs"]
 
 [ext_resource type="PackedScene" uid="uid://jtiqth444hdl" path="res://Scenes/item.tscn" id="1_smaqb"]
-[ext_resource type="Texture2D" uid="uid://ducxvedha26ik" path="res://Assets/Sprites/Items.png" id="2_2vips"]
+[ext_resource type="Texture2D" uid="uid://dh85ichhvi5y2" path="res://Assets/Sprites/Items.png" id="2_2vips"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_vtpk7"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_vyy77"]
 atlas = ExtResource("2_2vips")
-region = Rect2(32, 32, 16, 16)
+region = Rect2(112, 32, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_jkp4k"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_vtpk7")
+"texture": SubResource("AtlasTexture_vyy77")
 }],
 "loop": true,
 "name": &"default",

@@ -5,7 +5,9 @@ enum type
 	temp,
 	health_2,
 	health_1,
-	poisoned_blades
+	poisoned_blades,
+	speed_boots,
+	quick_blades,
 }
 
 @export var item_type : type

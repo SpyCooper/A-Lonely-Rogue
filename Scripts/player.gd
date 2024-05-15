@@ -3,7 +3,6 @@ extends CharacterBody2D
 class_name Player
 
 # constants
-const SPEED = 100.0
 const KNIFE_SPEED = 150.0
 const PLAYER_HEALTH_MAX = 10
 
@@ -14,6 +13,7 @@ var attack_damage = 1
 var time_to_fire = 0.0
 var time_to_fire_max = 1.0
 var player_health = 6
+var speed = 100.0
 
 # object references
 @onready var animated_sprite = $AnimatedSprite2D
@@ -28,7 +28,7 @@ var knife_scene = load("res://Scenes/knife.tscn")
 
 # runs on start
 func _ready():
-	attacks_per_second = 2
+	attacks_per_second = 1
 	time_to_fire_max = time_to_fire_max / attacks_per_second
 
 # runs on every frame
@@ -42,7 +42,7 @@ func _physics_process(delta):
 	# controls player movement and normalizes the vector
 	var direction = Input.get_vector("MoveLeft", "MoveRight", "MoveUp", "MoveDown")
 	direction.normalized()
-	velocity = direction * SPEED
+	velocity = direction * speed
 	
 	# controls the animations for the movement
 	if direction.y == -1:
@@ -71,7 +71,7 @@ func _physics_process(delta):
 	move_and_slide()
 	
 	# controls throwing knives
-	if Input.is_action_just_pressed("Attack"):
+	if Input.is_action_pressed("Attack"):
 		# checks to see if the player can fire
 		if time_to_fire <= 0:
 			# checks to see which direction is the click was 
@@ -117,6 +117,14 @@ func picked_up_item(item):
 		player_adjust_health(1)
 	elif item == 3:
 		print("picked up poisoned blades")
+	elif item == 4:
+		speed += 25
+	elif item == 5:
+		attacks_per_second += 1
+		calculate_attack_speed()
+
+func calculate_attack_speed():
+	time_to_fire_max = time_to_fire_max / attacks_per_second
 
 func player_adjust_health(change : int):
 	if(player_health + change > PLAYER_HEALTH_MAX):
