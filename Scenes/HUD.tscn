@@ -1,7 +1,9 @@
-[gd_scene load_steps=7 format=3 uid="uid://duv7i8yak343i"]
+[gd_scene load_steps=14 format=3 uid="uid://duv7i8yak343i"]
 
 [ext_resource type="Texture2D" uid="uid://dh85ichhvi5y2" path="res://Assets/Sprites/Items.png" id="1_bp31y"]
 [ext_resource type="Script" path="res://Scripts/HUD.gd" id="1_slvuw"]
+[ext_resource type="Texture2D" uid="uid://dorss3jk56j3i" path="res://Assets/Sprites/scroll_TextBox.png" id="3_nxqli"]
+[ext_resource type="FontFile" uid="uid://bhsrlys8rvq7t" path="res://Assets/alagard.ttf" id="4_eq0ld"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hawcc"]
 atlas = ExtResource("1_bp31y")
@@ -42,6 +44,92 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="LabelSettings" id="LabelSettings_j1ir0"]
+font = ExtResource("4_eq0ld")
+font_color = Color(0, 0, 0, 1)
+
+[sub_resource type="Animation" id="Animation_fslxk"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(194.154, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(189.231, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_bggiu"]
+resource_name = "Enter"
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(194.154, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(247.385, -0.25, 0, 0.25, 0, 189.231, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 1)
+}
+
+[sub_resource type="Animation" id="Animation_w1m86"]
+resource_name = "Leave"
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(194.154, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(189.231, -0.25, 0, 0.25, 0, 247.385, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 1)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_a24ay"]
+_data = {
+"Enter": SubResource("Animation_bggiu"),
+"Leave": SubResource("Animation_w1m86"),
+"RESET": SubResource("Animation_fslxk")
+}
+
 [node name="HUD" type="Control"]
 top_level = true
 layout_mode = 3
@@ -76,10 +164,36 @@ speed_scale = 0.0
 position = Vector2(63, 12)
 sprite_frames = SubResource("SpriteFrames_b288l")
 animation = &"no_heart"
+autoplay = "no_heart"
 speed_scale = 0.0
 
 [node name="Heart_5" type="AnimatedSprite2D" parent="."]
 position = Vector2(80, 12)
 sprite_frames = SubResource("SpriteFrames_b288l")
-animation = &"no_heart"
+animation = &"full_heart"
+autoplay = "no_heart"
 speed_scale = 0.0
+
+[node name="ScrollTextBox" type="Sprite2D" parent="."]
+position = Vector2(194.154, 189.231)
+texture = ExtResource("3_nxqli")
+
+[node name="Label" type="Label" parent="ScrollTextBox"]
+offset_left = -90.0
+offset_top = -18.0
+offset_right = 222.0
+offset_bottom = 31.0
+scale = Vector2(0.575, 0.575)
+text = "Temporary Text"
+label_settings = SubResource("LabelSettings_j1ir0")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="ScrollTextBox"]
+libraries = {
+"": SubResource("AnimationLibrary_a24ay")
+}
+
+[node name="TextBoxTimer" type="Timer" parent="."]
+
+[connection signal="timeout" from="TextBoxTimer" to="." method="_on_text_box_timer_timeout"]

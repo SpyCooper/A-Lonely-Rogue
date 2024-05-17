@@ -118,19 +118,24 @@ func picked_up_item(item):
 	elif item == ItemType.type.health_1:
 		player_adjust_health(1)
 	elif item == ItemType.type.poisoned_blades:
+		hud.display_text("Aquired Poisoned Blades!")
 		poisoned_blade = true
 		current_type = BladeType.blade_type.posioned
 	elif item == ItemType.type.speed_boots:
 		speed += 25
+		hud.display_text("Aquired Speed Boots!")
 	elif item == ItemType.type.quick_blades:
 		attacks_per_second += 1
 		calculate_attack_speed()
+		hud.display_text("Aquired Quicker Blades!")
 	elif item == ItemType.type.shadow_flame:
 		shadow_flame_blade = true
 		current_type = BladeType.blade_type.shadow_flame
+		hud.display_text("Aquired Shadowflame!")
 	elif item == ItemType.type.shadow_blade:
 		shadow_blade = true
 		current_type = BladeType.blade_type.shadow
+		hud.display_text("Aquired Shadow Blades!")
 
 func calculate_attack_speed():
 	time_to_fire_max = time_to_fire_max / attacks_per_second

@@ -6,9 +6,15 @@ extends Control
 @onready var heart_4 = $Heart_4
 @onready var heart_5 = $Heart_5
 
+@onready var text_box = $ScrollTextBox
+@onready var label = $ScrollTextBox/Label
+@onready var text_box_timer = $TextBoxTimer
+@onready var animation_player = $ScrollTextBox/AnimationPlayer
+
 func _ready():
 	heart_4.play("no_heart")
 	heart_5.play("no_heart")
+	starting_text()
 
 func refresh_hearts(health):
 	if health == 0:
@@ -77,3 +83,22 @@ func refresh_hearts(health):
 		heart_3.play("full_heart")
 		heart_4.play("full_heart")
 		heart_5.play("full_heart")
+
+func display_text(text):
+	text_box.show()
+	label.text = str(text)
+	animation_player.play("Enter")
+	text_box_timer.start(3)
+
+func hide_text():
+	text_box.hide()
+
+func _on_text_box_timer_timeout():
+	animation_player.play("Leave")
+	text_box_timer.stop()
+
+func starting_text():
+	text_box.show()
+	label.text = "Find a way out..."
+	animation_player.play("Enter")
+	text_box_timer.start(3)
