@@ -15,6 +15,16 @@ var time_to_fire_max = 1.0
 var player_health = 6
 var speed = 100.0
 
+# upgrade variables
+var poisoned_blade = false
+var shadow_blade = false
+var glass_blade = false
+var shadow_flame_blade = false
+var dust_blade = false
+var triple_blades = false
+
+var current_type : BladeType.blade_type = BladeType.blade_type.default
+
 # object references
 @onready var animated_sprite = $AnimatedSprite2D
 @onready var attack_spawn_down = $AttackSpawnDown
@@ -75,22 +85,14 @@ func _physics_process(delta):
 		# checks to see if the player can fire
 		if time_to_fire <= 0:
 			# checks to see which direction is the click was 
-			var click_position = position - get_global_mouse_position()
+			var click_position = get_global_mouse_position() - position
+			var click_position_normalized = click_position.normalized()
 			var attack_instance = knife_scene.instantiate()
-			if abs(click_position.y) > abs(click_position.x):
-				if click_position.y > 0:
-					attack_instance.position = attack_spawn_up.position
-				else:
-					attack_instance.position = attack_spawn_down.position
-			else:
-				if click_position.x > 0:
-					attack_instance.position = attack_spawn_left.position
-				else:
-					attack_instance.position = attack_spawn_right.position
 			
 			# spawns a knife at that position
-			attack_instance.position += position
-			attack_instance.spawned(position)
+			attack_instance.position = position + click_position_normalized*3
+			attack_instance.look_at(get_global_mouse_position())
+			attack_instance.spawned(click_position_normalized, current_type, self)
 			get_parent().add_child(attack_instance)
 			
 			# resets the time to fire
@@ -109,19 +111,26 @@ func _on_timer_timeout():
 func picked_up_item(item):
 	# there is probably a better way to do this but this will work for now
 	# check the enum in item.gd for the numbers
-	if item == 0:
+	if item == ItemType.type.temp:
 		print("picked up temp item")
-	elif item == 1:
+	elif item == ItemType.type.health_2:
 		player_adjust_health(2)
-	elif item == 2:
+	elif item == ItemType.type.health_1:
 		player_adjust_health(1)
-	elif item == 3:
-		print("picked up poisoned blades")
-	elif item == 4:
+	elif item == ItemType.type.poisoned_blades:
+		poisoned_blade = true
+		current_type = BladeType.blade_type.posioned
+	elif item == ItemType.type.speed_boots:
 		speed += 25
-	elif item == 5:
+	elif item == ItemType.type.quick_blades:
 		attacks_per_second += 1
 		calculate_attack_speed()
+	elif item == ItemType.type.shadow_flame:
+		shadow_flame_blade = true
+		current_type = BladeType.blade_type.shadow_flame
+	elif item == ItemType.type.shadow_blade:
+		shadow_blade = true
+		current_type = BladeType.blade_type.shadow
 
 func calculate_attack_speed():
 	time_to_fire_max = time_to_fire_max / attacks_per_second
@@ -135,3 +144,13 @@ func player_adjust_health(change : int):
 	if player_health <= 0:
 		Engine.time_scale = 0.5
 		death_timer.start()
+
+func get_current_weapons():
+	var current_blades = []
+	if poisoned_blade == true:
+		current_blades += [BladeType.blade_type.posioned]
+	if shadow_flame_blade == true:
+		current_blades += [BladeType.blade_type.shadow_flame]
+	if shadow_blade == true:
+		current_blades += [BladeType.blade_type.shadow]
+	return current_blades

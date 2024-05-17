@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://8jxi88fj77dd"]
+[gd_scene load_steps=28 format=3 uid="uid://8jxi88fj77dd"]
 
 [ext_resource type="PackedScene" uid="uid://duv7i8yak343i" path="res://Scenes/HUD.tscn" id="1_6twlt"]
 [ext_resource type="PackedScene" uid="uid://cj7h10qvuo84a" path="res://Scenes/map/4_door_room.tscn" id="1_7srq3"]
@@ -21,6 +21,8 @@
 [ext_resource type="PackedScene" uid="uid://bsx1c82kckqom" path="res://Scenes/map/single door rooms/1_door_right.tscn" id="17_aqbvy"]
 [ext_resource type="PackedScene" uid="uid://c7um43mdsiogr" path="res://Scenes/items/quick_blades.tscn" id="19_ljrsr"]
 [ext_resource type="PackedScene" uid="uid://csrd2wdyeq5nd" path="res://Scenes/items/speed_boots.tscn" id="20_k23sl"]
+[ext_resource type="PackedScene" uid="uid://dk6u5jypkt3wr" path="res://Scenes/items/shadow_flame_item.tscn" id="22_45q0b"]
+[ext_resource type="PackedScene" uid="uid://cqh48ul0w7s8b" path="res://Scenes/items/shadow_blade_item.tscn" id="23_ndo0b"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_a4f5t"]
 texture = ExtResource("3_aw3fi")
@@ -56,12 +58,21 @@ texture = ExtResource("3_aw3fi")
 [sub_resource type="TileSet" id="TileSet_pnge6"]
 sources/0 = SubResource("TileSetAtlasSource_a4f5t")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_h6mix"]
+resource_local_to_scene = true
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_6cyy4"]
+resource_local_to_scene = true
+
 [node name="GameScene" type="Node2D"]
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+scale = Vector2(3.25, 3.25)
+transform = Transform2D(3.25, 0, 0, 3.25, 0, 0)
 
 [node name="HUD" parent="CanvasLayer" instance=ExtResource("1_6twlt")]
 unique_name_in_owner = true
+scale = Vector2(1, 1)
 
 [node name="Transition Camera" type="Camera2D" parent="."]
 zoom = Vector2(3.31, 3.31)
@@ -95,8 +106,14 @@ position = Vector2(368, 0)
 [node name="slime" parent="Right" instance=ExtResource("5_jy1tw")]
 position = Vector2(79, -47)
 
+[node name="AnimatedSprite2D" parent="Right/slime" index="0"]
+material = SubResource("ShaderMaterial_h6mix")
+
 [node name="slime2" parent="Right" instance=ExtResource("5_jy1tw")]
 position = Vector2(91, 44)
+
+[node name="AnimatedSprite2D" parent="Right/slime2" index="0"]
+material = SubResource("ShaderMaterial_6cyy4")
 
 [node name="2_door_hallway_horizontal" parent="." instance=ExtResource("9_uu66i")]
 position = Vector2(-368, 0)
@@ -112,8 +129,6 @@ position = Vector2(-106, -39)
 
 [node name="1_door_down" parent="." instance=ExtResource("15_t8vk1")]
 position = Vector2(-736, -208)
-
-[node name="poisoned_blades_item" parent="1_door_down" instance=ExtResource("7_oalkx")]
 
 [node name="3_door_no_down" parent="." instance=ExtResource("13_nts1e")]
 position = Vector2(0, 416)
@@ -195,3 +210,15 @@ position = Vector2(-437, 416)
 
 [node name="speed_boots_item" parent="." instance=ExtResource("20_k23sl")]
 position = Vector2(800, -4)
+
+[node name="poisoned_blades_item" parent="." instance=ExtResource("7_oalkx")]
+position = Vector2(431, 434)
+
+[node name="shadow_flame_item" parent="." instance=ExtResource("22_45q0b")]
+position = Vector2(-73, 42)
+
+[node name="shadow_blade_item" parent="." instance=ExtResource("23_ndo0b")]
+position = Vector2(-732, -197)
+
+[editable path="Right/slime"]
+[editable path="Right/slime2"]

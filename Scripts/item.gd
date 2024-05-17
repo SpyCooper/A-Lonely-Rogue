@@ -1,16 +1,6 @@
 extends Area2D
 
-enum type
-{
-	temp,
-	health_2,
-	health_1,
-	poisoned_blades,
-	speed_boots,
-	quick_blades,
-}
-
-@export var item_type : type
+@export var item_type : ItemType.type
 
 func _on_body_entered(body):
 	# if the object has the method picked_up_item(),

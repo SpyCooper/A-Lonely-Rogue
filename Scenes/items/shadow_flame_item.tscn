@@ -1,0 +1,45 @@
+[gd_scene load_steps=7 format=3 uid="uid://dk6u5jypkt3wr"]
+
+[ext_resource type="PackedScene" uid="uid://jtiqth444hdl" path="res://Scenes/item.tscn" id="1_bdl36"]
+[ext_resource type="Texture2D" uid="uid://dh85ichhvi5y2" path="res://Assets/Sprites/Items.png" id="2_wkdbe"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mn6i5"]
+atlas = ExtResource("2_wkdbe")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7of60"]
+atlas = ExtResource("2_wkdbe")
+region = Rect2(64, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1kg6i"]
+atlas = ExtResource("2_wkdbe")
+region = Rect2(64, 32, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_oaxmr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mn6i5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7of60")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1kg6i")
+}],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
+}]
+
+[node name="shadow_flame_item" type="Node2D"]
+z_index = 1
+
+[node name="item" parent="." instance=ExtResource("1_bdl36")]
+item_type = 6
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_oaxmr")
+animation = &"new_animation"
+autoplay = "new_animation"
+offset = Vector2(-1, 0)

@@ -4,8 +4,8 @@
 [ext_resource type="Script" path="res://Scripts/knife.gd" id="1_xp0xi"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_x78cu"]
-radius = 4.0
-height = 14.0
+radius = 5.0
+height = 16.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_skm6n"]
 atlas = ExtResource("1_ee2pm")
@@ -37,7 +37,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_skm6n")
 }],
-"loop": false,
+"loop": true,
 "name": &"default",
 "speed": 5.0
 }, {
@@ -45,7 +45,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_qrtnq")
 }],
-"loop": false,
+"loop": true,
 "name": &"dust_blade",
 "speed": 5.0
 }, {
@@ -53,7 +53,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_n25jb")
 }],
-"loop": false,
+"loop": true,
 "name": &"glass_blade",
 "speed": 5.0
 }, {
@@ -61,15 +61,15 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_t0l26")
 }],
-"loop": false,
-"name": &"poison_blade",
+"loop": true,
+"name": &"poisoned_blade",
 "speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_1qxks")
 }],
-"loop": false,
+"loop": true,
 "name": &"shadow_blade",
 "speed": 5.0
 }, {
@@ -77,8 +77,8 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_wrn8o")
 }],
-"loop": false,
-"name": &"shadow_flame_blade",
+"loop": true,
+"name": &"shadowflame_dagger",
 "speed": 5.0
 }]
 
@@ -88,12 +88,13 @@ collision_mask = 5
 script = ExtResource("1_xp0xi")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(2, 0)
-rotation = 1.5708
+position = Vector2(0, 1)
 shape = SubResource("CapsuleShape2D_x78cu")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_sormc")
+animation = &"shadowflame_dagger"
+autoplay = "default"
+flip_v = true
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
