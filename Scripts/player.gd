@@ -14,6 +14,7 @@ var time_to_fire = 0.0
 var time_to_fire_max = 1.0
 var player_health = 6
 var speed = 100.0
+var number_of_keys = 0
 
 # upgrade variables
 var poisoned_blade = false
@@ -118,24 +119,27 @@ func picked_up_item(item):
 	elif item == ItemType.type.health_1:
 		player_adjust_health(1)
 	elif item == ItemType.type.poisoned_blades:
-		hud.display_text("Aquired Poisoned Blades!")
+		hud.display_text("Aquired Poisoned Blades!", "Blades damage enemies after a short time for light damage.")
 		poisoned_blade = true
 		current_type = BladeType.blade_type.posioned
 	elif item == ItemType.type.speed_boots:
 		speed += 25
-		hud.display_text("Aquired Speed Boots!")
+		hud.display_text("Aquired Speed Boots!", "You run faster.")
 	elif item == ItemType.type.quick_blades:
 		attacks_per_second += 1
 		calculate_attack_speed()
-		hud.display_text("Aquired Quicker Blades!")
+		hud.display_text("Aquired Quicker Blades!", "Blades can be thrown faster.")
 	elif item == ItemType.type.shadow_flame:
 		shadow_flame_blade = true
 		current_type = BladeType.blade_type.shadow_flame
-		hud.display_text("Aquired Shadowflame!")
+		hud.display_text("Aquired Shadowflame!", "Blades damage enemies after a time for moderate damage.")
 	elif item == ItemType.type.shadow_blade:
 		shadow_blade = true
 		current_type = BladeType.blade_type.shadow
-		hud.display_text("Aquired Shadow Blades!")
+		hud.display_text("Aquired Shadow Blades!", "Blades do increased damage.")
+	elif item == ItemType.type.key:
+		number_of_keys += 1
+		hud.display_text("Aquired a key!", "Use it to open a locked door!")
 
 func calculate_attack_speed():
 	time_to_fire_max = time_to_fire_max / attacks_per_second

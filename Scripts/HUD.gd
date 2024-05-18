@@ -7,7 +7,8 @@ extends Control
 @onready var heart_5 = $Heart_5
 
 @onready var text_box = $ScrollTextBox
-@onready var label = $ScrollTextBox/Label
+@onready var main_text_box = $"ScrollTextBox/Main Text"
+@onready var subtext_box = $ScrollTextBox/Subtext
 @onready var text_box_timer = $TextBoxTimer
 @onready var animation_player = $ScrollTextBox/AnimationPlayer
 
@@ -84,9 +85,10 @@ func refresh_hearts(health):
 		heart_4.play("full_heart")
 		heart_5.play("full_heart")
 
-func display_text(text):
+func display_text(main_text, sub_text):
 	text_box.show()
-	label.text = str(text)
+	main_text_box.text = str(main_text)
+	subtext_box.text = str(sub_text)
 	animation_player.play("Enter")
 	text_box_timer.start(3)
 
@@ -99,6 +101,7 @@ func _on_text_box_timer_timeout():
 
 func starting_text():
 	text_box.show()
-	label.text = "Find a way out..."
+	main_text_box.text = str("Find a way out ...")
+	subtext_box.text = str("Who knows what's down here")
 	animation_player.play("Enter")
 	text_box_timer.start(3)

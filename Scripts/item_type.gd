@@ -11,4 +11,5 @@ enum type
 	glass_blade,
 	dust_blade,
 	triple_blades,
+	key,
 }

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://duv7i8yak343i"]
+[gd_scene load_steps=15 format=3 uid="uid://duv7i8yak343i"]
 
 [ext_resource type="Texture2D" uid="uid://dh85ichhvi5y2" path="res://Assets/Sprites/Items.png" id="1_bp31y"]
 [ext_resource type="Script" path="res://Scripts/HUD.gd" id="1_slvuw"]
@@ -46,32 +46,11 @@ animations = [{
 
 [sub_resource type="LabelSettings" id="LabelSettings_j1ir0"]
 font = ExtResource("4_eq0ld")
-font_color = Color(0, 0, 0, 1)
+font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 
-[sub_resource type="Animation" id="Animation_fslxk"]
-length = 0.001
-tracks/0/type = "bezier"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position:x")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(194.154, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/1/type = "bezier"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:position:y")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(189.231, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
+[sub_resource type="LabelSettings" id="LabelSettings_l48fh"]
+font = ExtResource("4_eq0ld")
+font_color = Color(0.0901961, 0.054902, 0.0980392, 0.870588)
 
 [sub_resource type="Animation" id="Animation_bggiu"]
 resource_name = "Enter"
@@ -95,7 +74,7 @@ tracks/1/loop_wrap = true
 tracks/1/keys = {
 "handle_modes": PackedInt32Array(0, 0),
 "points": PackedFloat32Array(247.385, -0.25, 0, 0.25, 0, 189.231, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 1)
+"times": PackedFloat32Array(0, 0.4)
 }
 
 [sub_resource type="Animation" id="Animation_w1m86"]
@@ -120,7 +99,32 @@ tracks/1/loop_wrap = true
 tracks/1/keys = {
 "handle_modes": PackedInt32Array(0, 0),
 "points": PackedFloat32Array(189.231, -0.25, 0, 0.25, 0, 247.385, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 1)
+"times": PackedFloat32Array(0, 0.7)
+}
+
+[sub_resource type="Animation" id="Animation_fslxk"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(194.154, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+tracks/1/type = "bezier"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath(".:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(189.231, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_a24ay"]
@@ -178,14 +182,25 @@ speed_scale = 0.0
 position = Vector2(194.154, 189.231)
 texture = ExtResource("3_nxqli")
 
-[node name="Label" type="Label" parent="ScrollTextBox"]
+[node name="Main Text" type="Label" parent="ScrollTextBox"]
 offset_left = -90.0
 offset_top = -18.0
 offset_right = 222.0
-offset_bottom = 31.0
+offset_bottom = 12.0
 scale = Vector2(0.575, 0.575)
-text = "Temporary Text"
+text = "Main Title Text"
 label_settings = SubResource("LabelSettings_j1ir0")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Subtext" type="Label" parent="ScrollTextBox"]
+offset_left = -90.0
+offset_top = -6.0
+offset_right = 346.0
+offset_bottom = 30.0
+scale = Vector2(0.41, 0.41)
+text = "Subtitle text"
+label_settings = SubResource("LabelSettings_l48fh")
 horizontal_alignment = 1
 vertical_alignment = 1
 

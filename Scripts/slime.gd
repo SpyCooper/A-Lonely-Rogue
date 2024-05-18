@@ -15,6 +15,7 @@ var target_position
 var health = 3
 var current_direction : look_direction
 var player_in_room = false
+var plaing_hit_animation = false
 
 # checks status effects
 var poisoned = false
@@ -51,21 +52,22 @@ func _physics_process(delta):
 			# flips the direction of the slime based on the if the target is on the left or right
 			if target_position.x < 0:
 				current_direction = look_direction.left
-				if animated_sprite.is_playing() == false:
-					animated_sprite.play("look_left")
-				elif animated_sprite.animation == "hit_right" :
+				if animated_sprite.animation == "hit_right" :
 					var frame = animated_sprite.frame
 					animated_sprite.play("hit_left")
 					animated_sprite.frame = frame
+				elif plaing_hit_animation != true || animated_sprite.is_playing() == false:
+					animated_sprite.play("look_left")
+					plaing_hit_animation = false
 			elif target_position.x > 0:
 				current_direction = look_direction.right
-				if animated_sprite.is_playing() == false:
-					animated_sprite.play("look_right")
-				elif animated_sprite.animation == "hit_left" :
+				if animated_sprite.animation == "hit_left" :
 					var frame = animated_sprite.frame
 					animated_sprite.play("hit_right")
 					animated_sprite.frame = frame
-
+				elif plaing_hit_animation != true || animated_sprite.is_playing() == false:
+					animated_sprite.play("look_right")
+					plaing_hit_animation = false
 		# moves the slime
 		if position.distance_to(player_position) > 1:
 			move_and_slide()
@@ -77,6 +79,7 @@ func hit(damage):
 		animated_sprite.play("hit_left")
 	elif current_direction == look_direction.right:
 		animated_sprite.play("hit_right")
+	plaing_hit_animation = true
 	if health <= 0:
 		queue_free()
 
