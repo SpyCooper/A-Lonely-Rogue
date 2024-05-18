@@ -1,3 +1,5 @@
+extends Node
+
 enum blade_type
 {
 	default,

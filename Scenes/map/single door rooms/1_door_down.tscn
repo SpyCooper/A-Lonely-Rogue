@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://dqkgb1e1soyjs"]
 
 [ext_resource type="Script" path="res://Scripts/room.gd" id="1_ksrrf"]
-[ext_resource type="Texture2D" uid="uid://do4hy0x5f8ej8" path="res://Assets/Sprites/TileSet.png" id="2_3yp00"]
+[ext_resource type="Texture2D" uid="uid://drktqhtj5vluu" path="res://Assets/Sprites/TileSet.png" id="2_3yp00"]
 [ext_resource type="Texture2D" uid="uid://kxhil66jucyt" path="res://Assets/Sprites/doors.png" id="3_ob1if"]
 [ext_resource type="Script" path="res://Scripts/door_visual.gd" id="4_2wuuk"]
 [ext_resource type="PackedScene" uid="uid://besxs1hm25htm" path="res://Scenes/map/door.tscn" id="5_mjw2p"]
@@ -206,8 +206,8 @@ position = Vector2(0, 91)
 position = Vector2(0, 46)
 
 [connection signal="body_entered" from="player detector" to="." method="_on_player_detector_body_entered"]
-[connection signal="body_entered" from="enemy detector" to="." method="_on_player_detector_body_entered"]
 [connection signal="body_entered" from="enemy detector" to="." method="_on_enemy_detector_body_entered"]
+[connection signal="body_entered" from="enemy detector" to="." method="_on_player_detector_body_entered"]
 [connection signal="body_exited" from="enemy detector" to="." method="_on_enemy_detector_body_exited"]
 
 [editable path="DoorDown"]
