@@ -34,7 +34,8 @@ func hide_all_doors():
 
 func hide_door(door):
 	if door != null:
-		door.hide()
+		if door.is_locked() == false:
+			door.hide()
 
 func disable_all_doors():
 	disable_door(door_up)
@@ -44,8 +45,9 @@ func disable_all_doors():
 
 func disable_door(door):
 	if door != null:
-		door.hide()
-		door.queue_free()
+		if door.is_locked() == false:
+			door.hide()
+			door.queue_free()
 
 func enable_all_doors():
 	enable_door(door_up)
@@ -55,4 +57,16 @@ func enable_all_doors():
 
 func enable_door(door):
 	if door != null:
-		door.show()
+		if door.is_locked() == false:
+			door.show()
+
+#func unlocked_door(door):
+	#print(door)
+	#if door == door_up:
+		#print("door up unlocked")
+	#elif door == door_down:
+		#print("door down unlocked")
+	#elif door == door_left:
+		#print("door left unlocked")
+	#elif door == door_right:
+		#print("door right unlocked")

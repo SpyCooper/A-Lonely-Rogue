@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://ptwmn1mfta68"]
+
+[ext_resource type="PackedScene" uid="uid://jtiqth444hdl" path="res://Scenes/item.tscn" id="1_yvtpw"]
+[ext_resource type="Texture2D" uid="uid://dh85ichhvi5y2" path="res://Assets/Sprites/Items.png" id="2_cqyvf"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l0xwy"]
+atlas = ExtResource("2_cqyvf")
+region = Rect2(80, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_oaxmr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l0xwy")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="triple_blades_item" type="Node2D"]
+z_index = 1
+
+[node name="item" parent="." instance=ExtResource("1_yvtpw")]
+item_type = 10
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(1, 0)
+sprite_frames = SubResource("SpriteFrames_oaxmr")
+offset = Vector2(-1, 0)

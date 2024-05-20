@@ -33,10 +33,7 @@ var shadow_flame_blade = false
 var dust_blade = false
 var triple_blades = false
 var shadow_heart = false
-
 var current_type : BladeType.blade_type = BladeType.blade_type.default
-
-
 var knife_scene = load("res://Scenes/knife.tscn")
 
 # runs on start
@@ -90,13 +87,29 @@ func _physics_process(delta):
 			# checks to see which direction is the click was 
 			var click_position = get_global_mouse_position() - position
 			var click_position_normalized = click_position.normalized()
-			var attack_instance = knife_scene.instantiate()
+			var blade_instance = knife_scene.instantiate()
 			
 			# spawns a knife at that position
-			attack_instance.position = position + click_position_normalized*3
-			attack_instance.look_at(get_global_mouse_position())
-			attack_instance.spawned(click_position_normalized, current_type, self)
-			get_parent().add_child(attack_instance)
+			blade_instance.position = position + click_position_normalized*3
+			blade_instance.spawned(click_position_normalized, current_type, self)
+			get_parent().add_child(blade_instance)
+			
+			if triple_blades == true:
+				# bottom blade
+				var radians = click_position_normalized.angle()
+				var rad_added_bottom = Vector2(cos(radians + 0.25), sin(radians + 0.25))
+				rad_added_bottom = rad_added_bottom.normalized()
+				var blade_instance_2 = knife_scene.instantiate()
+				blade_instance_2.position = position + rad_added_bottom*3
+				blade_instance_2.spawned(rad_added_bottom, current_type, self)
+				get_parent().add_child(blade_instance_2)
+				# top blade
+				var rad_added_top = Vector2(cos(radians - 0.25), sin(radians - 0.25))
+				rad_added_top = rad_added_top.normalized()
+				var blade_instance_3 = knife_scene.instantiate()
+				blade_instance_3.position = position + rad_added_top*3
+				blade_instance_3.spawned(rad_added_top, current_type, self)
+				get_parent().add_child(blade_instance_3)
 			
 			# resets the time to fire
 			time_to_fire = time_to_fire_max
@@ -148,6 +161,9 @@ func picked_up_item(item):
 		shadow_heart = true
 		hud.refresh_hearts(player_health, shadow_heart)
 		hud.display_text("Aquired the shadow heart!", "You follow the path of darkness now...")
+	elif item == ItemType.type.triple_blades:
+		triple_blades = true
+		hud.display_text("Aquired triple blades!", "You can now throw 3 blades at once!")
 
 func calculate_attack_speed():
 	time_to_fire_max = time_to_fire_max / attacks_per_second
@@ -175,3 +191,10 @@ func get_current_weapons():
 func killed_enemy():
 	if shadow_heart == true:
 		player_adjust_health(1)
+
+func use_key():
+	if number_of_keys > 0:
+		number_of_keys -= 1
+		return true
+	else:
+		return false
