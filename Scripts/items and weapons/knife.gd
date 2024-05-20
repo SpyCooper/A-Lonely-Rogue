@@ -28,8 +28,8 @@ func _process(delta):
 
 # runs when a object enters the Area2D's collider
 func _on_body_entered(body):
-	# if the object has the method hit(), it will run it
-	if body.has_method("hit"):
+	# if the object has the method take_damage(), it will run it
+	if body is Enemy:
 		var damage = 1
 		var current_blade_types = player_ref.get_current_weapons()
 		for blade_type in current_blade_types:
@@ -41,7 +41,7 @@ func _on_body_entered(body):
 					body.add_child(SHADOW_FLAME_EFFECT.instantiate())
 			elif blade_type == BladeType.blade_type.shadow:
 				damage += 1
-		body.hit(damage)
+		body.take_damage(damage)
 	
 	# removes the knife from the screen
 	queue_free()

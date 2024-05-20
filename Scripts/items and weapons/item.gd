@@ -5,7 +5,7 @@ extends Area2D
 func _on_body_entered(body):
 	# if the object has the method picked_up_item(),
 	# it is assumed to be the player
-	if body.get_name() == "Player":
+	if body is Player:
 		body.picked_up_item(item_type)
 	
 	# removes the item from the screen

@@ -1,4 +1,4 @@
-extends CharacterBody2D
+extends Enemy
 
 enum look_direction
 {
@@ -6,26 +6,17 @@ enum look_direction
 	left
 }
 
-# constants
-const SPEED = 30.0
-
 # variables
-var player_position
 var target_position
-var health = 3
 var current_direction : look_direction
-var player_in_room = false
 var plaing_hit_animation = false
 
-# checks status effects
-var poisoned = false
-var shadow_flamed = false
-
 # object references
-@onready var player = %Player
 @onready var animated_sprite = $AnimatedSprite2D
 
 func _ready():
+	speed = 30.0
+	health = 3
 	sleep()
 	Events.room_entered.connect(func(room):
 		if room == get_parent():
@@ -34,12 +25,6 @@ func _ready():
 			sleep()
 	)
 
-func sleep():
-	player_in_room = false
-
-func wake_up():
-	player_in_room = true
-
 # called every frame
 func _physics_process(delta):
 	if player_in_room:
@@ -47,7 +32,7 @@ func _physics_process(delta):
 		if player:
 			player_position = player.position
 			target_position = (player_position - global_position).normalized()
-			velocity = target_position * SPEED
+			velocity = target_position * speed
 			
 			# flips the direction of the slime based on the if the target is on the left or right
 			if target_position.x < 0:
@@ -73,7 +58,7 @@ func _physics_process(delta):
 			move_and_slide()
 
 # runs when a knife (or other weapon) hits the enemy
-func hit(damage):
+func take_damage(damage):
 	health -= damage
 	if current_direction == look_direction.left:
 		animated_sprite.play("hit_left")
@@ -81,24 +66,4 @@ func hit(damage):
 		animated_sprite.play("hit_right")
 	plaing_hit_animation = true
 	if health <= 0:
-		player.killed_enemy()
-		queue_free()
-
-func is_poisoned():
-	return poisoned
-
-func toggle_poisoned():
-	if poisoned == false:
-		poisoned = true;
-	else:
-		poisoned = false
-
-
-func is_shadow_flamed():
-	return shadow_flamed
-
-func toggle_shadow_flamed():
-	if shadow_flamed == false:
-		shadow_flamed = true;
-	else:
-		shadow_flamed = false
+		enemy_slain()

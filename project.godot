@@ -19,8 +19,8 @@ config/icon="res://icon.svg"
 [autoload]
 
 Events="*res://Scripts/events.gd"
-BladeType="*res://Scripts/blade_type.gd"
-ItemType="*res://Scripts/item_type.gd"
+BladeType="*res://Scripts/items and weapons/blade_type.gd"
+ItemType="*res://Scripts/items and weapons/item_type.gd"
 
 [display]
 

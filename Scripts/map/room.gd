@@ -11,7 +11,7 @@ func _ready():
 	hide_all_doors()
 
 func _on_player_detector_body_entered(body):
-	if body.has_method("player_take_damage") == true:
+	if body is Player:
 		Events.room_entered.emit(self)
 		if number_of_enemies == 0:
 			disable_all_doors()

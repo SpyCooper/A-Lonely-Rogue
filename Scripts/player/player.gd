@@ -2,6 +2,15 @@ extends CharacterBody2D
 
 class_name Player
 
+# object references
+@onready var animated_sprite = $AnimatedSprite2D
+@onready var attack_spawn_down = $AttackSpawnDown
+@onready var attack_spawn_up = $AttackSpawnUp
+@onready var attack_spawn_left = $AttackSpawnLeft
+@onready var attack_spawn_right = $AttackSpawnRight
+@onready var death_timer = $DeathTimer
+@onready var hud = %HUD
+
 # constants
 const KNIFE_SPEED = 150.0
 const PLAYER_HEALTH_MAX = 10
@@ -27,14 +36,6 @@ var shadow_heart = false
 
 var current_type : BladeType.blade_type = BladeType.blade_type.default
 
-# object references
-@onready var animated_sprite = $AnimatedSprite2D
-@onready var attack_spawn_down = $AttackSpawnDown
-@onready var attack_spawn_up = $AttackSpawnUp
-@onready var attack_spawn_left = $AttackSpawnLeft
-@onready var attack_spawn_right = $AttackSpawnRight
-@onready var death_timer = $DeathTimer
-@onready var hud = %HUD
 
 var knife_scene = load("res://Scenes/knife.tscn")
 

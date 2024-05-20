@@ -10,7 +10,7 @@ func _ready():
 
 
 func _on_timer_timeout():
-	get_parent().hit(1)
+	get_parent().take_damage(1)
 	get_parent().find_child("AnimatedSprite2D").material.shader = null
 	get_parent().toggle_poisoned()
 	queue_free()

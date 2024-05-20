@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://cawr58mnx50yn"]
 
 [ext_resource type="Texture2D" uid="uid://dh85ichhvi5y2" path="res://Assets/Sprites/Items.png" id="1_ee2pm"]
-[ext_resource type="Script" path="res://Scripts/knife.gd" id="1_xp0xi"]
+[ext_resource type="Script" path="res://Scripts/items and weapons/knife.gd" id="1_xp0xi"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_x78cu"]
 radius = 4.0
@@ -83,8 +83,8 @@ animations = [{
 }]
 
 [node name="knife" type="Area2D"]
-collision_layer = 4
-collision_mask = 5
+collision_layer = 12
+collision_mask = 13
 script = ExtResource("1_xp0xi")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -96,4 +96,5 @@ shape = SubResource("CapsuleShape2D_x78cu")
 rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_sormc")
 
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://q3bng0o4u44l"]
 
-[ext_resource type="Script" path="res://Scripts/damage_player.gd" id="1_yn7k4"]
+[ext_resource type="Script" path="res://Scripts/enemy/damage_player.gd" id="1_yn7k4"]
 
 [node name="DamagePlayer" type="Area2D"]
 collision_mask = 2

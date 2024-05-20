@@ -1,7 +1,7 @@
 [gd_scene load_steps=22 format=3 uid="uid://x2so2ayusjw6"]
 
 [ext_resource type="Texture2D" uid="uid://ddxvlbug8olys" path="res://Assets/Sprites/Slime.png" id="1_8u0pu"]
-[ext_resource type="Script" path="res://Scripts/slime.gd" id="1_fr1f0"]
+[ext_resource type="Script" path="res://Scripts/enemy/slime.gd" id="1_fr1f0"]
 [ext_resource type="PackedScene" uid="uid://q3bng0o4u44l" path="res://Scenes/damage_player.tscn" id="2_g4x15"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_35hfj"]
@@ -152,6 +152,6 @@ collision_mask = 3
 position = Vector2(0, -6)
 shape = SubResource("CircleShape2D_loy1p")
 
-[node name="DO_NOTHING_COLLISION" type="CollisionShape2D" parent="."]
+[node name="Hitbox" type="CollisionShape2D" parent="."]
 position = Vector2(0, -6)
 shape = SubResource("CircleShape2D_mj62a")

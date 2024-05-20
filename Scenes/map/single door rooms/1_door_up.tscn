@@ -1,9 +1,9 @@
 [gd_scene load_steps=11 format=3 uid="uid://xbughqfxfbr6"]
 
-[ext_resource type="Script" path="res://Scripts/room.gd" id="1_n0hju"]
+[ext_resource type="Script" path="res://Scripts/map/room.gd" id="1_n0hju"]
 [ext_resource type="Texture2D" uid="uid://drktqhtj5vluu" path="res://Assets/Sprites/TileSet.png" id="2_jq06e"]
 [ext_resource type="Texture2D" uid="uid://kxhil66jucyt" path="res://Assets/Sprites/doors.png" id="3_ulrmv"]
-[ext_resource type="Script" path="res://Scripts/door_visual.gd" id="4_j33wv"]
+[ext_resource type="Script" path="res://Scripts/map/door_visual.gd" id="4_j33wv"]
 [ext_resource type="PackedScene" uid="uid://besxs1hm25htm" path="res://Scenes/map/door.tscn" id="5_tqkqr"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ltqhq"]

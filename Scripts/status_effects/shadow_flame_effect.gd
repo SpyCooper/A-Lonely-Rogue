@@ -10,6 +10,6 @@ func _ready():
 
 
 func _on_timer_timeout():
-	get_parent().hit(2)
+	get_parent().take_damage(2)
 	get_parent().toggle_shadow_flamed()
 	queue_free()
