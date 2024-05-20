@@ -11,6 +11,9 @@ var player_in_room = false
 # checks status effects
 var poisoned = false
 var shadow_flamed = false
+var dusted = false
+var dusted_slow = 0.35
+var dusted_stack = 0
 
 # object references
 @onready var player = %Player
@@ -57,3 +60,22 @@ func toggle_shadow_flamed():
 		shadow_flamed = true;
 	else:
 		shadow_flamed = false
+
+func is_dusted():
+	return dusted
+
+func set_dusted_status(status):
+	if status == true:
+		dusted_stack += 1
+		dusted = true
+	else:
+		dusted_stack -= 1
+	print(dusted_stack)
+	if dusted_stack == 0:
+		dusted = false
+
+func get_speed():
+	if dusted:
+		return speed * (1-dusted_slow)
+	else:
+		return speed

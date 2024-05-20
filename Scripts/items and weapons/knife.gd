@@ -4,6 +4,8 @@ class_name Knife
 
 const POISON_EFFECT = preload("res://Scenes/status_effects/poison_effect.tscn")
 const SHADOW_FLAME_EFFECT = preload("res://Scenes/status_effects/shadow_flame_effect.tscn")
+const DUST_BLADE_EFFECT = preload("res://Scenes/status_effects/dust_blade_effect.tscn")
+const GLASS_SHRAPNEL = preload("res://Scenes/glass_shrapnel.tscn")
 
 # variables
 var move_direction
@@ -42,8 +44,17 @@ func _on_body_entered(body):
 					body.add_child(SHADOW_FLAME_EFFECT.instantiate())
 			elif blade_type == BladeType.blade_type.shadow:
 				damage += 1
+			elif blade_type == BladeType.blade_type.dust:
+				body.add_child(DUST_BLADE_EFFECT.instantiate())
 		body.take_damage(damage)
 	
+	for blade_type in player_ref.get_current_weapons():
+		if blade_type == BladeType.blade_type.glass:
+			var glass_explosion_spawn = GLASS_SHRAPNEL.instantiate()
+			glass_explosion_spawn.position = position
+			get_parent().add_child(glass_explosion_spawn)
+			glass_explosion_spawn.emitting = true
+			print("Spawned effect")
 	# removes the knife from the screen
 	queue_free()
 

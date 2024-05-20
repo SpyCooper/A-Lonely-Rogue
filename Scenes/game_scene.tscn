@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://8jxi88fj77dd"]
+[gd_scene load_steps=31 format=3 uid="uid://8jxi88fj77dd"]
 
 [ext_resource type="PackedScene" uid="uid://duv7i8yak343i" path="res://Scenes/HUD.tscn" id="1_6twlt"]
 [ext_resource type="PackedScene" uid="uid://cj7h10qvuo84a" path="res://Scenes/map/4_door_room.tscn" id="1_7srq3"]
@@ -19,13 +19,15 @@
 [ext_resource type="PackedScene" uid="uid://c8oq11ct5sm2c" path="res://Scenes/map/3_door_rooms/3_door_no_up.tscn" id="15_yuhi4"]
 [ext_resource type="PackedScene" uid="uid://dw37vbmnwivg6" path="res://Scenes/map/single door rooms/1_door_left.tscn" id="16_8d3dl"]
 [ext_resource type="PackedScene" uid="uid://bsx1c82kckqom" path="res://Scenes/map/single door rooms/1_door_right.tscn" id="17_aqbvy"]
-[ext_resource type="PackedScene" uid="uid://c7um43mdsiogr" path="res://Scenes/items/quick_blades.tscn" id="19_ljrsr"]
-[ext_resource type="PackedScene" uid="uid://csrd2wdyeq5nd" path="res://Scenes/items/speed_boots.tscn" id="20_k23sl"]
+[ext_resource type="PackedScene" uid="uid://c7um43mdsiogr" path="res://Scenes/items/quick_blades_item.tscn" id="19_ljrsr"]
+[ext_resource type="PackedScene" uid="uid://csrd2wdyeq5nd" path="res://Scenes/items/speed_boots_item.tscn" id="20_k23sl"]
 [ext_resource type="PackedScene" uid="uid://dk6u5jypkt3wr" path="res://Scenes/items/shadow_flame_item.tscn" id="22_45q0b"]
 [ext_resource type="PackedScene" uid="uid://cqh48ul0w7s8b" path="res://Scenes/items/shadow_blade_item.tscn" id="23_ndo0b"]
 [ext_resource type="PackedScene" uid="uid://dfctt8og03c2e" path="res://Scenes/items/key_item.tscn" id="24_5pdnb"]
 [ext_resource type="PackedScene" uid="uid://cw70kqvbifsnr" path="res://Scenes/items/shadow_heart_item.tscn" id="25_s7i4k"]
 [ext_resource type="PackedScene" uid="uid://ptwmn1mfta68" path="res://Scenes/items/triple_blades_item.tscn" id="26_xt50m"]
+[ext_resource type="PackedScene" uid="uid://b218mvsyn0as3" path="res://Scenes/items/dust_blade_item.tscn" id="27_ryt0a"]
+[ext_resource type="PackedScene" uid="uid://bvs3eiuarm1bo" path="res://Scenes/items/glass_blade_item.tscn" id="28_o5bco"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_a4f5t"]
 texture = ExtResource("3_aw3fi")
@@ -219,3 +221,9 @@ position = Vector2(-366, -669)
 
 [node name="triple_blades_item" parent="." instance=ExtResource("26_xt50m")]
 position = Vector2(-107, -46)
+
+[node name="dust_blade_item" parent="." instance=ExtResource("27_ryt0a")]
+position = Vector2(-90, 43)
+
+[node name="glass_blade_item" parent="." instance=ExtResource("28_o5bco")]
+position = Vector2(-46, -33)

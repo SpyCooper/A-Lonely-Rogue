@@ -156,14 +156,22 @@ func picked_up_item(item):
 		hud.display_text("Aquired Shadow Blades!", "Blades do increased damage.")
 	elif item == ItemType.type.key:
 		number_of_keys += 1
-		hud.display_text("Aquired a key!", "Use it to open a locked door!")
+		hud.display_text("Aquired a Key!", "Use it to open a locked door!")
 	elif item == ItemType.type.shadow_heart:
 		shadow_heart = true
 		hud.refresh_hearts(player_health, shadow_heart)
-		hud.display_text("Aquired the shadow heart!", "You follow the path of darkness now...")
+		hud.display_text("Aquired the Shadow Heart!", "You follow the path of darkness now...")
 	elif item == ItemType.type.triple_blades:
 		triple_blades = true
-		hud.display_text("Aquired triple blades!", "You can now throw 3 blades at once!")
+		hud.display_text("Aquired Triple Blades!", "You can now throw 3 blades at once!")
+	elif item == ItemType.type.dust_blade:
+		dust_blade = true
+		current_type = BladeType.blade_type.dust
+		hud.display_text("Aquired Dust Blades!", "Attacks will slow enemies!")
+	elif item == ItemType.type.glass_blade:
+		glass_blade = true
+		current_type = BladeType.blade_type.glass
+		hud.display_text("Aquired Glass Blades!", "Blades will shoot shrapnel on hit!")
 
 func calculate_attack_speed():
 	time_to_fire_max = time_to_fire_max / attacks_per_second
@@ -186,6 +194,10 @@ func get_current_weapons():
 		current_blades += [BladeType.blade_type.shadow_flame]
 	if shadow_blade == true:
 		current_blades += [BladeType.blade_type.shadow]
+	if dust_blade == true:
+		current_blades += [BladeType.blade_type.dust]
+	if glass_blade == true:
+		current_blades += [BladeType.blade_type.glass]
 	return current_blades
 
 func killed_enemy():

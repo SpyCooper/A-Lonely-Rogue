@@ -32,7 +32,10 @@ func _physics_process(delta):
 		if player:
 			player_position = player.position
 			target_position = (player_position - global_position).normalized()
-			velocity = target_position * speed
+			if dusted:
+				velocity = target_position * get_speed()
+			else:
+				velocity = target_position * get_speed()
 			
 			# flips the direction of the slime based on the if the target is on the left or right
 			if target_position.x < 0:

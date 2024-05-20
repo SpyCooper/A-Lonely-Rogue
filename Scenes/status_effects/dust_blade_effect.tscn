@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://bf5jboja7o3ol"]
+
+[ext_resource type="Script" path="res://Scripts/status_effects/dust_blade_effect.gd" id="1_7sb0d"]
+
+[node name="dust_blade_effect" type="Node2D"]
+script = ExtResource("1_7sb0d")
+
+[node name="Timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
