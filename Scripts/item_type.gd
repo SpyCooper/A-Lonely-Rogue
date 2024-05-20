@@ -14,4 +14,5 @@ enum type
 	dust_blade,
 	triple_blades,
 	key,
+	shadow_heart,
 }

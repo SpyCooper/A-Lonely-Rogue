@@ -7,7 +7,7 @@ enum look_direction
 }
 
 # constants
-const SPEED = 25.0
+const SPEED = 30.0
 
 # variables
 var player_position
@@ -81,6 +81,7 @@ func hit(damage):
 		animated_sprite.play("hit_right")
 	plaing_hit_animation = true
 	if health <= 0:
+		player.killed_enemy()
 		queue_free()
 
 func is_poisoned():

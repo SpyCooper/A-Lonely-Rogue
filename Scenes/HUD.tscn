@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://duv7i8yak343i"]
+[gd_scene load_steps=17 format=3 uid="uid://duv7i8yak343i"]
 
 [ext_resource type="Texture2D" uid="uid://dh85ichhvi5y2" path="res://Assets/Sprites/Items.png" id="1_bp31y"]
 [ext_resource type="Script" path="res://Scripts/HUD.gd" id="1_slvuw"]
@@ -16,6 +16,14 @@ region = Rect2(32, 32, 16, 16)
 [sub_resource type="AtlasTexture" id="AtlasTexture_gjaa6"]
 atlas = ExtResource("1_bp31y")
 region = Rect2(96, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jnngc"]
+atlas = ExtResource("1_bp31y")
+region = Rect2(16, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_quwno"]
+atlas = ExtResource("1_bp31y")
+region = Rect2(0, 32, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_b288l"]
 animations = [{
@@ -41,6 +49,22 @@ animations = [{
 }],
 "loop": true,
 "name": &"no_heart",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jnngc")
+}],
+"loop": true,
+"name": &"shadow_full",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_quwno")
+}],
+"loop": true,
+"name": &"shadow_half",
 "speed": 5.0
 }]
 
@@ -146,7 +170,7 @@ script = ExtResource("1_slvuw")
 [node name="Heart_1" type="AnimatedSprite2D" parent="."]
 position = Vector2(12, 12)
 sprite_frames = SubResource("SpriteFrames_b288l")
-animation = &"full_heart"
+animation = &"shadow_full"
 autoplay = "full_heart"
 speed_scale = 0.0
 
@@ -167,7 +191,7 @@ speed_scale = 0.0
 [node name="Heart_4" type="AnimatedSprite2D" parent="."]
 position = Vector2(63, 12)
 sprite_frames = SubResource("SpriteFrames_b288l")
-animation = &"no_heart"
+animation = &"shadow_full"
 autoplay = "no_heart"
 speed_scale = 0.0
 

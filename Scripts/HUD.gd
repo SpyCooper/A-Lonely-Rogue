@@ -17,7 +17,7 @@ func _ready():
 	heart_5.play("no_heart")
 	starting_text()
 
-func refresh_hearts(health):
+func refresh_hearts(health, shadow_heart = false):
 	if health == 0:
 		heart_1.play("no_heart")
 		heart_2.play("no_heart")
@@ -25,65 +25,115 @@ func refresh_hearts(health):
 		heart_4.play("no_heart")
 		heart_5.play("no_heart")
 	elif health == 1:
-		heart_1.play("half_heart")
+		if shadow_heart == true:
+			heart_1.play("shadow_half")
+		else:
+			heart_1.play("half_heart")
 		heart_2.play("no_heart")
 		heart_3.play("no_heart")
 		heart_4.play("no_heart")
 		heart_5.play("no_heart")
 	elif health == 2:
-		heart_1.play("full_heart")
+		if shadow_heart == true:
+			heart_1.play("shadow_full")
+		else:
+			heart_1.play("full_heart")
 		heart_2.play("no_heart")
 		heart_3.play("no_heart")
 		heart_4.play("no_heart")
 		heart_5.play("no_heart")
 	elif health == 3:
-		heart_1.play("full_heart")
-		heart_2.play("half_heart")
+		if shadow_heart == true:
+			heart_1.play("shadow_full")
+			heart_2.play("shadow_half")
+		else:
+			heart_1.play("full_heart")
+			heart_2.play("half_heart")
 		heart_3.play("no_heart")
 		heart_4.play("no_heart")
 		heart_5.play("no_heart")
 	elif health == 4:
-		heart_1.play("full_heart")
-		heart_2.play("full_heart")
+		if shadow_heart == true:
+			heart_1.play("shadow_full")
+			heart_2.play("shadow_full")
+		else:
+			heart_1.play("full_heart")
+			heart_2.play("full_heart")
 		heart_3.play("no_heart")
 		heart_4.play("no_heart")
 		heart_5.play("no_heart")
 	elif health == 5:
-		heart_1.play("full_heart")
-		heart_2.play("full_heart")
-		heart_3.play("half_heart")
+		if shadow_heart == true:
+			heart_1.play("shadow_full")
+			heart_2.play("shadow_full")
+			heart_3.play("shadow_half")
+		else:
+			heart_1.play("full_heart")
+			heart_2.play("full_heart")
+			heart_3.play("half_heart")
 		heart_4.play("no_heart")
 		heart_5.play("no_heart")
 	elif health == 6:
-		heart_1.play("full_heart")
-		heart_2.play("full_heart")
-		heart_3.play("full_heart")
+		if shadow_heart == true:
+			heart_1.play("shadow_full")
+			heart_2.play("shadow_full")
+			heart_3.play("shadow_full")
+		else:
+			heart_1.play("full_heart")
+			heart_2.play("full_heart")
+			heart_3.play("full_heart")
 		heart_4.play("no_heart")
 		heart_5.play("no_heart")
 	elif health == 7:
-		heart_1.play("full_heart")
-		heart_2.play("full_heart")
-		heart_3.play("full_heart")
-		heart_4.play("half_heart")
+		if shadow_heart == true:
+			heart_1.play("shadow_full")
+			heart_2.play("shadow_full")
+			heart_3.play("shadow_full")
+			heart_4.play("shadow_half")
+		else:
+			heart_1.play("full_heart")
+			heart_2.play("full_heart")
+			heart_3.play("full_heart")
+			heart_4.play("half_heart")
 		heart_5.play("no_heart")
 	elif health == 8:
-		heart_1.play("full_heart")
-		heart_2.play("full_heart")
-		heart_3.play("full_heart")
-		heart_4.play("full_heart")
+		if shadow_heart == true:
+			heart_1.play("shadow_full")
+			heart_2.play("shadow_full")
+			heart_3.play("shadow_full")
+			heart_4.play("shadow_full")
+		else:
+			heart_1.play("full_heart")
+			heart_2.play("full_heart")
+			heart_3.play("full_heart")
+			heart_4.play("full_heart")
 		heart_5.play("no_heart")
 	elif health == 9:
-		heart_1.play("full_heart")
-		heart_2.play("full_heart")
-		heart_3.play("full_heart")
-		heart_4.play("full_heart")
-		heart_5.play("half_heart")
+		if shadow_heart == true:
+			heart_1.play("shadow_full")
+			heart_2.play("shadow_full")
+			heart_3.play("shadow_full")
+			heart_4.play("shadow_full")
+			heart_5.play("shadow_half")
+		else:
+			heart_1.play("full_heart")
+			heart_2.play("full_heart")
+			heart_3.play("full_heart")
+			heart_4.play("full_heart")
+			heart_5.play("half_heart")
 	elif health == 10:
-		heart_1.play("full_heart")
-		heart_2.play("full_heart")
-		heart_3.play("full_heart")
-		heart_4.play("full_heart")
-		heart_5.play("full_heart")
+		if shadow_heart == true:
+			heart_1.play("shadow_full")
+			heart_2.play("shadow_full")
+			heart_3.play("shadow_full")
+			heart_4.play("shadow_full")
+			heart_5.play("shadow_full")
+		else:
+			heart_1.play("full_heart")
+			heart_2.play("full_heart")
+			heart_3.play("full_heart")
+			heart_4.play("full_heart")
+			heart_5.play("full_heart")
 
 func display_text(main_text, sub_text):
 	text_box.show()

@@ -23,6 +23,7 @@ var glass_blade = false
 var shadow_flame_blade = false
 var dust_blade = false
 var triple_blades = false
+var shadow_heart = false
 
 var current_type : BladeType.blade_type = BladeType.blade_type.default
 
@@ -115,9 +116,11 @@ func picked_up_item(item):
 	if item == ItemType.type.temp:
 		print("picked up temp item")
 	elif item == ItemType.type.health_2:
-		player_adjust_health(2)
+		if shadow_heart == false:
+			player_adjust_health(2)
 	elif item == ItemType.type.health_1:
-		player_adjust_health(1)
+		if shadow_heart == false:
+			player_adjust_health(1)
 	elif item == ItemType.type.poisoned_blades:
 		hud.display_text("Aquired Poisoned Blades!", "Blades damage enemies after a short time for light damage.")
 		poisoned_blade = true
@@ -140,6 +143,10 @@ func picked_up_item(item):
 	elif item == ItemType.type.key:
 		number_of_keys += 1
 		hud.display_text("Aquired a key!", "Use it to open a locked door!")
+	elif item == ItemType.type.shadow_heart:
+		shadow_heart = true
+		hud.refresh_hearts(player_health, shadow_heart)
+		hud.display_text("Aquired the shadow heart!", "You follow the path of darkness now...")
 
 func calculate_attack_speed():
 	time_to_fire_max = time_to_fire_max / attacks_per_second
@@ -149,7 +156,7 @@ func player_adjust_health(change : int):
 		player_health = PLAYER_HEALTH_MAX
 	else:
 		player_health += change
-	hud.refresh_hearts(player_health)
+	hud.refresh_hearts(player_health, shadow_heart)
 	if player_health <= 0:
 		Engine.time_scale = 0.5
 		death_timer.start()
@@ -163,3 +170,7 @@ func get_current_weapons():
 	if shadow_blade == true:
 		current_blades += [BladeType.blade_type.shadow]
 	return current_blades
+
+func killed_enemy():
+	if shadow_heart == true:
+		player_adjust_health(1)

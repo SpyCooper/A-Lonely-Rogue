@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://8jxi88fj77dd"]
+[gd_scene load_steps=28 format=3 uid="uid://8jxi88fj77dd"]
 
 [ext_resource type="PackedScene" uid="uid://duv7i8yak343i" path="res://Scenes/HUD.tscn" id="1_6twlt"]
 [ext_resource type="PackedScene" uid="uid://cj7h10qvuo84a" path="res://Scenes/map/4_door_room.tscn" id="1_7srq3"]
@@ -24,6 +24,7 @@
 [ext_resource type="PackedScene" uid="uid://dk6u5jypkt3wr" path="res://Scenes/items/shadow_flame_item.tscn" id="22_45q0b"]
 [ext_resource type="PackedScene" uid="uid://cqh48ul0w7s8b" path="res://Scenes/items/shadow_blade_item.tscn" id="23_ndo0b"]
 [ext_resource type="PackedScene" uid="uid://dfctt8og03c2e" path="res://Scenes/items/key_item.tscn" id="24_5pdnb"]
+[ext_resource type="PackedScene" uid="uid://cw70kqvbifsnr" path="res://Scenes/items/shadow_heart_item.tscn" id="25_s7i4k"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_a4f5t"]
 texture = ExtResource("3_aw3fi")
@@ -210,4 +211,7 @@ position = Vector2(1190, -368)
 position = Vector2(-732, -197)
 
 [node name="key_pickup" parent="." instance=ExtResource("24_5pdnb")]
-position = Vector2(-92, -24)
+position = Vector2(751, 50)
+
+[node name="shadow_heart_item" parent="." instance=ExtResource("25_s7i4k")]
+position = Vector2(-86, -35)
