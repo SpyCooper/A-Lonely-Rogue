@@ -54,7 +54,7 @@ func _on_body_entered(body):
 			glass_explosion_spawn.position = position
 			get_parent().add_child(glass_explosion_spawn)
 			glass_explosion_spawn.emitting = true
-			print("Spawned effect")
+	
 	# removes the knife from the screen
 	queue_free()
 

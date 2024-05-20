@@ -1,14 +1,11 @@
-[gd_scene load_steps=31 format=3 uid="uid://8jxi88fj77dd"]
+[gd_scene load_steps=20 format=3 uid="uid://8jxi88fj77dd"]
 
 [ext_resource type="PackedScene" uid="uid://duv7i8yak343i" path="res://Scenes/HUD.tscn" id="1_6twlt"]
 [ext_resource type="PackedScene" uid="uid://cj7h10qvuo84a" path="res://Scenes/map/4_door_room.tscn" id="1_7srq3"]
 [ext_resource type="PackedScene" uid="uid://dahgvmrgtix2i" path="res://Scenes/player.tscn" id="1_37d31"]
 [ext_resource type="Texture2D" uid="uid://drktqhtj5vluu" path="res://Assets/Sprites/TileSet.png" id="3_aw3fi"]
 [ext_resource type="Script" path="res://Scripts/Transition Camera.gd" id="3_s8u8k"]
-[ext_resource type="PackedScene" uid="uid://bycygvf0dkbr1" path="res://Scenes/items/heart_2_pickup.tscn" id="4_gpnpe"]
 [ext_resource type="PackedScene" uid="uid://x2so2ayusjw6" path="res://Scenes/enemies/slime.tscn" id="5_jy1tw"]
-[ext_resource type="PackedScene" uid="uid://bd4j5c5ldoecs" path="res://Scenes/items/heart_1_pickup.tscn" id="5_rol0w"]
-[ext_resource type="PackedScene" uid="uid://d0qa6b7ahnmm3" path="res://Scenes/items/poisoned_blades_item.tscn" id="7_oalkx"]
 [ext_resource type="PackedScene" uid="uid://cvwlccke1gs7h" path="res://Scenes/map/hallways/2_door_hallway_horizontal.tscn" id="9_uu66i"]
 [ext_resource type="PackedScene" uid="uid://bm78w1b0to7t5" path="res://Scenes/map/corner rooms/2_door_up_left.tscn" id="11_qwxq1"]
 [ext_resource type="PackedScene" uid="uid://coxlx2ylhc6q8" path="res://Scenes/map/corner rooms/2_door_up_right.tscn" id="12_cj28f"]
@@ -19,15 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://c8oq11ct5sm2c" path="res://Scenes/map/3_door_rooms/3_door_no_up.tscn" id="15_yuhi4"]
 [ext_resource type="PackedScene" uid="uid://dw37vbmnwivg6" path="res://Scenes/map/single door rooms/1_door_left.tscn" id="16_8d3dl"]
 [ext_resource type="PackedScene" uid="uid://bsx1c82kckqom" path="res://Scenes/map/single door rooms/1_door_right.tscn" id="17_aqbvy"]
-[ext_resource type="PackedScene" uid="uid://c7um43mdsiogr" path="res://Scenes/items/quick_blades_item.tscn" id="19_ljrsr"]
-[ext_resource type="PackedScene" uid="uid://csrd2wdyeq5nd" path="res://Scenes/items/speed_boots_item.tscn" id="20_k23sl"]
-[ext_resource type="PackedScene" uid="uid://dk6u5jypkt3wr" path="res://Scenes/items/shadow_flame_item.tscn" id="22_45q0b"]
-[ext_resource type="PackedScene" uid="uid://cqh48ul0w7s8b" path="res://Scenes/items/shadow_blade_item.tscn" id="23_ndo0b"]
-[ext_resource type="PackedScene" uid="uid://dfctt8og03c2e" path="res://Scenes/items/key_item.tscn" id="24_5pdnb"]
-[ext_resource type="PackedScene" uid="uid://cw70kqvbifsnr" path="res://Scenes/items/shadow_heart_item.tscn" id="25_s7i4k"]
-[ext_resource type="PackedScene" uid="uid://ptwmn1mfta68" path="res://Scenes/items/triple_blades_item.tscn" id="26_xt50m"]
-[ext_resource type="PackedScene" uid="uid://b218mvsyn0as3" path="res://Scenes/items/dust_blade_item.tscn" id="27_ryt0a"]
-[ext_resource type="PackedScene" uid="uid://bvs3eiuarm1bo" path="res://Scenes/items/glass_blade_item.tscn" id="28_o5bco"]
+[ext_resource type="PackedScene" uid="uid://w1pgiqf773o0" path="res://Scenes/random_item_spawner.tscn" id="29_8la4p"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_a4f5t"]
 texture = ExtResource("3_aw3fi")
@@ -93,12 +82,6 @@ collision_mask = 3
 
 [node name="Center" parent="." instance=ExtResource("1_7srq3")]
 
-[node name="heart_2_pickup" parent="." instance=ExtResource("4_gpnpe")]
-position = Vector2(63, -227)
-
-[node name="heart_1_pickup" parent="." instance=ExtResource("5_rol0w")]
-position = Vector2(-57, 222)
-
 [node name="Right" parent="." instance=ExtResource("1_7srq3")]
 position = Vector2(368, 0)
 
@@ -123,6 +106,8 @@ position = Vector2(-106, -39)
 [node name="1_door_down" parent="." instance=ExtResource("15_t8vk1")]
 position = Vector2(-736, -208)
 
+[node name="Random Item Spawner" parent="1_door_down" instance=ExtResource("29_8la4p")]
+
 [node name="3_door_no_down" parent="." instance=ExtResource("13_nts1e")]
 position = Vector2(0, 416)
 
@@ -140,6 +125,9 @@ position = Vector2(0, -416)
 
 [node name="1_door_left" parent="." instance=ExtResource("16_8d3dl")]
 position = Vector2(736, 0)
+
+[node name="Random Item Spawner" parent="1_door_left" instance=ExtResource("29_8la4p")]
+position = Vector2(80, 0)
 
 [node name="3_door_no_left" parent="." instance=ExtResource("14_w8fof")]
 position = Vector2(0, -208)
@@ -165,6 +153,8 @@ position = Vector2(17, 38)
 [node name="1_door_down2" parent="." instance=ExtResource("15_t8vk1")]
 position = Vector2(-368, -624)
 
+[node name="Random Item Spawner" parent="1_door_down2" instance=ExtResource("29_8la4p")]
+
 [node name="2_door_hallway_horizontal2" parent="." instance=ExtResource("9_uu66i")]
 position = Vector2(736, -416)
 
@@ -180,50 +170,19 @@ position = Vector2(75, -29)
 [node name="1_door_left2" parent="." instance=ExtResource("16_8d3dl")]
 position = Vector2(1104, -416)
 
+[node name="Random Item Spawner" parent="1_door_left2" instance=ExtResource("29_8la4p")]
+
 [node name="1_door_right" parent="." instance=ExtResource("17_aqbvy")]
 position = Vector2(-368, 416)
+
+[node name="Random Item Spawner" parent="1_door_right" instance=ExtResource("29_8la4p")]
+position = Vector2(47, 17)
 
 [node name="2_door_up_left" parent="." instance=ExtResource("11_qwxq1")]
 position = Vector2(368, 416)
 
-[node name="heart_2_pickup2" parent="." instance=ExtResource("4_gpnpe")]
-position = Vector2(-439, -626)
-
-[node name="heart_2_pickup3" parent="." instance=ExtResource("4_gpnpe")]
-position = Vector2(-278, -623)
-
-[node name="heart_1_pickup2" parent="." instance=ExtResource("5_rol0w")]
-position = Vector2(1074, -428)
+[node name="Random Item Spawner" parent="2_door_up_left" instance=ExtResource("29_8la4p")]
+position = Vector2(77, 37)
 
 [node name="3_door_no_left2" parent="." instance=ExtResource("14_w8fof")]
 position = Vector2(0, 208)
-
-[node name="quick_blades_item" parent="." instance=ExtResource("19_ljrsr")]
-position = Vector2(-437, 416)
-
-[node name="speed_boots_item" parent="." instance=ExtResource("20_k23sl")]
-position = Vector2(800, -4)
-
-[node name="poisoned_blades_item" parent="." instance=ExtResource("7_oalkx")]
-position = Vector2(431, 434)
-
-[node name="shadow_flame_item" parent="." instance=ExtResource("22_45q0b")]
-position = Vector2(1190, -368)
-
-[node name="shadow_blade_item" parent="." instance=ExtResource("23_ndo0b")]
-position = Vector2(-732, -197)
-
-[node name="key_pickup" parent="." instance=ExtResource("24_5pdnb")]
-position = Vector2(751, 50)
-
-[node name="shadow_heart_item" parent="." instance=ExtResource("25_s7i4k")]
-position = Vector2(-366, -669)
-
-[node name="triple_blades_item" parent="." instance=ExtResource("26_xt50m")]
-position = Vector2(-107, -46)
-
-[node name="dust_blade_item" parent="." instance=ExtResource("27_ryt0a")]
-position = Vector2(-90, 43)
-
-[node name="glass_blade_item" parent="." instance=ExtResource("28_o5bco")]
-position = Vector2(-46, -33)

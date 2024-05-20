@@ -70,7 +70,6 @@ func set_dusted_status(status):
 		dusted = true
 	else:
 		dusted_stack -= 1
-	print(dusted_stack)
 	if dusted_stack == 0:
 		dusted = false
 

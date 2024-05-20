@@ -16,3 +16,11 @@ enum type
 	key,
 	shadow_heart,
 }
+
+var spawned_items = []
+
+func get_spawned_items():
+	return spawned_items
+
+func add_spawned_item(item_added : type):
+	spawned_items += [item_added]
