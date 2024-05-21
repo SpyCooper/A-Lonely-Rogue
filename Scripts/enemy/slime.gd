@@ -9,9 +9,10 @@ var plaing_hit_animation = false
 @onready var animated_sprite = $AnimatedSprite2D
 
 func _ready():
-	speed = 30.0
+	speed = .5
 	health = 3
 	sleep()
+	player = Events.player
 	Events.room_entered.connect(func(room):
 		if room == get_parent():
 			wake_up()
@@ -26,11 +27,6 @@ func _physics_process(_delta):
 		if player:
 			player_position = player.position
 			target_position = (player_position - global_position).normalized()
-			if dusted:
-				velocity = target_position * get_speed()
-			else:
-				velocity = target_position * get_speed()
-			
 			current_direction = get_left_right_look_direction(target_position)
 			
 			# flips the direction of the slime based on the if the target is on the left or right
@@ -51,9 +47,9 @@ func _physics_process(_delta):
 					animated_sprite.play("look_right")
 					plaing_hit_animation = false
 		
-		# moves the slime
-		if position.distance_to(player_position) > 1:
-			move_and_slide()
+			# moves the slime
+			if position.distance_to(player_position) > 1:
+				move_and_collide(target_position.normalized() * get_speed())
 
 # runs when a knife (or other weapon) hits the enemy
 func take_damage(damage):
@@ -68,3 +64,6 @@ func take_damage(damage):
 
 func get_animated_sprite():
 	return animated_sprite
+
+func spawned_in_room():
+	player_in_room = true

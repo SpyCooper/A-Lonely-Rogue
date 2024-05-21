@@ -24,10 +24,11 @@ var dusted_slow = 0.35
 var dusted_stack = 0
 
 # object references
-@onready var player = %Player
+var player
 
 func _ready():
 	sleep()
+	player = Events.player
 	Events.room_entered.connect(func(room):
 		if room == get_parent():
 			wake_up()
@@ -105,3 +106,9 @@ func get_speed():
 
 func get_animated_sprite():
 	pass
+
+func spawned_in_room():
+	player_in_room = true
+
+func despawn():
+	queue_free()

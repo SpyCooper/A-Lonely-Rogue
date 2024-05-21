@@ -41,6 +41,7 @@ var knife_scene = load("res://Scenes/knife.tscn")
 func _ready():
 	attacks_per_second = 1
 	time_to_fire_max = time_to_fire_max / attacks_per_second
+	Events.player = self
 
 # runs on every frame
 func _process(delta):

@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://q3bng0o4u44l" path="res://Scenes/damage_player.tscn" id="2_g4x15"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mj62a"]
-radius = 8.0
+radius = 7.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_35hfj"]
 resource_local_to_scene = true
@@ -137,6 +137,7 @@ radius = 6.0
 [node name="slime" type="CharacterBody2D"]
 z_index = 1
 collision_layer = 12
+collision_mask = 9
 script = ExtResource("1_fr1f0")
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
@@ -147,7 +148,7 @@ shape = SubResource("CircleShape2D_mj62a")
 material = SubResource("ShaderMaterial_35hfj")
 position = Vector2(0, -6)
 sprite_frames = SubResource("SpriteFrames_iscg3")
-animation = &"hit_left"
+animation = &"look_right"
 
 [node name="DamagePlayer" parent="." instance=ExtResource("2_g4x15")]
 collision_mask = 3

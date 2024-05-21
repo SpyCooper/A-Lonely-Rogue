@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://8jxi88fj77dd"]
+[gd_scene load_steps=24 format=3 uid="uid://8jxi88fj77dd"]
 
 [ext_resource type="PackedScene" uid="uid://duv7i8yak343i" path="res://Scenes/HUD.tscn" id="1_6twlt"]
 [ext_resource type="PackedScene" uid="uid://cj7h10qvuo84a" path="res://Scenes/map/4_door_room.tscn" id="1_7srq3"]
@@ -19,7 +19,6 @@
 [ext_resource type="PackedScene" uid="uid://bsx1c82kckqom" path="res://Scenes/map/single door rooms/1_door_right.tscn" id="17_aqbvy"]
 [ext_resource type="PackedScene" uid="uid://dfctt8og03c2e" path="res://Scenes/items/key_item.tscn" id="18_hyaec"]
 [ext_resource type="PackedScene" uid="uid://cfta80h76u0k2" path="res://Scenes/item_chest.tscn" id="18_r4dnb"]
-[ext_resource type="PackedScene" uid="uid://dk6u5jypkt3wr" path="res://Scenes/items/shadow_flame_item.tscn" id="21_nnsqm"]
 [ext_resource type="PackedScene" uid="uid://w1pgiqf773o0" path="res://Scenes/random_item_spawner.tscn" id="29_8la4p"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_a4f5t"]
@@ -56,7 +55,7 @@ texture = ExtResource("3_aw3fi")
 [sub_resource type="TileSet" id="TileSet_pnge6"]
 sources/0 = SubResource("TileSetAtlasSource_a4f5t")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_diq61"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_l58rb"]
 resource_local_to_scene = true
 
 [node name="GameScene" type="Node2D"]
@@ -108,8 +107,8 @@ position = Vector2(-736, 0)
 locked = true
 
 [node name="gelatinous_cube" parent="2_door_up_right" instance=ExtResource("9_yrjgb")]
-material = SubResource("ShaderMaterial_diq61")
-position = Vector2(-116, -36)
+material = SubResource("ShaderMaterial_l58rb")
+position = Vector2(0, -41)
 
 [node name="1_door_down" parent="." instance=ExtResource("15_t8vk1")]
 position = Vector2(-736, -208)
@@ -201,9 +200,6 @@ position = Vector2(0, 208)
 
 [node name="key_pickup" parent="." instance=ExtResource("18_hyaec")]
 position = Vector2(-443, 450)
-
-[node name="shadow_flame_item" parent="." instance=ExtResource("21_nnsqm")]
-position = Vector2(-115, -18)
 
 [editable path="Center"]
 [editable path="Center/DoorTPLeft"]
