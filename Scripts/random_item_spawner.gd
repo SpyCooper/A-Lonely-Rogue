@@ -53,7 +53,7 @@ func _ready():
 	)
 
 func spawn_item():
-	var random_item_key = rng.randi_range(0.0, item_array.size()-1)
+	var random_item_key = rng.randi_range(0, item_array.size()-1)
 	var item_has_spawned = false
 	for item in ItemType.get_spawned_items():
 		if item == item_types_array[random_item_key]:

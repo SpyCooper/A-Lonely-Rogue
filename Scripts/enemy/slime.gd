@@ -26,7 +26,7 @@ func _ready():
 	)
 
 # called every frame
-func _physics_process(delta):
+func _physics_process(_delta):
 	if player_in_room:
 		# follows the player
 		if player:

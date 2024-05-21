@@ -18,10 +18,10 @@ func _on_player_detector_body_entered(body):
 		elif number_of_enemies > 0:
 			enable_all_doors()
 
-func _on_enemy_detector_body_entered(body):
+func _on_enemy_detector_body_entered(_body):
 	number_of_enemies += 1
 
-func _on_enemy_detector_body_exited(body):
+func _on_enemy_detector_body_exited(_body):
 	number_of_enemies -= 1
 	if number_of_enemies == 0:
 		disable_all_doors()
@@ -60,13 +60,19 @@ func enable_door(door):
 		if door.is_locked() == false:
 			door.show()
 
-#func unlocked_door(door):
-	#print(door)
-	#if door == door_up:
-		#print("door up unlocked")
-	#elif door == door_down:
-		#print("door down unlocked")
-	#elif door == door_left:
-		#print("door left unlocked")
-	#elif door == door_right:
-		#print("door right unlocked")
+func unlocked_door(door):
+	print(door)
+	if door == door_up:
+		disable_door(door_up)
+	elif door == door_down:
+		disable_door(door_up)
+	elif door == door_left:
+		disable_door(door_up)
+	elif door == door_right:
+		disable_door(door_up)
+
+func is_enemies():
+	if number_of_enemies > 0:
+		return true
+	else:
+		return false

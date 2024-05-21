@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://8jxi88fj77dd"]
+[gd_scene load_steps=21 format=3 uid="uid://8jxi88fj77dd"]
 
 [ext_resource type="PackedScene" uid="uid://duv7i8yak343i" path="res://Scenes/HUD.tscn" id="1_6twlt"]
 [ext_resource type="PackedScene" uid="uid://cj7h10qvuo84a" path="res://Scenes/map/4_door_room.tscn" id="1_7srq3"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://c8oq11ct5sm2c" path="res://Scenes/map/3_door_rooms/3_door_no_up.tscn" id="15_yuhi4"]
 [ext_resource type="PackedScene" uid="uid://dw37vbmnwivg6" path="res://Scenes/map/single door rooms/1_door_left.tscn" id="16_8d3dl"]
 [ext_resource type="PackedScene" uid="uid://bsx1c82kckqom" path="res://Scenes/map/single door rooms/1_door_right.tscn" id="17_aqbvy"]
+[ext_resource type="PackedScene" uid="uid://dfctt8og03c2e" path="res://Scenes/items/key_item.tscn" id="18_hyaec"]
 [ext_resource type="PackedScene" uid="uid://w1pgiqf773o0" path="res://Scenes/random_item_spawner.tscn" id="29_8la4p"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_a4f5t"]
@@ -96,6 +97,9 @@ position = Vector2(-368, 0)
 
 [node name="2_door_up_right" parent="." instance=ExtResource("12_cj28f")]
 position = Vector2(-736, 0)
+
+[node name="DoorVisualUp" parent="2_door_up_right" index="1"]
+locked = true
 
 [node name="slime3" parent="2_door_up_right" instance=ExtResource("5_jy1tw")]
 position = Vector2(44, 55)
@@ -186,3 +190,16 @@ position = Vector2(77, 37)
 
 [node name="3_door_no_left2" parent="." instance=ExtResource("14_w8fof")]
 position = Vector2(0, 208)
+
+[node name="key_pickup" parent="." instance=ExtResource("18_hyaec")]
+position = Vector2(-384, 41)
+
+[editable path="Center"]
+[editable path="Center/DoorTPLeft"]
+[editable path="Center/DoorTPRight"]
+[editable path="Center/DoorTPDown"]
+[editable path="Center/DoorTPUp"]
+[editable path="Center/key_checks"]
+[editable path="2_door_up_right"]
+[editable path="2_door_up_right/DoorRight"]
+[editable path="2_door_up_right/DoorUp"]

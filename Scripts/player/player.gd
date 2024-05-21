@@ -48,7 +48,7 @@ func _process(delta):
 		time_to_fire -= delta
 
 # runs on a set interval (fixed_update)
-func _physics_process(delta):
+func _physics_process(_delta):
 	# controls player movement and normalizes the vector
 	var direction = Input.get_vector("MoveLeft", "MoveRight", "MoveUp", "MoveDown")
 	direction.normalized()

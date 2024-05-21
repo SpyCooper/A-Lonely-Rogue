@@ -1,10 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://qk1ocx2yfygp"]
+[gd_scene load_steps=12 format=3 uid="uid://qk1ocx2yfygp"]
 
 [ext_resource type="Script" path="res://Scripts/map/room.gd" id="1_20rfj"]
 [ext_resource type="Texture2D" uid="uid://drktqhtj5vluu" path="res://Assets/Sprites/TileSet.png" id="2_ue01v"]
 [ext_resource type="Texture2D" uid="uid://kxhil66jucyt" path="res://Assets/Sprites/doors.png" id="3_bjidg"]
 [ext_resource type="Script" path="res://Scripts/map/door_visual.gd" id="4_x3t56"]
 [ext_resource type="PackedScene" uid="uid://besxs1hm25htm" path="res://Scenes/map/door.tscn" id="5_8hrpf"]
+[ext_resource type="PackedScene" uid="uid://ci4t04cng0qhi" path="res://Scenes/map/key_checks.tscn" id="6_gftau"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ltqhq"]
 texture = ExtResource("2_ue01v")
@@ -231,9 +232,11 @@ position = Vector2(0, -92)
 [node name="Marker2D" parent="DoorUp" index="1"]
 position = Vector2(0, -49)
 
+[node name="key_checks" parent="." instance=ExtResource("6_gftau")]
+
 [connection signal="body_entered" from="player detector" to="." method="_on_player_detector_body_entered"]
-[connection signal="body_entered" from="enemy detector" to="." method="_on_enemy_detector_body_entered"]
 [connection signal="body_entered" from="enemy detector" to="." method="_on_player_detector_body_entered"]
+[connection signal="body_entered" from="enemy detector" to="." method="_on_enemy_detector_body_entered"]
 [connection signal="body_exited" from="enemy detector" to="." method="_on_enemy_detector_body_exited"]
 
 [editable path="DoorLeft"]
