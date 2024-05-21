@@ -35,3 +35,4 @@ item_type = 11
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_jkp4k")
 autoplay = "default"
+frame_progress = 0.959356

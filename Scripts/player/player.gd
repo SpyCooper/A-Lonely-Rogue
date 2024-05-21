@@ -9,6 +9,7 @@ class_name Player
 @onready var attack_spawn_left = $AttackSpawnLeft
 @onready var attack_spawn_right = $AttackSpawnRight
 @onready var death_timer = $DeathTimer
+@onready var hit_flash_animation_player = $Hit_Flash_animation_player
 @onready var hud = %HUD
 
 # constants
@@ -117,6 +118,7 @@ func _physics_process(_delta):
 # runs when an enemy hits the player
 func player_take_damage():
 	player_adjust_health(-1)
+	hit_flash_animation_player.play("hit_flash")
 
 # when the death_timer runs out, the scene resets
 func _on_timer_timeout():

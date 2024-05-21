@@ -1,0 +1,87 @@
+[gd_scene load_steps=12 format=3 uid="uid://brvqwais7jcmk"]
+
+[ext_resource type="Script" path="res://Scripts/enemy/gelatinous_cube.gd" id="1_nbso2"]
+[ext_resource type="Texture2D" uid="uid://jb3ft81ucfjx" path="res://Assets/Sprites/GelatinousCube.png" id="1_or17e"]
+[ext_resource type="PackedScene" uid="uid://q3bng0o4u44l" path="res://Scenes/damage_player.tscn" id="3_xclps"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ukbej"]
+size = Vector2(19.4794, 19.5956)
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_533aj"]
+resource_local_to_scene = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m7cn5"]
+atlas = ExtResource("1_or17e")
+region = Rect2(0, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7ke5x"]
+atlas = ExtResource("1_or17e")
+region = Rect2(0, 48, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rpljt"]
+atlas = ExtResource("1_or17e")
+region = Rect2(48, 48, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_reojn"]
+atlas = ExtResource("1_or17e")
+region = Rect2(48, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_c0mu8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m7cn5")
+}],
+"loop": true,
+"name": &"move_down",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7ke5x")
+}],
+"loop": true,
+"name": &"move_left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rpljt")
+}],
+"loop": true,
+"name": &"move_right",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_reojn")
+}],
+"loop": true,
+"name": &"move_up",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6dald"]
+size = Vector2(40, 42)
+
+[node name="gelatinous_cube" type="CharacterBody2D"]
+collision_layer = 12
+script = ExtResource("1_nbso2")
+
+[node name="hitbox" type="CollisionShape2D" parent="."]
+position = Vector2(0, -0.5)
+scale = Vector2(2.36147, 2.50056)
+shape = SubResource("RectangleShape2D_ukbej")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_533aj")
+sprite_frames = SubResource("SpriteFrames_c0mu8")
+animation = &"move_down"
+
+[node name="DamagePlayer" parent="." instance=ExtResource("3_xclps")]
+visible = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamagePlayer"]
+visible = false
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_6dald")

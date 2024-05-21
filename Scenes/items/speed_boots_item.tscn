@@ -1,21 +1,28 @@
-[gd_scene load_steps=5 format=3 uid="uid://csrd2wdyeq5nd"]
+[gd_scene load_steps=6 format=3 uid="uid://csrd2wdyeq5nd"]
 
 [ext_resource type="PackedScene" uid="uid://jtiqth444hdl" path="res://Scenes/item.tscn" id="1_vdnqh"]
 [ext_resource type="Texture2D" uid="uid://dh85ichhvi5y2" path="res://Assets/Sprites/Items.png" id="2_ikqcl"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_ith8h"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_0s82k"]
 atlas = ExtResource("2_ikqcl")
 region = Rect2(144, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y0wnx"]
+atlas = ExtResource("2_ikqcl")
+region = Rect2(144, 16, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_oaxmr"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_ith8h")
+"texture": SubResource("AtlasTexture_0s82k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y0wnx")
 }],
 "loop": true,
 "name": &"default",
-"speed": 5.0
+"speed": 3.0
 }]
 
 [node name="speed_boots_item" type="Node2D"]
@@ -25,5 +32,8 @@ z_index = 1
 item_type = 4
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(1, 0)
 sprite_frames = SubResource("SpriteFrames_oaxmr")
+autoplay = "default"
+frame_progress = 0.436661
 offset = Vector2(-1, 0)

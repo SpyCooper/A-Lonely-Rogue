@@ -13,9 +13,9 @@ region = Rect2(48, 32, 16, 16)
 atlas = ExtResource("1_bp31y")
 region = Rect2(32, 32, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_gjaa6"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_3jwns"]
 atlas = ExtResource("1_bp31y")
-region = Rect2(96, 16, 16, 16)
+region = Rect2(48, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jnngc"]
 atlas = ExtResource("1_bp31y")
@@ -45,7 +45,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_gjaa6")
+"texture": SubResource("AtlasTexture_3jwns")
 }],
 "loop": true,
 "name": &"no_heart",
@@ -170,35 +170,35 @@ script = ExtResource("1_slvuw")
 [node name="Heart_1" type="AnimatedSprite2D" parent="."]
 position = Vector2(12, 12)
 sprite_frames = SubResource("SpriteFrames_b288l")
-animation = &"shadow_full"
+animation = &"shadow_half"
 autoplay = "full_heart"
 speed_scale = 0.0
 
 [node name="Heart_2" type="AnimatedSprite2D" parent="."]
 position = Vector2(29, 12)
 sprite_frames = SubResource("SpriteFrames_b288l")
-animation = &"full_heart"
+animation = &"shadow_half"
 autoplay = "full_heart"
 speed_scale = 0.0
 
 [node name="Heart_3" type="AnimatedSprite2D" parent="."]
 position = Vector2(46, 12)
 sprite_frames = SubResource("SpriteFrames_b288l")
-animation = &"full_heart"
+animation = &"shadow_half"
 autoplay = "full_heart"
 speed_scale = 0.0
 
 [node name="Heart_4" type="AnimatedSprite2D" parent="."]
 position = Vector2(63, 12)
 sprite_frames = SubResource("SpriteFrames_b288l")
-animation = &"shadow_full"
+animation = &"full_heart"
 autoplay = "no_heart"
 speed_scale = 0.0
 
 [node name="Heart_5" type="AnimatedSprite2D" parent="."]
-position = Vector2(80, 12)
+position = Vector2(80, 11.6923)
 sprite_frames = SubResource("SpriteFrames_b288l")
-animation = &"full_heart"
+animation = &"shadow_half"
 autoplay = "no_heart"
 speed_scale = 0.0
 

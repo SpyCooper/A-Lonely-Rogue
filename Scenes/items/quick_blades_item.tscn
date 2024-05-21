@@ -3,22 +3,22 @@
 [ext_resource type="PackedScene" uid="uid://jtiqth444hdl" path="res://Scenes/item.tscn" id="1_yb2aj"]
 [ext_resource type="Texture2D" uid="uid://dh85ichhvi5y2" path="res://Assets/Sprites/Items.png" id="2_e661w"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_s4suy"]
-atlas = ExtResource("2_e661w")
-region = Rect2(144, 16, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_e6wqb"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_0gbwg"]
 atlas = ExtResource("2_e661w")
 region = Rect2(144, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_52vnk"]
+atlas = ExtResource("2_e661w")
+region = Rect2(144, 48, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_oaxmr"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_s4suy")
+"texture": SubResource("AtlasTexture_0gbwg")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_e6wqb")
+"texture": SubResource("AtlasTexture_52vnk")
 }],
 "loop": true,
 "name": &"default",
@@ -32,6 +32,8 @@ z_index = 1
 item_type = 5
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(1, 0)
 sprite_frames = SubResource("SpriteFrames_oaxmr")
 autoplay = "default"
+frame_progress = 0.128774
 offset = Vector2(-1, 0)

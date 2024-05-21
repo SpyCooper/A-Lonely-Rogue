@@ -3,15 +3,15 @@
 [ext_resource type="PackedScene" uid="uid://jtiqth444hdl" path="res://Scenes/item.tscn" id="1_h7yhi"]
 [ext_resource type="Texture2D" uid="uid://dh85ichhvi5y2" path="res://Assets/Sprites/Items.png" id="2_327h2"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_prqkk"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_nq3g3"]
 atlas = ExtResource("2_327h2")
-region = Rect2(96, 32, 16, 16)
+region = Rect2(128, 32, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_oaxmr"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_prqkk")
+"texture": SubResource("AtlasTexture_nq3g3")
 }],
 "loop": true,
 "name": &"default",

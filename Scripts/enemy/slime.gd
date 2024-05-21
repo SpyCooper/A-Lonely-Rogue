@@ -1,11 +1,5 @@
 extends Enemy
 
-enum look_direction
-{
-	right,
-	left
-}
-
 # variables
 var target_position
 var current_direction : look_direction
@@ -37,9 +31,10 @@ func _physics_process(_delta):
 			else:
 				velocity = target_position * get_speed()
 			
+			current_direction = get_left_right_look_direction(target_position)
+			
 			# flips the direction of the slime based on the if the target is on the left or right
-			if target_position.x < 0:
-				current_direction = look_direction.left
+			if current_direction == look_direction.left:
 				if animated_sprite.animation == "hit_right" :
 					var frame = animated_sprite.frame
 					animated_sprite.play("hit_left")
@@ -47,8 +42,7 @@ func _physics_process(_delta):
 				elif plaing_hit_animation != true || animated_sprite.is_playing() == false:
 					animated_sprite.play("look_left")
 					plaing_hit_animation = false
-			elif target_position.x > 0:
-				current_direction = look_direction.right
+			elif current_direction == look_direction.right:
 				if animated_sprite.animation == "hit_left" :
 					var frame = animated_sprite.frame
 					animated_sprite.play("hit_right")
@@ -56,6 +50,7 @@ func _physics_process(_delta):
 				elif plaing_hit_animation != true || animated_sprite.is_playing() == false:
 					animated_sprite.play("look_right")
 					plaing_hit_animation = false
+		
 		# moves the slime
 		if position.distance_to(player_position) > 1:
 			move_and_slide()
@@ -70,3 +65,6 @@ func take_damage(damage):
 	plaing_hit_animation = true
 	if health <= 0:
 		enemy_slain()
+
+func get_animated_sprite():
+	return animated_sprite

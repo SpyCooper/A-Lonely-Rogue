@@ -4,7 +4,8 @@ extends Node2D
 const POISONED = preload("res://Scripts/shaders/poisoned.gdshader")
 
 func _ready():
-	get_parent().find_child("AnimatedSprite2D").material.shader = POISONED
+	## requires the animated sprite to have a shader attached to it, not the character body 2d
+	get_parent().get_animated_sprite().material.shader = POISONED
 	get_parent().toggle_poisoned()
 	timer.start(1.5)
 

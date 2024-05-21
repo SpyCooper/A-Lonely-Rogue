@@ -2,6 +2,14 @@ extends CharacterBody2D
 
 class_name Enemy
 
+enum look_direction
+{
+	right,
+	left,
+	up,
+	down
+}
+
 # variables
 var speed
 var player_position
@@ -43,6 +51,22 @@ func enemy_slain():
 	player.killed_enemy()
 	queue_free()
 
+func get_look_direction(target_pos):
+	if target_pos.x > 0 && abs(target_pos.x) > abs(target_pos.y):
+		return look_direction.right
+	elif target_pos.x < 0 && abs(target_pos.x) > abs(target_pos.y):
+		return look_direction.left
+	elif target_pos.y > 0 && abs(target_pos.x) < abs(target_pos.y):
+		return look_direction.down
+	elif target_pos.y < 0 && abs(target_pos.x) < abs(target_pos.y):
+		return look_direction.up
+
+func get_left_right_look_direction(target_pos):
+	if target_pos.x > 0:
+		return look_direction.right
+	elif target_pos.x < 0:
+		return look_direction.left
+
 func is_poisoned():
 	return poisoned
 
@@ -78,3 +102,6 @@ func get_speed():
 		return speed * (1-dusted_slow)
 	else:
 		return speed
+
+func get_animated_sprite():
+	pass

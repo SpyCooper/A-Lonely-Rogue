@@ -1,21 +1,28 @@
-[gd_scene load_steps=5 format=3 uid="uid://b218mvsyn0as3"]
+[gd_scene load_steps=6 format=3 uid="uid://b218mvsyn0as3"]
 
 [ext_resource type="PackedScene" uid="uid://jtiqth444hdl" path="res://Scenes/item.tscn" id="1_k7al8"]
 [ext_resource type="Texture2D" uid="uid://dh85ichhvi5y2" path="res://Assets/Sprites/Items.png" id="2_g0as6"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_m0oi3"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_1s3sf"]
 atlas = ExtResource("2_g0as6")
-region = Rect2(112, 16, 16, 16)
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_p7uwx"]
+atlas = ExtResource("2_g0as6")
+region = Rect2(80, 16, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_oaxmr"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_m0oi3")
+"texture": SubResource("AtlasTexture_1s3sf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p7uwx")
 }],
 "loop": true,
 "name": &"default",
-"speed": 5.0
+"speed": 3.0
 }]
 
 [node name="dust_blade_item" type="Node2D"]
@@ -27,4 +34,7 @@ item_type = 9
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(1, 0)
 sprite_frames = SubResource("SpriteFrames_oaxmr")
+autoplay = "default"
+frame = 1
+frame_progress = 0.669176
 offset = Vector2(-1, 0)
