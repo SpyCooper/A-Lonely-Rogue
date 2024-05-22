@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://brvqwais7jcmk"]
+[gd_scene load_steps=67 format=3 uid="uid://brvqwais7jcmk"]
 
 [ext_resource type="Script" path="res://Scripts/enemy/gelatinous_cube.gd" id="1_nbso2"]
 [ext_resource type="Texture2D" uid="uid://jb3ft81ucfjx" path="res://Assets/Sprites/GelatinousCube.png" id="1_or17e"]
@@ -142,25 +142,45 @@ region = Rect2(96, 128, 48, 64)
 atlas = ExtResource("1_or17e")
 region = Rect2(144, 128, 48, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_gs8tp"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_2byq7"]
 atlas = ExtResource("1_or17e")
-region = Rect2(192, 256, 48, 64)
+region = Rect2(0, 384, 48, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_kq411"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_tky2y"]
 atlas = ExtResource("1_or17e")
-region = Rect2(144, 256, 48, 64)
+region = Rect2(48, 384, 48, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_gcugy"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_ljfxn"]
 atlas = ExtResource("1_or17e")
-region = Rect2(96, 256, 48, 64)
+region = Rect2(96, 384, 48, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_tbt4u"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_82xv5"]
 atlas = ExtResource("1_or17e")
-region = Rect2(48, 256, 48, 64)
+region = Rect2(144, 384, 48, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_k1pob"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_i6u8y"]
 atlas = ExtResource("1_or17e")
-region = Rect2(0, 256, 48, 64)
+region = Rect2(0, 384, 48, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jl37w"]
+atlas = ExtResource("1_or17e")
+region = Rect2(192, 320, 48, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7w5ta"]
+atlas = ExtResource("1_or17e")
+region = Rect2(144, 320, 48, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tm65y"]
+atlas = ExtResource("1_or17e")
+region = Rect2(96, 320, 48, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g8yrh"]
+atlas = ExtResource("1_or17e")
+region = Rect2(48, 320, 48, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_otwg0"]
+atlas = ExtResource("1_or17e")
+region = Rect2(0, 320, 48, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_c0mu8"]
 animations = [{
@@ -310,19 +330,39 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_gs8tp")
+"texture": SubResource("AtlasTexture_2byq7")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_kq411")
+"texture": SubResource("AtlasTexture_tky2y")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_gcugy")
+"texture": SubResource("AtlasTexture_ljfxn")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_tbt4u")
+"texture": SubResource("AtlasTexture_82xv5")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_k1pob")
+"texture": SubResource("AtlasTexture_i6u8y")
+}],
+"loop": false,
+"name": &"spawn_slime",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jl37w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7w5ta")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tm65y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g8yrh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_otwg0")
 }],
 "loop": false,
 "name": &"spawning",
@@ -331,6 +371,122 @@ animations = [{
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6dald"]
 size = Vector2(40, 42)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7hjec"]
+atlas = ExtResource("1_or17e")
+region = Rect2(240, 288, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x6hv8"]
+atlas = ExtResource("1_or17e")
+region = Rect2(256, 288, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cqhf5"]
+atlas = ExtResource("1_or17e")
+region = Rect2(272, 288, 16, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_epws3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7hjec")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x6hv8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cqhf5")
+}],
+"loop": false,
+"name": &"default",
+"speed": 3.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iq1mj"]
+atlas = ExtResource("1_or17e")
+region = Rect2(288, 288, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6ydqc"]
+atlas = ExtResource("1_or17e")
+region = Rect2(256, 288, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gn6x8"]
+atlas = ExtResource("1_or17e")
+region = Rect2(304, 288, 16, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xmt6n"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iq1mj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6ydqc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gn6x8")
+}],
+"loop": false,
+"name": &"default",
+"speed": 3.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t0buy"]
+atlas = ExtResource("1_or17e")
+region = Rect2(352, 256, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5kdcq"]
+atlas = ExtResource("1_or17e")
+region = Rect2(256, 256, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ibyfl"]
+atlas = ExtResource("1_or17e")
+region = Rect2(320, 272, 32, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_kmm4h"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t0buy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5kdcq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ibyfl")
+}],
+"loop": false,
+"name": &"default",
+"speed": 3.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ssw5t"]
+atlas = ExtResource("1_or17e")
+region = Rect2(352, 288, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_shdb6"]
+atlas = ExtResource("1_or17e")
+region = Rect2(256, 256, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tnoif"]
+atlas = ExtResource("1_or17e")
+region = Rect2(288, 256, 32, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ptiax"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ssw5t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_shdb6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tnoif")
+}],
+"loop": false,
+"name": &"default",
+"speed": 3.0
+}]
 
 [node name="gelatinous_cube" type="CharacterBody2D"]
 collision_layer = 12
@@ -346,7 +502,7 @@ shape = SubResource("RectangleShape2D_ukbej")
 material = SubResource("ShaderMaterial_533aj")
 position = Vector2(0, 7)
 sprite_frames = SubResource("SpriteFrames_c0mu8")
-animation = &"spawning"
+animation = &"spawn_slime"
 
 [node name="DamagePlayer" parent="." instance=ExtResource("3_xclps")]
 collision_mask = 3
@@ -357,16 +513,32 @@ position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_6dald")
 
 [node name="Spawner_top" type="Marker2D" parent="."]
+position = Vector2(0, -47)
+
+[node name="animated_top" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -39)
+sprite_frames = SubResource("SpriteFrames_epws3")
 
 [node name="Spawner_bottom" type="Marker2D" parent="."]
+position = Vector2(0, 47)
+
+[node name="animated_bottom" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, 39)
+sprite_frames = SubResource("SpriteFrames_xmt6n")
 
 [node name="Spawner_left" type="Marker2D" parent="."]
-position = Vector2(-39, 0)
+position = Vector2(-47, 0)
+
+[node name="animated_left" type="AnimatedSprite2D" parent="."]
+position = Vector2(-39, -1)
+sprite_frames = SubResource("SpriteFrames_kmm4h")
 
 [node name="Spawner_right" type="Marker2D" parent="."]
-position = Vector2(39, 0)
+position = Vector2(47, 0)
+
+[node name="animated_right" type="AnimatedSprite2D" parent="."]
+position = Vector2(39, -1)
+sprite_frames = SubResource("SpriteFrames_ptiax")
 
 [node name="Attack_timer" type="Timer" parent="."]
 wait_time = 10.0
@@ -375,9 +547,13 @@ wait_time = 10.0
 wait_time = 5.0
 one_shot = true
 
+[node name="Spawn_freeze_timer" type="Timer" parent="."]
+wait_time = 2.0
+
 [node name="Spawn_timer" type="Timer" parent="."]
 wait_time = 5.0
 
 [connection signal="timeout" from="Attack_timer" to="." method="_on_attack_timer_timeout"]
 [connection signal="timeout" from="Death_timer" to="." method="_on_death_timer_timeout"]
+[connection signal="timeout" from="Spawn_freeze_timer" to="." method="_on_spawn_freeze_timer_timeout"]
 [connection signal="timeout" from="Spawn_timer" to="." method="_on_spawn_timer_timeout"]
