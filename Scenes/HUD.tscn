@@ -259,4 +259,15 @@ step = 1.0
 value = 50.0
 show_percentage = false
 
+[node name="Boss_name" type="Label" parent="HealthBar"]
+offset_left = 23.3846
+offset_top = -0.923447
+offset_right = 335.385
+offset_bottom = 29.0766
+scale = Vector2(0.575, 0.575)
+text = "Boss Title Testing Text"
+label_settings = SubResource("LabelSettings_j1ir0")
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [connection signal="timeout" from="TextBoxTimer" to="." method="_on_text_box_timer_timeout"]

@@ -184,8 +184,8 @@ func spawn_in():
 
 func _on_spawn_timer_timeout():
 	spawning = false
-	hud.set_health_bar(max_health)
 	spawn_timer.stop()
+	hud.set_health_bar(max_health, "Gelatinous Cube")
 
 func _on_spawn_freeze_timer_timeout():
 	for spawn in slime_to_be_spawned:

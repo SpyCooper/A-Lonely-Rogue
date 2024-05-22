@@ -1,5 +1,7 @@
 extends Control
 
+class_name HUD
+
 @onready var heart_1 = $Heart_1
 @onready var heart_2 = $Heart_2
 @onready var heart_3 = $Heart_3
@@ -13,6 +15,7 @@ extends Control
 @onready var animation_player = $ScrollTextBox/AnimationPlayer
 
 @onready var health_bar = $HealthBar
+@onready var boss_name_label = $HealthBar/Boss_name
 
 func _ready():
 	heart_4.play("no_heart")
@@ -159,10 +162,11 @@ func starting_text():
 	animation_player.play("Enter")
 	text_box_timer.start(3)
 
-func set_health_bar(max_health):
+func set_health_bar(max_health, boss_name):
 	health_bar.show()
 	health_bar.max_value = max_health
 	health_bar.value = max_health
+	boss_name_label.text = str(boss_name)
 
 func adjust_health_bar(current_health):
 	health_bar.value = current_health
