@@ -1,6 +1,6 @@
 [gd_scene load_steps=22 format=3 uid="uid://bcpmxl7547ua4"]
 
-[ext_resource type="Script" path="res://Scripts/enemy/slime.gd" id="1_nilr1"]
+[ext_resource type="Script" path="res://Scripts/enemy/green_slime.gd" id="1_u8cvj"]
 [ext_resource type="Texture2D" uid="uid://ddxvlbug8olys" path="res://Assets/Sprites/Slime.png" id="2_4mbbb"]
 [ext_resource type="PackedScene" uid="uid://q3bng0o4u44l" path="res://Scenes/damage_player.tscn" id="3_3icab"]
 
@@ -138,7 +138,7 @@ radius = 6.0
 z_index = 1
 collision_layer = 12
 collision_mask = 9
-script = ExtResource("1_nilr1")
+script = ExtResource("1_u8cvj")
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
 position = Vector2(0, -6)

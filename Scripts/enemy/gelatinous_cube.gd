@@ -25,6 +25,10 @@ const GREEN_SLIME = preload("res://Scenes/enemies/green_slime.tscn")
 @onready var animated_bottom = $animated_bottom
 @onready var animated_left = $animated_left
 @onready var animated_right = $animated_right
+@onready var wait_after_spawn_timer = $wait_after_spawn_timer
+
+@onready var hud = %HUD
+
 
 var random_number_generator = RandomNumberGenerator.new()
 
@@ -33,14 +37,14 @@ var current_direction : look_direction
 var plaing_hit_animation = false
 var can_attack = false
 var dying = false
-var spawning = false
 var can_move = true
 
 var slime_to_be_spawned = []
 
 func _ready():
 	speed = 0.25
-	health = 30
+	health = 50
+	max_health = health
 	sleep()
 	player = Events.player
 	animated_bottom.hide()
@@ -109,6 +113,7 @@ func _physics_process(_delta):
 func take_damage(damage):
 	if !spawning && !dying:
 		health -= damage
+		hud.adjust_health_bar(health)
 		if current_direction == look_direction.left:
 			animated_sprite.play("hit_left")
 		elif current_direction == look_direction.right:
@@ -169,6 +174,7 @@ func enemy_slain():
 
 func _on_death_timer_timeout():
 	player.killed_enemy()
+	hud.hide_health_bar()
 	queue_free()
 
 func spawn_in():
@@ -178,26 +184,23 @@ func spawn_in():
 
 func _on_spawn_timer_timeout():
 	spawning = false
+	hud.set_health_bar(max_health)
+	spawn_timer.stop()
 
 func _on_spawn_freeze_timer_timeout():
-	can_move = true
 	for spawn in slime_to_be_spawned:
 		var green_slime = GREEN_SLIME.instantiate()
 		get_parent().add_child(green_slime)
 		green_slime.spawned_in_room()
-		var vect = Vector2(1,1)
+		var vect = Vector2(0.0,0.0)
 		if spawn == spawn_location.top:
 			green_slime.global_position = spawner_top.global_position
-			vect = Vector2(0.0,1.0)
 		elif spawn == spawn_location.right:
 			green_slime.global_position = spawner_right.global_position
-			vect = Vector2(1.0,0.0)
 		elif spawn == spawn_location.left:
 			green_slime.global_position = spawner_left.global_position
-			vect = Vector2(-1.0,0.0)
 		elif spawn == spawn_location.bottom:
 			green_slime.global_position = spawner_bottom.global_position
-			vect = Vector2(0.0,1.0)
 		
 		var collision = green_slime.move_and_collide(vect)
 		if collision != null:
@@ -209,3 +212,10 @@ func _on_spawn_freeze_timer_timeout():
 	animated_top.hide()
 	
 	slime_to_be_spawned = []
+	spawn_freeze_timer.stop()
+	wait_after_spawn_timer.start()
+
+func _on_wait_after_spawn_timer_timeout():
+	can_move = true
+	wait_after_spawn_timer.stop()
+

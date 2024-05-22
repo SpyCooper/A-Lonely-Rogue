@@ -5,7 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://q3bng0o4u44l" path="res://Scenes/damage_player.tscn" id="3_xclps"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ukbej"]
-size = Vector2(18.6325, 18.7958)
+size = Vector2(19.4794, 19.5956)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_533aj"]
 resource_local_to_scene = true
@@ -494,7 +494,7 @@ collision_mask = 9
 script = ExtResource("1_nbso2")
 
 [node name="hitbox" type="CollisionShape2D" parent="."]
-position = Vector2(0, -0.499999)
+position = Vector2(0, -0.5)
 scale = Vector2(2.36147, 2.50056)
 shape = SubResource("RectangleShape2D_ukbej")
 
@@ -553,11 +553,7 @@ wait_time = 2.0
 [node name="Spawn_timer" type="Timer" parent="."]
 wait_time = 5.0
 
-[node name="wait_after_spawn_timer" type="Timer" parent="."]
-wait_time = 0.5
-
 [connection signal="timeout" from="Attack_timer" to="." method="_on_attack_timer_timeout"]
 [connection signal="timeout" from="Death_timer" to="." method="_on_death_timer_timeout"]
 [connection signal="timeout" from="Spawn_freeze_timer" to="." method="_on_spawn_freeze_timer_timeout"]
 [connection signal="timeout" from="Spawn_timer" to="." method="_on_spawn_timer_timeout"]
-[connection signal="timeout" from="wait_after_spawn_timer" to="." method="_on_wait_after_spawn_timer_timeout"]

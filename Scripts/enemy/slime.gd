@@ -1,5 +1,7 @@
 extends Enemy
 
+class_name slime
+
 # variables
 var target_position
 var current_direction : look_direction
@@ -13,9 +15,11 @@ func _ready():
 	health = 3
 	sleep()
 	player = Events.player
+	max_health = health
 	Events.room_entered.connect(func(room):
 		if room == get_parent():
 			wake_up()
+			spawning = false
 		else:
 			sleep()
 	)

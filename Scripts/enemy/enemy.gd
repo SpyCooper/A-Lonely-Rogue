@@ -14,7 +14,9 @@ enum look_direction
 var speed
 var player_position
 var health
+var max_health
 var player_in_room = false
+var spawning = false
 
 # checks status effects
 var poisoned = false
@@ -29,6 +31,7 @@ var player
 func _ready():
 	sleep()
 	player = Events.player
+	max_health = health
 	Events.room_entered.connect(func(room):
 		if room == get_parent():
 			wake_up()
@@ -36,6 +39,9 @@ func _ready():
 			sleep()
 	)
 
+func get_spawning():
+	return spawning
+	
 func sleep():
 	player_in_room = false
 

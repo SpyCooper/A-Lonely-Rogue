@@ -12,9 +12,12 @@ extends Control
 @onready var text_box_timer = $TextBoxTimer
 @onready var animation_player = $ScrollTextBox/AnimationPlayer
 
+@onready var health_bar = $HealthBar
+
 func _ready():
 	heart_4.play("no_heart")
 	heart_5.play("no_heart")
+	hide_health_bar()
 	starting_text()
 
 func refresh_hearts(health, shadow_heart = false):
@@ -155,3 +158,14 @@ func starting_text():
 	subtext_box.text = str("Who knows what's down here")
 	animation_player.play("Enter")
 	text_box_timer.start(3)
+
+func set_health_bar(max_health):
+	health_bar.show()
+	health_bar.max_value = max_health
+	health_bar.value = max_health
+
+func adjust_health_bar(current_health):
+	health_bar.value = current_health
+
+func hide_health_bar():
+	health_bar.hide()
