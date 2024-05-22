@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://bcpmxl7547ua4"]
+[gd_scene load_steps=29 format=3 uid="uid://bcpmxl7547ua4"]
 
 [ext_resource type="Script" path="res://Scripts/enemy/green_slime.gd" id="1_u8cvj"]
 [ext_resource type="Texture2D" uid="uid://ddxvlbug8olys" path="res://Assets/Sprites/Slime.png" id="2_4mbbb"]
@@ -9,6 +9,18 @@ radius = 8.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_35hfj"]
 resource_local_to_scene = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2bg17"]
+atlas = ExtResource("2_4mbbb")
+region = Rect2(160, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gkw8q"]
+atlas = ExtResource("2_4mbbb")
+region = Rect2(144, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_as2nx"]
+atlas = ExtResource("2_4mbbb")
+region = Rect2(128, 32, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cvvxi"]
 atlas = ExtResource("2_4mbbb")
@@ -66,8 +78,38 @@ region = Rect2(32, 32, 16, 16)
 atlas = ExtResource("2_4mbbb")
 region = Rect2(48, 32, 16, 16)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_sxmnu"]
+atlas = ExtResource("2_4mbbb")
+region = Rect2(128, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jwc11"]
+atlas = ExtResource("2_4mbbb")
+region = Rect2(144, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xk7kt"]
+atlas = ExtResource("2_4mbbb")
+region = Rect2(160, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_31dut"]
+atlas = ExtResource("2_4mbbb")
+region = Rect2(176, 32, 16, 16)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_iscg3"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2bg17")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gkw8q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_as2nx")
+}],
+"loop": false,
+"name": &"dying",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_cvvxi")
@@ -129,6 +171,23 @@ animations = [{
 "loop": true,
 "name": &"look_right",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sxmnu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jwc11")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xk7kt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_31dut")
+}],
+"loop": false,
+"name": &"spawning",
+"speed": 3.0
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_loy1p"]
@@ -148,7 +207,7 @@ shape = SubResource("CircleShape2D_mj62a")
 material = SubResource("ShaderMaterial_35hfj")
 position = Vector2(0, -6)
 sprite_frames = SubResource("SpriteFrames_iscg3")
-animation = &"hit_left"
+animation = &"dying"
 
 [node name="DamagePlayer" parent="." instance=ExtResource("3_3icab")]
 collision_mask = 3
@@ -156,3 +215,10 @@ collision_mask = 3
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DamagePlayer"]
 position = Vector2(0, -6)
 shape = SubResource("CircleShape2D_loy1p")
+
+[node name="Spawn_timer" type="Timer" parent="."]
+
+[node name="death_timer" type="Timer" parent="."]
+
+[connection signal="timeout" from="Spawn_timer" to="." method="_on_spawn_timer_timeout"]
+[connection signal="timeout" from="death_timer" to="." method="_on_death_timer_timeout"]

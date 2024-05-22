@@ -13,3 +13,6 @@ func _ready():
 		else:
 			sleep()
 	)
+
+func _on_death_timer_timeout():
+	enemy_slain()

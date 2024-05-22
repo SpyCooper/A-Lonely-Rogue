@@ -16,7 +16,8 @@ var player_position
 var health
 var max_health
 var player_in_room = false
-var spawning = false
+var spawning = true
+var dying = false
 
 # checks status effects
 var poisoned = false
@@ -35,13 +36,11 @@ func _ready():
 	Events.room_entered.connect(func(room):
 		if room == get_parent():
 			wake_up()
+			spawning = false
 		else:
 			sleep()
 	)
 
-func get_spawning():
-	return spawning
-	
 func sleep():
 	player_in_room = false
 
@@ -118,3 +117,9 @@ func spawned_in_room():
 
 func despawn():
 	queue_free()
+
+func is_spawning():
+	return spawning
+
+func is_dying():
+	return dying

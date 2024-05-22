@@ -32,22 +32,21 @@ func _process(delta):
 # runs when a object enters the Area2D's collider
 func _on_body_entered(body):
 	# if the object has the method take_damage(), it will run it
-	if body is Enemy:
-		if body.get_spawning() == false:
-			var damage = 1
-			var current_blade_types = player_ref.get_current_weapons()
-			for blade_type in current_blade_types:
-				if blade_type == BladeType.blade_type.posioned:
-					if body.is_poisoned() == false:
-						body.add_child(POISON_EFFECT.instantiate())
-				elif blade_type == BladeType.blade_type.shadow_flame:
-					if body.is_shadow_flamed() == false:
-						body.add_child(SHADOW_FLAME_EFFECT.instantiate())
-				elif blade_type == BladeType.blade_type.shadow:
-					damage += 1
-				elif blade_type == BladeType.blade_type.dust:
-					body.add_child(DUST_BLADE_EFFECT.instantiate())
-			body.take_damage(damage)
+	if body is Enemy && !body.is_spawning() && !body.is_dying():
+		var damage = 1
+		var current_blade_types = player_ref.get_current_weapons()
+		for blade_type in current_blade_types:
+			if blade_type == BladeType.blade_type.posioned:
+				if body.is_poisoned() == false:
+					body.add_child(POISON_EFFECT.instantiate())
+			elif blade_type == BladeType.blade_type.shadow_flame:
+				if body.is_shadow_flamed() == false:
+					body.add_child(SHADOW_FLAME_EFFECT.instantiate())
+			elif blade_type == BladeType.blade_type.shadow:
+				damage += 1
+			elif blade_type == BladeType.blade_type.dust:
+				body.add_child(DUST_BLADE_EFFECT.instantiate())
+		body.take_damage(damage)
 	
 	for blade_type in player_ref.get_current_weapons():
 		if blade_type == BladeType.blade_type.glass:

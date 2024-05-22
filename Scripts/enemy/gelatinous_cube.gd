@@ -36,7 +36,6 @@ var target_position
 var current_direction : look_direction
 var plaing_hit_animation = false
 var can_attack = false
-var dying = false
 var can_move = true
 
 var slime_to_be_spawned = []
@@ -124,7 +123,9 @@ func take_damage(damage):
 			animated_sprite.play("hit_down")
 		plaing_hit_animation = true
 		if health <= 0:
-			enemy_slain()
+			dying = true
+			death_timer.start()
+			animated_sprite.play("death")
 
 func get_animated_sprite():
 	return animated_sprite
@@ -167,15 +168,9 @@ func spawn_slimes():
 func _on_attack_timer_timeout():
 	can_attack = true
 
-func enemy_slain():
-	dying = true
-	death_timer.start()
-	animated_sprite.play("death")
-
 func _on_death_timer_timeout():
-	player.killed_enemy()
 	hud.hide_health_bar()
-	queue_free()
+	enemy_slain()
 
 func spawn_in():
 	spawning = true

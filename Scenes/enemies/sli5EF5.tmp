@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://x2so2ayusjw6"]
+[gd_scene load_steps=26 format=3 uid="uid://x2so2ayusjw6"]
 
 [ext_resource type="Texture2D" uid="uid://ddxvlbug8olys" path="res://Assets/Sprites/Slime.png" id="1_8u0pu"]
 [ext_resource type="Script" path="res://Scripts/enemy/slime.gd" id="1_fr1f0"]
@@ -9,18 +9,6 @@ radius = 7.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_35hfj"]
 resource_local_to_scene = true
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_j5yqv"]
-atlas = ExtResource("1_8u0pu")
-region = Rect2(160, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_htybx"]
-atlas = ExtResource("1_8u0pu")
-region = Rect2(144, 0, 16, 16)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5x57c"]
-atlas = ExtResource("1_8u0pu")
-region = Rect2(128, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cqq6j"]
 atlas = ExtResource("1_8u0pu")
@@ -96,20 +84,6 @@ region = Rect2(176, 0, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_iscg3"]
 animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_j5yqv")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_htybx")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5x57c")
-}],
-"loop": false,
-"name": &"dying",
-"speed": 5.0
-}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_cqq6j")
@@ -207,7 +181,7 @@ shape = SubResource("CircleShape2D_mj62a")
 material = SubResource("ShaderMaterial_35hfj")
 position = Vector2(0, -6)
 sprite_frames = SubResource("SpriteFrames_iscg3")
-animation = &"dying"
+animation = &"spawning"
 
 [node name="DamagePlayer" parent="." instance=ExtResource("2_g4x15")]
 collision_mask = 3
@@ -218,7 +192,4 @@ shape = SubResource("CircleShape2D_loy1p")
 
 [node name="Spawn_timer" type="Timer" parent="."]
 
-[node name="death_timer" type="Timer" parent="."]
-
 [connection signal="timeout" from="Spawn_timer" to="." method="_on_spawn_timer_timeout"]
-[connection signal="timeout" from="death_timer" to="." method="_on_death_timer_timeout"]
