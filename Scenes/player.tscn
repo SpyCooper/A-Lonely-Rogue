@@ -1,13 +1,34 @@
-[gd_scene load_steps=30 format=3 uid="uid://dahgvmrgtix2i"]
+[gd_scene load_steps=52 format=3 uid="uid://dahgvmrgtix2i"]
 
 [ext_resource type="Texture2D" uid="uid://cq8j4qlvoeapy" path="res://Assets/Sprites/HoodedCharacter.png" id="2_4wocn"]
 [ext_resource type="Shader" uid="uid://dlroce5v6b0te" path="res://Scripts/shaders/player.tres" id="2_8414r"]
 [ext_resource type="Script" path="res://Scripts/player/player.gd" id="2_x28dm"]
+[ext_resource type="Texture2D" uid="uid://dfwrwdrs0na2j" path="res://Assets/Sprites/falling_player.png" id="4_r1rwf"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_uvp4x"]
 shader = ExtResource("2_8414r")
 shader_parameter/enabled = false
 shader_parameter/tint = Color(0.576471, 0.286275, 0.270588, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s4dqr"]
+atlas = ExtResource("2_4wocn")
+region = Rect2(0, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8y07s"]
+atlas = ExtResource("2_4wocn")
+region = Rect2(16, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yy08l"]
+atlas = ExtResource("2_4wocn")
+region = Rect2(32, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ghagv"]
+atlas = ExtResource("2_4wocn")
+region = Rect2(48, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dgm6a"]
+atlas = ExtResource("2_4wocn")
+region = Rect2(64, 64, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_iacq3"]
 atlas = ExtResource("2_4wocn")
@@ -91,6 +112,26 @@ region = Rect2(48, 16, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ca6vv"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s4dqr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8y07s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yy08l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ghagv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dgm6a")
+}],
+"loop": false,
+"name": &"death",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_iacq3")
@@ -233,6 +274,136 @@ _data = {
 "hit_flash": SubResource("Animation_5mjcq")
 }
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_f22qx"]
+atlas = ExtResource("2_4wocn")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ih5pa"]
+atlas = ExtResource("2_4wocn")
+region = Rect2(80, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0xm4k"]
+atlas = ExtResource("2_4wocn")
+region = Rect2(80, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3rflt"]
+atlas = ExtResource("2_4wocn")
+region = Rect2(80, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d8vou"]
+atlas = ExtResource("2_4wocn")
+region = Rect2(80, 64, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0pvvw"]
+atlas = ExtResource("2_4wocn")
+region = Rect2(80, 80, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wrgg5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f22qx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ih5pa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0xm4k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3rflt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d8vou")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0pvvw")
+}],
+"loop": false,
+"name": &"default",
+"speed": 3.0
+}]
+
+[sub_resource type="Animation" id="Animation_hxkqm"]
+resource_name = "player_falling"
+length = 3.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0.8, 3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -250), Vector2(0, 3)]
+}
+
+[sub_resource type="Animation" id="Animation_bpf1x"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(300, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_l3e5q"]
+_data = {
+"RESET": SubResource("Animation_bpf1x"),
+"player_falling": SubResource("Animation_hxkqm")
+}
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vkbfd"]
+atlas = ExtResource("2_4wocn")
+region = Rect2(16, 80, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ivbst"]
+atlas = ExtResource("2_4wocn")
+region = Rect2(32, 80, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ykdwo"]
+atlas = ExtResource("2_4wocn")
+region = Rect2(48, 80, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uhvxs"]
+atlas = ExtResource("2_4wocn")
+region = Rect2(64, 80, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0ir76"]
+atlas = ExtResource("2_4wocn")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bf8ke"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vkbfd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ivbst")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ykdwo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uhvxs")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0ir76")
+}],
+"loop": false,
+"name": &"stand_up",
+"speed": 2.0
+}]
+
 [node name="Player" type="CharacterBody2D"]
 z_index = 1
 collision_layer = 2
@@ -262,7 +433,7 @@ autoplay = "idle_down"
 shape = SubResource("CapsuleShape2D_gy3u4")
 
 [node name="DeathTimer" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 1.5
 one_shot = true
 
 [node name="Hit_Flash_animation_player" type="AnimationPlayer" parent="."]
@@ -270,4 +441,33 @@ libraries = {
 "": SubResource("AnimationLibrary_4hf0x")
 }
 
+[node name="fall_timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="falling_shadow_sprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 1)
+sprite_frames = SubResource("SpriteFrames_wrgg5")
+autoplay = "default"
+
+[node name="falling_sprite" type="Sprite2D" parent="."]
+position = Vector2(300, 0)
+texture = ExtResource("4_r1rwf")
+
+[node name="falling_AnimationPlayer" type="AnimationPlayer" parent="falling_sprite"]
+libraries = {
+"": SubResource("AnimationLibrary_l3e5q")
+}
+
+[node name="stand_up_sprite" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, 1)
+sprite_frames = SubResource("SpriteFrames_bf8ke")
+animation = &"stand_up"
+
+[node name="stand_up_timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
 [connection signal="timeout" from="DeathTimer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="fall_timer" to="." method="_on_fall_timer_timeout"]
+[connection signal="timeout" from="stand_up_timer" to="." method="_on_stand_up_timer_timeout"]

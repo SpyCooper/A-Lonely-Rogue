@@ -1,0 +1,59 @@
+[gd_scene load_steps=3 format=3 uid="uid://rbmwkh2w02q6"]
+
+[ext_resource type="Theme" uid="uid://pv4evjjac8wt" path="res://Assets/general_theme.tres" id="1_y7aev"]
+[ext_resource type="Texture2D" uid="uid://dorss3jk56j3i" path="res://Assets/Sprites/scroll_TextBox.png" id="2_psmat"]
+
+[node name="Main Menu" type="Node2D"]
+
+[node name="Transition Camera" type="Camera2D" parent="."]
+zoom = Vector2(3.31, 3.31)
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="play_button" type="Button" parent="CanvasLayer"]
+offset_left = 332.0
+offset_top = 332.0
+offset_right = 562.0
+offset_bottom = 388.0
+theme = ExtResource("1_y7aev")
+theme_override_font_sizes/font_size = 32
+action_mode = 0
+text = "Play"
+
+[node name="options_button" type="Button" parent="CanvasLayer"]
+offset_left = 332.0
+offset_top = 400.0
+offset_right = 562.0
+offset_bottom = 456.0
+theme = ExtResource("1_y7aev")
+theme_override_font_sizes/font_size = 32
+text = "Options"
+
+[node name="exit_button" type="Button" parent="CanvasLayer"]
+offset_left = 332.0
+offset_top = 472.0
+offset_right = 562.0
+offset_bottom = 528.0
+theme = ExtResource("1_y7aev")
+theme_override_font_sizes/font_size = 32
+text = "Exit
+"
+
+[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer"]
+position = Vector2(447, 209)
+scale = Vector2(3, 3)
+texture = ExtResource("2_psmat")
+
+[node name="Label" type="Label" parent="CanvasLayer/Sprite2D"]
+offset_left = -110.0
+offset_top = -16.5
+offset_right = 112.0
+offset_bottom = 13.5
+theme = ExtResource("1_y7aev")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 16
+text = "A Lonely Rogue"
+horizontal_alignment = 1
+vertical_alignment = 1

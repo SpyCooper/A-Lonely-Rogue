@@ -21,7 +21,9 @@ func _ready():
 	heart_4.play("no_heart")
 	heart_5.play("no_heart")
 	hide_health_bar()
-	starting_text()
+	hide_text()
+	hide_player_health()
+	animation_player.play("RESET")
 
 func refresh_hearts(health, shadow_heart = false):
 	if health == 0:
@@ -141,6 +143,20 @@ func refresh_hearts(health, shadow_heart = false):
 			heart_4.play("full_heart")
 			heart_5.play("full_heart")
 
+func hide_player_health():
+	heart_1.hide()
+	heart_2.hide()
+	heart_3.hide()
+	heart_4.hide()
+	heart_5.hide()
+
+func show_player_health():
+	heart_1.show()
+	heart_2.show()
+	heart_3.show()
+	heart_4.show()
+	heart_5.show()
+
 func display_text(main_text, sub_text):
 	text_box.show()
 	main_text_box.text = str(main_text)
@@ -155,13 +171,6 @@ func _on_text_box_timer_timeout():
 	animation_player.play("Leave")
 	text_box_timer.stop()
 
-func starting_text():
-	text_box.show()
-	main_text_box.text = str("Find a way out ...")
-	subtext_box.text = str("Who knows what's down here")
-	animation_player.play("Enter")
-	text_box_timer.start(3)
-
 func set_health_bar(max_health, boss_name):
 	health_bar.show()
 	health_bar.max_value = max_health
@@ -173,3 +182,7 @@ func adjust_health_bar(current_health):
 
 func hide_health_bar():
 	health_bar.hide()
+
+func show_starting_text():
+	show_player_health()
+	display_text("Find a way out ...", "Who knows what's down here")

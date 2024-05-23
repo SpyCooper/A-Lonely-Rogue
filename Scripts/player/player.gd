@@ -12,6 +12,13 @@ class_name Player
 @onready var hit_flash_animation_player = $Hit_Flash_animation_player
 @onready var hud = %HUD
 
+@onready var fall_timer = $fall_timer
+@onready var falling_shadow_sprite = $falling_shadow_sprite
+@onready var stand_up_sprite = $stand_up_sprite
+@onready var stand_up_timer = $stand_up_timer
+@onready var falling_sprite = $falling_sprite
+@onready var falling_animation_player = $falling_sprite/falling_AnimationPlayer
+
 # constants
 const KNIFE_SPEED = 150.0
 const PLAYER_HEALTH_MAX = 10
@@ -25,6 +32,8 @@ var time_to_fire_max = 1.0
 var player_health = 6
 var speed = 100.0
 var number_of_keys = 0
+var dying = false
+var player_can_move = false
 
 # upgrade variables
 var poisoned_blade = false
@@ -42,6 +51,13 @@ func _ready():
 	attacks_per_second = 1
 	time_to_fire_max = time_to_fire_max / attacks_per_second
 	Events.player = self
+	player_can_move = false
+	animated_sprite.hide()
+	falling_shadow_sprite.show()
+	falling_shadow_sprite.play("default")
+	falling_animation_player.play("player_falling")
+	stand_up_sprite.hide()
+	fall_timer.start()
 
 # runs on every frame
 func _process(delta):
@@ -51,70 +67,71 @@ func _process(delta):
 
 # runs on a set interval (fixed_update)
 func _physics_process(_delta):
-	# controls player movement and normalizes the vector
-	var direction = Input.get_vector("MoveLeft", "MoveRight", "MoveUp", "MoveDown")
-	direction.normalized()
-	velocity = direction * speed
-	
-	# controls the animations for the movement
-	if direction.y == -1:
-		animated_sprite.play("move_up")
-		lastMove = "move_up"
-	elif direction.y == 1:
-		animated_sprite.play("move_down")
-		lastMove = "move_down"
-	elif direction.x < 0:
-		animated_sprite.play("move_left")
-		lastMove = "move_left"
-	elif direction.x > 0:
-		animated_sprite.play("move_right")
-		lastMove = "move_right"
-	else:
-		if lastMove == "move_right":
-			animated_sprite.play("idle_right")
-		elif lastMove == "move_left":
-			animated_sprite.play("idle_left")
-		elif lastMove == "move_up":
-			animated_sprite.play("idle_up")
+	if !dying && player_can_move:
+		# controls player movement and normalizes the vector
+		var direction = Input.get_vector("MoveLeft", "MoveRight", "MoveUp", "MoveDown")
+		direction.normalized()
+		velocity = direction * speed
+		
+		# controls the animations for the movement
+		if direction.y == -1:
+			animated_sprite.play("move_up")
+			lastMove = "move_up"
+		elif direction.y == 1:
+			animated_sprite.play("move_down")
+			lastMove = "move_down"
+		elif direction.x < 0:
+			animated_sprite.play("move_left")
+			lastMove = "move_left"
+		elif direction.x > 0:
+			animated_sprite.play("move_right")
+			lastMove = "move_right"
 		else:
-			animated_sprite.play("idle_down")
-	
-	# moves the player
-	move_and_slide()
-	
-	# controls throwing knives
-	if Input.is_action_pressed("Attack"):
-		# checks to see if the player can fire
-		if time_to_fire <= 0:
-			# checks to see which direction is the click was 
-			var click_position = get_global_mouse_position() - position
-			var click_position_normalized = click_position.normalized()
-			var blade_instance = knife_scene.instantiate()
-			
-			# spawns a knife at that position
-			blade_instance.position = position + click_position_normalized*3
-			blade_instance.spawned(click_position_normalized, current_type, self)
-			get_parent().add_child(blade_instance)
-			
-			if triple_blades == true:
-				# bottom blade
-				var radians = click_position_normalized.angle()
-				var rad_added_bottom = Vector2(cos(radians + 0.25), sin(radians + 0.25))
-				rad_added_bottom = rad_added_bottom.normalized()
-				var blade_instance_2 = knife_scene.instantiate()
-				blade_instance_2.position = position + rad_added_bottom*3
-				blade_instance_2.spawned(rad_added_bottom, current_type, self)
-				get_parent().add_child(blade_instance_2)
-				# top blade
-				var rad_added_top = Vector2(cos(radians - 0.25), sin(radians - 0.25))
-				rad_added_top = rad_added_top.normalized()
-				var blade_instance_3 = knife_scene.instantiate()
-				blade_instance_3.position = position + rad_added_top*3
-				blade_instance_3.spawned(rad_added_top, current_type, self)
-				get_parent().add_child(blade_instance_3)
-			
-			# resets the time to fire
-			time_to_fire = time_to_fire_max
+			if lastMove == "move_right":
+				animated_sprite.play("idle_right")
+			elif lastMove == "move_left":
+				animated_sprite.play("idle_left")
+			elif lastMove == "move_up":
+				animated_sprite.play("idle_up")
+			else:
+				animated_sprite.play("idle_down")
+		
+		# moves the player
+		move_and_slide()
+		
+		# controls throwing knives
+		if Input.is_action_pressed("Attack"):
+			# checks to see if the player can fire
+			if time_to_fire <= 0:
+				# checks to see which direction is the click was 
+				var click_position = get_global_mouse_position() - position
+				var click_position_normalized = click_position.normalized()
+				var blade_instance = knife_scene.instantiate()
+				
+				# spawns a knife at that position
+				blade_instance.position = position + click_position_normalized*3
+				blade_instance.spawned(click_position_normalized, current_type, self)
+				get_parent().add_child(blade_instance)
+				
+				if triple_blades == true:
+					# bottom blade
+					var radians = click_position_normalized.angle()
+					var rad_added_bottom = Vector2(cos(radians + 0.25), sin(radians + 0.25))
+					rad_added_bottom = rad_added_bottom.normalized()
+					var blade_instance_2 = knife_scene.instantiate()
+					blade_instance_2.position = position + rad_added_bottom*3
+					blade_instance_2.spawned(rad_added_bottom, current_type, self)
+					get_parent().add_child(blade_instance_2)
+					# top blade
+					var rad_added_top = Vector2(cos(radians - 0.25), sin(radians - 0.25))
+					rad_added_top = rad_added_top.normalized()
+					var blade_instance_3 = knife_scene.instantiate()
+					blade_instance_3.position = position + rad_added_top*3
+					blade_instance_3.spawned(rad_added_top, current_type, self)
+					get_parent().add_child(blade_instance_3)
+				
+				# resets the time to fire
+				time_to_fire = time_to_fire_max
 
 # runs when an enemy hits the player
 func player_take_damage():
@@ -187,7 +204,9 @@ func player_adjust_health(change : int):
 	hud.refresh_hearts(player_health, shadow_heart)
 	if player_health <= 0:
 		Engine.time_scale = 0.5
+		dying = true
 		death_timer.start()
+		animated_sprite.play("death")
 
 func get_current_weapons():
 	var current_blades = []
@@ -213,3 +232,21 @@ func use_key():
 		return true
 	else:
 		return false
+
+func get_is_dying():
+	return dying
+
+
+func _on_fall_timer_timeout():
+	falling_shadow_sprite.hide()
+	falling_sprite.hide()
+	stand_up_sprite.show()
+	stand_up_sprite.play("stand_up")
+	stand_up_timer.start()
+
+
+func _on_stand_up_timer_timeout():
+	animated_sprite.show()
+	stand_up_sprite.hide()
+	player_can_move = true
+	hud.show_starting_text()

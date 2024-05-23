@@ -8,7 +8,7 @@ var player
 # when the player enters the collider, damage the player
 func _on_body_entered(body):
 	# if the entered body has the function damage_player(), it will run it
-	if body is Player:
+	if body is Player && !body.get_is_dying():
 		body.player_take_damage()
 		player_in_damage = true
 		player = body
@@ -20,6 +20,6 @@ func _on_body_exited(_body):
 
 
 func _on_timer_timeout():
-	if player_in_damage == true:
+	if player_in_damage && !player.get_is_dying():
 		player.player_take_damage()
 		timer.start()

@@ -56,8 +56,6 @@ func _physics_process(_delta):
 			
 			# moves the slime
 			if position.distance_to(player_position) > 1:
-				print(target_position.normalized())
-				print(get_speed())
 				move_and_collide(target_position.normalized() * get_speed())
 
 # runs when a knife (or other weapon) hits the enemy
