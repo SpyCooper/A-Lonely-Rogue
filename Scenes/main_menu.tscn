@@ -1,7 +1,123 @@
-[gd_scene load_steps=3 format=3 uid="uid://rbmwkh2w02q6"]
+[gd_scene load_steps=17 format=3 uid="uid://rbmwkh2w02q6"]
 
+[ext_resource type="Texture2D" uid="uid://cq8j4qlvoeapy" path="res://Assets/Sprites/HoodedCharacter.png" id="1_q55yd"]
 [ext_resource type="Theme" uid="uid://pv4evjjac8wt" path="res://Assets/general_theme.tres" id="1_y7aev"]
+[ext_resource type="Shader" path="res://Scripts/shaders/main_menu_vignette.gdshader" id="2_on4nu"]
 [ext_resource type="Texture2D" uid="uid://dorss3jk56j3i" path="res://Assets/Sprites/scroll_TextBox.png" id="2_psmat"]
+[ext_resource type="Texture2D" uid="uid://drktqhtj5vluu" path="res://Assets/Sprites/TileSet.png" id="4_cnrxv"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4lrda"]
+texture = ExtResource("4_cnrxv")
+0:0/0 = 0
+1:0/0 = 0
+2:0/0 = 0
+3:0/0 = 0
+4:0/0 = 0
+5:0/0 = 0
+6:0/0 = 0
+7:0/0 = 0
+8:0/0 = 0
+9:0/0 = 0
+0:1/0 = 0
+1:1/0 = 0
+2:1/0 = 0
+3:1/0 = 0
+4:1/0 = 0
+5:1/0 = 0
+6:1/0 = 0
+7:1/0 = 0
+8:1/0 = 0
+9:1/0 = 0
+0:2/0 = 0
+1:2/0 = 0
+2:2/0 = 0
+3:2/0 = 0
+4:2/0 = 0
+5:2/0 = 0
+8:2/0 = 0
+9:2/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_ywypo"]
+sources/0 = SubResource("TileSetAtlasSource_4lrda")
+
+[sub_resource type="Animation" id="Animation_uklif"]
+resource_name = "move"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(937, 473), Vector2(858, 473)]
+}
+
+[sub_resource type="Animation" id="Animation_2xgii"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(937, 473)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_euwh4"]
+_data = {
+"RESET": SubResource("Animation_2xgii"),
+"move": SubResource("Animation_uklif")
+}
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_88ndt"]
+shader = ExtResource("2_on4nu")
+shader_parameter/color = null
+shader_parameter/multiplier = 0.03
+shader_parameter/softness = 0.29
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o5247"]
+atlas = ExtResource("1_q55yd")
+region = Rect2(16, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jo2vx"]
+atlas = ExtResource("1_q55yd")
+region = Rect2(32, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tn2ik"]
+atlas = ExtResource("1_q55yd")
+region = Rect2(48, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i87bw"]
+atlas = ExtResource("1_q55yd")
+region = Rect2(64, 48, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3bvmd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o5247")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jo2vx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tn2ik")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i87bw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
 
 [node name="Main Menu" type="Node2D"]
 
@@ -11,6 +127,34 @@ position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="black_bg" type="ColorRect" parent="CanvasLayer"]
+offset_left = -98.0
+offset_top = -36.0
+offset_right = 1421.0
+offset_bottom = 865.0
+color = Color(0, 0, 0, 1)
+
+[node name="TileMap" type="TileMap" parent="CanvasLayer"]
+position = Vector2(937, 473)
+scale = Vector2(5, 5)
+tile_set = SubResource("TileSet_ywypo")
+format = 2
+layer_0/tile_data = PackedInt32Array(-1, 196608, 1, 65535, 196608, 1, 131071, 196608, 1, -65536, 196608, 1, 0, 196608, 1, 65536, 196608, 1, -65538, 196608, 1, -2, 196608, 1, -65537, 196608, 1, 65534, 196608, 1, 131070, 196608, 1, -131072, 196608, 1, -196607, 196608, 1, -131071, 196608, 1, -65535, 196608, 1, 1, 196608, 1, 65537, 196608, 1, -196606, 196608, 1, -131070, 196608, 1, -65534, 196608, 1, 2, 196608, 1, 65538, 196608, 1)
+
+[node name="moving ground animation" type="AnimationPlayer" parent="CanvasLayer/TileMap"]
+libraries = {
+"": SubResource("AnimationLibrary_euwh4")
+}
+autoplay = "move"
+speed_scale = 1.8
+
+[node name="vignette" type="ColorRect" parent="CanvasLayer"]
+material = SubResource("ShaderMaterial_88ndt")
+offset_left = 671.0
+offset_top = 206.0
+offset_right = 1195.0
+offset_bottom = 698.0
 
 [node name="play_button" type="Button" parent="CanvasLayer"]
 offset_left = 332.0
@@ -41,12 +185,12 @@ theme_override_font_sizes/font_size = 32
 text = "Exit
 "
 
-[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer"]
+[node name="Title" type="Sprite2D" parent="CanvasLayer"]
 position = Vector2(447, 209)
 scale = Vector2(3, 3)
 texture = ExtResource("2_psmat")
 
-[node name="Label" type="Label" parent="CanvasLayer/Sprite2D"]
+[node name="Label" type="Label" parent="CanvasLayer/Title"]
 offset_left = -110.0
 offset_top = -16.5
 offset_right = 112.0
@@ -57,3 +201,9 @@ theme_override_font_sizes/font_size = 16
 text = "A Lonely Rogue"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Animated_Rogue" type="AnimatedSprite2D" parent="CanvasLayer"]
+position = Vector2(938, 454)
+scale = Vector2(5, 5)
+sprite_frames = SubResource("SpriteFrames_3bvmd")
+autoplay = "default"
