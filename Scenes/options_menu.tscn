@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://bigg81dibglne"]
+
+[ext_resource type="Script" path="res://Scripts/Options_menu.gd" id="1_qjg5m"]
+[ext_resource type="Theme" uid="uid://pv4evjjac8wt" path="res://Assets/general_theme.tres" id="2_srt6f"]
+
+[node name="Options_menu" type="ColorRect"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.803922)
+script = ExtResource("1_qjg5m")
+
+[node name="close_options_button" type="Button" parent="."]
+offset_left = 532.0
+offset_top = 635.0
+offset_right = 762.0
+offset_bottom = 691.0
+theme = ExtResource("2_srt6f")
+theme_override_font_sizes/font_size = 32
+text = "Close"
+
+[connection signal="pressed" from="close_options_button" to="." method="_on_close_options_button_pressed"]
