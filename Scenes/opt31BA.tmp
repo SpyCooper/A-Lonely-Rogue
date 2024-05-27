@@ -1,10 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://bigg81dibglne"]
+[gd_scene load_steps=3 format=3 uid="uid://bigg81dibglne"]
 
 [ext_resource type="Script" path="res://Scripts/Options_menu.gd" id="1_qjg5m"]
 [ext_resource type="Theme" uid="uid://pv4evjjac8wt" path="res://Assets/general_theme.tres" id="2_srt6f"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0qoy4"]
-bg_color = Color(0, 0, 0, 0.803922)
 
 [node name="Options_menu" type="Control"]
 layout_mode = 3
@@ -19,7 +16,6 @@ script = ExtResource("1_qjg5m")
 layout_mode = 0
 offset_right = 1280.0
 offset_bottom = 720.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_0qoy4")
 
 [node name="Options_title" type="Label" parent="Panel"]
 layout_mode = 1
@@ -46,9 +42,9 @@ text = "Close"
 [node name="Sound_sliders" type="GridContainer" parent="Panel"]
 layout_mode = 0
 offset_left = 543.0
-offset_top = 417.0
+offset_top = 438.0
 offset_right = 543.0
-offset_bottom = 513.0
+offset_bottom = 534.0
 theme_override_constants/v_separation = 48
 
 [node name="master_sound" type="Control" parent="Panel/Sound_sliders"]
@@ -124,18 +120,11 @@ text = "SFX Volume: 5"
 horizontal_alignment = 2
 
 [node name="KeyBinds" type="VBoxContainer" parent="Panel"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -274.0
-offset_top = -245.0
-offset_right = -274.0
-offset_bottom = -41.0
-grow_horizontal = 2
-grow_vertical = 2
+layout_mode = 0
+offset_left = 465.0
+offset_top = 143.0
+offset_right = 505.0
+offset_bottom = 347.0
 theme_override_constants/separation = 51
 
 [node name="Move_up" type="Control" parent="Panel/KeyBinds"]
@@ -152,7 +141,7 @@ text = "Move Up"
 [node name="up_button" type="Button" parent="Panel/KeyBinds/Move_up"]
 layout_mode = 0
 offset_left = 189.0
-offset_right = 566.0
+offset_right = 372.0
 offset_bottom = 42.0
 theme = ExtResource("2_srt6f")
 theme_override_font_sizes/font_size = 32
@@ -172,7 +161,7 @@ text = "Move Down"
 [node name="down_button" type="Button" parent="Panel/KeyBinds/Move_down"]
 layout_mode = 0
 offset_left = 189.0
-offset_right = 566.0
+offset_right = 372.0
 offset_bottom = 42.0
 theme = ExtResource("2_srt6f")
 theme_override_font_sizes/font_size = 32
@@ -192,7 +181,7 @@ text = "Move Left"
 [node name="left_button" type="Button" parent="Panel/KeyBinds/Move_left"]
 layout_mode = 0
 offset_left = 189.0
-offset_right = 566.0
+offset_right = 372.0
 offset_bottom = 42.0
 theme = ExtResource("2_srt6f")
 theme_override_font_sizes/font_size = 32
@@ -212,7 +201,7 @@ text = "Move Right"
 [node name="right_button" type="Button" parent="Panel/KeyBinds/Move_right"]
 layout_mode = 0
 offset_left = 189.0
-offset_right = 566.0
+offset_right = 372.0
 offset_bottom = 42.0
 theme = ExtResource("2_srt6f")
 theme_override_font_sizes/font_size = 32
@@ -232,14 +221,13 @@ text = "Throw"
 [node name="throw_button" type="Button" parent="Panel/KeyBinds/Throw"]
 layout_mode = 0
 offset_left = 189.0
-offset_right = 566.0
+offset_right = 372.0
 offset_bottom = 42.0
 theme = ExtResource("2_srt6f")
 theme_override_font_sizes/font_size = 32
-text = "Right Mouse Button"
+text = "Mouse 1"
 
 [node name="Awaiting_input" type="ColorRect" parent="Panel"]
-visible = false
 layout_mode = 0
 offset_right = 1280.0
 offset_bottom = 720.0

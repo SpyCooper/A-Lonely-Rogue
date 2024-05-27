@@ -10,3 +10,7 @@ func _on_exit_button_pressed():
 
 func _on_options_button_pressed():
 	options_menu.show()
+
+
+func _on_catalog_button_pressed():
+	pass # Replace with function body.

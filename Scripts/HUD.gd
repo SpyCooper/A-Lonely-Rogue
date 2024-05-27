@@ -17,6 +17,8 @@ class_name HUD
 @onready var health_bar = $HealthBar
 @onready var boss_name_label = $HealthBar/Boss_name
 
+@onready var catalog = $"../Catalog"
+
 func _ready():
 	heart_4.play("no_heart")
 	heart_5.play("no_heart")
@@ -186,3 +188,6 @@ func hide_health_bar():
 func show_starting_text():
 	show_player_health()
 	display_text("Find a way out ...", "Who knows what's down here")
+
+func _on_catalog_button_pressed():
+	catalog.show()

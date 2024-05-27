@@ -8,7 +8,7 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_uvp4x"]
 shader = ExtResource("2_8414r")
 shader_parameter/enabled = false
-shader_parameter/tint = Color(0.576471, 0.286275, 0.270588, 1)
+shader_parameter/tint = Color(0.752941, 0.819608, 0.8, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_s4dqr"]
 atlas = ExtResource("2_4wocn")
@@ -324,6 +324,21 @@ animations = [{
 "speed": 3.0
 }]
 
+[sub_resource type="Animation" id="Animation_bpf1x"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(300, 0)]
+}
+
 [sub_resource type="Animation" id="Animation_hxkqm"]
 resource_name = "player_falling"
 length = 3.0
@@ -338,21 +353,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Vector2(0, -250), Vector2(0, 3)]
-}
-
-[sub_resource type="Animation" id="Animation_bpf1x"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(300, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_l3e5q"]
