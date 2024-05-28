@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://8jxi88fj77dd"]
+[gd_scene load_steps=28 format=3 uid="uid://8jxi88fj77dd"]
 
 [ext_resource type="PackedScene" uid="uid://duv7i8yak343i" path="res://Scenes/HUD.tscn" id="1_6twlt"]
 [ext_resource type="PackedScene" uid="uid://cj7h10qvuo84a" path="res://Scenes/map/4_door_room.tscn" id="1_7srq3"]
@@ -23,18 +23,7 @@
 [ext_resource type="PackedScene" uid="uid://bsx1c82kckqom" path="res://Scenes/map/single door rooms/1_door_right.tscn" id="17_aqbvy"]
 [ext_resource type="PackedScene" uid="uid://dfctt8og03c2e" path="res://Scenes/items/key_item.tscn" id="18_hyaec"]
 [ext_resource type="PackedScene" uid="uid://cfta80h76u0k2" path="res://Scenes/item_chest.tscn" id="18_r4dnb"]
-[ext_resource type="PackedScene" uid="uid://b218mvsyn0as3" path="res://Scenes/items/dust_blade_item.tscn" id="25_gl1ri"]
-[ext_resource type="PackedScene" uid="uid://csrd2wdyeq5nd" path="res://Scenes/items/speed_boots_item.tscn" id="26_b3q5o"]
-[ext_resource type="PackedScene" uid="uid://bvs3eiuarm1bo" path="res://Scenes/items/glass_blade_item.tscn" id="27_g5t71"]
-[ext_resource type="PackedScene" uid="uid://bd4j5c5ldoecs" path="res://Scenes/items/heart_1_pickup.tscn" id="28_ho4ep"]
 [ext_resource type="PackedScene" uid="uid://w1pgiqf773o0" path="res://Scenes/random_item_spawner.tscn" id="29_8la4p"]
-[ext_resource type="PackedScene" uid="uid://bycygvf0dkbr1" path="res://Scenes/items/heart_2_pickup.tscn" id="29_4648a"]
-[ext_resource type="PackedScene" uid="uid://d0qa6b7ahnmm3" path="res://Scenes/items/poisoned_blades_item.tscn" id="30_y8l5y"]
-[ext_resource type="PackedScene" uid="uid://c7um43mdsiogr" path="res://Scenes/items/quick_blades_item.tscn" id="31_jub1r"]
-[ext_resource type="PackedScene" uid="uid://cqh48ul0w7s8b" path="res://Scenes/items/shadow_blade_item.tscn" id="32_526sw"]
-[ext_resource type="PackedScene" uid="uid://dk6u5jypkt3wr" path="res://Scenes/items/shadow_flame_item.tscn" id="33_3d0t7"]
-[ext_resource type="PackedScene" uid="uid://cw70kqvbifsnr" path="res://Scenes/items/shadow_heart_item.tscn" id="34_xqcwh"]
-[ext_resource type="PackedScene" uid="uid://ptwmn1mfta68" path="res://Scenes/items/triple_blades_item.tscn" id="35_445bc"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_a4f5t"]
 texture = ExtResource("3_aw3fi")
@@ -70,7 +59,7 @@ texture = ExtResource("3_aw3fi")
 [sub_resource type="TileSet" id="TileSet_pnge6"]
 sources/0 = SubResource("TileSetAtlasSource_a4f5t")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_00y0t"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_b36g4"]
 resource_local_to_scene = true
 
 [node name="GameScene" type="Node2D"]
@@ -217,7 +206,7 @@ position = Vector2(-736, 0)
 locked = true
 
 [node name="gelatinous_cube" parent="2_door_up_right" instance=ExtResource("9_yrjgb")]
-material = SubResource("ShaderMaterial_00y0t")
+material = SubResource("ShaderMaterial_b36g4")
 position = Vector2(0, -41)
 
 [node name="1_door_down" parent="." instance=ExtResource("15_t8vk1")]
@@ -310,42 +299,6 @@ position = Vector2(0, 208)
 
 [node name="key_pickup" parent="." instance=ExtResource("18_hyaec")]
 position = Vector2(-443, 450)
-
-[node name="dust_blade_item" parent="." instance=ExtResource("25_gl1ri")]
-position = Vector2(-85, -34)
-
-[node name="speed_boots_item" parent="." instance=ExtResource("26_b3q5o")]
-position = Vector2(-83, 25)
-
-[node name="glass_blade_item" parent="." instance=ExtResource("27_g5t71")]
-position = Vector2(-33, -32)
-
-[node name="heart_1_pickup" parent="." instance=ExtResource("28_ho4ep")]
-position = Vector2(66, -49)
-
-[node name="heart_2_pickup" parent="." instance=ExtResource("29_4648a")]
-position = Vector2(112, -44)
-
-[node name="key_pickup2" parent="." instance=ExtResource("18_hyaec")]
-position = Vector2(-38, 40)
-
-[node name="poisoned_blades_item" parent="." instance=ExtResource("30_y8l5y")]
-position = Vector2(-45, 4)
-
-[node name="quick_blades_item" parent="." instance=ExtResource("31_jub1r")]
-position = Vector2(-109, -12)
-
-[node name="shadow_blade_item" parent="." instance=ExtResource("32_526sw")]
-position = Vector2(77, -15)
-
-[node name="shadow_flame_item" parent="." instance=ExtResource("33_3d0t7")]
-position = Vector2(103, -11)
-
-[node name="shadow_heart_item" parent="." instance=ExtResource("34_xqcwh")]
-position = Vector2(121, 34)
-
-[node name="triple_blades_item" parent="." instance=ExtResource("35_445bc")]
-position = Vector2(62, 58)
 
 [connection signal="pressed" from="CanvasLayer/Pause_menu/Buttons_container/Control/Resume_button" to="CanvasLayer/Pause_menu" method="_on_resume_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Pause_menu/Buttons_container/Control4/Catalog_button" to="CanvasLayer/HUD" method="_on_catalog_button_pressed"]

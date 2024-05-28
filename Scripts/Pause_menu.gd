@@ -8,8 +8,12 @@ func _ready():
 func _input(event):
 	## make an actual pause menu
 	if event.is_action_pressed("Pause"):
-		show()
-		Engine.time_scale = 0.0
+		if Engine.time_scale > 0.0:
+			show()
+			Engine.time_scale = 0.0
+		else:
+			hide()
+			Engine.time_scale = 1.0
 
 func _on_resume_button_pressed():
 	hide()

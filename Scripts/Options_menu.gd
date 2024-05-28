@@ -22,21 +22,28 @@ func _ready():
 	hide()
 	check_button_inputs()
 	set_process_unhandled_input(false)
+	
+	var audio_settings = ConfigFileManager.load_audio_setting()
+	master_sound_slider.value = min(audio_settings.master_volume, 1.0) * 10
+	music_sound_slider.value = min(audio_settings.music_volume, 1.0) * 10
+	sfx_sound_slider.value = min(audio_settings.sfx_volume, 1.0) * 10
+	
+	load_keybindings_from_settings()
 
 func _on_close_options_button_pressed():
 	hide()
 
 func _on_master_sound_slider_value_changed(value):
-	# adjust master sound
-	master_sound_label.text = "Master Volume: " + str(master_sound_slider.value)
+	ConfigFileManager.save_audio_setting("master_volume", value/10)
+	master_sound_label.text = "Master Volume: " + str(value)
 
 func _on_music_sound_slider_value_changed(value):
-	# adjust music sound
-	music_sound_label.text = "Music Volume: " + str(music_sound_slider.value)
+	ConfigFileManager.save_audio_setting("music_volume", value/10)
+	music_sound_label.text = "Music Volume: " + str(value)
 
 func _on_sfx_sound_slider_value_changed(value):
-	# adjust SFX sound
-	sfx_sound_label.text = "SFX Volume: " + str(sfx_sound_slider.value)
+	ConfigFileManager.save_audio_setting("sfx_volume", value/10)
+	sfx_sound_label.text = "SFX Volume: " + str(value)
 
 func _on_up_button_pressed():
 	awaiting_input.show()
@@ -48,7 +55,7 @@ func _on_down_button_pressed():
 	action = "MoveDown"
 	checking_input = true
 
-func _on_left_button_toggled(toggled_on):
+func _on_left_button_pressed():
 	awaiting_input.show()
 	action = "MoveLeft"
 	checking_input = true
@@ -63,7 +70,6 @@ func _on_throw_button_pressed():
 	action = "Attack"
 	checking_input = true
 
-
 func _input(event):
 	if checking_input == true:
 		if event is InputEventKey:
@@ -73,12 +79,18 @@ func _input(event):
 				checking_input = false
 				check_button_inputs()
 				awaiting_input.hide()
+				ConfigFileManager.save_keybindings(action, event)
+			elif event.as_text_key_label() == "Escape":
+				checking_input = false
+				check_button_inputs()
+				awaiting_input.hide()
 		elif event is InputEventMouseButton:
 			InputMap.action_erase_events(action)
 			InputMap.action_add_event(action, event)
 			checking_input = false
 			check_button_inputs()
 			awaiting_input.hide()
+			ConfigFileManager.save_keybindings(action, event)
 
 func check_button_inputs():
 	up_button.text = "%s" % InputMap.action_get_events("MoveUp")[0].as_text()
@@ -86,3 +98,14 @@ func check_button_inputs():
 	left_button.text = "%s" % InputMap.action_get_events("MoveLeft")[0].as_text()
 	right_button.text = "%s" % InputMap.action_get_events("MoveRight")[0].as_text()
 	throw_button.text = "%s" % InputMap.action_get_events("Attack")[0].as_text()
+
+func load_keybindings_from_settings():
+	var keybindings = ConfigFileManager.load_keybindings()
+	for action in keybindings.keys():
+		InputMap.action_erase_events(action)
+		InputMap.action_add_event(action, keybindings[action])
+		checking_input = false
+	
+	check_button_inputs()
+
+

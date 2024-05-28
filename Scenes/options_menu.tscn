@@ -268,12 +268,11 @@ text = "Esc to quit"
 horizontal_alignment = 1
 
 [connection signal="pressed" from="Panel/close_options_button" to="." method="_on_close_options_button_pressed"]
-[connection signal="changed" from="Panel/Sound_sliders/master_sound/master_sound_slider" to="." method="_on_master_sound_slider_changed"]
 [connection signal="value_changed" from="Panel/Sound_sliders/master_sound/master_sound_slider" to="." method="_on_master_sound_slider_value_changed"]
 [connection signal="value_changed" from="Panel/Sound_sliders/music_sound/music_sound_slider" to="." method="_on_music_sound_slider_value_changed"]
 [connection signal="value_changed" from="Panel/Sound_sliders/sfx_sound/sfx_sound_slider" to="." method="_on_sfx_sound_slider_value_changed"]
 [connection signal="pressed" from="Panel/KeyBinds/Move_up/up_button" to="." method="_on_up_button_pressed"]
 [connection signal="pressed" from="Panel/KeyBinds/Move_down/down_button" to="." method="_on_down_button_pressed"]
-[connection signal="toggled" from="Panel/KeyBinds/Move_left/left_button" to="." method="_on_left_button_toggled"]
+[connection signal="pressed" from="Panel/KeyBinds/Move_left/left_button" to="." method="_on_left_button_pressed"]
 [connection signal="pressed" from="Panel/KeyBinds/Move_right/right_button" to="." method="_on_right_button_pressed"]
 [connection signal="pressed" from="Panel/KeyBinds/Throw/throw_button" to="." method="_on_throw_button_pressed"]
