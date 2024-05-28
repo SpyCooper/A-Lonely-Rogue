@@ -18,6 +18,7 @@ func _ready():
 	sleep()
 	player = Events.player
 	max_health = health
+	catalog = Events.catalog
 	Events.room_entered.connect(func(room):
 		if room == get_parent():
 			wake_up()
@@ -31,7 +32,7 @@ func _ready():
 func _physics_process(_delta):
 	if player_in_room && !dying && !spawning:
 		# follows the player
-		if player :
+		if player && Engine.time_scale != 0.0:
 			player_position = player.position
 			target_position = (player_position - global_position).normalized()
 			current_direction = get_left_right_look_direction(target_position)
@@ -85,4 +86,5 @@ func _on_spawn_timer_timeout():
 	spawning = false
 
 func _on_death_timer_timeout():
+	catalog.unlock_enemy(EnemyTypes.enemy.blue_slime)
 	enemy_slain()

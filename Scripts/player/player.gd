@@ -147,6 +147,7 @@ func _on_timer_timeout():
 func picked_up_item(item):
 	# there is probably a better way to do this but this will work for now
 	# check the enum in item.gd for the numbers
+	Events.catalog.unlock_item(item)
 	if item == ItemType.type.temp:
 		print("picked up temp item")
 	elif item == ItemType.type.health_2:
@@ -236,14 +237,12 @@ func use_key():
 func get_is_dying():
 	return dying
 
-
 func _on_fall_timer_timeout():
 	falling_shadow_sprite.hide()
 	falling_sprite.hide()
 	stand_up_sprite.show()
 	stand_up_sprite.play("stand_up")
 	stand_up_timer.start()
-
 
 func _on_stand_up_timer_timeout():
 	animated_sprite.show()

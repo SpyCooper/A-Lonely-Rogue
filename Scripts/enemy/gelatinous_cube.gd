@@ -44,6 +44,7 @@ func _ready():
 	speed = 0.25
 	health = 50
 	max_health = health
+	catalog = Events.catalog
 	sleep()
 	player = Events.player
 	animated_bottom.hide()
@@ -66,7 +67,7 @@ func _physics_process(_delta):
 			spawn_slimes()
 		
 		# follows the player
-		if player && can_move:
+		if player && can_move && Engine.time_scale != 0.0:
 			player_position = player.position
 			target_position = (player_position - global_position).normalized()
 			current_direction = get_look_direction(target_position)
@@ -170,6 +171,7 @@ func _on_attack_timer_timeout():
 
 func _on_death_timer_timeout():
 	hud.hide_health_bar()
+	catalog.unlock_enemy(EnemyTypes.enemy.gelatinous_cube)
 	enemy_slain()
 
 func spawn_in():

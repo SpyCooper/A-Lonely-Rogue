@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://8jxi88fj77dd"]
+[gd_scene load_steps=39 format=3 uid="uid://8jxi88fj77dd"]
 
 [ext_resource type="PackedScene" uid="uid://duv7i8yak343i" path="res://Scenes/HUD.tscn" id="1_6twlt"]
 [ext_resource type="PackedScene" uid="uid://cj7h10qvuo84a" path="res://Scenes/map/4_door_room.tscn" id="1_7srq3"]
@@ -9,9 +9,7 @@
 [ext_resource type="Script" path="res://Scripts/Transition Camera.gd" id="3_s8u8k"]
 [ext_resource type="Script" path="res://Scripts/Pause_menu.gd" id="3_w5l1k"]
 [ext_resource type="PackedScene" uid="uid://x2so2ayusjw6" path="res://Scenes/enemies/slime.tscn" id="5_jy1tw"]
-[ext_resource type="Texture2D" uid="uid://je6co6412yjw" path="res://Assets/Sprites/blue_slime.png" id="5_nlc1l"]
-[ext_resource type="Script" path="res://Scripts/Catalog.gd" id="5_s7uks"]
-[ext_resource type="Texture2D" uid="uid://bhxifj46sjpbg" path="res://Assets/Sprites/green_slime.png" id="6_33krs"]
+[ext_resource type="PackedScene" uid="uid://dc0xlg20ucy3n" path="res://Scenes/catalog.tscn" id="5_vo5jf"]
 [ext_resource type="PackedScene" uid="uid://cvwlccke1gs7h" path="res://Scenes/map/hallways/2_door_hallway_horizontal.tscn" id="9_uu66i"]
 [ext_resource type="PackedScene" uid="uid://brvqwais7jcmk" path="res://Scenes/enemies/gelatinous_cube.tscn" id="9_yrjgb"]
 [ext_resource type="PackedScene" uid="uid://bm78w1b0to7t5" path="res://Scenes/map/corner rooms/2_door_up_left.tscn" id="11_qwxq1"]
@@ -25,9 +23,18 @@
 [ext_resource type="PackedScene" uid="uid://bsx1c82kckqom" path="res://Scenes/map/single door rooms/1_door_right.tscn" id="17_aqbvy"]
 [ext_resource type="PackedScene" uid="uid://dfctt8og03c2e" path="res://Scenes/items/key_item.tscn" id="18_hyaec"]
 [ext_resource type="PackedScene" uid="uid://cfta80h76u0k2" path="res://Scenes/item_chest.tscn" id="18_r4dnb"]
+[ext_resource type="PackedScene" uid="uid://b218mvsyn0as3" path="res://Scenes/items/dust_blade_item.tscn" id="25_gl1ri"]
+[ext_resource type="PackedScene" uid="uid://csrd2wdyeq5nd" path="res://Scenes/items/speed_boots_item.tscn" id="26_b3q5o"]
+[ext_resource type="PackedScene" uid="uid://bvs3eiuarm1bo" path="res://Scenes/items/glass_blade_item.tscn" id="27_g5t71"]
+[ext_resource type="PackedScene" uid="uid://bd4j5c5ldoecs" path="res://Scenes/items/heart_1_pickup.tscn" id="28_ho4ep"]
 [ext_resource type="PackedScene" uid="uid://w1pgiqf773o0" path="res://Scenes/random_item_spawner.tscn" id="29_8la4p"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wrmxr"]
+[ext_resource type="PackedScene" uid="uid://bycygvf0dkbr1" path="res://Scenes/items/heart_2_pickup.tscn" id="29_4648a"]
+[ext_resource type="PackedScene" uid="uid://d0qa6b7ahnmm3" path="res://Scenes/items/poisoned_blades_item.tscn" id="30_y8l5y"]
+[ext_resource type="PackedScene" uid="uid://c7um43mdsiogr" path="res://Scenes/items/quick_blades_item.tscn" id="31_jub1r"]
+[ext_resource type="PackedScene" uid="uid://cqh48ul0w7s8b" path="res://Scenes/items/shadow_blade_item.tscn" id="32_526sw"]
+[ext_resource type="PackedScene" uid="uid://dk6u5jypkt3wr" path="res://Scenes/items/shadow_flame_item.tscn" id="33_3d0t7"]
+[ext_resource type="PackedScene" uid="uid://cw70kqvbifsnr" path="res://Scenes/items/shadow_heart_item.tscn" id="34_xqcwh"]
+[ext_resource type="PackedScene" uid="uid://ptwmn1mfta68" path="res://Scenes/items/triple_blades_item.tscn" id="35_445bc"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_a4f5t"]
 texture = ExtResource("3_aw3fi")
@@ -63,7 +70,7 @@ texture = ExtResource("3_aw3fi")
 [sub_resource type="TileSet" id="TileSet_pnge6"]
 sources/0 = SubResource("TileSetAtlasSource_a4f5t")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_s6ah6"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_00y0t"]
 resource_local_to_scene = true
 
 [node name="GameScene" type="Node2D"]
@@ -93,7 +100,7 @@ offset_right = -886.154
 offset_bottom = -498.462
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 1)
+color = Color(0, 0, 0, 0.827451)
 
 [node name="Label" type="Label" parent="CanvasLayer/Pause_menu"]
 layout_mode = 1
@@ -169,239 +176,7 @@ text = "Main Menu"
 [node name="Options_menu" parent="CanvasLayer" instance=ExtResource("2_heu4x")]
 visible = false
 
-[node name="Catalog" type="Control" parent="CanvasLayer"]
-layout_mode = 3
-anchors_preset = 0
-offset_left = 631.0
-offset_top = 322.0
-offset_right = 631.0
-offset_bottom = 322.0
-script = ExtResource("5_s7uks")
-
-[node name="TabContainer" type="TabContainer" parent="CanvasLayer/Catalog"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -368.0
-offset_top = -255.0
-offset_right = 366.0
-offset_bottom = 297.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("3_3srul")
-
-[node name="Monsters" type="TabBar" parent="CanvasLayer/Catalog/TabContainer"]
-layout_mode = 2
-theme = ExtResource("3_3srul")
-
-[node name="ScrollContainer" type="ScrollContainer" parent="CanvasLayer/Catalog/TabContainer/Monsters"]
-layout_mode = 0
-offset_right = 196.0
-offset_bottom = 513.0
-horizontal_scroll_mode = 0
-vertical_scroll_mode = 2
-
-[node name="GridContainer" type="GridContainer" parent="CanvasLayer/Catalog/TabContainer/Monsters/ScrollContainer"]
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_constants/h_separation = 96
-theme_override_constants/v_separation = 96
-columns = 2
-
-[node name="Spot" type="Control" parent="CanvasLayer/Catalog/TabContainer/Monsters/ScrollContainer/GridContainer"]
-layout_mode = 2
-
-[node name="Blue_slime" type="Button" parent="CanvasLayer/Catalog/TabContainer/Monsters/ScrollContainer/GridContainer/Spot"]
-layout_mode = 0
-offset_right = 93.0
-offset_bottom = 85.0
-theme_override_constants/icon_max_width = 64
-icon = ExtResource("5_nlc1l")
-flat = true
-alignment = 2
-icon_alignment = 1
-expand_icon = true
-
-[node name="Spot2" type="Control" parent="CanvasLayer/Catalog/TabContainer/Monsters/ScrollContainer/GridContainer"]
-layout_mode = 2
-
-[node name="Green_slime" type="Button" parent="CanvasLayer/Catalog/TabContainer/Monsters/ScrollContainer/GridContainer/Spot2"]
-layout_mode = 0
-offset_right = 93.0
-offset_bottom = 85.0
-theme_override_constants/icon_max_width = 64
-icon = ExtResource("6_33krs")
-flat = true
-alignment = 2
-icon_alignment = 1
-expand_icon = true
-
-[node name="Panels" type="Control" parent="CanvasLayer/Catalog/TabContainer/Monsters"]
-anchors_preset = 0
-offset_left = 208.0
-offset_right = 718.0
-offset_bottom = 513.0
-
-[node name="Blue_slime_panel" type="Panel" parent="CanvasLayer/Catalog/TabContainer/Monsters/Panels"]
-visible = false
-layout_mode = 0
-offset_right = 510.0
-offset_bottom = 513.0
-theme_override_styles/panel = SubResource("StyleBoxEmpty_wrmxr")
-
-[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Catalog/TabContainer/Monsters/Panels/Blue_slime_panel"]
-position = Vector2(107, 96)
-scale = Vector2(9.0625, 9.0625)
-texture = ExtResource("5_nlc1l")
-
-[node name="Title" type="Label" parent="CanvasLayer/Catalog/TabContainer/Monsters/Panels/Blue_slime_panel"]
-layout_mode = 0
-offset_left = 180.0
-offset_top = 34.0
-offset_right = 510.0
-offset_bottom = 79.0
-theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
-theme_override_font_sizes/font_size = 48
-text = "Blue Slime"
-horizontal_alignment = 1
-
-[node name="KillCount" type="Label" parent="CanvasLayer/Catalog/TabContainer/Monsters/Panels/Blue_slime_panel"]
-layout_mode = 0
-offset_left = 180.0
-offset_top = 85.0
-offset_right = 510.0
-offset_bottom = 130.0
-theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
-theme_override_font_sizes/font_size = 32
-text = "Killed: 000"
-horizontal_alignment = 1
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Catalog/TabContainer/Monsters/Panels/Blue_slime_panel"]
-layout_mode = 0
-offset_left = 43.0
-offset_top = 174.0
-offset_right = 464.0
-offset_bottom = 505.0
-theme_override_constants/separation = 16
-alignment = 1
-
-[node name="Bio" type="Label" parent="CanvasLayer/Catalog/TabContainer/Monsters/Panels/Blue_slime_panel/VBoxContainer"]
-custom_minimum_size = Vector2(1, 1)
-layout_mode = 2
-theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
-theme_override_font_sizes/font_size = 32
-text = "- Can be found in the topmost floor of the dungeon"
-autowrap_mode = 2
-
-[node name="Bio2" type="Label" parent="CanvasLayer/Catalog/TabContainer/Monsters/Panels/Blue_slime_panel/VBoxContainer"]
-custom_minimum_size = Vector2(1, 1)
-layout_mode = 2
-theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
-theme_override_font_sizes/font_size = 32
-text = "- Very weak"
-autowrap_mode = 2
-
-[node name="Bio3" type="Label" parent="CanvasLayer/Catalog/TabContainer/Monsters/Panels/Blue_slime_panel/VBoxContainer"]
-custom_minimum_size = Vector2(1, 1)
-layout_mode = 2
-theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
-theme_override_font_sizes/font_size = 32
-text = "- Attacks through melee"
-autowrap_mode = 2
-
-[node name="Bio4" type="Label" parent="CanvasLayer/Catalog/TabContainer/Monsters/Panels/Blue_slime_panel/VBoxContainer"]
-custom_minimum_size = Vector2(1, 1)
-layout_mode = 2
-theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
-theme_override_font_sizes/font_size = 32
-text = "- Seem to melt when killed"
-autowrap_mode = 2
-
-[node name="Green_slime_panel" type="Panel" parent="CanvasLayer/Catalog/TabContainer/Monsters/Panels"]
-layout_mode = 0
-offset_right = 510.0
-offset_bottom = 513.0
-theme_override_styles/panel = SubResource("StyleBoxEmpty_wrmxr")
-
-[node name="Sprite2D" type="Sprite2D" parent="CanvasLayer/Catalog/TabContainer/Monsters/Panels/Green_slime_panel"]
-position = Vector2(107, 96)
-scale = Vector2(9.0625, 9.0625)
-texture = ExtResource("6_33krs")
-
-[node name="Title" type="Label" parent="CanvasLayer/Catalog/TabContainer/Monsters/Panels/Green_slime_panel"]
-layout_mode = 0
-offset_left = 180.0
-offset_top = 34.0
-offset_right = 510.0
-offset_bottom = 79.0
-theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
-theme_override_font_sizes/font_size = 48
-text = "Green Slime"
-horizontal_alignment = 1
-
-[node name="KillCount" type="Label" parent="CanvasLayer/Catalog/TabContainer/Monsters/Panels/Green_slime_panel"]
-layout_mode = 0
-offset_left = 180.0
-offset_top = 85.0
-offset_right = 510.0
-offset_bottom = 130.0
-theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
-theme_override_font_sizes/font_size = 32
-text = "Killed: 000"
-horizontal_alignment = 1
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Catalog/TabContainer/Monsters/Panels/Green_slime_panel"]
-layout_mode = 0
-offset_left = 43.0
-offset_top = 174.0
-offset_right = 464.0
-offset_bottom = 505.0
-theme_override_constants/separation = 16
-alignment = 1
-
-[node name="Bio" type="Label" parent="CanvasLayer/Catalog/TabContainer/Monsters/Panels/Green_slime_panel/VBoxContainer"]
-custom_minimum_size = Vector2(1, 1)
-layout_mode = 2
-theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
-theme_override_font_sizes/font_size = 32
-text = "- Spawned from the Gelatinous Cube"
-autowrap_mode = 2
-
-[node name="Bio2" type="Label" parent="CanvasLayer/Catalog/TabContainer/Monsters/Panels/Green_slime_panel/VBoxContainer"]
-custom_minimum_size = Vector2(1, 1)
-layout_mode = 2
-theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
-theme_override_font_sizes/font_size = 32
-text = "- Weak, but stronger than Blue Slimes"
-autowrap_mode = 2
-
-[node name="Bio3" type="Label" parent="CanvasLayer/Catalog/TabContainer/Monsters/Panels/Green_slime_panel/VBoxContainer"]
-custom_minimum_size = Vector2(1, 1)
-layout_mode = 2
-theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
-theme_override_font_sizes/font_size = 32
-text = "- Attacks through melee"
-autowrap_mode = 2
-
-[node name="Bio4" type="Label" parent="CanvasLayer/Catalog/TabContainer/Monsters/Panels/Green_slime_panel/VBoxContainer"]
-custom_minimum_size = Vector2(1, 1)
-layout_mode = 2
-theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
-theme_override_font_sizes/font_size = 32
-text = "- Seem to melt when killed"
-autowrap_mode = 2
-
-[node name="Bosses" type="TabBar" parent="CanvasLayer/Catalog/TabContainer"]
-visible = false
-layout_mode = 2
-theme = ExtResource("3_3srul")
-
-[node name="Items" type="TabBar" parent="CanvasLayer/Catalog/TabContainer"]
-visible = false
-layout_mode = 2
-theme = ExtResource("3_3srul")
+[node name="Catalog" parent="CanvasLayer" instance=ExtResource("5_vo5jf")]
 
 [node name="Transition Camera" type="Camera2D" parent="."]
 zoom = Vector2(3.31, 3.31)
@@ -442,7 +217,7 @@ position = Vector2(-736, 0)
 locked = true
 
 [node name="gelatinous_cube" parent="2_door_up_right" instance=ExtResource("9_yrjgb")]
-material = SubResource("ShaderMaterial_s6ah6")
+material = SubResource("ShaderMaterial_00y0t")
 position = Vector2(0, -41)
 
 [node name="1_door_down" parent="." instance=ExtResource("15_t8vk1")]
@@ -536,12 +311,46 @@ position = Vector2(0, 208)
 [node name="key_pickup" parent="." instance=ExtResource("18_hyaec")]
 position = Vector2(-443, 450)
 
+[node name="dust_blade_item" parent="." instance=ExtResource("25_gl1ri")]
+position = Vector2(-85, -34)
+
+[node name="speed_boots_item" parent="." instance=ExtResource("26_b3q5o")]
+position = Vector2(-83, 25)
+
+[node name="glass_blade_item" parent="." instance=ExtResource("27_g5t71")]
+position = Vector2(-33, -32)
+
+[node name="heart_1_pickup" parent="." instance=ExtResource("28_ho4ep")]
+position = Vector2(66, -49)
+
+[node name="heart_2_pickup" parent="." instance=ExtResource("29_4648a")]
+position = Vector2(112, -44)
+
+[node name="key_pickup2" parent="." instance=ExtResource("18_hyaec")]
+position = Vector2(-38, 40)
+
+[node name="poisoned_blades_item" parent="." instance=ExtResource("30_y8l5y")]
+position = Vector2(-45, 4)
+
+[node name="quick_blades_item" parent="." instance=ExtResource("31_jub1r")]
+position = Vector2(-109, -12)
+
+[node name="shadow_blade_item" parent="." instance=ExtResource("32_526sw")]
+position = Vector2(77, -15)
+
+[node name="shadow_flame_item" parent="." instance=ExtResource("33_3d0t7")]
+position = Vector2(103, -11)
+
+[node name="shadow_heart_item" parent="." instance=ExtResource("34_xqcwh")]
+position = Vector2(121, 34)
+
+[node name="triple_blades_item" parent="." instance=ExtResource("35_445bc")]
+position = Vector2(62, 58)
+
 [connection signal="pressed" from="CanvasLayer/Pause_menu/Buttons_container/Control/Resume_button" to="CanvasLayer/Pause_menu" method="_on_resume_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Pause_menu/Buttons_container/Control4/Catalog_button" to="CanvasLayer/HUD" method="_on_catalog_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Pause_menu/Buttons_container/Control3/Options_button" to="CanvasLayer/Pause_menu" method="_on_options_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Pause_menu/Buttons_container/Control2/MainMenu_button" to="CanvasLayer/Pause_menu" method="_on_main_menu_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/Catalog/TabContainer/Monsters/ScrollContainer/GridContainer/Spot/Blue_slime" to="CanvasLayer/Catalog" method="_on_blue_slime_pressed"]
-[connection signal="pressed" from="CanvasLayer/Catalog/TabContainer/Monsters/ScrollContainer/GridContainer/Spot2/Green_slime" to="CanvasLayer/Catalog" method="_on_green_slime_pressed"]
 
 [editable path="CanvasLayer/Options_menu"]
 [editable path="2_door_up_right"]

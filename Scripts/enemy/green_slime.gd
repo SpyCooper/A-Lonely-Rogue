@@ -6,6 +6,7 @@ func _ready():
 	sleep()
 	player = Events.player
 	max_health = health
+	catalog = Events.catalog
 	Events.room_entered.connect(func(room):
 		if room == get_parent():
 			wake_up()
@@ -15,4 +16,5 @@ func _ready():
 	)
 
 func _on_death_timer_timeout():
+	catalog.unlock_enemy(EnemyTypes.enemy.green_slime)
 	enemy_slain()

@@ -18,6 +18,7 @@ var max_health
 var player_in_room = false
 var spawning = true
 var dying = false
+var catalog
 
 # checks status effects
 var poisoned = false
@@ -32,6 +33,7 @@ var player
 func _ready():
 	sleep()
 	player = Events.player
+	catalog = Events.catalog
 	max_health = health
 	Events.room_entered.connect(func(room):
 		if room == get_parent():

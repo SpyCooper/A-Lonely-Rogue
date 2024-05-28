@@ -12,6 +12,8 @@ config_version=5
 
 config/name="A Lonely Rogue"
 run/main_scene="res://Scenes/main_menu.tscn"
+config/use_custom_user_dir=true
+config/custom_user_dir_name="A_Lonely_Rogue"
 config/features=PackedStringArray("4.2", "Forward Plus")
 boot_splash/show_image=false
 config/icon="res://icon.svg"
@@ -21,6 +23,7 @@ config/icon="res://icon.svg"
 Events="*res://Scripts/events.gd"
 BladeType="*res://Scripts/items and weapons/blade_type.gd"
 ItemType="*res://Scripts/items and weapons/item_type.gd"
+EnemyTypes="*res://Scripts/enemy/enemy_types.gd"
 
 [display]
 

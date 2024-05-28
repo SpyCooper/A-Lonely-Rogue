@@ -57,6 +57,7 @@ texture_margin_right = 8.0
 texture_margin_bottom = 8.0
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
+modulate_color = Color(0.912289, 0.912289, 0.912289, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_leaf4"]
 texture = ExtResource("5_b03xi")
@@ -65,6 +66,7 @@ texture_margin_top = 8.0
 texture_margin_right = 8.0
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
+modulate_color = Color(0.912289, 0.912289, 0.912289, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_j0mta"]
 texture = ExtResource("5_b03xi")

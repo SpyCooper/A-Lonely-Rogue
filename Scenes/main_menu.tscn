@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://rbmwkh2w02q6"]
+[gd_scene load_steps=20 format=3 uid="uid://rbmwkh2w02q6"]
 
 [ext_resource type="Script" path="res://Scripts/main_menu.gd" id="1_h2yor"]
 [ext_resource type="Texture2D" uid="uid://cq8j4qlvoeapy" path="res://Assets/Sprites/HoodedCharacter.png" id="1_q55yd"]
@@ -7,6 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://dorss3jk56j3i" path="res://Assets/Sprites/scroll_TextBox.png" id="2_psmat"]
 [ext_resource type="Texture2D" uid="uid://drktqhtj5vluu" path="res://Assets/Sprites/TileSet.png" id="4_cnrxv"]
 [ext_resource type="PackedScene" uid="uid://bigg81dibglne" path="res://Scenes/options_menu.tscn" id="7_fmqcy"]
+[ext_resource type="PackedScene" uid="uid://dc0xlg20ucy3n" path="res://Scenes/catalog.tscn" id="8_us2mq"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4lrda"]
 texture = ExtResource("4_cnrxv")
@@ -237,6 +238,8 @@ text = "Exit
 
 [node name="Options_menu" parent="CanvasLayer" instance=ExtResource("7_fmqcy")]
 visible = false
+
+[node name="Catalog" parent="CanvasLayer" instance=ExtResource("8_us2mq")]
 
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/button/play_button" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/button2/catalog_button" to="." method="_on_catalog_button_pressed"]

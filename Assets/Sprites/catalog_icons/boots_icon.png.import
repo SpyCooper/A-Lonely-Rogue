@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bhxifj46sjpbg"
-path="res://.godot/imported/green_slime.png-94726f07abcfb591dc25b46873a625b3.ctex"
+uid="uid://b5aq6dmwlrckm"
+path="res://.godot/imported/boots_icon.png-9386f59275e9154570a0850547585858.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/green_slime.png"
-dest_files=["res://.godot/imported/green_slime.png-94726f07abcfb591dc25b46873a625b3.ctex"]
+source_file="res://Assets/Sprites/catalog_icons/boots_icon.png"
+dest_files=["res://.godot/imported/boots_icon.png-9386f59275e9154570a0850547585858.ctex"]
 
 [params]
 

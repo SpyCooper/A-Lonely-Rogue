@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://je6co6412yjw"
-path="res://.godot/imported/blue_slime.png-cdda4c6a9d1ea98a972175e6c567669c.ctex"
+uid="uid://bekchyhnq1ebe"
+path="res://.godot/imported/shadow_blade_icon.png-6bfc4df217d631921e8dbae2745314ce.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/blue_slime.png"
-dest_files=["res://.godot/imported/blue_slime.png-cdda4c6a9d1ea98a972175e6c567669c.ctex"]
+source_file="res://Assets/Sprites/catalog_icons/shadow_blade_icon.png"
+dest_files=["res://.godot/imported/shadow_blade_icon.png-6bfc4df217d631921e8dbae2745314ce.ctex"]
 
 [params]
 
