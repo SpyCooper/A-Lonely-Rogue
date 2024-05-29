@@ -123,6 +123,8 @@ animations = [{
 }]
 
 [node name="Main Menu" type="Node2D"]
+process_mode = 3
+y_sort_enabled = true
 script = ExtResource("1_h2yor")
 
 [node name="Transition Camera" type="Camera2D" parent="."]

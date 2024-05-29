@@ -14,7 +14,7 @@ extends Control
 @onready var right_button = $Panel/KeyBinds/Move_right/right_button
 @onready var throw_button = $Panel/KeyBinds/Throw/throw_button
 
-var action
+var action_queued
 var checking_input = false
 
 func _ready():
@@ -47,50 +47,50 @@ func _on_sfx_sound_slider_value_changed(value):
 
 func _on_up_button_pressed():
 	awaiting_input.show()
-	action = "MoveUp"
+	action_queued = "MoveUp"
 	checking_input = true
 
 func _on_down_button_pressed():
 	awaiting_input.show()
-	action = "MoveDown"
+	action_queued = "MoveDown"
 	checking_input = true
 
 func _on_left_button_pressed():
 	awaiting_input.show()
-	action = "MoveLeft"
+	action_queued = "MoveLeft"
 	checking_input = true
 
 func _on_right_button_pressed():
 	awaiting_input.show()
-	action = "MoveRight"
+	action_queued = "MoveRight"
 	checking_input = true
 
 func _on_throw_button_pressed():
 	awaiting_input.show()
-	action = "Attack"
+	action_queued = "Attack"
 	checking_input = true
 
 func _input(event):
 	if checking_input == true:
 		if event is InputEventKey:
 			if event.is_pressed() && event.as_text_key_label() != "Escape":
-				InputMap.action_erase_events(action)
-				InputMap.action_add_event(action, event)
+				InputMap.action_erase_events(action_queued)
+				InputMap.action_add_event(action_queued, event)
 				checking_input = false
 				check_button_inputs()
 				awaiting_input.hide()
-				ConfigFileManager.save_keybindings(action, event)
+				ConfigFileManager.save_keybindings(action_queued, event)
 			elif event.as_text_key_label() == "Escape":
 				checking_input = false
 				check_button_inputs()
 				awaiting_input.hide()
 		elif event is InputEventMouseButton:
-			InputMap.action_erase_events(action)
-			InputMap.action_add_event(action, event)
+			InputMap.action_erase_events(action_queued)
+			InputMap.action_add_event(action_queued, event)
 			checking_input = false
 			check_button_inputs()
 			awaiting_input.hide()
-			ConfigFileManager.save_keybindings(action, event)
+			ConfigFileManager.save_keybindings(action_queued, event)
 
 func check_button_inputs():
 	up_button.text = "%s" % InputMap.action_get_events("MoveUp")[0].as_text()

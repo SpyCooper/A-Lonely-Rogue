@@ -8,7 +8,6 @@ enum spawn_location
 	right
 }
 
-
 @onready var animated_sprite = $AnimatedSprite2D
 @onready var damage_player = $DamagePlayer
 @onready var attack_timer = $Attack_timer
@@ -54,11 +53,15 @@ func _ready():
 	Events.room_entered.connect(func(room):
 		if room == get_parent():
 			wake_up()
-			spawn_in()
-			attack_timer.start()
 		else:
 			sleep()
 	)
+
+func wake_up():
+	player_in_room = true
+	
+	spawn_in()
+	attack_timer.start()
 
 # called every frame
 func _physics_process(_delta):

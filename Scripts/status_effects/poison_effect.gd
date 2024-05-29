@@ -9,6 +9,10 @@ func _ready():
 	get_parent().toggle_poisoned()
 	timer.start(1.5)
 
+func _process(_delta):
+	if get_parent().get_animated_sprite().material.shader == null:
+		get_parent().get_animated_sprite().material.shader = POISONED
+
 
 func _on_timer_timeout():
 	get_parent().take_damage(1)

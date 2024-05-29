@@ -9,6 +9,10 @@ func _ready():
 	get_parent().set_dusted_status(true)
 	timer.start(4)
 
+func _process(_delta):
+	if get_parent().get_animated_sprite().material.shader == null:
+		get_parent().get_animated_sprite().material.shader = DUSTED
+
 func _on_timer_timeout():
 	get_parent().set_dusted_status(false)
 	if get_parent().is_dusted() == false:

@@ -4,10 +4,6 @@ class_name Player
 
 # object references
 @onready var animated_sprite = $AnimatedSprite2D
-@onready var attack_spawn_down = $AttackSpawnDown
-@onready var attack_spawn_up = $AttackSpawnUp
-@onready var attack_spawn_left = $AttackSpawnLeft
-@onready var attack_spawn_right = $AttackSpawnRight
 @onready var death_timer = $DeathTimer
 @onready var hit_flash_animation_player = $Hit_Flash_animation_player
 @onready var hud = %HUD
@@ -21,7 +17,7 @@ class_name Player
 
 # constants
 const KNIFE_SPEED = 150.0
-const PLAYER_HEALTH_MAX = 10
+const PLAYER_HEALTH_MAX = 100
 
 # variables
 var lastMove = "default"
@@ -29,7 +25,7 @@ var attacks_per_second = 1
 var attack_damage = 1
 var time_to_fire = 0.0
 var time_to_fire_max = 1.0
-var player_health = 6
+var player_health = 100
 var speed = 100.0
 var number_of_keys = 0
 var dying = false
@@ -215,10 +211,10 @@ func get_current_weapons():
 		current_blades += [BladeType.blade_type.posioned]
 	if shadow_flame_blade == true:
 		current_blades += [BladeType.blade_type.shadow_flame]
-	if shadow_blade == true:
-		current_blades += [BladeType.blade_type.shadow]
 	if dust_blade == true:
 		current_blades += [BladeType.blade_type.dust]
+	if shadow_blade == true:
+		current_blades += [BladeType.blade_type.shadow]
 	if glass_blade == true:
 		current_blades += [BladeType.blade_type.glass]
 	return current_blades

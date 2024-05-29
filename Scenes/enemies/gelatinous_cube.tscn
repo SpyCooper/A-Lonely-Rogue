@@ -494,17 +494,18 @@ collision_mask = 9
 script = ExtResource("1_nbso2")
 
 [node name="hitbox" type="CollisionShape2D" parent="."]
-position = Vector2(0, -0.499999)
+position = Vector2(0, -13.5)
 scale = Vector2(2.36147, 2.50056)
 shape = SubResource("RectangleShape2D_ukbej")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_533aj")
-position = Vector2(0, 7)
+position = Vector2(0, -6)
 sprite_frames = SubResource("SpriteFrames_c0mu8")
 animation = &"spawn_slime"
 
 [node name="DamagePlayer" parent="." instance=ExtResource("3_xclps")]
+position = Vector2(0, -13)
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DamagePlayer"]
@@ -513,31 +514,31 @@ position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_6dald")
 
 [node name="Spawner_top" type="Marker2D" parent="."]
-position = Vector2(0, -47)
+position = Vector2(0, -60)
 
 [node name="animated_top" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -39)
+position = Vector2(0, -52)
 sprite_frames = SubResource("SpriteFrames_epws3")
 
 [node name="Spawner_bottom" type="Marker2D" parent="."]
-position = Vector2(0, 47)
+position = Vector2(0, 34)
 
 [node name="animated_bottom" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, 39)
+position = Vector2(0, 26)
 sprite_frames = SubResource("SpriteFrames_xmt6n")
 
 [node name="Spawner_left" type="Marker2D" parent="."]
-position = Vector2(-47, 0)
+position = Vector2(-47, -13)
 
 [node name="animated_left" type="AnimatedSprite2D" parent="."]
-position = Vector2(-39, -1)
+position = Vector2(-39, -14)
 sprite_frames = SubResource("SpriteFrames_kmm4h")
 
 [node name="Spawner_right" type="Marker2D" parent="."]
-position = Vector2(47, 0)
+position = Vector2(47, -13)
 
 [node name="animated_right" type="AnimatedSprite2D" parent="."]
-position = Vector2(39, -1)
+position = Vector2(39, -14)
 sprite_frames = SubResource("SpriteFrames_ptiax")
 
 [node name="Attack_timer" type="Timer" parent="."]

@@ -28,6 +28,11 @@ func _ready():
 			sleep()
 	)
 
+func wake_up():
+	player_in_room = true
+	animated_sprite.play("spawning")
+	spawn_timer.start()
+
 # called every frame
 func _physics_process(_delta):
 	if player_in_room && !dying && !spawning:
@@ -56,7 +61,7 @@ func _physics_process(_delta):
 					plaing_hit_animation = false
 			
 			# moves the slime
-			if position.distance_to(player_position) > 1:
+			if position.distance_to(player_position) > 5:
 				move_and_collide(target_position.normalized() * get_speed())
 
 # runs when a knife (or other weapon) hits the enemy

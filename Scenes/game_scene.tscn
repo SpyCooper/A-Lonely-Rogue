@@ -1,10 +1,11 @@
-[gd_scene load_steps=28 format=3 uid="uid://8jxi88fj77dd"]
+[gd_scene load_steps=29 format=3 uid="uid://8jxi88fj77dd"]
 
 [ext_resource type="PackedScene" uid="uid://duv7i8yak343i" path="res://Scenes/HUD.tscn" id="1_6twlt"]
 [ext_resource type="PackedScene" uid="uid://cj7h10qvuo84a" path="res://Scenes/map/4_door_room.tscn" id="1_7srq3"]
 [ext_resource type="PackedScene" uid="uid://dahgvmrgtix2i" path="res://Scenes/player.tscn" id="1_37d31"]
 [ext_resource type="PackedScene" uid="uid://bigg81dibglne" path="res://Scenes/options_menu.tscn" id="2_heu4x"]
 [ext_resource type="Theme" uid="uid://pv4evjjac8wt" path="res://Assets/general_theme.tres" id="3_3srul"]
+[ext_resource type="PackedScene" uid="uid://rbmwkh2w02q6" path="res://Scenes/main_menu.tscn" id="3_16ki7"]
 [ext_resource type="Texture2D" uid="uid://drktqhtj5vluu" path="res://Assets/Sprites/TileSet.png" id="3_aw3fi"]
 [ext_resource type="Script" path="res://Scripts/Transition Camera.gd" id="3_s8u8k"]
 [ext_resource type="Script" path="res://Scripts/Pause_menu.gd" id="3_w5l1k"]
@@ -59,10 +60,11 @@ texture = ExtResource("3_aw3fi")
 [sub_resource type="TileSet" id="TileSet_pnge6"]
 sources/0 = SubResource("TileSetAtlasSource_a4f5t")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_b36g4"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v5gnt"]
 resource_local_to_scene = true
 
 [node name="GameScene" type="Node2D"]
+y_sort_enabled = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -79,6 +81,7 @@ grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(3.25, 3.25)
 script = ExtResource("3_w5l1k")
+main_menu_scene = ExtResource("3_16ki7")
 
 [node name="color_rect" type="ColorRect" parent="CanvasLayer/Pause_menu"]
 layout_mode = 1
@@ -181,20 +184,19 @@ layer_0/tile_data = PackedInt32Array(-4456529, 65536, 2, -4390993, 65536, 2, -43
 
 [node name="Player" parent="." instance=ExtResource("1_37d31")]
 unique_name_in_owner = true
-top_level = true
 position = Vector2(1, 0)
-collision_mask = 3
 
 [node name="Center" parent="." instance=ExtResource("1_7srq3")]
 
 [node name="Right" parent="." instance=ExtResource("1_7srq3")]
+y_sort_enabled = true
 position = Vector2(368, 0)
 
-[node name="slime" parent="Right" instance=ExtResource("5_jy1tw")]
-position = Vector2(79, -47)
+[node name="slime2" parent="." instance=ExtResource("5_jy1tw")]
+position = Vector2(459, 44)
 
-[node name="slime2" parent="Right" instance=ExtResource("5_jy1tw")]
-position = Vector2(91, 44)
+[node name="slime" parent="." instance=ExtResource("5_jy1tw")]
+position = Vector2(447, -47)
 
 [node name="2_door_hallway_horizontal" parent="." instance=ExtResource("9_uu66i")]
 position = Vector2(-368, 0)
@@ -205,9 +207,9 @@ position = Vector2(-736, 0)
 [node name="DoorVisualUp" parent="2_door_up_right" index="1"]
 locked = true
 
-[node name="gelatinous_cube" parent="2_door_up_right" instance=ExtResource("9_yrjgb")]
-material = SubResource("ShaderMaterial_b36g4")
-position = Vector2(0, -41)
+[node name="gelatinous_cube" parent="." instance=ExtResource("9_yrjgb")]
+material = SubResource("ShaderMaterial_v5gnt")
+position = Vector2(-736, -31)
 
 [node name="1_door_down" parent="." instance=ExtResource("15_t8vk1")]
 position = Vector2(-736, -208)
@@ -221,11 +223,11 @@ position = Vector2(67, 0)
 [node name="3_door_no_down" parent="." instance=ExtResource("13_nts1e")]
 position = Vector2(0, 416)
 
-[node name="slime" parent="3_door_no_down" instance=ExtResource("5_jy1tw")]
-position = Vector2(-36, 2)
+[node name="slime4" parent="." instance=ExtResource("5_jy1tw")]
+position = Vector2(51, 452)
 
-[node name="slime2" parent="3_door_no_down" instance=ExtResource("5_jy1tw")]
-position = Vector2(51, 36)
+[node name="slime3" parent="." instance=ExtResource("5_jy1tw")]
+position = Vector2(-36, 418)
 
 [node name="3_door_no_right" parent="." instance=ExtResource("14_8ahga")]
 position = Vector2(368, 208)
@@ -251,14 +253,14 @@ position = Vector2(368, -416)
 [node name="2_door_up_right2" parent="." instance=ExtResource("12_cj28f")]
 position = Vector2(-368, -416)
 
-[node name="slime" parent="2_door_up_right2" instance=ExtResource("5_jy1tw")]
-position = Vector2(-81, 19)
+[node name="slime5" parent="." instance=ExtResource("5_jy1tw")]
+position = Vector2(-449, -397)
 
-[node name="slime2" parent="2_door_up_right2" instance=ExtResource("5_jy1tw")]
-position = Vector2(-2, -48)
+[node name="slime6" parent="." instance=ExtResource("5_jy1tw")]
+position = Vector2(-370, -464)
 
-[node name="slime3" parent="2_door_up_right2" instance=ExtResource("5_jy1tw")]
-position = Vector2(17, 38)
+[node name="slime7" parent="." instance=ExtResource("5_jy1tw")]
+position = Vector2(-351, -378)
 
 [node name="1_door_down2" parent="." instance=ExtResource("15_t8vk1")]
 position = Vector2(-368, -624)
@@ -268,14 +270,14 @@ position = Vector2(-368, -624)
 [node name="2_door_hallway_horizontal2" parent="." instance=ExtResource("9_uu66i")]
 position = Vector2(736, -416)
 
-[node name="slime" parent="2_door_hallway_horizontal2" instance=ExtResource("5_jy1tw")]
-position = Vector2(-50, -45)
+[node name="slime8" parent="." instance=ExtResource("5_jy1tw")]
+position = Vector2(686, -461)
 
-[node name="slime2" parent="2_door_hallway_horizontal2" instance=ExtResource("5_jy1tw")]
-position = Vector2(-7, 47)
+[node name="slime9" parent="." instance=ExtResource("5_jy1tw")]
+position = Vector2(729, -369)
 
-[node name="slime3" parent="2_door_hallway_horizontal2" instance=ExtResource("5_jy1tw")]
-position = Vector2(75, -29)
+[node name="slime10" parent="." instance=ExtResource("5_jy1tw")]
+position = Vector2(811, -445)
 
 [node name="1_door_left2" parent="." instance=ExtResource("16_8d3dl")]
 position = Vector2(1104, -416)

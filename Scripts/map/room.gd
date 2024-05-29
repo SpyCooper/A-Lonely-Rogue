@@ -6,6 +6,7 @@ extends Node2D
 @onready var door_left = $DoorVisualLeft
 
 var number_of_enemies = 0
+var enemies_spawned = []
 
 func _ready():
 	hide_all_doors()
@@ -17,14 +18,19 @@ func _on_player_detector_body_entered(body):
 			disable_all_doors()
 		elif number_of_enemies > 0:
 			enable_all_doors()
+			for enemy in enemies_spawned:
+				enemy.wake_up()
 
-func _on_enemy_detector_body_entered(_body):
-	number_of_enemies += 1
+func _on_enemy_detector_body_entered(body):
+	if body is Enemy:
+		number_of_enemies += 1
+		enemies_spawned += [body]
 
-func _on_enemy_detector_body_exited(_body):
-	number_of_enemies -= 1
-	if number_of_enemies == 0:
-		disable_all_doors()
+func _on_enemy_detector_body_exited(body):
+	if body is Enemy:
+		number_of_enemies -= 1
+		if number_of_enemies == 0:
+			disable_all_doors()
 
 func hide_all_doors():
 	hide_door(door_up)

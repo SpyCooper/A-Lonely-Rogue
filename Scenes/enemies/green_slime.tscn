@@ -194,22 +194,20 @@ animations = [{
 radius = 6.0
 
 [node name="green_slime" type="CharacterBody2D"]
-z_index = 1
 collision_layer = 12
 collision_mask = 9
 script = ExtResource("1_u8cvj")
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
-position = Vector2(0, -6)
 shape = SubResource("CircleShape2D_mj62a")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_35hfj")
-position = Vector2(0, -6)
 sprite_frames = SubResource("SpriteFrames_iscg3")
 animation = &"dying"
 
 [node name="DamagePlayer" parent="." instance=ExtResource("3_3icab")]
+position = Vector2(0, 6)
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DamagePlayer"]
