@@ -2,11 +2,11 @@ extends Control
 
 class_name HUD
 
-@onready var heart_1 = $Heart_1
-@onready var heart_2 = $Heart_2
-@onready var heart_3 = $Heart_3
-@onready var heart_4 = $Heart_4
-@onready var heart_5 = $Heart_5
+@onready var heart_1 = $Hearts_UI/Heart_1
+@onready var heart_2 = $Hearts_UI/Heart_2
+@onready var heart_3 = $Hearts_UI/Heart_3
+@onready var heart_4 = $Hearts_UI/Heart_4
+@onready var heart_5 = $Hearts_UI/Heart_5
 
 @onready var text_box = $ScrollTextBox
 @onready var main_text_box = $"ScrollTextBox/Main Text"
@@ -19,12 +19,13 @@ class_name HUD
 
 @onready var catalog = $"../Catalog"
 
+@onready var key_amount_label = $Keys_UI/Key_amount_label
+
 func _ready():
 	heart_4.play("no_heart")
 	heart_5.play("no_heart")
 	hide_health_bar()
 	hide_text()
-	hide_player_health()
 	animation_player.play("RESET")
 
 func refresh_hearts(health, shadow_heart = false):
@@ -191,3 +192,6 @@ func show_starting_text():
 
 func _on_catalog_button_pressed():
 	catalog.show()
+
+func refresh_key_amount(key_amount):
+	key_amount_label.text = str(key_amount)

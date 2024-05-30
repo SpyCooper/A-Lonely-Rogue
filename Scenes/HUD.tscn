@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://duv7i8yak343i"]
+[gd_scene load_steps=22 format=3 uid="uid://duv7i8yak343i"]
 
 [ext_resource type="Texture2D" uid="uid://dh85ichhvi5y2" path="res://Assets/Sprites/Items.png" id="1_bp31y"]
 [ext_resource type="Script" path="res://Scripts/HUD.gd" id="1_slvuw"]
@@ -158,6 +158,21 @@ border_width_bottom = 1
 border_color = Color(0.752941, 0.819608, 0.8, 1)
 corner_detail = 1
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_yj0bv"]
+atlas = ExtResource("1_bp31y")
+region = Rect2(160, 32, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_knrg2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yj0bv")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="HUD" type="Control"]
 top_level = true
 layout_mode = 3
@@ -167,35 +182,38 @@ size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_slvuw")
 
-[node name="Heart_1" type="AnimatedSprite2D" parent="."]
+[node name="Hearts_UI" type="Control" parent="."]
+anchors_preset = 0
+
+[node name="Heart_1" type="AnimatedSprite2D" parent="Hearts_UI"]
 position = Vector2(12, 12)
 sprite_frames = SubResource("SpriteFrames_b288l")
 animation = &"shadow_half"
 autoplay = "full_heart"
 speed_scale = 0.0
 
-[node name="Heart_2" type="AnimatedSprite2D" parent="."]
+[node name="Heart_2" type="AnimatedSprite2D" parent="Hearts_UI"]
 position = Vector2(29, 12)
 sprite_frames = SubResource("SpriteFrames_b288l")
 animation = &"shadow_half"
 autoplay = "full_heart"
 speed_scale = 0.0
 
-[node name="Heart_3" type="AnimatedSprite2D" parent="."]
+[node name="Heart_3" type="AnimatedSprite2D" parent="Hearts_UI"]
 position = Vector2(46, 12)
 sprite_frames = SubResource("SpriteFrames_b288l")
 animation = &"shadow_half"
 autoplay = "full_heart"
 speed_scale = 0.0
 
-[node name="Heart_4" type="AnimatedSprite2D" parent="."]
+[node name="Heart_4" type="AnimatedSprite2D" parent="Hearts_UI"]
 position = Vector2(63, 12)
 sprite_frames = SubResource("SpriteFrames_b288l")
 animation = &"full_heart"
 autoplay = "no_heart"
 speed_scale = 0.0
 
-[node name="Heart_5" type="AnimatedSprite2D" parent="."]
+[node name="Heart_5" type="AnimatedSprite2D" parent="Hearts_UI"]
 position = Vector2(80, 11.6923)
 sprite_frames = SubResource("SpriteFrames_b288l")
 animation = &"shadow_half"
@@ -259,5 +277,26 @@ text = "Boss Title Testing Text"
 label_settings = SubResource("LabelSettings_j1ir0")
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Keys_UI" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 12.3077
+offset_top = 29.5385
+offset_right = 12.3077
+offset_bottom = 29.5385
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Keys_UI"]
+sprite_frames = SubResource("SpriteFrames_knrg2")
+
+[node name="Key_amount_label" type="Label" parent="Keys_UI"]
+layout_mode = 0
+offset_left = 12.3077
+offset_top = -2.46154
+offset_right = 33.3077
+offset_bottom = 12.5385
+scale = Vector2(0.5, 0.5)
+theme = ExtResource("5_6yeb1")
+theme_override_font_sizes/font_size = 16
+text = "001"
 
 [connection signal="timeout" from="TextBoxTimer" to="." method="_on_text_box_timer_timeout"]

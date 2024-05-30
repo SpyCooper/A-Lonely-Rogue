@@ -17,7 +17,7 @@ class_name Player
 
 # constants
 const KNIFE_SPEED = 150.0
-const PLAYER_HEALTH_MAX = 100
+const PLAYER_HEALTH_MAX = 10
 
 # variables
 var lastMove = "default"
@@ -25,7 +25,7 @@ var attacks_per_second = 1
 var attack_damage = 1
 var time_to_fire = 0.0
 var time_to_fire_max = 1.0
-var player_health = 100
+var player_health = 6
 var speed = 100.0
 var number_of_keys = 0
 var dying = false
@@ -53,6 +53,8 @@ func _ready():
 	falling_shadow_sprite.play("default")
 	falling_animation_player.play("player_falling")
 	stand_up_sprite.hide()
+	hud.hide()
+	hud.refresh_key_amount(number_of_keys)
 	fall_timer.start()
 
 # runs on every frame
@@ -173,6 +175,7 @@ func picked_up_item(item):
 		hud.display_text("Aquired Shadow Blades!", "Blades do increased damage.")
 	elif item == ItemType.type.key:
 		number_of_keys += 1
+		hud.refresh_key_amount(number_of_keys)
 		hud.display_text("Aquired a Key!", "Use it to open a locked door!")
 	elif item == ItemType.type.shadow_heart:
 		shadow_heart = true
@@ -226,6 +229,7 @@ func killed_enemy():
 func use_key():
 	if number_of_keys > 0:
 		number_of_keys -= 1
+		hud.refresh_key_amount(number_of_keys)
 		return true
 	else:
 		return false
@@ -244,4 +248,5 @@ func _on_stand_up_timer_timeout():
 	animated_sprite.show()
 	stand_up_sprite.hide()
 	player_can_move = true
+	hud.show()
 	hud.show_starting_text()
