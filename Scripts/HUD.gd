@@ -21,6 +21,9 @@ class_name HUD
 
 @onready var key_amount_label = $Keys_UI/Key_amount_label
 
+@onready var items_ui_container = $active_items_ui/items_ui_container
+const ITEM_UI_SLOT = preload("res://Scenes/item_ui_slot.tscn")
+
 func _ready():
 	heart_4.play("no_heart")
 	heart_5.play("no_heart")
@@ -195,3 +198,37 @@ func _on_catalog_button_pressed():
 
 func refresh_key_amount(key_amount):
 	key_amount_label.text = str(key_amount)
+
+func item_added(item):
+	if item == ItemType.type.poisoned_blades:
+		var item_ui = ITEM_UI_SLOT.instantiate()
+		items_ui_container.add_child(item_ui)
+		item_ui.get_animated_sprite().play("Poison")
+	elif item == ItemType.type.speed_boots:
+		var item_ui = ITEM_UI_SLOT.instantiate()
+		items_ui_container.add_child(item_ui)
+		item_ui.get_animated_sprite().play("Speed_boots")
+	elif item == ItemType.type.quick_blades:
+		var item_ui = ITEM_UI_SLOT.instantiate()
+		items_ui_container.add_child(item_ui)
+		item_ui.get_animated_sprite().play("Quick_blades")
+	elif item == ItemType.type.shadow_flame:
+		var item_ui = ITEM_UI_SLOT.instantiate()
+		items_ui_container.add_child(item_ui)
+		item_ui.get_animated_sprite().play("Shadow_flame")
+	elif item == ItemType.type.shadow_blade:
+		var item_ui = ITEM_UI_SLOT.instantiate()
+		items_ui_container.add_child(item_ui)
+		item_ui.get_animated_sprite().play("Shadow_blade")
+	elif item == ItemType.type.triple_blades:
+		var item_ui = ITEM_UI_SLOT.instantiate()
+		items_ui_container.add_child(item_ui)
+		item_ui.get_animated_sprite().play("Triple_blades")
+	elif item == ItemType.type.dust_blade:
+		var item_ui = ITEM_UI_SLOT.instantiate()
+		items_ui_container.add_child(item_ui)
+		item_ui.get_animated_sprite().play("Dust_blade")
+	elif item == ItemType.type.glass_blade:
+		var item_ui = ITEM_UI_SLOT.instantiate()
+		items_ui_container.add_child(item_ui)
+		item_ui.get_animated_sprite().play("glass_blade")

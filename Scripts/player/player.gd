@@ -158,21 +158,26 @@ func picked_up_item(item):
 		hud.display_text("Aquired Poisoned Blades!", "Blades damage enemies after a short time for light damage.")
 		poisoned_blade = true
 		current_type = BladeType.blade_type.posioned
+		hud.item_added(item)
 	elif item == ItemType.type.speed_boots:
 		speed += 15
 		hud.display_text("Aquired Speed Boots!", "You run faster.")
+		hud.item_added(item)
 	elif item == ItemType.type.quick_blades:
 		attacks_per_second += 1
 		calculate_attack_speed()
 		hud.display_text("Aquired Quicker Blades!", "Blades can be thrown faster.")
+		hud.item_added(item)
 	elif item == ItemType.type.shadow_flame:
 		shadow_flame_blade = true
 		current_type = BladeType.blade_type.shadow_flame
 		hud.display_text("Aquired Shadowflame!", "Blades damage enemies after a time for moderate damage.")
+		hud.item_added(item)
 	elif item == ItemType.type.shadow_blade:
 		shadow_blade = true
 		current_type = BladeType.blade_type.shadow
 		hud.display_text("Aquired Shadow Blades!", "Blades do increased damage.")
+		hud.item_added(item)
 	elif item == ItemType.type.key:
 		number_of_keys += 1
 		hud.refresh_key_amount(number_of_keys)
@@ -184,14 +189,17 @@ func picked_up_item(item):
 	elif item == ItemType.type.triple_blades:
 		triple_blades = true
 		hud.display_text("Aquired Triple Blades!", "You can now throw 3 blades at once!")
+		hud.item_added(item)
 	elif item == ItemType.type.dust_blade:
 		dust_blade = true
 		current_type = BladeType.blade_type.dust
 		hud.display_text("Aquired Dust Blades!", "Attacks will slow enemies!")
+		hud.item_added(item)
 	elif item == ItemType.type.glass_blade:
 		glass_blade = true
 		current_type = BladeType.blade_type.glass
 		hud.display_text("Aquired Glass Blades!", "Blades will shoot shrapnel on hit!")
+		hud.item_added(item)
 
 func calculate_attack_speed():
 	time_to_fire_max = time_to_fire_max / attacks_per_second

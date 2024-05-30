@@ -299,4 +299,17 @@ theme = ExtResource("5_6yeb1")
 theme_override_font_sizes/font_size = 16
 text = "001"
 
+[node name="active_items_ui" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 371.692
+offset_top = 2.46154
+offset_right = 371.692
+offset_bottom = 2.46154
+
+[node name="items_ui_container" type="VBoxContainer" parent="active_items_ui"]
+layout_mode = 0
+offset_right = 20.0
+offset_bottom = 40.0
+theme_override_constants/separation = 16
+
 [connection signal="timeout" from="TextBoxTimer" to="." method="_on_text_box_timer_timeout"]
