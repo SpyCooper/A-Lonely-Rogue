@@ -1,7 +1,6 @@
 extends Control
 
 @onready var options_menu = $"../Options_menu"
-@export var main_menu_scene:PackedScene
 
 func _ready():
 	hide()
@@ -24,5 +23,5 @@ func _on_options_button_pressed():
 	options_menu.show()
 
 func _on_main_menu_button_pressed():
-	get_tree().paused = true
-	get_tree().change_scene_to_packed(main_menu_scene)
+	Engine.time_scale = 1.0
+	get_tree().change_scene_to_file("res://Scenes/main_menu.tscn")

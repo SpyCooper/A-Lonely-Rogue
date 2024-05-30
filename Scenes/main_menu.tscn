@@ -123,7 +123,7 @@ animations = [{
 }]
 
 [node name="Main Menu" type="Node2D"]
-process_mode = 3
+process_mode = 1
 y_sort_enabled = true
 script = ExtResource("1_h2yor")
 
