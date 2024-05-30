@@ -17,8 +17,6 @@ class_name HUD
 @onready var health_bar = $HealthBar
 @onready var boss_name_label = $HealthBar/Boss_name
 
-@onready var catalog = $"../Catalog"
-
 @onready var key_amount_label = $Keys_UI/Key_amount_label
 
 @onready var items_ui_container = $active_items_ui/items_ui_container
@@ -192,9 +190,6 @@ func hide_health_bar():
 func show_starting_text():
 	show_player_health()
 	display_text("Find a way out ...", "Who knows what's down here")
-
-func _on_catalog_button_pressed():
-	catalog.show()
 
 func refresh_key_amount(key_amount):
 	key_amount_label.text = str(key_amount)

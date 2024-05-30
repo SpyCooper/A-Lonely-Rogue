@@ -1,6 +1,7 @@
 extends Control
 
 @onready var options_menu = $"../Options_menu"
+@onready var catalog = $"../Catalog"
 
 func _ready():
 	hide()
@@ -12,6 +13,8 @@ func _input(event):
 			show()
 			Engine.time_scale = 0.0
 		else:
+			options_menu.hide()
+			catalog.hide()
 			hide()
 			Engine.time_scale = 1.0
 
@@ -25,3 +28,6 @@ func _on_options_button_pressed():
 func _on_main_menu_button_pressed():
 	Engine.time_scale = 1.0
 	get_tree().change_scene_to_file("res://Scenes/main_menu.tscn")
+
+func _on_catalog_button_pressed():
+	catalog.show()

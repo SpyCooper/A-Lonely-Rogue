@@ -59,7 +59,7 @@ texture = ExtResource("3_aw3fi")
 [sub_resource type="TileSet" id="TileSet_pnge6"]
 sources/0 = SubResource("TileSetAtlasSource_a4f5t")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_cmiol"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_vypcn"]
 resource_local_to_scene = true
 
 [node name="GameScene" type="Node2D"]
@@ -167,6 +167,7 @@ text = "Main Menu"
 visible = false
 
 [node name="Catalog" parent="CanvasLayer" instance=ExtResource("5_vo5jf")]
+visible = false
 
 [node name="Transition Camera" type="Camera2D" parent="."]
 zoom = Vector2(3.31, 3.31)
@@ -206,7 +207,7 @@ position = Vector2(-736, 0)
 locked = true
 
 [node name="gelatinous_cube" parent="." instance=ExtResource("9_yrjgb")]
-material = SubResource("ShaderMaterial_cmiol")
+material = SubResource("ShaderMaterial_vypcn")
 position = Vector2(-736, -31)
 
 [node name="1_door_down" parent="." instance=ExtResource("15_t8vk1")]
@@ -301,11 +302,10 @@ position = Vector2(0, 208)
 position = Vector2(-443, 450)
 
 [connection signal="pressed" from="CanvasLayer/Pause_menu/Buttons_container/Control/Resume_button" to="CanvasLayer/Pause_menu" method="_on_resume_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/Pause_menu/Buttons_container/Control4/Catalog_button" to="CanvasLayer/HUD" method="_on_catalog_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Pause_menu/Buttons_container/Control4/Catalog_button" to="CanvasLayer/Pause_menu" method="_on_catalog_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Pause_menu/Buttons_container/Control3/Options_button" to="CanvasLayer/Pause_menu" method="_on_options_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Pause_menu/Buttons_container/Control2/MainMenu_button" to="CanvasLayer/Pause_menu" method="_on_main_menu_button_pressed"]
 
-[editable path="CanvasLayer/Options_menu"]
 [editable path="2_door_up_right"]
 [editable path="2_door_up_right/DoorRight"]
 [editable path="2_door_up_right/DoorUp"]

@@ -341,7 +341,6 @@ func _on_shadow_heart_button_pressed():
 	if shadow_heart_unlocked:
 		shadow_heart_panel.show()
 
-
 func _on_triple_blades_button_pressed():
 	clear_panel()
 	if triple_blades_unlocked:
