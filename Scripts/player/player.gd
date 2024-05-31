@@ -42,6 +42,8 @@ var shadow_heart = false
 var current_type : BladeType.blade_type = BladeType.blade_type.default
 var knife_scene = load("res://Scenes/knife.tscn")
 
+var items_collected = []
+
 # runs on start
 func _ready():
 	attacks_per_second = 1
@@ -57,6 +59,7 @@ func _ready():
 		hud.hide()
 	hud.refresh_key_amount(number_of_keys)
 	fall_timer.start()
+	load_player_data()
 
 # runs on every frame
 func _process(delta):
@@ -143,7 +146,7 @@ func _on_timer_timeout():
 	Engine.time_scale = 1
 
 # runs when an item is picked up
-func picked_up_item(item):
+func picked_up_item(item, display_text = true):
 	# there is probably a better way to do this but this will work for now
 	# check the enum in item.gd for the numbers
 	Events.catalog.unlock_item(item)
@@ -156,51 +159,70 @@ func picked_up_item(item):
 		if shadow_heart == false:
 			player_adjust_health(1)
 	elif item == ItemType.type.poisoned_blades:
-		hud.display_text("Aquired Poisoned Blades!", "Blades damage enemies after a short time for light damage.")
+		if display_text:
+			hud.display_text("Aquired Poisoned Blades!", "Blades damage enemies after a short time for light damage.")
 		poisoned_blade = true
 		current_type = BladeType.blade_type.posioned
 		hud.item_added(item)
+		items_collected += [item]
 	elif item == ItemType.type.speed_boots:
 		speed += 15
-		hud.display_text("Aquired Speed Boots!", "You run faster.")
+		if display_text:
+			hud.display_text("Aquired Speed Boots!", "You run faster.")
 		hud.item_added(item)
+		items_collected += [item]
 	elif item == ItemType.type.quick_blades:
 		attacks_per_second += 1
 		calculate_attack_speed()
-		hud.display_text("Aquired Quicker Blades!", "Blades can be thrown faster.")
+		if display_text:
+			hud.display_text("Aquired Quicker Blades!", "Blades can be thrown faster.")
 		hud.item_added(item)
+		items_collected += [item]
 	elif item == ItemType.type.shadow_flame:
 		shadow_flame_blade = true
 		current_type = BladeType.blade_type.shadow_flame
-		hud.display_text("Aquired Shadowflame!", "Blades damage enemies after a time for moderate damage.")
+		if display_text:
+			hud.display_text("Aquired Shadowflame!", "Blades damage enemies after a time for moderate damage.")
 		hud.item_added(item)
+		items_collected += [item]
 	elif item == ItemType.type.shadow_blade:
 		shadow_blade = true
 		current_type = BladeType.blade_type.shadow
-		hud.display_text("Aquired Shadow Blades!", "Blades do increased damage.")
+		if display_text:
+			hud.display_text("Aquired Shadow Blades!", "Blades do increased damage.")
 		hud.item_added(item)
+		items_collected += [item]
 	elif item == ItemType.type.key:
 		number_of_keys += 1
 		hud.refresh_key_amount(number_of_keys)
-		hud.display_text("Aquired a Key!", "Use it to open a locked door!")
+		if display_text:
+			hud.display_text("Aquired a Key!", "Use it to open a locked door!")
 	elif item == ItemType.type.shadow_heart:
 		shadow_heart = true
 		hud.refresh_hearts(player_health, shadow_heart)
-		hud.display_text("Aquired the Shadow Heart!", "You follow the path of darkness now...")
+		if display_text:
+			hud.display_text("Aquired the Shadow Heart!", "You follow the path of darkness now...")
+		items_collected += [item]
 	elif item == ItemType.type.triple_blades:
 		triple_blades = true
-		hud.display_text("Aquired Triple Blades!", "You can now throw 3 blades at once!")
+		if display_text:
+			hud.display_text("Aquired Triple Blades!", "You can now throw 3 blades at once!")
 		hud.item_added(item)
+		items_collected += [item]
 	elif item == ItemType.type.dust_blade:
 		dust_blade = true
 		current_type = BladeType.blade_type.dust
-		hud.display_text("Aquired Dust Blades!", "Attacks will slow enemies!")
+		if display_text:
+			hud.display_text("Aquired Dust Blades!", "Attacks will slow enemies!")
 		hud.item_added(item)
+		items_collected += [item]
 	elif item == ItemType.type.glass_blade:
 		glass_blade = true
 		current_type = BladeType.blade_type.glass
-		hud.display_text("Aquired Glass Blades!", "Blades will shoot shrapnel on hit!")
+		if display_text:
+			hud.display_text("Aquired Glass Blades!", "Blades will shoot shrapnel on hit!")
 		hud.item_added(item)
+		items_collected += [item]
 
 func calculate_attack_speed():
 	time_to_fire_max = time_to_fire_max / attacks_per_second
@@ -262,3 +284,20 @@ func _on_stand_up_timer_timeout():
 		hud.show_starting_text()
 	elif get_tree().current_scene.name == "Floor2":
 		hud.display_text("Floor 2", "There shouldn't not be any more slimes, right?")
+
+func save_player_data():
+	PlayerData.player_health = player_health
+	PlayerData.number_of_keys = number_of_keys
+	
+	PlayerData.items_collected = items_collected
+
+func load_player_data():
+	player_health = PlayerData.player_health
+	number_of_keys = PlayerData.number_of_keys
+	
+	items_collected = PlayerData.items_collected
+	for item in items_collected:
+		picked_up_item(item, false)
+	
+	hud.refresh_hearts(player_health)
+	hud.refresh_key_amount(number_of_keys)

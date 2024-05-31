@@ -296,8 +296,10 @@ text = "Exit
 visible = false
 
 [node name="Catalog" parent="CanvasLayer" instance=ExtResource("8_us2mq")]
+visible = false
 
 [node name="Fade_color" type="ColorRect" parent="CanvasLayer"]
+visible = false
 offset_right = 1280.0
 offset_bottom = 720.0
 color = Color(0, 0, 0, 1)

@@ -25,6 +25,7 @@ BladeType="*res://Scripts/items and weapons/blade_type.gd"
 ItemType="*res://Scripts/items and weapons/item_type.gd"
 EnemyTypes="*res://Scripts/enemy/enemy_types.gd"
 ConfigFileManager="*res://Scripts/ConfigFileManager.gd"
+PlayerData="*res://Scripts/player/player_data.gd"
 
 [display]
 

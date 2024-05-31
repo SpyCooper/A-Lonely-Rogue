@@ -19,11 +19,11 @@ func _ready():
 		fade_timer.start()
 		fade_out = true
 		player.player_can_move = false
+		player.save_player_data()
 	)
 
 func _on_fade_timer_timeout():
 	if fade_out:
-		print("fade timer ended")
 		get_tree().change_scene_to_file(next_floor)
 	else:
 		fade_color.hide()
