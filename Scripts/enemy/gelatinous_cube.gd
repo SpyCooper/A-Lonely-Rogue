@@ -109,7 +109,7 @@ func _physics_process(_delta):
 					animated_sprite.play("move_down")
 					plaing_hit_animation = false
 			# moves the slime
-			if position.distance_to(player_position) > 5.0:
+			if position.distance_to(player_position) > 12:
 					move_and_collide(target_position.normalized() * get_speed())
 
 # runs when a knife (or other weapon) hits the enemy

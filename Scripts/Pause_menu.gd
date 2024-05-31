@@ -13,10 +13,13 @@ func _input(event):
 			show()
 			Engine.time_scale = 0.0
 		else:
-			options_menu.hide()
-			catalog.hide()
-			hide()
-			Engine.time_scale = 1.0
+			if catalog.visible:
+				catalog.hide()
+			elif options_menu.visible:
+				options_menu.hide()
+			else:
+				hide()
+				Engine.time_scale = 1.0
 
 func _on_resume_button_pressed():
 	hide()

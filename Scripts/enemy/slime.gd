@@ -14,7 +14,7 @@ var plaing_hit_animation = false
 
 func _ready():
 	speed = .5
-	health = 3
+	health = 5
 	sleep()
 	player = Events.player
 	max_health = health
@@ -61,7 +61,7 @@ func _physics_process(_delta):
 					plaing_hit_animation = false
 			
 			# moves the slime
-			if position.distance_to(player_position) > 5:
+			if position.distance_to(player_position) > 10:
 				move_and_collide(target_position.normalized() * get_speed())
 
 # runs when a knife (or other weapon) hits the enemy

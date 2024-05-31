@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://cr3t522vle50y"]
+
+[ext_resource type="Script" path="res://Scripts/trapdoor.gd" id="1_asnxc"]
+[ext_resource type="Texture2D" uid="uid://cfyyrfucx4c5k" path="res://Assets/Sprites/trap_door.png" id="2_axyna"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xb6x3"]
+atlas = ExtResource("2_axyna")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_y26fw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xb6x3")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n1bjw"]
+size = Vector2(16, 16)
+
+[node name="Trapdoor" type="Node2D"]
+script = ExtResource("1_asnxc")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_y26fw")
+
+[node name="Area2D" type="Area2D" parent="."]
+z_index = 1
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("RectangleShape2D_n1bjw")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

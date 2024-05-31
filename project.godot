@@ -16,7 +16,7 @@ config/use_custom_user_dir=true
 config/custom_user_dir_name="A_Lonely_Rogue"
 config/features=PackedStringArray("4.2", "Forward Plus")
 boot_splash/show_image=false
-config/icon="res://icon.svg"
+config/icon="res://Assets/Sprites/A_Lonely_Rogue_Icon.png"
 
 [autoload]
 

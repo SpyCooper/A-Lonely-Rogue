@@ -6,7 +6,7 @@ extends Node2D
 @onready var animated_rogue = $CanvasLayer/Animated_Rogue
 
 func _on_play_button_pressed():
-	get_tree().change_scene_to_file("res://Scenes/game_scene.tscn")
+	get_tree().change_scene_to_file("res://Scenes/Dungeon_Layers/dungeon_layer_1.tscn")
 
 func _on_exit_button_pressed():
 	catalog.save_enemies()

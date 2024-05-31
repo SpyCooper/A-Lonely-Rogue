@@ -53,7 +53,8 @@ func _ready():
 	falling_shadow_sprite.play("default")
 	falling_animation_player.play("player_falling")
 	stand_up_sprite.hide()
-	hud.hide()
+	if get_tree().current_scene.name == "Layer1":
+		hud.hide()
 	hud.refresh_key_amount(number_of_keys)
 	fall_timer.start()
 
@@ -257,4 +258,5 @@ func _on_stand_up_timer_timeout():
 	stand_up_sprite.hide()
 	player_can_move = true
 	hud.show()
-	hud.show_starting_text()
+	if get_tree().current_scene.name == "Layer1":
+		hud.show_starting_text()

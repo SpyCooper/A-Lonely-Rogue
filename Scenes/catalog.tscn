@@ -83,6 +83,14 @@ offset_right = 631.0
 offset_bottom = 322.0
 script = ExtResource("1_mndmm")
 
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 0
+offset_left = -631.0
+offset_top = -322.0
+offset_right = 649.0
+offset_bottom = 398.0
+color = Color(0, 0, 0, 0.00392157)
+
 [node name="TabContainer" type="TabContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -423,6 +431,7 @@ layout_mode = 2
 theme = ExtResource("2_umit2")
 
 [node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Items"]
+layout_mode = 0
 offset_right = 196.0
 offset_bottom = 513.0
 horizontal_scroll_mode = 0

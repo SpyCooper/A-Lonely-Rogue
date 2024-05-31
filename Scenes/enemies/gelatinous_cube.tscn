@@ -1,8 +1,8 @@
-[gd_scene load_steps=67 format=3 uid="uid://brvqwais7jcmk"]
+[gd_scene load_steps=68 format=3 uid="uid://brvqwais7jcmk"]
 
 [ext_resource type="Script" path="res://Scripts/enemy/gelatinous_cube.gd" id="1_nbso2"]
 [ext_resource type="Texture2D" uid="uid://jb3ft81ucfjx" path="res://Assets/Sprites/GelatinousCube.png" id="1_or17e"]
-[ext_resource type="PackedScene" uid="uid://q3bng0o4u44l" path="res://Scenes/damage_player.tscn" id="3_xclps"]
+[ext_resource type="PackedScene" uid="uid://q3bng0o4u44l" path="res://Scenes/enemies/damage_player.tscn" id="3_xclps"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ukbej"]
 size = Vector2(18.6325, 18.7958)
@@ -488,6 +488,10 @@ animations = [{
 "speed": 3.0
 }]
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_84dmf"]
+radius = 9.0
+height = 40.0
+
 [node name="gelatinous_cube" type="CharacterBody2D"]
 collision_layer = 12
 collision_mask = 9
@@ -556,6 +560,16 @@ wait_time = 5.0
 
 [node name="wait_after_spawn_timer" type="Timer" parent="."]
 wait_time = 0.5
+
+[node name="collision_with_player" type="CharacterBody2D" parent="."]
+position = Vector2(0, 1)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="collision_with_player"]
+position = Vector2(0, -3)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_84dmf")
 
 [connection signal="timeout" from="Attack_timer" to="." method="_on_attack_timer_timeout"]
 [connection signal="timeout" from="Death_timer" to="." method="_on_death_timer_timeout"]

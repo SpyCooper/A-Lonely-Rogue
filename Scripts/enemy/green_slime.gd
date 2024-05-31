@@ -2,7 +2,7 @@ extends slime
 
 func _ready():
 	speed = .5
-	health = 5
+	health = 7
 	sleep()
 	player = Events.player
 	max_health = health
