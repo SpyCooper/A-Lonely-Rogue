@@ -53,7 +53,7 @@ func _ready():
 	falling_shadow_sprite.play("default")
 	falling_animation_player.play("player_falling")
 	stand_up_sprite.hide()
-	if get_tree().current_scene.name == "Layer1":
+	if get_tree().current_scene.name == "Floor1":
 		hud.hide()
 	hud.refresh_key_amount(number_of_keys)
 	fall_timer.start()
@@ -258,5 +258,7 @@ func _on_stand_up_timer_timeout():
 	stand_up_sprite.hide()
 	player_can_move = true
 	hud.show()
-	if get_tree().current_scene.name == "Layer1":
+	if get_tree().current_scene.name == "Floor1":
 		hud.show_starting_text()
+	elif get_tree().current_scene.name == "Floor2":
+		hud.display_text("Floor 2", "There shouldn't not be any more slimes, right?")
