@@ -14,6 +14,7 @@ func _ready():
 	fade_color.show()
 	animation_player.play("fade_in")
 	fade_in = true
+	fade_timer.start()
 	
 	Events.floor_changed.connect(func(floor_to_be):
 		next_floor = floor_to_be
@@ -28,7 +29,9 @@ func _ready():
 func _on_fade_timer_timeout():
 	if fade_out:
 		get_tree().change_scene_to_file(next_floor)
-	if fade_in:
+	elif fade_in:
 		fade_color.hide()
-		bg_music.play()
 		fade_in = false
+
+func play_bg_music():
+	bg_music.play()

@@ -12,9 +12,9 @@ func _ready():
 		config.set_value("keybinding", "Attack", "mouse_1")
 		config.set_value("keybinding", "Pause", "Escape")
 		
-		config.set_value("audio", "master_volume", .5)
-		config.set_value("audio", "music_volume", .5)
-		config.set_value("audio", "sfx_volume", .5)
+		config.set_value("audio", "master_volume", 1.0)
+		config.set_value("audio", "music_volume", 1.0)
+		config.set_value("audio", "sfx_volume", 1.0)
 		
 		config.save(FILE_PATH)
 	else:
@@ -28,10 +28,15 @@ func load_audio_setting():
 	var audio_settings = {}
 	for key in config.get_section_keys("audio"):
 		audio_settings[key] = config.get_value("audio", key)
+		var sound_change
+		if audio_settings[key] != 0:
+			sound_change = -3.0 * (10.0 - audio_settings[key] * 10)
+		elif audio_settings[key] == 0:
+			sound_change = -80.0
 		if key == "music_volume":
-			AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), audio_settings[key])
+			AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), sound_change)
 		elif key == "sfx_volume":
-			AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), audio_settings[key])
+			AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Sound Effect"), sound_change)
 	return audio_settings
 
 func save_keybindings(action: StringName, event: InputEvent):

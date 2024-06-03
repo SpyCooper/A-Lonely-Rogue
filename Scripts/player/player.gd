@@ -291,6 +291,7 @@ func _on_fall_timer_timeout():
 func _on_stand_up_timer_timeout():
 	animated_sprite.show()
 	stand_up_sprite.hide()
+	get_parent().play_bg_music()
 	player_can_move = true
 	hud.show()
 	if get_tree().current_scene.name == "Floor1":

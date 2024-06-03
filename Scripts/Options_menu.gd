@@ -23,12 +23,8 @@ func _ready():
 	check_button_inputs()
 	set_process_unhandled_input(false)
 	
-	var audio_settings = ConfigFileManager.load_audio_setting()
-	master_sound_slider.value = min(audio_settings.master_volume, 1.0) * 10
-	music_sound_slider.value = min(audio_settings.music_volume, 1.0) * 10
-	sfx_sound_slider.value = min(audio_settings.sfx_volume, 1.0) * 10
-	
 	load_keybindings_from_settings()
+	load_audio_from_settings()
 
 func _on_close_options_button_pressed():
 	hide()
@@ -38,7 +34,6 @@ func _on_master_sound_slider_value_changed(value):
 	master_sound_label.text = "Master Volume: " + str(value)
 
 func _on_music_sound_slider_value_changed(value):
-	ConfigFileManager.save_audio_setting("music_volume", value/10)
 	music_sound_label.text = "Music Volume: " + str(value)
 	var sound_change
 	if value != 0:
@@ -46,9 +41,9 @@ func _on_music_sound_slider_value_changed(value):
 	elif value == 0:
 		sound_change = -80.0
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), sound_change)
+	ConfigFileManager.save_audio_setting("music_volume", value/10)
 
 func _on_sfx_sound_slider_value_changed(value):
-	ConfigFileManager.save_audio_setting("sfx_volume", value/10)
 	sfx_sound_label.text = "SFX Volume: " + str(value)
 	var sound_change
 	if value != 0:
@@ -56,6 +51,7 @@ func _on_sfx_sound_slider_value_changed(value):
 	elif value == 0:
 		sound_change = -80.0
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Sound Effect"), sound_change)
+	ConfigFileManager.save_audio_setting("sfx_volume", value/10)
 
 func _on_up_button_pressed():
 	awaiting_input.show()
@@ -121,3 +117,8 @@ func load_keybindings_from_settings():
 	check_button_inputs()
 
 
+func load_audio_from_settings():
+	var audio_settings = ConfigFileManager.load_audio_setting()
+	master_sound_slider.value = min(audio_settings.master_volume, 1.0) * 10
+	music_sound_slider.value = min(audio_settings.music_volume, 1.0) * 10
+	sfx_sound_slider.value = min(audio_settings.sfx_volume, 1.0) * 10
