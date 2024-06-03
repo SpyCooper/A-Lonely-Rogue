@@ -1,0 +1,81 @@
+[gd_scene load_steps=6 format=3 uid="uid://5dt5o5bwrdc2"]
+
+[ext_resource type="Script" path="res://Scripts/map/boss_door_check.gd" id="1_enf57"]
+[ext_resource type="Texture2D" uid="uid://dveuvlvaajxjc" path="res://Assets/Sprites/boss_door_symbol.png" id="2_y0spg"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_3jliw"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mocv5"]
+atlas = ExtResource("2_y0spg")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_sj45s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mocv5")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="boss_checks" type="Node2D"]
+script = ExtResource("1_enf57")
+
+[node name="boss_check_up" type="Area2D" parent="."]
+position = Vector2(0, -76)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="boss_check_up"]
+shape = SubResource("CircleShape2D_3jliw")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="boss_check_up"]
+position = Vector2(0, 4)
+sprite_frames = SubResource("SpriteFrames_sj45s")
+
+[node name="boss_check_down" type="Area2D" parent="."]
+position = Vector2(0, 76)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="boss_check_down"]
+shape = SubResource("CircleShape2D_3jliw")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="boss_check_down"]
+position = Vector2(0, -4)
+sprite_frames = SubResource("SpriteFrames_sj45s")
+
+[node name="boss_check_left" type="Area2D" parent="."]
+position = Vector2(-154, 0)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="boss_check_left"]
+shape = SubResource("CircleShape2D_3jliw")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="boss_check_left"]
+position = Vector2(8, 0)
+sprite_frames = SubResource("SpriteFrames_sj45s")
+
+[node name="boss_check_right" type="Area2D" parent="."]
+position = Vector2(154, 0)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="boss_check_right"]
+shape = SubResource("CircleShape2D_3jliw")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="boss_check_right"]
+position = Vector2(-8, 0)
+sprite_frames = SubResource("SpriteFrames_sj45s")
+
+[connection signal="area_entered" from="boss_check_up" to="." method="_on_key_check_up_area_entered"]
+[connection signal="body_entered" from="boss_check_up" to="." method="_on_key_check_up_body_entered"]
+[connection signal="area_entered" from="boss_check_down" to="." method="_on_key_check_down_area_entered"]
+[connection signal="body_entered" from="boss_check_down" to="." method="_on_key_check_down_body_entered"]
+[connection signal="area_entered" from="boss_check_left" to="." method="_on_key_check_left_area_entered"]
+[connection signal="body_entered" from="boss_check_left" to="." method="_on_key_check_left_body_entered"]
+[connection signal="area_entered" from="boss_check_right" to="." method="_on_key_check_right_area_entered"]
+[connection signal="body_entered" from="boss_check_right" to="." method="_on_key_check_right_body_entered"]

@@ -16,7 +16,10 @@ func _input(event):
 			if catalog.visible:
 				catalog.hide()
 			elif options_menu.visible:
-				options_menu.hide()
+				if !options_menu.is_input_screen_open():
+					options_menu.hide()
+				else:
+					options_menu.input_screen_close()
 			else:
 				hide()
 				Engine.time_scale = 1.0

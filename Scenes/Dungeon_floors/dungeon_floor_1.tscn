@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://8jxi88fj77dd"]
+[gd_scene load_steps=37 format=3 uid="uid://8jxi88fj77dd"]
 
 [ext_resource type="PackedScene" uid="uid://duv7i8yak343i" path="res://Scenes/HUD.tscn" id="1_80esy"]
 [ext_resource type="Script" path="res://Scripts/dungeon_floor.gd" id="1_dvl4e"]
@@ -28,6 +28,7 @@
 [ext_resource type="PackedScene" uid="uid://cr3t522vle50y" path="res://Scenes/trapdoor.tscn" id="25_csphi"]
 [ext_resource type="AudioStream" uid="uid://ciw6spax0xy06" path="res://Assets/Audio/background music/8bit-mix-56351.mp3" id="27_26f5p"]
 [ext_resource type="Script" path="res://Scripts/Tutorial.gd" id="28_14004"]
+[ext_resource type="Texture2D" uid="uid://dveuvlvaajxjc" path="res://Assets/Sprites/boss_door_symbol.png" id="29_8oo7y"]
 
 [sub_resource type="Animation" id="Animation_27xwy"]
 length = 0.001
@@ -117,7 +118,7 @@ texture = ExtResource("7_cdgba")
 [sub_resource type="TileSet" id="TileSet_pnge6"]
 sources/0 = SubResource("TileSetAtlasSource_a4f5t")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_yw00n"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ee1tu"]
 resource_local_to_scene = true
 
 [node name="Floor1" type="Node2D"]
@@ -281,7 +282,7 @@ position = Vector2(-736, 0)
 locked = true
 
 [node name="gelatinous_cube" parent="." instance=ExtResource("13_axlkh")]
-material = SubResource("ShaderMaterial_yw00n")
+material = SubResource("ShaderMaterial_ee1tu")
 position = Vector2(-736, -31)
 
 [node name="1_door_down" parent="." instance=ExtResource("14_hs83b")]
@@ -380,7 +381,13 @@ position = Vector2(-735, -253)
 
 [node name="BG music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("27_26f5p")
+volume_db = -2.0
 bus = &"Music"
+
+[node name="BossDoorSymbol" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(-514, 0)
+texture = ExtResource("29_8oo7y")
 
 [node name="Tutorial" type="Node2D" parent="."]
 script = ExtResource("28_14004")
@@ -395,12 +402,13 @@ anchor_bottom = 0.5
 offset_left = -86.0
 offset_top = -51.0
 offset_right = 87.0
-offset_bottom = -28.0
+offset_bottom = -13.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("3_yxx55")
 theme_override_colors/font_color = Color(0.376471, 0.231373, 0.227451, 1)
 text = "Press W, A, S, D to move"
+autowrap_mode = 2
 
 [node name="Shoot_label" type="Label" parent="Tutorial"]
 z_index = -1

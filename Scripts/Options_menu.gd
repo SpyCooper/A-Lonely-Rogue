@@ -84,20 +84,12 @@ func _input(event):
 			if event.is_pressed() && event.as_text_key_label() != "Escape":
 				InputMap.action_erase_events(action_queued)
 				InputMap.action_add_event(action_queued, event)
-				checking_input = false
-				check_button_inputs()
-				awaiting_input.hide()
+				input_screen_close()
 				ConfigFileManager.save_keybindings(action_queued, event)
-			elif event.as_text_key_label() == "Escape":
-				checking_input = false
-				check_button_inputs()
-				awaiting_input.hide()
 		elif event is InputEventMouseButton:
 			InputMap.action_erase_events(action_queued)
 			InputMap.action_add_event(action_queued, event)
-			checking_input = false
-			check_button_inputs()
-			awaiting_input.hide()
+			input_screen_close()
 			ConfigFileManager.save_keybindings(action_queued, event)
 
 func check_button_inputs():
@@ -116,9 +108,16 @@ func load_keybindings_from_settings():
 	
 	check_button_inputs()
 
-
 func load_audio_from_settings():
 	var audio_settings = ConfigFileManager.load_audio_setting()
 	master_sound_slider.value = min(audio_settings.master_volume, 1.0) * 10
 	music_sound_slider.value = min(audio_settings.music_volume, 1.0) * 10
 	sfx_sound_slider.value = min(audio_settings.sfx_volume, 1.0) * 10
+
+func is_input_screen_open():
+	return checking_input
+
+func input_screen_close():
+	checking_input = false
+	check_button_inputs()
+	awaiting_input.hide()

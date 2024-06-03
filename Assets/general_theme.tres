@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=15 format=3 uid="uid://pv4evjjac8wt"]
+[gd_resource type="Theme" load_steps=17 format=3 uid="uid://pv4evjjac8wt"]
 
 [ext_resource type="FontFile" uid="uid://bhsrlys8rvq7t" path="res://Assets/alagard.ttf" id="1_dfrvo"]
 [ext_resource type="StyleBox" uid="uid://dwunugjfj6x3g" path="res://Assets/boss_bar_style.tres" id="2_h6g8g"]
@@ -15,12 +15,16 @@ border_width_bottom = 1
 border_color = Color(0, 0, 0, 1)
 corner_detail = 1
 
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_x2dgh"]
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_k3pxd"]
 texture = ExtResource("3_k5jpe")
 modulate_color = Color(0.878431, 0.243137, 0.235294, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4mfu3"]
 texture = ExtResource("3_k5jpe")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7o83f"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_r7op4"]
 corner_radius_top_left = 3
@@ -85,8 +89,10 @@ default_font = ExtResource("1_dfrvo")
 /styles/bar_fill = SubResource("StyleBoxFlat_ph6gr")
 Button/colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 Button/fonts/font = ExtResource("1_dfrvo")
+Button/styles/focus = SubResource("StyleBoxEmpty_x2dgh")
 Button/styles/hover = SubResource("StyleBoxTexture_k3pxd")
 Button/styles/normal = SubResource("StyleBoxTexture_4mfu3")
+Button/styles/pressed = SubResource("StyleBoxEmpty_7o83f")
 HSlider/icons/grabber = ExtResource("4_wj26b")
 HSlider/icons/grabber_disabled = ExtResource("4_wj26b")
 HSlider/icons/grabber_highlight = ExtResource("4_wj26b")
