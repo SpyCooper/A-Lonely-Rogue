@@ -1,8 +1,11 @@
-[gd_scene load_steps=68 format=3 uid="uid://brvqwais7jcmk"]
+[gd_scene load_steps=71 format=3 uid="uid://brvqwais7jcmk"]
 
 [ext_resource type="Script" path="res://Scripts/enemy/gelatinous_cube.gd" id="1_nbso2"]
 [ext_resource type="Texture2D" uid="uid://jb3ft81ucfjx" path="res://Assets/Sprites/GelatinousCube.png" id="1_or17e"]
 [ext_resource type="PackedScene" uid="uid://q3bng0o4u44l" path="res://Scenes/enemies/damage_player.tscn" id="3_xclps"]
+[ext_resource type="AudioStream" uid="uid://bqma45apdavsj" path="res://Assets/Audio/slime/slimejump-6913.mp3" id="4_87k5r"]
+[ext_resource type="AudioStream" uid="uid://ctrhgr8wfjvif" path="res://Assets/Audio/Gel_cube/gel_cube_1.mp3" id="5_lda37"]
+[ext_resource type="AudioStream" uid="uid://2akjbd5wodrt" path="res://Assets/Audio/Gel_cube/gel_cube_2.mp3" id="6_55aq4"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ukbej"]
 size = Vector2(18.6325, 18.7958)
@@ -202,7 +205,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"death",
-"speed": 1.0
+"speed": 2.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -366,7 +369,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"spawning",
-"speed": 1.0
+"speed": 2.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6dald"]
@@ -506,7 +509,7 @@ shape = SubResource("RectangleShape2D_ukbej")
 material = SubResource("ShaderMaterial_533aj")
 position = Vector2(0, -6)
 sprite_frames = SubResource("SpriteFrames_c0mu8")
-animation = &"spawn_slime"
+animation = &"spawning"
 
 [node name="DamagePlayer" parent="." instance=ExtResource("3_xclps")]
 position = Vector2(0, -13)
@@ -549,14 +552,13 @@ sprite_frames = SubResource("SpriteFrames_ptiax")
 wait_time = 10.0
 
 [node name="Death_timer" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 2.5
 one_shot = true
 
 [node name="Spawn_freeze_timer" type="Timer" parent="."]
-wait_time = 2.0
 
 [node name="Spawn_timer" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 2.5
 
 [node name="wait_after_spawn_timer" type="Timer" parent="."]
 wait_time = 0.5
@@ -571,8 +573,25 @@ position = Vector2(0, -3)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_84dmf")
 
+[node name="HitSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_87k5r")
+bus = &"Sound Effect"
+
+[node name="SpawnSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_lda37")
+bus = &"Sound Effect"
+
+[node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_55aq4")
+bus = &"Sound Effect"
+
+[node name="Spawn_sound_timer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
 [connection signal="timeout" from="Attack_timer" to="." method="_on_attack_timer_timeout"]
 [connection signal="timeout" from="Death_timer" to="." method="_on_death_timer_timeout"]
 [connection signal="timeout" from="Spawn_freeze_timer" to="." method="_on_spawn_freeze_timer_timeout"]
 [connection signal="timeout" from="Spawn_timer" to="." method="_on_spawn_timer_timeout"]
 [connection signal="timeout" from="wait_after_spawn_timer" to="." method="_on_wait_after_spawn_timer_timeout"]
+[connection signal="timeout" from="Spawn_sound_timer" to="." method="_on_spawn_sound_timer_timeout"]

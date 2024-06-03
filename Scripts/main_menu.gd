@@ -9,12 +9,17 @@ extends Node2D
 @onready var fade_timer = $CanvasLayer/Fade_color/Fade_timer
 @onready var animation_player = $CanvasLayer/Fade_color/AnimationPlayer
 
+var fade_out = false
+
 func _ready():
-	fade_color.hide()
+	fade_color.show()
+	animation_player.play("fade_in")
+	fade_timer.start()
 
 func _on_play_button_pressed():
 	fade_color.show()
 	animation_player.play("fade_out")
+	fade_out = true
 	fade_timer.start()
 
 func _on_exit_button_pressed():
@@ -28,6 +33,8 @@ func _on_options_button_pressed():
 func _on_catalog_button_pressed():
 	catalog.show()
 
-
 func _on_fade_timer_timeout():
-	get_tree().change_scene_to_file("res://Scenes/Dungeon_floors/dungeon_floor_1.tscn")
+	if fade_out:
+		get_tree().change_scene_to_file("res://Scenes/Dungeon_floors/dungeon_floor_1.tscn")
+	else:
+		fade_color.hide()

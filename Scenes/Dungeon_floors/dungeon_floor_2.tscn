@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://c1kjrwpeqvd6a"]
+[gd_scene load_steps=18 format=3 uid="uid://c1kjrwpeqvd6a"]
 
 [ext_resource type="PackedScene" uid="uid://duv7i8yak343i" path="res://Scenes/HUD.tscn" id="1_24jo4"]
 [ext_resource type="Script" path="res://Scripts/dungeon_floor.gd" id="1_yjxmx"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://drktqhtj5vluu" path="res://Assets/Sprites/TileSet.png" id="7_ujxs0"]
 [ext_resource type="PackedScene" uid="uid://dahgvmrgtix2i" path="res://Scenes/player.tscn" id="8_sxh6v"]
 [ext_resource type="PackedScene" uid="uid://cj7h10qvuo84a" path="res://Scenes/map/4_door_room.tscn" id="9_vpwqt"]
+[ext_resource type="AudioStream" uid="uid://cwiyog21e6jbs" path="res://Assets/Audio/background music/caves-of-dawn-10376.mp3" id="11_qb2xa"]
 
 [sub_resource type="Animation" id="Animation_27xwy"]
 length = 0.001
@@ -259,6 +260,9 @@ locked = true
 
 [node name="DoorVisualLeft" parent="Center" index="6"]
 locked = true
+
+[node name="BG Music" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("11_qb2xa")
 
 [connection signal="timeout" from="CanvasLayer/Fade_color/Fade_timer" to="." method="_on_fade_timer_timeout"]
 [connection signal="pressed" from="CanvasLayer/Pause_menu/Buttons_container/Control/Resume_button" to="CanvasLayer/Pause_menu" method="_on_resume_button_pressed"]

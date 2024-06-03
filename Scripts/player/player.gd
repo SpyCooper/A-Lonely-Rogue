@@ -14,6 +14,11 @@ class_name Player
 @onready var stand_up_timer = $stand_up_timer
 @onready var falling_sprite = $falling_sprite
 @onready var falling_animation_player = $falling_sprite/falling_AnimationPlayer
+@onready var hit_sound = $hit_sound
+@onready var item_pickup_sound = $item_pickup_sound
+@onready var unlock_door_sound = $Unlock_door_sound
+@onready var player_fall_sound = $player_fall_sound
+@onready var player_fall_sound_timer = $player_fall_sound/player_fall_sound_timer
 
 # constants
 const KNIFE_SPEED = 150.0
@@ -41,6 +46,7 @@ var triple_blades = false
 var shadow_heart = false
 var current_type : BladeType.blade_type = BladeType.blade_type.default
 var knife_scene = load("res://Scenes/knife.tscn")
+@onready var woosh_sound = $woosh_sound
 
 var items_collected = []
 
@@ -59,6 +65,7 @@ func _ready():
 		hud.hide()
 	hud.refresh_key_amount(number_of_keys)
 	fall_timer.start()
+	player_fall_sound_timer.start()
 	load_player_data()
 
 # runs on every frame
@@ -115,6 +122,8 @@ func _physics_process(_delta):
 				blade_instance.spawned(click_position_normalized, current_type, self)
 				get_parent().add_child(blade_instance)
 				
+				woosh_sound.play()
+				
 				if triple_blades == true:
 					# bottom blade
 					var radians = click_position_normalized.angle()
@@ -138,6 +147,7 @@ func _physics_process(_delta):
 # runs when an enemy hits the player
 func player_take_damage():
 	player_adjust_health(-1)
+	hit_sound.play()
 	hit_flash_animation_player.play("hit_flash")
 
 # when the death_timer runs out, the scene resets
@@ -146,10 +156,12 @@ func _on_timer_timeout():
 	Engine.time_scale = 1
 
 # runs when an item is picked up
-func picked_up_item(item, display_text = true):
+func picked_up_item(item, display_text = true, sound = true):
 	# there is probably a better way to do this but this will work for now
 	# check the enum in item.gd for the numbers
 	Events.catalog.unlock_item(item)
+	if sound:
+		item_pickup_sound.play()
 	if item == ItemType.type.temp:
 		print("picked up temp item")
 	elif item == ItemType.type.health_2:
@@ -261,6 +273,7 @@ func use_key():
 	if number_of_keys > 0:
 		number_of_keys -= 1
 		hud.refresh_key_amount(number_of_keys)
+		unlock_door_sound.play()
 		return true
 	else:
 		return false
@@ -297,7 +310,11 @@ func load_player_data():
 	
 	items_collected = PlayerData.items_collected
 	for item in items_collected:
-		picked_up_item(item, false)
+		picked_up_item(item, false, false)
 	
 	hud.refresh_hearts(player_health)
 	hud.refresh_key_amount(number_of_keys)
+
+
+func _on_player_fall_sound_timer_timeout():
+	player_fall_sound.play()

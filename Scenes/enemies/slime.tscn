@@ -1,8 +1,11 @@
-[gd_scene load_steps=30 format=3 uid="uid://x2so2ayusjw6"]
+[gd_scene load_steps=33 format=3 uid="uid://x2so2ayusjw6"]
 
 [ext_resource type="Texture2D" uid="uid://ddxvlbug8olys" path="res://Assets/Sprites/Slime.png" id="1_8u0pu"]
 [ext_resource type="Script" path="res://Scripts/enemy/slime.gd" id="1_fr1f0"]
 [ext_resource type="PackedScene" uid="uid://q3bng0o4u44l" path="res://Scenes/enemies/damage_player.tscn" id="3_qnhkn"]
+[ext_resource type="AudioStream" uid="uid://bqma45apdavsj" path="res://Assets/Audio/slime/slimejump-6913.mp3" id="4_pp4k2"]
+[ext_resource type="AudioStream" uid="uid://dee6s38lta1dl" path="res://Assets/Audio/slime/slime_spawn.mp3" id="5_ehjyy"]
+[ext_resource type="AudioStream" uid="uid://dxicxpm4iw2d2" path="res://Assets/Audio/slime/slime_death.mp3" id="5_urxjt"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_mj62a"]
 radius = 8.0
@@ -231,6 +234,18 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collision_with_player"]
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_7nb7t")
+
+[node name="HitSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_pp4k2")
+bus = &"Sound Effect"
+
+[node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_urxjt")
+bus = &"Sound Effect"
+
+[node name="SpawnSound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_ehjyy")
+bus = &"Sound Effect"
 
 [connection signal="timeout" from="Spawn_timer" to="." method="_on_spawn_timer_timeout"]
 [connection signal="timeout" from="death_timer" to="." method="_on_death_timer_timeout"]

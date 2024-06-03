@@ -52,6 +52,7 @@ offset_bottom = 513.0
 theme_override_constants/v_separation = 48
 
 [node name="master_sound" type="Control" parent="Panel/Sound_sliders"]
+visible = false
 layout_mode = 2
 
 [node name="master_sound_slider" type="HSlider" parent="Panel/Sound_sliders/master_sound"]

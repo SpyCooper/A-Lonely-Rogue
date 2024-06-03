@@ -23,6 +23,7 @@ func spawned(click_position, blade_type, player):
 	# based on thrown direction
 	move_direction = click_position
 	look_at(position + move_direction)
+	
 
 # runs on every frane
 func _process(delta):

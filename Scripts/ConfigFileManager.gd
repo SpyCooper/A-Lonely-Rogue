@@ -28,7 +28,10 @@ func load_audio_setting():
 	var audio_settings = {}
 	for key in config.get_section_keys("audio"):
 		audio_settings[key] = config.get_value("audio", key)
-	
+		if key == "music_volume":
+			AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), audio_settings[key])
+		elif key == "sfx_volume":
+			AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), audio_settings[key])
 	return audio_settings
 
 func save_keybindings(action: StringName, event: InputEvent):

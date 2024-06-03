@@ -28,6 +28,10 @@ const GREEN_SLIME = preload("res://Scenes/enemies/green_slime.tscn")
 
 @onready var hud = %HUD
 
+@onready var hit_sound = $HitSound
+@onready var spawn_sound = $SpawnSound
+@onready var death_sound = $DeathSound
+@onready var spawn_sound_timer = $Spawn_sound_timer
 
 var random_number_generator = RandomNumberGenerator.new()
 
@@ -59,7 +63,6 @@ func _ready():
 
 func wake_up():
 	player_in_room = true
-	
 	spawn_in()
 	attack_timer.start()
 
@@ -116,6 +119,8 @@ func _physics_process(_delta):
 func take_damage(damage):
 	if !spawning && !dying:
 		health -= damage
+		if health > 0:
+			hit_sound.play()
 		hud.adjust_health_bar(health)
 		if current_direction == look_direction.left:
 			animated_sprite.play("hit_left")
@@ -130,11 +135,13 @@ func take_damage(damage):
 			dying = true
 			death_timer.start()
 			animated_sprite.play("death")
+			death_sound.play()
 
 func get_animated_sprite():
 	return animated_sprite
 
 func spawn_slimes():
+	spawn_sound.play()
 	var random_spawns = random_number_generator.randi_range(1, 3)
 	var top_used = false;
 	var bottom_used = false;
@@ -181,6 +188,7 @@ func spawn_in():
 	spawning = true
 	animated_sprite.play("spawning")
 	spawn_timer.start()
+	spawn_sound_timer.start()
 
 func _on_spawn_timer_timeout():
 	spawning = false
@@ -219,3 +227,5 @@ func _on_wait_after_spawn_timer_timeout():
 	can_move = true
 	wait_after_spawn_timer.stop()
 
+func _on_spawn_sound_timer_timeout():
+	spawn_sound.play()

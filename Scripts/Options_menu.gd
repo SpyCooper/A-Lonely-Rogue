@@ -40,10 +40,22 @@ func _on_master_sound_slider_value_changed(value):
 func _on_music_sound_slider_value_changed(value):
 	ConfigFileManager.save_audio_setting("music_volume", value/10)
 	music_sound_label.text = "Music Volume: " + str(value)
+	var sound_change
+	if value != 0:
+		sound_change = -3.0 * (10.0 - value)
+	elif value == 0:
+		sound_change = -80.0
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Music"), sound_change)
 
 func _on_sfx_sound_slider_value_changed(value):
 	ConfigFileManager.save_audio_setting("sfx_volume", value/10)
 	sfx_sound_label.text = "SFX Volume: " + str(value)
+	var sound_change
+	if value != 0:
+		sound_change = -3.0 * (10.0 - value)
+	elif value == 0:
+		sound_change = -80.0
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Sound Effect"), sound_change)
 
 func _on_up_button_pressed():
 	awaiting_input.show()

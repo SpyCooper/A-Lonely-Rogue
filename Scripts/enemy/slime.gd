@@ -11,6 +11,10 @@ var plaing_hit_animation = false
 @onready var animated_sprite = $AnimatedSprite2D
 @onready var spawn_timer = $Spawn_timer
 @onready var death_timer = $death_timer
+@onready var hit_sound = $HitSound
+@onready var death_sound = $DeathSound
+@onready var spawn_sound = $SpawnSound
+@onready var spawn_sound_timer = $Spawn_sound_timer
 
 func _ready():
 	speed = .5
@@ -22,8 +26,6 @@ func _ready():
 	Events.room_entered.connect(func(room):
 		if room == get_parent():
 			wake_up()
-			animated_sprite.play("spawning")
-			spawn_timer.start()
 		else:
 			sleep()
 	)
@@ -32,6 +34,7 @@ func wake_up():
 	player_in_room = true
 	animated_sprite.play("spawning")
 	spawn_timer.start()
+	spawn_sound.play()
 
 # called every frame
 func _physics_process(_delta):
@@ -74,11 +77,13 @@ func take_damage(damage):
 			elif current_direction == look_direction.right:
 				animated_sprite.play("hit_right")
 			plaing_hit_animation = true
+			hit_sound.play()
 		if health <= 0:
 			dying = true
 			animated_sprite.play("dying")
 			velocity = Vector2(0.0,0.0)
 			death_timer.start()
+			death_sound.play()
 
 func get_animated_sprite():
 	return animated_sprite

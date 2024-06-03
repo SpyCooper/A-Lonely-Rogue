@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://rbmwkh2w02q6"]
+[gd_scene load_steps=25 format=3 uid="uid://rbmwkh2w02q6"]
 
 [ext_resource type="Script" path="res://Scripts/main_menu.gd" id="1_h2yor"]
 [ext_resource type="Texture2D" uid="uid://cq8j4qlvoeapy" path="res://Assets/Sprites/HoodedCharacter.png" id="1_q55yd"]
@@ -8,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://drktqhtj5vluu" path="res://Assets/Sprites/TileSet.png" id="4_cnrxv"]
 [ext_resource type="PackedScene" uid="uid://bigg81dibglne" path="res://Scenes/options_menu.tscn" id="7_fmqcy"]
 [ext_resource type="PackedScene" uid="uid://dc0xlg20ucy3n" path="res://Scenes/catalog.tscn" id="8_us2mq"]
+[ext_resource type="AudioStream" uid="uid://d0rn28caciuov" path="res://Assets/Audio/background music/the-tavern-194912.mp3" id="9_p4otp"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_4lrda"]
 texture = ExtResource("4_cnrxv")
@@ -311,6 +312,12 @@ libraries = {
 
 [node name="Fade_timer" type="Timer" parent="CanvasLayer/Fade_color"]
 wait_time = 2.5
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_p4otp")
+volume_db = 5.0
+autoplay = true
+bus = &"Music"
 
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/button/play_button" to="." method="_on_play_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/VBoxContainer/button2/catalog_button" to="." method="_on_catalog_button_pressed"]
