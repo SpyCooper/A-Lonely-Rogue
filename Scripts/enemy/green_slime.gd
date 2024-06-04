@@ -1,5 +1,7 @@
 extends slime
 
+# sets the enemy's stats
+# these are different from the blue slimes
 func _ready():
 	speed = .5
 	health = 7
@@ -7,14 +9,8 @@ func _ready():
 	player = Events.player
 	max_health = health
 	catalog = Events.catalog
-	Events.room_entered.connect(func(room):
-		if room == get_parent():
-			wake_up()
-			spawning = false
-		else:
-			sleep()
-	)
 
+# when the green slime dies, unlock the green slime in the catalog and call enemy slain
 func _on_death_timer_timeout():
 	catalog.unlock_enemy(EnemyTypes.enemy.green_slime)
 	enemy_slain()

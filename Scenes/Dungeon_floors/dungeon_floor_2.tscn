@@ -1,7 +1,7 @@
 [gd_scene load_steps=18 format=3 uid="uid://c1kjrwpeqvd6a"]
 
 [ext_resource type="PackedScene" uid="uid://duv7i8yak343i" path="res://Scenes/HUD.tscn" id="1_24jo4"]
-[ext_resource type="Script" path="res://Scripts/dungeon_floor.gd" id="1_yjxmx"]
+[ext_resource type="Script" path="res://Scripts/map/dungeon_floor.gd" id="1_yjxmx"]
 [ext_resource type="Script" path="res://Scripts/Pause_menu.gd" id="2_1ixiv"]
 [ext_resource type="Theme" uid="uid://pv4evjjac8wt" path="res://Assets/general_theme.tres" id="3_3fbgn"]
 [ext_resource type="PackedScene" uid="uid://bigg81dibglne" path="res://Scenes/options_menu.tscn" id="4_7025o"]

@@ -1,6 +1,7 @@
-[gd_scene load_steps=6 format=3 uid="uid://bldesjgg1yn5u"]
+[gd_scene load_steps=7 format=3 uid="uid://bldesjgg1yn5u"]
 
 [ext_resource type="Script" path="res://Scripts/glass_shrapnel.gd" id="1_m3eah"]
+[ext_resource type="AudioStream" uid="uid://b2yml8vqseoly" path="res://Assets/Audio/glass-shatter-3-100155.mp3" id="2_sw7vf"]
 
 [sub_resource type="Gradient" id="Gradient_51pbf"]
 offsets = PackedFloat32Array(0.0163934, 1)
@@ -43,6 +44,11 @@ shape = SubResource("CircleShape2D_pntfm")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.1
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_sw7vf")
+autoplay = true
+bus = &"Sound Effect"
 
 [connection signal="body_entered" from="hitbox" to="." method="_on_area_2d_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

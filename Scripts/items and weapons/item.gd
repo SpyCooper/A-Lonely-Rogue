@@ -1,5 +1,6 @@
 extends Area2D
 
+# sets item type in inspector
 @export var item_type : ItemType.type
 
 func _on_body_entered(body):

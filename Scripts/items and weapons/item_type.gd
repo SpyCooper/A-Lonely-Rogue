@@ -1,5 +1,6 @@
 extends Node
 
+# sets the various item types
 enum type
 {
 	temp,
@@ -17,10 +18,13 @@ enum type
 	shadow_heart,
 }
 
+# sets the spawned items in the floor
 var spawned_items = []
 
+# return spawned items
 func get_spawned_items():
 	return spawned_items
 
+# adds a spawned item to the spawned_items list
 func add_spawned_item(item_added : type):
 	spawned_items += [item_added]

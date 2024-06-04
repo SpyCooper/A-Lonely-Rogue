@@ -1,5 +1,6 @@
 extends Node
 
+# declares the blade types
 enum blade_type
 {
 	default,
@@ -10,4 +11,5 @@ enum blade_type
 	dust,
 }
 
+# sets the current_blade_type to default
 @export var current_blade_type = blade_type.default

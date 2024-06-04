@@ -1,5 +1,7 @@
 extends Node
 
+# defines the types of enemies
+# mainly used for the catalog
 enum enemy
 {
 	blue_slime,
