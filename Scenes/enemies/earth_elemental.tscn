@@ -1,0 +1,104 @@
+[gd_scene load_steps=13 format=3 uid="uid://bbpy8jqtds75f"]
+
+[ext_resource type="Script" path="res://Scripts/enemy/earth_elemental.gd" id="1_2cg62"]
+[ext_resource type="Texture2D" uid="uid://dfc1l5ok8nb83" path="res://Assets/Sprites/enemies/earth_elemental.png" id="2_icru6"]
+[ext_resource type="PackedScene" uid="uid://q3bng0o4u44l" path="res://Scenes/enemies/damage_player.tscn" id="3_lhivs"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jb7qj"]
+radius = 11.0
+height = 28.0
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_35hfj"]
+resource_local_to_scene = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8a55i"]
+atlas = ExtResource("2_icru6")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ik8m0"]
+atlas = ExtResource("2_icru6")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lxbxv"]
+atlas = ExtResource("2_icru6")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ae6gv"]
+atlas = ExtResource("2_icru6")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_uhx0a"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8a55i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ik8m0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lxbxv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ae6gv")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m4p3k"]
+radius = 9.0
+height = 26.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pkjnt"]
+radius = 4.0
+height = 16.0
+
+[node name="earth_elemental" type="CharacterBody2D"]
+collision_layer = 12
+collision_mask = 9
+script = ExtResource("1_2cg62")
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+position = Vector2(-1, 0)
+shape = SubResource("CapsuleShape2D_jb7qj")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_35hfj")
+sprite_frames = SubResource("SpriteFrames_uhx0a")
+autoplay = "default"
+
+[node name="DamagePlayer" parent="." instance=ExtResource("3_lhivs")]
+position = Vector2(-1, 14)
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DamagePlayer"]
+position = Vector2(0, -14)
+shape = SubResource("CapsuleShape2D_m4p3k")
+
+[node name="Spawn_timer" type="Timer" parent="."]
+
+[node name="death_timer" type="Timer" parent="."]
+wait_time = 0.8
+
+[node name="collision_with_player" type="CharacterBody2D" parent="."]
+position = Vector2(-1, 10)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="collision_with_player"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_pkjnt")
+
+[node name="HitSound" type="AudioStreamPlayer2D" parent="."]
+bus = &"Sound Effect"
+
+[node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
+bus = &"Sound Effect"
+
+[node name="SpawnSound" type="AudioStreamPlayer2D" parent="."]
+bus = &"Sound Effect"
+
+[connection signal="timeout" from="Spawn_timer" to="." method="_on_spawn_timer_timeout"]
+[connection signal="timeout" from="death_timer" to="." method="_on_death_timer_timeout"]
