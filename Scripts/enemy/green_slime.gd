@@ -3,7 +3,7 @@ extends slime
 # sets the enemy's stats
 # these are different from the blue slimes
 func _ready():
-	speed = .5
+	speed = .6
 	health = 7
 	sleep()
 	player = Events.player
