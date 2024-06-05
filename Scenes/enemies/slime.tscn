@@ -1,6 +1,6 @@
 [gd_scene load_steps=33 format=3 uid="uid://x2so2ayusjw6"]
 
-[ext_resource type="Texture2D" uid="uid://ddxvlbug8olys" path="res://Assets/Sprites/Slime.png" id="1_8u0pu"]
+[ext_resource type="Texture2D" uid="uid://ddxvlbug8olys" path="res://Assets/Sprites/enemies/Slime.png" id="1_8u0pu"]
 [ext_resource type="Script" path="res://Scripts/enemy/slime.gd" id="1_fr1f0"]
 [ext_resource type="PackedScene" uid="uid://q3bng0o4u44l" path="res://Scenes/enemies/damage_player.tscn" id="3_qnhkn"]
 [ext_resource type="AudioStream" uid="uid://bqma45apdavsj" path="res://Assets/Audio/slime/slimejump-6913.mp3" id="4_pp4k2"]

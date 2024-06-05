@@ -6,7 +6,7 @@ class_name Knife
 const POISON_EFFECT = preload("res://Scenes/status_effects/poison_effect.tscn")
 const SHADOW_FLAME_EFFECT = preload("res://Scenes/status_effects/shadow_flame_effect.tscn")
 const DUST_BLADE_EFFECT = preload("res://Scenes/status_effects/dust_blade_effect.tscn")
-const GLASS_SHRAPNEL = preload("res://Scenes/glass_shrapnel.tscn")
+const GLASS_SHRAPNEL = preload("res://Scenes/status_effects/glass_shrapnel.tscn")
 
 # variables
 var move_direction

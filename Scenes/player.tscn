@@ -1,14 +1,14 @@
 [gd_scene load_steps=57 format=3 uid="uid://dahgvmrgtix2i"]
 
-[ext_resource type="Texture2D" uid="uid://cq8j4qlvoeapy" path="res://Assets/Sprites/HoodedCharacter.png" id="2_4wocn"]
+[ext_resource type="Texture2D" uid="uid://cq8j4qlvoeapy" path="res://Assets/Sprites/player/HoodedCharacter.png" id="2_4wocn"]
 [ext_resource type="Shader" uid="uid://dlroce5v6b0te" path="res://Scripts/shaders/player.tres" id="2_8414r"]
 [ext_resource type="Script" path="res://Scripts/player/player.gd" id="2_x28dm"]
-[ext_resource type="Texture2D" uid="uid://dfwrwdrs0na2j" path="res://Assets/Sprites/falling_player.png" id="4_r1rwf"]
-[ext_resource type="AudioStream" uid="uid://bax74dwcrlidj" path="res://Assets/Audio/male_hurt7-48124.mp3" id="5_26tj3"]
-[ext_resource type="AudioStream" uid="uid://fgeriop87s37" path="res://Assets/Audio/item_pickup.mp3" id="6_mfhhj"]
-[ext_resource type="AudioStream" uid="uid://bw54iiayux5d" path="res://Assets/Audio/key-twist-in-lock-47832.mp3" id="7_1yxm5"]
-[ext_resource type="AudioStream" uid="uid://c120pte0wgt4r" path="res://Assets/Audio/woosh_sfx.mp3" id="8_sm625"]
-[ext_resource type="AudioStream" uid="uid://dqakwm5nuoys0" path="res://Assets/Audio/traditional-stamp-44189.mp3" id="9_y8o4h"]
+[ext_resource type="Texture2D" uid="uid://dfwrwdrs0na2j" path="res://Assets/Sprites/player/falling_player.png" id="4_r1rwf"]
+[ext_resource type="AudioStream" uid="uid://bax74dwcrlidj" path="res://Assets/Audio/sound effects/male_hurt7-48124.mp3" id="5_26tj3"]
+[ext_resource type="AudioStream" uid="uid://fgeriop87s37" path="res://Assets/Audio/sound effects/item_pickup.mp3" id="6_mfhhj"]
+[ext_resource type="AudioStream" uid="uid://bw54iiayux5d" path="res://Assets/Audio/sound effects/key-twist-in-lock-47832.mp3" id="7_1yxm5"]
+[ext_resource type="AudioStream" uid="uid://c120pte0wgt4r" path="res://Assets/Audio/sound effects/woosh_sfx.mp3" id="8_sm625"]
+[ext_resource type="AudioStream" uid="uid://dqakwm5nuoys0" path="res://Assets/Audio/sound effects/traditional-stamp-44189.mp3" id="9_y8o4h"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_uvp4x"]
 shader = ExtResource("2_8414r")

@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://m5dp46dkvovl"
+path="res://.godot/imported/trapdoor.mp3-a1fc21d1a048e45aca91c357d9ed0b86.mp3str"
+
+[deps]
+
+source_file="res://Assets/Audio/sound effects/trapdoor.mp3"
+dest_files=["res://.godot/imported/trapdoor.mp3-a1fc21d1a048e45aca91c357d9ed0b86.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

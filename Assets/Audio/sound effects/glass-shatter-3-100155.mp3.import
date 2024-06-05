@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b2yml8vqseoly"
+path="res://.godot/imported/glass-shatter-3-100155.mp3-76ddef04ffbf34881af1857f3852b2fd.mp3str"
+
+[deps]
+
+source_file="res://Assets/Audio/sound effects/glass-shatter-3-100155.mp3"
+dest_files=["res://.godot/imported/glass-shatter-3-100155.mp3-76ddef04ffbf34881af1857f3852b2fd.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

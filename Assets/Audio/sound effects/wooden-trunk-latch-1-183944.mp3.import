@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://05kx7ujogh1d"
+path="res://.godot/imported/wooden-trunk-latch-1-183944.mp3-64e573403890635116e50a86a606c75f.mp3str"
+
+[deps]
+
+source_file="res://Assets/Audio/sound effects/wooden-trunk-latch-1-183944.mp3"
+dest_files=["res://.godot/imported/wooden-trunk-latch-1-183944.mp3-64e573403890635116e50a86a606c75f.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

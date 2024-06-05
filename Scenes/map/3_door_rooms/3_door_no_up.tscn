@@ -1,11 +1,12 @@
 [gd_scene load_steps=12 format=3 uid="uid://c8oq11ct5sm2c"]
 
 [ext_resource type="Script" path="res://Scripts/map/room.gd" id="1_3a2l8"]
-[ext_resource type="Texture2D" uid="uid://drktqhtj5vluu" path="res://Assets/Sprites/TileSet.png" id="2_og0ss"]
-[ext_resource type="Texture2D" uid="uid://kxhil66jucyt" path="res://Assets/Sprites/doors.png" id="3_6bwmb"]
+[ext_resource type="Texture2D" uid="uid://drktqhtj5vluu" path="res://Assets/Sprites/map/TileSet.png" id="2_og0ss"]
+[ext_resource type="Texture2D" uid="uid://kxhil66jucyt" path="res://Assets/Sprites/map/doors.png" id="3_6bwmb"]
 [ext_resource type="Script" path="res://Scripts/map/door_visual.gd" id="4_v0n2s"]
 [ext_resource type="PackedScene" uid="uid://besxs1hm25htm" path="res://Scenes/map/door.tscn" id="5_4jtk0"]
 [ext_resource type="PackedScene" uid="uid://ci4t04cng0qhi" path="res://Scenes/map/key_checks.tscn" id="6_kud3b"]
+
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ltqhq"]
 texture = ExtResource("2_og0ss")

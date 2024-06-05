@@ -1,0 +1,139 @@
+[gd_scene load_steps=22 format=3 uid="uid://edhqnytou7yt"]
+
+[ext_resource type="Script" path="res://Scripts/UI/item_ui_slot.gd" id="1_l3s7d"]
+[ext_resource type="Texture2D" uid="uid://buoupuxk2qtji" path="res://Assets/Sprites/catalog_icons/dust_blade_icon.png" id="1_rdpab"]
+[ext_resource type="Texture2D" uid="uid://5m5w7pfo7ad" path="res://Assets/Sprites/catalog_icons/poison_icon.png" id="2_a55tp"]
+[ext_resource type="Texture2D" uid="uid://da8a0jgjae011" path="res://Assets/Sprites/UI/rounded_corners_square-export.png" id="2_kll03"]
+[ext_resource type="Texture2D" uid="uid://b7ug10dy6sjyf" path="res://Assets/Sprites/catalog_icons/quick_blade_icon.png" id="3_8ssmk"]
+[ext_resource type="Texture2D" uid="uid://bekchyhnq1ebe" path="res://Assets/Sprites/catalog_icons/shadow_blade_icon.png" id="4_b8nlv"]
+[ext_resource type="Texture2D" uid="uid://c48c6oioxdka5" path="res://Assets/Sprites/catalog_icons/shadow_flame_icon.png" id="5_bbauc"]
+[ext_resource type="Texture2D" uid="uid://bi1byk6jamtg" path="res://Assets/Sprites/catalog_icons/shadow_heart_icon.png" id="6_qi61p"]
+[ext_resource type="Texture2D" uid="uid://b5aq6dmwlrckm" path="res://Assets/Sprites/catalog_icons/boots_icon.png" id="7_ojjqn"]
+[ext_resource type="Texture2D" uid="uid://65ti8e35t5bh" path="res://Assets/Sprites/catalog_icons/triple_blades_icon.png" id="8_wptkn"]
+[ext_resource type="Texture2D" uid="uid://cjonbmn8iaqkl" path="res://Assets/Sprites/catalog_icons/glass_blade_icon.png" id="9_woyga"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tmdcs"]
+atlas = ExtResource("1_rdpab")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h4ifb"]
+atlas = ExtResource("2_a55tp")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wdvgy"]
+atlas = ExtResource("3_8ssmk")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5pkgh"]
+atlas = ExtResource("4_b8nlv")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gnubb"]
+atlas = ExtResource("5_bbauc")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0vq11"]
+atlas = ExtResource("6_qi61p")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_topuq"]
+atlas = ExtResource("7_ojjqn")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yypc1"]
+atlas = ExtResource("8_wptkn")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_frrrf"]
+atlas = ExtResource("9_woyga")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_51jbf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tmdcs")
+}],
+"loop": false,
+"name": &"Dust_blade",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h4ifb")
+}],
+"loop": false,
+"name": &"Poison",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wdvgy")
+}],
+"loop": false,
+"name": &"Quick_blades",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5pkgh")
+}],
+"loop": false,
+"name": &"Shadow_blade",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gnubb")
+}],
+"loop": false,
+"name": &"Shadow_flame",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_0vq11")
+}],
+"loop": false,
+"name": &"Shadow_heart",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_topuq")
+}],
+"loop": false,
+"name": &"Speed_boots",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yypc1")
+}],
+"loop": false,
+"name": &"Triple_blades",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_frrrf")
+}],
+"loop": false,
+"name": &"glass_blade",
+"speed": 5.0
+}]
+
+[node name="Item_UI_slot" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_l3s7d")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(10, 7)
+scale = Vector2(0.125, 0.125)
+texture = ExtResource("2_kll03")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(9.84615, 7.38462)
+sprite_frames = SubResource("SpriteFrames_51jbf")
+animation = &"Poison"

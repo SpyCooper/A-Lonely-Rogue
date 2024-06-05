@@ -1,7 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://5dt5o5bwrdc2"]
 
 [ext_resource type="Script" path="res://Scripts/map/boss_door_check.gd" id="1_enf57"]
-[ext_resource type="Texture2D" uid="uid://dveuvlvaajxjc" path="res://Assets/Sprites/boss_door_symbol.png" id="2_y0spg"]
+[ext_resource type="Texture2D" uid="uid://dveuvlvaajxjc" path="res://Assets/Sprites/map/boss_door_symbol.png" id="2_y0spg"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3jliw"]
 

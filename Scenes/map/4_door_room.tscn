@@ -1,9 +1,9 @@
 [gd_scene load_steps=12 format=3 uid="uid://cj7h10qvuo84a"]
 
-[ext_resource type="Texture2D" uid="uid://drktqhtj5vluu" path="res://Assets/Sprites/TileSet.png" id="1_55hmk"]
+[ext_resource type="Texture2D" uid="uid://drktqhtj5vluu" path="res://Assets/Sprites/map/TileSet.png" id="1_55hmk"]
 [ext_resource type="Script" path="res://Scripts/map/room.gd" id="1_fwgbt"]
 [ext_resource type="PackedScene" uid="uid://besxs1hm25htm" path="res://Scenes/map/door.tscn" id="2_abs3o"]
-[ext_resource type="Texture2D" uid="uid://kxhil66jucyt" path="res://Assets/Sprites/doors.png" id="3_ucaof"]
+[ext_resource type="Texture2D" uid="uid://kxhil66jucyt" path="res://Assets/Sprites/map/doors.png" id="3_ucaof"]
 [ext_resource type="Script" path="res://Scripts/map/door_visual.gd" id="4_hkavq"]
 [ext_resource type="PackedScene" uid="uid://ci4t04cng0qhi" path="res://Scenes/map/key_checks.tscn" id="6_h81v2"]
 

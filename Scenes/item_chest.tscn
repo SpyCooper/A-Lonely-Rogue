@@ -1,8 +1,8 @@
 [gd_scene load_steps=10 format=3 uid="uid://cfta80h76u0k2"]
 
-[ext_resource type="Script" path="res://Scripts/item_chest.gd" id="1_5q0v8"]
-[ext_resource type="Texture2D" uid="uid://2q68gru5grmg" path="res://Assets/Sprites/Chest.png" id="2_4todt"]
-[ext_resource type="AudioStream" uid="uid://05kx7ujogh1d" path="res://Assets/Audio/wooden-trunk-latch-1-183944.mp3" id="3_3eu4e"]
+[ext_resource type="Script" path="res://Scripts/items and weapons/item_chest.gd" id="1_5q0v8"]
+[ext_resource type="Texture2D" uid="uid://2q68gru5grmg" path="res://Assets/Sprites/items/Chest.png" id="2_4todt"]
+[ext_resource type="AudioStream" uid="uid://05kx7ujogh1d" path="res://Assets/Audio/sound effects/wooden-trunk-latch-1-183944.mp3" id="3_3eu4e"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_mul74"]
 atlas = ExtResource("2_4todt")

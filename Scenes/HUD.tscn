@@ -1,8 +1,8 @@
 [gd_scene load_steps=22 format=3 uid="uid://duv7i8yak343i"]
 
-[ext_resource type="Texture2D" uid="uid://dh85ichhvi5y2" path="res://Assets/Sprites/Items.png" id="1_bp31y"]
-[ext_resource type="Script" path="res://Scripts/HUD.gd" id="1_slvuw"]
-[ext_resource type="Texture2D" uid="uid://dorss3jk56j3i" path="res://Assets/Sprites/scroll_TextBox.png" id="3_nxqli"]
+[ext_resource type="Texture2D" uid="uid://dh85ichhvi5y2" path="res://Assets/Sprites/items/Items.png" id="1_bp31y"]
+[ext_resource type="Script" path="res://Scripts/UI/HUD.gd" id="1_slvuw"]
+[ext_resource type="Texture2D" uid="uid://dorss3jk56j3i" path="res://Assets/Sprites/UI/scroll_TextBox.png" id="3_nxqli"]
 [ext_resource type="FontFile" uid="uid://bhsrlys8rvq7t" path="res://Assets/alagard.ttf" id="4_eq0ld"]
 [ext_resource type="Theme" uid="uid://pv4evjjac8wt" path="res://Assets/general_theme.tres" id="5_6yeb1"]
 [ext_resource type="StyleBox" uid="uid://dwunugjfj6x3g" path="res://Assets/boss_bar_style.tres" id="6_oonku"]

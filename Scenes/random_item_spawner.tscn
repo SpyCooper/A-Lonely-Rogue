@@ -1,6 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://w1pgiqf773o0"]
 
-[ext_resource type="Script" path="res://Scripts/random_item_spawner.gd" id="1_cr0nx"]
+[ext_resource type="Script" path="res://Scripts/items and weapons/random_item_spawner.gd" id="1_cr0nx"]
+
 
 [sub_resource type="Gradient" id="Gradient_i3vg1"]
 offsets = PackedFloat32Array(0)

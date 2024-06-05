@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://cawr58mnx50yn"]
 
-[ext_resource type="Texture2D" uid="uid://dh85ichhvi5y2" path="res://Assets/Sprites/Items.png" id="1_ee2pm"]
+[ext_resource type="Texture2D" uid="uid://dh85ichhvi5y2" path="res://Assets/Sprites/items/Items.png" id="1_ee2pm"]
 [ext_resource type="Script" path="res://Scripts/items and weapons/knife.gd" id="1_xp0xi"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_x78cu"]

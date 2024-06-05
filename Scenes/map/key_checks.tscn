@@ -1,7 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://ci4t04cng0qhi"]
 
 [ext_resource type="Script" path="res://Scripts/map/key_checks.gd" id="1_chcnl"]
-[ext_resource type="Texture2D" uid="uid://kxhil66jucyt" path="res://Assets/Sprites/doors.png" id="2_e6mbk"]
+[ext_resource type="Texture2D" uid="uid://kxhil66jucyt" path="res://Assets/Sprites/map/doors.png" id="2_e6mbk"]
+
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3jliw"]
 

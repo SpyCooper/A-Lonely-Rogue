@@ -2,12 +2,12 @@
 
 [ext_resource type="PackedScene" uid="uid://duv7i8yak343i" path="res://Scenes/HUD.tscn" id="1_80esy"]
 [ext_resource type="Script" path="res://Scripts/map/dungeon_floor.gd" id="1_dvl4e"]
-[ext_resource type="Script" path="res://Scripts/Pause_menu.gd" id="2_p1b7u"]
+[ext_resource type="Script" path="res://Scripts/UI/Pause_menu.gd" id="2_p1b7u"]
 [ext_resource type="Theme" uid="uid://pv4evjjac8wt" path="res://Assets/general_theme.tres" id="3_yxx55"]
-[ext_resource type="PackedScene" uid="uid://bigg81dibglne" path="res://Scenes/options_menu.tscn" id="4_xj3m5"]
-[ext_resource type="PackedScene" uid="uid://dc0xlg20ucy3n" path="res://Scenes/catalog.tscn" id="5_xh0p4"]
-[ext_resource type="Script" path="res://Scripts/Transition Camera.gd" id="6_qqo0s"]
-[ext_resource type="Texture2D" uid="uid://drktqhtj5vluu" path="res://Assets/Sprites/TileSet.png" id="7_cdgba"]
+[ext_resource type="PackedScene" uid="uid://bigg81dibglne" path="res://Scenes/menus/options_menu.tscn" id="4_xj3m5"]
+[ext_resource type="PackedScene" uid="uid://dc0xlg20ucy3n" path="res://Scenes/menus/catalog.tscn" id="5_xh0p4"]
+[ext_resource type="Script" path="res://Scripts/map/Transition Camera.gd" id="6_qqo0s"]
+[ext_resource type="Texture2D" uid="uid://drktqhtj5vluu" path="res://Assets/Sprites/map/TileSet.png" id="7_cdgba"]
 [ext_resource type="PackedScene" uid="uid://dahgvmrgtix2i" path="res://Scenes/player.tscn" id="8_sndu2"]
 [ext_resource type="PackedScene" uid="uid://cj7h10qvuo84a" path="res://Scenes/map/4_door_room.tscn" id="9_ete15"]
 [ext_resource type="PackedScene" uid="uid://x2so2ayusjw6" path="res://Scenes/enemies/slime.tscn" id="10_rrme3"]
@@ -25,10 +25,10 @@
 [ext_resource type="PackedScene" uid="uid://bm78w1b0to7t5" path="res://Scenes/map/corner rooms/2_door_up_left.tscn" id="22_r2q0b"]
 [ext_resource type="PackedScene" uid="uid://cfta80h76u0k2" path="res://Scenes/item_chest.tscn" id="23_nr1kn"]
 [ext_resource type="PackedScene" uid="uid://dfctt8og03c2e" path="res://Scenes/items/key_item.tscn" id="24_y83ib"]
-[ext_resource type="PackedScene" uid="uid://cr3t522vle50y" path="res://Scenes/trapdoor.tscn" id="25_csphi"]
+[ext_resource type="PackedScene" uid="uid://cr3t522vle50y" path="res://Scenes/Dungeon_floors/trapdoor.tscn" id="25_csphi"]
 [ext_resource type="AudioStream" uid="uid://ciw6spax0xy06" path="res://Assets/Audio/background music/8bit-mix-56351.mp3" id="27_26f5p"]
-[ext_resource type="Script" path="res://Scripts/Tutorial.gd" id="28_14004"]
-[ext_resource type="Texture2D" uid="uid://dveuvlvaajxjc" path="res://Assets/Sprites/boss_door_symbol.png" id="29_8oo7y"]
+[ext_resource type="Script" path="res://Scripts/map/Tutorial.gd" id="28_14004"]
+[ext_resource type="Texture2D" uid="uid://dveuvlvaajxjc" path="res://Assets/Sprites/map/boss_door_symbol.png" id="29_8oo7y"]
 [ext_resource type="PackedScene" uid="uid://bvs3eiuarm1bo" path="res://Scenes/items/glass_blade_item.tscn" id="30_g44qm"]
 
 [sub_resource type="Animation" id="Animation_27xwy"]
@@ -119,7 +119,7 @@ texture = ExtResource("7_cdgba")
 [sub_resource type="TileSet" id="TileSet_pnge6"]
 sources/0 = SubResource("TileSetAtlasSource_a4f5t")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_wjgwh"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1b210"]
 resource_local_to_scene = true
 
 [node name="Floor1" type="Node2D"]
@@ -283,7 +283,7 @@ position = Vector2(-736, 0)
 locked = true
 
 [node name="gelatinous_cube" parent="." instance=ExtResource("13_axlkh")]
-material = SubResource("ShaderMaterial_wjgwh")
+material = SubResource("ShaderMaterial_1b210")
 position = Vector2(-736, -31)
 
 [node name="1_door_down" parent="." instance=ExtResource("14_hs83b")]

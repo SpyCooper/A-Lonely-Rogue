@@ -1,7 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://dfctt8og03c2e"]
 
 [ext_resource type="PackedScene" uid="uid://jtiqth444hdl" path="res://Scenes/item.tscn" id="1_dw8ct"]
-[ext_resource type="Texture2D" uid="uid://dh85ichhvi5y2" path="res://Assets/Sprites/Items.png" id="2_0xsim"]
+[ext_resource type="Texture2D" uid="uid://dh85ichhvi5y2" path="res://Assets/Sprites/items/Items.png" id="2_0xsim"]
+
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_75ot2"]
 atlas = ExtResource("2_0xsim")

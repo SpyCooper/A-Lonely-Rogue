@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://dqakwm5nuoys0"
+path="res://.godot/imported/traditional-stamp-44189.mp3-e011baf7989106a42e0385686f86a6d6.mp3str"
+
+[deps]
+
+source_file="res://Assets/Audio/sound effects/traditional-stamp-44189.mp3"
+dest_files=["res://.godot/imported/traditional-stamp-44189.mp3-e011baf7989106a42e0385686f86a6d6.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

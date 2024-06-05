@@ -2,9 +2,9 @@
 
 [ext_resource type="FontFile" uid="uid://bhsrlys8rvq7t" path="res://Assets/alagard.ttf" id="1_dfrvo"]
 [ext_resource type="StyleBox" uid="uid://dwunugjfj6x3g" path="res://Assets/boss_bar_style.tres" id="2_h6g8g"]
-[ext_resource type="Texture2D" uid="uid://gvuq1155bd5n" path="res://Assets/Sprites/scroll_button_extended.png" id="3_k5jpe"]
-[ext_resource type="Texture2D" uid="uid://bbvmapc8a4lf" path="res://Assets/Sprites/scroll_handle.png" id="4_wj26b"]
-[ext_resource type="Texture2D" uid="uid://btvi05ibabltp" path="res://Assets/Sprites/rounded_corners_square.png" id="5_b03xi"]
+[ext_resource type="Texture2D" uid="uid://gvuq1155bd5n" path="res://Assets/Sprites/UI/scroll_button_extended.png" id="3_k5jpe"]
+[ext_resource type="Texture2D" uid="uid://bbvmapc8a4lf" path="res://Assets/Sprites/UI/scroll_handle.png" id="4_wj26b"]
+[ext_resource type="Texture2D" uid="uid://btvi05ibabltp" path="res://Assets/Sprites/UI/rounded_corners_square.png" id="5_b03xi"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ph6gr"]
 bg_color = Color(0.486275, 0.580392, 0.631373, 1)
