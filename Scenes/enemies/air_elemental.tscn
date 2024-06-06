@@ -266,5 +266,10 @@ bus = &"Sound Effect"
 [node name="SpawnSound" type="AudioStreamPlayer2D" parent="."]
 bus = &"Sound Effect"
 
+[node name="time_between_attacks_timer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true
+
 [connection signal="timeout" from="Spawn_timer" to="." method="_on_spawn_timer_timeout"]
 [connection signal="timeout" from="death_timer" to="." method="_on_death_timer_timeout"]
+[connection signal="timeout" from="time_between_attacks_timer" to="." method="_on_time_between_attacks_timer_timeout"]

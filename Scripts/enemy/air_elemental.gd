@@ -11,9 +11,11 @@ extends Enemy
 # throw tornado variables
 var can_throw = false
 var thrown = false
-var throw_timer_max = 3.0
+var throw_timer_max = 3.5
 var throw_timer = throw_timer_max
+var thrown_counter = 0
 const TORNADO = preload("res://Scenes/enemies/tornado/tornado.tscn")
+@onready var time_between_attacks_timer = $time_between_attacks_timer
 
 # general enemy variables
 var target_position
@@ -93,7 +95,7 @@ func _physics_process(_delta):
 				can_throw = false
 				throw_timer = throw_timer_max
 				throw_tornado()
-			elif position.distance_to(player_position) > 70:
+			elif position.distance_to(player_position) > 60:
 				move_and_collide(target_position.normalized() * get_speed())
 
 # runs when a knife (or other weapon) hits the enemy
@@ -144,3 +146,11 @@ func throw_tornado():
 	get_parent().add_child(tornado)
 	tornado.global_position = global_position
 	tornado.spawned(target_position, current_direction)
+	thrown_counter += 1
+	time_between_attacks_timer.start()
+
+func _on_time_between_attacks_timer_timeout():
+	if thrown_counter < 3:
+		throw_tornado()
+	else:
+		thrown_counter = 0
