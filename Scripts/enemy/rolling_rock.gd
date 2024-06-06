@@ -5,19 +5,12 @@ extends Area2D
 
 # variables
 var move_direction
-var speed = 145
+var speed = 140
 
 # this is called when a earth_elemental throws a rock
 func spawned(target_direction, direction):
 	# sets the rock motion in the correct direction
-	if direction == Enemy.look_direction.up:
-		animated_sprite.play("up")
-	elif direction == Enemy.look_direction.down:
-		animated_sprite.play("down")
-	elif direction == Enemy.look_direction.left:
-		animated_sprite.play("left")
-	elif direction == Enemy.look_direction.right:
-		animated_sprite.play("right")
+	animated_sprite.look_at(target_direction)
 	# sets the move direction to the target firstion
 	move_direction = target_direction
 

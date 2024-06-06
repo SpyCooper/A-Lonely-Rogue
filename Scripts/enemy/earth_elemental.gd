@@ -30,8 +30,8 @@ var playing_hit_animation = false
 
 # sets the enemy's stats and references
 func _ready():
-	speed = .65
-	health = 5
+	speed = .5
+	health = 15
 	sleep()
 	player = Events.player
 	max_health = health
