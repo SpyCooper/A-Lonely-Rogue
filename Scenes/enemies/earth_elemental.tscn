@@ -561,7 +561,7 @@ shape = SubResource("CapsuleShape2D_jb7qj")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_35hfj")
 sprite_frames = SubResource("SpriteFrames_uhx0a")
-animation = &"thrown_left"
+animation = &"dying"
 autoplay = "move_down"
 
 [node name="DamagePlayer" parent="." instance=ExtResource("3_lhivs")]

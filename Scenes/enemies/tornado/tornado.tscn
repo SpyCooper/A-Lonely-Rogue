@@ -1,0 +1,94 @@
+[gd_scene load_steps=13 format=3 uid="uid://c38gvae64tkj5"]
+
+[ext_resource type="Script" path="res://Scripts/enemy/tornado.gd" id="1_ohfmj"]
+[ext_resource type="Texture2D" uid="uid://bft7wqmpxqenp" path="res://Assets/Sprites/enemies/air_elemental.png" id="2_f3wio"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8otkp"]
+atlas = ExtResource("2_f3wio")
+region = Rect2(64, 128, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l4yyo"]
+atlas = ExtResource("2_f3wio")
+region = Rect2(80, 128, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7dm2y"]
+atlas = ExtResource("2_f3wio")
+region = Rect2(96, 128, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5eksg"]
+atlas = ExtResource("2_f3wio")
+region = Rect2(112, 128, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pok0d"]
+atlas = ExtResource("2_f3wio")
+region = Rect2(0, 128, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_umdvn"]
+atlas = ExtResource("2_f3wio")
+region = Rect2(16, 128, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nmnow"]
+atlas = ExtResource("2_f3wio")
+region = Rect2(32, 128, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lqhkq"]
+atlas = ExtResource("2_f3wio")
+region = Rect2(48, 128, 16, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_m7mj3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8otkp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l4yyo")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7dm2y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5eksg")
+}],
+"loop": true,
+"name": &"move_left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pok0d")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_umdvn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nmnow")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lqhkq")
+}],
+"loop": true,
+"name": &"move_right",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_pvhef"]
+radius = 6.0
+
+[node name="Tornado" type="Area2D"]
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_ohfmj")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_m7mj3")
+animation = &"move_right"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_pvhef")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+autoplay = true
+bus = &"Sound Effect"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

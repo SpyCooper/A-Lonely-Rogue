@@ -11,7 +11,7 @@ extends Enemy
 # throw rocks variables
 var can_throw = false
 var thrown = false
-var throw_timer_max = 10.0
+var throw_timer_max = 8.0
 var throw_timer = throw_timer_max
 const ROLLING_ROCK = preload("res://Scenes/enemies/rolling_rock/rolling_rock.tscn")
 @onready var throw_animation_timer = $"throw animation timer"
@@ -67,7 +67,7 @@ func _physics_process(_delta):
 			target_position = (player_position - global_position).normalized()
 			current_direction = get_look_direction(target_position)
 			# if a rock can be thrown in mid range
-			if can_throw && position.distance_to(player_position) < 70 && position.distance_to(player_position) > 40:
+			if can_throw && position.distance_to(player_position) < 100 && position.distance_to(player_position) > 60:
 				# reset the throw
 				can_throw = false
 				throw_timer = throw_timer_max
