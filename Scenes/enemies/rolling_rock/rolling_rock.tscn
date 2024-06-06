@@ -1,38 +1,39 @@
-[gd_scene load_steps=13 format=3 uid="uid://xgkihposq04q"]
+[gd_scene load_steps=14 format=3 uid="uid://xgkihposq04q"]
 
-[ext_resource type="Script" path="res://Scripts/enemy/rolling_rock.gd" id="1_jejw2"]
-[ext_resource type="Texture2D" uid="uid://c1q6kchcqqrk3" path="res://Assets/Sprites/enemies/rolling_rock.png" id="2_qu30d"]
+[ext_resource type="Script" path="res://Scripts/enemy/rolling_rock.gd" id="1_ip20y"]
+[ext_resource type="Texture2D" uid="uid://c1q6kchcqqrk3" path="res://Assets/Sprites/enemies/rolling_rock.png" id="2_516s4"]
+[ext_resource type="AudioStream" uid="uid://dhie2mp6kv5uc" path="res://Assets/Audio/earth_elemental/rock_rolling.mp3" id="3_k81bv"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_voswq"]
-atlas = ExtResource("2_qu30d")
+atlas = ExtResource("2_516s4")
 region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_c0m5t"]
-atlas = ExtResource("2_qu30d")
+atlas = ExtResource("2_516s4")
 region = Rect2(16, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4cwu1"]
-atlas = ExtResource("2_qu30d")
+atlas = ExtResource("2_516s4")
 region = Rect2(32, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_4p7f3"]
-atlas = ExtResource("2_qu30d")
+atlas = ExtResource("2_516s4")
 region = Rect2(48, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_gbsr5"]
-atlas = ExtResource("2_qu30d")
+atlas = ExtResource("2_516s4")
 region = Rect2(64, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_uatn1"]
-atlas = ExtResource("2_qu30d")
+atlas = ExtResource("2_516s4")
 region = Rect2(80, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_rysr5"]
-atlas = ExtResource("2_qu30d")
+atlas = ExtResource("2_516s4")
 region = Rect2(96, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5cgb7"]
-atlas = ExtResource("2_qu30d")
+atlas = ExtResource("2_516s4")
 region = Rect2(112, 0, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_m7mj3"]
@@ -73,7 +74,7 @@ radius = 6.0
 [node name="RollingRock" type="Area2D"]
 collision_layer = 2
 collision_mask = 3
-script = ExtResource("1_jejw2")
+script = ExtResource("1_ip20y")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_m7mj3")
@@ -81,5 +82,10 @@ autoplay = "default"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_pvhef")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_k81bv")
+autoplay = true
+bus = &"Sound Effect"
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

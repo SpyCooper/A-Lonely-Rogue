@@ -2,6 +2,7 @@ extends Area2D
 
 # object references
 @onready var animated_sprite = $AnimatedSprite2D
+const ROCK_BREAK = preload("res://Scenes/enemies/rolling_rock/rock_break.tscn")
 
 # variables
 var move_direction
@@ -28,4 +29,8 @@ func _on_body_entered(body):
 	# if the body is not enemy or is a collisiong_with_player scene of an enemy
 	if body != Enemy && body.name != "collision_with_player":
 		# remove the rock
+		
+		var rock_break = ROCK_BREAK.instantiate()
+		rock_break.global_position = global_position
+		get_parent().add_child(rock_break)
 		queue_free()
