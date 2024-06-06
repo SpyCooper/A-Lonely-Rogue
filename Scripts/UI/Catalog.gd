@@ -17,6 +17,11 @@ var green_slime_kill_count = 0
 @onready var gel_cube_kill_count_label = $TabContainer/Bosses/Panels/Gelatinous_Cube_panel/KillCount
 var gelatinous_cube_unlocked = false
 var gelatinous_cube_kill_count = 0
+@onready var earth_elemental_button = $TabContainer/Monsters/ScrollContainer/GridContainer/Spot3/earth_elemental_button
+@onready var earth_elemental_panel = $TabContainer/Monsters/Panels/Earth_elemental_panel
+@onready var earth_elemental_kill_count_label = $TabContainer/Monsters/Panels/Earth_elemental_panel/KillCountLabel
+var earth_elemental_unlocked = false
+var earth_elemental_kill_count = 0
 
 # items variables
 # all enemy sections on the catalog need a reference to it's button, the panel, and a bool
@@ -98,6 +103,11 @@ func load_data():
 			if gelatinous_cube_unlocked:
 				gelatinous_cube_button.material.shader = null
 				gelatinous_cube_kill_count = data["gelatinous_cube_kill_count"]
+			# earth elemental check
+			earth_elemental_unlocked = data["earth_elemental_unlocked"]
+			if earth_elemental_unlocked:
+				earth_elemental_button.material.shader = null
+				earth_elemental_kill_count = data["earth_elemental_kill_count"]
 			# update the kill counts in the catalog
 			update_kill_counts()
 	
@@ -107,9 +117,9 @@ func load_data():
 		return
 	else:
 		# read in the data from the save file
-		var saved_enemies = FileAccess.open("user://itemsfound.save", FileAccess.READ)
-		while saved_enemies.get_position() < saved_enemies.get_length():
-			var json_string = saved_enemies.get_line()
+		var saved_items = FileAccess.open("user://itemsfound.save", FileAccess.READ)
+		while saved_items.get_position() < saved_items.get_length():
+			var json_string = saved_items.get_line()
 			var json = JSON.new()
 			var parse_result = json.parse(json_string)
 			var data = json.get_data()
@@ -165,6 +175,7 @@ func clear_panel():
 	# enemy tab
 	blue_slime_panel.hide()
 	green_slime_panel.hide()
+	earth_elemental_panel.hide()
 	
 	# boss tab
 	gelatinous_cube_panel.hide()
@@ -215,6 +226,16 @@ func unlock_enemy(enemy):
 		# increase the kill count and update the counts in the catalog
 		gelatinous_cube_kill_count += 1
 		update_kill_counts()
+	elif enemy == EnemyTypes.enemy.earth_elemental:
+		# if the enemy is locked
+		if !earth_elemental_unlocked:
+			# remove the locked shader
+			earth_elemental_button.material.shader = null
+			# set the enemy to be unlocked
+			earth_elemental_unlocked = true
+		# increase the kill count and update the counts in the catalog
+		earth_elemental_kill_count += 1
+		update_kill_counts()
 	# saves the enemies to the catalog file
 	save_enemies()
 
@@ -227,6 +248,8 @@ func found_enemies():
 		"green_slime_kill_count" : green_slime_kill_count,
 		"gelatinous_cube_unlocked" : gelatinous_cube_unlocked,
 		"gelatinous_cube_kill_count" : gelatinous_cube_kill_count,
+		"earth_elemental_unlocked" : earth_elemental_unlocked,
+		"earth_elemental_kill_count" : earth_elemental_kill_count,
 	}
 	return data
 
@@ -235,6 +258,7 @@ func update_kill_counts():
 	blue_slime_kill_count_label.text = "Killed: " + str(blue_slime_kill_count)
 	green_slime_kill_count_label.text = "Killed: " + str(green_slime_kill_count)
 	gel_cube_kill_count_label.text = "Killed: " + str(gelatinous_cube_kill_count)
+	earth_elemental_kill_count_label.text = "Killed: " + str(earth_elemental_kill_count)
 
 # when the blue slime button is presed
 func _on_blue_slime_pressed():
@@ -253,6 +277,15 @@ func _on_green_slime_pressed():
 	if green_slime_unlocked:
 		# show the enemy's info panel
 		green_slime_panel.show()
+
+# when the earth elemental button is presed
+func _on_earth_elemental_button_pressed():
+	# clear the info panel
+	clear_panel()
+	# if the enemy is unlocked
+	if earth_elemental_unlocked:
+		# show the enemy's info panel
+		earth_elemental_panel.show()
 
 # when the gelatinous cube button is presed
 func _on_gelatinous_cube_button_pressed():
@@ -475,3 +508,5 @@ func _on_triple_blades_button_pressed():
 	if triple_blades_unlocked:
 		# show the item's info panel
 		triple_blades_panel.show()
+
+

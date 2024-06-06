@@ -7,4 +7,6 @@ enum enemy
 	blue_slime,
 	green_slime,
 	gelatinous_cube,
+	earth_elemental,
+	air_elemental,
 }

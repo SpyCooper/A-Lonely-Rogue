@@ -245,6 +245,7 @@ position = Vector2(368, 0)
 
 [node name="BG music" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("11_qb2xa")
+bus = &"Music"
 
 [node name="earth_elemental" parent="." instance=ExtResource("12_3qdw6")]
 position = Vector2(432, -16)
