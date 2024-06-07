@@ -118,7 +118,7 @@ texture = ExtResource("7_cdgba")
 [sub_resource type="TileSet" id="TileSet_pnge6"]
 sources/0 = SubResource("TileSetAtlasSource_a4f5t")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_n1eqn"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hglh5"]
 resource_local_to_scene = true
 
 [node name="Floor1" type="Node2D"]
@@ -282,7 +282,7 @@ position = Vector2(-736, 0)
 locked = true
 
 [node name="gelatinous_cube" parent="." instance=ExtResource("13_axlkh")]
-material = SubResource("ShaderMaterial_n1eqn")
+material = SubResource("ShaderMaterial_hglh5")
 position = Vector2(-736, -31)
 
 [node name="1_door_down" parent="." instance=ExtResource("14_hs83b")]
