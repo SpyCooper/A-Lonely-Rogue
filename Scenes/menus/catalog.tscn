@@ -498,6 +498,14 @@ theme_override_font_sizes/font_size = 32
 text = "- Can be walked through"
 autowrap_mode = 2
 
+[node name="Bio5" type="Label" parent="TabContainer/Monsters/Panels/air_elemental_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- Weirdly quiet existence"
+autowrap_mode = 2
+
 [node name="Bosses" type="TabBar" parent="TabContainer"]
 visible = false
 layout_mode = 2

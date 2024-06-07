@@ -7,6 +7,7 @@ extends Enemy
 @onready var hit_sound = $HitSound
 @onready var spawn_sound = $SpawnSound
 @onready var spawn_timer = $Spawn_timer
+@onready var exist_sound = $exist_sound
 
 # throw tornado variables
 var can_throw = false
@@ -34,6 +35,7 @@ func _ready():
 	max_health = health
 	catalog = Events.catalog
 
+# on start
 func wake_up():
 	# player is now in the room
 	player_in_room = true
@@ -63,7 +65,6 @@ func _physics_process(_delta):
 			player_position = player.position
 			target_position = (player_position - global_position).normalized()
 			current_direction = get_left_right_look_direction(target_position)
-			
 			# flips the direction of the air elemental based on the current_direction
 			## NOTE: all these checks are identical but change the directions they look at
 			## Move left
@@ -89,12 +90,15 @@ func _physics_process(_delta):
 				elif playing_hit_animation != true || animated_sprite.is_playing() == false:
 					animated_sprite.play("move_right")
 					playing_hit_animation = false
-			
+			# if the air elemental can throw tornados
 			if can_throw:
 				# reset the throw
 				can_throw = false
+				# reset the throw timer
 				throw_timer = throw_timer_max
+				# throw the first tornado
 				throw_tornado()
+			# if the enemy is not within 60 pixels of the player
 			elif position.distance_to(player_position) > 60:
 				move_and_collide(target_position.normalized() * get_speed())
 
@@ -117,6 +121,8 @@ func take_damage(damage):
 			hit_sound.play()
 		# if the health is 0 or less
 		if health <= 0:
+			# stop wind existing sound
+			exist_sound.stop()
 			# set the state to dying
 			dying = true
 			# play the dying animation
@@ -137,20 +143,30 @@ func _on_death_timer_timeout():
 # when spawn timer ends
 func _on_spawn_timer_timeout():
 	spawning = false
+	# play the sound of the air elemental exising
+	exist_sound.play()
 
+# throw a tornado at the player
 func throw_tornado():
+	# get the player's position
 	player_position = player.position
 	target_position = (player_position - global_position).normalized()
-	# create and spawn the rock to move toward the player's direction
+	# create and spawn the tornado to move toward the player's direction
 	var tornado = TORNADO.instantiate()
 	get_parent().add_child(tornado)
 	tornado.global_position = global_position
 	tornado.spawned(target_position, current_direction)
+	# increase the amount of tornados in this throw
 	thrown_counter += 1
+	# start the time between throws timer
 	time_between_attacks_timer.start()
 
+# when the time between throws timer ends
 func _on_time_between_attacks_timer_timeout():
+	# if 3 throws have not been reached
 	if thrown_counter < 3:
+		# throw another tornado
 		throw_tornado()
+	# if 3 tornados have been thrown, reset the counter
 	else:
 		thrown_counter = 0
