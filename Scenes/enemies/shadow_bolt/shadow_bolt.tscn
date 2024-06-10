@@ -1,0 +1,61 @@
+[gd_scene load_steps=9 format=3 uid="uid://f54ojsjaqvjm"]
+
+[ext_resource type="Script" path="res://Scripts/enemy/shadow_bolt.gd" id="1_nkcrq"]
+[ext_resource type="Texture2D" uid="uid://cjuyax4rw0owj" path="res://Assets/Sprites/enemies/skeleton_mage.png" id="2_oc21w"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jsl2g"]
+atlas = ExtResource("2_oc21w")
+region = Rect2(256, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_indbt"]
+atlas = ExtResource("2_oc21w")
+region = Rect2(272, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2hjkx"]
+atlas = ExtResource("2_oc21w")
+region = Rect2(288, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_to1jw"]
+atlas = ExtResource("2_oc21w")
+region = Rect2(304, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g7k5j"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jsl2g")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_indbt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2hjkx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_to1jw")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_wi2nf"]
+radius = 3.0
+height = 12.0
+
+[node name="shadow_bolt" type="Area2D"]
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_nkcrq")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+rotation = 3.14159
+sprite_frames = SubResource("SpriteFrames_g7k5j")
+frame_progress = 0.90029
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2, -1)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_wi2nf")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
