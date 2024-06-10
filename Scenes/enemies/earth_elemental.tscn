@@ -11,7 +11,7 @@
 radius = 12.0
 height = 28.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_35hfj"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cv438"]
 resource_local_to_scene = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1png4"]
@@ -559,7 +559,7 @@ script = ExtResource("1_2cg62")
 shape = SubResource("CapsuleShape2D_jb7qj")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-material = SubResource("ShaderMaterial_35hfj")
+material = SubResource("ShaderMaterial_cv438")
 sprite_frames = SubResource("SpriteFrames_uhx0a")
 animation = &"dying"
 autoplay = "move_down"

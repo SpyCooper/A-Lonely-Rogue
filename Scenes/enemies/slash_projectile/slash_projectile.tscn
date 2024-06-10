@@ -1,0 +1,37 @@
+[gd_scene load_steps=6 format=3 uid="uid://bo84tcxnfypf7"]
+
+[ext_resource type="Script" path="res://Scripts/enemy/slash_projectile.gd" id="1_ypcme"]
+[ext_resource type="Texture2D" uid="uid://dwggc2h35ycwr" path="res://Assets/Sprites/enemies/skeleton_warrior.png" id="2_s5cpq"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xcf7k"]
+atlas = ExtResource("2_s5cpq")
+region = Rect2(224, 64, 16, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_37swf"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xcf7k")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m7a77"]
+radius = 4.0
+height = 16.0
+
+[node name="slash_projectile" type="Area2D"]
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_ypcme")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_37swf")
+autoplay = "default"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CapsuleShape2D_m7a77")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

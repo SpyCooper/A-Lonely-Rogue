@@ -381,6 +381,8 @@ func _on_stand_up_timer_timeout():
 		hud.show_starting_text()
 	elif get_tree().current_scene.name == "Floor2":
 		hud.display_text("Floor 2", "There shouldn't not be any more slimes, right?")
+	elif get_tree().current_scene.name == "Floor3":
+		hud.display_text("Floor 3", "Sound like the dead here...")
 
 # save the player data to transfer between floors
 func save_player_data():

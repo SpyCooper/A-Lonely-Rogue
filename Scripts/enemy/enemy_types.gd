@@ -9,4 +9,11 @@ enum enemy
 	gelatinous_cube,
 	earth_elemental,
 	air_elemental,
+	moss_behemoth,
+	skeleton_warrior,
+	skeleton_archer,
+	skeleton_mage,
+	lich,
+	shade,
+	morphed_shade,
 }

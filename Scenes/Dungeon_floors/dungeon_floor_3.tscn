@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://bs0rdltsmfopr"]
+[gd_scene load_steps=34 format=3 uid="uid://bs0rdltsmfopr"]
 
 [ext_resource type="Script" path="res://Scripts/map/dungeon_floor.gd" id="1_xbvmb"]
 [ext_resource type="PackedScene" uid="uid://duv7i8yak343i" path="res://Scenes/HUD.tscn" id="2_1h1xt"]
@@ -11,7 +11,6 @@
 [ext_resource type="PackedScene" uid="uid://dahgvmrgtix2i" path="res://Scenes/player.tscn" id="9_j4ic3"]
 [ext_resource type="PackedScene" uid="uid://cj7h10qvuo84a" path="res://Scenes/map/4_door_room.tscn" id="10_0wor3"]
 [ext_resource type="PackedScene" uid="uid://c8oq11ct5sm2c" path="res://Scenes/map/3_door_rooms/3_door_no_up.tscn" id="10_te0c4"]
-[ext_resource type="AudioStream" uid="uid://brg80vkdtmfn7" path="res://Assets/Audio/background music/chiptune-grooving-142242.mp3" id="11_gmirs"]
 [ext_resource type="PackedScene" uid="uid://coxlx2ylhc6q8" path="res://Scenes/map/corner rooms/2_door_up_right.tscn" id="11_sie2n"]
 [ext_resource type="PackedScene" uid="uid://dqkgb1e1soyjs" path="res://Scenes/map/single door rooms/1_door_down.tscn" id="12_b8j2h"]
 [ext_resource type="PackedScene" uid="uid://bk3i0p3dmgy8i" path="res://Scenes/map/hallways/2_door_hallway_vertical.tscn" id="13_whocg"]
@@ -26,6 +25,8 @@
 [ext_resource type="PackedScene" uid="uid://cfta80h76u0k2" path="res://Scenes/item_chest.tscn" id="22_byt5a"]
 [ext_resource type="PackedScene" uid="uid://bycygvf0dkbr1" path="res://Scenes/items/heart_2_pickup.tscn" id="23_vpsya"]
 [ext_resource type="PackedScene" uid="uid://bd4j5c5ldoecs" path="res://Scenes/items/heart_1_pickup.tscn" id="26_tdym4"]
+[ext_resource type="PackedScene" uid="uid://dy8i23c2qb18k" path="res://Scenes/enemies/skeleton_archer.tscn" id="27_2rgoa"]
+[ext_resource type="PackedScene" uid="uid://b1opxnh484w82" path="res://Scenes/enemies/skeleton_warrior.tscn" id="27_m8eep"]
 
 [sub_resource type="Animation" id="Animation_27xwy"]
 length = 0.001
@@ -120,7 +121,6 @@ y_sort_enabled = true
 script = ExtResource("1_xbvmb")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="Fade_color" type="ColorRect" parent="CanvasLayer"]
 offset_right = 1280.0
@@ -258,11 +258,6 @@ position = Vector2(1, 0)
 [node name="2_door_hallway_verical" parent="." instance=ExtResource("13_whocg")]
 position = Vector2(0, -208)
 
-[node name="BG music" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("11_gmirs")
-volume_db = -5.0
-bus = &"Music"
-
 [node name="item_chest" parent="." instance=ExtResource("22_byt5a")]
 position = Vector2(-85, -210)
 
@@ -326,6 +321,15 @@ position = Vector2(-66, -831)
 
 [node name="heart_1_pickup2" parent="." instance=ExtResource("26_tdym4")]
 position = Vector2(74, -830)
+
+[node name="BG music" type="AudioStreamPlayer2D" parent="."]
+bus = &"Music"
+
+[node name="skeleton_warrior" parent="." instance=ExtResource("27_m8eep")]
+position = Vector2(-106, -380)
+
+[node name="skeleton_archer" parent="." instance=ExtResource("27_2rgoa")]
+position = Vector2(469, -38)
 
 [connection signal="timeout" from="CanvasLayer/Fade_color/Fade_timer" to="." method="_on_fade_timer_timeout"]
 [connection signal="pressed" from="CanvasLayer/Pause_menu/Buttons_container/Control/Resume_button" to="CanvasLayer/Pause_menu" method="_on_resume_button_pressed"]
