@@ -127,12 +127,12 @@ func _on_spawn_timer_timeout():
 	summoning_circle_animated_sprite.show()
 
 func attack():
+	attack_sound.play()
 	can_attack = false
 	var shadow_bolt = SHADOW_BOLT.instantiate()
 	shadow_bolt.position = summoning_circle.position
 	add_child(shadow_bolt)
 	shadow_bolt.spawned(self)
-	print(shadow_bolt)
 
 func shadow_bolt_gone():
 	attack_wait_timer.start()

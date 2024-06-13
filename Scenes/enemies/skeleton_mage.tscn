@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://dvwf7rte2gvv2"]
+[gd_scene load_steps=42 format=3 uid="uid://dvwf7rte2gvv2"]
 
 [ext_resource type="Script" path="res://Scripts/enemy/skeleton_mage.gd" id="1_4do8w"]
 [ext_resource type="Texture2D" uid="uid://cjuyax4rw0owj" path="res://Assets/Sprites/enemies/skeleton_mage.png" id="1_v7mf1"]
@@ -6,6 +6,7 @@
 [ext_resource type="AudioStream" uid="uid://bhv41nlvf4jnd" path="res://Assets/Audio/skeletons/skeleton_hit.mp3" id="4_m047o"]
 [ext_resource type="AudioStream" uid="uid://c7tvjpaxdudw5" path="res://Assets/Audio/skeletons/hugecrack-86690.mp3" id="5_2nj1k"]
 [ext_resource type="AudioStream" uid="uid://b33c1occd27uo" path="res://Assets/Audio/skeletons/bones-2-88481.mp3" id="6_omw0t"]
+[ext_resource type="AudioStream" uid="uid://cfbnctd80jlc0" path="res://Assets/Audio/skeletons/magical-whoosh-148459.mp3" id="7_avbn5"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jb7qj"]
 radius = 7.0
@@ -310,6 +311,7 @@ volume_db = 5.0
 bus = &"Sound Effect"
 
 [node name="attack_sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_avbn5")
 bus = &"Sound Effect"
 
 [node name="Summoning_circle" type="Node2D" parent="."]
