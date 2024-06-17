@@ -16,4 +16,5 @@ enum enemy
 	lich,
 	shade,
 	morphed_shade,
+	mimic,
 }

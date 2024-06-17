@@ -9,6 +9,7 @@ var speed = 75
 var player
 var mage
 var is_spawned = false
+var call_mage = false
 
 # runs on every frame
 func _process(delta):
@@ -22,11 +23,13 @@ func _process(delta):
 		position += move_direction * speed * delta
 
 # this is called when a skeleton mage spawns a shadow bolt
-func spawned(spawned_from_mage):
+func spawned(spawned_from, call_spawner_when_gone):
 	# set the player reference
 	player = Events.player
-	# set the mage that spawned the shadow bolt
-	mage = spawned_from_mage
+	if call_spawner_when_gone == true:
+		# set the mage that spawned the shadow bolt
+		mage = spawned_from
+		call_mage = true
 	# set is_spawned to true
 	is_spawned = true
 
@@ -38,8 +41,9 @@ func _on_body_entered(body):
 		body.player_take_damage()
 	# if the body is not enemy or is a collisiong_with_player scene of an enemy
 	if body != Enemy && body.name != "collision_with_player":
-		# tell the mage that spawned the shadow bolt that the shadow bolt is destroyed
-		mage.shadow_bolt_gone()
+		if call_mage:
+			# tell the mage that spawned the shadow bolt that the shadow bolt is destroyed
+			mage.shadow_bolt_gone()
 		# remove the shadow bolt
 		queue_free()
 
@@ -47,7 +51,8 @@ func _on_body_entered(body):
 func _on_destructable_hitbox_area_entered(area):
 	# check if area is knife
 	if area is Knife:
-	# tell the mage that spawned the shadow bolt that the shadow bolt is destroyed
-		mage.shadow_bolt_gone()
+		if call_mage:
+			# tell the mage that spawned the shadow bolt that the shadow bolt is destroyed
+			mage.shadow_bolt_gone()
 		# destroy shadow_bolt
 		queue_free()

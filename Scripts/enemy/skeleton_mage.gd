@@ -144,7 +144,7 @@ func attack():
 	shadow_bolt.position = summoning_circle.position
 	add_child(shadow_bolt)
 	# tell the shadow bolt that it spawned
-	shadow_bolt.spawned(self)
+	shadow_bolt.spawned(self, true)
 
 # when shadow bolt gone is called by a shadow bolt
 func shadow_bolt_gone():
