@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://dc0xlg20ucy3n"]
+[gd_scene load_steps=45 format=3 uid="uid://dc0xlg20ucy3n"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Catalog.gd" id="1_mndmm"]
 [ext_resource type="Theme" uid="uid://pv4evjjac8wt" path="res://Assets/general_theme.tres" id="2_umit2"]
@@ -10,8 +10,11 @@
 [ext_resource type="Texture2D" uid="uid://btvi05ibabltp" path="res://Assets/Sprites/UI/rounded_corners_square.png" id="7_88205"]
 [ext_resource type="Texture2D" uid="uid://dgbirj744e5st" path="res://Assets/Sprites/catalog_icons/air_elemental.png" id="7_hkxyl"]
 [ext_resource type="Texture2D" uid="uid://b5aq6dmwlrckm" path="res://Assets/Sprites/catalog_icons/boots_icon.png" id="7_pwe50"]
+[ext_resource type="Texture2D" uid="uid://vm1ivdx2fkkl" path="res://Assets/Sprites/catalog_icons/skeleton_warrior_icon.png" id="8_0hgpj"]
 [ext_resource type="Texture2D" uid="uid://buoupuxk2qtji" path="res://Assets/Sprites/catalog_icons/dust_blade_icon.png" id="8_7dlgj"]
+[ext_resource type="Texture2D" uid="uid://djyn4xa8l17x0" path="res://Assets/Sprites/catalog_icons/skeleton_archer_icon.png" id="9_am3q3"]
 [ext_resource type="Texture2D" uid="uid://cjonbmn8iaqkl" path="res://Assets/Sprites/catalog_icons/glass_blade_icon.png" id="9_it2e5"]
+[ext_resource type="Texture2D" uid="uid://4hxtji1s02cr" path="res://Assets/Sprites/catalog_icons/skeleton_mage_icon.png" id="10_cvfs6"]
 [ext_resource type="Texture2D" uid="uid://b0bha722bk5wj" path="res://Assets/Sprites/catalog_icons/heart_icon.png" id="10_rth6b"]
 [ext_resource type="Texture2D" uid="uid://bj0i8oc45tn7m" path="res://Assets/Sprites/catalog_icons/key_icon.png" id="11_ibehw"]
 [ext_resource type="Texture2D" uid="uid://5m5w7pfo7ad" path="res://Assets/Sprites/catalog_icons/poison_icon.png" id="12_tanwh"]
@@ -31,6 +34,15 @@ shader = ExtResource("3_qa2dv")
 shader = ExtResource("3_qa2dv")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_f8rja"]
+shader = ExtResource("3_qa2dv")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7t8lp"]
+shader = ExtResource("3_qa2dv")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0ubwb"]
+shader = ExtResource("3_qa2dv")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8evv4"]
 shader = ExtResource("3_qa2dv")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wrmxr"]
@@ -186,6 +198,51 @@ offset_right = 93.0
 offset_bottom = 85.0
 theme_override_constants/icon_max_width = 64
 icon = ExtResource("7_hkxyl")
+flat = true
+alignment = 2
+icon_alignment = 1
+expand_icon = true
+
+[node name="Spot5" type="Control" parent="TabContainer/Monsters/ScrollContainer/GridContainer"]
+layout_mode = 2
+
+[node name="skeleton_warrior_button" type="Button" parent="TabContainer/Monsters/ScrollContainer/GridContainer/Spot5"]
+material = SubResource("ShaderMaterial_7t8lp")
+layout_mode = 0
+offset_right = 93.0
+offset_bottom = 85.0
+theme_override_constants/icon_max_width = 64
+icon = ExtResource("8_0hgpj")
+flat = true
+alignment = 2
+icon_alignment = 1
+expand_icon = true
+
+[node name="Spot6" type="Control" parent="TabContainer/Monsters/ScrollContainer/GridContainer"]
+layout_mode = 2
+
+[node name="skeleton_archer_button" type="Button" parent="TabContainer/Monsters/ScrollContainer/GridContainer/Spot6"]
+material = SubResource("ShaderMaterial_0ubwb")
+layout_mode = 0
+offset_right = 93.0
+offset_bottom = 85.0
+theme_override_constants/icon_max_width = 64
+icon = ExtResource("9_am3q3")
+flat = true
+alignment = 2
+icon_alignment = 1
+expand_icon = true
+
+[node name="Spot7" type="Control" parent="TabContainer/Monsters/ScrollContainer/GridContainer"]
+layout_mode = 2
+
+[node name="skeleton_mage_button" type="Button" parent="TabContainer/Monsters/ScrollContainer/GridContainer/Spot7"]
+material = SubResource("ShaderMaterial_8evv4")
+layout_mode = 0
+offset_right = 93.0
+offset_bottom = 85.0
+theme_override_constants/icon_max_width = 64
+icon = ExtResource("10_cvfs6")
 flat = true
 alignment = 2
 icon_alignment = 1
@@ -424,6 +481,7 @@ text = "- Seems to be rock solid"
 autowrap_mode = 2
 
 [node name="air_elemental_panel" type="Panel" parent="TabContainer/Monsters/Panels"]
+visible = false
 layout_mode = 0
 offset_right = 510.0
 offset_bottom = 513.0
@@ -504,6 +562,233 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
 text = "- Weirdly quiet existence"
+autowrap_mode = 2
+
+[node name="skeleton_warrior_panel" type="Panel" parent="TabContainer/Monsters/Panels"]
+visible = false
+layout_mode = 0
+offset_right = 510.0
+offset_bottom = 513.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_wrmxr")
+
+[node name="Sprite2D" type="Sprite2D" parent="TabContainer/Monsters/Panels/skeleton_warrior_panel"]
+position = Vector2(102, 101)
+scale = Vector2(5.55259, 5.55259)
+texture = ExtResource("8_0hgpj")
+
+[node name="Title" type="Label" parent="TabContainer/Monsters/Panels/skeleton_warrior_panel"]
+layout_mode = 0
+offset_left = 180.0
+offset_top = 34.0
+offset_right = 510.0
+offset_bottom = 79.0
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 48
+text = "Skeleton Warrior"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="KillCountLabel" type="Label" parent="TabContainer/Monsters/Panels/skeleton_warrior_panel"]
+layout_mode = 0
+offset_left = 180.0
+offset_top = 127.0
+offset_right = 510.0
+offset_bottom = 172.0
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "Killed: 1"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Monsters/Panels/skeleton_warrior_panel"]
+layout_mode = 0
+offset_left = 43.0
+offset_top = 174.0
+offset_right = 464.0
+offset_bottom = 505.0
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Bio" type="Label" parent="TabContainer/Monsters/Panels/skeleton_warrior_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- Swings sword to attack"
+autowrap_mode = 2
+
+[node name="Bio2" type="Label" parent="TabContainer/Monsters/Panels/skeleton_warrior_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- Creates a moving slash when attacking"
+autowrap_mode = 2
+
+[node name="Bio3" type="Label" parent="TabContainer/Monsters/Panels/skeleton_warrior_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- Tries to approach enemies before attacking"
+autowrap_mode = 2
+
+[node name="Bio4" type="Label" parent="TabContainer/Monsters/Panels/skeleton_warrior_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- Appears to be a great warrior in during their life"
+autowrap_mode = 2
+
+[node name="skeleton_archer_panel" type="Panel" parent="TabContainer/Monsters/Panels"]
+visible = false
+layout_mode = 0
+offset_right = 510.0
+offset_bottom = 513.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_wrmxr")
+
+[node name="Sprite2D" type="Sprite2D" parent="TabContainer/Monsters/Panels/skeleton_archer_panel"]
+position = Vector2(112, 101)
+scale = Vector2(5.55259, 5.55259)
+texture = ExtResource("9_am3q3")
+
+[node name="Title" type="Label" parent="TabContainer/Monsters/Panels/skeleton_archer_panel"]
+layout_mode = 0
+offset_left = 180.0
+offset_top = 34.0
+offset_right = 510.0
+offset_bottom = 79.0
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 48
+text = "Skeleton Archer"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="KillCountLabel" type="Label" parent="TabContainer/Monsters/Panels/skeleton_archer_panel"]
+layout_mode = 0
+offset_left = 180.0
+offset_top = 127.0
+offset_right = 510.0
+offset_bottom = 172.0
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "Killed: 1"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Monsters/Panels/skeleton_archer_panel"]
+layout_mode = 0
+offset_left = 43.0
+offset_top = 174.0
+offset_right = 464.0
+offset_bottom = 505.0
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Bio" type="Label" parent="TabContainer/Monsters/Panels/skeleton_archer_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- Shoots arrows at long ranges"
+autowrap_mode = 2
+
+[node name="Bio2" type="Label" parent="TabContainer/Monsters/Panels/skeleton_archer_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- Will not move closer to enemies when within range"
+autowrap_mode = 2
+
+[node name="Bio3" type="Label" parent="TabContainer/Monsters/Panels/skeleton_archer_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- Arrows cannot be destroyed by knives"
+autowrap_mode = 2
+
+[node name="Bio4" type="Label" parent="TabContainer/Monsters/Panels/skeleton_archer_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- Could have been Robin Hood"
+autowrap_mode = 2
+
+[node name="skeleton_mage_panel" type="Panel" parent="TabContainer/Monsters/Panels"]
+layout_mode = 0
+offset_right = 510.0
+offset_bottom = 513.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_wrmxr")
+
+[node name="Sprite2D" type="Sprite2D" parent="TabContainer/Monsters/Panels/skeleton_mage_panel"]
+position = Vector2(102, 101)
+scale = Vector2(5.55259, 5.55259)
+texture = ExtResource("10_cvfs6")
+
+[node name="Title" type="Label" parent="TabContainer/Monsters/Panels/skeleton_mage_panel"]
+layout_mode = 0
+offset_left = 180.0
+offset_top = 34.0
+offset_right = 510.0
+offset_bottom = 79.0
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 48
+text = "Skeleton  Mage"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="KillCountLabel" type="Label" parent="TabContainer/Monsters/Panels/skeleton_mage_panel"]
+layout_mode = 0
+offset_left = 180.0
+offset_top = 127.0
+offset_right = 510.0
+offset_bottom = 172.0
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "Killed: 1"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Monsters/Panels/skeleton_mage_panel"]
+layout_mode = 0
+offset_left = 43.0
+offset_top = 174.0
+offset_right = 464.0
+offset_bottom = 505.0
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Bio" type="Label" parent="TabContainer/Monsters/Panels/skeleton_mage_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- Summons shadow bolts to follow the player"
+autowrap_mode = 2
+
+[node name="Bio2" type="Label" parent="TabContainer/Monsters/Panels/skeleton_mage_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- Shadow bolts can be destroyed by knives"
+autowrap_mode = 2
+
+[node name="Bio3" type="Label" parent="TabContainer/Monsters/Panels/skeleton_mage_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- Do not move when enemies are seen"
+autowrap_mode = 2
+
+[node name="Bio4" type="Label" parent="TabContainer/Monsters/Panels/skeleton_mage_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- Weird looking magic circle"
 autowrap_mode = 2
 
 [node name="Bosses" type="TabBar" parent="TabContainer"]
@@ -1581,6 +1866,9 @@ text = "X"
 [connection signal="pressed" from="TabContainer/Monsters/ScrollContainer/GridContainer/Spot2/Green_slime" to="." method="_on_green_slime_pressed"]
 [connection signal="pressed" from="TabContainer/Monsters/ScrollContainer/GridContainer/Spot3/earth_elemental_button" to="." method="_on_earth_elemental_button_pressed"]
 [connection signal="pressed" from="TabContainer/Monsters/ScrollContainer/GridContainer/Spot4/air_elemental_button" to="." method="_on_air_elemental_button_pressed"]
+[connection signal="pressed" from="TabContainer/Monsters/ScrollContainer/GridContainer/Spot5/skeleton_warrior_button" to="." method="_on_skeleton_warrior_button_pressed"]
+[connection signal="pressed" from="TabContainer/Monsters/ScrollContainer/GridContainer/Spot6/skeleton_archer_button" to="." method="_on_skeleton_archer_button_pressed"]
+[connection signal="pressed" from="TabContainer/Monsters/ScrollContainer/GridContainer/Spot7/skeleton_mage_button" to="." method="_on_skeleton_mage_button_pressed"]
 [connection signal="pressed" from="TabContainer/Bosses/ScrollContainer/GridContainer/Spot/Gelatinous_cube_button" to="." method="_on_gelatinous_cube_button_pressed"]
 [connection signal="pressed" from="TabContainer/Items/ScrollContainer/GridContainer/Spot/Boots_button" to="." method="_on_boots_button_pressed"]
 [connection signal="pressed" from="TabContainer/Items/ScrollContainer/GridContainer/Spot2/dust_blade_button" to="." method="_on_dust_blade_button_pressed"]

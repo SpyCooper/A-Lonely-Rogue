@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://bs0rdltsmfopr"]
+[gd_scene load_steps=37 format=3 uid="uid://bs0rdltsmfopr"]
 
 [ext_resource type="Script" path="res://Scripts/map/dungeon_floor.gd" id="1_xbvmb"]
 [ext_resource type="PackedScene" uid="uid://duv7i8yak343i" path="res://Scenes/HUD.tscn" id="2_1h1xt"]
@@ -24,10 +24,12 @@
 [ext_resource type="PackedScene" uid="uid://w1pgiqf773o0" path="res://Scenes/random_item_spawner.tscn" id="21_v3p58"]
 [ext_resource type="PackedScene" uid="uid://cfta80h76u0k2" path="res://Scenes/item_chest.tscn" id="22_byt5a"]
 [ext_resource type="PackedScene" uid="uid://bycygvf0dkbr1" path="res://Scenes/items/heart_2_pickup.tscn" id="23_vpsya"]
+[ext_resource type="AudioStream" uid="uid://qi6piahv8xaw" path="res://Assets/Audio/background music/fairy-tale-fantasy-123608.mp3" id="26_efvkt"]
 [ext_resource type="PackedScene" uid="uid://bd4j5c5ldoecs" path="res://Scenes/items/heart_1_pickup.tscn" id="26_tdym4"]
 [ext_resource type="PackedScene" uid="uid://dy8i23c2qb18k" path="res://Scenes/enemies/skeleton_archer.tscn" id="27_2rgoa"]
 [ext_resource type="PackedScene" uid="uid://b1opxnh484w82" path="res://Scenes/enemies/skeleton_warrior.tscn" id="27_m8eep"]
 [ext_resource type="PackedScene" uid="uid://dvwf7rte2gvv2" path="res://Scenes/enemies/skeleton_mage.tscn" id="28_qvxnw"]
+[ext_resource type="PackedScene" uid="uid://cr3t522vle50y" path="res://Scenes/Dungeon_floors/trapdoor.tscn" id="29_y03cp"]
 
 [sub_resource type="Animation" id="Animation_27xwy"]
 length = 0.001
@@ -324,16 +326,71 @@ position = Vector2(-66, -831)
 position = Vector2(74, -830)
 
 [node name="BG music" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("26_efvkt")
 bus = &"Music"
 
 [node name="skeleton_warrior" parent="." instance=ExtResource("27_m8eep")]
-position = Vector2(-106, -458)
+position = Vector2(-97, -447)
 
 [node name="skeleton_archer" parent="." instance=ExtResource("27_2rgoa")]
-position = Vector2(114, -472)
+position = Vector2(106, -455)
 
 [node name="skeleton_mage" parent="." instance=ExtResource("28_qvxnw")]
-position = Vector2(471, -22)
+position = Vector2(470, -31)
+
+[node name="skeleton_archer2" parent="." instance=ExtResource("27_2rgoa")]
+position = Vector2(-449, -449)
+
+[node name="skeleton_archer3" parent="." instance=ExtResource("27_2rgoa")]
+position = Vector2(-412, -375)
+
+[node name="skeleton_archer4" parent="." instance=ExtResource("27_2rgoa")]
+position = Vector2(-260, -465)
+
+[node name="skeleton_warrior2" parent="." instance=ExtResource("27_m8eep")]
+position = Vector2(-75, -599)
+
+[node name="skeleton_archer5" parent="." instance=ExtResource("27_2rgoa")]
+position = Vector2(-66, -680)
+
+[node name="skeleton_warrior4" parent="." instance=ExtResource("27_m8eep")]
+position = Vector2(73, -372)
+
+[node name="skeleton_archer6" parent="." instance=ExtResource("27_2rgoa")]
+position = Vector2(115, -674)
+
+[node name="skeleton_mage2" parent="." instance=ExtResource("28_qvxnw")]
+position = Vector2(431, 48)
+
+[node name="skeleton_archer7" parent="." instance=ExtResource("27_2rgoa")]
+position = Vector2(803, 52)
+
+[node name="skeleton_mage4" parent="." instance=ExtResource("28_qvxnw")]
+position = Vector2(698, 44)
+
+[node name="skeleton_warrior3" parent="." instance=ExtResource("27_m8eep")]
+position = Vector2(1050, 42)
+
+[node name="skeleton_mage5" parent="." instance=ExtResource("28_qvxnw")]
+position = Vector2(1034, -42)
+
+[node name="skeleton_mage6" parent="." instance=ExtResource("28_qvxnw")]
+position = Vector2(1204, 52)
+
+[node name="skeleton_archer8" parent="." instance=ExtResource("27_2rgoa")]
+position = Vector2(1190, -56)
+
+[node name="skeleton_warrior5" parent="." instance=ExtResource("27_m8eep")]
+position = Vector2(830, -45)
+
+[node name="Trapdoor" parent="." instance=ExtResource("29_y03cp")]
+position = Vector2(1102, -675)
+
+[node name="heart_2_pickup2" parent="." instance=ExtResource("23_vpsya")]
+position = Vector2(1176, -618)
+
+[node name="Random Item Spawner3" parent="." instance=ExtResource("21_v3p58")]
+position = Vector2(1040, -620)
 
 [connection signal="timeout" from="CanvasLayer/Fade_color/Fade_timer" to="." method="_on_fade_timer_timeout"]
 [connection signal="pressed" from="CanvasLayer/Pause_menu/Buttons_container/Control/Resume_button" to="CanvasLayer/Pause_menu" method="_on_resume_button_pressed"]

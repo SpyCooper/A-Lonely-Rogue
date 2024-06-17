@@ -10,7 +10,6 @@
 [ext_resource type="Texture2D" uid="uid://drktqhtj5vluu" path="res://Assets/Sprites/map/TileSet.png" id="7_ujxs0"]
 [ext_resource type="PackedScene" uid="uid://dahgvmrgtix2i" path="res://Scenes/player.tscn" id="8_sxh6v"]
 [ext_resource type="PackedScene" uid="uid://c8oq11ct5sm2c" path="res://Scenes/map/3_door_rooms/3_door_no_up.tscn" id="11_ebeb5"]
-[ext_resource type="AudioStream" uid="uid://cwiyog21e6jbs" path="res://Assets/Audio/background music/caves-of-dawn-10376.mp3" id="11_qb2xa"]
 [ext_resource type="PackedScene" uid="uid://b1m0opptrag7w" path="res://Scenes/enemies/air_elemental.tscn" id="12_cox8u"]
 [ext_resource type="PackedScene" uid="uid://coxlx2ylhc6q8" path="res://Scenes/map/corner rooms/2_door_up_right.tscn" id="14_5eek1"]
 [ext_resource type="PackedScene" uid="uid://bk3i0p3dmgy8i" path="res://Scenes/map/hallways/2_door_hallway_vertical.tscn" id="15_2x6a5"]
@@ -24,6 +23,7 @@
 [ext_resource type="PackedScene" uid="uid://w1pgiqf773o0" path="res://Scenes/random_item_spawner.tscn" id="21_dxntd"]
 [ext_resource type="PackedScene" uid="uid://cfta80h76u0k2" path="res://Scenes/item_chest.tscn" id="22_ulsr0"]
 [ext_resource type="PackedScene" uid="uid://cr3t522vle50y" path="res://Scenes/Dungeon_floors/trapdoor.tscn" id="24_0uy8j"]
+[ext_resource type="AudioStream" uid="uid://cafv10fm7n26w" path="res://Assets/Audio/background music/magic-castle-instrumental-for-you-10675.mp3" id="25_1rtdh"]
 [ext_resource type="PackedScene" uid="uid://bycygvf0dkbr1" path="res://Scenes/items/heart_2_pickup.tscn" id="25_kj0jc"]
 
 [sub_resource type="Animation" id="Animation_27xwy"]
@@ -342,7 +342,7 @@ position = Vector2(1107, 254)
 position = Vector2(1187, 212)
 
 [node name="BG music" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("11_qb2xa")
+stream = ExtResource("25_1rtdh")
 bus = &"Music"
 
 [connection signal="timeout" from="CanvasLayer/Fade_color/Fade_timer" to="." method="_on_fade_timer_timeout"]

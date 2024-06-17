@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://f54ojsjaqvjm"]
+[gd_scene load_steps=10 format=3 uid="uid://f54ojsjaqvjm"]
 
 [ext_resource type="Script" path="res://Scripts/enemy/shadow_bolt.gd" id="1_nkcrq"]
 [ext_resource type="Texture2D" uid="uid://cjuyax4rw0owj" path="res://Assets/Sprites/enemies/skeleton_mage.png" id="2_oc21w"]
@@ -43,6 +43,10 @@ animations = [{
 radius = 3.0
 height = 12.0
 
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_0mquu"]
+radius = 4.0
+height = 14.0
+
 [node name="shadow_bolt" type="Area2D"]
 collision_layer = 2
 collision_mask = 3
@@ -58,4 +62,14 @@ position = Vector2(2, -1)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_wi2nf")
 
+[node name="Destructable_hitbox" type="Area2D" parent="."]
+collision_layer = 4
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Destructable_hitbox"]
+position = Vector2(1, 0)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_0mquu")
+
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="area_entered" from="Destructable_hitbox" to="." method="_on_destructable_hitbox_area_entered"]

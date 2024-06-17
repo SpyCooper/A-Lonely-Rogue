@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://de1jje6nelok4"
+path="res://.godot/imported/bgm029-dark-fantasy-horror-mystery-horror-148349.mp3-bd681c0744b9ef710434bc5642f4bc5e.mp3str"
+
+[deps]
+
+source_file="res://Assets/Audio/background music/bgm029-dark-fantasy-horror-mystery-horror-148349.mp3"
+dest_files=["res://.godot/imported/bgm029-dark-fantasy-horror-mystery-horror-148349.mp3-bd681c0744b9ef710434bc5642f4bc5e.mp3str"]
+
+[params]
+
+loop=true
+loop_offset=0.0
+bpm=0.0
+beat_count=0
+bar_beats=4

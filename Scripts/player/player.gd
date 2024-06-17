@@ -154,14 +154,12 @@ func _physics_process(_delta):
 
 # runs when an enemy hits the player
 func player_take_damage():
-	player_adjust_health(-1)
-	hit_sound.play()
-	hit_flash_animation_player.play("hit_flash")
-
-# when the death_timer runs out, the scene resets
-func _on_timer_timeout():
-	get_tree().reload_current_scene()
-	Engine.time_scale = 1
+	# if the player is not dying
+	if !dying:
+		# get hit
+		player_adjust_health(-1)
+		hit_sound.play()
+		hit_flash_animation_player.play("hit_flash")
 
 # runs when an item is picked up
 func picked_up_item(item, display_text = true, sound = true):
@@ -383,6 +381,8 @@ func _on_stand_up_timer_timeout():
 		hud.display_text("Floor 2", "There shouldn't not be any more slimes, right?")
 	elif get_tree().current_scene.name == "Floor3":
 		hud.display_text("Floor 3", "Sound like the dead here...")
+	elif get_tree().current_scene.name == "Floor4":
+		hud.display_text("Floor 4", "Did that shadow just move?")
 
 # save the player data to transfer between floors
 func save_player_data():
@@ -405,3 +405,8 @@ func load_player_data():
 # when the player fall sound timer ends, play the fall sound
 func _on_player_fall_sound_timer_timeout():
 	player_fall_sound.play()
+
+# when the death_timer runs out, the scene resets
+func _on_death_timer_timeout():
+	Engine.time_scale = 1
+	get_tree().change_scene_to_file("res://Scenes/Dungeon_floors/dungeon_floor_1.tscn")

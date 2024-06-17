@@ -27,6 +27,21 @@ var earth_elemental_kill_count = 0
 @onready var air_elemental_kill_count_label = $TabContainer/Monsters/Panels/air_elemental_panel/KillCountLabel
 var air_elemental_unlocked = false
 var air_elemental_kill_count = 0
+@onready var skeleton_warrior_button = $TabContainer/Monsters/ScrollContainer/GridContainer/Spot5/skeleton_warrior_button
+@onready var skeleton_warrior_panel = $TabContainer/Monsters/Panels/skeleton_warrior_panel
+@onready var skeleton_warrior_kill_count_label = $TabContainer/Monsters/Panels/skeleton_warrior_panel/KillCountLabel
+var skeleton_warrior_unlocked = false
+var skeleton_warrior_kill_count = 0
+@onready var skeleton_archer_button = $TabContainer/Monsters/ScrollContainer/GridContainer/Spot6/skeleton_archer_button
+@onready var skeleton_archer_panel = $TabContainer/Monsters/Panels/skeleton_archer_panel
+@onready var skeleton_archer_kill_count_label = $TabContainer/Monsters/Panels/skeleton_archer_panel/KillCountLabel
+var skeleton_archer_unlocked = false
+var skeleton_archer_kill_count = 0
+@onready var skeleton_mage_button = $TabContainer/Monsters/ScrollContainer/GridContainer/Spot7/skeleton_mage_button
+@onready var skeleton_mage_panel = $TabContainer/Monsters/Panels/skeleton_mage_panel
+@onready var skeleton_mage_kill_count_label = $TabContainer/Monsters/Panels/skeleton_mage_panel/KillCountLabel
+var skeleton_mage_unlocked = false
+var skeleton_mage_kill_count = 0
 
 # items variables
 # all enemy sections on the catalog need a reference to it's button, the panel, and a bool
@@ -118,6 +133,21 @@ func load_data():
 			if air_elemental_unlocked:
 				air_elemental_button.material.shader = null
 				air_elemental_kill_count = data["air_elemental_kill_count"]
+			# skeleton warrior check
+			skeleton_warrior_unlocked = data["skeleton_warrior_unlocked"]
+			if skeleton_warrior_unlocked:
+				skeleton_warrior_button.material.shader = null
+				skeleton_warrior_kill_count = data["skeleton_warrior_kill_count"]
+			# skeleton archer check
+			skeleton_archer_unlocked = data["skeleton_archer_unlocked"]
+			if skeleton_archer_unlocked:
+				skeleton_archer_button.material.shader = null
+				skeleton_archer_kill_count = data["skeleton_archer_kill_count"]
+			# skeleton mage check
+			skeleton_mage_unlocked = data["skeleton_mage_unlocked"]
+			if skeleton_mage_unlocked:
+				skeleton_mage_button.material.shader = null
+				skeleton_mage_kill_count = data["skeleton_mage_kill_count"]
 			# update the kill counts in the catalog
 			update_kill_counts()
 	
@@ -178,8 +208,6 @@ func load_data():
 			if triple_blades_unlocked:
 				triple_blades_button.material.shader = null
 
-## ---------------------------------- Enemies --------------------------------------------------------
-
 # goes through all the panels and hides all of them
 func clear_panel():
 	# enemy tab
@@ -187,6 +215,9 @@ func clear_panel():
 	green_slime_panel.hide()
 	earth_elemental_panel.hide()
 	air_elemental_panel.hide()
+	skeleton_warrior_panel.hide()
+	skeleton_archer_panel.hide()
+	skeleton_mage_panel.hide()
 	
 	# boss tab
 	gelatinous_cube_panel.hide()
@@ -204,6 +235,8 @@ func clear_panel():
 	shadow_heart_panel.hide()
 	triple_blades_panel.hide()
 
+## ---------------------------------- Enemies --------------------------------------------------------
+
 # unlocks an enemy based on it's type
 func unlock_enemy(enemy):
 	# matches the enemy type
@@ -216,7 +249,6 @@ func unlock_enemy(enemy):
 			blue_slime_unlocked = true
 		# increase the kill count and update the counts in the catalog
 		blue_slime_kill_count += 1
-		update_kill_counts()
 	elif enemy == EnemyTypes.enemy.green_slime:
 		# if the enemy is locked
 		if !green_slime_unlocked:
@@ -226,7 +258,6 @@ func unlock_enemy(enemy):
 			green_slime_unlocked = true
 		# increase the kill count and update the counts in the catalog
 		green_slime_kill_count += 1
-		update_kill_counts()
 	elif enemy == EnemyTypes.enemy.gelatinous_cube:
 		# if the enemy is locked
 		if !gelatinous_cube_unlocked:
@@ -236,7 +267,6 @@ func unlock_enemy(enemy):
 			gelatinous_cube_unlocked = true
 		# increase the kill count and update the counts in the catalog
 		gelatinous_cube_kill_count += 1
-		update_kill_counts()
 	elif enemy == EnemyTypes.enemy.earth_elemental:
 		# if the enemy is locked
 		if !earth_elemental_unlocked:
@@ -246,7 +276,6 @@ func unlock_enemy(enemy):
 			earth_elemental_unlocked = true
 		# increase the kill count and update the counts in the catalog
 		earth_elemental_kill_count += 1
-		update_kill_counts()
 	elif enemy == EnemyTypes.enemy.air_elemental:
 		# if the enemy is locked
 		if !air_elemental_unlocked:
@@ -256,7 +285,34 @@ func unlock_enemy(enemy):
 			air_elemental_unlocked = true
 		# increase the kill count and update the counts in the catalog
 		air_elemental_kill_count += 1
-		update_kill_counts()
+	elif enemy == EnemyTypes.enemy.skeleton_warrior:
+		# if the enemy is locked
+		if !skeleton_warrior_unlocked:
+			# remove the locked shader
+			skeleton_warrior_button.material.shader = null
+			# set the enemy to be unlocked
+			skeleton_warrior_unlocked = true
+		# increase the kill count and update the counts in the catalog
+		skeleton_warrior_kill_count += 1
+	elif enemy == EnemyTypes.enemy.skeleton_archer:
+		# if the enemy is locked
+		if !skeleton_archer_unlocked:
+			# remove the locked shader
+			skeleton_archer_button.material.shader = null
+			# set the enemy to be unlocked
+			skeleton_archer_unlocked = true
+		# increase the kill count and update the counts in the catalog
+		skeleton_archer_kill_count += 1
+	elif enemy == EnemyTypes.enemy.skeleton_mage:
+		# if the enemy is locked
+		if !skeleton_mage_unlocked:
+			# remove the locked shader
+			skeleton_mage_button.material.shader = null
+			# set the enemy to be unlocked
+			skeleton_mage_unlocked = true
+		# increase the kill count and update the counts in the catalog
+		skeleton_mage_kill_count += 1
+	update_kill_counts()
 	# saves the enemies to the catalog file
 	save_enemies()
 
@@ -273,6 +329,12 @@ func found_enemies():
 		"earth_elemental_kill_count" : earth_elemental_kill_count,
 		"air_elemental_unlocked" : air_elemental_unlocked,
 		"air_elemental_kill_count" : air_elemental_kill_count,
+		"skeleton_warrior_unlocked" : skeleton_warrior_unlocked,
+		"skeleton_warrior_kill_count" : skeleton_warrior_kill_count,
+		"skeleton_archer_unlocked" : skeleton_archer_unlocked,
+		"skeleton_archer_kill_count" : skeleton_archer_kill_count,
+		"skeleton_mage_unlocked" : skeleton_mage_unlocked,
+		"skeleton_mage_kill_count" : skeleton_mage_kill_count,
 	}
 	return data
 
@@ -283,6 +345,9 @@ func update_kill_counts():
 	gel_cube_kill_count_label.text = "Killed: " + str(gelatinous_cube_kill_count)
 	earth_elemental_kill_count_label.text = "Killed: " + str(earth_elemental_kill_count)
 	air_elemental_kill_count_label.text = "Killed: " + str(air_elemental_kill_count)
+	skeleton_warrior_kill_count_label.text = "Killed: " + str(skeleton_warrior_kill_count)
+	skeleton_archer_kill_count_label.text = "Killed: " + str(skeleton_archer_kill_count)
+	skeleton_mage_kill_count_label.text = "Killed: " + str(skeleton_mage_kill_count)
 
 # when the blue slime button is presed
 func _on_blue_slime_pressed():
@@ -328,6 +393,33 @@ func _on_gelatinous_cube_button_pressed():
 	if gelatinous_cube_unlocked:
 		# show the enemy's info panel
 		gelatinous_cube_panel.show()
+
+# when the skeleton warrior cube button is presed
+func _on_skeleton_warrior_button_pressed():
+	# clear the info panel
+	clear_panel()
+	# if the enemy is unlocked
+	if skeleton_warrior_unlocked:
+		# show the enemy's info panel
+		skeleton_warrior_panel.show()
+
+# when the skeleton archer button is presed
+func _on_skeleton_archer_button_pressed():
+	# clear the info panel
+	clear_panel()
+	# if the enemy is unlocked
+	if skeleton_archer_unlocked:
+		# show the enemy's info panel
+		skeleton_archer_panel.show()
+
+# when the skeleton mage button is presed
+func _on_skeleton_mage_button_pressed():
+	# clear the info panel
+	clear_panel()
+	# if the enemy is unlocked
+	if skeleton_mage_unlocked:
+		# show the enemy's info panel
+		skeleton_mage_panel.show()
 
 # saves the enemy found to "enemiesfound.save"
 func save_enemies():
@@ -541,4 +633,3 @@ func _on_triple_blades_button_pressed():
 	if triple_blades_unlocked:
 		# show the item's info panel
 		triple_blades_panel.show()
-

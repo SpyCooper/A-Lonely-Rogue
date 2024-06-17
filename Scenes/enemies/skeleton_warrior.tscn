@@ -1,4 +1,4 @@
-[gd_scene load_steps=72 format=3 uid="uid://b1opxnh484w82"]
+[gd_scene load_steps=78 format=3 uid="uid://b1opxnh484w82"]
 
 [ext_resource type="Texture2D" uid="uid://dwggc2h35ycwr" path="res://Assets/Sprites/enemies/skeleton_warrior.png" id="1_r7la7"]
 [ext_resource type="Script" path="res://Scripts/enemy/skeleton_warrior.gd" id="1_wyi3o"]
@@ -12,7 +12,7 @@
 radius = 7.0
 height = 26.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_io3yy"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_skm1t"]
 resource_local_to_scene = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fo3d7"]
@@ -170,6 +170,30 @@ region = Rect2(224, 0, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_vt86r"]
 atlas = ExtResource("1_r7la7")
 region = Rect2(256, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_50os3"]
+atlas = ExtResource("1_r7la7")
+region = Rect2(192, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_my1vp"]
+atlas = ExtResource("1_r7la7")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5ilch"]
+atlas = ExtResource("1_r7la7")
+region = Rect2(192, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q2154"]
+atlas = ExtResource("1_r7la7")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6lt1s"]
+atlas = ExtResource("1_r7la7")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b27rl"]
+atlas = ExtResource("1_r7la7")
+region = Rect2(192, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1g6ui"]
 atlas = ExtResource("1_r7la7")
@@ -397,6 +421,34 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_50os3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_my1vp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5ilch")
+}],
+"loop": false,
+"name": &"idle_hit_left",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q2154")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6lt1s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b27rl")
+}],
+"loop": false,
+"name": &"idle_hit_right",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_1g6ui")
 }],
 "loop": false,
@@ -486,8 +538,8 @@ radius = 6.0
 height = 22.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pkjnt"]
-radius = 3.0
-height = 12.0
+radius = 2.0
+height = 8.0
 
 [node name="skeleton_warrior" type="CharacterBody2D"]
 collision_layer = 12
@@ -499,9 +551,9 @@ position = Vector2(0, 2)
 shape = SubResource("CapsuleShape2D_jb7qj")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-material = SubResource("ShaderMaterial_io3yy")
+material = SubResource("ShaderMaterial_skm1t")
 sprite_frames = SubResource("SpriteFrames_sgeqo")
-animation = &"attack_left"
+animation = &"idle_hit_right"
 autoplay = "spawning"
 
 [node name="DamagePlayer" parent="." instance=ExtResource("3_xa0xn")]
@@ -513,9 +565,19 @@ position = Vector2(1, -12)
 shape = SubResource("CapsuleShape2D_m4p3k")
 
 [node name="Spawn_timer" type="Timer" parent="."]
+one_shot = true
 
 [node name="death_timer" type="Timer" parent="."]
 wait_time = 1.1
+one_shot = true
+
+[node name="attack_animation_timer" type="Timer" parent="."]
+wait_time = 0.7
+one_shot = true
+
+[node name="slash_projection_spawn_timer" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
 
 [node name="collision_with_player" type="CharacterBody2D" parent="."]
 position = Vector2(-1, 10)
@@ -539,14 +601,6 @@ bus = &"Sound Effect"
 stream = ExtResource("4_pf6ye")
 volume_db = 5.0
 bus = &"Sound Effect"
-
-[node name="attack_animation_timer" type="Timer" parent="."]
-wait_time = 0.7
-one_shot = true
-
-[node name="slash_projection_spawn_timer" type="Timer" parent="."]
-wait_time = 0.3
-one_shot = true
 
 [node name="attack_sound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("7_gp6h6")

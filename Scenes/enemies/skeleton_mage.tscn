@@ -12,7 +12,7 @@
 radius = 7.0
 height = 26.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_io3yy"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_llepd"]
 resource_local_to_scene = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yb1ce"]
@@ -214,8 +214,8 @@ radius = 6.0
 height = 22.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pkjnt"]
-radius = 3.0
-height = 12.0
+radius = 2.0
+height = 8.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_x4xld"]
 atlas = ExtResource("1_v7mf1")
@@ -270,7 +270,7 @@ position = Vector2(0, 2)
 shape = SubResource("CapsuleShape2D_jb7qj")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-material = SubResource("ShaderMaterial_io3yy")
+material = SubResource("ShaderMaterial_llepd")
 sprite_frames = SubResource("SpriteFrames_pa0lj")
 animation = &"summoning_right"
 
@@ -283,9 +283,15 @@ position = Vector2(1, -12)
 shape = SubResource("CapsuleShape2D_m4p3k")
 
 [node name="Spawn_timer" type="Timer" parent="."]
+one_shot = true
 
 [node name="death_timer" type="Timer" parent="."]
 wait_time = 1.1
+one_shot = true
+
+[node name="attack_wait_timer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
 
 [node name="collision_with_player" type="CharacterBody2D" parent="."]
 position = Vector2(-1, 10)
@@ -323,10 +329,6 @@ sprite_frames = SubResource("SpriteFrames_gssf5")
 autoplay = "default"
 frame = 1
 frame_progress = 0.558984
-
-[node name="attack_wait_timer" type="Timer" parent="."]
-wait_time = 2.0
-one_shot = true
 
 [connection signal="timeout" from="Spawn_timer" to="." method="_on_spawn_timer_timeout"]
 [connection signal="timeout" from="death_timer" to="." method="_on_death_timer_timeout"]

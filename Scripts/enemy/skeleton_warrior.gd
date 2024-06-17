@@ -25,6 +25,7 @@ var current_direction : look_direction
 # variables
 var can_move = true
 var playing_hit_animation = false
+var is_idle = false
 
 # sets the enemy's stats and references
 func _ready():
@@ -35,6 +36,7 @@ func _ready():
 	max_health = health
 	catalog = Events.catalog
 
+# when the enemy wakes up
 func wake_up():
 	# player is now in the room
 	player_in_room = true
@@ -45,15 +47,20 @@ func wake_up():
 	# the spawn sound in played
 	spawn_sound.play()
 
+# on every frame
 func _process(delta):
+	# if the enemy cannot attack
 	if !can_attack:
+		# decrement the attack timer
 		can_attack_timer -= delta
+		# if the cant attack timer is less than or equal to 0
 		if can_attack_timer <= 0:
+			# allow the enemy to attack
 			can_attack = true
 
 # called every frame
 func _physics_process(_delta):
-	# if the player is in the room, the earth elemental isn't dying, and isn't spawning
+	# if the player is in the room, the skeleton warrior isn't dying, and isn't spawning
 	if player_in_room && !dying && !spawning:
 		# checks for a reference to the player and that the game isn't paused
 		# if the player is in the room, the enemy can move, and the game isn't paused
@@ -62,12 +69,14 @@ func _physics_process(_delta):
 			player_position = player.position
 			target_position = (player_position - global_position).normalized()
 			current_direction = get_left_right_look_direction(target_position)
-			
+			# if the enemy can attack and is less than 50 pixels away from the player
 			if can_attack && position.distance_to(player_position) < 50:
+				# attack
 				attack()
+			# if the enemy is further than 50 pixels
 			elif position.distance_to(player_position) >= 50:
 				# look in the direction of the player
-				# flips the direction of the earth elemental based on the current_direction
+				# flips the direction of the skeleton warrior based on the current_direction
 				## NOTE: all these checks are identical but change the directions they look at
 				## Move left
 				if current_direction == look_direction.left :
@@ -83,6 +92,7 @@ func _physics_process(_delta):
 						# plays the basic move animation and sets the playing_hit_animation to false
 						animated_sprite.play("move_left")
 						playing_hit_animation = false
+						is_idle = false
 				## Move right
 				elif current_direction == look_direction.right:
 					if animated_sprite.animation == "hit_left" || animated_sprite.animation == "hit_up" || animated_sprite.animation == "hit_down":
@@ -92,19 +102,37 @@ func _physics_process(_delta):
 					elif playing_hit_animation != true || animated_sprite.is_playing() == false:
 						animated_sprite.play("move_right")
 						playing_hit_animation = false
-				
+						is_idle = false
 				## has to use get_speed() to move based on dusted effect
 				move_and_collide(target_position.normalized() * get_speed())
+			# if the enemy is not attacking
 			elif !attacking:
+				# play the idle left or right animation
 				if current_direction == look_direction.left:
-					animated_sprite.play("idle_left")
+					# if a hit animation is playing
+					if animated_sprite.animation == "hit_right" || animated_sprite.animation == "hit_idle_right" || animated_sprite.animation == "hit_left":
+						# play the frame of the hit animation for the current direction
+						var frame = animated_sprite.frame
+						animated_sprite.play("hit_idle_left")
+						animated_sprite.frame = frame
+					# if a hit animation is not playing
+					elif playing_hit_animation != true || animated_sprite.is_playing() == false:
+						# play idle left
+						animated_sprite.play("idle_left")
+						is_idle = true
 				elif current_direction == look_direction.right:
-					animated_sprite.play("idle_right")
+					if animated_sprite.animation == "hit_left" || animated_sprite.animation == "hit_idle_left" || animated_sprite.animation == "hit_right":
+						var frame = animated_sprite.frame
+						animated_sprite.play("hit_idle_right")
+						animated_sprite.frame = frame
+					elif playing_hit_animation != true || animated_sprite.is_playing() == false:
+						animated_sprite.play("idle_right")
+						is_idle = true
 
 
 # runs when a knife (or other weapon) hits the enemy
 func take_damage(damage):
-	# checks if the earth elemental is not spawning or dying
+	# checks if the skeleton warrior is not spawning or dying
 	if spawning == false && dying == false:
 		# subtracts the health
 		health -= damage
@@ -112,9 +140,21 @@ func take_damage(damage):
 		if health > 0:
 			# play the hit animation based on the look direction
 			if current_direction == look_direction.left:
-				animated_sprite.play("hit_left")
+				# if the enemy is idle
+				if is_idle:
+					animated_sprite.play("idle_hit_left")
+				# else play hit left
+				else:
+					var frame = animated_sprite.frame
+					animated_sprite.frame = frame
+					animated_sprite.play("hit_left")
 			elif current_direction == look_direction.right:
-				animated_sprite.play("hit_right")
+				if is_idle:
+					animated_sprite.play("idle_hit_right")
+				else:
+					var frame = animated_sprite.frame
+					animated_sprite.frame = frame
+					animated_sprite.play("hit_right")
 			# set the playing_hit_animation to true
 			playing_hit_animation = true
 			# play the hit sound
@@ -133,7 +173,7 @@ func take_damage(damage):
 
 # when death timer ends
 func _on_death_timer_timeout():
-	# unlock the earth elemental in the catalog
+	# unlock the skeleton warrior in the catalog
 	catalog.unlock_enemy(EnemyTypes.enemy.skeleton_warrior)
 	# call enemy slain
 	enemy_slain()
@@ -142,27 +182,46 @@ func _on_death_timer_timeout():
 func _on_spawn_timer_timeout():
 	spawning = false
 
+# when the enemy attacks
 func attack():
+	# set bool variables
 	can_attack = false
 	can_move = false
 	attacking = true
+	# reset the can attack timer
 	can_attack_timer = can_attack_timer_max
+	# play the attack left or right animation
 	if current_direction == Enemy.look_direction.right:
 		animated_sprite.play("attack_right")
 	elif current_direction == Enemy.look_direction.left:
 		animated_sprite.play("attack_left")
+	# play the attack animation timer
 	attack_animation_timer.start()
+	# play the slash projection spawn timer
 	slash_projection_spawn_timer.start()
+	# play the attack sound
 	attack_sound.play()
 
+# when the attack animation timer
 func _on_attack_animation_timer_timeout():
+	# set can move to true
 	can_move = true
+	# set attack to false
 	attacking = false
 
+# when the slash projection spawn animation timer
 func _on_slash_projection_spawn_timer_timeout():
+	# get the player position
 	player_position = player.position
 	target_position = (player_position - global_position).normalized()
+	# spawn the clash projectile
 	var slash = SLASH_PROJECTILE.instantiate()
 	get_parent().add_child(slash)
+	# set the slash position
 	slash.global_position = global_position
+	# tell the slash that it spawned
 	slash.spawned(target_position)
+
+# returns the animated sprite
+func get_animated_sprite():
+	return animated_sprite

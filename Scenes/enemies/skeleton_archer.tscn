@@ -12,7 +12,7 @@
 radius = 7.0
 height = 26.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_xddxs"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_0m7h0"]
 resource_local_to_scene = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_dwl2a"]
@@ -506,8 +506,8 @@ radius = 6.0
 height = 22.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_pkjnt"]
-radius = 3.0
-height = 12.0
+radius = 2.0
+height = 8.0
 
 [node name="skeleton_archer" type="CharacterBody2D"]
 collision_layer = 12
@@ -519,7 +519,7 @@ position = Vector2(0, 2)
 shape = SubResource("CapsuleShape2D_jb7qj")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-material = SubResource("ShaderMaterial_xddxs")
+material = SubResource("ShaderMaterial_0m7h0")
 sprite_frames = SubResource("SpriteFrames_v0kjx")
 animation = &"spawning"
 autoplay = "spawning"
@@ -533,9 +533,19 @@ position = Vector2(1, -12)
 shape = SubResource("CapsuleShape2D_m4p3k")
 
 [node name="Spawn_timer" type="Timer" parent="."]
+one_shot = true
 
 [node name="death_timer" type="Timer" parent="."]
 wait_time = 1.1
+one_shot = true
+
+[node name="attack_animation_timer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="arrow_spawn_timer" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
 
 [node name="collision_with_player" type="CharacterBody2D" parent="."]
 position = Vector2(-1, 10)
@@ -559,14 +569,6 @@ bus = &"Sound Effect"
 stream = ExtResource("6_mdnah")
 volume_db = 5.0
 bus = &"Sound Effect"
-
-[node name="attack_animation_timer" type="Timer" parent="."]
-wait_time = 0.5
-one_shot = true
-
-[node name="arrow_spawn_timer" type="Timer" parent="."]
-wait_time = 0.3
-one_shot = true
 
 [node name="attack_sound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("7_o7fkw")

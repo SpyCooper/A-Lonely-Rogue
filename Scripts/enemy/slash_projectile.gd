@@ -7,7 +7,7 @@ extends Area2D
 var move_direction
 var speed = 100
 
-# this is called when a earth_elemental throws a tornado
+# this is called when a skeleton_warrior spawns a slash projectile
 func spawned(target_direction):
 	# sets the move direction to the target direction
 	move_direction = target_direction
@@ -15,10 +15,10 @@ func spawned(target_direction):
 
 # runs on every frane
 func _process(delta):
-	# moves the tornado based on the thrown direction
+	# moves the slash based on the thrown direction
 	position += move_direction * speed * delta
 
-# when the tornado hits something
+# when the slash hits something
 func _on_body_entered(body):
 	# if the object is a player
 	if body is Player:
@@ -26,5 +26,5 @@ func _on_body_entered(body):
 		body.player_take_damage()
 	# if the body is not enemy or is a collisiong_with_player scene of an enemy
 	if body != Enemy && body.name != "collision_with_player":
-		# remove the tornado
+		# remove the slash
 		queue_free()

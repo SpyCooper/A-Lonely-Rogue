@@ -7,18 +7,19 @@ extends Area2D
 var move_direction
 var speed = 175
 
-# this is called when a earth_elemental throws a tornado
+# this is called when a skeleton archer spawns an arrow
 func spawned(target_direction):
 	# sets the move direction to the target direction
 	move_direction = target_direction
+	# looks at the move direction
 	look_at(position + move_direction)
 
-# runs on every frane
+# runs on every frame
 func _process(delta):
-	# moves the tornado based on the thrown direction
+	# moves the arrow based on the thrown direction
 	position += move_direction * speed * delta
 
-# when the tornado hits something
+# when the arrow hits something
 func _on_body_entered(body):
 	# if the object is a player
 	if body is Player:
