@@ -21,6 +21,8 @@ class_name Player
 @onready var falling_animation_player = $falling_sprite/falling_AnimationPlayer
 @onready var player_fall_sound = $player_fall_sound
 @onready var player_fall_sound_timer = $player_fall_sound/player_fall_sound_timer
+@onready var falling_sprite_dark = $falling_sprite_dark
+@onready var falling_dark_animation_player = $falling_sprite_dark/falling_dark_AnimationPlayer
 
 # constants
 const KNIFE_SPEED = 150.0
@@ -55,24 +57,33 @@ func _ready():
 	# sets the stats for the player
 	attacks_per_second = 1
 	time_to_fire_max = time_to_fire_max / attacks_per_second
+	
+	# load the player data, if there is any
+	# used to transfer data between floor
+	load_player_data()
 	Events.player = self
 	# plays the fall animation
 	player_can_move = false
+	
 	animated_sprite.hide()
 	falling_shadow_sprite.show()
 	falling_shadow_sprite.play("default")
-	falling_animation_player.play("player_falling")
+	if shadow_heart:
+		falling_sprite.hide()
+		falling_sprite_dark.show()
+		falling_dark_animation_player.play("player_falling")
+	else:
+		falling_sprite.show()
+		falling_sprite_dark.hide()
+		falling_animation_player.play("player_falling")
 	stand_up_sprite.hide()
 	# if the current floor is 1, hide hud during fall
 	if get_tree().current_scene.name == "Floor1":
 		hud.hide()
 	hud.refresh_key_amount(number_of_keys)
+	hud.refresh_hearts(player_health, shadow_heart)
 	fall_timer.start()
 	player_fall_sound_timer.start()
-	
-	# load the player data, if there is any
-	# used to transfer data between floor
-	load_player_data()
 
 # runs on every frame
 func _process(delta):
@@ -91,27 +102,51 @@ func _physics_process(_delta):
 		
 		# controls the animations for the movement
 		if direction.y == -1:
-			animated_sprite.play("move_up")
+			if shadow_heart:
+				animated_sprite.play("move_up_dark")
+			else:
+				animated_sprite.play("move_up")
 			lastMove = "move_up"
 		elif direction.y == 1:
-			animated_sprite.play("move_down")
+			if shadow_heart:
+				animated_sprite.play("move_down_dark")
+			else:
+				animated_sprite.play("move_down")
 			lastMove = "move_down"
 		elif direction.x < 0:
-			animated_sprite.play("move_left")
+			if shadow_heart:
+				animated_sprite.play("move_left_dark")
+			else:
+				animated_sprite.play("move_left")
 			lastMove = "move_left"
 		elif direction.x > 0:
-			animated_sprite.play("move_right")
+			if shadow_heart:
+				animated_sprite.play("move_right_dark")
+			else:
+				animated_sprite.play("move_right")
 			lastMove = "move_right"
 		else:
 			# sets the idle animations based on the last movemnet
 			if lastMove == "move_right":
-				animated_sprite.play("idle_right")
+				if shadow_heart:
+					animated_sprite.play("idle_right_dark")
+				else:
+					animated_sprite.play("idle_right")
 			elif lastMove == "move_left":
-				animated_sprite.play("idle_left")
+				if shadow_heart:
+					animated_sprite.play("idle_left_dark")
+				else:
+					animated_sprite.play("idle_left")
 			elif lastMove == "move_up":
-				animated_sprite.play("idle_up")
+				if shadow_heart:
+					animated_sprite.play("idle_up_dark")
+				else:
+					animated_sprite.play("idle_up")
 			else:
-				animated_sprite.play("idle_down")
+				if shadow_heart:
+					animated_sprite.play("idle_down_dark")
+				else:
+					animated_sprite.play("idle_down")
 		
 		# moves the player
 		move_and_slide()
@@ -355,10 +390,16 @@ func get_is_dying():
 func _on_fall_timer_timeout():
 	# hide the fall and fall shadow sprites
 	falling_shadow_sprite.hide()
-	falling_sprite.hide()
+	if shadow_heart:
+		falling_sprite_dark.hide()
+	else:
+		falling_sprite.hide()
 	# play the stand up animation
 	stand_up_sprite.show()
-	stand_up_sprite.play("stand_up")
+	if shadow_heart:
+		stand_up_sprite.play("stand_up_dark")
+	else:
+		stand_up_sprite.play("stand_up")
 	# start the stand up timer
 	stand_up_timer.start()
 
@@ -366,6 +407,10 @@ func _on_fall_timer_timeout():
 func _on_stand_up_timer_timeout():
 	# show the normal animated sprite
 	animated_sprite.show()
+	
+	if shadow_heart:
+		animated_sprite.play("idle_down_dark")
+	
 	# hide the stand up music
 	stand_up_sprite.hide()
 	# play the backgound music for the floor

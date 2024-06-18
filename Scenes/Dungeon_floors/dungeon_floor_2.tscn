@@ -119,7 +119,6 @@ y_sort_enabled = true
 script = ExtResource("1_yjxmx")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="Fade_color" type="ColorRect" parent="CanvasLayer"]
 offset_right = 1280.0
