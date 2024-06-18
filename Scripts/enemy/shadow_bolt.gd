@@ -26,6 +26,7 @@ func _process(delta):
 func spawned(spawned_from, call_spawner_when_gone):
 	# set the player reference
 	player = Events.player
+	# if the mage needs to know when the shadow bolt dies
 	if call_spawner_when_gone == true:
 		# set the mage that spawned the shadow bolt
 		mage = spawned_from
@@ -41,6 +42,7 @@ func _on_body_entered(body):
 		body.player_take_damage()
 	# if the body is not enemy or is a collisiong_with_player scene of an enemy
 	if body != Enemy && body.name != "collision_with_player":
+		# if the mage needs to know when the shadow bolt dies
 		if call_mage:
 			# tell the mage that spawned the shadow bolt that the shadow bolt is destroyed
 			mage.shadow_bolt_gone()
@@ -51,6 +53,7 @@ func _on_body_entered(body):
 func _on_destructable_hitbox_area_entered(area):
 	# check if area is knife
 	if area is Knife:
+		# if the mage needs to know when the shadow bolt dies
 		if call_mage:
 			# tell the mage that spawned the shadow bolt that the shadow bolt is destroyed
 			mage.shadow_bolt_gone()

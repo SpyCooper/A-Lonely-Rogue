@@ -119,6 +119,7 @@ y_sort_enabled = true
 script = ExtResource("1_yjxmx")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="Fade_color" type="ColorRect" parent="CanvasLayer"]
 offset_right = 1280.0
@@ -256,6 +257,9 @@ position = Vector2(1, 0)
 [node name="2_door_up_right" parent="." instance=ExtResource("14_5eek1")]
 position = Vector2(-368, 0)
 
+[node name="DoorVisualUp" parent="2_door_up_right" index="1"]
+locked = true
+
 [node name="1_door_down" parent="." instance=ExtResource("15_an5fh")]
 position = Vector2(-368, -208)
 
@@ -286,8 +290,12 @@ position = Vector2(736, 208)
 [node name="1_door_left2" parent="." instance=ExtResource("18_lc5ec")]
 position = Vector2(1104, 208)
 
-[node name="BossDoorSymbol" type="Sprite2D" parent="."]
-position = Vector2(736, 349)
+[node name="Floor Text" type="Node2D" parent="."]
+position = Vector2(736, 451)
+
+[node name="BossDoorSymbol" type="Sprite2D" parent="Floor Text"]
+z_index = -1
+position = Vector2(0, -104)
 texture = ExtResource("20_7pjkk")
 
 [node name="air_elemental" parent="." instance=ExtResource("12_cox8u")]
@@ -350,3 +358,7 @@ bus = &"Music"
 [connection signal="pressed" from="CanvasLayer/Pause_menu/Buttons_container/Control4/Catalog_button" to="CanvasLayer/Pause_menu" method="_on_catalog_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Pause_menu/Buttons_container/Control3/Options_button" to="CanvasLayer/Pause_menu" method="_on_options_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Pause_menu/Buttons_container/Control2/MainMenu_button" to="CanvasLayer/Pause_menu" method="_on_main_menu_button_pressed"]
+
+[editable path="2_door_up_right"]
+[editable path="2_door_up_right/DoorRight"]
+[editable path="2_door_up_right/DoorUp"]

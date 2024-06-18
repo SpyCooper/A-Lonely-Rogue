@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://bsgca2ryt6hhk"]
+[gd_scene load_steps=34 format=3 uid="uid://bsgca2ryt6hhk"]
 
 [ext_resource type="Script" path="res://Scripts/map/dungeon_floor.gd" id="1_e1kxb"]
 [ext_resource type="PackedScene" uid="uid://duv7i8yak343i" path="res://Scenes/HUD.tscn" id="2_182ru"]
@@ -9,10 +9,24 @@
 [ext_resource type="Script" path="res://Scripts/map/Transition Camera.gd" id="7_mv6n6"]
 [ext_resource type="Texture2D" uid="uid://drktqhtj5vluu" path="res://Assets/Sprites/map/TileSet.png" id="8_mmybn"]
 [ext_resource type="PackedScene" uid="uid://dahgvmrgtix2i" path="res://Scenes/player.tscn" id="9_5soma"]
-[ext_resource type="PackedScene" uid="uid://coxlx2ylhc6q8" path="res://Scenes/map/corner rooms/2_door_up_right.tscn" id="10_utng1"]
 [ext_resource type="AudioStream" uid="uid://cwiyog21e6jbs" path="res://Assets/Audio/background music/caves-of-dawn-10376.mp3" id="11_71p1x"]
+[ext_resource type="PackedScene" uid="uid://dqkgb1e1soyjs" path="res://Scenes/map/single door rooms/1_door_down.tscn" id="11_e28pd"]
+[ext_resource type="PackedScene" uid="uid://cj7h10qvuo84a" path="res://Scenes/map/4_door_room.tscn" id="12_emqrm"]
 [ext_resource type="PackedScene" uid="uid://1brne78u7lu8" path="res://Scenes/enemies/shade.tscn" id="13_5138j"]
-[ext_resource type="PackedScene" uid="uid://dw37vbmnwivg6" path="res://Scenes/map/single door rooms/1_door_left.tscn" id="17_wf6mw"]
+[ext_resource type="PackedScene" uid="uid://cvwlccke1gs7h" path="res://Scenes/map/hallways/2_door_hallway_horizontal.tscn" id="13_as714"]
+[ext_resource type="PackedScene" uid="uid://cy8hip4fllaxy" path="res://Scenes/map/corner rooms/2_door_down_right.tscn" id="14_dxp4m"]
+[ext_resource type="PackedScene" uid="uid://cr3t522vle50y" path="res://Scenes/Dungeon_floors/trapdoor.tscn" id="14_w5ben"]
+[ext_resource type="PackedScene" uid="uid://xbughqfxfbr6" path="res://Scenes/map/single door rooms/1_door_up.tscn" id="15_7p24v"]
+[ext_resource type="PackedScene" uid="uid://bm78w1b0to7t5" path="res://Scenes/map/corner rooms/2_door_up_left.tscn" id="16_ddmgn"]
+[ext_resource type="PackedScene" uid="uid://bk3i0p3dmgy8i" path="res://Scenes/map/hallways/2_door_hallway_vertical.tscn" id="17_3kg8v"]
+[ext_resource type="Texture2D" uid="uid://dveuvlvaajxjc" path="res://Assets/Sprites/map/boss_door_symbol.png" id="18_4rr6x"]
+[ext_resource type="PackedScene" uid="uid://bd4j5c5ldoecs" path="res://Scenes/items/heart_1_pickup.tscn" id="20_54324"]
+[ext_resource type="PackedScene" uid="uid://cfta80h76u0k2" path="res://Scenes/item_chest.tscn" id="21_guaou"]
+[ext_resource type="PackedScene" uid="uid://dy8i23c2qb18k" path="res://Scenes/enemies/skeleton_archer.tscn" id="22_us74r"]
+[ext_resource type="PackedScene" uid="uid://dvwf7rte2gvv2" path="res://Scenes/enemies/skeleton_mage.tscn" id="23_17vag"]
+[ext_resource type="PackedScene" uid="uid://b1opxnh484w82" path="res://Scenes/enemies/skeleton_warrior.tscn" id="24_cxygx"]
+[ext_resource type="PackedScene" uid="uid://bycygvf0dkbr1" path="res://Scenes/items/heart_2_pickup.tscn" id="25_biflg"]
+[ext_resource type="PackedScene" uid="uid://w1pgiqf773o0" path="res://Scenes/random_item_spawner.tscn" id="26_oshcm"]
 
 [sub_resource type="Animation" id="Animation_27xwy"]
 length = 0.001
@@ -239,20 +253,115 @@ layer_0/tile_data = PackedInt32Array(-4456529, 65536, 2, -4390993, 65536, 2, -43
 unique_name_in_owner = true
 position = Vector2(1, 0)
 
-[node name="2_door_up_right" parent="." instance=ExtResource("10_utng1")]
-
 [node name="BG music" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("11_71p1x")
 bus = &"Music"
 
-[node name="1_door_left" parent="." instance=ExtResource("17_wf6mw")]
-position = Vector2(368, 0)
+[node name="1_door_down" parent="." instance=ExtResource("11_e28pd")]
+
+[node name="4_door_room" parent="." instance=ExtResource("12_emqrm")]
+position = Vector2(0, 208)
+
+[node name="DoorVisualDown" parent="4_door_room" index="5"]
+locked = true
+
+[node name="2_door_hallway_horizontal" parent="." instance=ExtResource("13_as714")]
+position = Vector2(-368, 208)
+
+[node name="2_door_down_right" parent="." instance=ExtResource("14_dxp4m")]
+position = Vector2(-736, 208)
+
+[node name="1_door_up" parent="." instance=ExtResource("15_7p24v")]
+position = Vector2(0, 416)
+
+[node name="1_door_up2" parent="." instance=ExtResource("15_7p24v")]
+position = Vector2(-736, 416)
+
+[node name="2_door_hallway_horizontal2" parent="." instance=ExtResource("13_as714")]
+position = Vector2(368, 208)
+
+[node name="2_door_up_left" parent="." instance=ExtResource("16_ddmgn")]
+position = Vector2(736, 208)
+
+[node name="2_door_hallway_verical" parent="." instance=ExtResource("17_3kg8v")]
+position = Vector2(736, 0)
+
+[node name="2_door_hallway_verical2" parent="." instance=ExtResource("17_3kg8v")]
+position = Vector2(736, -208)
+
+[node name="1_door_down2" parent="." instance=ExtResource("11_e28pd")]
+position = Vector2(736, -416)
 
 [node name="shade" parent="." instance=ExtResource("13_5138j")]
-position = Vector2(475, -31)
+position = Vector2(1, 229)
+
+[node name="heart_1_pickup" parent="." instance=ExtResource("20_54324")]
+position = Vector2(-2, 441)
+
+[node name="shade2" parent="." instance=ExtResource("13_5138j")]
+position = Vector2(-456, 177)
+
+[node name="shade3" parent="." instance=ExtResource("13_5138j")]
+position = Vector2(-288, 251)
+
+[node name="item_chest" parent="." instance=ExtResource("21_guaou")]
+position = Vector2(-735, 449)
+
+[node name="shade4" parent="." instance=ExtResource("13_5138j")]
+position = Vector2(-668, 250)
+
+[node name="skeleton_archer" parent="." instance=ExtResource("22_us74r")]
+position = Vector2(-837, 178)
+
+[node name="skeleton_mage" parent="." instance=ExtResource("23_17vag")]
+position = Vector2(-807, 249)
+
+[node name="skeleton_archer2" parent="." instance=ExtResource("22_us74r")]
+position = Vector2(797, 241)
+
+[node name="skeleton_archer3" parent="." instance=ExtResource("22_us74r")]
+position = Vector2(300, 163)
+
+[node name="skeleton_warrior" parent="." instance=ExtResource("24_cxygx")]
+position = Vector2(381, 252)
+
+[node name="shade5" parent="." instance=ExtResource("13_5138j")]
+position = Vector2(839, 172)
+
+[node name="shade6" parent="." instance=ExtResource("13_5138j")]
+position = Vector2(659, 174)
+
+[node name="shade7" parent="." instance=ExtResource("13_5138j")]
+position = Vector2(458, 172)
+
+[node name="heart_2_pickup" parent="." instance=ExtResource("25_biflg")]
+position = Vector2(664, -10)
+
+[node name="Random Item Spawner" parent="." instance=ExtResource("26_oshcm")]
+position = Vector2(681, -416)
+
+[node name="heart_2_pickup2" parent="." instance=ExtResource("25_biflg")]
+position = Vector2(824, -422)
+
+[node name="Trapdoor" parent="." instance=ExtResource("14_w5ben")]
+position = Vector2(84, -13)
+
+[node name="Floor Text" type="Node2D" parent="."]
+position = Vector2(736, 53)
+
+[node name="BossDoorSymbol2" type="Sprite2D" parent="Floor Text"]
+z_index = -1
+position = Vector2(0, -122)
+texture = ExtResource("18_4rr6x")
 
 [connection signal="timeout" from="CanvasLayer/Fade_color/Fade_timer" to="." method="_on_fade_timer_timeout"]
 [connection signal="pressed" from="CanvasLayer/Pause_menu/Buttons_container/Control/Resume_button" to="CanvasLayer/Pause_menu" method="_on_resume_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Pause_menu/Buttons_container/Control4/Catalog_button" to="CanvasLayer/Pause_menu" method="_on_catalog_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Pause_menu/Buttons_container/Control3/Options_button" to="CanvasLayer/Pause_menu" method="_on_options_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Pause_menu/Buttons_container/Control2/MainMenu_button" to="CanvasLayer/Pause_menu" method="_on_main_menu_button_pressed"]
+
+[editable path="4_door_room"]
+[editable path="4_door_room/DoorTPLeft"]
+[editable path="4_door_room/DoorTPRight"]
+[editable path="4_door_room/DoorTPDown"]
+[editable path="4_door_room/DoorTPUp"]

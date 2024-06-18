@@ -267,6 +267,9 @@ position = Vector2(-85, -210)
 [node name="4_door_room" parent="." instance=ExtResource("10_0wor3")]
 position = Vector2(0, -416)
 
+[node name="DoorVisualRight" parent="4_door_room" index="4"]
+locked = true
+
 [node name="2_door_up_right2" parent="." instance=ExtResource("11_sie2n")]
 position = Vector2(-368, -416)
 
@@ -275,6 +278,9 @@ position = Vector2(-368, -624)
 
 [node name="3_door_no_right" parent="." instance=ExtResource("16_tmcui")]
 position = Vector2(0, -624)
+
+[node name="DoorVisualUp" parent="3_door_no_right" index="1"]
+locked = true
 
 [node name="1_door_down" parent="." instance=ExtResource("12_b8j2h")]
 position = Vector2(0, -832)
@@ -303,8 +309,12 @@ position = Vector2(1104, -416)
 [node name="1_door_down2" parent="." instance=ExtResource("12_b8j2h")]
 position = Vector2(1104, -624)
 
-[node name="BossDoorSymbol" type="Sprite2D" parent="."]
-position = Vector2(1104, -276)
+[node name="Floor Text" type="Node2D" parent="."]
+position = Vector2(1104, -115)
+
+[node name="BossDoorSymbol2" type="Sprite2D" parent="Floor Text"]
+z_index = -1
+position = Vector2(0, -163)
 texture = ExtResource("18_vl42c")
 
 [node name="heart_2_pickup" parent="." instance=ExtResource("23_vpsya")]
@@ -397,3 +407,13 @@ position = Vector2(1040, -620)
 [connection signal="pressed" from="CanvasLayer/Pause_menu/Buttons_container/Control4/Catalog_button" to="CanvasLayer/Pause_menu" method="_on_catalog_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Pause_menu/Buttons_container/Control3/Options_button" to="CanvasLayer/Pause_menu" method="_on_options_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Pause_menu/Buttons_container/Control2/MainMenu_button" to="CanvasLayer/Pause_menu" method="_on_main_menu_button_pressed"]
+
+[editable path="4_door_room"]
+[editable path="4_door_room/DoorTPLeft"]
+[editable path="4_door_room/DoorTPRight"]
+[editable path="4_door_room/DoorTPDown"]
+[editable path="4_door_room/DoorTPUp"]
+[editable path="3_door_no_right"]
+[editable path="3_door_no_right/DoorLeft"]
+[editable path="3_door_no_right/DoorDown"]
+[editable path="3_door_no_right/DoorUp"]

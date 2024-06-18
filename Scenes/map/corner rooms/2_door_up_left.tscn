@@ -7,7 +7,6 @@
 [ext_resource type="PackedScene" uid="uid://besxs1hm25htm" path="res://Scenes/map/door.tscn" id="5_awkup"]
 [ext_resource type="PackedScene" uid="uid://ci4t04cng0qhi" path="res://Scenes/map/key_checks.tscn" id="6_2k435"]
 
-
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ltqhq"]
 texture = ExtResource("2_t3vxl")
 0:0/0 = 0
@@ -222,7 +221,6 @@ position = Vector2(0, -92)
 position = Vector2(0, -49)
 
 [node name="key_checks" parent="." instance=ExtResource("6_2k435")]
-position = Vector2(0, -92)
 
 [connection signal="body_entered" from="player detector" to="." method="_on_player_detector_body_entered"]
 [connection signal="body_entered" from="enemy detector" to="." method="_on_player_detector_body_entered"]

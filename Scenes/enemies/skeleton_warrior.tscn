@@ -12,7 +12,7 @@
 radius = 7.0
 height = 26.0
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_skm1t"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_q00da"]
 resource_local_to_scene = true
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_fo3d7"]
@@ -551,7 +551,7 @@ position = Vector2(0, 2)
 shape = SubResource("CapsuleShape2D_jb7qj")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-material = SubResource("ShaderMaterial_skm1t")
+material = SubResource("ShaderMaterial_q00da")
 sprite_frames = SubResource("SpriteFrames_sgeqo")
 animation = &"idle_hit_right"
 autoplay = "spawning"

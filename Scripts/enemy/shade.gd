@@ -35,7 +35,7 @@ var is_idle = false
 # sets the enemy's stats and references
 func _ready():
 	speed = 1
-	health = 4
+	health = 35
 	sleep()
 	player = Events.player
 	max_health = health
@@ -66,7 +66,7 @@ func _process(delta):
 
 # called every frame
 func _physics_process(_delta):
-	# if the player is in the room, the skeleton warrior isn't dying, and isn't spawning
+	# if the player is in the room, the shade isn't dying, and isn't spawning
 	if player_in_room && !dying && !spawning:
 		# checks for a reference to the player and that the game isn't paused
 		# if the player is in the room, the enemy can move, and the game isn't paused
@@ -75,12 +75,13 @@ func _physics_process(_delta):
 			player_position = player.position
 			target_position = (player_position - global_position).normalized()
 			current_direction = get_left_right_look_direction(target_position)
-			
+			# if the shade can attack and is further than 30 pixels
 			if can_attack == true && position.distance_to(player_position) > 30:
 				attack()
+			# else if the shade can move
 			elif can_move:
 				# look in the direction of the player
-				# flips the direction of the skeleton warrior based on the current_direction
+				# flips the direction of the shade based on the current_direction
 				## NOTE: all these checks are identical but change the directions they look at
 				## Move left
 				if current_direction == look_direction.left :
@@ -113,7 +114,7 @@ func _physics_process(_delta):
 
 # runs when a knife (or other weapon) hits the enemy
 func take_damage(damage):
-	# checks if the skeleton warrior is not spawning or dying
+	# checks if the shade is not spawning or dying
 	if spawning == false && dying == false:
 		# subtracts the health
 		health -= damage
@@ -170,7 +171,7 @@ func take_damage(damage):
 
 # when death timer ends
 func _on_death_timer_timeout():
-	# unlock the skeleton warrior in the catalog
+	# unlock the shade in the catalog
 	catalog.unlock_enemy(EnemyTypes.enemy.shade)
 	# call enemy slain
 	enemy_slain()
@@ -183,26 +184,39 @@ func _on_spawn_timer_timeout():
 func get_animated_sprite():
 	return animated_sprite
 
+# when the shade attacks
 func attack():
+	# set bool variables
 	attacking = true
 	can_move = false
 	can_attack = false
+	# play the correct attack direction
 	if current_direction == look_direction.left:
 		animated_sprite.play("shadow_bolt_left_start")
 	elif current_direction == look_direction.right:
 		animated_sprite.play("shadow_bolt_right_start")
+	# reset the can attack timer
 	can_attack_timer = can_attack_timer_max
+	# start the spawn timer
 	shadow_bolt_spawn_timer.start()
+	# start the attack timer
 	shadow_bolt_attack_timer.start()
 
+# when the shadow bolt attack timer ends
 func _on_shadow_bolt_attack_timer_timeout():
+	# reset the can attack timer
 	can_attack_timer = can_attack_timer_max
+	# allow the shade to move
 	can_move = true
 	attacking = false
 
+# spawns 1 shadow bolt
 func spawn_shadow_bolt():
+	# increase the amount of shadow bolts spawned in this burst
 	spawned_in_current_burst += 1
+	# play the attack sound
 	attack_sound.play()
+	# soawb the shadow bolt
 	var shadow_bolt = SHADOW_BOLT.instantiate()
 	if current_direction == look_direction.left:
 		shadow_bolt.global_position = shadow_bolt_spawn_left.global_position
@@ -211,18 +225,26 @@ func spawn_shadow_bolt():
 	get_parent().add_child(shadow_bolt)
 	# tell the shadow bolt that it spawned
 	shadow_bolt.spawned(self, false)
+	# start the time between shadow bolts burst timer
 	time_between_shadow_bolts_burst.start()
 
-
+# when the time between shadow bolts burst timer ends
 func _on_time_between_shadow_bolts_burst_timeout():
+	# if the max shadow bolts in this burst have not been reached
 	if spawned_in_current_burst < max_spawn_in_burst:
+		# spawn another shadow bolt
 		spawn_shadow_bolt()
+	# if the max shadow bolts per burst has been reached
 	else:
+		# reset the shadow bolts spawned in this burst
 		spawned_in_current_burst = 0
+		# play the correct attack ending animation
 		if current_direction == look_direction.left:
 			animated_sprite.play("shadow_bolt_left_end")
 		elif current_direction == look_direction.right:
 			animated_sprite.play("shadow_bolt_right_end")
 
+# when the shadow bolt spawn timer ends
 func _on_shadow_bolt_spawn_timer_timeout():
+	# spawn a shadow bolt
 	spawn_shadow_bolt()

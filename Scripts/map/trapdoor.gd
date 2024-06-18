@@ -16,3 +16,5 @@ func _on_area_2d_body_entered(body):
 			Events.floor_changed.emit("res://Scenes/Dungeon_floors/dungeon_floor_3.tscn")
 		if get_tree().current_scene.name == "Floor3":
 			Events.floor_changed.emit("res://Scenes/Dungeon_floors/dungeon_floor_4.tscn")
+		if get_tree().current_scene.name == "Floor4":
+			Events.floor_changed.emit("res://Scenes/Dungeon_floors/dungeon_floor_5.tscn")

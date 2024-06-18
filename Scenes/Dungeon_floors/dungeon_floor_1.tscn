@@ -118,7 +118,7 @@ texture = ExtResource("7_cdgba")
 [sub_resource type="TileSet" id="TileSet_pnge6"]
 sources/0 = SubResource("TileSetAtlasSource_a4f5t")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_glwb8"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xbsve"]
 resource_local_to_scene = true
 
 [node name="Floor1" type="Node2D"]
@@ -282,7 +282,7 @@ position = Vector2(-736, 0)
 locked = true
 
 [node name="gelatinous_cube" parent="." instance=ExtResource("13_axlkh")]
-material = SubResource("ShaderMaterial_glwb8")
+material = SubResource("ShaderMaterial_xbsve")
 position = Vector2(-736, -31)
 
 [node name="1_door_down" parent="." instance=ExtResource("14_hs83b")]
@@ -384,9 +384,12 @@ stream = ExtResource("27_26f5p")
 volume_db = -2.0
 bus = &"Music"
 
-[node name="BossDoorSymbol" type="Sprite2D" parent="."]
+[node name="Floor Text" type="Node2D" parent="."]
+position = Vector2(-515, 66)
+
+[node name="BossDoorSymbol" type="Sprite2D" parent="Floor Text"]
 z_index = -1
-position = Vector2(-514, 0)
+position = Vector2(0, -66)
 texture = ExtResource("29_8oo7y")
 
 [node name="Tutorial" type="Node2D" parent="."]
