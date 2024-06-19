@@ -1,8 +1,13 @@
-[gd_scene load_steps=103 format=3 uid="uid://b603clqbguc3q"]
+[gd_scene load_steps=108 format=3 uid="uid://b603clqbguc3q"]
 
 [ext_resource type="Script" path="res://Scripts/enemy/forgotten_golem.gd" id="1_sed1a"]
 [ext_resource type="Texture2D" uid="uid://b22esc8f8445m" path="res://Assets/Sprites/enemies/forgotten_golem.png" id="2_cp87h"]
 [ext_resource type="PackedScene" uid="uid://q3bng0o4u44l" path="res://Scenes/enemies/damage_player.tscn" id="3_qvvkh"]
+[ext_resource type="AudioStream" uid="uid://do7ua7yj6sjba" path="res://Assets/Audio/forgotten_golem/laser_attack.mp3" id="4_iy55y"]
+[ext_resource type="AudioStream" uid="uid://q3oe074iycdw" path="res://Assets/Audio/forgotten_golem/power-on-39172.mp3" id="4_r41nb"]
+[ext_resource type="AudioStream" uid="uid://ci0gjw23q1fjp" path="res://Assets/Audio/earth_elemental/cinematic-rock-smash-177982.mp3" id="4_rmir1"]
+[ext_resource type="AudioStream" uid="uid://bnhyfbesh82ug" path="res://Assets/Audio/forgotten_golem/power-off-96139.mp3" id="5_h63cs"]
+[ext_resource type="AudioStream" uid="uid://cx3nro8tcsa6v" path="res://Assets/Audio/forgotten_golem/the-magical-surprise-141291.mp3" id="8_qr1pw"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ukbej"]
 size = Vector2(24.561, 20.3954)
@@ -787,14 +792,20 @@ shape = SubResource("CapsuleShape2D_84dmf")
 
 [node name="HitSound" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(0, -21)
+stream = ExtResource("4_rmir1")
+volume_db = -3.0
 bus = &"Sound Effect"
 
 [node name="SpawnSound" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(0, -21)
+stream = ExtResource("4_r41nb")
+volume_db = -5.0
 bus = &"Sound Effect"
 
 [node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(0, -21)
+stream = ExtResource("5_h63cs")
+volume_db = -5.0
 bus = &"Sound Effect"
 
 [node name="Laser_spawn_timer" type="Timer" parent="."]
@@ -828,6 +839,15 @@ one_shot = true
 [node name="vine_spin_summon_timer" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
+
+[node name="Laser attack sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_iy55y")
+bus = &"Sound Effect"
+
+[node name="attack_sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_qr1pw")
+volume_db = -3.0
+bus = &"Sound Effect"
 
 [connection signal="timeout" from="Attack_timer" to="." method="_on_attack_timer_timeout"]
 [connection signal="timeout" from="Death_timer" to="." method="_on_death_timer_timeout"]

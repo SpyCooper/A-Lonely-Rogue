@@ -20,6 +20,7 @@ const LASER = preload("res://Scenes/enemies/laser/laser.tscn")
 @onready var laser_spawn_right_location = $"Laser Spawn right location"
 @onready var laser_spawn_left_location = $"Laser Spawn left location"
 @onready var laser_attack_end_timer = $"laser attack end timer"
+@onready var laser_attack_sound = $"Laser attack sound"
 
 # summon vines attack variables
 @onready var summon_vines_timer = $summon_vines_timer
@@ -28,6 +29,7 @@ var summon_vines_temp_pos
 const VINE_AREA = preload("res://Scenes/enemies/vine_area/vine_area.tscn")
 var vines_active = false
 @onready var delay_player_position_timer = $delay_player_position_timer
+@onready var attack_sound = $attack_sound
 
 # vine spin variables
 const VINE_SPIN = preload("res://Scenes/enemies/vine_spin/vine_spin.tscn")
@@ -48,7 +50,7 @@ var can_move = true
 func _ready():
 	# basic enemy stats
 	speed = 0.0
-	health = 80
+	health = 5
 	max_health = health
 	# sets references to the player and catalog
 	catalog = Events.catalog
@@ -164,6 +166,7 @@ func spawn_in():
 	# play spawning animation
 	animated_sprite.play("spawning")
 	spawn_timer.start()
+	spawn_sound.play()
 
 func _on_spawn_timer_timeout():
 	# the state is no longer spawning
@@ -228,6 +231,9 @@ func _on_laser_spawn_timer_timeout():
 	laser.global_position = laser_spawn_location.global_position
 	# tell the laser that it's spawned
 	laser.spawned(target_position)
+	
+	# play the laser attack sound
+	laser_attack_sound.play()
 
 # when the laser attack end timer ends
 func _on_laser_attack_end_timer_timeout():
@@ -238,6 +244,7 @@ func summon_vines():
 		animated_sprite.play("vines_summon_right")
 	elif current_direction == look_direction.left:
 		animated_sprite.play("vines_summon_left")
+	attack_sound.play()
 	summon_vines_temp_pos = player.global_position
 	summon_vines_timer.start()
 	summon_vines_spawn_timer.start()
@@ -264,6 +271,7 @@ func vine_spin_attack():
 		animated_sprite.play("vine_spin_right")
 	elif current_direction == look_direction.left:
 		animated_sprite.play("vine_spin_left")
+	attack_sound.play()
 	vine_spin_animation_timer.start()
 	vine_spin_summon_timer.start()
 

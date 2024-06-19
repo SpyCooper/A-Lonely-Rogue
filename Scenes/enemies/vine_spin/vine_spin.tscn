@@ -1,7 +1,8 @@
-[gd_scene load_steps=25 format=3 uid="uid://cdhoq0vtrye4i"]
+[gd_scene load_steps=26 format=3 uid="uid://cdhoq0vtrye4i"]
 
 [ext_resource type="Script" path="res://Scripts/enemy/vine_spin.gd" id="1_hyewn"]
 [ext_resource type="Texture2D" uid="uid://b22esc8f8445m" path="res://Assets/Sprites/enemies/forgotten_golem.png" id="1_xphnl"]
+[ext_resource type="AudioStream" uid="uid://b2dkkq2j5isw8" path="res://Assets/Audio/forgotten_golem/quick-swhooshing-noise-80898.mp3" id="3_f2aj6"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_7fsa5"]
 atlas = ExtResource("1_xphnl")
@@ -190,6 +191,11 @@ one_shot = true
 
 [node name="Marker2D" type="Marker2D" parent="."]
 position = Vector2(0, -8)
+
+[node name="attack_sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_f2aj6")
+volume_db = -2.0
+bus = &"Sound Effect"
 
 [connection signal="timeout" from="enter_animation_timer" to="." method="_on_enter_animation_timer_timeout"]
 [connection signal="timeout" from="attack_animation_timer" to="." method="_on_attack_animation_timer_timeout"]

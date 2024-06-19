@@ -6,6 +6,8 @@ extends Node2D
 @onready var area_2d = $Area2D
 @onready var exit_timer = $exit_timer
 @onready var enter_timer = $enter_timer
+@onready var enter_sound = $enter_sound
+@onready var exit_sound = $"exit sound"
 
 # variables
 var slow = 0.35
@@ -16,6 +18,7 @@ func _ready():
 	# play the enter animation and start enter timer
 	animated_sprite_2d.play("enter")
 	enter_timer.start()
+	enter_sound.play()
 
 # when a body enters the hitbox
 func _on_area_2d_body_entered(body):
@@ -46,6 +49,7 @@ func _on_life_timer_timeout():
 	# play the exit animation and start exit timer
 	animated_sprite_2d.play("exit")
 	exit_timer.start()
+	exit_sound.play()
 
 # when the exit timer ends
 func _on_exit_timer_timeout():
