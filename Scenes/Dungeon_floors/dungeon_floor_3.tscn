@@ -340,58 +340,58 @@ stream = ExtResource("26_efvkt")
 bus = &"Music"
 
 [node name="skeleton_warrior" parent="." instance=ExtResource("27_m8eep")]
-position = Vector2(-97, -447)
+position = Vector2(-100, -440)
 
 [node name="skeleton_archer" parent="." instance=ExtResource("27_2rgoa")]
-position = Vector2(106, -455)
+position = Vector2(103, -448)
 
 [node name="skeleton_mage" parent="." instance=ExtResource("28_qvxnw")]
-position = Vector2(470, -31)
+position = Vector2(467, -24)
 
 [node name="skeleton_archer2" parent="." instance=ExtResource("27_2rgoa")]
-position = Vector2(-449, -449)
+position = Vector2(-452, -442)
 
 [node name="skeleton_archer3" parent="." instance=ExtResource("27_2rgoa")]
-position = Vector2(-412, -375)
+position = Vector2(-415, -368)
 
 [node name="skeleton_archer4" parent="." instance=ExtResource("27_2rgoa")]
-position = Vector2(-260, -465)
+position = Vector2(-263, -458)
 
 [node name="skeleton_warrior2" parent="." instance=ExtResource("27_m8eep")]
-position = Vector2(-75, -599)
+position = Vector2(-78, -592)
 
 [node name="skeleton_archer5" parent="." instance=ExtResource("27_2rgoa")]
-position = Vector2(-66, -680)
+position = Vector2(-69, -673)
 
 [node name="skeleton_warrior4" parent="." instance=ExtResource("27_m8eep")]
-position = Vector2(73, -372)
+position = Vector2(70, -365)
 
 [node name="skeleton_archer6" parent="." instance=ExtResource("27_2rgoa")]
-position = Vector2(115, -674)
+position = Vector2(112, -667)
 
 [node name="skeleton_mage2" parent="." instance=ExtResource("28_qvxnw")]
-position = Vector2(431, 48)
+position = Vector2(428, 55)
 
 [node name="skeleton_archer7" parent="." instance=ExtResource("27_2rgoa")]
-position = Vector2(803, 52)
+position = Vector2(800, 59)
 
 [node name="skeleton_mage4" parent="." instance=ExtResource("28_qvxnw")]
-position = Vector2(698, 44)
+position = Vector2(695, 51)
 
 [node name="skeleton_warrior3" parent="." instance=ExtResource("27_m8eep")]
-position = Vector2(1050, 42)
+position = Vector2(1047, 49)
 
 [node name="skeleton_mage5" parent="." instance=ExtResource("28_qvxnw")]
-position = Vector2(1034, -42)
+position = Vector2(1031, -35)
 
 [node name="skeleton_mage6" parent="." instance=ExtResource("28_qvxnw")]
-position = Vector2(1204, 52)
+position = Vector2(1201, 59)
 
 [node name="skeleton_archer8" parent="." instance=ExtResource("27_2rgoa")]
-position = Vector2(1190, -56)
+position = Vector2(1187, -49)
 
 [node name="skeleton_warrior5" parent="." instance=ExtResource("27_m8eep")]
-position = Vector2(830, -45)
+position = Vector2(827, -38)
 
 [node name="Trapdoor" parent="." instance=ExtResource("29_y03cp")]
 position = Vector2(1102, -675)

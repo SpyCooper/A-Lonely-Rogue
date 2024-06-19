@@ -501,18 +501,18 @@ collision_mask = 9
 script = ExtResource("1_nbso2")
 
 [node name="hitbox" type="CollisionShape2D" parent="."]
-position = Vector2(0, -13.5)
+position = Vector2(0, -18.5)
 scale = Vector2(2.36147, 2.50056)
 shape = SubResource("RectangleShape2D_ukbej")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_533aj")
-position = Vector2(0, -6)
+position = Vector2(0, -11)
 sprite_frames = SubResource("SpriteFrames_c0mu8")
 animation = &"spawning"
 
 [node name="DamagePlayer" parent="." instance=ExtResource("3_xclps")]
-position = Vector2(0, -13)
+position = Vector2(0, -18)
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DamagePlayer"]
@@ -521,31 +521,31 @@ position = Vector2(0, -1)
 shape = SubResource("RectangleShape2D_6dald")
 
 [node name="Spawner_top" type="Marker2D" parent="."]
-position = Vector2(0, -60)
+position = Vector2(0, -65)
 
 [node name="animated_top" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -52)
+position = Vector2(0, -57)
 sprite_frames = SubResource("SpriteFrames_epws3")
 
 [node name="Spawner_bottom" type="Marker2D" parent="."]
-position = Vector2(0, 34)
+position = Vector2(0, 29)
 
 [node name="animated_bottom" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, 26)
+position = Vector2(0, 21)
 sprite_frames = SubResource("SpriteFrames_xmt6n")
 
 [node name="Spawner_left" type="Marker2D" parent="."]
-position = Vector2(-47, -13)
+position = Vector2(-47, -18)
 
 [node name="animated_left" type="AnimatedSprite2D" parent="."]
-position = Vector2(-39, -14)
+position = Vector2(-39, -19)
 sprite_frames = SubResource("SpriteFrames_kmm4h")
 
 [node name="Spawner_right" type="Marker2D" parent="."]
-position = Vector2(47, -13)
+position = Vector2(47, -18)
 
 [node name="animated_right" type="AnimatedSprite2D" parent="."]
-position = Vector2(39, -14)
+position = Vector2(39, -19)
 sprite_frames = SubResource("SpriteFrames_ptiax")
 
 [node name="Attack_timer" type="Timer" parent="."]
@@ -564,7 +564,7 @@ wait_time = 2.5
 wait_time = 0.5
 
 [node name="collision_with_player" type="CharacterBody2D" parent="."]
-position = Vector2(0, 1)
+position = Vector2(0, -4)
 collision_layer = 2
 collision_mask = 2
 
@@ -574,14 +574,17 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_84dmf")
 
 [node name="HitSound" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(0, -5)
 stream = ExtResource("4_87k5r")
 bus = &"Sound Effect"
 
 [node name="SpawnSound" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(0, -5)
 stream = ExtResource("5_lda37")
 bus = &"Sound Effect"
 
 [node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(0, -5)
 stream = ExtResource("6_55aq4")
 bus = &"Sound Effect"
 

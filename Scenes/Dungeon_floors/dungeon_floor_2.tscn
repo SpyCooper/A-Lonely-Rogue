@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://c1kjrwpeqvd6a"]
+[gd_scene load_steps=33 format=3 uid="uid://c1kjrwpeqvd6a"]
 
 [ext_resource type="PackedScene" uid="uid://duv7i8yak343i" path="res://Scenes/HUD.tscn" id="1_24jo4"]
 [ext_resource type="Script" path="res://Scripts/map/dungeon_floor.gd" id="1_yjxmx"]
@@ -25,6 +25,7 @@
 [ext_resource type="PackedScene" uid="uid://cr3t522vle50y" path="res://Scenes/Dungeon_floors/trapdoor.tscn" id="24_0uy8j"]
 [ext_resource type="AudioStream" uid="uid://cafv10fm7n26w" path="res://Assets/Audio/background music/magic-castle-instrumental-for-you-10675.mp3" id="25_1rtdh"]
 [ext_resource type="PackedScene" uid="uid://bycygvf0dkbr1" path="res://Scenes/items/heart_2_pickup.tscn" id="25_kj0jc"]
+[ext_resource type="PackedScene" uid="uid://b603clqbguc3q" path="res://Scenes/enemies/forgotten_golem.tscn" id="26_xygb7"]
 
 [sub_resource type="Animation" id="Animation_27xwy"]
 length = 0.001
@@ -298,37 +299,37 @@ position = Vector2(0, -104)
 texture = ExtResource("20_7pjkk")
 
 [node name="air_elemental" parent="." instance=ExtResource("12_cox8u")]
-position = Vector2(464, -44)
+position = Vector2(464, -36)
 
 [node name="air_elemental2" parent="." instance=ExtResource("12_cox8u")]
-position = Vector2(89, 462)
+position = Vector2(89, 470)
 
 [node name="earth_elemental" parent="." instance=ExtResource("15_83w35")]
-position = Vector2(-65, 454)
+position = Vector2(-65, 462)
 
 [node name="earth_elemental2" parent="." instance=ExtResource("15_83w35")]
-position = Vector2(-85, 238)
+position = Vector2(-85, 246)
 
 [node name="air_elemental3" parent="." instance=ExtResource("12_cox8u")]
-position = Vector2(266, -174)
+position = Vector2(266, -166)
 
 [node name="air_elemental4" parent="." instance=ExtResource("12_cox8u")]
-position = Vector2(318, -244)
+position = Vector2(318, -236)
 
 [node name="air_elemental5" parent="." instance=ExtResource("12_cox8u")]
-position = Vector2(439, -247)
+position = Vector2(439, -239)
 
 [node name="air_elemental6" parent="." instance=ExtResource("12_cox8u")]
-position = Vector2(655, 365)
+position = Vector2(655, 373)
 
 [node name="earth_elemental3" parent="." instance=ExtResource("15_83w35")]
-position = Vector2(746, 468)
+position = Vector2(746, 476)
 
 [node name="air_elemental7" parent="." instance=ExtResource("12_cox8u")]
-position = Vector2(837, 392)
+position = Vector2(837, 400)
 
 [node name="earth_elemental4" parent="." instance=ExtResource("15_83w35")]
-position = Vector2(114, 386)
+position = Vector2(114, 394)
 
 [node name="Random Item Spawner" parent="." instance=ExtResource("21_dxntd")]
 position = Vector2(-388, -214)
@@ -351,6 +352,9 @@ position = Vector2(1187, 212)
 [node name="BG music" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("25_1rtdh")
 bus = &"Music"
+
+[node name="forgotten_golem" parent="." instance=ExtResource("26_xygb7")]
+position = Vector2(-369, 25)
 
 [connection signal="timeout" from="CanvasLayer/Fade_color/Fade_timer" to="." method="_on_fade_timer_timeout"]
 [connection signal="pressed" from="CanvasLayer/Pause_menu/Buttons_container/Control/Resume_button" to="CanvasLayer/Pause_menu" method="_on_resume_button_pressed"]

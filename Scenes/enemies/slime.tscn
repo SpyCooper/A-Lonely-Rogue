@@ -206,15 +206,17 @@ collision_mask = 9
 script = ExtResource("1_fr1f0")
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
+position = Vector2(0, -3)
 shape = SubResource("CircleShape2D_mj62a")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_35hfj")
+position = Vector2(0, -3)
 sprite_frames = SubResource("SpriteFrames_iscg3")
 animation = &"dying"
 
 [node name="DamagePlayer" parent="." instance=ExtResource("3_qnhkn")]
-position = Vector2(0, 6)
+position = Vector2(0, 3)
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DamagePlayer"]
@@ -227,7 +229,7 @@ shape = SubResource("CircleShape2D_loy1p")
 wait_time = 0.8
 
 [node name="collision_with_player" type="CharacterBody2D" parent="."]
-position = Vector2(0, 1)
+position = Vector2(0, -2)
 collision_layer = 2
 collision_mask = 2
 
@@ -236,14 +238,17 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_7nb7t")
 
 [node name="HitSound" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(0, -3)
 stream = ExtResource("4_pp4k2")
 bus = &"Sound Effect"
 
 [node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(0, -3)
 stream = ExtResource("5_urxjt")
 bus = &"Sound Effect"
 
 [node name="SpawnSound" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(0, -3)
 stream = ExtResource("5_ehjyy")
 bus = &"Sound Effect"
 

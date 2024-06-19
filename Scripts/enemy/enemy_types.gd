@@ -9,7 +9,7 @@ enum enemy
 	gelatinous_cube,
 	earth_elemental,
 	air_elemental,
-	moss_behemoth,
+	forgotten_golem,
 	skeleton_warrior,
 	skeleton_archer,
 	skeleton_mage,

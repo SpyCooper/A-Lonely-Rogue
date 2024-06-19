@@ -1,0 +1,138 @@
+[gd_scene load_steps=17 format=3 uid="uid://dwy1aecx3fg8q"]
+
+[ext_resource type="Texture2D" uid="uid://b22esc8f8445m" path="res://Assets/Sprites/enemies/forgotten_golem.png" id="1_3ys8p"]
+[ext_resource type="Script" path="res://Scripts/enemy/vine_area.gd" id="1_sd4fs"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ww6ep"]
+size = Vector2(46, 45)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2222s"]
+atlas = ExtResource("1_3ys8p")
+region = Rect2(816, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_7x4ca"]
+atlas = ExtResource("1_3ys8p")
+region = Rect2(768, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j7o1t"]
+atlas = ExtResource("1_3ys8p")
+region = Rect2(720, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mlft2"]
+atlas = ExtResource("1_3ys8p")
+region = Rect2(672, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uh45u"]
+atlas = ExtResource("1_3ys8p")
+region = Rect2(624, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lro5k"]
+atlas = ExtResource("1_3ys8p")
+region = Rect2(576, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lkxfr"]
+atlas = ExtResource("1_3ys8p")
+region = Rect2(576, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6v81b"]
+atlas = ExtResource("1_3ys8p")
+region = Rect2(624, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o8yyw"]
+atlas = ExtResource("1_3ys8p")
+region = Rect2(672, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l4rqc"]
+atlas = ExtResource("1_3ys8p")
+region = Rect2(720, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_luw2f"]
+atlas = ExtResource("1_3ys8p")
+region = Rect2(768, 0, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vxn4i"]
+atlas = ExtResource("1_3ys8p")
+region = Rect2(816, 0, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ei0t5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2222s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7x4ca")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j7o1t")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mlft2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uh45u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lro5k")
+}],
+"loop": false,
+"name": &"enter",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lkxfr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6v81b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o8yyw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l4rqc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_luw2f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vxn4i")
+}],
+"loop": false,
+"name": &"exit",
+"speed": 6.0
+}]
+
+[node name="VineArea" type="Node2D"]
+z_index = -1
+script = ExtResource("1_sd4fs")
+
+[node name="Area2D" type="Area2D" parent="."]
+position = Vector2(0, -101)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_ww6ep")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -101)
+sprite_frames = SubResource("SpriteFrames_ei0t5")
+animation = &"exit"
+
+[node name="life_timer" type="Timer" parent="."]
+wait_time = 10.0
+one_shot = true
+
+[node name="enter_timer" type="Timer" parent="."]
+one_shot = true
+
+[node name="exit_timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
+[connection signal="timeout" from="life_timer" to="." method="_on_life_timer_timeout"]
+[connection signal="timeout" from="enter_timer" to="." method="_on_enter_timer_timeout"]
+[connection signal="timeout" from="exit_timer" to="." method="_on_exit_timer_timeout"]

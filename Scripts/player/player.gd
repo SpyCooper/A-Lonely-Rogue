@@ -39,6 +39,7 @@ var speed = 100.0
 var number_of_keys = 0
 var dying = false
 var player_can_move = false
+var slow_percentage = 0.0
 
 # upgrade variables
 var poisoned_blade = false
@@ -98,7 +99,7 @@ func _physics_process(_delta):
 		# controls player movement and normalizes the vector
 		var direction = Input.get_vector("MoveLeft", "MoveRight", "MoveUp", "MoveDown")
 		direction.normalized()
-		velocity = direction * speed
+		velocity = direction * get_speed()
 		
 		# controls the animations for the movement
 		if direction.y == -1:
@@ -457,3 +458,12 @@ func _on_player_fall_sound_timer_timeout():
 func _on_death_timer_timeout():
 	Engine.time_scale = 1
 	get_tree().change_scene_to_file("res://Scenes/Dungeon_floors/dungeon_floor_1.tscn")
+
+func get_speed():
+	return speed * (1.0 - slow_percentage)
+
+func apply_slow(slow_perc):
+	slow_percentage += slow_perc
+
+func remove_slow(slow_perc):
+	slow_percentage -= slow_perc

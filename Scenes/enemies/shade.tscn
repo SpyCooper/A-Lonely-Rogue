@@ -703,15 +703,17 @@ collision_mask = 9
 script = ExtResource("1_6nq7k")
 
 [node name="Hitbox" type="CollisionShape2D" parent="."]
+position = Vector2(0, -7)
 shape = SubResource("CapsuleShape2D_jb7qj")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_it52f")
+position = Vector2(0, -7)
 sprite_frames = SubResource("SpriteFrames_nx8yp")
 animation = &"dying"
 
 [node name="DamagePlayer" parent="." instance=ExtResource("3_7yn7d")]
-position = Vector2(-1, 12)
+position = Vector2(-1, 5)
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DamagePlayer"]
@@ -726,21 +728,25 @@ wait_time = 1.1
 one_shot = true
 
 [node name="HitSound" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(0, -7)
 stream = ExtResource("4_arb5w")
 volume_db = 10.0
 bus = &"Sound Effect"
 
 [node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(0, -7)
 stream = ExtResource("5_5jlvc")
 volume_db = -5.0
 bus = &"Sound Effect"
 
 [node name="SpawnSound" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(0, -7)
 stream = ExtResource("6_220jm")
 volume_db = 10.0
 bus = &"Sound Effect"
 
 [node name="attack_sound" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(0, -7)
 stream = ExtResource("7_64kjd")
 bus = &"Sound Effect"
 
@@ -753,10 +759,10 @@ wait_time = 3.2
 one_shot = true
 
 [node name="shadow_bolt_spawn_left" type="Marker2D" parent="."]
-position = Vector2(-14, 0)
+position = Vector2(-14, -7)
 
 [node name="shadow_bolt_spawn_right" type="Marker2D" parent="."]
-position = Vector2(14, 0)
+position = Vector2(14, -7)
 
 [node name="time_between_shadow_bolts_burst" type="Timer" parent="."]
 wait_time = 0.3
