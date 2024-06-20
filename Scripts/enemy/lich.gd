@@ -232,14 +232,15 @@ func random_attack():
 	can_attack = false
 	# does a random attack
 	var random_number = rng.randi_range(0, 10)
-	if random_number <= 2:
-		shadow_ball_attack()
-	elif random_number <= 5:
-		spawn_skeletons_attack()
-	elif random_number <= 8:
-		summon_poison()
-	else:
-		heal_attack()
+	#if random_number <= 2:
+		#shadow_ball_attack()
+	#elif random_number <= 5:
+		#spawn_skeletons_attack()
+	#elif random_number <= 8:
+		#summon_poison()
+	#else:
+		#heal_attack()
+	heal_attack()
 
 # when the attacks end
 func attack_end():

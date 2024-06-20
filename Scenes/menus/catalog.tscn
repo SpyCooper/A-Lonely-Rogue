@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://dc0xlg20ucy3n"]
+[gd_scene load_steps=53 format=3 uid="uid://dc0xlg20ucy3n"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Catalog.gd" id="1_mndmm"]
 [ext_resource type="Theme" uid="uid://pv4evjjac8wt" path="res://Assets/general_theme.tres" id="2_umit2"]
@@ -18,6 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://b0bha722bk5wj" path="res://Assets/Sprites/catalog_icons/heart_icon.png" id="10_rth6b"]
 [ext_resource type="Texture2D" uid="uid://hcfgjorxd4no" path="res://Assets/Sprites/catalog_icons/shade_icon.png" id="11_8qtm3"]
 [ext_resource type="Texture2D" uid="uid://bj0i8oc45tn7m" path="res://Assets/Sprites/catalog_icons/key_icon.png" id="11_ibehw"]
+[ext_resource type="Texture2D" uid="uid://b862r7unlde86" path="res://Assets/Sprites/catalog_icons/skeleton_icon.png" id="12_ibua7"]
 [ext_resource type="Texture2D" uid="uid://5m5w7pfo7ad" path="res://Assets/Sprites/catalog_icons/poison_icon.png" id="12_tanwh"]
 [ext_resource type="Texture2D" uid="uid://cqlmxhqwwjqgj" path="res://Assets/Sprites/catalog_icons/forgotten_golem_icon.png" id="13_7scud"]
 [ext_resource type="Texture2D" uid="uid://b7ug10dy6sjyf" path="res://Assets/Sprites/catalog_icons/quick_blade_icon.png" id="13_54ceg"]
@@ -49,6 +50,9 @@ shader = ExtResource("3_qa2dv")
 shader = ExtResource("3_qa2dv")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_jsl1a"]
+shader = ExtResource("3_qa2dv")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_tn7mc"]
 shader = ExtResource("3_qa2dv")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wrmxr"]
@@ -138,7 +142,6 @@ grow_vertical = 2
 theme = ExtResource("2_umit2")
 
 [node name="Monsters" type="TabBar" parent="TabContainer"]
-visible = false
 layout_mode = 2
 theme = ExtResource("2_umit2")
 
@@ -272,6 +275,21 @@ offset_right = 93.0
 offset_bottom = 85.0
 theme_override_constants/icon_max_width = 64
 icon = ExtResource("11_8qtm3")
+flat = true
+alignment = 2
+icon_alignment = 1
+expand_icon = true
+
+[node name="Spot9" type="Control" parent="TabContainer/Monsters/ScrollContainer/GridContainer"]
+layout_mode = 2
+
+[node name="skeleton_button" type="Button" parent="TabContainer/Monsters/ScrollContainer/GridContainer/Spot9"]
+material = SubResource("ShaderMaterial_tn7mc")
+layout_mode = 0
+offset_right = 93.0
+offset_bottom = 85.0
+theme_override_constants/icon_max_width = 64
+icon = ExtResource("12_ibua7")
 flat = true
 alignment = 2
 icon_alignment = 1
@@ -822,6 +840,7 @@ text = "- Weird looking magic circle"
 autowrap_mode = 2
 
 [node name="shade_panel" type="Panel" parent="TabContainer/Monsters/Panels"]
+visible = false
 layout_mode = 0
 offset_right = 510.0
 offset_bottom = 513.0
@@ -896,7 +915,83 @@ theme_override_font_sizes/font_size = 32
 text = "- Has no shadow"
 autowrap_mode = 2
 
+[node name="skeleton_panel" type="Panel" parent="TabContainer/Monsters/Panels"]
+layout_mode = 0
+offset_right = 510.0
+offset_bottom = 513.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_wrmxr")
+
+[node name="Sprite2D" type="Sprite2D" parent="TabContainer/Monsters/Panels/skeleton_panel"]
+position = Vector2(102, 101)
+scale = Vector2(5.55259, 5.55259)
+texture = ExtResource("12_ibua7")
+
+[node name="Title" type="Label" parent="TabContainer/Monsters/Panels/skeleton_panel"]
+layout_mode = 0
+offset_left = 180.0
+offset_top = 34.0
+offset_right = 510.0
+offset_bottom = 79.0
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 48
+text = "Skeleton"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="KillCountLabel" type="Label" parent="TabContainer/Monsters/Panels/skeleton_panel"]
+layout_mode = 0
+offset_left = 180.0
+offset_top = 79.0
+offset_right = 510.0
+offset_bottom = 124.0
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "Killed: 1"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Monsters/Panels/skeleton_panel"]
+layout_mode = 0
+offset_left = 43.0
+offset_top = 174.0
+offset_right = 464.0
+offset_bottom = 505.0
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Bio" type="Label" parent="TabContainer/Monsters/Panels/skeleton_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- Spawned by the Lich to be used as fuel"
+autowrap_mode = 2
+
+[node name="Bio2" type="Label" parent="TabContainer/Monsters/Panels/skeleton_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- Walks towards enemies"
+autowrap_mode = 2
+
+[node name="Bio3" type="Label" parent="TabContainer/Monsters/Panels/skeleton_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- Weak"
+autowrap_mode = 2
+
+[node name="Bio4" type="Label" parent="TabContainer/Monsters/Panels/skeleton_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- What an unforunate soul"
+autowrap_mode = 2
+
 [node name="Bosses" type="TabBar" parent="TabContainer"]
+visible = false
 layout_mode = 2
 theme = ExtResource("2_umit2")
 
@@ -2168,6 +2263,7 @@ text = "X"
 [connection signal="pressed" from="TabContainer/Monsters/ScrollContainer/GridContainer/Spot6/skeleton_archer_button" to="." method="_on_skeleton_archer_button_pressed"]
 [connection signal="pressed" from="TabContainer/Monsters/ScrollContainer/GridContainer/Spot7/skeleton_mage_button" to="." method="_on_skeleton_mage_button_pressed"]
 [connection signal="pressed" from="TabContainer/Monsters/ScrollContainer/GridContainer/Spot8/shade_button" to="." method="_on_shade_button_pressed"]
+[connection signal="pressed" from="TabContainer/Monsters/ScrollContainer/GridContainer/Spot9/skeleton_button" to="." method="_on_skeleton_button_pressed"]
 [connection signal="pressed" from="TabContainer/Bosses/ScrollContainer/GridContainer/Spot/Gelatinous_cube_button" to="." method="_on_gelatinous_cube_button_pressed"]
 [connection signal="pressed" from="TabContainer/Bosses/ScrollContainer/GridContainer/Spot2/Forgotten_Golem_button" to="." method="_on_forgotten_golem_pressed"]
 [connection signal="pressed" from="TabContainer/Bosses/ScrollContainer/GridContainer/Spot3/Lich_button" to="." method="_on_lich_button_pressed"]

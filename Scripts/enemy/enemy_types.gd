@@ -17,4 +17,5 @@ enum enemy
 	shade,
 	morphed_shade,
 	mimic,
+	skeleton,
 }

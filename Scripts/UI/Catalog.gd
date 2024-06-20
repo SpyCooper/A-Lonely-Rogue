@@ -57,6 +57,11 @@ var lich_kill_count = 0
 @onready var shade_kill_count_label = $TabContainer/Monsters/Panels/shade_panel/KillCountLabel
 var shade_unlocked = false
 var shade_kill_count = 0
+@onready var skeleton_button = $TabContainer/Monsters/ScrollContainer/GridContainer/Spot9/skeleton_button
+@onready var skeleton_panel = $TabContainer/Monsters/Panels/skeleton_panel
+@onready var skeleton_kill_count_label = $TabContainer/Monsters/Panels/skeleton_panel/KillCountLabel
+var skeleton_unlocked = false
+var skeleton_kill_count = 0
 
 # items variables
 # all enemy sections on the catalog need a reference to it's button, the panel, and a bool
@@ -178,6 +183,11 @@ func load_data():
 			if shade_unlocked:
 				shade_button.material.shader = null
 				shade_kill_count = data["shade_kill_count"]
+			# skeleton check
+			skeleton_unlocked = data["skeleton_unlocked"]
+			if skeleton_unlocked:
+				skeleton_button.material.shader = null
+				skeleton_kill_count = data["skeleton_kill_count"]
 			# update the kill counts in the catalog
 			update_kill_counts()
 	
@@ -251,6 +261,7 @@ func clear_panel():
 	skeleton_mage_panel.hide()
 	lich_panel.hide()
 	shade_panel.hide()
+	skeleton_panel.hide()
 	
 	# boss tab
 	gelatinous_cube_panel.hide()
@@ -372,6 +383,15 @@ func unlock_enemy(enemy):
 			shade_unlocked = true
 		# increase the kill count and update the counts in the catalog
 		shade_kill_count += 1
+	elif enemy == EnemyTypes.enemy.skeleton:
+		# if the enemy is locked
+		if !skeleton_unlocked:
+			# remove the locked shader
+			skeleton_button.material.shader = null
+			# set the enemy to be unlocked
+			skeleton_unlocked = true
+		# increase the kill count and update the counts in the catalog
+		skeleton_kill_count += 1
 	update_kill_counts()
 	# saves the enemies to the catalog file
 	save_enemies()
@@ -401,6 +421,8 @@ func found_enemies():
 		"lich_kill_count" : lich_kill_count,
 		"shade_unlocked" : shade_unlocked,
 		"shade_kill_count" : shade_kill_count,
+		"skeleton_unlocked" : skeleton_unlocked,
+		"skeleton_kill_count" : skeleton_kill_count,
 	}
 	return data
 
@@ -417,6 +439,7 @@ func update_kill_counts():
 	skeleton_mage_kill_count_label.text = "Killed: " + str(skeleton_mage_kill_count)
 	lich_kill_count_label.text = "Killed: " + str(lich_kill_count)
 	shade_kill_count_label.text = "Killed: " + str(shade_kill_count)
+	skeleton_kill_count_label.text = "Killed: " + str(skeleton_kill_count)
 
 # when the blue slime button is presed
 func _on_blue_slime_pressed():
@@ -516,6 +539,15 @@ func _on_shade_button_pressed():
 	if shade_unlocked:
 		# show the enemy's info panel
 		shade_panel.show()
+
+# when the skeleton button is presed
+func _on_skeleton_button_pressed():
+	# clear the info panel
+	clear_panel()
+	# if the enemy is unlocked
+	if skeleton_unlocked:
+		# show the enemy's info panel
+		skeleton_panel.show()
 
 # saves the enemy found to "enemiesfound.save"
 func save_enemies():

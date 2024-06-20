@@ -115,7 +115,7 @@ func take_damage(damage):
 # when death timer ends
 func _on_death_timer_timeout():
 	# unlock the skeleton warrior in the catalog
-	catalog.unlock_enemy(EnemyTypes.enemy.skeleton_warrior)
+	catalog.unlock_enemy(EnemyTypes.enemy.skeleton)
 	# call enemy slain
 	enemy_slain()
 
