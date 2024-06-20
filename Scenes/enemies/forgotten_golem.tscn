@@ -9,8 +9,9 @@
 [ext_resource type="AudioStream" uid="uid://bnhyfbesh82ug" path="res://Assets/Audio/forgotten_golem/power-off-96139.mp3" id="5_h63cs"]
 [ext_resource type="AudioStream" uid="uid://cx3nro8tcsa6v" path="res://Assets/Audio/forgotten_golem/the-magical-surprise-141291.mp3" id="8_qr1pw"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ukbej"]
-size = Vector2(24.561, 20.3954)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yuh82"]
+radius = 10.7984
+height = 26.3941
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6k7h3"]
 resource_local_to_scene = true
@@ -736,11 +737,12 @@ animations = [{
 "speed": 9.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_6dald"]
-size = Vector2(52, 57)
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cagpp"]
+radius = 23.0
+height = 56.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_84dmf"]
-radius = 7.0
+radius = 5.0
 height = 54.0
 
 [node name="forgotten_golem" type="CharacterBody2D"]
@@ -749,15 +751,16 @@ collision_mask = 9
 script = ExtResource("1_sed1a")
 
 [node name="hitbox" type="CollisionShape2D" parent="."]
-position = Vector2(0, -31.5)
+position = Vector2(-2.30926e-13, -30)
+rotation = 1.5708
 scale = Vector2(2.36147, 2.50056)
-shape = SubResource("RectangleShape2D_ukbej")
+shape = SubResource("CapsuleShape2D_yuh82")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_6k7h3")
 position = Vector2(0, -27)
 sprite_frames = SubResource("SpriteFrames_vnjlw")
-animation = &"spawning"
+animation = &"laser_right"
 autoplay = "look_right"
 
 [node name="DamagePlayer" parent="." instance=ExtResource("3_qvvkh")]
@@ -765,8 +768,9 @@ position = Vector2(0, -34)
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DamagePlayer"]
-position = Vector2(0, 8.5)
-shape = SubResource("RectangleShape2D_6dald")
+position = Vector2(0, 4)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_cagpp")
 
 [node name="Attack_timer" type="Timer" parent="."]
 wait_time = 4.0
@@ -786,7 +790,7 @@ collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collision_with_player"]
-position = Vector2(0, -1)
+position = Vector2(0, 3)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_84dmf")
 

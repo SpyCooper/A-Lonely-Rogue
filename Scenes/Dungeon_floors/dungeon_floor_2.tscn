@@ -349,12 +349,12 @@ position = Vector2(1107, 254)
 [node name="Trapdoor" parent="." instance=ExtResource("24_0uy8j")]
 position = Vector2(1187, 212)
 
-[node name="BG music" type="AudioStreamPlayer2D" parent="."]
+[node name="BG music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("25_1rtdh")
 bus = &"Music"
 
 [node name="forgotten_golem" parent="." instance=ExtResource("26_xygb7")]
-position = Vector2(-369, 25)
+position = Vector2(736, 225)
 
 [connection signal="timeout" from="CanvasLayer/Fade_color/Fade_timer" to="." method="_on_fade_timer_timeout"]
 [connection signal="pressed" from="CanvasLayer/Pause_menu/Buttons_container/Control/Resume_button" to="CanvasLayer/Pause_menu" method="_on_resume_button_pressed"]

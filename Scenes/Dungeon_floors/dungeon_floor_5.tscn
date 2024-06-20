@@ -241,7 +241,7 @@ layer_0/tile_data = PackedInt32Array(-4456529, 65536, 2, -4390993, 65536, 2, -43
 unique_name_in_owner = true
 position = Vector2(1, 0)
 
-[node name="BG music" type="AudioStreamPlayer2D" parent="."]
+[node name="BG music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("10_arma7")
 bus = &"Music"
 

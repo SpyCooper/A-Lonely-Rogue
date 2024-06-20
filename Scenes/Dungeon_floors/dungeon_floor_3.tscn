@@ -335,7 +335,7 @@ position = Vector2(-66, -831)
 [node name="heart_1_pickup2" parent="." instance=ExtResource("26_tdym4")]
 position = Vector2(74, -830)
 
-[node name="BG music" type="AudioStreamPlayer2D" parent="."]
+[node name="BG music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("26_efvkt")
 bus = &"Music"
 
