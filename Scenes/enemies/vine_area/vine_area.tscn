@@ -134,10 +134,12 @@ one_shot = true
 one_shot = true
 
 [node name="enter_sound" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(0, -101)
 stream = ExtResource("3_03eyf")
 bus = &"Sound Effect"
 
 [node name="exit sound" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(0, -101)
 stream = ExtResource("3_ax6hn")
 bus = &"Sound Effect"
 

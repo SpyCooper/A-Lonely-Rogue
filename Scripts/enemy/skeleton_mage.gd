@@ -159,3 +159,11 @@ func _on_attack_wait_timer_timeout():
 # returns the animated sprite
 func get_animated_sprite():
 	return animated_sprite
+
+# when called, the player and the enemy are considered to be in the same room
+func spawned_in_room():
+	# show the summoning circle animated sprite
+	summoning_circle_animated_sprite.show()
+	attack_wait_timer.start()
+	player_in_room = true
+	spawning = false

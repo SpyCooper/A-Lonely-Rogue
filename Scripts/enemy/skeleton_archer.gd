@@ -235,3 +235,8 @@ func _on_arrow_spawn_timer_timeout():
 # returns the animated sprite
 func get_animated_sprite():
 	return animated_sprite
+
+# when called, the player and the enemy are considered to be in the same room
+func spawned_in_room():
+	player_in_room = true
+	spawning = false

@@ -1,0 +1,44 @@
+[gd_scene load_steps=7 format=3 uid="uid://c764713gfbrf2"]
+
+[ext_resource type="Texture2D" uid="uid://v3plaxgjdtbu" path="res://Assets/Sprites/enemies/Lich.png" id="1_exuj0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hrm8f"]
+atlas = ExtResource("1_exuj0")
+region = Rect2(960, 0, 16, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_otnmd"]
+atlas = ExtResource("1_exuj0")
+region = Rect2(976, 0, 16, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m5vhl"]
+atlas = ExtResource("1_exuj0")
+region = Rect2(992, 0, 16, 256)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n561f"]
+atlas = ExtResource("1_exuj0")
+region = Rect2(976, 0, 16, 256)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hjj21"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hrm8f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_otnmd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m5vhl")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n561f")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="lightning" type="AnimatedSprite2D"]
+position = Vector2(0, -125)
+sprite_frames = SubResource("SpriteFrames_hjj21")
+autoplay = "default"
