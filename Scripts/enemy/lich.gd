@@ -62,6 +62,9 @@ var current_direction : look_direction
 var playing_hit_animation = false
 var can_attack = false
 var can_move = true
+@onready var magic_casting_sound = $magic_casting_sound
+@onready var lightning_strike_sound = $lightning_strike_sound
+
 
 # on start
 func _ready():
@@ -232,15 +235,14 @@ func random_attack():
 	can_attack = false
 	# does a random attack
 	var random_number = rng.randi_range(0, 10)
-	#if random_number <= 2:
-		#shadow_ball_attack()
-	#elif random_number <= 5:
-		#spawn_skeletons_attack()
-	#elif random_number <= 8:
-		#summon_poison()
-	#else:
-		#heal_attack()
-	heal_attack()
+	if random_number <= 2:
+		shadow_ball_attack()
+	elif random_number <= 5:
+		spawn_skeletons_attack()
+	elif random_number <= 8:
+		summon_poison()
+	else:
+		heal_attack()
 
 # when the attacks end
 func attack_end():
@@ -262,6 +264,7 @@ func _on_spawn_skeletons_anim_timer_timeout():
 	attack_end()
 
 func _on_delay_lighning_timer_timeout():
+	lightning_strike_sound.play()
 	lightning_left.show()
 	lightning_right.show()
 	lightning_timer.start()
@@ -310,6 +313,7 @@ func _on_shadow_ball_anim_timer_timeout():
 	attack_end()
 
 func spawn_shadow_ball():
+	magic_casting_sound.play()
 	var spawn_location = shadow_ball_spawn_right
 	if current_direction == look_direction.left:
 		spawn_location = shadow_ball_spawn_left
@@ -324,6 +328,7 @@ func _on_shadow_ball_spawn_timer_timeout():
 	spawn_shadow_ball()
 
 func summon_poison():
+	magic_casting_sound.play()
 	if current_direction == look_direction.right:
 		animated_sprite.play("shadow_ball_right")
 	elif current_direction == look_direction.left:
@@ -355,6 +360,7 @@ func heal_attack():
 	summon_one_lighning_timer.start()
 
 func _on_summon_one_lighning_timer_timeout():
+	lightning_strike_sound.play()
 	if current_direction == look_direction.left:
 		lightning_left.show()
 		animated_sprite.play("heal_idle_left")
@@ -389,6 +395,7 @@ func _on_time_before_heal_timer_timeout():
 		add_child(temp_lightning)
 		temp_lightning.global_position = unarmed_skeleton.global_position + Vector2(0, -125)
 		temp_lightning_timer.start()
+		lightning_strike_sound.play()
 		unarmed_skeleton.despawn()
 		heal()
 		if current_direction == look_direction.right:

@@ -1,7 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://dpphpqh4t6wmi"]
+[gd_scene load_steps=15 format=3 uid="uid://dpphpqh4t6wmi"]
 
 [ext_resource type="Script" path="res://Scripts/enemy/poison_area.gd" id="1_6oj1t"]
 [ext_resource type="Texture2D" uid="uid://v3plaxgjdtbu" path="res://Assets/Sprites/enemies/Lich.png" id="1_krwyc"]
+[ext_resource type="AudioStream" uid="uid://632g8e7jplw5" path="res://Assets/Audio/lich/air-release-47977.mp3" id="4_g4jqd"]
+[ext_resource type="AudioStream" uid="uid://c24mgio0ob88l" path="res://Assets/Audio/lich/gas_exiting.mp3" id="4_tcebc"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_axfmk"]
 radius = 13.0384
@@ -102,14 +104,17 @@ one_shot = true
 one_shot = true
 
 [node name="exit_timer" type="Timer" parent="."]
+wait_time = 1.2
 one_shot = true
 
 [node name="enter_sound" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(0, -67)
+stream = ExtResource("4_g4jqd")
 bus = &"Sound Effect"
 
 [node name="exit sound" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(0, -67)
+stream = ExtResource("4_tcebc")
 bus = &"Sound Effect"
 
 [node name="Timer" type="Timer" parent="."]

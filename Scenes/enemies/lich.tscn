@@ -1,9 +1,11 @@
-[gd_scene load_steps=145 format=3 uid="uid://2rov0r5nrtfl"]
+[gd_scene load_steps=147 format=3 uid="uid://2rov0r5nrtfl"]
 
 [ext_resource type="Script" path="res://Scripts/enemy/lich.gd" id="1_dn4cx"]
 [ext_resource type="Texture2D" uid="uid://v3plaxgjdtbu" path="res://Assets/Sprites/enemies/Lich.png" id="2_jppa1"]
 [ext_resource type="PackedScene" uid="uid://q3bng0o4u44l" path="res://Scenes/enemies/damage_player.tscn" id="3_0l4bi"]
 [ext_resource type="PackedScene" uid="uid://c764713gfbrf2" path="res://Scenes/enemies/lightning/lightning.tscn" id="4_ljae8"]
+[ext_resource type="AudioStream" uid="uid://cfbnctd80jlc0" path="res://Assets/Audio/skeletons/magical-whoosh-148459.mp3" id="5_1qsjh"]
+[ext_resource type="AudioStream" uid="uid://cydtfdh3l8xsf" path="res://Assets/Audio/lich/lightning_sound.mp3" id="6_eny8p"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_ydun3"]
 radius = 4.65812
@@ -1181,6 +1183,14 @@ one_shot = true
 [node name="temp_lightning_timer" type="Timer" parent="."]
 wait_time = 0.75
 one_shot = true
+
+[node name="magic_casting_sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_1qsjh")
+bus = &"Sound Effect"
+
+[node name="lightning_strike_sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_eny8p")
+bus = &"Sound Effect"
 
 [connection signal="timeout" from="AnimatedSprite2D/hit_animation_timer" to="." method="_on_hit_animation_timer_timeout"]
 [connection signal="timeout" from="Attack_timer" to="." method="_on_attack_timer_timeout"]
