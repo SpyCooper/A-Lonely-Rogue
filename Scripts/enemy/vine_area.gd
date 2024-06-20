@@ -18,6 +18,7 @@ func _ready():
 	# play the enter animation and start enter timer
 	animated_sprite_2d.play("enter")
 	enter_timer.start()
+	# plays the enter sound
 	enter_sound.play()
 
 # when a body enters the hitbox
@@ -49,6 +50,7 @@ func _on_life_timer_timeout():
 	# play the exit animation and start exit timer
 	animated_sprite_2d.play("exit")
 	exit_timer.start()
+	# plays the exit sound
 	exit_sound.play()
 
 # when the exit timer ends

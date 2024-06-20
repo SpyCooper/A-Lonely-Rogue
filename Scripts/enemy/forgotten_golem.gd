@@ -50,7 +50,7 @@ var can_move = true
 func _ready():
 	# basic enemy stats
 	speed = 0.0
-	health = 5
+	health = 80
 	max_health = health
 	# sets references to the player and catalog
 	catalog = Events.catalog
@@ -58,7 +58,7 @@ func _ready():
 	# disables the enemy
 	sleep()
 
-# defines the wake_up function needed for the gel_cube
+# defines the wake_up function needed for the golem
 ## this is called by the rooms when a player enters it
 func wake_up():
 	player_in_room = true
@@ -108,6 +108,7 @@ func _physics_process(_delta):
 					elif playing_hit_animation != true || animated_sprite.is_playing() == false:
 						animated_sprite.play("look_right")
 						playing_hit_animation = false
+				## NOTE: the golem cannot move currently but this is here just in case this is changes
 				# moves the golem to a distance of 15 to the player
 				if position.distance_to(player_position) > 15:
 					## has to use get_speed() to move based on dusted effect
@@ -121,18 +122,21 @@ func take_damage(damage):
 		health -= damage
 		# plays the hit sound if the HP after damage is > 0
 		if health > 0:
+			# plays the hit sound
 			hit_sound.play()
-			# plays the hit animation based on the current direction
-			if current_direction == look_direction.left:
-				var frame = animated_sprite.frame
-				animated_sprite.play("hit_left")
-				animated_sprite.frame = frame
-			elif current_direction == look_direction.right:
-				var frame = animated_sprite.frame
-				animated_sprite.play("hit_right")
-				animated_sprite.frame = frame
-			# sets the playing_hit_animation
-			playing_hit_animation = true
+			# if the golem can move (i.e. not attacking)
+			if can_move:
+				# plays the hit animation based on the current direction
+				if current_direction == look_direction.left:
+					var frame = animated_sprite.frame
+					animated_sprite.play("hit_left")
+					animated_sprite.frame = frame
+				elif current_direction == look_direction.right:
+					var frame = animated_sprite.frame
+					animated_sprite.play("hit_right")
+					animated_sprite.frame = frame
+				# sets the playing_hit_animation
+				playing_hit_animation = true
 		# checks if the enemy should be dead
 		elif health <= 0:
 			# sets the enemy's state to dying
@@ -165,9 +169,12 @@ func spawn_in():
 	spawning = true
 	# play spawning animation
 	animated_sprite.play("spawning")
+	# start the spawn timer
 	spawn_timer.start()
+	# play the spawn sound
 	spawn_sound.play()
 
+# when the spawn timer ends
 func _on_spawn_timer_timeout():
 	# the state is no longer spawning
 	spawning = false
@@ -186,11 +193,15 @@ func random_attack():
 	can_attack = false
 	# does a random attack
 	var random_number = rng.randi_range(1, 10)
+	# 2/10 chance
 	if random_number <= 2:
+		# does a laser attack
 		laser_attack()
+	# 3/10 chance
 	elif random_number <= 5:
 		# if there are already vines active, it will do a different attack
 		if vines_active:
+			# each attack has a 1/2 chance to occur
 			var new_random = rng.randi_range(1, 2)
 			if new_random == 1:
 				laser_attack()
@@ -198,9 +209,13 @@ func random_attack():
 				vine_spin_attack()
 		else:
 			summon_vines()
+	# 4/10 chance to do a vine spin
 	elif random_number <= 9:
+		# does a vine spin attack
 		vine_spin_attack()
+	# 1/10 chance to not attack
 	else:
+		# does a laser attack
 		attack_end()
 
 # when the golem is doing a laser attack
@@ -231,58 +246,83 @@ func _on_laser_spawn_timer_timeout():
 	laser.global_position = laser_spawn_location.global_position
 	# tell the laser that it's spawned
 	laser.spawned(target_position)
-	
 	# play the laser attack sound
 	laser_attack_sound.play()
 
 # when the laser attack end timer ends
 func _on_laser_attack_end_timer_timeout():
+	# end the attack
 	attack_end()
 
+# summons vines
 func summon_vines():
+	# play the correct vine summon animation
 	if current_direction == look_direction.right:
 		animated_sprite.play("vines_summon_right")
 	elif current_direction == look_direction.left:
 		animated_sprite.play("vines_summon_left")
+	# play the attack sound
 	attack_sound.play()
+	# sets a temp position to spawn the vines
 	summon_vines_temp_pos = player.global_position
+	# start the summon vines timer (for the animation)
 	summon_vines_timer.start()
+	# start the summon vines spawn timer (used to actually spawn the vines)
 	summon_vines_spawn_timer.start()
+	# start the delayed player position timer (used to get a closer player position to when the vines spawn)
 	delay_player_position_timer.start()
 
+# when the summon vines timer ends
 func _on_summon_vines_timer_timeout():
+	# end the attack
 	attack_end()
 
+# when the summon vines spawn timer ends
 func _on_summon_vines_spawn_timer_timeout():
-	# spawn the laser
+	# spawn the vine area
 	var vine_area = VINE_AREA.instantiate()
 	get_parent().add_child(vine_area)
+	# tell the vine area that it's spawned
 	vine_area.spawned(self, summon_vines_temp_pos)
+	# set the active vines to true
 	vines_active = true
 
+# when the vine area leaves, it calls this
 func vines_expired():
+	# sets the vines active to false
 	vines_active = false
 
+# when the delay player position timer ends
 func _on_delay_player_position_timer_timeout():
+	# sets a temp position to spawn the vines
 	summon_vines_temp_pos = player.global_position
 
+# when the golem does a vine spin attack
 func vine_spin_attack():
+	# sets the correct vine spin animation
 	if current_direction == look_direction.right:
 		animated_sprite.play("vine_spin_right")
 	elif current_direction == look_direction.left:
 		animated_sprite.play("vine_spin_left")
+	# play the attack sound
 	attack_sound.play()
+	# start the vine spin timers
 	vine_spin_animation_timer.start()
 	vine_spin_summon_timer.start()
 
+# when the vines spin animation timer ends
 func _on_vine_spin_animation_timer_timeout():
+	# end the attack
 	attack_end()
 
+# when the vines spin summon timer ends
 func _on_vine_spin_summon_timer_timeout():
+	# spawns the vine spin
 	var vine_spin_scene = VINE_SPIN.instantiate()
 	get_parent().add_child(vine_spin_scene)
 	vine_spin_scene.global_position = player.global_position
 
+# when the attacks end
 func attack_end():
 	# allow the golem to move
 	can_move = true

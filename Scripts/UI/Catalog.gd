@@ -27,6 +27,11 @@ var earth_elemental_kill_count = 0
 @onready var air_elemental_kill_count_label = $TabContainer/Monsters/Panels/air_elemental_panel/KillCountLabel
 var air_elemental_unlocked = false
 var air_elemental_kill_count = 0
+@onready var forgotten_golem_button = $TabContainer/Bosses/ScrollContainer/GridContainer/Spot2/Forgotten_Golem_button
+@onready var forgotten_golem_panel = $TabContainer/Bosses/Panels/Forgotten_Golem_panel
+@onready var forgotten_golem_kill_count_label = $TabContainer/Bosses/Panels/Forgotten_Golem_panel/KillCount
+var forgotten_golem_unlocked = false
+var forgotten_golem_kill_count = 0
 @onready var skeleton_warrior_button = $TabContainer/Monsters/ScrollContainer/GridContainer/Spot5/skeleton_warrior_button
 @onready var skeleton_warrior_panel = $TabContainer/Monsters/Panels/skeleton_warrior_panel
 @onready var skeleton_warrior_kill_count_label = $TabContainer/Monsters/Panels/skeleton_warrior_panel/KillCountLabel
@@ -138,6 +143,11 @@ func load_data():
 			if air_elemental_unlocked:
 				air_elemental_button.material.shader = null
 				air_elemental_kill_count = data["air_elemental_kill_count"]
+			# forgotten golem check
+			forgotten_golem_unlocked = data["forgotten_golem_unlocked"]
+			if forgotten_golem_unlocked:
+				forgotten_golem_button.material.shader = null
+				forgotten_golem_kill_count = data["forgotten_golem_kill_count"]
 			# skeleton warrior check
 			skeleton_warrior_unlocked = data["skeleton_warrior_unlocked"]
 			if skeleton_warrior_unlocked:
@@ -225,6 +235,7 @@ func clear_panel():
 	green_slime_panel.hide()
 	earth_elemental_panel.hide()
 	air_elemental_panel.hide()
+	forgotten_golem_panel.hide()
 	skeleton_warrior_panel.hide()
 	skeleton_archer_panel.hide()
 	skeleton_mage_panel.hide()
@@ -296,6 +307,15 @@ func unlock_enemy(enemy):
 			air_elemental_unlocked = true
 		# increase the kill count and update the counts in the catalog
 		air_elemental_kill_count += 1
+	elif enemy == EnemyTypes.enemy.forgotten_golem:
+		# if the enemy is locked
+		if !forgotten_golem_unlocked:
+			# remove the locked shader
+			forgotten_golem_button.material.shader = null
+			# set the enemy to be unlocked
+			forgotten_golem_unlocked = true
+		# increase the kill count and update the counts in the catalog
+		forgotten_golem_kill_count += 1
 	elif enemy == EnemyTypes.enemy.skeleton_warrior:
 		# if the enemy is locked
 		if !skeleton_warrior_unlocked:
@@ -349,6 +369,8 @@ func found_enemies():
 		"earth_elemental_kill_count" : earth_elemental_kill_count,
 		"air_elemental_unlocked" : air_elemental_unlocked,
 		"air_elemental_kill_count" : air_elemental_kill_count,
+		"forgotten_golem_unlocked" : forgotten_golem_unlocked,
+		"forgotten_golem_kill_count" : forgotten_golem_kill_count,
 		"skeleton_warrior_unlocked" : skeleton_warrior_unlocked,
 		"skeleton_warrior_kill_count" : skeleton_warrior_kill_count,
 		"skeleton_archer_unlocked" : skeleton_archer_unlocked,
@@ -367,6 +389,7 @@ func update_kill_counts():
 	gel_cube_kill_count_label.text = "Killed: " + str(gelatinous_cube_kill_count)
 	earth_elemental_kill_count_label.text = "Killed: " + str(earth_elemental_kill_count)
 	air_elemental_kill_count_label.text = "Killed: " + str(air_elemental_kill_count)
+	forgotten_golem_kill_count_label.text = "Killed: " + str(forgotten_golem_kill_count)
 	skeleton_warrior_kill_count_label.text = "Killed: " + str(skeleton_warrior_kill_count)
 	skeleton_archer_kill_count_label.text = "Killed: " + str(skeleton_archer_kill_count)
 	skeleton_mage_kill_count_label.text = "Killed: " + str(skeleton_mage_kill_count)
@@ -416,6 +439,15 @@ func _on_gelatinous_cube_button_pressed():
 	if gelatinous_cube_unlocked:
 		# show the enemy's info panel
 		gelatinous_cube_panel.show()
+
+# when the forgotten golem button is presed
+func _on_forgotten_golem_pressed():
+	# clear the info panel
+	clear_panel()
+	# if the enemy is unlocked
+	if forgotten_golem_unlocked:
+		# show the enemy's info panel
+		forgotten_golem_panel.show()
 
 # when the skeleton warrior cube button is presed
 func _on_skeleton_warrior_button_pressed():
