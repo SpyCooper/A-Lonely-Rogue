@@ -47,6 +47,11 @@ var skeleton_archer_kill_count = 0
 @onready var skeleton_mage_kill_count_label = $TabContainer/Monsters/Panels/skeleton_mage_panel/KillCountLabel
 var skeleton_mage_unlocked = false
 var skeleton_mage_kill_count = 0
+@onready var lich_button = $TabContainer/Bosses/ScrollContainer/GridContainer/Spot3/Lich_button
+@onready var lich_panel = $TabContainer/Bosses/Panels/Lich_panel
+@onready var lich_kill_count_label = $TabContainer/Bosses/Panels/Lich_panel/KillCount
+var lich_unlocked = false
+var lich_kill_count = 0
 @onready var shade_button = $TabContainer/Monsters/ScrollContainer/GridContainer/Spot8/shade_button
 @onready var shade_panel = $TabContainer/Monsters/Panels/shade_panel
 @onready var shade_kill_count_label = $TabContainer/Monsters/Panels/shade_panel/KillCountLabel
@@ -163,6 +168,11 @@ func load_data():
 			if skeleton_mage_unlocked:
 				skeleton_mage_button.material.shader = null
 				skeleton_mage_kill_count = data["skeleton_mage_kill_count"]
+			# lich check
+			lich_unlocked = data["lich_unlocked"]
+			if lich_unlocked:
+				lich_button.material.shader = null
+				lich_kill_count = data["lich_kill_count"]
 			# shade check
 			shade_unlocked = data["shade_unlocked"]
 			if shade_unlocked:
@@ -239,6 +249,7 @@ func clear_panel():
 	skeleton_warrior_panel.hide()
 	skeleton_archer_panel.hide()
 	skeleton_mage_panel.hide()
+	lich_panel.hide()
 	shade_panel.hide()
 	
 	# boss tab
@@ -343,6 +354,15 @@ func unlock_enemy(enemy):
 			skeleton_mage_unlocked = true
 		# increase the kill count and update the counts in the catalog
 		skeleton_mage_kill_count += 1
+	elif enemy == EnemyTypes.enemy.lich:
+		# if the enemy is locked
+		if !lich_unlocked:
+			# remove the locked shader
+			lich_button.material.shader = null
+			# set the enemy to be unlocked
+			lich_unlocked = true
+		# increase the kill count and update the counts in the catalog
+		lich_kill_count += 1
 	elif enemy == EnemyTypes.enemy.shade:
 		# if the enemy is locked
 		if !shade_unlocked:
@@ -377,6 +397,8 @@ func found_enemies():
 		"skeleton_archer_kill_count" : skeleton_archer_kill_count,
 		"skeleton_mage_unlocked" : skeleton_mage_unlocked,
 		"skeleton_mage_kill_count" : skeleton_mage_kill_count,
+		"lich_unlocked" : lich_unlocked,
+		"lich_kill_count" : lich_kill_count,
 		"shade_unlocked" : shade_unlocked,
 		"shade_kill_count" : shade_kill_count,
 	}
@@ -393,6 +415,7 @@ func update_kill_counts():
 	skeleton_warrior_kill_count_label.text = "Killed: " + str(skeleton_warrior_kill_count)
 	skeleton_archer_kill_count_label.text = "Killed: " + str(skeleton_archer_kill_count)
 	skeleton_mage_kill_count_label.text = "Killed: " + str(skeleton_mage_kill_count)
+	lich_kill_count_label.text = "Killed: " + str(lich_kill_count)
 	shade_kill_count_label.text = "Killed: " + str(shade_kill_count)
 
 # when the blue slime button is presed
@@ -475,6 +498,15 @@ func _on_skeleton_mage_button_pressed():
 	if skeleton_mage_unlocked:
 		# show the enemy's info panel
 		skeleton_mage_panel.show()
+
+# when the lich button is presed
+func _on_lich_button_pressed():
+	# clear the info panel
+	clear_panel()
+	# if the enemy is unlocked
+	if lich_unlocked:
+		# show the enemy's info panel
+		lich_panel.show()
 
 # when the shade button is presed
 func _on_shade_button_pressed():
