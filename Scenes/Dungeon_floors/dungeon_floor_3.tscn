@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://bs0rdltsmfopr"]
+[gd_scene load_steps=39 format=3 uid="uid://bs0rdltsmfopr"]
 
 [ext_resource type="Script" path="res://Scripts/map/dungeon_floor.gd" id="1_xbvmb"]
 [ext_resource type="PackedScene" uid="uid://duv7i8yak343i" path="res://Scenes/HUD.tscn" id="2_1h1xt"]
@@ -31,6 +31,7 @@
 [ext_resource type="PackedScene" uid="uid://dvwf7rte2gvv2" path="res://Scenes/enemies/skeleton_mage.tscn" id="28_qvxnw"]
 [ext_resource type="PackedScene" uid="uid://cr3t522vle50y" path="res://Scenes/Dungeon_floors/trapdoor.tscn" id="29_y03cp"]
 [ext_resource type="PackedScene" uid="uid://2rov0r5nrtfl" path="res://Scenes/enemies/lich.tscn" id="31_a1r24"]
+[ext_resource type="PackedScene" uid="uid://1brne78u7lu8" path="res://Scenes/enemies/shade.tscn" id="32_yvpm4"]
 
 [sub_resource type="Animation" id="Animation_27xwy"]
 length = 0.001
@@ -404,7 +405,10 @@ position = Vector2(1176, -618)
 position = Vector2(1040, -620)
 
 [node name="lich" parent="." instance=ExtResource("31_a1r24")]
-position = Vector2(52, -180)
+position = Vector2(1104, -401)
+
+[node name="shade" parent="." instance=ExtResource("32_yvpm4")]
+position = Vector2(42, -31)
 
 [connection signal="timeout" from="CanvasLayer/Fade_color/Fade_timer" to="." method="_on_fade_timer_timeout"]
 [connection signal="pressed" from="CanvasLayer/Pause_menu/Buttons_container/Control/Resume_button" to="CanvasLayer/Pause_menu" method="_on_resume_button_pressed"]

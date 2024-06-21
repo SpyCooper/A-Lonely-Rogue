@@ -31,7 +31,7 @@ var playing_hit_animation = false
 # sets the enemy's stats and references
 func _ready():
 	speed = .5
-	health = 15
+	health = 10
 	sleep()
 	player = Events.player
 	max_health = health
@@ -129,8 +129,8 @@ func _physics_process(_delta):
 						animated_sprite.play("move_down")
 						playing_hit_animation = false
 				
-				# moves the earth elemental to a distance of 10 to the player
-				if position.distance_to(player_position) > 10:
+				# moves the earth elemental to a distance of 8 to the player
+				if position.distance_to(player_position) > 8:
 					## has to use get_speed() to move based on dusted effect
 					move_and_collide(target_position.normalized() * get_speed())
 

@@ -30,7 +30,7 @@ var is_idle = false
 # sets the enemy's stats and references
 func _ready():
 	speed = .7
-	health = 25
+	health = 12
 	sleep()
 	player = Events.player
 	max_health = health

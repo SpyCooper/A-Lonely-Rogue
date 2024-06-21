@@ -35,7 +35,7 @@ var is_idle = false
 # sets the enemy's stats and references
 func _ready():
 	speed = 1
-	health = 35
+	health = 15
 	sleep()
 	player = Events.player
 	max_health = health
@@ -108,7 +108,7 @@ func _physics_process(_delta):
 						animated_sprite.play("move_right")
 						playing_hit_animation = false
 						is_idle = false
-				if position.distance_to(player_position) > 10:
+				if position.distance_to(player_position) > 8:
 					## has to use get_speed() to move based on dusted effect
 					move_and_collide(target_position.normalized() * get_speed())
 
