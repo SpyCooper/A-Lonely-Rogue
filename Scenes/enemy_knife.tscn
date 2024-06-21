@@ -1,0 +1,100 @@
+[gd_scene load_steps=11 format=3 uid="uid://cbwan3jsrpaee"]
+
+[ext_resource type="Script" path="res://Scripts/enemy/enemy_knife.gd" id="1_phn3h"]
+[ext_resource type="Texture2D" uid="uid://dh85ichhvi5y2" path="res://Assets/Sprites/items/Items.png" id="2_e17xc"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_x78cu"]
+radius = 4.0
+height = 14.0
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_skm6n"]
+atlas = ExtResource("2_e17xc")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qrtnq"]
+atlas = ExtResource("2_e17xc")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n25jb"]
+atlas = ExtResource("2_e17xc")
+region = Rect2(48, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t0l26"]
+atlas = ExtResource("2_e17xc")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1qxks"]
+atlas = ExtResource("2_e17xc")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wrn8o"]
+atlas = ExtResource("2_e17xc")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_sormc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_skm6n")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qrtnq")
+}],
+"loop": false,
+"name": &"dust_blade",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_n25jb")
+}],
+"loop": false,
+"name": &"glass_blade",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t0l26")
+}],
+"loop": false,
+"name": &"poison_blade",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1qxks")
+}],
+"loop": false,
+"name": &"shadow_blade",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wrn8o")
+}],
+"loop": false,
+"name": &"shadow_flame_blade",
+"speed": 5.0
+}]
+
+[node name="enemy_knife" type="Area2D"]
+collision_layer = 2
+collision_mask = 3
+script = ExtResource("1_phn3h")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(2, 0)
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_x78cu")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+rotation = 1.5708
+sprite_frames = SubResource("SpriteFrames_sormc")
+
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

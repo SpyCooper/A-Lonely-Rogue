@@ -128,7 +128,6 @@ func _physics_process(_delta):
 					elif playing_hit_animation != true || animated_sprite.is_playing() == false:
 						animated_sprite.play("move_right")
 						playing_hit_animation = false
-				## NOTE: the lich cannot move currently but this is here just in case this is changes
 				# moves the lich to a distance of 15 to the player
 				if position.distance_to(player_position) > 15:
 					## has to use get_speed() to move based on dusted effect

@@ -40,6 +40,9 @@ var number_of_keys = 0
 var dying = false
 var player_can_move = false
 var slow_percentage = 0.0
+const PLAYER_SHADER = preload("res://Scripts/shaders/player.tres")
+var dusted = false
+@onready var hit_flash_animation_timer = $Hit_Flash_animation_player/hit_flash_animation_timer
 
 # upgrade variables
 var poisoned_blade = false
@@ -194,8 +197,11 @@ func player_take_damage():
 	if !dying:
 		# get hit
 		player_adjust_health(-1)
+		animated_sprite.material.shader = null
+		animated_sprite.material.shader = PLAYER_SHADER
 		hit_sound.play()
 		hit_flash_animation_player.play("hit_flash")
+		hit_flash_animation_timer.start()
 
 # runs when an item is picked up
 func picked_up_item(item, display_text = true, sound = true):
@@ -462,8 +468,18 @@ func _on_death_timer_timeout():
 func get_speed():
 	return speed * (1.0 - slow_percentage)
 
-func apply_slow(slow_perc):
-	slow_percentage += slow_perc
+func apply_slow(slow_perc, is_dust : bool):
+	if !is_dust:
+		slow_percentage += slow_perc
+	elif is_dust && !dusted:
+		slow_percentage += slow_perc
 
 func remove_slow(slow_perc):
 	slow_percentage -= slow_perc
+
+func get_animated_sprite():
+	return animated_sprite
+
+
+func _on_hit_flash_animation_timer_timeout():
+	animated_sprite.material.shader = null

@@ -62,6 +62,11 @@ var shade_kill_count = 0
 @onready var skeleton_kill_count_label = $TabContainer/Monsters/Panels/skeleton_panel/KillCountLabel
 var skeleton_unlocked = false
 var skeleton_kill_count = 0
+@onready var morphed_shade_button = $TabContainer/Bosses/ScrollContainer/GridContainer/Spot4/Morphed_Shade_button
+@onready var morphed_shade_panel = $TabContainer/Bosses/Panels/Morphed_Shade_panel
+@onready var morphed_shade_kill_count_label = $TabContainer/Bosses/Panels/Morphed_Shade_panel/KillCount
+var morphed_shade_unlocked = false
+var morphed_shade_kill_count = 0
 
 # items variables
 # all enemy sections on the catalog need a reference to it's button, the panel, and a bool
@@ -188,6 +193,11 @@ func load_data():
 			if skeleton_unlocked:
 				skeleton_button.material.shader = null
 				skeleton_kill_count = data["skeleton_kill_count"]
+			# morphed shade check
+			morphed_shade_unlocked = data["morphed_shade_unlocked"]
+			if morphed_shade_unlocked:
+				morphed_shade_button.material.shader = null
+				morphed_shade_kill_count = data["morphed_shade_kill_count"]
 			# update the kill counts in the catalog
 			update_kill_counts()
 	
@@ -255,16 +265,17 @@ func clear_panel():
 	green_slime_panel.hide()
 	earth_elemental_panel.hide()
 	air_elemental_panel.hide()
-	forgotten_golem_panel.hide()
 	skeleton_warrior_panel.hide()
 	skeleton_archer_panel.hide()
 	skeleton_mage_panel.hide()
-	lich_panel.hide()
 	shade_panel.hide()
 	skeleton_panel.hide()
 	
 	# boss tab
 	gelatinous_cube_panel.hide()
+	forgotten_golem_panel.hide()
+	lich_panel.hide()
+	morphed_shade_panel.hide()
 	
 	# items tab
 	speed_boots_panel.hide()
@@ -392,6 +403,15 @@ func unlock_enemy(enemy):
 			skeleton_unlocked = true
 		# increase the kill count and update the counts in the catalog
 		skeleton_kill_count += 1
+	elif enemy == EnemyTypes.enemy.morphed_shade:
+		# if the enemy is locked
+		if !morphed_shade_unlocked:
+			# remove the locked shader
+			morphed_shade_button.material.shader = null
+			# set the enemy to be unlocked
+			morphed_shade_unlocked = true
+		# increase the kill count and update the counts in the catalog
+		shade_kill_count += 1
 	update_kill_counts()
 	# saves the enemies to the catalog file
 	save_enemies()
@@ -423,6 +443,8 @@ func found_enemies():
 		"shade_kill_count" : shade_kill_count,
 		"skeleton_unlocked" : skeleton_unlocked,
 		"skeleton_kill_count" : skeleton_kill_count,
+		"morphed_shade_unlocked" : morphed_shade_unlocked,
+		"morphed_shade_kill_count" : morphed_shade_kill_count,
 	}
 	return data
 
@@ -440,6 +462,7 @@ func update_kill_counts():
 	lich_kill_count_label.text = "Killed: " + str(lich_kill_count)
 	shade_kill_count_label.text = "Killed: " + str(shade_kill_count)
 	skeleton_kill_count_label.text = "Killed: " + str(skeleton_kill_count)
+	morphed_shade_kill_count_label.text = "Killed: " + str(morphed_shade_kill_count)
 
 # when the blue slime button is presed
 func _on_blue_slime_pressed():
@@ -548,6 +571,15 @@ func _on_skeleton_button_pressed():
 	if skeleton_unlocked:
 		# show the enemy's info panel
 		skeleton_panel.show()
+
+# when the morphed shade button is presed
+func _on_morphed_shade_button_pressed():
+	# clear the info panel
+	clear_panel()
+	# if the enemy is unlocked
+	if morphed_shade_unlocked:
+		# show the enemy's info panel
+		morphed_shade_panel.show()
 
 # saves the enemy found to "enemiesfound.save"
 func save_enemies():

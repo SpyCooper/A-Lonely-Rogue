@@ -681,7 +681,7 @@ script = ExtResource("2_x28dm")
 material = SubResource("ShaderMaterial_uvp4x")
 position = Vector2(0, 1)
 sprite_frames = SubResource("SpriteFrames_ca6vv")
-animation = &"death_dark"
+animation = &"idle_left_dark"
 autoplay = "idle_down"
 
 [node name="HitBox" type="CollisionShape2D" parent="."]
@@ -695,6 +695,10 @@ one_shot = true
 libraries = {
 "": SubResource("AnimationLibrary_4hf0x")
 }
+
+[node name="hit_flash_animation_timer" type="Timer" parent="Hit_Flash_animation_player"]
+wait_time = 0.2
+one_shot = true
 
 [node name="fall_timer" type="Timer" parent="."]
 wait_time = 3.5
@@ -759,6 +763,7 @@ wait_time = 2.2
 one_shot = true
 
 [connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]
+[connection signal="timeout" from="Hit_Flash_animation_player/hit_flash_animation_timer" to="." method="_on_hit_flash_animation_timer_timeout"]
 [connection signal="timeout" from="fall_timer" to="." method="_on_fall_timer_timeout"]
 [connection signal="timeout" from="stand_up_timer" to="." method="_on_stand_up_timer_timeout"]
 [connection signal="timeout" from="player_fall_sound/player_fall_sound_timer" to="." method="_on_player_fall_sound_timer_timeout"]

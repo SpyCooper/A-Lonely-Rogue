@@ -25,7 +25,7 @@ func _ready():
 func _on_area_2d_body_entered(body):
 	# if the body is the player, slow them
 	if body is Player:
-		body.apply_slow(slow)
+		body.apply_slow(slow, false)
 
 # when a body leaves the hitbox (this is called before queue_free() is ran)
 func _on_area_2d_body_exited(body):
