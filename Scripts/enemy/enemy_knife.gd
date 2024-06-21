@@ -13,8 +13,9 @@ func spawned(click_position, dust_blade_active):
 	# based on thrown direction
 	move_direction = click_position
 	look_at(position + move_direction)
+	# sets the reference to the animated sprite
 	animated_sprite = $AnimatedSprite2D
-	
+	# checks to see if a dust blade was obtained
 	dust_player = dust_blade_active
 	if dust_blade_active:
 		animated_sprite.play("dust_blade")
@@ -26,12 +27,13 @@ func _process(delta):
 
 # runs when a object enters the Area2D's collider
 func _on_body_entered(body):
-	# if the object has the method take_damage(), it will run it
+	# checks if the object is the player
 	if body is Player:
 		# the knife deals damage to the enemies hit
 		body.player_take_damage()
+		# if a dust blade was obtained
 		if dust_player:
+			# add the dust blade effect to the player
 			body.add_child(DUST_BLADE_EFFECT.instantiate())
-	
 	# removes the knife from the screen
 	queue_free()

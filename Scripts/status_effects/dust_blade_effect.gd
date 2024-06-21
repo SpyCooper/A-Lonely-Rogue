@@ -4,20 +4,13 @@ extends Node2D
 @onready var timer = $Timer
 const DUSTED = preload("res://Scripts/shaders/dusted.gdshader")
 var parent
-var slow = 0.35
 
 # on start
 func _ready():
+	# sets the parent of the dusted effect
 	parent = get_parent()
-	if parent is Player:
-		parent.apply_slow(slow, true)
-		if parent.dusted == false:
-			parent.dusted = true
-		
-	elif parent is Enemy:
-		## requires the animated sprite to have a shader attached to it, not the character body 2d
-		parent.set_dusted_status(true)
-		parent.get_animated_sprite().material.shader = DUSTED
+	parent.set_dusted_status(true)
+	# starts the timer for the effect
 	timer.start(4)
 
 # while the object is active
@@ -28,11 +21,8 @@ func _process(_delta):
 
 # when the timer ends
 func _on_timer_timeout():
-	if parent is Player:
-		parent.remove_slow(slow)
-		parent.dusted = false
-		parent.get_animated_sprite().material.shader = null
-	elif parent is Enemy:
+	# if the parent is an enemy or player
+	if parent is Enemy || parent is Player:
 		# remove the dusted status
 		parent.set_dusted_status(false)
 		# remove the shader

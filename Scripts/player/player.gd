@@ -42,6 +42,8 @@ var player_can_move = false
 var slow_percentage = 0.0
 const PLAYER_SHADER = preload("res://Scripts/shaders/player.tres")
 var dusted = false
+var dusted_stack = 0
+var dusted_slow = 0.35
 @onready var hit_flash_animation_timer = $Hit_Flash_animation_player/hit_flash_animation_timer
 
 # upgrade variables
@@ -197,6 +199,7 @@ func player_take_damage():
 	if !dying:
 		# get hit
 		player_adjust_health(-1)
+		# plays the hit flash animation
 		animated_sprite.material.shader = null
 		animated_sprite.material.shader = PLAYER_SHADER
 		hit_sound.play()
@@ -465,21 +468,42 @@ func _on_death_timer_timeout():
 	Engine.time_scale = 1
 	get_tree().change_scene_to_file("res://Scenes/Dungeon_floors/dungeon_floor_1.tscn")
 
+# returns the speed
 func get_speed():
 	return speed * (1.0 - slow_percentage)
 
-func apply_slow(slow_perc, is_dust : bool):
-	if !is_dust:
-		slow_percentage += slow_perc
-	elif is_dust && !dusted:
-		slow_percentage += slow_perc
+# applies the slow
+func apply_slow(slow_perc):
+	slow_percentage += slow_perc
 
+# removes a slow
 func remove_slow(slow_perc):
 	slow_percentage -= slow_perc
 
+# returns the animated sprite
 func get_animated_sprite():
 	return animated_sprite
 
-
+# when the hit flash aniamtion timer ends
 func _on_hit_flash_animation_timer_timeout():
 	animated_sprite.material.shader = null
+
+# sets the dusted status
+func set_dusted_status(status):
+	if status == true:
+		dusted_stack += 1
+		dusted = true
+		# if this is the first dusted stack
+		if dusted_stack == 1:
+			# apply the dustes slow
+			apply_slow(dusted_slow)
+	else:
+		dusted_stack -= 1
+	# if all dusted stacks are gone, the player is no longer dusted
+	if dusted_stack == 0:
+		dusted = false
+		remove_slow(dusted_slow)
+
+# returns if the player is has dust_blade effect on them
+func is_dusted():
+	return dusted
