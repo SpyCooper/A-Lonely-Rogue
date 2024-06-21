@@ -49,3 +49,7 @@ func _on_fade_timer_timeout():
 # this is called after the player's fall
 func play_bg_music():
 	bg_music.play()
+
+# stops the background music on the floor
+func stop_bg_music():
+	bg_music.stop()

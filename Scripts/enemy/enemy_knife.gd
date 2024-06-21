@@ -16,7 +16,6 @@ func spawned(click_position, dust_blade_active):
 	animated_sprite = $AnimatedSprite2D
 	
 	dust_player = dust_blade_active
-	print(dust_blade_active)
 	if dust_blade_active:
 		animated_sprite.play("dust_blade")
 

@@ -7,6 +7,7 @@ extends Enemy
 @onready var death_timer = $Death_timer
 @onready var spawn_timer = $Spawn_timer
 @onready var hud = %HUD
+@onready var direction_change_timer = $direction_change_timer
 @onready var hit_animation_timer = $AnimatedSprite2D/hit_animation_timer
 const PLAYER_SHADER = preload("res://Scripts/shaders/player.tres")
 @onready var hit_flash_animation_player = $Hit_Flash_animation_player
@@ -16,9 +17,8 @@ const PLAYER_SHADER = preload("res://Scripts/shaders/player.tres")
 @onready var hit_sound = $HitSound
 @onready var spawn_sound = $SpawnSound
 @onready var death_sound = $DeathSound
+@onready var boss_music = $boss_music
 
-@onready var direction_change_timer = $direction_change_timer
-var current_move_direction
 
 # defines a random number generator
 var rng = RandomNumberGenerator.new()
@@ -30,20 +30,14 @@ var playing_hit_animation = false
 var can_attack = false
 var can_move = true
 
-## PLAYER VARIABLES
-# constants
+# PLAYER VARIABLES
 const KNIFE_SPEED = 150.0
-
-# variables
 var attacks_per_second = 1
 var attack_damage = 1
 var time_to_fire = 0.0
 var time_to_fire_max = 1.0
-#var speed = 100.0
-#var dying = false
 @onready var woosh_sound = $woosh_sound
-
-# upgrade variables
+var current_move_direction
 var dust_blade = false
 var triple_blades = false
 var current_type : BladeType.blade_type = BladeType.blade_type.default
@@ -53,7 +47,7 @@ const ENEMY_KNIFE = preload("res://Scenes/enemy_knife.tscn")
 func _ready():
 	# basic enemy stats
 	speed = 1.0
-	max_health = 1
+	max_health = 100
 	health = max_health
 	# sets references to the player and catalog
 	catalog = Events.catalog
@@ -77,6 +71,7 @@ func wake_up():
 	spawn_in()
 	# starts the attack timer
 	attack_timer.start()
+	get_parent().stop_bg_music()
 
 # runs on every frame
 func _process(delta):
@@ -175,8 +170,7 @@ func take_damage(damage):
 			animated_sprite.play("dying")
 			# plays the death sound
 			death_sound.play()
-			# spawn_sound is the portal sound
-			spawn_sound.play()
+			boss_music.stop()
 		# adjust the boss health bar in the HUD
 		hud.adjust_health_bar(health)
 
@@ -213,6 +207,8 @@ func _on_spawn_timer_timeout():
 	
 	current_move_direction = Vector2(0, -1)
 	direction_change_timer.start(0.2)
+	
+	boss_music.play()
 
 # when the attack timer ends
 func _on_attack_timer_timeout():
@@ -255,8 +251,6 @@ func random_direction(hit_object : bool):
 	if vector_normalized == Vector2(0, 0):
 		duration = rng.randf_range(0.1, 3)
 	direction_change_timer.start(duration)
-	print(vector_normalized)
-	print(duration)
 
 # calculate the attack speed
 func calculate_attack_speed():

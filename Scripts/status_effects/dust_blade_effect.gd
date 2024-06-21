@@ -10,7 +10,6 @@ var slow = 0.35
 func _ready():
 	parent = get_parent()
 	if parent is Player:
-		print("dust_on_player")
 		parent.apply_slow(slow, true)
 		if parent.dusted == false:
 			parent.dusted = true

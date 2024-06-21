@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://dxreyo0ai8tju"]
+[gd_scene load_steps=23 format=3 uid="uid://dxreyo0ai8tju"]
 
 [ext_resource type="Script" path="res://Scripts/map/dungeon_floor.gd" id="1_ygtwv"]
 [ext_resource type="PackedScene" uid="uid://duv7i8yak343i" path="res://Scenes/HUD.tscn" id="2_ta3sb"]
@@ -16,9 +16,6 @@
 [ext_resource type="PackedScene" uid="uid://dqkgb1e1soyjs" path="res://Scenes/map/single door rooms/1_door_down.tscn" id="14_ekxaj"]
 [ext_resource type="PackedScene" uid="uid://bycygvf0dkbr1" path="res://Scenes/items/heart_2_pickup.tscn" id="15_5jcnp"]
 [ext_resource type="PackedScene" uid="uid://lnvy0o75ud8f" path="res://Scenes/enemies/morphed_shade.tscn" id="16_r660b"]
-[ext_resource type="PackedScene" uid="uid://b218mvsyn0as3" path="res://Scenes/items/dust_blade_item.tscn" id="17_frt5l"]
-[ext_resource type="PackedScene" uid="uid://c7um43mdsiogr" path="res://Scenes/items/quick_blades_item.tscn" id="18_u1wra"]
-[ext_resource type="PackedScene" uid="uid://ptwmn1mfta68" path="res://Scenes/items/triple_blades_item.tscn" id="19_0fl7s"]
 
 [sub_resource type="Animation" id="Animation_27xwy"]
 length = 0.001
@@ -257,14 +254,20 @@ position = Vector2(0, -208)
 [node name="2_door_hallway_verical2" parent="." instance=ExtResource("12_ch4v7")]
 position = Vector2(0, -416)
 
+[node name="2_door_hallway_verical5" parent="." instance=ExtResource("12_ch4v7")]
+position = Vector2(-1, -624)
+
+[node name="2_door_hallway_verical6" parent="." instance=ExtResource("12_ch4v7")]
+position = Vector2(-1, -832)
+
 [node name="2_door_hallway_verical3" parent="." instance=ExtResource("12_ch4v7")]
-position = Vector2(0, -624)
+position = Vector2(-1, -1040)
 
 [node name="2_door_hallway_verical4" parent="." instance=ExtResource("12_ch4v7")]
-position = Vector2(0, -832)
+position = Vector2(-1, -1248)
 
 [node name="1_door_down" parent="." instance=ExtResource("14_ekxaj")]
-position = Vector2(0, -1040)
+position = Vector2(-1, -1456)
 
 [node name="heart_2_pickup" parent="." instance=ExtResource("15_5jcnp")]
 position = Vector2(0, -439)
@@ -272,7 +275,7 @@ position = Vector2(0, -439)
 [node name="Floor Text" type="Node2D" parent="."]
 position = Vector2(5, -393)
 
-[node name="Move_label" type="Label" parent="Floor Text"]
+[node name="floor_label" type="Label" parent="Floor Text"]
 z_index = -1
 anchors_preset = 8
 anchor_left = 0.5
@@ -290,22 +293,32 @@ theme_override_colors/font_color = Color(0.376471, 0.231373, 0.227451, 1)
 text = "You're gonna need this"
 autowrap_mode = 2
 
+[node name="floor_label_2" type="Label" parent="Floor Text"]
+z_index = -1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -92.0
+offset_top = -653.0
+offset_right = 81.0
+offset_bottom = -638.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("4_rp8nv")
+theme_override_colors/font_color = Color(0.376471, 0.231373, 0.227451, 1)
+text = "Good luck"
+horizontal_alignment = 1
+autowrap_mode = 2
+
 [node name="BossDoorSymbol" type="Sprite2D" parent="Floor Text"]
 z_index = -1
-position = Vector2(-5, -300)
+position = Vector2(-6, -716)
 texture = ExtResource("13_hdfy6")
 
 [node name="morphed_shade" parent="." instance=ExtResource("16_r660b")]
-position = Vector2(0, -213)
-
-[node name="dust_blade_item" parent="." instance=ExtResource("17_frt5l")]
-position = Vector2(-76, -31)
-
-[node name="quick_blades_item" parent="." instance=ExtResource("18_u1wra")]
-position = Vector2(-96, 38)
-
-[node name="triple_blades_item" parent="." instance=ExtResource("19_0fl7s")]
-position = Vector2(88, -35)
+position = Vector2(-1, -1249)
 
 [connection signal="timeout" from="CanvasLayer/Fade_color/Fade_timer" to="." method="_on_fade_timer_timeout"]
 [connection signal="pressed" from="CanvasLayer/Pause_menu/Buttons_container/Control/Resume_button" to="CanvasLayer/Pause_menu" method="_on_resume_button_pressed"]
