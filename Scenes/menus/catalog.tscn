@@ -1006,7 +1006,7 @@ vertical_scroll_mode = 2
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-theme_override_constants/v_separation = 91
+theme_override_constants/v_separation = 94
 
 [node name="Spot" type="Control" parent="TabContainer/Bosses/ScrollContainer/GridContainer"]
 layout_mode = 2
