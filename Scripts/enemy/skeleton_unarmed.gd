@@ -18,7 +18,7 @@ var playing_hit_animation = false
 
 # sets the enemy's stats and references
 func _ready():
-	speed = .6
+	speed = .5
 	health = 5
 	sleep()
 	player = Events.player
@@ -38,7 +38,7 @@ func wake_up():
 
 # called every frame
 func _physics_process(_delta):
-	# if the player is in the room, the skeleton warrior isn't dying, and isn't spawning
+	# if the player is in the room, the skeleton isn't dying, and isn't spawning
 	if player_in_room && !dying && !spawning:
 		# checks for a reference to the player and that the game isn't paused
 		# if the player is in the room, the enemy can move, and the game isn't paused
@@ -47,10 +47,10 @@ func _physics_process(_delta):
 			player_position = player.position
 			target_position = (player_position - global_position).normalized()
 			current_direction = get_left_right_look_direction(target_position)
-			# if the enemy is further than 50 pixels
+			# if the enemy is further than 8 pixels
 			if position.distance_to(player_position) >= 8:
 				# look in the direction of the player
-				# flips the direction of the skeleton warrior based on the current_direction
+				# flips the direction of the skeleton based on the current_direction
 				## NOTE: all these checks are identical but change the directions they look at
 				## Move left
 				if current_direction == look_direction.left :
@@ -81,7 +81,7 @@ func _physics_process(_delta):
 
 # runs when a knife (or other weapon) hits the enemy
 func take_damage(damage):
-	# checks if the skeleton warrior is not spawning or dying
+	# checks if the skeleton is not spawning or dying
 	if spawning == false && dying == false:
 		# subtracts the health
 		health -= damage
@@ -114,7 +114,7 @@ func take_damage(damage):
 
 # when death timer ends
 func _on_death_timer_timeout():
-	# unlock the skeleton warrior in the catalog
+	# unlock the skeleton in the catalog
 	catalog.unlock_enemy(EnemyTypes.enemy.skeleton)
 	# call enemy slain
 	enemy_slain()

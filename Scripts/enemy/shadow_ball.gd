@@ -5,29 +5,29 @@ extends Area2D
 
 # variables
 var move_direction
-var speed = 75
+var speed = 80
 var player
 var is_spawned = false
 
 # runs on every frame
 func _process(delta):
-	# check if the shadow bolt is_spawned
+	# check if the shadow ball is_spawned
 	if is_spawned:
 		# look at and follow the player
 		var player_position = player.position
 		move_direction = (player_position - global_position).normalized()
 		look_at(player_position)
-		# moves the shadow bolt based on the thrown direction
+		# moves the shadow ball based on the thrown direction
 		position += move_direction * speed * delta
 
-# this is called when a skeleton mage spawns a shadow bolt
+# this is called when a Lich spawns a shadow ball
 func spawned():
 	# set the player reference
 	player = Events.player
 	# set is_spawned to true
 	is_spawned = true
 
-# when the shadow bolt hits something
+# when the shadow ball hits something
 func _on_body_entered(body):
 	# if the object is a player
 	if body is Player:
@@ -42,5 +42,5 @@ func _on_body_entered(body):
 func _on_destructable_hitbox_area_entered(area):
 	# check if area is knife
 	if area is Knife:
-		# destroy shadow_bolt
+		# destroy shadow_ball
 		queue_free()
