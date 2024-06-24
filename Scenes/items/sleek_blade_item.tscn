@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://eqwi73pv0hqi"]
+
+[ext_resource type="PackedScene" uid="uid://jtiqth444hdl" path="res://Scenes/item.tscn" id="1_s2dvp"]
+[ext_resource type="Texture2D" uid="uid://dh85ichhvi5y2" path="res://Assets/Sprites/items/Items.png" id="2_oj8g7"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2jfrj"]
+atlas = ExtResource("2_oj8g7")
+region = Rect2(256, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dl7pg"]
+atlas = ExtResource("2_oj8g7")
+region = Rect2(256, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_oaxmr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2jfrj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dl7pg")
+}],
+"loop": true,
+"name": &"new_animation",
+"speed": 3.0
+}]
+
+[node name="sleek_blade_item" type="Node2D"]
+z_index = 1
+
+[node name="item" parent="." instance=ExtResource("1_s2dvp")]
+item_type = 18
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(1, 0)
+sprite_frames = SubResource("SpriteFrames_oaxmr")
+animation = &"new_animation"
+autoplay = "new_animation"
+frame_progress = 0.930973
+offset = Vector2(-1, 0)

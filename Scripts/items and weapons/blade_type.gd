@@ -9,6 +9,7 @@ enum blade_type
 	glass,
 	shadow_flame,
 	dust,
+	sleek,
 }
 
 # sets the current_blade_type to default

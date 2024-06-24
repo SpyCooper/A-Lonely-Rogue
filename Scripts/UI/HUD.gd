@@ -27,6 +27,10 @@ class_name HUD
 @onready var items_ui_container = $active_items_ui/items_ui_container
 const ITEM_UI_SLOT = preload("res://Scenes/menus/item_ui_slot.tscn")
 
+
+@onready var vignette = $vignette
+@onready var vignette_animation_player = $vignette/vignette_animation_player
+
 # on start
 func _ready():
 	# hide hearts 4 and 5
@@ -276,3 +280,29 @@ func item_added(item):
 		items_ui_container.add_child(item_ui)
 		# set the graphic to the item
 		item_ui.get_animated_sprite().play("glass_blade")
+	elif item == ItemType.type.poorly_made_voodoo_doll:
+		# create a item UI slot
+		var item_ui = ITEM_UI_SLOT.instantiate()
+		# add it to the items collected container
+		items_ui_container.add_child(item_ui)
+		# set the graphic to the item
+		item_ui.get_animated_sprite().play("poorly_made_voodoo")
+	elif item == ItemType.type.sleek_blades:
+		# create a item UI slot
+		var item_ui = ITEM_UI_SLOT.instantiate()
+		# add it to the items collected container
+		items_ui_container.add_child(item_ui)
+		# set the graphic to the item
+		item_ui.get_animated_sprite().play("sleek_blade")
+
+func remove_poorly_made_voodoo_doll():
+	var item_ui_slots = items_ui_container.get_children()
+	for ui in item_ui_slots:
+		if ui.get_animated_sprite().animation == "poorly_made_voodoo_fire":
+			ui.queue_free()
+
+func play_poorly_made_voodoo_doll_fire():
+	var item_ui_slots = items_ui_container.get_children()
+	for ui in item_ui_slots:
+		if ui.get_animated_sprite().animation == "poorly_made_voodoo":
+			ui.get_animated_sprite().play("poorly_made_voodoo_fire")

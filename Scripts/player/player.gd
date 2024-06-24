@@ -57,6 +57,12 @@ var dust_blade = false
 var triple_blades = false
 var shadow_heart = false
 var shadow_heart_heal_counter = 0
+var poorly_made_voodoo_doll = false
+@onready var burning_sound = $burning_sound
+@onready var voodoo_doll_immunity_timer = $voodoo_doll_immunity_timer
+var immunity = false
+var sleek_blade = false
+var knife_speed_bonus = 0
 var current_type : BladeType.blade_type = BladeType.blade_type.default
 var knife_scene = load("res://Scenes/knife.tscn")
 var items_collected = []
@@ -171,7 +177,7 @@ func _physics_process(_delta):
 				var blade_instance = knife_scene.instantiate()
 				# spawns a knife at that position
 				blade_instance.position = position + click_position_normalized*3
-				blade_instance.spawned(click_position_normalized, current_type, self, current_attack_identifier)
+				blade_instance.spawned(click_position_normalized, current_type, self, current_attack_identifier, knife_speed_bonus)
 				get_parent().add_child(blade_instance)
 				# plays the knife throw sound when the blade is spawned
 				woosh_sound.play()
@@ -183,14 +189,14 @@ func _physics_process(_delta):
 					rad_added_bottom = rad_added_bottom.normalized()
 					var blade_instance_2 = knife_scene.instantiate()
 					blade_instance_2.position = position + rad_added_bottom*3
-					blade_instance_2.spawned(rad_added_bottom, current_type, self, current_attack_identifier)
+					blade_instance_2.spawned(rad_added_bottom, current_type, self, current_attack_identifier, knife_speed_bonus)
 					get_parent().add_child(blade_instance_2)
 					# top blade
 					var rad_added_top = Vector2(cos(radians - 0.25), sin(radians - 0.25))
 					rad_added_top = rad_added_top.normalized()
 					var blade_instance_3 = knife_scene.instantiate()
 					blade_instance_3.position = position + rad_added_top*3
-					blade_instance_3.spawned(rad_added_top, current_type, self, current_attack_identifier)
+					blade_instance_3.spawned(rad_added_top, current_type, self, current_attack_identifier, knife_speed_bonus)
 					get_parent().add_child(blade_instance_3)
 				# resets the time to fire
 				time_to_fire = time_to_fire_max
@@ -342,6 +348,44 @@ func picked_up_item(item, display_text = true, sound = true):
 		# add the item to the collected items list on HUD and in player data
 		hud.item_added(item)
 		items_collected += [item]
+	elif item == ItemType.type.holy_heart:
+		# add the holy heart to the player
+		# if the shadow_heart is active
+		if shadow_heart == true:
+			# remove the shadow_heart
+			shadow_heart = false
+			# removes the shadow_heart from the player's collected items
+			for i in range(0, items_collected.size()-1):
+				if items_collected[i] == ItemType.type.shadow_heart:
+					items_collected.remove_at(i)
+		else:
+			# if the shadow_heart is not active, heal the player
+			player_adjust_health(2)
+		# refresh the player's HP, and send that shadow_heart is not active
+		hud.refresh_hearts(player_health, shadow_heart)
+		# display the item text
+		if display_text:
+			hud.display_text("Aquired the Holy Heart!", "You've been blessed!")
+	elif item == ItemType.type.poorly_made_voodoo_doll:
+		# add glass blades to the player
+		poorly_made_voodoo_doll = true
+		# display the item text
+		if display_text:
+			hud.display_text("Aquired a Poorly-made Voodoo Doll!", "Does this look like me?")
+		# add the item to the collected items list on HUD and in player data
+		hud.item_added(item)
+		items_collected += [item]
+	elif item == ItemType.type.sleek_blades:
+		# add the sleek blade to the player
+		knife_speed_bonus += ItemType.sleek_blade_speed_bonus
+		# set current blade to sleek
+		current_type = BladeType.blade_type.sleek
+		# display the item text
+		if display_text:
+			hud.display_text("Aquired Sleek Blades!", "Blades move faster through the air.")
+		# add the item to the collected items list on HUD and in player data
+		hud.item_added(item)
+		items_collected += [item]
 
 # calculate the attack speed
 func calculate_attack_speed():
@@ -350,24 +394,34 @@ func calculate_attack_speed():
 # adjust player's health
 # used to heal and take damage
 func player_adjust_health(change : int):
-	# if the change will put the the player's health above the max, set to the max
-	if(player_health + change > PLAYER_HEALTH_MAX):
-		player_health = PLAYER_HEALTH_MAX
-	# else, add the change
-	else:
-		player_health += change
-	# refresh the hearts for the player
-	hud.refresh_hearts(player_health, shadow_heart)
-	# if health is <= 0
-	if player_health <= 0:
-		# set the time scale to .5
-		Engine.time_scale = 0.5
-		# set state to dying
-		dying = true
-		# start death timer
-		death_timer.start()
-		# play the death animation
-		animated_sprite.play("death")
+	if !immunity:
+		# if the change will put the the player's health above the max, set to the max
+		if(player_health + change > PLAYER_HEALTH_MAX):
+			player_health = PLAYER_HEALTH_MAX
+		# else, add the change
+		else:
+			player_health += change
+		# refresh the hearts for the player
+		hud.refresh_hearts(player_health, shadow_heart)
+		# if health is <= 0
+		if player_health <= 0:
+			if poorly_made_voodoo_doll:
+				poorly_made_voodoo_doll = false
+				player_health = 1
+				hud.refresh_hearts(player_health, shadow_heart)
+				burning_sound.play()
+				voodoo_doll_immunity_timer.start()
+				immunity = true
+				hud.play_poorly_made_voodoo_doll_fire()
+			else:
+				# set the time scale to .5
+				Engine.time_scale = 0.5
+				# set state to dying
+				dying = true
+				# start death timer
+				death_timer.start()
+				# play the death animation
+				animated_sprite.play("death")
 
 # returns the current weapons
 func get_current_weapons():
@@ -382,6 +436,8 @@ func get_current_weapons():
 		current_blades += [BladeType.blade_type.shadow]
 	if glass_blade == true:
 		current_blades += [BladeType.blade_type.glass]
+	if sleek_blade == true:
+		current_blades += [BladeType.blade_type.sleek]
 	return current_blades
 
 # if the enemy is killed
@@ -529,3 +585,10 @@ func is_dusted():
 func room_entered():
 	current_attack_identifier = 0
 	attacks_that_have_hit = []
+
+func _on_voodoo_doll_immunity_timer_timeout():
+	immunity = false
+	for i in range(0, items_collected.size()-1):
+		if items_collected[i] == ItemType.type.poorly_made_voodoo_doll:
+			items_collected.remove_at(i)
+	hud.remove_poorly_made_voodoo_doll()

@@ -17,7 +17,7 @@ var base_damage = 1
 var attack_identifer
 
 # this is called when the player is clicks
-func spawned(click_position, blade_type, player, current_attack_identifier):
+func spawned(click_position, blade_type, player, current_attack_identifier, knife_speed_bonus):
 	# $AnimatedSprite2D has to be called here since 
 	# it is loaded before the object exists in the scene
 	var animated_sprite = $AnimatedSprite2D
@@ -29,6 +29,7 @@ func spawned(click_position, blade_type, player, current_attack_identifier):
 	look_at(position + move_direction)
 	attack_identifer = current_attack_identifier
 	
+	speed += knife_speed_bonus
 
 # runs on every frane
 func _process(delta):
@@ -86,3 +87,5 @@ func change_blade_type(animated_sprite, blade_type):
 		animated_sprite.play("dust_blade")
 	elif blade_type == BladeType.blade_type.posioned:
 		animated_sprite.play("poison_blade")
+	elif blade_type == BladeType.blade_type.sleek:
+		animated_sprite.play("sleek_blade")

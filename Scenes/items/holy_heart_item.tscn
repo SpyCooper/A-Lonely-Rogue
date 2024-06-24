@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://cxdxfahjgx082"]
+
+[ext_resource type="PackedScene" uid="uid://jtiqth444hdl" path="res://Scenes/item.tscn" id="1_4vo77"]
+[ext_resource type="Texture2D" uid="uid://dh85ichhvi5y2" path="res://Assets/Sprites/items/Items.png" id="2_0gi85"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ckgtf"]
+atlas = ExtResource("2_0gi85")
+region = Rect2(192, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qfj4o"]
+atlas = ExtResource("2_0gi85")
+region = Rect2(192, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_oaxmr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ckgtf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qfj4o")
+}],
+"loop": true,
+"name": &"default",
+"speed": 3.0
+}]
+
+[node name="holy_heart_item" type="Node2D"]
+z_index = 1
+
+[node name="item" parent="." instance=ExtResource("1_4vo77")]
+item_type = 13
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(1, 0)
+sprite_frames = SubResource("SpriteFrames_oaxmr")
+autoplay = "default"
+offset = Vector2(-1, 0)

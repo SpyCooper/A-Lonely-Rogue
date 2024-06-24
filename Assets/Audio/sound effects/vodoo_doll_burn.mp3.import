@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://sb8pspbd35tc"
+path="res://.godot/imported/vodoo_doll_burn.mp3-6f3f1c72aa25a29866144d7bae155993.mp3str"
+
+[deps]
+
+source_file="res://Assets/Audio/sound effects/vodoo_doll_burn.mp3"
+dest_files=["res://.godot/imported/vodoo_doll_burn.mp3-6f3f1c72aa25a29866144d7bae155993.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

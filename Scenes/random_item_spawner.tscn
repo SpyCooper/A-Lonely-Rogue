@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" path="res://Scripts/items and weapons/random_item_spawner.gd" id="1_cr0nx"]
 
-
 [sub_resource type="Gradient" id="Gradient_i3vg1"]
 offsets = PackedFloat32Array(0)
 colors = PackedColorArray(0, 0, 0, 1)

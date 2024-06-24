@@ -32,7 +32,7 @@ var can_move = true
 var current_attack_identifer = 0
 
 # attack variables (mostly copied from the player.gd script)
-const KNIFE_SPEED = 150.0
+var knife_speed_bonus = 0
 var attacks_per_second = 1
 var attack_damage = 1
 var time_to_fire = 0.0
@@ -119,7 +119,7 @@ func _physics_process(_delta):
 					# spawns a knife at that position
 					var blade_instance = ENEMY_KNIFE.instantiate()
 					blade_instance.global_position = animated_sprite.global_position
-					blade_instance.spawned(target_position, dust_blade, current_attack_identifer)
+					blade_instance.spawned(target_position, dust_blade, current_attack_identifer, knife_speed_bonus)
 					get_parent().add_child(blade_instance)
 					# plays the knife throw sound when the blade is spawned
 					woosh_sound.play()
@@ -131,14 +131,14 @@ func _physics_process(_delta):
 						rad_added_bottom = rad_added_bottom.normalized()
 						var blade_instance_2 = ENEMY_KNIFE.instantiate()
 						blade_instance_2.global_position =  animated_sprite.global_position
-						blade_instance_2.spawned(rad_added_bottom, dust_blade, current_attack_identifer)
+						blade_instance_2.spawned(rad_added_bottom, dust_blade, current_attack_identifer, knife_speed_bonus)
 						get_parent().add_child(blade_instance_2)
 						# top blade
 						var rad_added_top = Vector2(cos(radians - 0.25), sin(radians - 0.25))
 						rad_added_top = rad_added_top.normalized()
 						var blade_instance_3 = ENEMY_KNIFE.instantiate()
 						blade_instance_3.global_position =  animated_sprite.global_position
-						blade_instance_3.spawned(rad_added_top, dust_blade, current_attack_identifer)
+						blade_instance_3.spawned(rad_added_top, dust_blade, current_attack_identifer, knife_speed_bonus)
 						get_parent().add_child(blade_instance_3)
 					# resets the time to fire
 					time_to_fire = time_to_fire_max
@@ -302,6 +302,8 @@ func load_player_data():
 		elif item == ItemType.type.dust_blade:
 			# add dust blades to the player
 			dust_blade = true
+		elif item == ItemType.type.sleek_blades:
+			knife_speed_bonus += ItemType.sleek_blade_speed_bonus
 	# recalculates the attack speed
 	calculate_attack_speed()
 

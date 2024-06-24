@@ -82,6 +82,7 @@ _data = {
 }
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_88ndt"]
+resource_local_to_scene = true
 shader = ExtResource("2_on4nu")
 shader_parameter/color = null
 shader_parameter/multiplier = 0.03

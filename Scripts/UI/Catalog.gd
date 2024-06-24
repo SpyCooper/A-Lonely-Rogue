@@ -103,7 +103,15 @@ var shadow_heart_unlocked = false
 @onready var triple_blades_button = $TabContainer/Items/ScrollContainer/GridContainer/Spot11/Triple_blades_button
 @onready var triple_blades_panel = $TabContainer/Items/Panels/Triple_blades_panel
 var triple_blades_unlocked = false
-
+@onready var holy_heart_button = $TabContainer/Items/ScrollContainer/GridContainer/Spot12/holy_heart_button
+@onready var holy_heart_panel = $TabContainer/Items/Panels/holy_heart_panel
+var holy_heart_unlocked = false
+@onready var poorly_made_voodoo_doll_button = $TabContainer/Items/ScrollContainer/GridContainer/Spot13/poorly_made_voodoo_doll_button
+@onready var poorly_made_voodoo_doll_panel = $TabContainer/Items/Panels/poorly_made_voodoo_doll_panel
+var poorly_made_voodoo_doll_unlocked = false
+@onready var sleek_blade_button = $TabContainer/Items/ScrollContainer/GridContainer/Spot14/Sleek_blade_button
+@onready var sleek_blade_panel = $TabContainer/Items/Panels/Sleek_blade_panel
+var sleek_blade_unlocked = false
 # on start
 func _ready():
 	# set the catalog reference
@@ -257,6 +265,18 @@ func load_data():
 			triple_blades_unlocked = data["triple_blades_unlocked"]
 			if triple_blades_unlocked:
 				triple_blades_button.material.shader = null
+			# holy heart check
+			holy_heart_unlocked = data["holy_heart_unlocked"]
+			if holy_heart_unlocked:
+				holy_heart_button.material.shader = null
+			# poorly_made_voodoo_doll check
+			poorly_made_voodoo_doll_unlocked = data["poorly_made_voodoo_doll_unlocked"]
+			if poorly_made_voodoo_doll_unlocked:
+				poorly_made_voodoo_doll_button.material.shader = null
+			# sleek blade check
+			sleek_blade_unlocked = data["sleek_blade_unlocked"]
+			if sleek_blade_unlocked:
+				sleek_blade_button.material.shader = null
 
 # goes through all the panels and hides all of them
 func clear_panel():
@@ -289,6 +309,9 @@ func clear_panel():
 	shadow_flame_panel.hide()
 	shadow_heart_panel.hide()
 	triple_blades_panel.hide()
+	holy_heart_panel.hide()
+	poorly_made_voodoo_doll_panel.hide()
+	sleek_blade_panel.hide()
 
 ## ---------------------------------- Enemies --------------------------------------------------------
 
@@ -669,6 +692,27 @@ func unlock_item(item):
 			triple_blades_button.material.shader = null
 			# set the item to be unlocked
 			triple_blades_unlocked = true
+	elif item == ItemType.type.holy_heart:
+		# if the item is locked
+		if !holy_heart_unlocked:
+			# remove the locked shader
+			holy_heart_button.material.shader = null
+			# set the item to be unlocked
+			holy_heart_unlocked = true
+	elif item == ItemType.type.poorly_made_voodoo_doll:
+		# if the item is locked
+		if !poorly_made_voodoo_doll_unlocked:
+			# remove the locked shader
+			poorly_made_voodoo_doll_button.material.shader = null
+			# set the item to be unlocked
+			poorly_made_voodoo_doll_unlocked = true
+	elif item == ItemType.type.sleek_blades:
+		# if the item is locked
+		if !sleek_blade_unlocked:
+			# remove the locked shader
+			sleek_blade_button.material.shader = null
+			# set the item to be unlocked
+			sleek_blade_unlocked = true
 	
 	save_items()
 
@@ -692,6 +736,9 @@ func found_items():
 		"shadow_flame_unlocked" : shadow_flame_unlocked,
 		"shadow_heart_unlocked" : shadow_heart_unlocked,
 		"triple_blades_unlocked"  : triple_blades_unlocked,
+		"holy_heart_unlocked"  : holy_heart_unlocked,
+		"poorly_made_voodoo_doll_unlocked"  : poorly_made_voodoo_doll_unlocked,
+		"sleek_blade_unlocked" : sleek_blade_unlocked,
 	}
 	return data
 
@@ -793,3 +840,31 @@ func _on_triple_blades_button_pressed():
 	if triple_blades_unlocked:
 		# show the item's info panel
 		triple_blades_panel.show()
+
+# when the holy heart button is pressed
+func _on_holy_heart_button_pressed():
+	# clear the into panel
+	clear_panel()
+	# if the item is unlocked
+	if holy_heart_unlocked:
+		# show the item's info panel
+		holy_heart_panel.show()
+
+# when the poorly_made_voodoo button is pressed
+func _on_poorly_made_voodoo_doll_button_pressed():
+	# clear the into panel
+	clear_panel()
+	# if the item is unlocked
+	if poorly_made_voodoo_doll_unlocked:
+		# show the item's info panel
+		poorly_made_voodoo_doll_panel.show()
+
+
+# when the sleek blade button is pressed
+func _on_sleek_blade_button_pressed():
+	# clear the into panel
+	clear_panel()
+	# if the item is unlocked
+	if sleek_blade_unlocked:
+		# show the item's info panel
+		sleek_blade_panel.show()
