@@ -773,7 +773,7 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_cagpp")
 
 [node name="Attack_timer" type="Timer" parent="."]
-wait_time = 4.0
+wait_time = 3.0
 one_shot = true
 
 [node name="Death_timer" type="Timer" parent="."]

@@ -32,6 +32,7 @@ const PLAYER_HEALTH_MAX = 10
 var lastMove = "default"
 var attacks_per_second = 1
 var attack_damage = 1
+var current_attack_identifier = 0
 var time_to_fire = 0.0
 var time_to_fire_max = 1.0
 var player_health = 6
@@ -54,6 +55,7 @@ var shadow_flame_blade = false
 var dust_blade = false
 var triple_blades = false
 var shadow_heart = false
+var shadow_heart_heal_counter = 0
 var current_type : BladeType.blade_type = BladeType.blade_type.default
 var knife_scene = load("res://Scenes/knife.tscn")
 var items_collected = []
@@ -167,7 +169,7 @@ func _physics_process(_delta):
 				var blade_instance = knife_scene.instantiate()
 				# spawns a knife at that position
 				blade_instance.position = position + click_position_normalized*3
-				blade_instance.spawned(click_position_normalized, current_type, self)
+				blade_instance.spawned(click_position_normalized, current_type, self, current_attack_identifier)
 				get_parent().add_child(blade_instance)
 				# plays the knife throw sound when the blade is spawned
 				woosh_sound.play()
@@ -180,18 +182,19 @@ func _physics_process(_delta):
 					rad_added_bottom = rad_added_bottom.normalized()
 					var blade_instance_2 = knife_scene.instantiate()
 					blade_instance_2.position = position + rad_added_bottom*3
-					blade_instance_2.spawned(rad_added_bottom, current_type, self)
+					blade_instance_2.spawned(rad_added_bottom, current_type, self, current_attack_identifier)
 					get_parent().add_child(blade_instance_2)
 					# top blade
 					var rad_added_top = Vector2(cos(radians - 0.25), sin(radians - 0.25))
 					rad_added_top = rad_added_top.normalized()
 					var blade_instance_3 = knife_scene.instantiate()
 					blade_instance_3.position = position + rad_added_top*3
-					blade_instance_3.spawned(rad_added_top, current_type, self)
+					blade_instance_3.spawned(rad_added_top, current_type, self, current_attack_identifier)
 					get_parent().add_child(blade_instance_3)
 				
 				# resets the time to fire
 				time_to_fire = time_to_fire_max
+				current_attack_identifier += 1
 
 # runs when an enemy hits the player
 func player_take_damage():
@@ -239,7 +242,7 @@ func picked_up_item(item, display_text = true, sound = true):
 		items_collected += [item]
 	elif item == ItemType.type.speed_boots:
 		# increase the player's speed
-		speed += 15
+		speed += ItemType.speed_boots_movement_speed_bonus
 		# display the item text
 		if display_text:
 			hud.display_text("Aquired Speed Boots!", "You run faster.")
@@ -248,7 +251,7 @@ func picked_up_item(item, display_text = true, sound = true):
 		items_collected += [item]
 	elif item == ItemType.type.quick_blades:
 		# increase attack speed
-		attacks_per_second += 1
+		attacks_per_second += 0.25
 		#recalculate the attack_speed()
 		calculate_attack_speed()
 		# display the item text
@@ -374,7 +377,10 @@ func get_current_weapons():
 func killed_enemy():
 	# if the shadow heart is active, increase health by 1
 	if shadow_heart == true:
-		player_adjust_health(1)
+		shadow_heart_heal_counter += 1
+		if shadow_heart_heal_counter == 3:
+			shadow_heart_heal_counter = 0
+			player_adjust_health(1)
 
 # use a key
 func use_key():
@@ -443,6 +449,7 @@ func _on_stand_up_timer_timeout():
 
 # save the player data to transfer between floors
 func save_player_data():
+	PlayerData.clear_data()
 	PlayerData.player_health = player_health
 	PlayerData.number_of_keys = number_of_keys
 	PlayerData.items_collected = items_collected
@@ -452,8 +459,8 @@ func load_player_data():
 	player_health = PlayerData.player_health
 	number_of_keys = PlayerData.number_of_keys
 	# recollect the items obtained
-	items_collected = PlayerData.items_collected
-	for item in items_collected:
+	var temp_items_collected = PlayerData.items_collected
+	for item in temp_items_collected:
 		picked_up_item(item, false, false)
 	# refresh the HUD
 	hud.refresh_hearts(player_health)
@@ -507,3 +514,6 @@ func set_dusted_status(status):
 # returns if the player is has dust_blade effect on them
 func is_dusted():
 	return dusted
+
+func room_cleared():
+	current_attack_identifier = 0

@@ -68,7 +68,9 @@ func spawn_item():
 			# if the item is not a key or health item
 			if (item_types_array[random_item_key] != ItemType.type.health_2 && 
 			item_types_array[random_item_key] != ItemType.type.health_1 && 
-			item_types_array[random_item_key] != ItemType.type.key):
+			item_types_array[random_item_key] != ItemType.type.key && 
+			item_types_array[random_item_key] != ItemType.type.speed_boots && 
+			item_types_array[random_item_key] != ItemType.type.quick_blades):
 				# mark that the item has already been spawned
 				item_has_spawned = true
 	# if the item is not spawned
@@ -81,6 +83,6 @@ func spawn_item():
 		# remove the item spawner
 		queue_free()
 	# if the item has already been spawned, call spawn item again
-	else:
+	elif item_has_spawned == true:
 		spawn_item()
 	

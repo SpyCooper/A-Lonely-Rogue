@@ -30,7 +30,7 @@ var is_idle = false
 # sets the enemy's stats and references
 func _ready():
 	speed = .7
-	health = 12
+	health = 15
 	sleep()
 	player = Events.player
 	max_health = health
@@ -131,9 +131,19 @@ func _physics_process(_delta):
 
 
 # runs when a knife (or other weapon) hits the enemy
-func take_damage(damage):
-	# checks if the skeleton warrior is not spawning or dying
-	if spawning == false && dying == false:
+func take_damage(damage, attack_identifer):
+	# checks if an attack with the identifier has hit
+	var attack_can_hit = true
+	for identifier in attacks_that_hit:
+		if identifier == attack_identifer:
+			attack_can_hit = false
+	# checks if the enemy is spawning or dying
+	if spawning || dying:
+		attack_can_hit = false
+	# if the attack can hit
+	if attack_can_hit:
+		# adds the attack to the attacks that have hit
+		attacks_that_hit += [attack_identifer]
 		# subtracts the health
 		health -= damage
 		# if health is greater than 0

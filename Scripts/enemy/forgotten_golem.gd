@@ -50,7 +50,7 @@ var can_move = true
 func _ready():
 	# basic enemy stats
 	speed = 0.0
-	health = 80
+	health = 90
 	max_health = health
 	# sets references to the player and catalog
 	catalog = Events.catalog
@@ -115,9 +115,19 @@ func _physics_process(_delta):
 					move_and_collide(target_position.normalized() * get_speed())
 
 # runs when a knife (or other weapon) hits the enemy
-func take_damage(damage):
+func take_damage(damage, attack_identifer):
+	# checks if an attack with the identifier has hit
+	var attack_can_hit = true
+	for identifier in attacks_that_hit:
+		if identifier == attack_identifer:
+			attack_can_hit = false
 	# checks if the enemy is spawning or dying
-	if !spawning && !dying:
+	if spawning || dying:
+		attack_can_hit = false
+	# if the attack can hit
+	if attack_can_hit:
+		# adds the attack to the attacks that have hit
+		attacks_that_hit += [attack_identifer]
 		# deals the damage to the enemy
 		health -= damage
 		# plays the hit sound if the HP after damage is > 0
@@ -215,7 +225,6 @@ func random_attack():
 		vine_spin_attack()
 	# 1/10 chance to not attack
 	else:
-		# does a laser attack
 		attack_end()
 
 # when the golem is doing a laser attack

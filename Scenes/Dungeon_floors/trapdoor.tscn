@@ -23,6 +23,7 @@ animations = [{
 size = Vector2(16, 16)
 
 [node name="Trapdoor" type="Node2D"]
+z_index = -1
 script = ExtResource("1_asnxc")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

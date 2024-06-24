@@ -11,7 +11,7 @@ extends Enemy
 # attack variables
 var is_idle = false
 var can_attack = false
-var can_attack_timer_max = 1.0
+var can_attack_timer_max = 1.5
 var can_attack_timer = can_attack_timer_max
 var attacking = false
 @onready var attack_animation_timer = $attack_animation_timer
@@ -30,7 +30,7 @@ var playing_hit_animation = false
 # sets the enemy's stats and references
 func _ready():
 	speed = .7
-	health = 9
+	health = 10
 	sleep()
 	player = Events.player
 	max_health = health
@@ -132,9 +132,19 @@ func _physics_process(_delta):
 
 
 # runs when a knife (or other weapon) hits the enemy
-func take_damage(damage):
-	# checks if the skeleton archer is not spawning or dying
-	if spawning == false && dying == false:
+func take_damage(damage, attack_identifer):
+	# checks if an attack with the identifier has hit
+	var attack_can_hit = true
+	for identifier in attacks_that_hit:
+		if identifier == attack_identifer:
+			attack_can_hit = false
+	# checks if the enemy is spawning or dying
+	if spawning || dying:
+		attack_can_hit = false
+	# if the attack can hit
+	if attack_can_hit:
+		# adds the attack to the attacks that have hit
+		attacks_that_hit += [attack_identifer]
 		# subtracts the health
 		health -= damage
 		# if health is greater than 0

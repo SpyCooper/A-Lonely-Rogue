@@ -19,6 +19,7 @@ var max_health
 var player_in_room = false
 var spawning = true
 var dying = false
+var attacks_that_hit = []
 
 # status effect variables
 var poisoned = false
@@ -60,7 +61,7 @@ func wake_up():
 
 # runs when a knife (or other weapon) hits the enemy
 ## NOTE: this can change between enemies
-func take_damage(damage):
+func take_damage(damage, attack_identifer):
 	health -= damage
 	if health <= 0:
 		enemy_slain()
@@ -83,6 +84,8 @@ func get_look_direction(target_pos):
 		return look_direction.down
 	elif target_pos.y < 0 && abs(target_pos.x) < abs(target_pos.y):
 		return look_direction.up
+	else: 
+		return look_direction.right
 
 # returns the most important left or right direction based on the target location
 # used for slimes or other enemies that do not need 4 way look direction
@@ -92,6 +95,8 @@ func get_left_right_look_direction(target_pos):
 		return look_direction.right
 	elif target_pos.x < 0:
 		return look_direction.left
+	else:
+		return look_direction.right
 
 # returns if the enemy is poisoned
 func is_poisoned():

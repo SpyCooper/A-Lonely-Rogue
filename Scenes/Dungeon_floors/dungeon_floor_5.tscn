@@ -244,6 +244,7 @@ position = Vector2(1, 0)
 
 [node name="BG music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("10_arma7")
+volume_db = -2.0
 bus = &"Music"
 
 [node name="1_door_up" parent="." instance=ExtResource("11_gl4f5")]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://lnvy0o75ud8f"]
+[gd_scene load_steps=60 format=3 uid="uid://lnvy0o75ud8f"]
 
 [ext_resource type="Script" path="res://Scripts/enemy/morphed_shade.gd" id="1_aybr0"]
 [ext_resource type="Texture2D" uid="uid://737arqr15cb2" path="res://Assets/Sprites/enemies/morphed_shade.png" id="1_ght44"]
@@ -139,6 +139,10 @@ region = Rect2(48, 16, 16, 16)
 [sub_resource type="AtlasTexture" id="AtlasTexture_kpfnu"]
 atlas = ExtResource("1_ght44")
 region = Rect2(64, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dbpw8"]
+atlas = ExtResource("1_ght44")
+region = Rect2(0, 64, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bpjtc"]
 atlas = ExtResource("1_ght44")
@@ -310,6 +314,9 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_dbpw8")
+}, {
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_bpjtc")
 }, {
 "duration": 1.0,
@@ -405,7 +412,7 @@ shape = SubResource("CapsuleShape2D_ydun3")
 material = SubResource("ShaderMaterial_6k7h3")
 position = Vector2(0, -8)
 sprite_frames = SubResource("SpriteFrames_fvj5s")
-animation = &"dying"
+animation = &"spawning"
 
 [node name="Hit_Flash_animation_player" type="AnimationPlayer" parent="."]
 libraries = {
@@ -433,7 +440,7 @@ wait_time = 2.0
 one_shot = true
 
 [node name="Spawn_timer" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 2.5
 one_shot = true
 
 [node name="HitSound" type="AudioStreamPlayer2D" parent="."]
@@ -461,6 +468,7 @@ bus = &"Sound Effect"
 
 [node name="boss_music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("8_p1p0g")
+volume_db = -3.0
 bus = &"Music"
 
 [connection signal="timeout" from="Hit_Flash_animation_player/hit_flash_animation_timer" to="." method="_on_hit_flash_animation_timer_timeout"]

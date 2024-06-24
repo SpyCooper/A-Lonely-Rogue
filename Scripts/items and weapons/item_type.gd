@@ -21,6 +21,8 @@ enum type
 # sets the spawned items in the floor
 var spawned_items = []
 
+var speed_boots_movement_speed_bonus = 10
+
 # return spawned items
 func get_spawned_items():
 	return spawned_items

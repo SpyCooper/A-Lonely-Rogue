@@ -14,9 +14,10 @@ var speed = 150
 var type : BladeType.blade_type = BladeType.blade_type.default
 var player_ref
 var base_damage = 1
+var attack_identifer
 
 # this is called when the player is clicks
-func spawned(click_position, blade_type, player):
+func spawned(click_position, blade_type, player, current_attack_identifier):
 	# $AnimatedSprite2D has to be called here since 
 	# it is loaded before the object exists in the scene
 	var animated_sprite = $AnimatedSprite2D
@@ -26,6 +27,7 @@ func spawned(click_position, blade_type, player):
 	# based on thrown direction
 	move_direction = click_position
 	look_at(position + move_direction)
+	attack_identifer = current_attack_identifier
 	
 
 # runs on every frane
@@ -58,7 +60,7 @@ func _on_body_entered(body):
 			elif blade_type == BladeType.blade_type.dust:
 				body.add_child(DUST_BLADE_EFFECT.instantiate())
 		# the knife deals damage to the enemies hit
-		body.take_damage(damage)
+		body.take_damage(damage, attack_identifer)
 	
 	# if the player has glass blade
 	for blade_type in player_ref.get_current_weapons():

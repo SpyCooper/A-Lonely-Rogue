@@ -67,8 +67,8 @@ var can_move = true
 # on start
 func _ready():
 	# basic enemy stats
-	speed = 0.3
-	max_health = 70
+	speed = 0.4
+	max_health = 80
 	health = max_health
 	# sets references to the player and catalog
 	catalog = Events.catalog
@@ -134,9 +134,19 @@ func _physics_process(_delta):
 					move_and_collide(target_position.normalized() * get_speed())
 
 # runs when a knife (or other weapon) hits the enemy
-func take_damage(damage):
+func take_damage(damage, attack_identifer):
+	# checks if an attack with the identifier has hit
+	var attack_can_hit = true
+	for identifier in attacks_that_hit:
+		if identifier == attack_identifer:
+			attack_can_hit = false
 	# checks if the enemy is spawning or dying
-	if !spawning && !dying:
+	if spawning || dying:
+		attack_can_hit = false
+	# if the attack can hit
+	if attack_can_hit:
+		# adds the attack to the attacks that have hit
+		attacks_that_hit += [attack_identifer]
 		# deals the damage to the enemy
 		health -= damage
 		# plays the hit sound if the HP after damage is > 0
@@ -245,17 +255,17 @@ func random_attack():
 	can_move = false
 	can_attack = false
 	# does a random attack
-	var random_number = rng.randi_range(0, 10)
-	# 3/10 chance
+	var random_number = rng.randi_range(0, 12)
+	# 1/4 chance
 	if random_number <= 2:
 		shadow_ball_attack()
-	# 3/10 chance
+	# 1/4 chance
 	elif random_number <= 5:
 		spawn_skeletons_attack()
-	# 3/10 chance
+	# 1/4 chance
 	elif random_number <= 8:
 		summon_poison()
-	# 1/10 chance
+	# 1/4 chance
 	else:
 		heal_attack()
 

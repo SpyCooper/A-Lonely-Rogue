@@ -146,6 +146,7 @@ grow_vertical = 2
 theme = ExtResource("2_umit2")
 
 [node name="Monsters" type="TabBar" parent="TabContainer"]
+visible = false
 layout_mode = 2
 theme = ExtResource("2_umit2")
 
@@ -1391,7 +1392,6 @@ text = "- \"I wonder where I can get that cloak?\""
 autowrap_mode = 2
 
 [node name="Items" type="TabBar" parent="TabContainer"]
-visible = false
 layout_mode = 2
 theme = ExtResource("2_umit2")
 
@@ -1631,7 +1631,7 @@ custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
-text = "- Increases movement speed by 15%"
+text = "- Increases movement speed"
 autowrap_mode = 2
 
 [node name="Bio2" type="Label" parent="TabContainer/Items/Panels/Boots_panel/VBoxContainer"]
@@ -1691,7 +1691,7 @@ custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
-text = "- Slows enemies by 35% for 4 seconds"
+text = "- Slows enemies for a short time"
 autowrap_mode = 2
 
 [node name="Bio2" type="Label" parent="TabContainer/Items/Panels/Dust_blade_panel/VBoxContainer"]
@@ -1767,7 +1767,7 @@ custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
-text = "- Explodes on impact throwing shrapnel in a small area"
+text = "- Explodes into shrapnel on impact"
 autowrap_mode = 2
 
 [node name="Bio2" type="Label" parent="TabContainer/Items/Panels/Glass_blade_panel/VBoxContainer"]
@@ -1775,7 +1775,7 @@ custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
-text = "- Shrapnel deals light damage in a circle around the hit"
+text = "- Shrapnel deals light damage in a small area"
 autowrap_mode = 2
 
 [node name="Bio3" type="Label" parent="TabContainer/Items/Panels/Glass_blade_panel/VBoxContainer"]
@@ -1784,6 +1784,14 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
 text = "- Can be used with other blade effects"
+autowrap_mode = 2
+
+[node name="Bio4" type="Label" parent="TabContainer/Items/Panels/Glass_blade_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- Shrapnel does not apply effects"
 autowrap_mode = 2
 
 [node name="Heart_panel" type="Panel" parent="TabContainer/Items/Panels"]
@@ -1835,7 +1843,7 @@ custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
-text = "- Restores HP to the player"
+text = "- Restores HP"
 autowrap_mode = 2
 
 [node name="Bio2" type="Label" parent="TabContainer/Items/Panels/Heart_panel/VBoxContainer"]
@@ -1851,7 +1859,7 @@ custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
-text = "- Does nothing to a player who follows the shadows"
+text = "- Does nothing to a one who follows the shadows"
 autowrap_mode = 2
 
 [node name="Bio4" type="Label" parent="TabContainer/Items/Panels/Heart_panel/VBoxContainer"]
@@ -1979,7 +1987,7 @@ custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
-text = "- Turns blades into poison blades"
+text = "- Applies poison to blades"
 autowrap_mode = 2
 
 [node name="Bio2" type="Label" parent="TabContainer/Items/Panels/Poison_panel/VBoxContainer"]
@@ -1995,7 +2003,7 @@ custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
-text = "- Poison does not stack on enemies"
+text = "- Poison effect does not stack"
 autowrap_mode = 2
 
 [node name="Bio4" type="Label" parent="TabContainer/Items/Panels/Poison_panel/VBoxContainer"]
@@ -2267,11 +2275,10 @@ custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
-text = "- Gain 1 health on kill but cannot heal by normal hearts"
+text = "- Gain health on every few kills but cannot heal by normal hearts"
 autowrap_mode = 2
 
 [node name="Triple_blades_panel" type="Panel" parent="TabContainer/Items/Panels"]
-visible = false
 layout_mode = 0
 offset_right = 510.0
 offset_bottom = 513.0
@@ -2328,6 +2335,14 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
 text = "- Each blade has all other blade effects on them"
+autowrap_mode = 2
+
+[node name="Bio3" type="Label" parent="TabContainer/Items/Panels/Triple_blades_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- Only 1 blade of the 3 can damage a single target"
 autowrap_mode = 2
 
 [node name="Close_button" type="Button" parent="."]

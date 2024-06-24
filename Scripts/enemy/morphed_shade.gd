@@ -45,7 +45,7 @@ const ENEMY_KNIFE = preload("res://Scenes/enemy_knife.tscn")
 func _ready():
 	# basic enemy stats
 	speed = 1.0
-	max_health = 3
+	max_health = 100
 	health = max_health
 	# sets references to the player and catalog
 	catalog = Events.catalog
@@ -143,9 +143,19 @@ func _physics_process(_delta):
 					time_to_fire = time_to_fire_max
 
 # runs when a knife (or other weapon) hits the enemy
-func take_damage(damage):
+func take_damage(damage, attack_identifer):
+	# checks if an attack with the identifier has hit
+	var attack_can_hit = true
+	for identifier in attacks_that_hit:
+		if identifier == attack_identifer:
+			attack_can_hit = false
 	# checks if the enemy is spawning or dying
-	if !spawning && !dying:
+	if spawning || dying:
+		attack_can_hit = false
+	# if the attack can hit
+	if attack_can_hit:
+		# adds the attack to the attacks that have hit
+		attacks_that_hit += [attack_identifer]
 		# deals the damage to the enemy
 		health -= damage
 		# plays the hit sound if the HP after damage is > 0
@@ -284,7 +294,7 @@ func load_player_data():
 			attacks_per_second += 1
 		elif item == ItemType.type.speed_boots:
 			# increase the player's speed
-			speed += 15
+			speed = speed + (ItemType.speed_boots_movement_speed_bonus / 100)
 		elif item == ItemType.type.dust_blade:
 			# add dust blades to the player
 			dust_blade = true

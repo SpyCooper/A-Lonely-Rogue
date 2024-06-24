@@ -263,6 +263,9 @@ locked = true
 [node name="1_door_down" parent="." instance=ExtResource("15_an5fh")]
 position = Vector2(-368, -208)
 
+[node name="Random Item Spawner" parent="1_door_down" instance=ExtResource("21_dxntd")]
+position = Vector2(-20, -6)
+
 [node name="2_door_hallway_verical" parent="." instance=ExtResource("15_2x6a5")]
 position = Vector2(0, 208)
 
@@ -278,6 +281,9 @@ position = Vector2(368, -208)
 [node name="1_door_left" parent="." instance=ExtResource("18_lc5ec")]
 position = Vector2(736, -208)
 
+[node name="Random Item Spawner2" parent="1_door_left" instance=ExtResource("21_dxntd")]
+position = Vector2(-38, -5)
+
 [node name="2_door_hallway_horizontal" parent="." instance=ExtResource("19_rcg1l")]
 position = Vector2(368, 416)
 
@@ -289,6 +295,9 @@ position = Vector2(736, 208)
 
 [node name="1_door_left2" parent="." instance=ExtResource("18_lc5ec")]
 position = Vector2(1104, 208)
+
+[node name="Random Item Spawner" parent="1_door_left2" instance=ExtResource("21_dxntd")]
+position = Vector2(1, -33)
 
 [node name="Floor Text" type="Node2D" parent="."]
 position = Vector2(736, 451)
@@ -331,30 +340,25 @@ position = Vector2(837, 400)
 [node name="earth_elemental4" parent="." instance=ExtResource("15_83w35")]
 position = Vector2(114, 394)
 
-[node name="Random Item Spawner" parent="." instance=ExtResource("21_dxntd")]
-position = Vector2(-388, -214)
-
 [node name="item_chest" parent="." instance=ExtResource("22_ulsr0")]
 position = Vector2(367, 371)
-
-[node name="item_chest2" parent="." instance=ExtResource("22_ulsr0")]
-position = Vector2(1101, 175)
-
-[node name="Random Item Spawner2" parent="." instance=ExtResource("21_dxntd")]
-position = Vector2(704, -224)
 
 [node name="heart_2_pickup" parent="." instance=ExtResource("25_kj0jc")]
 position = Vector2(1107, 254)
 
-[node name="Trapdoor" parent="." instance=ExtResource("24_0uy8j")]
-position = Vector2(1187, 212)
-
 [node name="BG music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("25_1rtdh")
+volume_db = -2.0
 bus = &"Music"
 
 [node name="forgotten_golem" parent="." instance=ExtResource("26_xygb7")]
 position = Vector2(736, 225)
+
+[node name="Floor Text2" type="Node2D" parent="."]
+position = Vector2(1189, 375)
+
+[node name="Trapdoor" parent="Floor Text2" instance=ExtResource("24_0uy8j")]
+position = Vector2(-2, -163)
 
 [connection signal="timeout" from="CanvasLayer/Fade_color/Fade_timer" to="." method="_on_fade_timer_timeout"]
 [connection signal="pressed" from="CanvasLayer/Pause_menu/Buttons_container/Control/Resume_button" to="CanvasLayer/Pause_menu" method="_on_resume_button_pressed"]
