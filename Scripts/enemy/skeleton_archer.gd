@@ -132,12 +132,14 @@ func _physics_process(_delta):
 
 
 # runs when a knife (or other weapon) hits the enemy
-func take_damage(damage, attack_identifer):
-	# checks if an attack with the identifier has hit
+func take_damage(damage, attack_identifer, is_effect):
 	var attack_can_hit = true
-	for identifier in attacks_that_hit:
-		if identifier == attack_identifer:
-			attack_can_hit = false
+	#if the damage is not an effect
+	if is_effect == false:
+		# checks if an attack with the identifier has hit
+		for identifier in attacks_that_hit:
+			if identifier == attack_identifer:
+				attack_can_hit = false
 	# checks if the enemy is spawning or dying
 	if spawning || dying:
 		attack_can_hit = false

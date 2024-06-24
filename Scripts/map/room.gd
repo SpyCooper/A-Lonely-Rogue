@@ -24,6 +24,8 @@ func _on_player_detector_body_entered(body):
 		if number_of_enemies == 0:
 			# disable the doors
 			disable_all_doors()
+			
+			Events.player.room_entered()
 		# if there are enemies in the room
 		elif number_of_enemies > 0:
 			# enable the doors
@@ -49,7 +51,6 @@ func _on_enemy_detector_body_exited(body):
 		# if all enemies are gone, disable the doors
 		if number_of_enemies == 0:
 			disable_all_doors()
-			Events.player.room_cleared()
 
 # hide all doors
 func hide_all_doors():

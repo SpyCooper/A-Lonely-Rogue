@@ -134,18 +134,20 @@ func _physics_process(_delta):
 					animated_sprite.play("move_down")
 					playing_hit_animation = false
 			
-			# moves the gelatinous cube to a distance of 12 to the player
-			if position.distance_to(player_position) > 12:
+			# moves the gelatinous cube to a distance of 8 to the player
+			if position.distance_to(player_position) > 8:
 				## has to use get_speed() to move based on dusted effect
 				move_and_collide(target_position.normalized() * get_speed())
 
 # runs when a knife (or other weapon) hits the enemy
-func take_damage(damage, attack_identifer):
-	# checks if an attack with the identifier has hit
+func take_damage(damage, attack_identifer, is_effect):
 	var attack_can_hit = true
-	for identifier in attacks_that_hit:
-		if identifier == attack_identifer:
-			attack_can_hit = false
+	#if the damage is not an effect
+	if is_effect == false:
+		# checks if an attack with the identifier has hit
+		for identifier in attacks_that_hit:
+			if identifier == attack_identifer:
+				attack_can_hit = false
 	# checks if the enemy is spawning or dying
 	if spawning || dying:
 		attack_can_hit = false

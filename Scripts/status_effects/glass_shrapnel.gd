@@ -12,7 +12,7 @@ func _process(_delta):
 # if an enemy enters the glass sharpnel area, deal 1 damage
 func _on_area_2d_body_entered(body):
 	if body is Enemy:
-		body.take_damage(1)
+		body.take_damage(1, 0, true)
 
 # when the auto timer ends, delete the  hitbox
 func _on_timer_timeout():

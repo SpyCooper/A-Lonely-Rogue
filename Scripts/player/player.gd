@@ -32,7 +32,7 @@ const PLAYER_HEALTH_MAX = 10
 var lastMove = "default"
 var attacks_per_second = 1
 var attack_damage = 1
-var current_attack_identifier = 0
+var current_attack_identifier : int
 var time_to_fire = 0.0
 var time_to_fire_max = 1.0
 var player_health = 6
@@ -46,6 +46,7 @@ var dusted = false
 var dusted_stack = 0
 var dusted_slow = 0.35
 @onready var hit_flash_animation_timer = $Hit_Flash_animation_player/hit_flash_animation_timer
+var attacks_that_have_hit = []
 
 # upgrade variables
 var poisoned_blade = false
@@ -65,6 +66,7 @@ func _ready():
 	# sets the stats for the player
 	attacks_per_second = 1
 	time_to_fire_max = time_to_fire_max / attacks_per_second
+	current_attack_identifier = 0
 	
 	# load the player data, if there is any
 	# used to transfer data between floor
@@ -173,7 +175,6 @@ func _physics_process(_delta):
 				get_parent().add_child(blade_instance)
 				# plays the knife throw sound when the blade is spawned
 				woosh_sound.play()
-				
 				# if the player has triple blades, spawn the two other blades
 				if triple_blades == true:
 					# bottom blade
@@ -191,15 +192,25 @@ func _physics_process(_delta):
 					blade_instance_3.position = position + rad_added_top*3
 					blade_instance_3.spawned(rad_added_top, current_type, self, current_attack_identifier)
 					get_parent().add_child(blade_instance_3)
-				
 				# resets the time to fire
 				time_to_fire = time_to_fire_max
-				current_attack_identifier += 1
+				# increments the attack identifier
+				current_attack_identifier = current_attack_identifier + 1
 
 # runs when an enemy hits the player
-func player_take_damage():
+func player_take_damage(is_ms_knife, attack_identifer):
+	var can_hit = true
+	if dying:
+		can_hit = false
+	if is_ms_knife && can_hit:
+		for attack in attacks_that_have_hit:
+			if attack_identifer == attack:
+				can_hit = false
+		if can_hit:
+			attacks_that_have_hit += [attack_identifer]
+	
 	# if the player is not dying
-	if !dying:
+	if can_hit:
 		# get hit
 		player_adjust_health(-1)
 		# plays the hit flash animation
@@ -251,7 +262,7 @@ func picked_up_item(item, display_text = true, sound = true):
 		items_collected += [item]
 	elif item == ItemType.type.quick_blades:
 		# increase attack speed
-		attacks_per_second += 0.25
+		attacks_per_second += ItemType.quick_blades_attack_speed_bonus
 		#recalculate the attack_speed()
 		calculate_attack_speed()
 		# display the item text
@@ -515,5 +526,6 @@ func set_dusted_status(status):
 func is_dusted():
 	return dusted
 
-func room_cleared():
+func room_entered():
 	current_attack_identifier = 0
+	attacks_that_have_hit = []

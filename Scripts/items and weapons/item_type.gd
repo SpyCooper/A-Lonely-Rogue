@@ -22,6 +22,7 @@ enum type
 var spawned_items = []
 
 var speed_boots_movement_speed_bonus = 10
+var quick_blades_attack_speed_bonus = 0.25
 
 # return spawned items
 func get_spawned_items():

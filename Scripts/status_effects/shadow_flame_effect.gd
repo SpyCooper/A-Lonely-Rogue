@@ -20,7 +20,7 @@ func _process(_delta):
 # when the timer ends
 func _on_timer_timeout():
 	# deal 2 damage to the enemy
-	get_parent().take_damage(2)
+	get_parent().take_damage(2, 0, true)
 	# toggle shadow_flame status
 	get_parent().toggle_shadow_flamed()
 	# remove the shader

@@ -29,6 +29,7 @@ var current_direction : look_direction
 var playing_hit_animation = false
 var can_attack = false
 var can_move = true
+var current_attack_identifer = 0
 
 # attack variables (mostly copied from the player.gd script)
 const KNIFE_SPEED = 150.0
@@ -118,7 +119,7 @@ func _physics_process(_delta):
 					# spawns a knife at that position
 					var blade_instance = ENEMY_KNIFE.instantiate()
 					blade_instance.global_position = animated_sprite.global_position
-					blade_instance.spawned(target_position, dust_blade)
+					blade_instance.spawned(target_position, dust_blade, current_attack_identifer)
 					get_parent().add_child(blade_instance)
 					# plays the knife throw sound when the blade is spawned
 					woosh_sound.play()
@@ -130,26 +131,29 @@ func _physics_process(_delta):
 						rad_added_bottom = rad_added_bottom.normalized()
 						var blade_instance_2 = ENEMY_KNIFE.instantiate()
 						blade_instance_2.global_position =  animated_sprite.global_position
-						blade_instance_2.spawned(rad_added_bottom, dust_blade)
+						blade_instance_2.spawned(rad_added_bottom, dust_blade, current_attack_identifer)
 						get_parent().add_child(blade_instance_2)
 						# top blade
 						var rad_added_top = Vector2(cos(radians - 0.25), sin(radians - 0.25))
 						rad_added_top = rad_added_top.normalized()
 						var blade_instance_3 = ENEMY_KNIFE.instantiate()
 						blade_instance_3.global_position =  animated_sprite.global_position
-						blade_instance_3.spawned(rad_added_top, dust_blade)
+						blade_instance_3.spawned(rad_added_top, dust_blade, current_attack_identifer)
 						get_parent().add_child(blade_instance_3)
 					# resets the time to fire
 					time_to_fire = time_to_fire_max
+					current_attack_identifer += 1
 
 # runs when a knife (or other weapon) hits the enemy
-func take_damage(damage, attack_identifer):
-	# checks if an attack with the identifier has hit
+func take_damage(damage, attack_identifer, is_effect):
 	var attack_can_hit = true
-	for identifier in attacks_that_hit:
-		if identifier == attack_identifer:
-			attack_can_hit = false
-	# checks if the enemy is spawning or dying
+	#if the damage is not an effect
+	if is_effect == false:
+		# checks if an attack with the identifier has hit
+		for identifier in attacks_that_hit:
+			if identifier == attack_identifer:
+				attack_can_hit = false
+		# checks if the enemy is spawning or dying
 	if spawning || dying:
 		attack_can_hit = false
 	# if the attack can hit
@@ -291,7 +295,7 @@ func load_player_data():
 			triple_blades = true
 		elif item == ItemType.type.quick_blades:
 			# increase attack speed
-			attacks_per_second += 1
+			attacks_per_second += ItemType.quick_blades_attack_speed_bonus
 		elif item == ItemType.type.speed_boots:
 			# increase the player's speed
 			speed = speed + (ItemType.speed_boots_movement_speed_bonus / 100)

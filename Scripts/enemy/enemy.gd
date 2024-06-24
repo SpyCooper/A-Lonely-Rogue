@@ -61,7 +61,7 @@ func wake_up():
 
 # runs when a knife (or other weapon) hits the enemy
 ## NOTE: this can change between enemies
-func take_damage(damage, attack_identifer):
+func take_damage(damage, attack_identifer, is_effect):
 	health -= damage
 	if health <= 0:
 		enemy_slain()

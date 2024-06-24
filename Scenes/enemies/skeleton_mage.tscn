@@ -291,7 +291,7 @@ wait_time = 1.1
 one_shot = true
 
 [node name="attack_wait_timer" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 0.5
 one_shot = true
 
 [node name="collision_with_player" type="CharacterBody2D" parent="."]

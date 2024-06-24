@@ -146,7 +146,6 @@ grow_vertical = 2
 theme = ExtResource("2_umit2")
 
 [node name="Monsters" type="TabBar" parent="TabContainer"]
-visible = false
 layout_mode = 2
 theme = ExtResource("2_umit2")
 
@@ -817,7 +816,7 @@ custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
-text = "- Summons shadow bolts to follow the player"
+text = "- Summons shadow bolts to follow the enemies"
 autowrap_mode = 2
 
 [node name="Bio2" type="Label" parent="TabContainer/Monsters/Panels/skeleton_mage_panel/VBoxContainer"]
@@ -828,12 +827,20 @@ theme_override_font_sizes/font_size = 32
 text = "- Shadow bolts can be destroyed by knives"
 autowrap_mode = 2
 
+[node name="Bio5" type="Label" parent="TabContainer/Monsters/Panels/skeleton_mage_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- Shadow bolts disappear when the caster is killed"
+autowrap_mode = 2
+
 [node name="Bio3" type="Label" parent="TabContainer/Monsters/Panels/skeleton_mage_panel/VBoxContainer"]
 custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
-text = "- Do not move when enemies are seen"
+text = "- Does not move"
 autowrap_mode = 2
 
 [node name="Bio4" type="Label" parent="TabContainer/Monsters/Panels/skeleton_mage_panel/VBoxContainer"]
@@ -845,14 +852,13 @@ text = "- Weird looking magic circle"
 autowrap_mode = 2
 
 [node name="shade_panel" type="Panel" parent="TabContainer/Monsters/Panels"]
-visible = false
 layout_mode = 0
 offset_right = 510.0
 offset_bottom = 513.0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_wrmxr")
 
 [node name="Sprite2D" type="Sprite2D" parent="TabContainer/Monsters/Panels/shade_panel"]
-position = Vector2(102, 101)
+position = Vector2(102, 85)
 scale = Vector2(5.55259, 5.55259)
 texture = ExtResource("11_8qtm3")
 
@@ -893,7 +899,7 @@ custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
-text = "- Summons burst of shadow bolts"
+text = "- Summons burst of shadow bolts that do not disappear when killed"
 autowrap_mode = 2
 
 [node name="Bio2" type="Label" parent="TabContainer/Monsters/Panels/shade_panel/VBoxContainer"]
@@ -921,6 +927,7 @@ text = "- Has no shadow"
 autowrap_mode = 2
 
 [node name="skeleton_panel" type="Panel" parent="TabContainer/Monsters/Panels"]
+visible = false
 layout_mode = 0
 offset_right = 510.0
 offset_bottom = 513.0
@@ -1392,6 +1399,7 @@ text = "- \"I wonder where I can get that cloak?\""
 autowrap_mode = 2
 
 [node name="Items" type="TabBar" parent="TabContainer"]
+visible = false
 layout_mode = 2
 theme = ExtResource("2_umit2")
 
@@ -2279,6 +2287,7 @@ text = "- Gain health on every few kills but cannot heal by normal hearts"
 autowrap_mode = 2
 
 [node name="Triple_blades_panel" type="Panel" parent="TabContainer/Items/Panels"]
+visible = false
 layout_mode = 0
 offset_right = 510.0
 offset_bottom = 513.0
@@ -2343,6 +2352,14 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
 text = "- Only 1 blade of the 3 can damage a single target"
+autowrap_mode = 2
+
+[node name="Bio4" type="Label" parent="TabContainer/Items/Panels/Triple_blades_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- All blades apply status effects"
 autowrap_mode = 2
 
 [node name="Close_button" type="Button" parent="."]

@@ -27,7 +27,7 @@ func _on_area_2d_body_entered(body):
 	# if the entered body has the function damage_player(), it will run it
 	if body is Player && !body.get_is_dying():
 		player = body
-		body.player_take_damage()
+		body.player_take_damage(false, 0)
 		# starts the timer for the player staying in the damage field
 		player_in_damage = true
 		timer.start()
@@ -66,5 +66,5 @@ func _on_exit_timer_timeout():
 func _on_timer_timeout():
 	# damages the player if they are still in the field and are not dead and restarts the timer
 	if player_in_damage && !player.get_is_dying():
-		player.player_take_damage()
+		player.player_take_damage(false, 0)
 		timer.start()
