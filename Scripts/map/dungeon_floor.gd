@@ -32,6 +32,8 @@ func _ready():
 		# saves player data to be transfered between scenes
 		player.save_player_data()
 	)
+	# sets the current floor
+	Events.current_floor = name
 
 # when the fade timer ends
 func _on_fade_timer_timeout():

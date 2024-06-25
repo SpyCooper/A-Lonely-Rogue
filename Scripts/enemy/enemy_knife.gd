@@ -2,7 +2,7 @@ extends Area2D
 
 # variables
 var move_direction
-var speed = 150
+var speed = 140
 var animated_sprite
 var dust_player = false
 const DUST_BLADE_EFFECT = preload("res://Scenes/status_effects/dust_blade_effect.tscn")

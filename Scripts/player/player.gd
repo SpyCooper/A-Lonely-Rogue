@@ -68,11 +68,13 @@ var current_type : BladeType.blade_type = BladeType.blade_type.default
 var knife_scene = load("res://Scenes/knife.tscn")
 var items_collected = []
 
-var dash_boots = false
-var double_tap_timer_max = 0.75
-var double_tap_timer = 0.0
-var last_move = null
-var allow_double_tap = false
+# usable items
+var use_item_cooldown = 3.0
+@onready var usable_item_cooldown_timer = $Usable_Item_cooldown_timer
+var can_use_item = true
+var current_usable_item = ItemType.type.temp
+const PLAYER_FRIENDLY_POISON_AREA = preload("res://Scenes/player/player_friendly_poison_area.tscn")
+# dash boots
 @onready var dash_timer = $Dash_timer
 var dash_speed_boost = 150.0
 var is_dashing = false
@@ -120,44 +122,6 @@ func _process(delta):
 	# if the time to fire is above 0, it reduces the timer
 	if time_to_fire > 0:
 		time_to_fire -= delta
-	if double_tap_timer > 0:
-		double_tap_timer -= delta
-
-# on unhandled input
-func _input(event):
-	# if dash boots are active
-	if dash_boots:
-		# if the input is a key and is pressed
-		if event is InputEventKey and event.is_pressed():
-			# if it matches the last move, the double tap timer is going, and double taps are allowed
-			if last_move == event.keycode && double_tap_timer >= 0 && allow_double_tap: 
-				# reset last move
-				last_move = 0
-				# dash in the direction
-				if InputMap.action_get_events("MoveRight")[0].keycode == event.keycode:
-					dash()
-				elif InputMap.action_get_events("MoveLeft")[0].keycode == event.keycode:
-					dash()
-				elif InputMap.action_get_events("MoveDown")[0].keycode == event.keycode:
-					dash()
-				elif InputMap.action_get_events("MoveUp")[0].keycode == event.keycode:
-					dash()
-			else:
-				# sets the last move
-				last_move = event.keycode
-			# resets the double tap timer on any key press
-			double_tap_timer = double_tap_timer_max
-		# if the input is released
-		elif event is InputEventKey and event.is_released():
-			# if the key matches a move, then a double tap is allowed
-			if InputMap.action_get_events("MoveRight")[0].keycode == event.keycode:
-				allow_double_tap = true
-			elif InputMap.action_get_events("MoveLeft")[0].keycode == event.keycode:
-				allow_double_tap = true
-			elif InputMap.action_get_events("MoveDown")[0].keycode == event.keycode:
-				allow_double_tap = true
-			elif InputMap.action_get_events("MoveUp")[0].keycode == event.keycode:
-				allow_double_tap = true
 
 # runs on a set interval (fixed_update)
 func _physics_process(_delta):
@@ -174,32 +138,24 @@ func _physics_process(_delta):
 			else:
 				animated_sprite.play("move_up")
 			lastMove = "move_up"
-			# do not allow a double tap
-			allow_double_tap = false
 		elif direction.y == 1:
 			if shadow_heart:
 				animated_sprite.play("move_down_dark")
 			else:
 				animated_sprite.play("move_down")
 			lastMove = "move_down"
-			# do not allow a double tap
-			allow_double_tap = false
 		elif direction.x < 0:
 			if shadow_heart:
 				animated_sprite.play("move_left_dark")
 			else:
 				animated_sprite.play("move_left")
 			lastMove = "move_left"
-			# do not allow a double tap
-			allow_double_tap = false
 		elif direction.x > 0:
 			if shadow_heart:
 				animated_sprite.play("move_right_dark")
 			else:
 				animated_sprite.play("move_right")
 			lastMove = "move_right"
-			# do not allow a double tap
-			allow_double_tap = false
 		else:
 			# sets the idle animations based on the last movemnet
 			if lastMove == "move_right":
@@ -259,6 +215,10 @@ func _physics_process(_delta):
 				time_to_fire = time_to_fire_max
 				# increments the attack identifier
 				current_attack_identifier = current_attack_identifier + 1
+		# if use item is pressed
+		if Input.is_action_pressed("UseItem") && can_use_item:
+			# use a usable item
+			use_usable_item()
 
 # runs when an enemy hits the player
 func player_take_damage(is_ms_knife, attack_identifer):
@@ -417,9 +377,7 @@ func picked_up_item(item, display_text = true, sound = true):
 			# remove the shadow_heart
 			shadow_heart = false
 			# removes the shadow_heart from the player's collected items
-			for i in range(0, items_collected.size()-1):
-				if items_collected[i] == ItemType.type.shadow_heart:
-					items_collected.remove_at(i)
+			remove_item_from_items_collected(ItemType.type.shadow_heart)
 		else:
 			# if the shadow_heart is not active, heal the player
 			player_adjust_health(2)
@@ -449,13 +407,26 @@ func picked_up_item(item, display_text = true, sound = true):
 		hud.item_added(item)
 		items_collected += [item]
 	elif item == ItemType.type.dash_boots:
-		# adds the dash boots to the player
-		dash_boots = true
+		# removes the current_usable_item from the player's collected items
+		remove_item_from_items_collected(current_usable_item)
+		# set the current item for the player to the dash boots
+		current_usable_item = item
 		# display the item text
 		if display_text:
 			hud.display_text("Aquired a Dash Boots!", "Allows you to dash by double tapping!")
 		# add the item to the collected items list on HUD and in player data
-		hud.item_added(item)
+		hud.current_usable_item(current_usable_item)
+		items_collected += [item]
+	elif item == ItemType.type.poison_gas:
+		# removes the current_usable_item from the player's collected items
+		remove_item_from_items_collected(current_usable_item)
+		# set the current item for the player to the dash boots
+		current_usable_item = item
+		# display the item text
+		if display_text:
+			hud.display_text("Aquired a Bottle of Poison Gas!", "Breaking the bottle surrounds you poison!")
+		# add the item to the collected items list on HUD and in player data
+		hud.current_usable_item(current_usable_item)
 		items_collected += [item]
 
 # calculate the attack speed
@@ -678,11 +649,56 @@ func _on_voodoo_doll_immunity_timer_timeout():
 	# set immunity to false
 	immunity = false
 	# remove the poorly made voodoo doll from the items collected
-	for i in range(0, items_collected.size()-1):
-		if items_collected[i] == ItemType.type.poorly_made_voodoo_doll:
-			items_collected.remove_at(i)
+	remove_item_from_items_collected(ItemType.type.poorly_made_voodoo_doll)
 	# remove the poorly made voodoo doll from the items collected ui
 	hud.remove_poorly_made_voodoo_doll()
+
+# uses an item
+func use_usable_item():
+	# if an item can be used
+	if can_use_item && current_usable_item != ItemType.type.temp:
+		# does whatever the current item should do
+		if current_usable_item == ItemType.type.dash_boots:
+			# use an item
+			used_usable_item()
+			# dash
+			dash()
+		elif current_usable_item == ItemType.type.poison_gas:
+			# use an item
+			used_usable_item()
+			# spawn the poison gas
+			var poison_gas = PLAYER_FRIENDLY_POISON_AREA.instantiate()
+			add_child(poison_gas)
+			# set the usable item to temp (nothing)
+			current_usable_item = ItemType.type.temp
+		else:
+			pass
+
+# when an item is used
+func used_usable_item():
+	# disable the use of items
+	can_use_item = false
+	# start the use item cooldown timer for the item cooldown
+	usable_item_cooldown_timer.start(use_item_cooldown)
+	# show the hud's cooldown
+	hud.used_usable_item(use_item_cooldown)
+
+# when the use item cooldown timer ends
+func _on_usable_item_cooldown_timer_timeout():
+	# set that usable items can be used
+	can_use_item = true
+	# if the current_usable item is temp (nothing)
+	if current_usable_item == ItemType.type.temp:
+		# hides the usable item UI
+		hud.hide_usable_item()
+
+# removes the first item from items collected
+func remove_item_from_items_collected(item_to_remove : ItemType.type):
+	if item_to_remove != ItemType.type.temp:
+		for i in range(0, items_collected.size()):
+			if items_collected[i] == item_to_remove:
+				items_collected.remove_at(i)
+				return
 
 # when the player dashes
 func dash():
@@ -713,3 +729,4 @@ func _on_after_image_spawn_timer_timeout():
 	else:
 		# reset the after images
 		after_images = 0
+

@@ -21,7 +21,8 @@ enum type
 	mysterious_key,
 	holy_key,
 	dash_boots,
-	sleek_blades
+	sleek_blades,
+	poison_gas,
 }
 
 # sets the spawned items in the floor

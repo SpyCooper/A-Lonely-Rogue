@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://b1u1vqsdg1okt"]
+
+[ext_resource type="PackedScene" uid="uid://jtiqth444hdl" path="res://Scenes/item.tscn" id="1_rsct0"]
+[ext_resource type="Texture2D" uid="uid://dh85ichhvi5y2" path="res://Assets/Sprites/items/Items.png" id="2_ohsne"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_86npe"]
+atlas = ExtResource("2_ohsne")
+region = Rect2(224, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lywxs"]
+atlas = ExtResource("2_ohsne")
+region = Rect2(240, 48, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_0b68u"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_86npe")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lywxs")
+}],
+"loop": true,
+"name": &"default",
+"speed": 3.0
+}]
+
+[node name="poison_gas_item" type="Node2D"]
+z_index = 1
+
+[node name="item" parent="." instance=ExtResource("1_rsct0")]
+item_type = 19
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(1, 0)
+sprite_frames = SubResource("SpriteFrames_0b68u")
+autoplay = "default"
+offset = Vector2(-1, 0)

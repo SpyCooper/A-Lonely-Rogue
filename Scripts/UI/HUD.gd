@@ -27,9 +27,9 @@ class_name HUD
 @onready var items_ui_container = $active_items_ui/items_ui_container
 const ITEM_UI_SLOT = preload("res://Scenes/menus/item_ui_slot.tscn")
 
+# usable item collected UI references=
+@onready var usable_item_ui_slot = $Usable_item/usable_items_ui_container/Usable_Item_UI_slot
 
-@onready var vignette = $vignette
-@onready var vignette_animation_player = $vignette/vignette_animation_player
 
 # on start
 func _ready():
@@ -42,6 +42,8 @@ func _ready():
 	hide_text()
 	# reset the scroll text animation
 	animation_player.play("RESET")
+	# hides the usable item slot
+	usable_item_ui_slot.hide()
 
 # show the corresponding hearts to the players HP and if the player collected a shadow heart
 func refresh_hearts(health, shadow_heart = false):
@@ -315,3 +317,22 @@ func play_poorly_made_voodoo_doll_fire():
 	for ui in item_ui_slots:
 		if ui.get_animated_sprite().animation == "poorly_made_voodoo":
 			ui.get_animated_sprite().play("poorly_made_voodoo_fire")
+
+# sets the current useable item
+func current_usable_item(usable_item : ItemType.type):
+	# show the usable item slot
+	usable_item_ui_slot.show()
+	# matches the item type of item
+	if usable_item == ItemType.type.dash_boots:
+		usable_item_ui_slot.get_animated_sprite().play("dash_boots")
+	elif usable_item == ItemType.type.poison_gas:
+		usable_item_ui_slot.get_animated_sprite().play("poison_gas")
+
+# when the usable item is used for a time
+func used_usable_item(time):
+	# usable item slot shows the cooldown timer
+	usable_item_ui_slot.show_cooldown_timer(time)
+
+# hides the usable_item
+func hide_usable_item():
+	usable_item_ui_slot.hide()

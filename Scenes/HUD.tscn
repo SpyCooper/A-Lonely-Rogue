@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://duv7i8yak343i"]
+[gd_scene load_steps=23 format=3 uid="uid://duv7i8yak343i"]
 
 [ext_resource type="Texture2D" uid="uid://dh85ichhvi5y2" path="res://Assets/Sprites/items/Items.png" id="1_bp31y"]
 [ext_resource type="Script" path="res://Scripts/UI/HUD.gd" id="1_slvuw"]
@@ -6,6 +6,7 @@
 [ext_resource type="FontFile" uid="uid://bhsrlys8rvq7t" path="res://Assets/alagard.ttf" id="4_eq0ld"]
 [ext_resource type="Theme" uid="uid://pv4evjjac8wt" path="res://Assets/general_theme.tres" id="5_6yeb1"]
 [ext_resource type="StyleBox" uid="uid://dwunugjfj6x3g" path="res://Assets/boss_bar_style.tres" id="6_oonku"]
+[ext_resource type="PackedScene" uid="uid://edhqnytou7yt" path="res://Scenes/menus/item_ui_slot.tscn" id="7_63oe1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hawcc"]
 atlas = ExtResource("1_bp31y")
@@ -311,5 +312,21 @@ layout_mode = 0
 offset_right = 20.0
 offset_bottom = 40.0
 theme_override_constants/separation = 16
+
+[node name="Usable_item" type="Control" parent="."]
+anchors_preset = 0
+offset_left = 353.538
+offset_top = 2.46154
+offset_right = 353.538
+offset_bottom = 2.46154
+
+[node name="usable_items_ui_container" type="VBoxContainer" parent="Usable_item"]
+layout_mode = 0
+offset_right = 20.0
+offset_bottom = 40.0
+theme_override_constants/separation = 16
+
+[node name="Usable_Item_UI_slot" parent="Usable_item/usable_items_ui_container" instance=ExtResource("7_63oe1")]
+layout_mode = 2
 
 [connection signal="timeout" from="TextBoxTimer" to="." method="_on_text_box_timer_timeout"]

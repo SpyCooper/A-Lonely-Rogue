@@ -771,10 +771,6 @@ bus = &"Sound Effect"
 wait_time = 1.1
 one_shot = true
 
-[node name="Usable_Item_cooldown_timer" type="Timer" parent="."]
-wait_time = 3.0
-one_shot = true
-
 [node name="Dash_timer" type="Timer" parent="."]
 wait_time = 0.1
 one_shot = true
@@ -789,6 +785,5 @@ one_shot = true
 [connection signal="timeout" from="stand_up_timer" to="." method="_on_stand_up_timer_timeout"]
 [connection signal="timeout" from="player_fall_sound/player_fall_sound_timer" to="." method="_on_player_fall_sound_timer_timeout"]
 [connection signal="timeout" from="voodoo_doll_immunity_timer" to="." method="_on_voodoo_doll_immunity_timer_timeout"]
-[connection signal="timeout" from="Usable_Item_cooldown_timer" to="." method="_on_usable_item_cooldown_timer_timeout"]
 [connection signal="timeout" from="Dash_timer" to="." method="_on_dash_timer_timeout"]
 [connection signal="timeout" from="after_image_spawn_timer" to="." method="_on_after_image_spawn_timer_timeout"]

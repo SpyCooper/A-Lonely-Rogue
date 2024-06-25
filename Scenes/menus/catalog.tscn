@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=3 uid="uid://dc0xlg20ucy3n"]
+[gd_scene load_steps=65 format=3 uid="uid://dc0xlg20ucy3n"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Catalog.gd" id="1_mndmm"]
 [ext_resource type="Theme" uid="uid://pv4evjjac8wt" path="res://Assets/general_theme.tres" id="2_umit2"]
@@ -32,6 +32,7 @@
 [ext_resource type="Texture2D" uid="uid://bdq2hockskod5" path="res://Assets/Sprites/catalog_icons/poorly_made_voodoo_doll_icon.png" id="29_snomr"]
 [ext_resource type="Texture2D" uid="uid://bxhnibool8yuh" path="res://Assets/Sprites/catalog_icons/sleek_blades_icon.png" id="30_608bm"]
 [ext_resource type="Texture2D" uid="uid://dyur5ubofnvf6" path="res://Assets/Sprites/catalog_icons/dash_boots_icon.png" id="31_pitxh"]
+[ext_resource type="Texture2D" uid="uid://cmwm5gbdg4wt3" path="res://Assets/Sprites/catalog_icons/poison_gas_icon.png" id="32_vadho"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ck2s6"]
 shader = ExtResource("3_qa2dv")
@@ -123,6 +124,9 @@ shader = ExtResource("3_qa2dv")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_syabw"]
 shader = ExtResource("3_qa2dv")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ehnth"]
+shader = ExtResource("3_qa2dv")
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rrvjp"]
 texture = ExtResource("7_88205")
 texture_margin_left = 8.0
@@ -162,7 +166,6 @@ grow_vertical = 2
 theme = ExtResource("2_umit2")
 
 [node name="Monsters" type="TabBar" parent="TabContainer"]
-visible = false
 layout_mode = 2
 theme = ExtResource("2_umit2")
 
@@ -1416,6 +1419,7 @@ text = "- \"I wonder where I can get that cloak?\""
 autowrap_mode = 2
 
 [node name="Items" type="TabBar" parent="TabContainer"]
+visible = false
 layout_mode = 2
 theme = ExtResource("2_umit2")
 
@@ -1653,6 +1657,21 @@ offset_right = 93.0
 offset_bottom = 85.0
 theme_override_constants/icon_max_width = 64
 icon = ExtResource("31_pitxh")
+flat = true
+alignment = 2
+icon_alignment = 1
+expand_icon = true
+
+[node name="Spot16" type="Control" parent="TabContainer/Items/ScrollContainer/GridContainer"]
+layout_mode = 2
+
+[node name="Poison_gas_button" type="Button" parent="TabContainer/Items/ScrollContainer/GridContainer/Spot16"]
+material = SubResource("ShaderMaterial_ehnth")
+layout_mode = 0
+offset_right = 93.0
+offset_bottom = 85.0
+theme_override_constants/icon_max_width = 64
+icon = ExtResource("32_vadho")
 flat = true
 alignment = 2
 icon_alignment = 1
@@ -2661,6 +2680,7 @@ text = "- Are these more aerodynamic?"
 autowrap_mode = 2
 
 [node name="Dash_boots_panel" type="Panel" parent="TabContainer/Items/Panels"]
+visible = false
 layout_mode = 0
 offset_right = 510.0
 offset_bottom = 513.0
@@ -2708,7 +2728,7 @@ custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
-text = "- Allows the wearer to dash by double tapping a direction"
+text = "- Usable item"
 autowrap_mode = 2
 
 [node name="Bio2" type="Label" parent="TabContainer/Items/Panels/Dash_boots_panel/VBoxContainer"]
@@ -2716,7 +2736,7 @@ custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
-text = "- Works with Speed Boots"
+text = "- Allows the wearer to dash"
 autowrap_mode = 2
 
 [node name="Bio3" type="Label" parent="TabContainer/Items/Panels/Dash_boots_panel/VBoxContainer"]
@@ -2724,7 +2744,91 @@ custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
+text = "- Works with Speed Boots"
+autowrap_mode = 2
+
+[node name="Bio4" type="Label" parent="TabContainer/Items/Panels/Dash_boots_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
 text = "- How can you wear more than one pair of boots?"
+autowrap_mode = 2
+
+[node name="poison_gas_panel" type="Panel" parent="TabContainer/Items/Panels"]
+layout_mode = 0
+offset_right = 510.0
+offset_bottom = 513.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_wrmxr")
+
+[node name="Sprite2D" type="Sprite2D" parent="TabContainer/Items/Panels/poison_gas_panel"]
+position = Vector2(107, 96)
+scale = Vector2(9.0625, 9.0625)
+texture = ExtResource("32_vadho")
+
+[node name="Title" type="Label" parent="TabContainer/Items/Panels/poison_gas_panel"]
+layout_mode = 0
+offset_left = 180.0
+offset_top = 34.0
+offset_right = 510.0
+offset_bottom = 79.0
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 48
+text = "Bottle of Poison Gas"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="KillCount" type="Label" parent="TabContainer/Items/Panels/poison_gas_panel"]
+visible = false
+layout_mode = 0
+offset_left = 180.0
+offset_top = 85.0
+offset_right = 510.0
+offset_bottom = 130.0
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "Killed: 000"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Items/Panels/poison_gas_panel"]
+layout_mode = 0
+offset_left = 43.0
+offset_top = 174.0
+offset_right = 464.0
+offset_bottom = 505.0
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Bio" type="Label" parent="TabContainer/Items/Panels/poison_gas_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- Usable item"
+autowrap_mode = 2
+
+[node name="Bio2" type="Label" parent="TabContainer/Items/Panels/poison_gas_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- When broken, surrounds the user in poisonous gas for a time"
+autowrap_mode = 2
+
+[node name="Bio3" type="Label" parent="TabContainer/Items/Panels/poison_gas_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- Does not hurt the user"
+autowrap_mode = 2
+
+[node name="Bio4" type="Label" parent="TabContainer/Items/Panels/poison_gas_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- Seems to be different in color to monsters poison"
 autowrap_mode = 2
 
 [node name="Close_button" type="Button" parent="."]
@@ -2769,4 +2873,5 @@ text = "X"
 [connection signal="pressed" from="TabContainer/Items/ScrollContainer/GridContainer/Spot13/poorly_made_voodoo_doll_button" to="." method="_on_poorly_made_voodoo_doll_button_pressed"]
 [connection signal="pressed" from="TabContainer/Items/ScrollContainer/GridContainer/Spot14/Sleek_blade_button" to="." method="_on_sleek_blade_button_pressed"]
 [connection signal="pressed" from="TabContainer/Items/ScrollContainer/GridContainer/Spot15/Dash_boots_button" to="." method="_on_dash_boots_button_pressed"]
+[connection signal="pressed" from="TabContainer/Items/ScrollContainer/GridContainer/Spot16/Poison_gas_button" to="." method="_on_poison_gas_button_pressed"]
 [connection signal="pressed" from="Close_button" to="." method="_on_close_button_pressed"]

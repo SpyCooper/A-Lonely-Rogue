@@ -14,6 +14,9 @@ extends Node2D
 var player_in_damage = false
 var player
 
+var enemies = []
+var enemies_in_damage = false
+
 # on ready
 func _ready():
 	# play the enter animation and start enter timer
@@ -32,6 +35,17 @@ func _on_area_2d_body_entered(body):
 		# starts the timer for the player staying in the damage field
 		player_in_damage = true
 		timer.start()
+	# if the body is an enemy
+	if body is Enemy:
+		# deal 1 damage to that enemy
+		body.take_damage(1, 0, true)
+		# add the enemy to the list of enemies in the gas
+		enemies += [body]
+		# set that there are enemies in the area
+		enemies_in_damage = true
+		# if the timer hasn't started, start the damage timer
+		if timer.is_stopped():
+			timer.start()
 
 # when a body leaves the hitbox (this is called before queue_free() is ran)
 func _on_area_2d_body_exited(body):
@@ -39,6 +53,17 @@ func _on_area_2d_body_exited(body):
 		# the player no longer takes damage from the damage field
 		player_in_damage = false
 		timer.stop()
+	# if the body is an enemy
+	if body is Enemy:
+		# remove the enemy from list of enemies
+		for i in range(0, enemies.size()):
+			if enemies[i] == body:
+				enemies.remove_at(i)
+		if enemies.size() == 0:
+			# set that there are no enemies in the area
+			enemies_in_damage = false
+			# stop the damage timer
+			timer.stop()
 
 # when spawned
 func spawned(pos):
@@ -70,3 +95,12 @@ func _on_timer_timeout():
 		# damage player (it is not a morphed_shade attack, attack_identifer doesn't matter so 0)
 		player.player_take_damage(false, 0)
 		timer.start()
+	# if there are enemies in the area
+	if enemies_in_damage:
+		# deal 1 damage to each enemy
+		for i in range(0, enemies.size()):
+			enemies[i].take_damage(1, 0, true)
+
+# gets the offset of the gas
+func get_sprite_offset_position():
+	return animated_sprite_2d.position

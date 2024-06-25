@@ -19,6 +19,7 @@ const HEART_2_PICKUP = preload("res://Scenes/items/heart_2_pickup.tscn")
 const HOLY_HEART_ITEM = preload("res://Scenes/items/holy_heart_item.tscn")
 const POORLY_MADE_VOODOO_DOLL_ITEM = preload("res://Scenes/items/poorly_made_voodoo_doll_item.tscn")
 const DASH_BOOTS_ITEM = preload("res://Scenes/items/dash_boots_item.tscn")
+const POISON_GAS_ITEM = preload("res://Scenes/items/poison_gas_item.tscn")
 
 # random number generator
 var rng = RandomNumberGenerator.new()
@@ -41,6 +42,7 @@ var item_array = [
 	POORLY_MADE_VOODOO_DOLL_ITEM,
 	SLEEK_BLADE_ITEM,
 	DASH_BOOTS_ITEM,
+	POISON_GAS_ITEM,
 	]
 # variable of item types in the same position of the item objects
 var item_types_array = [
@@ -59,7 +61,8 @@ var item_types_array = [
 	ItemType.type.holy_heart,
 	ItemType.type.poorly_made_voodoo_doll,
 	ItemType.type.sleek_blades,
-	ItemType.type.dash_boots
+	ItemType.type.dash_boots,
+	ItemType.type.poison_gas
 	]
 
 # on start
@@ -74,7 +77,7 @@ func _ready():
 # spawns a random item
 func spawn_item():
 	# get a random item from the item_array
-	var random_item_key = rng.randi_range(0, item_array.size()-1)
+	var random_item_key = rng.randi_range(0, item_array.size())
 	var item_has_spawned = false
 	var item_can_spawn = true
 	# for each item in items that have been spawned
@@ -96,6 +99,13 @@ func spawn_item():
 			# checks to see if the player has collected a shadow_heart
 			if Events.player.shadow_heart_collected != true:
 				# if the player hasn't collected shadow_heart and the type was holy_heart, the item cannot spawn
+				item_can_spawn = false
+		# checks if the item type is a poison_gas
+		elif item_types_array[random_item_key] == ItemType.type.poison_gas:
+			# only allow the spawn of poison gas on floors 3 and 4
+			if Events.current_floor == "Floor3" || Events.current_floor == "Floor4":
+				item_can_spawn = true
+			else:
 				item_can_spawn = false
 	# if the item is not spawned and can spawned
 	if item_has_spawned == false && item_can_spawn == true:

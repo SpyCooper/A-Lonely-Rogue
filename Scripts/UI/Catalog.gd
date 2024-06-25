@@ -115,6 +115,9 @@ var sleek_blade_unlocked = false
 @onready var dash_boots_button = $TabContainer/Items/ScrollContainer/GridContainer/Spot15/Dash_boots_button
 @onready var dash_boots_panel = $TabContainer/Items/Panels/Dash_boots_panel
 var dash_boots_unlocked = false
+@onready var poison_gas_button = $TabContainer/Items/ScrollContainer/GridContainer/Spot16/Poison_gas_button
+@onready var poison_gas_panel = $TabContainer/Items/Panels/poison_gas_panel
+var poison_gas_unlocked = false
 
 # on start
 func _ready():
@@ -285,6 +288,10 @@ func load_data():
 			dash_boots_unlocked = data["dash_boots_unlocked"]
 			if dash_boots_unlocked:
 				dash_boots_button.material.shader = null
+			# poison gas check
+			poison_gas_unlocked = data["poison_gas_unlocked"]
+			if poison_gas_unlocked:
+				poison_gas_button.material.shader = null
 
 # goes through all the panels and hides all of them
 func clear_panel():
@@ -321,6 +328,7 @@ func clear_panel():
 	poorly_made_voodoo_doll_panel.hide()
 	sleek_blade_panel.hide()
 	dash_boots_panel.hide()
+	poison_gas_panel.hide()
 
 ## ---------------------------------- Enemies --------------------------------------------------------
 
@@ -729,6 +737,13 @@ func unlock_item(item):
 			dash_boots_button.material.shader = null
 			# set the item to be unlocked
 			dash_boots_unlocked = true
+	elif item == ItemType.type.poison_gas:
+		# if the item is locked
+		if !poison_gas_unlocked:
+			# remove the locked shader
+			poison_gas_button.material.shader = null
+			# set the item to be unlocked
+			poison_gas_unlocked = true
 	
 	save_items()
 
@@ -756,6 +771,7 @@ func found_items():
 		"poorly_made_voodoo_doll_unlocked"  : poorly_made_voodoo_doll_unlocked,
 		"sleek_blade_unlocked" : sleek_blade_unlocked,
 		"dash_boots_unlocked" : dash_boots_unlocked,
+		"poison_gas_unlocked" : poison_gas_unlocked,
 	}
 	return data
 
@@ -893,3 +909,12 @@ func _on_dash_boots_button_pressed():
 	if dash_boots_unlocked:
 		# show the item's info panel
 		dash_boots_panel.show()
+
+# when the poison gas button is pressed
+func _on_poison_gas_button_pressed():
+	# clear the into panel
+	clear_panel()
+	# if the item is unlocked
+	if poison_gas_unlocked:
+		# show the item's info panel
+		poison_gas_panel.show()
