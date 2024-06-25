@@ -2445,7 +2445,6 @@ text = "- All blades apply status effects"
 autowrap_mode = 2
 
 [node name="holy_heart_panel" type="Panel" parent="TabContainer/Items/Panels"]
-visible = false
 layout_mode = 0
 offset_right = 510.0
 offset_bottom = 513.0
@@ -2509,7 +2508,7 @@ custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
-text = "- Only seems to appear when someone has chosen the path of darkness"
+text = "- Only seems to start appearing when someone has chosen the path of darkness"
 autowrap_mode = 2
 
 [node name="poorly_made_voodoo_doll_panel" type="Panel" parent="TabContainer/Items/Panels"]
@@ -2574,6 +2573,7 @@ text = "- Seems to always look like the person holding it"
 autowrap_mode = 2
 
 [node name="Sleek_blade_panel" type="Panel" parent="TabContainer/Items/Panels"]
+visible = false
 layout_mode = 0
 offset_right = 510.0
 offset_bottom = 513.0

@@ -8,6 +8,7 @@ const QUICK_BLADES_ITEM = preload("res://Scenes/items/quick_blades_item.tscn")
 const SHADOW_BLADE_ITEM = preload("res://Scenes/items/shadow_blade_item.tscn")
 const SHADOW_FLAME_ITEM = preload("res://Scenes/items/shadow_flame_item.tscn")
 const TRIPLE_BLADES_ITEM = preload("res://Scenes/items/triple_blades_item.tscn")
+const SLEEK_BLADE_ITEM = preload("res://Scenes/items/sleek_blade_item.tscn")
 
 # other items
 const SHADOW_HEART_ITEM = preload("res://Scenes/items/shadow_heart_item.tscn")
@@ -37,6 +38,7 @@ var item_array = [
 	HEART_2_PICKUP,
 	HOLY_HEART_ITEM,
 	POORLY_MADE_VOODOO_DOLL_ITEM,
+	SLEEK_BLADE_ITEM,
 	]
 # variable of item types in the same position of the item objects
 var item_types_array = [
@@ -54,6 +56,7 @@ var item_types_array = [
 	ItemType.type.health_2,
 	ItemType.type.holy_heart,
 	ItemType.type.poorly_made_voodoo_doll,
+	ItemType.type.sleek_blades,
 	]
 
 # on start
@@ -89,9 +92,9 @@ func spawn_item():
 		
 		# checks if the item type is a holy heart
 		if item_types_array[random_item_key] == ItemType.type.holy_heart:
-			# checks to see if the player has the shadow_heart
-			if Events.player.shadow_heart != true:
-				# if the player doesn't have a shadow_heart and the type was holy_heart, the item cannot spawn
+			# checks to see if the player has collected a shadow_heart
+			if Events.player.shadow_heart_collected != true:
+				# if the player hasn't collected shadow_heart and the type was holy_heart, the item cannot spawn
 				item_can_spawn = false
 	
 	# if the item is not spawned and can spawned

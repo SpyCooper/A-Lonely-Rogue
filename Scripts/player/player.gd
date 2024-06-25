@@ -57,6 +57,7 @@ var dust_blade = false
 var triple_blades = false
 var shadow_heart = false
 var shadow_heart_heal_counter = 0
+var shadow_heart_collected = false
 var poorly_made_voodoo_doll = false
 @onready var burning_sound = $burning_sound
 @onready var voodoo_doll_immunity_timer = $voodoo_doll_immunity_timer
@@ -317,6 +318,8 @@ func picked_up_item(item, display_text = true, sound = true):
 			hud.display_text("Aquired the Shadow Heart!", "You follow the path of darkness now...")
 		# add the item to the collected items in player data
 		items_collected += [item]
+		# mark that the shadow_heart has been collected (used for holy heart)
+		shadow_heart_collected = true
 	elif item == ItemType.type.triple_blades:
 		# add triple blades to the player
 		triple_blades = true
