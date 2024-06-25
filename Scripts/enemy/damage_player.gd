@@ -18,6 +18,9 @@ func _on_body_entered(body):
 		player_in_damage = true
 		player = body
 		timer.start()
+	# if the body is a pet, deal damage to it
+	if body is Pet:
+		body.take_damage(1)
 
 # when the player exits
 func _on_body_exited(body):

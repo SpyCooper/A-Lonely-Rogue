@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://edhqnytou7yt"]
+[gd_scene load_steps=37 format=3 uid="uid://edhqnytou7yt"]
 
 [ext_resource type="Script" path="res://Scripts/UI/item_ui_slot.gd" id="1_l3s7d"]
 [ext_resource type="Texture2D" uid="uid://buoupuxk2qtji" path="res://Assets/Sprites/catalog_icons/dust_blade_icon.png" id="1_rdpab"]
@@ -17,6 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://d0l7ggcqcranr" path="res://Assets/Sprites/items/buring_voodoo_doll.png" id="13_x6q0j"]
 [ext_resource type="Texture2D" uid="uid://bxhnibool8yuh" path="res://Assets/Sprites/catalog_icons/sleek_blades_icon.png" id="14_ed182"]
 [ext_resource type="Theme" uid="uid://pv4evjjac8wt" path="res://Assets/general_theme.tres" id="16_fpotc"]
+[ext_resource type="Texture2D" uid="uid://ndd2e7xeagh8" path="res://Assets/Sprites/catalog_icons/protective_charm_icon.png" id="16_yme46"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tmdcs"]
 atlas = ExtResource("1_rdpab")
@@ -77,6 +78,10 @@ region = Rect2(0, 16, 16, 16)
 [sub_resource type="AtlasTexture" id="AtlasTexture_yinwy"]
 atlas = ExtResource("13_x6q0j")
 region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ma3oo"]
+atlas = ExtResource("16_yme46")
+region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bn66n"]
 atlas = ExtResource("14_ed182")
@@ -196,6 +201,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_ma3oo")
+}],
+"loop": false,
+"name": &"protective_charm",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_bn66n")
 }],
 "loop": false,
@@ -214,10 +227,9 @@ scale = Vector2(0.125, 0.125)
 texture = ExtResource("2_kll03")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(10, 7)
-scale = Vector2(0.875, 0.875)
+position = Vector2(10.5, 7.5)
 sprite_frames = SubResource("SpriteFrames_51jbf")
-animation = &"poison_gas"
+animation = &"poorly_made_voodoo"
 
 [node name="GreyOut_sprite" type="Sprite2D" parent="."]
 position = Vector2(10, 7)

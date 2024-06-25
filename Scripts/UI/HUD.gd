@@ -233,6 +233,8 @@ func item_added(item):
 		items_ui_container.add_child(item_ui)
 		# set the graphic to the item
 		item_ui.get_animated_sprite().play("Poison")
+		# sets the item's type
+		item_ui.set_item_type(ItemType.type.poisoned_blades)
 	elif item == ItemType.type.speed_boots:
 		# create a item UI slot
 		var item_ui = ITEM_UI_SLOT.instantiate()
@@ -240,6 +242,8 @@ func item_added(item):
 		items_ui_container.add_child(item_ui)
 		# set the graphic to the item
 		item_ui.get_animated_sprite().play("Speed_boots")
+		# sets the item's type
+		item_ui.set_item_type(ItemType.type.speed_boots)
 	elif item == ItemType.type.quick_blades:
 		# create a item UI slot
 		var item_ui = ITEM_UI_SLOT.instantiate()
@@ -247,6 +251,8 @@ func item_added(item):
 		items_ui_container.add_child(item_ui)
 		# set the graphic to the item
 		item_ui.get_animated_sprite().play("Quick_blades")
+		# sets the item's type
+		item_ui.set_item_type(ItemType.type.quick_blades)
 	elif item == ItemType.type.shadow_flame:
 		# create a item UI slot
 		var item_ui = ITEM_UI_SLOT.instantiate()
@@ -254,6 +260,8 @@ func item_added(item):
 		items_ui_container.add_child(item_ui)
 		# set the graphic to the item
 		item_ui.get_animated_sprite().play("Shadow_flame")
+		# sets the item's type
+		item_ui.set_item_type(ItemType.type.shadow_flame)
 	elif item == ItemType.type.shadow_blade:
 		# create a item UI slot
 		var item_ui = ITEM_UI_SLOT.instantiate()
@@ -261,6 +269,8 @@ func item_added(item):
 		items_ui_container.add_child(item_ui)
 		# set the graphic to the item
 		item_ui.get_animated_sprite().play("Shadow_blade")
+		# sets the item's type
+		item_ui.set_item_type(ItemType.type.shadow_blade)
 	elif item == ItemType.type.triple_blades:
 		# create a item UI slot
 		var item_ui = ITEM_UI_SLOT.instantiate()
@@ -268,6 +278,8 @@ func item_added(item):
 		items_ui_container.add_child(item_ui)
 		# set the graphic to the item
 		item_ui.get_animated_sprite().play("Triple_blades")
+		# sets the item's type
+		item_ui.set_item_type(ItemType.type.triple_blades)
 	elif item == ItemType.type.dust_blade:
 		# create a item UI slot
 		var item_ui = ITEM_UI_SLOT.instantiate()
@@ -275,6 +287,8 @@ func item_added(item):
 		items_ui_container.add_child(item_ui)
 		# set the graphic to the item
 		item_ui.get_animated_sprite().play("Dust_blade")
+		# sets the item's type
+		item_ui.set_item_type(ItemType.type.dust_blade)
 	elif item == ItemType.type.glass_blade:
 		# create a item UI slot
 		var item_ui = ITEM_UI_SLOT.instantiate()
@@ -282,6 +296,8 @@ func item_added(item):
 		items_ui_container.add_child(item_ui)
 		# set the graphic to the item
 		item_ui.get_animated_sprite().play("glass_blade")
+		# sets the item's type
+		item_ui.set_item_type(ItemType.type.glass_blade)
 	elif item == ItemType.type.poorly_made_voodoo_doll:
 		# create a item UI slot
 		var item_ui = ITEM_UI_SLOT.instantiate()
@@ -289,6 +305,8 @@ func item_added(item):
 		items_ui_container.add_child(item_ui)
 		# set the graphic to the item
 		item_ui.get_animated_sprite().play("poorly_made_voodoo")
+		# sets the item's type
+		item_ui.set_item_type(ItemType.type.poorly_made_voodoo_doll)
 	elif item == ItemType.type.sleek_blades:
 		# create a item UI slot
 		var item_ui = ITEM_UI_SLOT.instantiate()
@@ -296,19 +314,23 @@ func item_added(item):
 		items_ui_container.add_child(item_ui)
 		# set the graphic to the item
 		item_ui.get_animated_sprite().play("sleek_blade")
-	elif item == ItemType.type.dash_boots:
+		# sets the item's type
+		item_ui.set_item_type(ItemType.type.sleek_blades)
+	elif item == ItemType.type.protective_charm:
 		# create a item UI slot
 		var item_ui = ITEM_UI_SLOT.instantiate()
 		# add it to the items collected container
 		items_ui_container.add_child(item_ui)
 		# set the graphic to the item
-		item_ui.get_animated_sprite().play("dash_boots")
+		item_ui.get_animated_sprite().play("protective_charm")
+		# sets the item's type
+		item_ui.set_item_type(ItemType.type.protective_charm)
 
-# removes the poorly made voodoo doll from the ui
-func remove_poorly_made_voodoo_doll():
+# removes an item from the ui
+func remove_item_from_ui(item_to_remove : ItemType.type):
 	var item_ui_slots = items_ui_container.get_children()
 	for ui in item_ui_slots:
-		if ui.get_animated_sprite().animation == "poorly_made_voodoo_fire":
+		if ui.get_item_type() == item_to_remove:
 			ui.queue_free()
 
 # plays the poorly made voodoo doll fire icon

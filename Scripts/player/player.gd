@@ -68,6 +68,10 @@ var knife_speed_bonus = 0
 var current_type : BladeType.blade_type = BladeType.blade_type.default
 var knife_scene = load("res://Scenes/knife.tscn")
 var items_collected = []
+# pet variables
+var protective_charm_active = false
+const PROTECTIVE_CHARM_SPAWN = preload("res://Scenes/pets/protective_charm_spawn.tscn")
+var current_pet = null
 
 # usable items
 var use_item_cooldown = 3.0
@@ -431,6 +435,17 @@ func picked_up_item(item, display_text = true, sound = true):
 		# add the item to the collected items list on HUD and in player data
 		hud.current_usable_item(current_usable_item)
 		items_collected += [item]
+	elif item == ItemType.type.protective_charm:
+		# add poorly made voodoo doll to the player
+		protective_charm_active = true
+		# display the item text
+		if display_text:
+			hud.display_text("Aquired a Protective!", "Will block some damage for you")
+		# add the item to the collected items list on HUD and in player data
+		hud.item_added(item)
+		items_collected += [item]
+		# spawn the protective charm spawn in
+		protective_charm_spawn()
 
 # calculate the attack speed
 func calculate_attack_speed():
@@ -576,6 +591,9 @@ func save_player_data():
 	PlayerData.player_health = player_health
 	PlayerData.number_of_keys = number_of_keys
 	PlayerData.items_collected = items_collected
+	# save the pet data
+	if current_pet != null:
+		PlayerData.current_pet_health = current_pet.health
 
 # load the player data from previous floors
 func load_player_data():
@@ -594,6 +612,9 @@ func load_player_data():
 	# refresh the HUD
 	hud.refresh_hearts(player_health)
 	hud.refresh_key_amount(number_of_keys)
+	# load the pet data
+	if current_pet != null:
+		current_pet.set_pet_hp(PlayerData.current_pet_health)
 
 # when the player fall sound timer ends, play the fall sound
 func _on_player_fall_sound_timer_timeout():
@@ -664,7 +685,7 @@ func _on_voodoo_doll_immunity_timer_timeout():
 	# remove the poorly made voodoo doll from the items collected
 	remove_item_from_items_collected(ItemType.type.poorly_made_voodoo_doll)
 	# remove the poorly made voodoo doll from the items collected ui
-	hud.remove_poorly_made_voodoo_doll()
+	hud.remove_item_from_ui(ItemType.type.poorly_made_voodoo_doll)
 
 # uses an item
 func use_usable_item():
@@ -743,3 +764,16 @@ func _on_after_image_spawn_timer_timeout():
 		# reset the after images
 		after_images = 0
 
+# spawns the protective charm spawn and sets it as the current pet
+func protective_charm_spawn():
+	var spawn = PROTECTIVE_CHARM_SPAWN.instantiate()
+	add_child(spawn)
+	current_pet = spawn
+
+# when the protective charm spawn dies
+func protective_charm_spawn_died():
+	# remove the protective charm from the items collected and UI
+	remove_item_from_items_collected(ItemType.type.protective_charm)
+	hud.remove_item_from_ui(ItemType.type.protective_charm)
+	# remove the current pet
+	current_pet = null

@@ -1,0 +1,43 @@
+[gd_scene load_steps=8 format=3 uid="uid://d2l4fsgnjqqsx"]
+
+[ext_resource type="Script" path="res://Scripts/protective_charm_spawn.gd" id="1_63x00"]
+[ext_resource type="Shader" uid="uid://dlroce5v6b0te" path="res://Scripts/shaders/player.tres" id="1_awera"]
+[ext_resource type="Texture2D" uid="uid://bsax0geoljr8g" path="res://Assets/Sprites/items/protective_charm_spawn.png" id="2_fnngj"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8as0q"]
+shader = ExtResource("1_awera")
+shader_parameter/enabled = false
+shader_parameter/tint = Color(0.752941, 0.819608, 0.8, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_43om0"]
+atlas = ExtResource("2_fnngj")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ekopk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_43om0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7uyc8"]
+radius = 5.0
+
+[node name="protective_charm_spawn" type="Area2D"]
+collision_layer = 6
+collision_mask = 6
+script = ExtResource("1_63x00")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_8as0q")
+sprite_frames = SubResource("SpriteFrames_ekopk")
+autoplay = "default"
+
+[node name="HitBox" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_7uyc8")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

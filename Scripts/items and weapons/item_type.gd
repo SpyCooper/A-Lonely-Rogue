@@ -23,6 +23,8 @@ enum type
 	dash_boots,
 	sleek_blades,
 	poison_gas,
+	protective_charm,
+	rogue_in_a_bottle,
 }
 
 # sets the various item types

@@ -768,7 +768,7 @@ stream = ExtResource("11_5jrt7")
 bus = &"Sound Effect"
 
 [node name="voodoo_doll_immunity_timer" type="Timer" parent="."]
-wait_time = 1.1
+wait_time = 1.6
 one_shot = true
 
 [node name="Usable_Item_cooldown_timer" type="Timer" parent="."]

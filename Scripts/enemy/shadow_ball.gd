@@ -33,6 +33,9 @@ func _on_body_entered(body):
 	if body is Player:
 		# damage player (it is not a morphed_shade attack, attack_identifer doesn't matter so 0)
 		body.player_take_damage(false, 0)
+	# if the body is a pet, deal damage to it
+	if body is Pet:
+		body.take_damage(1)
 	# if the body is not enemy or is a collisiong_with_player scene of an enemy
 	if body != Enemy && body.name != "collision_with_player":
 		# remove the shadow bolt

@@ -21,6 +21,8 @@ const POORLY_MADE_VOODOO_DOLL_ITEM = preload("res://Scenes/items/poorly_made_voo
 const DASH_BOOTS_ITEM = preload("res://Scenes/items/dash_boots_item.tscn")
 const POISON_GAS_ITEM = preload("res://Scenes/items/poison_gas_item.tscn")
 
+
+
 # random number generator
 var rng = RandomNumberGenerator.new()
 

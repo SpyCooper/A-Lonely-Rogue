@@ -5,6 +5,8 @@ extends Control
 @onready var grey_out_sprite = $GreyOut_sprite
 @onready var cooldown_label = $GreyOut_sprite/cooldown_Label
 
+var item_type : ItemType.type
+
 # variables
 var timer = 0.0
 
@@ -12,6 +14,12 @@ var timer = 0.0
 func _ready():
 	# hide the cooldown
 	hide_cooldown()
+
+func set_item_type(item: ItemType.type):
+	item_type = item
+
+func get_item_type():
+	return item_type
 
 # every frame
 func _process(delta):
