@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://nd1033fxydae"
-path="res://.godot/imported/protective_charm_icon.png-14ff2a704c32a5de2d584c7ad44b0dd9.ctex"
+uid="uid://c16o8hpmlsaje"
+path="res://.godot/imported/hurtful_charm_spawn.png-600ae979a391de45221968c12c3c80af.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/catalog_icons/protective_charm_icon.png"
-dest_files=["res://.godot/imported/protective_charm_icon.png-14ff2a704c32a5de2d584c7ad44b0dd9.ctex"]
+source_file="res://Assets/Sprites/pets/hurtful_charm_spawn.png"
+dest_files=["res://.godot/imported/hurtful_charm_spawn.png-600ae979a391de45221968c12c3c80af.ctex"]
 
 [params]
 

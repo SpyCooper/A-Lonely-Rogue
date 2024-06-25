@@ -1,38 +1,38 @@
-[gd_scene load_steps=12 format=3 uid="uid://cawr58mnx50yn"]
+[gd_scene load_steps=12 format=3 uid="uid://bno040qa70wa7"]
 
-[ext_resource type="Texture2D" uid="uid://dh85ichhvi5y2" path="res://Assets/Sprites/items/Items.png" id="1_ee2pm"]
-[ext_resource type="Script" path="res://Scripts/items and weapons/knife.gd" id="1_xp0xi"]
+[ext_resource type="Script" path="res://Scripts/pet/tiny_rogue_knife.gd" id="1_mk4qy"]
+[ext_resource type="Texture2D" uid="uid://dh85ichhvi5y2" path="res://Assets/Sprites/items/Items.png" id="2_onkmg"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_x78cu"]
 radius = 4.0
 height = 14.0
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_skm6n"]
-atlas = ExtResource("1_ee2pm")
+atlas = ExtResource("2_onkmg")
 region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_qrtnq"]
-atlas = ExtResource("1_ee2pm")
+atlas = ExtResource("2_onkmg")
 region = Rect2(16, 16, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_n25jb"]
-atlas = ExtResource("1_ee2pm")
+atlas = ExtResource("2_onkmg")
 region = Rect2(48, 16, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_t0l26"]
-atlas = ExtResource("1_ee2pm")
+atlas = ExtResource("2_onkmg")
 region = Rect2(16, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_1qxks"]
-atlas = ExtResource("1_ee2pm")
+atlas = ExtResource("2_onkmg")
 region = Rect2(32, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_wrn8o"]
-atlas = ExtResource("1_ee2pm")
+atlas = ExtResource("2_onkmg")
 region = Rect2(32, 16, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_o54gu"]
-atlas = ExtResource("1_ee2pm")
+atlas = ExtResource("2_onkmg")
 region = Rect2(256, 32, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_sormc"]
@@ -94,10 +94,10 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="knife" type="Area2D"]
+[node name="tiny_rogue_knife" type="Area2D"]
 collision_layer = 12
 collision_mask = 13
-script = ExtResource("1_xp0xi")
+script = ExtResource("1_mk4qy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(2, 0)

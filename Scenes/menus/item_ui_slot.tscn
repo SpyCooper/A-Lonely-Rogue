@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://edhqnytou7yt"]
+[gd_scene load_steps=41 format=3 uid="uid://edhqnytou7yt"]
 
 [ext_resource type="Script" path="res://Scripts/UI/item_ui_slot.gd" id="1_l3s7d"]
 [ext_resource type="Texture2D" uid="uid://buoupuxk2qtji" path="res://Assets/Sprites/catalog_icons/dust_blade_icon.png" id="1_rdpab"]
@@ -14,10 +14,12 @@
 [ext_resource type="Texture2D" uid="uid://dyur5ubofnvf6" path="res://Assets/Sprites/catalog_icons/dash_boots_icon.png" id="11_3oghb"]
 [ext_resource type="Texture2D" uid="uid://bdq2hockskod5" path="res://Assets/Sprites/catalog_icons/poorly_made_voodoo_doll_icon.png" id="12_aq0hj"]
 [ext_resource type="Texture2D" uid="uid://cmwm5gbdg4wt3" path="res://Assets/Sprites/catalog_icons/poison_gas_icon.png" id="13_55gr7"]
+[ext_resource type="Texture2D" uid="uid://cxdp1ww8okfv2" path="res://Assets/Sprites/catalog_icons/hurtful_charm_icon.png" id="13_83nyj"]
 [ext_resource type="Texture2D" uid="uid://d0l7ggcqcranr" path="res://Assets/Sprites/items/buring_voodoo_doll.png" id="13_x6q0j"]
 [ext_resource type="Texture2D" uid="uid://bxhnibool8yuh" path="res://Assets/Sprites/catalog_icons/sleek_blades_icon.png" id="14_ed182"]
 [ext_resource type="Theme" uid="uid://pv4evjjac8wt" path="res://Assets/general_theme.tres" id="16_fpotc"]
-[ext_resource type="Texture2D" uid="uid://ndd2e7xeagh8" path="res://Assets/Sprites/catalog_icons/protective_charm_icon.png" id="16_yme46"]
+[ext_resource type="Texture2D" uid="uid://nd1033fxydae" path="res://Assets/Sprites/catalog_icons/protective_charm_icon.png" id="16_yme46"]
+[ext_resource type="Texture2D" uid="uid://dgasd5e1e6oro" path="res://Assets/Sprites/catalog_icons/rogue_in_a_bottle_icon.png" id="17_ix503"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tmdcs"]
 atlas = ExtResource("1_rdpab")
@@ -59,6 +61,10 @@ region = Rect2(0, 0, 16, 16)
 atlas = ExtResource("9_woyga")
 region = Rect2(0, 0, 16, 16)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_btxan"]
+atlas = ExtResource("13_83nyj")
+region = Rect2(0, 0, 16, 16)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_nasul"]
 atlas = ExtResource("13_55gr7")
 region = Rect2(0, 0, 16, 16)
@@ -81,6 +87,10 @@ region = Rect2(0, 32, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ma3oo"]
 atlas = ExtResource("16_yme46")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3uc6d"]
+atlas = ExtResource("17_ix503")
 region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bn66n"]
@@ -171,6 +181,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_btxan")
+}],
+"loop": false,
+"name": &"hurtful_charm",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_nasul")
 }],
 "loop": false,
@@ -209,6 +227,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_3uc6d")
+}],
+"loop": false,
+"name": &"rogue_in_a_bottle",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_bn66n")
 }],
 "loop": false,
@@ -229,7 +255,7 @@ texture = ExtResource("2_kll03")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(10.5, 7.5)
 sprite_frames = SubResource("SpriteFrames_51jbf")
-animation = &"poorly_made_voodoo"
+animation = &"hurtful_charm"
 
 [node name="GreyOut_sprite" type="Sprite2D" parent="."]
 position = Vector2(10, 7)

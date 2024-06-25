@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://bs0rdltsmfopr"]
+[gd_scene load_steps=39 format=3 uid="uid://bs0rdltsmfopr"]
 
 [ext_resource type="Script" path="res://Scripts/map/dungeon_floor.gd" id="1_xbvmb"]
 [ext_resource type="PackedScene" uid="uid://duv7i8yak343i" path="res://Scenes/HUD.tscn" id="2_1h1xt"]
@@ -31,6 +31,7 @@
 [ext_resource type="PackedScene" uid="uid://dvwf7rte2gvv2" path="res://Scenes/enemies/skeleton_mage.tscn" id="28_qvxnw"]
 [ext_resource type="PackedScene" uid="uid://cr3t522vle50y" path="res://Scenes/Dungeon_floors/trapdoor.tscn" id="29_y03cp"]
 [ext_resource type="PackedScene" uid="uid://2rov0r5nrtfl" path="res://Scenes/enemies/lich.tscn" id="31_a1r24"]
+[ext_resource type="PackedScene" uid="uid://i675dunb3woi" path="res://Scenes/items/hurtful_charm_item.tscn" id="33_njonm"]
 
 [sub_resource type="Animation" id="Animation_27xwy"]
 length = 0.001
@@ -405,6 +406,12 @@ position = Vector2(1149, -520)
 
 [node name="Trapdoor" parent="Floor Text2" instance=ExtResource("29_y03cp")]
 position = Vector2(-47, -155)
+
+[node name="Trapdoor2" parent="." instance=ExtResource("29_y03cp")]
+position = Vector2(-106, 32)
+
+[node name="hurtful_charm_item" parent="." instance=ExtResource("33_njonm")]
+position = Vector2(-94, -29)
 
 [connection signal="timeout" from="CanvasLayer/Fade_color/Fade_timer" to="." method="_on_fade_timer_timeout"]
 [connection signal="pressed" from="CanvasLayer/Pause_menu/Buttons_container/Control/Resume_button" to="CanvasLayer/Pause_menu" method="_on_resume_button_pressed"]

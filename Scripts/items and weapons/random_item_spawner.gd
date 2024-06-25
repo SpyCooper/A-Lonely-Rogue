@@ -20,8 +20,9 @@ const HOLY_HEART_ITEM = preload("res://Scenes/items/holy_heart_item.tscn")
 const POORLY_MADE_VOODOO_DOLL_ITEM = preload("res://Scenes/items/poorly_made_voodoo_doll_item.tscn")
 const DASH_BOOTS_ITEM = preload("res://Scenes/items/dash_boots_item.tscn")
 const POISON_GAS_ITEM = preload("res://Scenes/items/poison_gas_item.tscn")
-
-
+const PROTECTIVE_CHARM_ITEM = preload("res://Scenes/items/protective_charm_item.tscn")
+const ROGUE_IN_A_BOTTLE_ITEM = preload("res://Scenes/items/rogue_in_a_bottle_item.tscn")
+const HURTFUL_CHARM_ITEM = preload("res://Scenes/items/hurtful_charm_item.tscn")
 
 # random number generator
 var rng = RandomNumberGenerator.new()
@@ -45,6 +46,9 @@ var item_array = [
 	SLEEK_BLADE_ITEM,
 	DASH_BOOTS_ITEM,
 	POISON_GAS_ITEM,
+	PROTECTIVE_CHARM_ITEM,
+	ROGUE_IN_A_BOTTLE_ITEM,
+	HURTFUL_CHARM_ITEM,
 	]
 # variable of item types in the same position of the item objects
 var item_types_array = [
@@ -64,7 +68,10 @@ var item_types_array = [
 	ItemType.type.poorly_made_voodoo_doll,
 	ItemType.type.sleek_blades,
 	ItemType.type.dash_boots,
-	ItemType.type.poison_gas
+	ItemType.type.poison_gas,
+	ItemType.type.protective_charm,
+	ItemType.type.rogue_in_a_bottle,
+	ItemType.type.hurtful_charm,
 	]
 
 # on start
@@ -107,6 +114,13 @@ func spawn_item():
 		elif item_types_array[random_item_key] == ItemType.type.poison_gas:
 			# only allow the spawn of poison gas on floors 3 and 4
 			if Events.current_floor == "Floor3" || Events.current_floor == "Floor4":
+				item_can_spawn = true
+			else:
+				item_can_spawn = false
+		# checks if the item type is a protective charm
+		elif item_types_array[random_item_key] == ItemType.type.protective_charm:
+			# only allow the spawn of protective charm on floors other than 1
+			if Events.current_floor != "Floor1":
 				item_can_spawn = true
 			else:
 				item_can_spawn = false

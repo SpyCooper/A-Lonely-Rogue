@@ -118,6 +118,15 @@ var dash_boots_unlocked = false
 @onready var poison_gas_button = $TabContainer/Items/ScrollContainer/GridContainer/Spot16/Poison_gas_button
 @onready var poison_gas_panel = $TabContainer/Items/Panels/poison_gas_panel
 var poison_gas_unlocked = false
+@onready var protective_charm_button = $TabContainer/Items/ScrollContainer/GridContainer/Spot17/Protective_charm_button
+@onready var protective_charm_panel = $TabContainer/Items/Panels/protective_charm_panel
+var protective_charm_unlocked = false
+@onready var rogue_in_a_bottle_button = $TabContainer/Items/ScrollContainer/GridContainer/Spot18/rogue_in_a_bottle_button
+@onready var rogue_in_a_bottle_panel = $TabContainer/Items/Panels/rogue_in_a_bottle_panel
+var rogue_in_a_bottle_unlocked = false
+@onready var hurtful_charm_button = $TabContainer/Items/ScrollContainer/GridContainer/Spot19/Hurtful_charm_button
+@onready var hurtful_charm_panel = $TabContainer/Items/Panels/hurtful_charm_panel
+var hurtful_charm_unlocked = false
 
 # on start
 func _ready():
@@ -292,6 +301,18 @@ func load_data():
 			poison_gas_unlocked = data["poison_gas_unlocked"]
 			if poison_gas_unlocked:
 				poison_gas_button.material.shader = null
+			# protective charm check
+			protective_charm_unlocked = data["protective_charm_unlocked"]
+			if protective_charm_unlocked:
+				protective_charm_button.material.shader = null
+			# rogue_in_a_bottle check
+			rogue_in_a_bottle_unlocked = data["rogue_in_a_bottle_unlocked"]
+			if rogue_in_a_bottle_unlocked:
+				rogue_in_a_bottle_button.material.shader = null
+			# hurtful charm check
+			hurtful_charm_unlocked = data["hurtful_charm_unlocked"]
+			if hurtful_charm_unlocked:
+				hurtful_charm_button.material.shader = null
 
 # goes through all the panels and hides all of them
 func clear_panel():
@@ -329,6 +350,9 @@ func clear_panel():
 	sleek_blade_panel.hide()
 	dash_boots_panel.hide()
 	poison_gas_panel.hide()
+	protective_charm_panel.hide()
+	rogue_in_a_bottle_panel.hide()
+	hurtful_charm_panel.hide()
 
 ## ---------------------------------- Enemies --------------------------------------------------------
 
@@ -744,6 +768,27 @@ func unlock_item(item):
 			poison_gas_button.material.shader = null
 			# set the item to be unlocked
 			poison_gas_unlocked = true
+	elif item == ItemType.type.protective_charm:
+		# if the item is locked
+		if !protective_charm_unlocked:
+			# remove the locked shader
+			protective_charm_button.material.shader = null
+			# set the item to be unlocked
+			protective_charm_unlocked = true
+	elif item == ItemType.type.rogue_in_a_bottle:
+		# if the item is locked
+		if !rogue_in_a_bottle_unlocked:
+			# remove the locked shader
+			rogue_in_a_bottle_button.material.shader = null
+			# set the item to be unlocked
+			rogue_in_a_bottle_unlocked = true
+	elif item == ItemType.type.hurtful_charm:
+		# if the item is locked
+		if !hurtful_charm_unlocked:
+			# remove the locked shader
+			hurtful_charm_button.material.shader = null
+			# set the item to be unlocked
+			hurtful_charm_unlocked = true
 	
 	save_items()
 
@@ -772,6 +817,9 @@ func found_items():
 		"sleek_blade_unlocked" : sleek_blade_unlocked,
 		"dash_boots_unlocked" : dash_boots_unlocked,
 		"poison_gas_unlocked" : poison_gas_unlocked,
+		"protective_charm_unlocked" : protective_charm_unlocked,
+		"rogue_in_a_bottle_unlocked" : rogue_in_a_bottle_unlocked,
+		"hurtful_charm_unlocked" : hurtful_charm_unlocked,
 	}
 	return data
 
@@ -918,3 +966,30 @@ func _on_poison_gas_button_pressed():
 	if poison_gas_unlocked:
 		# show the item's info panel
 		poison_gas_panel.show()
+
+# when the protective charm button is pressed
+func _on_protective_charm_button_pressed():
+	# clear the into panel
+	clear_panel()
+	# if the item is unlocked
+	if protective_charm_unlocked:
+		# show the item's info panel
+		protective_charm_panel.show()
+
+# when the progue_in_a_bottle button is pressed
+func _on_rogue_in_a_bottle_button_pressed():
+	# clear the into panel
+	clear_panel()
+	# if the item is unlocked
+	if rogue_in_a_bottle_unlocked:
+		# show the item's info panel
+		rogue_in_a_bottle_panel.show()
+
+# when the hurtful charm button is pressed
+func _on_hurtful_charm_button_pressed():
+	# clear the into panel
+	clear_panel()
+	# if the item is unlocked
+	if hurtful_charm_unlocked:
+		# show the item's info panel
+		hurtful_charm_panel.show()

@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://d2l4fsgnjqqsx"]
 
-[ext_resource type="Script" path="res://Scripts/protective_charm_spawn.gd" id="1_63x00"]
+[ext_resource type="Script" path="res://Scripts/pet/protective_charm_spawn.gd" id="1_63x00"]
 [ext_resource type="Shader" uid="uid://dlroce5v6b0te" path="res://Scripts/shaders/player.tres" id="1_awera"]
-[ext_resource type="Texture2D" uid="uid://bsax0geoljr8g" path="res://Assets/Sprites/items/protective_charm_spawn.png" id="2_fnngj"]
+[ext_resource type="Texture2D" uid="uid://bsax0geoljr8g" path="res://Assets/Sprites/pets/protective_charm_spawn.png" id="2_fnngj"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8as0q"]
 shader = ExtResource("1_awera")
@@ -25,7 +25,7 @@ animations = [{
 }]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_7uyc8"]
-radius = 5.0
+radius = 6.0
 
 [node name="protective_charm_spawn" type="Area2D"]
 collision_layer = 6

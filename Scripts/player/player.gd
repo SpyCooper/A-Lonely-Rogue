@@ -11,6 +11,7 @@ class_name Player
 @onready var item_pickup_sound = $item_pickup_sound
 @onready var unlock_door_sound = $Unlock_door_sound
 @onready var woosh_sound = $woosh_sound
+@onready var item_break_sound = $item_break_sound
 
 # references related to the falling animation at the start of each floor
 @onready var fall_timer = $fall_timer
@@ -69,16 +70,17 @@ var current_type : BladeType.blade_type = BladeType.blade_type.default
 var knife_scene = load("res://Scenes/knife.tscn")
 var items_collected = []
 # pet variables
-var protective_charm_active = false
 const PROTECTIVE_CHARM_SPAWN = preload("res://Scenes/pets/protective_charm_spawn.tscn")
+const HURTFUL_CHARM_SPAWN = preload("res://Scenes/pets/hurtful_charm_spawn.tscn")
 var current_pet = null
-
+var current_pet_item = ItemType.type.temp
 # usable items
 var use_item_cooldown = 3.0
 @onready var usable_item_cooldown_timer = $Usable_Item_cooldown_timer
 var can_use_item = true
 var current_usable_item = ItemType.type.temp
 const PLAYER_FRIENDLY_POISON_AREA = preload("res://Scenes/player/player_friendly_poison_area.tscn")
+const TINY_ROGUE = preload("res://Scenes/pets/tiny_rogue.tscn")
 # dash boots
 @onready var dash_timer = $Dash_timer
 var dash_speed_boost = 150.0
@@ -436,16 +438,34 @@ func picked_up_item(item, display_text = true, sound = true):
 		hud.current_usable_item(current_usable_item)
 		items_collected += [item]
 	elif item == ItemType.type.protective_charm:
-		# add poorly made voodoo doll to the player
-		protective_charm_active = true
 		# display the item text
 		if display_text:
-			hud.display_text("Aquired a Protective!", "Will block some damage for you")
+			hud.display_text("Aquired a Protective Charm!", "It's spawn will block some projectiles for you!")
 		# add the item to the collected items list on HUD and in player data
 		hud.item_added(item)
 		items_collected += [item]
-		# spawn the protective charm spawn in
-		protective_charm_spawn()
+		# spawn the pet to the player based on the item
+		add_pet(item)
+	elif item == ItemType.type.rogue_in_a_bottle:
+		# removes the current_usable_item from the player's collected items
+		remove_item_from_items_collected(current_usable_item)
+		# set the current item for the player to the dash boots
+		current_usable_item = item
+		# display the item text
+		if display_text:
+			hud.display_text("Aquired a Rogue-In-A-Bottle!", "Break when you need a little help!")
+		# add the item to the collected items list on HUD and in player data
+		hud.current_usable_item(current_usable_item)
+		items_collected += [item]
+	elif item == ItemType.type.hurtful_charm:
+		# display the item text
+		if display_text:
+			hud.display_text("Aquired a Hurtful Charm!", "It will deal damage to enemies around you!")
+		# add the item to the collected items list on HUD and in player data
+		hud.item_added(item)
+		items_collected += [item]
+		# spawn the pet to the player based on the item
+		add_pet(item)
 
 # calculate the attack speed
 func calculate_attack_speed():
@@ -498,6 +518,8 @@ func player_adjust_health(change : int):
 # returns the current weapons
 func get_current_weapons():
 	var current_blades = []
+	if sleek_blade == true:
+		current_blades += [BladeType.blade_type.sleek]
 	if poisoned_blade == true:
 		current_blades += [BladeType.blade_type.posioned]
 	if shadow_flame_blade == true:
@@ -508,8 +530,6 @@ func get_current_weapons():
 		current_blades += [BladeType.blade_type.shadow]
 	if glass_blade == true:
 		current_blades += [BladeType.blade_type.glass]
-	if sleek_blade == true:
-		current_blades += [BladeType.blade_type.sleek]
 	return current_blades
 
 # if the enemy is killed
@@ -602,13 +622,21 @@ func load_player_data():
 	# recollect the items obtained
 	var temp_items_collected = PlayerData.items_collected
 	for item in temp_items_collected:
-		picked_up_item(item, false, false)
-		var can_be_spawned_again = false
-		for type in ItemType.repeatable_items:
-			if item == type:
-				can_be_spawned_again = true
-		if !can_be_spawned_again:
-			ItemType.add_spawned_item(item)
+		# does not allow a player to load into a floor with a hurtful charm
+		if item != ItemType.type.hurtful_charm:
+			# pick up item
+			picked_up_item(item, false, false)
+			# check if it can be spawned again
+			var can_be_spawned_again = false
+			for type in ItemType.repeatable_items:
+				if item == type:
+					can_be_spawned_again = true
+			# if the item cannot be spawned again, do not let it spawn
+			if !can_be_spawned_again:
+				ItemType.add_spawned_item(item)
+		# destroys the hurtful charm item
+		else:
+			item_break_sound.play()
 	# refresh the HUD
 	hud.refresh_hearts(player_health)
 	hud.refresh_key_amount(number_of_keys)
@@ -705,6 +733,18 @@ func use_usable_item():
 			add_child(poison_gas)
 			# set the usable item to temp (nothing)
 			current_usable_item = ItemType.type.temp
+			remove_item_from_items_collected(ItemType.type.poison_gas)
+		elif current_usable_item == ItemType.type.rogue_in_a_bottle:
+			# use an item
+			used_usable_item()
+			print("used item")
+			# spawn the poison gas
+			var tiny_rogue = TINY_ROGUE.instantiate()
+			get_parent().add_child(tiny_rogue)
+			tiny_rogue.global_position = global_position
+			## set the usable item to temp (nothing)
+			current_usable_item = ItemType.type.temp
+			remove_item_from_items_collected(ItemType.type.rogue_in_a_bottle)
 		else:
 			pass
 
@@ -732,6 +772,7 @@ func remove_item_from_items_collected(item_to_remove : ItemType.type):
 		for i in range(0, items_collected.size()):
 			if items_collected[i] == item_to_remove:
 				items_collected.remove_at(i)
+				item_break_sound.play()
 				return
 
 # when the player dashes
@@ -764,16 +805,27 @@ func _on_after_image_spawn_timer_timeout():
 		# reset the after images
 		after_images = 0
 
-# spawns the protective charm spawn and sets it as the current pet
-func protective_charm_spawn():
-	var spawn = PROTECTIVE_CHARM_SPAWN.instantiate()
-	add_child(spawn)
-	current_pet = spawn
-
-# when the protective charm spawn dies
-func protective_charm_spawn_died():
-	# remove the protective charm from the items collected and UI
-	remove_item_from_items_collected(ItemType.type.protective_charm)
-	hud.remove_item_from_ui(ItemType.type.protective_charm)
+# when a pet dies
+func pet_died(pet_item : ItemType.type):
+	# remove the pet_item from the items collected and UI
+	remove_item_from_items_collected(pet_item)
+	hud.remove_item_from_ui(pet_item)
 	# remove the current pet
 	current_pet = null
+
+func add_pet(pet_item : ItemType.type):
+	if current_pet != null:
+		current_pet.queue_free()
+		remove_item_from_items_collected(current_pet_item)
+		hud.remove_item_from_ui(current_pet_item)
+	
+	var spawn = null
+	if pet_item == ItemType.type.protective_charm:
+		spawn = PROTECTIVE_CHARM_SPAWN.instantiate()
+	elif pet_item == ItemType.type.hurtful_charm:
+		spawn = HURTFUL_CHARM_SPAWN.instantiate()
+	
+	if spawn !=  null:
+		current_pet_item = pet_item
+		add_child(spawn)
+		current_pet = spawn

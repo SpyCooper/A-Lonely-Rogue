@@ -1,0 +1,110 @@
+[gd_scene load_steps=15 format=3 uid="uid://btl7fq5v4uej2"]
+
+[ext_resource type="Script" path="res://Scripts/pet/tiny_rogue.gd" id="1_sr743"]
+[ext_resource type="Shader" uid="uid://dlroce5v6b0te" path="res://Scripts/shaders/player.tres" id="2_ipl3t"]
+[ext_resource type="Texture2D" uid="uid://dq8jijmb6ntra" path="res://Assets/Sprites/pets/tiny_rogue.png" id="3_rw61b"]
+[ext_resource type="AudioStream" uid="uid://c120pte0wgt4r" path="res://Assets/Audio/sound effects/woosh_sfx.mp3" id="4_xc845"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8as0q"]
+shader = ExtResource("2_ipl3t")
+shader_parameter/enabled = false
+shader_parameter/tint = Color(0.752941, 0.819608, 0.8, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_anrmi"]
+atlas = ExtResource("3_rw61b")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ponyb"]
+atlas = ExtResource("3_rw61b")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_iqee8"]
+atlas = ExtResource("3_rw61b")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ivhwt"]
+atlas = ExtResource("3_rw61b")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qp28v"]
+atlas = ExtResource("3_rw61b")
+region = Rect2(0, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_occ5r"]
+atlas = ExtResource("3_rw61b")
+region = Rect2(16, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ftges"]
+atlas = ExtResource("3_rw61b")
+region = Rect2(32, 16, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pg3li"]
+atlas = ExtResource("3_rw61b")
+region = Rect2(48, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ekopk"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_anrmi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ponyb")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_iqee8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ivhwt")
+}],
+"loop": true,
+"name": &"default",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qp28v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_occ5r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ftges")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pg3li")
+}],
+"loop": false,
+"name": &"leaving",
+"speed": 5.0
+}]
+
+[node name="tiny_rogue" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_sr743")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_8as0q")
+position = Vector2(0, -4)
+sprite_frames = SubResource("SpriteFrames_ekopk")
+autoplay = "default"
+
+[node name="time_between_knife_throws_timer" type="Timer" parent="."]
+wait_time = 0.1
+
+[node name="woosh_sound" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(0, -4)
+stream = ExtResource("4_xc845")
+bus = &"Sound Effect"
+
+[node name="life_time_timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+
+[node name="leave_animation_timer" type="Timer" parent="."]
+one_shot = true
+
+[connection signal="timeout" from="time_between_knife_throws_timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="time_between_knife_throws_timer" to="." method="_on_time_between_knife_throws_timer_timeout"]
+[connection signal="timeout" from="life_time_timer" to="." method="_on_life_time_timer_timeout"]
+[connection signal="timeout" from="leave_animation_timer" to="." method="_on_leave_animation_timer_timeout"]

@@ -25,6 +25,7 @@ enum type
 	poison_gas,
 	protective_charm,
 	rogue_in_a_bottle,
+	hurtful_charm,
 }
 
 # sets the various item types

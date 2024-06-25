@@ -325,6 +325,15 @@ func item_added(item):
 		item_ui.get_animated_sprite().play("protective_charm")
 		# sets the item's type
 		item_ui.set_item_type(ItemType.type.protective_charm)
+	elif item == ItemType.type.hurtful_charm:
+		# create a item UI slot
+		var item_ui = ITEM_UI_SLOT.instantiate()
+		# add it to the items collected container
+		items_ui_container.add_child(item_ui)
+		# set the graphic to the item
+		item_ui.get_animated_sprite().play("hurtful_charm")
+		# sets the item's type
+		item_ui.set_item_type(ItemType.type.hurtful_charm)
 
 # removes an item from the ui
 func remove_item_from_ui(item_to_remove : ItemType.type):
@@ -349,6 +358,8 @@ func current_usable_item(usable_item : ItemType.type):
 		usable_item_ui_slot.get_animated_sprite().play("dash_boots")
 	elif usable_item == ItemType.type.poison_gas:
 		usable_item_ui_slot.get_animated_sprite().play("poison_gas")
+	elif usable_item == ItemType.type.rogue_in_a_bottle:
+		usable_item_ui_slot.get_animated_sprite().play("rogue_in_a_bottle")
 
 # when the usable item is used for a time
 func used_usable_item(time):

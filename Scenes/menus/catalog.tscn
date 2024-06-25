@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=3 uid="uid://dc0xlg20ucy3n"]
+[gd_scene load_steps=71 format=3 uid="uid://dc0xlg20ucy3n"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Catalog.gd" id="1_mndmm"]
 [ext_resource type="Theme" uid="uid://pv4evjjac8wt" path="res://Assets/general_theme.tres" id="2_umit2"]
@@ -33,6 +33,9 @@
 [ext_resource type="Texture2D" uid="uid://bxhnibool8yuh" path="res://Assets/Sprites/catalog_icons/sleek_blades_icon.png" id="30_608bm"]
 [ext_resource type="Texture2D" uid="uid://dyur5ubofnvf6" path="res://Assets/Sprites/catalog_icons/dash_boots_icon.png" id="31_pitxh"]
 [ext_resource type="Texture2D" uid="uid://cmwm5gbdg4wt3" path="res://Assets/Sprites/catalog_icons/poison_gas_icon.png" id="32_vadho"]
+[ext_resource type="Texture2D" uid="uid://nd1033fxydae" path="res://Assets/Sprites/catalog_icons/protective_charm_icon.png" id="33_8oaud"]
+[ext_resource type="Texture2D" uid="uid://dgasd5e1e6oro" path="res://Assets/Sprites/catalog_icons/rogue_in_a_bottle_icon.png" id="34_ej8l2"]
+[ext_resource type="Texture2D" uid="uid://cxdp1ww8okfv2" path="res://Assets/Sprites/catalog_icons/hurtful_charm_icon.png" id="35_jwmjl"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ck2s6"]
 shader = ExtResource("3_qa2dv")
@@ -127,6 +130,15 @@ shader = ExtResource("3_qa2dv")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ehnth"]
 shader = ExtResource("3_qa2dv")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1gyo0"]
+shader = ExtResource("3_qa2dv")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_r7r4a"]
+shader = ExtResource("3_qa2dv")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_re0nu"]
+shader = ExtResource("3_qa2dv")
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rrvjp"]
 texture = ExtResource("7_88205")
 texture_margin_left = 8.0
@@ -166,6 +178,7 @@ grow_vertical = 2
 theme = ExtResource("2_umit2")
 
 [node name="Monsters" type="TabBar" parent="TabContainer"]
+visible = false
 layout_mode = 2
 theme = ExtResource("2_umit2")
 
@@ -1419,7 +1432,6 @@ text = "- \"I wonder where I can get that cloak?\""
 autowrap_mode = 2
 
 [node name="Items" type="TabBar" parent="TabContainer"]
-visible = false
 layout_mode = 2
 theme = ExtResource("2_umit2")
 
@@ -1677,6 +1689,51 @@ alignment = 2
 icon_alignment = 1
 expand_icon = true
 
+[node name="Spot17" type="Control" parent="TabContainer/Items/ScrollContainer/GridContainer"]
+layout_mode = 2
+
+[node name="Protective_charm_button" type="Button" parent="TabContainer/Items/ScrollContainer/GridContainer/Spot17"]
+material = SubResource("ShaderMaterial_1gyo0")
+layout_mode = 0
+offset_right = 93.0
+offset_bottom = 85.0
+theme_override_constants/icon_max_width = 64
+icon = ExtResource("33_8oaud")
+flat = true
+alignment = 2
+icon_alignment = 1
+expand_icon = true
+
+[node name="Spot18" type="Control" parent="TabContainer/Items/ScrollContainer/GridContainer"]
+layout_mode = 2
+
+[node name="rogue_in_a_bottle_button" type="Button" parent="TabContainer/Items/ScrollContainer/GridContainer/Spot18"]
+material = SubResource("ShaderMaterial_r7r4a")
+layout_mode = 0
+offset_right = 93.0
+offset_bottom = 85.0
+theme_override_constants/icon_max_width = 64
+icon = ExtResource("34_ej8l2")
+flat = true
+alignment = 2
+icon_alignment = 1
+expand_icon = true
+
+[node name="Spot19" type="Control" parent="TabContainer/Items/ScrollContainer/GridContainer"]
+layout_mode = 2
+
+[node name="Hurtful_charm_button" type="Button" parent="TabContainer/Items/ScrollContainer/GridContainer/Spot19"]
+material = SubResource("ShaderMaterial_re0nu")
+layout_mode = 0
+offset_right = 93.0
+offset_bottom = 85.0
+theme_override_constants/icon_max_width = 64
+icon = ExtResource("35_jwmjl")
+flat = true
+alignment = 2
+icon_alignment = 1
+expand_icon = true
+
 [node name="Blank_spot" type="Control" parent="TabContainer/Items/ScrollContainer/GridContainer"]
 layout_mode = 2
 
@@ -1733,8 +1790,7 @@ theme_override_font_sizes/font_size = 48
 text = "Speed Boots"
 horizontal_alignment = 1
 
-[node name="Count" type="Label" parent="TabContainer/Items/Panels/Boots_panel"]
-visible = false
+[node name="Type" type="Label" parent="TabContainer/Items/Panels/Boots_panel"]
 layout_mode = 0
 offset_left = 180.0
 offset_top = 85.0
@@ -1742,7 +1798,7 @@ offset_right = 510.0
 offset_bottom = 130.0
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
-text = "Killed: 000"
+text = "Type: Passive"
 horizontal_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Items/Panels/Boots_panel"]
@@ -1793,8 +1849,7 @@ theme_override_font_sizes/font_size = 48
 text = "Dust Blade"
 horizontal_alignment = 1
 
-[node name="KillCount" type="Label" parent="TabContainer/Items/Panels/Dust_blade_panel"]
-visible = false
+[node name="Type" type="Label" parent="TabContainer/Items/Panels/Dust_blade_panel"]
 layout_mode = 0
 offset_left = 180.0
 offset_top = 85.0
@@ -1802,7 +1857,7 @@ offset_right = 510.0
 offset_bottom = 130.0
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
-text = "Killed: 000"
+text = "Type: Passive"
 horizontal_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Items/Panels/Dust_blade_panel"]
@@ -1869,8 +1924,7 @@ theme_override_font_sizes/font_size = 48
 text = "Glass Blade"
 horizontal_alignment = 1
 
-[node name="KillCount" type="Label" parent="TabContainer/Items/Panels/Glass_blade_panel"]
-visible = false
+[node name="Type" type="Label" parent="TabContainer/Items/Panels/Glass_blade_panel"]
 layout_mode = 0
 offset_left = 180.0
 offset_top = 85.0
@@ -1878,7 +1932,7 @@ offset_right = 510.0
 offset_bottom = 130.0
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
-text = "Killed: 000"
+text = "Type: Passive"
 horizontal_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Items/Panels/Glass_blade_panel"]
@@ -1945,8 +1999,7 @@ theme_override_font_sizes/font_size = 48
 text = "Hearts"
 horizontal_alignment = 1
 
-[node name="KillCount" type="Label" parent="TabContainer/Items/Panels/Heart_panel"]
-visible = false
+[node name="Type" type="Label" parent="TabContainer/Items/Panels/Heart_panel"]
 layout_mode = 0
 offset_left = 180.0
 offset_top = 85.0
@@ -1954,7 +2007,7 @@ offset_right = 510.0
 offset_bottom = 130.0
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
-text = "Killed: 000"
+text = "Type: Passive"
 horizontal_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Items/Panels/Heart_panel"]
@@ -2021,8 +2074,7 @@ theme_override_font_sizes/font_size = 48
 text = "Keys"
 horizontal_alignment = 1
 
-[node name="KillCount" type="Label" parent="TabContainer/Items/Panels/Key_panel"]
-visible = false
+[node name="Type" type="Label" parent="TabContainer/Items/Panels/Key_panel"]
 layout_mode = 0
 offset_left = 180.0
 offset_top = 85.0
@@ -2030,7 +2082,7 @@ offset_right = 510.0
 offset_bottom = 130.0
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
-text = "Killed: 000"
+text = "Type: Passive"
 horizontal_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Items/Panels/Key_panel"]
@@ -2090,7 +2142,6 @@ text = "Poison"
 horizontal_alignment = 1
 
 [node name="KillCount" type="Label" parent="TabContainer/Items/Panels/Poison_panel"]
-visible = false
 layout_mode = 0
 offset_left = 180.0
 offset_top = 85.0
@@ -2098,7 +2149,7 @@ offset_right = 510.0
 offset_bottom = 130.0
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
-text = "Killed: 000"
+text = "Type: Passive"
 horizontal_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Items/Panels/Poison_panel"]
@@ -2165,8 +2216,7 @@ theme_override_font_sizes/font_size = 48
 text = "Quick Blades"
 horizontal_alignment = 1
 
-[node name="KillCount" type="Label" parent="TabContainer/Items/Panels/Quick_blades_panel"]
-visible = false
+[node name="Type" type="Label" parent="TabContainer/Items/Panels/Quick_blades_panel"]
 layout_mode = 0
 offset_left = 180.0
 offset_top = 85.0
@@ -2174,7 +2224,7 @@ offset_right = 510.0
 offset_bottom = 130.0
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
-text = "Killed: 000"
+text = "Type: Passive"
 horizontal_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Items/Panels/Quick_blades_panel"]
@@ -2233,8 +2283,7 @@ theme_override_font_sizes/font_size = 48
 text = "Shadow Blade"
 horizontal_alignment = 1
 
-[node name="KillCount" type="Label" parent="TabContainer/Items/Panels/Shadow_blade_panel"]
-visible = false
+[node name="Type" type="Label" parent="TabContainer/Items/Panels/Shadow_blade_panel"]
 layout_mode = 0
 offset_left = 180.0
 offset_top = 85.0
@@ -2242,7 +2291,7 @@ offset_right = 510.0
 offset_bottom = 130.0
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
-text = "Killed: 000"
+text = "Type: Passive"
 horizontal_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Items/Panels/Shadow_blade_panel"]
@@ -2293,8 +2342,7 @@ theme_override_font_sizes/font_size = 48
 text = "Shadow Flame"
 horizontal_alignment = 1
 
-[node name="KillCount" type="Label" parent="TabContainer/Items/Panels/Shadow_flame_panel"]
-visible = false
+[node name="Type" type="Label" parent="TabContainer/Items/Panels/Shadow_flame_panel"]
 layout_mode = 0
 offset_left = 180.0
 offset_top = 85.0
@@ -2302,7 +2350,7 @@ offset_right = 510.0
 offset_bottom = 130.0
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
-text = "Killed: 000"
+text = "Type: Passive"
 horizontal_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Items/Panels/Shadow_flame_panel"]
@@ -2369,8 +2417,7 @@ theme_override_font_sizes/font_size = 48
 text = "Shadow Heart"
 horizontal_alignment = 1
 
-[node name="KillCount" type="Label" parent="TabContainer/Items/Panels/Shadow_heart_panel"]
-visible = false
+[node name="Type" type="Label" parent="TabContainer/Items/Panels/Shadow_heart_panel"]
 layout_mode = 0
 offset_left = 180.0
 offset_top = 85.0
@@ -2378,7 +2425,7 @@ offset_right = 510.0
 offset_bottom = 130.0
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
-text = "Killed: 000"
+text = "Type: Passive"
 horizontal_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Items/Panels/Shadow_heart_panel"]
@@ -2437,8 +2484,7 @@ theme_override_font_sizes/font_size = 48
 text = "Triple Blades"
 horizontal_alignment = 1
 
-[node name="KillCount" type="Label" parent="TabContainer/Items/Panels/Triple_blades_panel"]
-visible = false
+[node name="Type" type="Label" parent="TabContainer/Items/Panels/Triple_blades_panel"]
 layout_mode = 0
 offset_left = 180.0
 offset_top = 85.0
@@ -2446,7 +2492,7 @@ offset_right = 510.0
 offset_bottom = 130.0
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
-text = "Killed: 000"
+text = "Type: Passive"
 horizontal_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Items/Panels/Triple_blades_panel"]
@@ -2513,8 +2559,7 @@ theme_override_font_sizes/font_size = 48
 text = "Holy Heart"
 horizontal_alignment = 1
 
-[node name="KillCount" type="Label" parent="TabContainer/Items/Panels/holy_heart_panel"]
-visible = false
+[node name="Type" type="Label" parent="TabContainer/Items/Panels/holy_heart_panel"]
 layout_mode = 0
 offset_left = 180.0
 offset_top = 85.0
@@ -2522,7 +2567,7 @@ offset_right = 510.0
 offset_bottom = 130.0
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
-text = "Killed: 000"
+text = "Type: Passive"
 horizontal_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Items/Panels/holy_heart_panel"]
@@ -2559,6 +2604,7 @@ text = "- Only seems to start appearing when someone has chosen the path of dark
 autowrap_mode = 2
 
 [node name="poorly_made_voodoo_doll_panel" type="Panel" parent="TabContainer/Items/Panels"]
+visible = false
 layout_mode = 0
 offset_right = 510.0
 offset_bottom = 513.0
@@ -2581,16 +2627,15 @@ text = "Poorly-made Voodoo Doll"
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="KillCount" type="Label" parent="TabContainer/Items/Panels/poorly_made_voodoo_doll_panel"]
-visible = false
+[node name="Type" type="Label" parent="TabContainer/Items/Panels/poorly_made_voodoo_doll_panel"]
 layout_mode = 0
 offset_left = 180.0
-offset_top = 85.0
+offset_top = 125.0
 offset_right = 510.0
-offset_bottom = 130.0
+offset_bottom = 170.0
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
-text = "Killed: 000"
+text = "Type: Passive"
 horizontal_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Items/Panels/poorly_made_voodoo_doll_panel"]
@@ -2607,7 +2652,7 @@ custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
-text = "- Provides a very short time of immunity from all damage"
+text = "- When taking fatal damage, provides a very short time of immunity from all damage"
 autowrap_mode = 2
 
 [node name="Bio2" type="Label" parent="TabContainer/Items/Panels/poorly_made_voodoo_doll_panel/VBoxContainer"]
@@ -2649,8 +2694,7 @@ theme_override_font_sizes/font_size = 48
 text = "Sleek Blade"
 horizontal_alignment = 1
 
-[node name="KillCount" type="Label" parent="TabContainer/Items/Panels/Sleek_blade_panel"]
-visible = false
+[node name="Type" type="Label" parent="TabContainer/Items/Panels/Sleek_blade_panel"]
 layout_mode = 0
 offset_left = 180.0
 offset_top = 85.0
@@ -2658,7 +2702,7 @@ offset_right = 510.0
 offset_bottom = 130.0
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
-text = "Killed: 000"
+text = "Type: Passive"
 horizontal_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Items/Panels/Sleek_blade_panel"]
@@ -2717,8 +2761,7 @@ theme_override_font_sizes/font_size = 48
 text = "Dash Boots"
 horizontal_alignment = 1
 
-[node name="KillCount" type="Label" parent="TabContainer/Items/Panels/Dash_boots_panel"]
-visible = false
+[node name="Type" type="Label" parent="TabContainer/Items/Panels/Dash_boots_panel"]
 layout_mode = 0
 offset_left = 180.0
 offset_top = 85.0
@@ -2726,7 +2769,7 @@ offset_right = 510.0
 offset_bottom = 130.0
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
-text = "Killed: 000"
+text = "Type: Active"
 horizontal_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Items/Panels/Dash_boots_panel"]
@@ -2794,16 +2837,15 @@ text = "Bottle of Poison Gas"
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="KillCount" type="Label" parent="TabContainer/Items/Panels/poison_gas_panel"]
-visible = false
+[node name="Type" type="Label" parent="TabContainer/Items/Panels/poison_gas_panel"]
 layout_mode = 0
-offset_left = 180.0
-offset_top = 85.0
-offset_right = 510.0
-offset_bottom = 130.0
+offset_left = 177.0
+offset_top = 125.0
+offset_right = 507.0
+offset_bottom = 170.0
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
-text = "Killed: 000"
+text = "Type: Active"
 horizontal_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Items/Panels/poison_gas_panel"]
@@ -2820,7 +2862,7 @@ custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
-text = "- Usable item"
+text = "- Single use usable item"
 autowrap_mode = 2
 
 [node name="Bio2" type="Label" parent="TabContainer/Items/Panels/poison_gas_panel/VBoxContainer"]
@@ -2845,6 +2887,234 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
 text = "- Seems to be different in color to monsters poison"
+autowrap_mode = 2
+
+[node name="protective_charm_panel" type="Panel" parent="TabContainer/Items/Panels"]
+visible = false
+layout_mode = 0
+offset_right = 510.0
+offset_bottom = 513.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_wrmxr")
+
+[node name="Sprite2D" type="Sprite2D" parent="TabContainer/Items/Panels/protective_charm_panel"]
+position = Vector2(107, 96)
+scale = Vector2(9.0625, 9.0625)
+texture = ExtResource("33_8oaud")
+
+[node name="Title" type="Label" parent="TabContainer/Items/Panels/protective_charm_panel"]
+layout_mode = 0
+offset_left = 180.0
+offset_top = 34.0
+offset_right = 510.0
+offset_bottom = 79.0
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 48
+text = "Protective Charm"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Type" type="Label" parent="TabContainer/Items/Panels/protective_charm_panel"]
+layout_mode = 0
+offset_left = 180.0
+offset_top = 125.0
+offset_right = 510.0
+offset_bottom = 170.0
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "Type: Pet"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Items/Panels/protective_charm_panel"]
+layout_mode = 0
+offset_left = 43.0
+offset_top = 174.0
+offset_right = 464.0
+offset_bottom = 505.0
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Bio" type="Label" parent="TabContainer/Items/Panels/protective_charm_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- Spawns a fast-moving star that can protect the wielder"
+autowrap_mode = 2
+
+[node name="Bio2" type="Label" parent="TabContainer/Items/Panels/protective_charm_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- The star can get hit with projectiles"
+autowrap_mode = 2
+
+[node name="Bio3" type="Label" parent="TabContainer/Items/Panels/protective_charm_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- Star can only take so many hits before the charm breaks"
+autowrap_mode = 2
+
+[node name="Bio4" type="Label" parent="TabContainer/Items/Panels/protective_charm_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- Only one pet can be active"
+autowrap_mode = 2
+
+[node name="rogue_in_a_bottle_panel" type="Panel" parent="TabContainer/Items/Panels"]
+visible = false
+layout_mode = 0
+offset_right = 510.0
+offset_bottom = 513.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_wrmxr")
+
+[node name="Sprite2D" type="Sprite2D" parent="TabContainer/Items/Panels/rogue_in_a_bottle_panel"]
+position = Vector2(107, 96)
+scale = Vector2(9.0625, 9.0625)
+texture = ExtResource("34_ej8l2")
+
+[node name="Title" type="Label" parent="TabContainer/Items/Panels/rogue_in_a_bottle_panel"]
+layout_mode = 0
+offset_left = 180.0
+offset_top = 34.0
+offset_right = 510.0
+offset_bottom = 79.0
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 48
+text = "Rogue-In-A-Bottle"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Type" type="Label" parent="TabContainer/Items/Panels/rogue_in_a_bottle_panel"]
+layout_mode = 0
+offset_left = 180.0
+offset_top = 125.0
+offset_right = 510.0
+offset_bottom = 170.0
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "Type: Active"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Items/Panels/rogue_in_a_bottle_panel"]
+layout_mode = 0
+offset_left = 43.0
+offset_top = 174.0
+offset_right = 464.0
+offset_bottom = 505.0
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Bio" type="Label" parent="TabContainer/Items/Panels/rogue_in_a_bottle_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- Spawns a tiny rogue to assist the user"
+autowrap_mode = 2
+
+[node name="Bio2" type="Label" parent="TabContainer/Items/Panels/rogue_in_a_bottle_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- Tiny rogues throw a flurry of knives for a short time, then leave"
+autowrap_mode = 2
+
+[node name="Bio3" type="Label" parent="TabContainer/Items/Panels/rogue_in_a_bottle_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- How'd he get in there?"
+autowrap_mode = 2
+
+[node name="hurtful_charm_panel" type="Panel" parent="TabContainer/Items/Panels"]
+visible = false
+layout_mode = 0
+offset_right = 510.0
+offset_bottom = 513.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_wrmxr")
+
+[node name="Sprite2D" type="Sprite2D" parent="TabContainer/Items/Panels/hurtful_charm_panel"]
+position = Vector2(107, 96)
+scale = Vector2(9.0625, 9.0625)
+texture = ExtResource("35_jwmjl")
+
+[node name="Title" type="Label" parent="TabContainer/Items/Panels/hurtful_charm_panel"]
+layout_mode = 0
+offset_left = 180.0
+offset_top = 34.0
+offset_right = 510.0
+offset_bottom = 79.0
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 48
+text = "Hurtful Charm"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Type" type="Label" parent="TabContainer/Items/Panels/hurtful_charm_panel"]
+layout_mode = 0
+offset_left = 180.0
+offset_top = 85.0
+offset_right = 510.0
+offset_bottom = 130.0
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "Type: Pet"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Items/Panels/hurtful_charm_panel"]
+layout_mode = 0
+offset_left = 43.0
+offset_top = 174.0
+offset_right = 464.0
+offset_bottom = 505.0
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Bio" type="Label" parent="TabContainer/Items/Panels/hurtful_charm_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- Spawns a ball of shadow flame that lasts for 1 floor"
+autowrap_mode = 2
+
+[node name="Bio2" type="Label" parent="TabContainer/Items/Panels/hurtful_charm_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- The ball damages any enemy that touches it"
+autowrap_mode = 2
+
+[node name="Bio3" type="Label" parent="TabContainer/Items/Panels/hurtful_charm_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- Cannot be destroyed"
+autowrap_mode = 2
+
+[node name="Bio5" type="Label" parent="TabContainer/Items/Panels/hurtful_charm_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- Only one pet can be active"
+autowrap_mode = 2
+
+[node name="Bio4" type="Label" parent="TabContainer/Items/Panels/hurtful_charm_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- Why would you wear this?"
 autowrap_mode = 2
 
 [node name="Close_button" type="Button" parent="."]
@@ -2890,4 +3160,7 @@ text = "X"
 [connection signal="pressed" from="TabContainer/Items/ScrollContainer/GridContainer/Spot14/Sleek_blade_button" to="." method="_on_sleek_blade_button_pressed"]
 [connection signal="pressed" from="TabContainer/Items/ScrollContainer/GridContainer/Spot15/Dash_boots_button" to="." method="_on_dash_boots_button_pressed"]
 [connection signal="pressed" from="TabContainer/Items/ScrollContainer/GridContainer/Spot16/Poison_gas_button" to="." method="_on_poison_gas_button_pressed"]
+[connection signal="pressed" from="TabContainer/Items/ScrollContainer/GridContainer/Spot17/Protective_charm_button" to="." method="_on_protective_charm_button_pressed"]
+[connection signal="pressed" from="TabContainer/Items/ScrollContainer/GridContainer/Spot18/rogue_in_a_bottle_button" to="." method="_on_rogue_in_a_bottle_button_pressed"]
+[connection signal="pressed" from="TabContainer/Items/ScrollContainer/GridContainer/Spot19/Hurtful_charm_button" to="." method="_on_hurtful_charm_button_pressed"]
 [connection signal="pressed" from="Close_button" to="." method="_on_close_button_pressed"]

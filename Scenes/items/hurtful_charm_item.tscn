@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://i675dunb3woi"]
+
+[ext_resource type="PackedScene" uid="uid://jtiqth444hdl" path="res://Scenes/item.tscn" id="1_bmfcx"]
+[ext_resource type="Texture2D" uid="uid://dh85ichhvi5y2" path="res://Assets/Sprites/items/Items.png" id="2_4yb6q"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tsbdg"]
+atlas = ExtResource("2_4yb6q")
+region = Rect2(288, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_goh84"]
+atlas = ExtResource("2_4yb6q")
+region = Rect2(288, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_b3ayp"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tsbdg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_goh84")
+}],
+"loop": true,
+"name": &"default",
+"speed": 3.0
+}]
+
+[node name="hurtful_charm_item" type="Node2D"]
+z_index = 1
+
+[node name="item" parent="." instance=ExtResource("1_bmfcx")]
+item_type = 22
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(1, 0)
+sprite_frames = SubResource("SpriteFrames_b3ayp")
+autoplay = "default"
+offset = Vector2(-1, 0)

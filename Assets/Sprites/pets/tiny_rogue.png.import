@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bsax0geoljr8g"
-path="res://.godot/imported/protective_charm_spawn.png-741994497acaf945464dcf9ca72a7bbe.ctex"
+uid="uid://dq8jijmb6ntra"
+path="res://.godot/imported/tiny_rogue.png-2f6d0683ef2cc25c09b5c2825d9e07ec.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Assets/Sprites/items/protective_charm_spawn.png"
-dest_files=["res://.godot/imported/protective_charm_spawn.png-741994497acaf945464dcf9ca72a7bbe.ctex"]
+source_file="res://Assets/Sprites/pets/tiny_rogue.png"
+dest_files=["res://.godot/imported/tiny_rogue.png-2f6d0683ef2cc25c09b5c2825d9e07ec.ctex"]
 
 [params]
 

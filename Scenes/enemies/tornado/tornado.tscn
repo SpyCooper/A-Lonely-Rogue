@@ -93,4 +93,5 @@ stream = ExtResource("3_etw04")
 autoplay = true
 bus = &"Sound Effect"
 
+[connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

@@ -62,7 +62,6 @@ func _on_body_entered(body):
 				body.add_child(DUST_BLADE_EFFECT.instantiate())
 		# the knife deals damage to the enemies hit
 		body.take_damage(damage, attack_identifer, false)
-	
 	# if the player has glass blade
 	for blade_type in player_ref.get_current_weapons():
 		if blade_type == BladeType.blade_type.glass:
