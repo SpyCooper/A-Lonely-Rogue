@@ -153,7 +153,7 @@ func take_damage(damage, attack_identifer, is_effect):
 		for identifier in attacks_that_hit:
 			if identifier == attack_identifer:
 				attack_can_hit = false
-		# checks if the enemy is spawning or dying
+	# checks if the enemy is spawning or dying
 	if spawning || dying:
 		attack_can_hit = false
 	# if the attack can hit
@@ -303,6 +303,7 @@ func load_player_data():
 			# add dust blades to the player
 			dust_blade = true
 		elif item == ItemType.type.sleek_blades:
+			# increases knife movement speed
 			knife_speed_bonus += ItemType.sleek_blade_speed_bonus
 	# recalculates the attack speed
 	calculate_attack_speed()

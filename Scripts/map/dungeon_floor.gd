@@ -19,7 +19,6 @@ func _ready():
 	animation_player.play("fade_in")
 	fade_in = true
 	fade_timer.start()
-	
 	# when the floor_change signal is sent
 	Events.floor_changed.connect(func(floor_to_be):
 		# starts the fade out effect to switch floors
@@ -28,7 +27,6 @@ func _ready():
 		animation_player.play("fade_out")
 		fade_timer.start()
 		fade_out = true
-		
 		# disables player movement
 		player.player_can_move = false
 		# saves player data to be transfered between scenes

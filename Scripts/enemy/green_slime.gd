@@ -1,5 +1,7 @@
 extends slime
 
+# inherits everything from the slime
+
 # sets the enemy's stats
 # these are different from the blue slimes
 func _ready():

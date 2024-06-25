@@ -27,6 +27,7 @@ enum type
 # sets the spawned items in the floor
 var spawned_items = []
 
+# sets the upgrade values used between the player and morphed shade
 var speed_boots_movement_speed_bonus = 10
 var quick_blades_attack_speed_bonus = 0.25
 var sleek_blade_speed_bonus = 25

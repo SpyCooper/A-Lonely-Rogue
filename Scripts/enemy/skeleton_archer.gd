@@ -91,7 +91,6 @@ func _physics_process(_delta):
 						# plays the basic move animation and sets the playing_hit_animation to false
 						animated_sprite.play("move_left")
 						playing_hit_animation = false
-						is_idle = false
 				## Move right
 				elif current_direction == look_direction.right:
 					if animated_sprite.animation == "hit_left":
@@ -101,8 +100,6 @@ func _physics_process(_delta):
 					elif playing_hit_animation != true || animated_sprite.is_playing() == false:
 						animated_sprite.play("move_right")
 						playing_hit_animation = false
-						is_idle = false
-				
 				is_idle = false
 				## has to use get_speed() to move based on dusted effect
 				move_and_collide(target_position.normalized() * get_speed())
@@ -129,7 +126,6 @@ func _physics_process(_delta):
 					elif playing_hit_animation != true || animated_sprite.is_playing() == false:
 						animated_sprite.play("idle_right")
 						is_idle = true
-
 
 # runs when a knife (or other weapon) hits the enemy
 func take_damage(damage, attack_identifer, is_effect):

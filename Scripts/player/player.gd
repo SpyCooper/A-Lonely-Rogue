@@ -74,14 +74,13 @@ func _ready():
 	attacks_per_second = 1
 	time_to_fire_max = time_to_fire_max / attacks_per_second
 	current_attack_identifier = 0
-	
 	# load the player data, if there is any
 	# used to transfer data between floor
 	load_player_data()
 	Events.player = self
 	# plays the fall animation
 	player_can_move = false
-	
+	# starts the falling animation
 	animated_sprite.hide()
 	falling_shadow_sprite.show()
 	falling_shadow_sprite.play("default")
@@ -97,8 +96,10 @@ func _ready():
 	# if the current floor is 1, hide hud during fall
 	if get_tree().current_scene.name == "Floor1":
 		hud.hide()
+	# refresh the hud
 	hud.refresh_key_amount(number_of_keys)
 	hud.refresh_hearts(player_health, shadow_heart)
+	# start the fall timers
 	fall_timer.start()
 	player_fall_sound_timer.start()
 
@@ -116,7 +117,6 @@ func _physics_process(_delta):
 		var direction = Input.get_vector("MoveLeft", "MoveRight", "MoveUp", "MoveDown")
 		direction.normalized()
 		velocity = direction * get_speed()
-		
 		# controls the animations for the movement
 		if direction.y == -1:
 			if shadow_heart:
@@ -164,10 +164,8 @@ func _physics_process(_delta):
 					animated_sprite.play("idle_down_dark")
 				else:
 					animated_sprite.play("idle_down")
-		
 		# moves the player
 		move_and_slide()
-		
 		# controls throwing knives
 		if Input.is_action_pressed("Attack"):
 			# checks to see if the player can fire
@@ -206,16 +204,19 @@ func _physics_process(_delta):
 
 # runs when an enemy hits the player
 func player_take_damage(is_ms_knife, attack_identifer):
+	# checks if the attack can hit (used for the morphed shade fight
 	var can_hit = true
+	# if the player is dying, attacks cannot hit
 	if dying:
 		can_hit = false
+	# if the attack is a morphed shade knife
 	if is_ms_knife && can_hit:
+		# checks if the knife can hit
 		for attack in attacks_that_have_hit:
 			if attack_identifer == attack:
 				can_hit = false
 		if can_hit:
 			attacks_that_have_hit += [attack_identifer]
-	
 	# if the player is not dying
 	if can_hit:
 		# get hit
@@ -370,7 +371,7 @@ func picked_up_item(item, display_text = true, sound = true):
 		if display_text:
 			hud.display_text("Aquired the Holy Heart!", "You've been blessed!")
 	elif item == ItemType.type.poorly_made_voodoo_doll:
-		# add glass blades to the player
+		# add poorly made voodoo doll to the player
 		poorly_made_voodoo_doll = true
 		# display the item text
 		if display_text:
@@ -408,14 +409,23 @@ func player_adjust_health(change : int):
 		hud.refresh_hearts(player_health, shadow_heart)
 		# if health is <= 0
 		if player_health <= 0:
+			# if the player has a poorly made voodoo doll
 			if poorly_made_voodoo_doll:
+				# set the poorly made voodoo doll to false
 				poorly_made_voodoo_doll = false
+				# set player hp to 1
 				player_health = 1
+				# refresh the hug
 				hud.refresh_hearts(player_health, shadow_heart)
+				# play the burning sound
 				burning_sound.play()
-				voodoo_doll_immunity_timer.start()
+				# set immunity to true
 				immunity = true
+				# start the doll immunity timer
+				voodoo_doll_immunity_timer.start()
+				# light the poorly made voodoo doll on fire
 				hud.play_poorly_made_voodoo_doll_fire()
+			# if the player does not have a poorly made voodoo doll
 			else:
 				# set the time scale to .5
 				Engine.time_scale = 0.5
@@ -493,10 +503,9 @@ func _on_fall_timer_timeout():
 func _on_stand_up_timer_timeout():
 	# show the normal animated sprite
 	animated_sprite.show()
-	
+	# if the player has a shadow_heart, change the sprite
 	if shadow_heart:
 		animated_sprite.play("idle_down_dark")
-	
 	# hide the stand up music
 	stand_up_sprite.hide()
 	# play the backgound music for the floor
@@ -585,13 +594,20 @@ func set_dusted_status(status):
 func is_dusted():
 	return dusted
 
+# when the player enters a room
 func room_entered():
+	# reset the attack identifier
 	current_attack_identifier = 0
+	# reset attack that have hit (used mainly for the morphed shade fight)
 	attacks_that_have_hit = []
 
+# when the voodoo doll immunity timer ends
 func _on_voodoo_doll_immunity_timer_timeout():
+	# set immunity to false
 	immunity = false
+	# remove the poorly made voodoo doll from the items collected
 	for i in range(0, items_collected.size()-1):
 		if items_collected[i] == ItemType.type.poorly_made_voodoo_doll:
 			items_collected.remove_at(i)
+	# remove the poorly made voodoo doll from the items collected ui
 	hud.remove_poorly_made_voodoo_doll()

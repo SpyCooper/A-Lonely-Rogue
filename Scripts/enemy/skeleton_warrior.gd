@@ -129,7 +129,6 @@ func _physics_process(_delta):
 						animated_sprite.play("idle_right")
 						is_idle = true
 
-
 # runs when a knife (or other weapon) hits the enemy
 func take_damage(damage, attack_identifer, is_effect):
 	var attack_can_hit = true

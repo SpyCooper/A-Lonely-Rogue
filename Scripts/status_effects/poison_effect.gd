@@ -19,7 +19,7 @@ func _process(_delta):
 
 # when the timer ends
 func _on_timer_timeout():
-	# deal 1 damage to the enemy
+	# damage the enemy ( 1 damage, attack identifier, is a status effect)
 	get_parent().take_damage(1, 0, true)
 	# toggle poison status
 	get_parent().toggle_poisoned()

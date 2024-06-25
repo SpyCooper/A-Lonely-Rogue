@@ -82,7 +82,6 @@ func _physics_process(_delta):
 		# whenever the gelatinous cube can spawn slime, it will
 		if can_attack:
 			spawn_slimes()
-		
 		# if the player is in the room, the enemy can move, and the game isn't paused
 		if player && can_move && Engine.time_scale != 0.0:
 			# gets the player's position and looks toward it
@@ -133,7 +132,6 @@ func _physics_process(_delta):
 				elif playing_hit_animation != true || animated_sprite.is_playing() == false:
 					animated_sprite.play("move_down")
 					playing_hit_animation = false
-			
 			# moves the gelatinous cube to a distance of 8 to the player
 			if position.distance_to(player_position) > 8:
 				## has to use get_speed() to move based on dusted effect

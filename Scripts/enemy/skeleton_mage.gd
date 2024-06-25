@@ -44,7 +44,7 @@ func wake_up():
 	spawn_timer.start()
 	# the spawn sound in played
 	spawn_sound.play()
-	
+	# starts the attack wait timer
 	attack_wait_timer.start()
 
 # called every frame

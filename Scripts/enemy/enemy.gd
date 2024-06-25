@@ -62,9 +62,23 @@ func wake_up():
 # runs when a knife (or other weapon) hits the enemy
 ## NOTE: this can change between enemies
 func take_damage(damage, attack_identifer, is_effect):
-	health -= damage
-	if health <= 0:
-		enemy_slain()
+	var attack_can_hit = true
+	#if the damage is not an effect
+	if is_effect == false:
+		# checks if an attack with the identifier has hit
+		for identifier in attacks_that_hit:
+			if identifier == attack_identifer:
+				attack_can_hit = false
+	# checks if the enemy is spawning or dying
+	if spawning || dying:
+		attack_can_hit = false
+	# if the attack can hit
+	if attack_can_hit:
+		# deal damage
+		health -= damage
+		# if health <= 0 kills the enemy
+		if health <= 0:
+			enemy_slain()
 
 # defines a basic enemy slain function
 ## NOTE: this can change between enemies for animations

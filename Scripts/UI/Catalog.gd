@@ -859,7 +859,6 @@ func _on_poorly_made_voodoo_doll_button_pressed():
 		# show the item's info panel
 		poorly_made_voodoo_doll_panel.show()
 
-
 # when the sleek blade button is pressed
 func _on_sleek_blade_button_pressed():
 	# clear the into panel

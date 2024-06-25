@@ -29,7 +29,6 @@ func _ready():
 		door_left_locked = door_visual_left.is_locked()
 	if door_visual_right != null:
 		door_right_locked = door_visual_right.is_locked()
-	
 	# resets the floor key sprites
 	reset_key_sprites()
 

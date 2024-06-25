@@ -22,6 +22,7 @@ func spawned(click_position, dust_blade_active, current_attack_identifier, knife
 	dust_player = dust_blade_active
 	if dust_blade_active:
 		animated_sprite.play("dust_blade")
+	# increase the speed of the knife based on the speed bonus
 	speed += knife_speed_bonus
 
 # runs on every frane
@@ -34,6 +35,7 @@ func _on_body_entered(body):
 	# checks if the object is the player
 	if body is Player:
 		# the knife deals damage to the enemies hit
+		# damage player (it is not a morphed_shade attack, attack_identifer doesn't matter so 0)
 		body.player_take_damage(true, attack_identifer)
 		# if a dust blade was obtained
 		if dust_player:

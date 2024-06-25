@@ -295,12 +295,14 @@ func item_added(item):
 		# set the graphic to the item
 		item_ui.get_animated_sprite().play("sleek_blade")
 
+# removes the poorly made voodoo doll from the ui
 func remove_poorly_made_voodoo_doll():
 	var item_ui_slots = items_ui_container.get_children()
 	for ui in item_ui_slots:
 		if ui.get_animated_sprite().animation == "poorly_made_voodoo_fire":
 			ui.queue_free()
 
+# plays the poorly made voodoo doll fire icon
 func play_poorly_made_voodoo_doll_fire():
 	var item_ui_slots = items_ui_container.get_children()
 	for ui in item_ui_slots:

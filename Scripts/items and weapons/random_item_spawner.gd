@@ -87,16 +87,13 @@ func spawn_item():
 			item_types_array[random_item_key] != ItemType.type.sleek_blades):
 				# mark that the item has already been spawned
 				item_has_spawned = true
-		
 		## checks if the item can be spawned
-		
 		# checks if the item type is a holy heart
 		if item_types_array[random_item_key] == ItemType.type.holy_heart:
 			# checks to see if the player has collected a shadow_heart
 			if Events.player.shadow_heart_collected != true:
 				# if the player hasn't collected shadow_heart and the type was holy_heart, the item cannot spawn
 				item_can_spawn = false
-	
 	# if the item is not spawned and can spawned
 	if item_has_spawned == false && item_can_spawn == true:
 		# spawn the item

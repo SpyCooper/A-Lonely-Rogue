@@ -8,6 +8,5 @@ func _on_body_entered(body):
 	# it is assumed to be the player
 	if body is Player:
 		body.picked_up_item(item_type)
-	
 	# removes the item from the screen
 	get_parent().queue_free()

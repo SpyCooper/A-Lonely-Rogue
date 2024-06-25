@@ -78,7 +78,6 @@ func _physics_process(_delta):
 				## has to use get_speed() to move based on dusted effect
 				move_and_collide(target_position.normalized() * get_speed())
 
-
 # runs when a knife (or other weapon) hits the enemy
 func take_damage(damage, attack_identifer, is_effect):
 	var attack_can_hit = true

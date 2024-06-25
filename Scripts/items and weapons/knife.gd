@@ -28,7 +28,7 @@ func spawned(click_position, blade_type, player, current_attack_identifier, knif
 	move_direction = click_position
 	look_at(position + move_direction)
 	attack_identifer = current_attack_identifier
-	
+	# adds speed to the knife based on knife speed bonus
 	speed += knife_speed_bonus
 
 # runs on every frane
@@ -71,7 +71,6 @@ func _on_body_entered(body):
 			glass_explosion_spawn.position = position
 			get_parent().add_child(glass_explosion_spawn)
 			glass_explosion_spawn.emitting = true
-	
 	# removes the knife from the screen
 	queue_free()
 
