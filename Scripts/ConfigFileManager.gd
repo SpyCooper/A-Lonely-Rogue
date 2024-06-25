@@ -14,6 +14,7 @@ func _ready():
 		config.set_value("keybinding", "MoveRight", "D")
 		config.set_value("keybinding", "MoveLeft", "A")
 		config.set_value("keybinding", "Attack", "mouse_1")
+		config.set_value("keybinding", "UseItem", "Space")
 		config.set_value("keybinding", "Pause", "Escape")
 		# set default audio settings
 		config.set_value("audio", "master_volume", 1.0)

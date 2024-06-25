@@ -46,9 +46,9 @@ text = "Close"
 [node name="Sound_sliders" type="GridContainer" parent="Panel"]
 layout_mode = 0
 offset_left = 543.0
-offset_top = 417.0
+offset_top = 472.0
 offset_right = 543.0
-offset_bottom = 513.0
+offset_bottom = 568.0
 theme_override_constants/v_separation = 48
 
 [node name="master_sound" type="Control" parent="Panel/Sound_sliders"]
@@ -126,18 +126,15 @@ horizontal_alignment = 2
 
 [node name="KeyBinds" type="VBoxContainer" parent="Panel"]
 layout_mode = 1
-anchors_preset = 8
+anchors_preset = 5
 anchor_left = 0.5
-anchor_top = 0.5
 anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -274.0
-offset_top = -245.0
-offset_right = -274.0
-offset_bottom = -41.0
+offset_left = -293.0
+offset_top = 115.0
+offset_right = -293.0
+offset_bottom = 390.0
 grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 51
+theme_override_constants/separation = 55
 
 [node name="Move_up" type="Control" parent="Panel/KeyBinds"]
 layout_mode = 2
@@ -239,8 +236,27 @@ theme = ExtResource("2_srt6f")
 theme_override_font_sizes/font_size = 32
 text = "Right Mouse Button"
 
+[node name="Use Item" type="Control" parent="Panel/KeyBinds"]
+layout_mode = 2
+
+[node name="use_item_label" type="Label" parent="Panel/KeyBinds/Use Item"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 23.0
+theme = ExtResource("2_srt6f")
+theme_override_font_sizes/font_size = 32
+text = "Use Item"
+
+[node name="Use_item_button" type="Button" parent="Panel/KeyBinds/Use Item"]
+layout_mode = 0
+offset_left = 189.0
+offset_right = 566.0
+offset_bottom = 42.0
+theme = ExtResource("2_srt6f")
+theme_override_font_sizes/font_size = 32
+text = "Space"
+
 [node name="Awaiting_input" type="ColorRect" parent="Panel"]
-visible = false
 layout_mode = 0
 offset_right = 1280.0
 offset_bottom = 720.0
@@ -265,7 +281,7 @@ offset_right = 769.0
 offset_bottom = 397.0
 theme = ExtResource("2_srt6f")
 theme_override_font_sizes/font_size = 16
-text = "Esc to quit"
+text = "]]] to quit"
 horizontal_alignment = 1
 
 [connection signal="pressed" from="Panel/close_options_button" to="." method="_on_close_options_button_pressed"]
@@ -277,3 +293,4 @@ horizontal_alignment = 1
 [connection signal="pressed" from="Panel/KeyBinds/Move_left/left_button" to="." method="_on_left_button_pressed"]
 [connection signal="pressed" from="Panel/KeyBinds/Move_right/right_button" to="." method="_on_right_button_pressed"]
 [connection signal="pressed" from="Panel/KeyBinds/Throw/throw_button" to="." method="_on_throw_button_pressed"]
+[connection signal="pressed" from="Panel/KeyBinds/Use Item/Use_item_button" to="." method="_on_use_item_button_pressed"]

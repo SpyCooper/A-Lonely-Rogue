@@ -15,6 +15,8 @@ extends Control
 @onready var left_button = $Panel/KeyBinds/Move_left/left_button
 @onready var right_button = $Panel/KeyBinds/Move_right/right_button
 @onready var throw_button = $Panel/KeyBinds/Throw/throw_button
+@onready var use_item_button = $"Panel/KeyBinds/Use Item/Use_item_button"
+@onready var close_input_screen_text = $Panel/Awaiting_input/sub_text
 
 # variables
 var action_queued
@@ -31,6 +33,8 @@ func _ready():
 	load_keybindings_from_settings()
 	# load in the audio settings
 	load_audio_from_settings()
+	# set the pause menu button
+	close_input_screen_text.text = InputMap.action_get_events("Pause")[0].as_text() + " to quit"
 
 # when the close button is pressed, hide the menu
 func _on_close_options_button_pressed():
@@ -75,38 +79,33 @@ func _on_sfx_sound_slider_value_changed(value):
 
 # when the up keybinding is pressed
 func _on_up_button_pressed():
-	# await input
-	awaiting_input.show()
 	action_queued = "MoveUp"
-	checking_input = true
+	input_screen_open()
 
 # when the down keybinding is pressed
 func _on_down_button_pressed():
-	# await input
-	awaiting_input.show()
 	action_queued = "MoveDown"
-	checking_input = true
+	input_screen_open()
 
 # when the left keybinding is pressed
 func _on_left_button_pressed():
-	# await input
-	awaiting_input.show()
 	action_queued = "MoveLeft"
-	checking_input = true
+	input_screen_open()
 
 # when the right keybinding is pressed
 func _on_right_button_pressed():
-	# await input
-	awaiting_input.show()
 	action_queued = "MoveRight"
-	checking_input = true
+	input_screen_open()
 
 # when the attack keybinding is pressed
 func _on_throw_button_pressed():
-	# await input
-	awaiting_input.show()
 	action_queued = "Attack"
-	checking_input = true
+	input_screen_open()
+
+# when the use item keybinding is pressed
+func _on_use_item_button_pressed():
+	action_queued = "UseItem"
+	input_screen_open()
 
 # when an input is detected
 func _input(event):
@@ -115,7 +114,7 @@ func _input(event):
 		# if the input is a key press
 		if event is InputEventKey:
 			# check if the event was pressed and is not the pause button
-			if event.is_pressed() && event.as_text_key_label() != "Escape":
+			if event.is_pressed() && event.as_text_key_label() != InputMap.action_get_events("Pause")[0].as_text():
 				# add the keybinding to the controls
 				InputMap.action_erase_events(action_queued)
 				InputMap.action_add_event(action_queued, event)
@@ -140,6 +139,7 @@ func check_button_inputs():
 	left_button.text = "%s" % InputMap.action_get_events("MoveLeft")[0].as_text()
 	right_button.text = "%s" % InputMap.action_get_events("MoveRight")[0].as_text()
 	throw_button.text = "%s" % InputMap.action_get_events("Attack")[0].as_text()
+	use_item_button.text = "%s" % InputMap.action_get_events("UseItem")[0].as_text()
 
 # loads the keybindings from the settings
 func load_keybindings_from_settings():
@@ -174,3 +174,7 @@ func input_screen_close():
 	check_button_inputs()
 	# hide the awaiting input screen
 	awaiting_input.hide()
+
+func input_screen_open():
+	awaiting_input.show()
+	checking_input = true
