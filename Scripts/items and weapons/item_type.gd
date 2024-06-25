@@ -20,7 +20,7 @@ enum type
 	poorly_made_voodoo_doll,
 	mysterious_key,
 	holy_key,
-	dashing_boots,
+	dash_boots,
 	sleek_blades
 }
 

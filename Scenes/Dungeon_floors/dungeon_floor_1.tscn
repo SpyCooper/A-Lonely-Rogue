@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://8jxi88fj77dd"]
+[gd_scene load_steps=38 format=3 uid="uid://8jxi88fj77dd"]
 
 [ext_resource type="PackedScene" uid="uid://duv7i8yak343i" path="res://Scenes/HUD.tscn" id="1_80esy"]
 [ext_resource type="Script" path="res://Scripts/map/dungeon_floor.gd" id="1_dvl4e"]
@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dc0xlg20ucy3n" path="res://Scenes/menus/catalog.tscn" id="5_xh0p4"]
 [ext_resource type="Script" path="res://Scripts/map/Transition Camera.gd" id="6_qqo0s"]
 [ext_resource type="Texture2D" uid="uid://drktqhtj5vluu" path="res://Assets/Sprites/map/TileSet.png" id="7_cdgba"]
-[ext_resource type="PackedScene" uid="uid://dahgvmrgtix2i" path="res://Scenes/player.tscn" id="8_sndu2"]
+[ext_resource type="PackedScene" uid="uid://dahgvmrgtix2i" path="res://Scenes/player/player.tscn" id="8_sndu2"]
 [ext_resource type="PackedScene" uid="uid://cj7h10qvuo84a" path="res://Scenes/map/4_door_room.tscn" id="9_ete15"]
 [ext_resource type="PackedScene" uid="uid://x2so2ayusjw6" path="res://Scenes/enemies/slime.tscn" id="10_rrme3"]
 [ext_resource type="PackedScene" uid="uid://cvwlccke1gs7h" path="res://Scenes/map/hallways/2_door_hallway_horizontal.tscn" id="11_5kewh"]
@@ -29,6 +29,7 @@
 [ext_resource type="AudioStream" uid="uid://ciw6spax0xy06" path="res://Assets/Audio/background music/8bit-mix-56351.mp3" id="27_26f5p"]
 [ext_resource type="Script" path="res://Scripts/map/Tutorial.gd" id="28_14004"]
 [ext_resource type="Texture2D" uid="uid://dveuvlvaajxjc" path="res://Assets/Sprites/map/boss_door_symbol.png" id="29_8oo7y"]
+[ext_resource type="PackedScene" uid="uid://ctm641b0fywrf" path="res://Scenes/items/dash_boots_item.tscn" id="30_i730c"]
 
 [sub_resource type="Animation" id="Animation_27xwy"]
 length = 0.001
@@ -118,7 +119,7 @@ texture = ExtResource("7_cdgba")
 [sub_resource type="TileSet" id="TileSet_pnge6"]
 sources/0 = SubResource("TileSetAtlasSource_a4f5t")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_ues4s"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_swu5h"]
 resource_local_to_scene = true
 
 [node name="Floor1" type="Node2D"]
@@ -280,7 +281,7 @@ position = Vector2(-736, 0)
 locked = true
 
 [node name="gelatinous_cube" parent="." instance=ExtResource("13_axlkh")]
-material = SubResource("ShaderMaterial_ues4s")
+material = SubResource("ShaderMaterial_swu5h")
 position = Vector2(-735, -20)
 
 [node name="1_door_down" parent="." instance=ExtResource("14_hs83b")]
@@ -430,6 +431,9 @@ theme_override_colors/font_color = Color(0.376471, 0.231373, 0.227451, 1)
 text = "Press Left Mouse Button to throw knives"
 horizontal_alignment = 1
 autowrap_mode = 2
+
+[node name="dash_boots_item" parent="." instance=ExtResource("30_i730c")]
+position = Vector2(-99, 13)
 
 [connection signal="timeout" from="CanvasLayer/Fade_color/Fade_timer" to="." method="_on_fade_timer_timeout"]
 [connection signal="pressed" from="CanvasLayer/Pause_menu/Buttons_container/Control/Resume_button" to="CanvasLayer/Pause_menu" method="_on_resume_button_pressed"]

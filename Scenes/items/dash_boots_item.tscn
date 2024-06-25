@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://ctm641b0fywrf"]
+
+[ext_resource type="PackedScene" uid="uid://jtiqth444hdl" path="res://Scenes/item.tscn" id="1_c8nye"]
+[ext_resource type="Texture2D" uid="uid://dh85ichhvi5y2" path="res://Assets/Sprites/items/Items.png" id="2_f0goi"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wuer4"]
+atlas = ExtResource("2_f0goi")
+region = Rect2(176, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_spuxr"]
+atlas = ExtResource("2_f0goi")
+region = Rect2(176, 48, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_wbiaw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wuer4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_spuxr")
+}],
+"loop": true,
+"name": &"default",
+"speed": 3.0
+}]
+
+[node name="dash_boots_item" type="Node2D"]
+z_index = 1
+
+[node name="item" parent="." instance=ExtResource("1_c8nye")]
+item_type = 17
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(1, 0)
+sprite_frames = SubResource("SpriteFrames_wbiaw")
+autoplay = "default"
+offset = Vector2(-1, 0)

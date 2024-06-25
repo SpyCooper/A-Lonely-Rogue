@@ -68,6 +68,18 @@ var current_type : BladeType.blade_type = BladeType.blade_type.default
 var knife_scene = load("res://Scenes/knife.tscn")
 var items_collected = []
 
+var dash_boots = false
+var double_tap_timer_max = 0.75
+var double_tap_timer = 0.0
+var last_move = null
+var allow_double_tap = false
+@onready var dash_timer = $Dash_timer
+var dash_speed_boost = 150.0
+var is_dashing = false
+const PLAYER_AFTER_IMAGE = preload("res://Scenes/player/player_after_image.tscn")
+@onready var after_image_spawn_timer = $after_image_spawn_timer
+var after_images = 0
+
 # runs on start
 func _ready():
 	# sets the stats for the player
@@ -108,6 +120,44 @@ func _process(delta):
 	# if the time to fire is above 0, it reduces the timer
 	if time_to_fire > 0:
 		time_to_fire -= delta
+	if double_tap_timer > 0:
+		double_tap_timer -= delta
+
+# on unhandled input
+func _input(event):
+	# if dash boots are active
+	if dash_boots:
+		# if the input is a key and is pressed
+		if event is InputEventKey and event.is_pressed():
+			# if it matches the last move, the double tap timer is going, and double taps are allowed
+			if last_move == event.keycode && double_tap_timer >= 0 && allow_double_tap: 
+				# reset last move
+				last_move = 0
+				# dash in the direction
+				if InputMap.action_get_events("MoveRight")[0].keycode == event.keycode:
+					dash()
+				elif InputMap.action_get_events("MoveLeft")[0].keycode == event.keycode:
+					dash()
+				elif InputMap.action_get_events("MoveDown")[0].keycode == event.keycode:
+					dash()
+				elif InputMap.action_get_events("MoveUp")[0].keycode == event.keycode:
+					dash()
+			else:
+				# sets the last move
+				last_move = event.keycode
+			# resets the double tap timer on any key press
+			double_tap_timer = double_tap_timer_max
+		# if the input is released
+		elif event is InputEventKey and event.is_released():
+			# if the key matches a move, then a double tap is allowed
+			if InputMap.action_get_events("MoveRight")[0].keycode == event.keycode:
+				allow_double_tap = true
+			elif InputMap.action_get_events("MoveLeft")[0].keycode == event.keycode:
+				allow_double_tap = true
+			elif InputMap.action_get_events("MoveDown")[0].keycode == event.keycode:
+				allow_double_tap = true
+			elif InputMap.action_get_events("MoveUp")[0].keycode == event.keycode:
+				allow_double_tap = true
 
 # runs on a set interval (fixed_update)
 func _physics_process(_delta):
@@ -124,24 +174,32 @@ func _physics_process(_delta):
 			else:
 				animated_sprite.play("move_up")
 			lastMove = "move_up"
+			# do not allow a double tap
+			allow_double_tap = false
 		elif direction.y == 1:
 			if shadow_heart:
 				animated_sprite.play("move_down_dark")
 			else:
 				animated_sprite.play("move_down")
 			lastMove = "move_down"
+			# do not allow a double tap
+			allow_double_tap = false
 		elif direction.x < 0:
 			if shadow_heart:
 				animated_sprite.play("move_left_dark")
 			else:
 				animated_sprite.play("move_left")
 			lastMove = "move_left"
+			# do not allow a double tap
+			allow_double_tap = false
 		elif direction.x > 0:
 			if shadow_heart:
 				animated_sprite.play("move_right_dark")
 			else:
 				animated_sprite.play("move_right")
 			lastMove = "move_right"
+			# do not allow a double tap
+			allow_double_tap = false
 		else:
 			# sets the idle animations based on the last movemnet
 			if lastMove == "move_right":
@@ -390,6 +448,15 @@ func picked_up_item(item, display_text = true, sound = true):
 		# add the item to the collected items list on HUD and in player data
 		hud.item_added(item)
 		items_collected += [item]
+	elif item == ItemType.type.dash_boots:
+		# adds the dash boots to the player
+		dash_boots = true
+		# display the item text
+		if display_text:
+			hud.display_text("Aquired a Dash Boots!", "Allows you to dash by double tapping!")
+		# add the item to the collected items list on HUD and in player data
+		hud.item_added(item)
+		items_collected += [item]
 
 # calculate the attack speed
 func calculate_attack_speed():
@@ -556,7 +623,12 @@ func _on_death_timer_timeout():
 
 # returns the speed
 func get_speed():
-	return speed * (1.0 - slow_percentage)
+	# if the player is dashing
+	if is_dashing:
+		# add the dashing speed to the movement speed
+		return speed * (1.0 - slow_percentage) + dash_speed_boost
+	else:
+		return speed * (1.0 - slow_percentage)
 
 # applies the slow
 func apply_slow(slow_perc):
@@ -611,3 +683,33 @@ func _on_voodoo_doll_immunity_timer_timeout():
 			items_collected.remove_at(i)
 	# remove the poorly made voodoo doll from the items collected ui
 	hud.remove_poorly_made_voodoo_doll()
+
+# when the player dashes
+func dash():
+	# start the dash timer
+	dash_timer.start()
+	# set that the player is dashing
+	is_dashing = true
+	# start the after image spawn timer
+	after_image_spawn_timer.start()
+
+# when the dash timer ends
+func _on_dash_timer_timeout():
+	is_dashing = false
+
+# when the after image spawn timer ends
+func _on_after_image_spawn_timer_timeout():
+	# spawn an after image
+	var after_image = PLAYER_AFTER_IMAGE.instantiate()
+	get_parent().add_child(after_image)
+	after_image.global_position = global_position
+	# increment after images
+	after_images += 1
+	# if there aren't 2 after images down
+	if after_images < 3:
+		# start the after image spawn timer
+		after_image_spawn_timer.start()
+	# if there two after images down
+	else:
+		# reset the after images
+		after_images = 0

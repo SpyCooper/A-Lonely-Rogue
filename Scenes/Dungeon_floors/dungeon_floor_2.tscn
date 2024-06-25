@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dc0xlg20ucy3n" path="res://Scenes/menus/catalog.tscn" id="5_olhmr"]
 [ext_resource type="Script" path="res://Scripts/map/Transition Camera.gd" id="6_q3g0b"]
 [ext_resource type="Texture2D" uid="uid://drktqhtj5vluu" path="res://Assets/Sprites/map/TileSet.png" id="7_ujxs0"]
-[ext_resource type="PackedScene" uid="uid://dahgvmrgtix2i" path="res://Scenes/player.tscn" id="8_sxh6v"]
+[ext_resource type="PackedScene" uid="uid://dahgvmrgtix2i" path="res://Scenes/player/player.tscn" id="8_sxh6v"]
 [ext_resource type="PackedScene" uid="uid://c8oq11ct5sm2c" path="res://Scenes/map/3_door_rooms/3_door_no_up.tscn" id="11_ebeb5"]
 [ext_resource type="PackedScene" uid="uid://b1m0opptrag7w" path="res://Scenes/enemies/air_elemental.tscn" id="12_cox8u"]
 [ext_resource type="PackedScene" uid="uid://coxlx2ylhc6q8" path="res://Scenes/map/corner rooms/2_door_up_right.tscn" id="14_5eek1"]

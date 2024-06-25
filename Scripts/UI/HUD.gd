@@ -294,6 +294,13 @@ func item_added(item):
 		items_ui_container.add_child(item_ui)
 		# set the graphic to the item
 		item_ui.get_animated_sprite().play("sleek_blade")
+	elif item == ItemType.type.dash_boots:
+		# create a item UI slot
+		var item_ui = ITEM_UI_SLOT.instantiate()
+		# add it to the items collected container
+		items_ui_container.add_child(item_ui)
+		# set the graphic to the item
+		item_ui.get_animated_sprite().play("dash_boots")
 
 # removes the poorly made voodoo doll from the ui
 func remove_poorly_made_voodoo_doll():

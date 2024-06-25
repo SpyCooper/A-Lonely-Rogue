@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dc0xlg20ucy3n" path="res://Scenes/menus/catalog.tscn" id="6_lf562"]
 [ext_resource type="Script" path="res://Scripts/map/Transition Camera.gd" id="7_mv6n6"]
 [ext_resource type="Texture2D" uid="uid://drktqhtj5vluu" path="res://Assets/Sprites/map/TileSet.png" id="8_mmybn"]
-[ext_resource type="PackedScene" uid="uid://dahgvmrgtix2i" path="res://Scenes/player.tscn" id="9_5soma"]
+[ext_resource type="PackedScene" uid="uid://dahgvmrgtix2i" path="res://Scenes/player/player.tscn" id="9_5soma"]
 [ext_resource type="AudioStream" uid="uid://cwiyog21e6jbs" path="res://Assets/Audio/background music/caves-of-dawn-10376.mp3" id="11_71p1x"]
 [ext_resource type="PackedScene" uid="uid://dqkgb1e1soyjs" path="res://Scenes/map/single door rooms/1_door_down.tscn" id="11_e28pd"]
 [ext_resource type="PackedScene" uid="uid://cj7h10qvuo84a" path="res://Scenes/map/4_door_room.tscn" id="12_emqrm"]

@@ -8,7 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://dc0xlg20ucy3n" path="res://Scenes/menus/catalog.tscn" id="6_6xsaq"]
 [ext_resource type="Script" path="res://Scripts/map/Transition Camera.gd" id="7_ulkmb"]
 [ext_resource type="Texture2D" uid="uid://drktqhtj5vluu" path="res://Assets/Sprites/map/TileSet.png" id="8_fhr48"]
-[ext_resource type="PackedScene" uid="uid://dahgvmrgtix2i" path="res://Scenes/player.tscn" id="9_kpeox"]
+[ext_resource type="PackedScene" uid="uid://dahgvmrgtix2i" path="res://Scenes/player/player.tscn" id="9_kpeox"]
 [ext_resource type="AudioStream" uid="uid://de1jje6nelok4" path="res://Assets/Audio/background music/bgm029-dark-fantasy-horror-mystery-horror-148349.mp3" id="10_arma7"]
 [ext_resource type="PackedScene" uid="uid://xbughqfxfbr6" path="res://Scenes/map/single door rooms/1_door_up.tscn" id="11_gl4f5"]
 [ext_resource type="PackedScene" uid="uid://bk3i0p3dmgy8i" path="res://Scenes/map/hallways/2_door_hallway_vertical.tscn" id="12_ch4v7"]

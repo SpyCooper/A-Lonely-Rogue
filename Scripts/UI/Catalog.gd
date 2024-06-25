@@ -112,6 +112,10 @@ var poorly_made_voodoo_doll_unlocked = false
 @onready var sleek_blade_button = $TabContainer/Items/ScrollContainer/GridContainer/Spot14/Sleek_blade_button
 @onready var sleek_blade_panel = $TabContainer/Items/Panels/Sleek_blade_panel
 var sleek_blade_unlocked = false
+@onready var dash_boots_button = $TabContainer/Items/ScrollContainer/GridContainer/Spot15/Dash_boots_button
+@onready var dash_boots_panel = $TabContainer/Items/Panels/Dash_boots_panel
+var dash_boots_unlocked = false
+
 # on start
 func _ready():
 	# set the catalog reference
@@ -277,6 +281,10 @@ func load_data():
 			sleek_blade_unlocked = data["sleek_blade_unlocked"]
 			if sleek_blade_unlocked:
 				sleek_blade_button.material.shader = null
+			# dash boots check
+			dash_boots_unlocked = data["dash_boots_unlocked"]
+			if dash_boots_unlocked:
+				dash_boots_button.material.shader = null
 
 # goes through all the panels and hides all of them
 func clear_panel():
@@ -312,6 +320,7 @@ func clear_panel():
 	holy_heart_panel.hide()
 	poorly_made_voodoo_doll_panel.hide()
 	sleek_blade_panel.hide()
+	dash_boots_panel.hide()
 
 ## ---------------------------------- Enemies --------------------------------------------------------
 
@@ -713,6 +722,13 @@ func unlock_item(item):
 			sleek_blade_button.material.shader = null
 			# set the item to be unlocked
 			sleek_blade_unlocked = true
+	elif item == ItemType.type.dash_boots:
+		# if the item is locked
+		if !dash_boots_unlocked:
+			# remove the locked shader
+			dash_boots_button.material.shader = null
+			# set the item to be unlocked
+			dash_boots_unlocked = true
 	
 	save_items()
 
@@ -739,6 +755,7 @@ func found_items():
 		"holy_heart_unlocked"  : holy_heart_unlocked,
 		"poorly_made_voodoo_doll_unlocked"  : poorly_made_voodoo_doll_unlocked,
 		"sleek_blade_unlocked" : sleek_blade_unlocked,
+		"dash_boots_unlocked" : dash_boots_unlocked,
 	}
 	return data
 
@@ -867,3 +884,12 @@ func _on_sleek_blade_button_pressed():
 	if sleek_blade_unlocked:
 		# show the item's info panel
 		sleek_blade_panel.show()
+
+# when the dash boots button is pressed
+func _on_dash_boots_button_pressed():
+	# clear the into panel
+	clear_panel()
+	# if the item is unlocked
+	if dash_boots_unlocked:
+		# show the item's info panel
+		dash_boots_panel.show()

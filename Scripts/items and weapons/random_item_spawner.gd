@@ -18,6 +18,7 @@ const HEART_1_PICKUP = preload("res://Scenes/items/heart_1_pickup.tscn")
 const HEART_2_PICKUP = preload("res://Scenes/items/heart_2_pickup.tscn")
 const HOLY_HEART_ITEM = preload("res://Scenes/items/holy_heart_item.tscn")
 const POORLY_MADE_VOODOO_DOLL_ITEM = preload("res://Scenes/items/poorly_made_voodoo_doll_item.tscn")
+const DASH_BOOTS_ITEM = preload("res://Scenes/items/dash_boots_item.tscn")
 
 # random number generator
 var rng = RandomNumberGenerator.new()
@@ -39,6 +40,7 @@ var item_array = [
 	HOLY_HEART_ITEM,
 	POORLY_MADE_VOODOO_DOLL_ITEM,
 	SLEEK_BLADE_ITEM,
+	DASH_BOOTS_ITEM,
 	]
 # variable of item types in the same position of the item objects
 var item_types_array = [
@@ -57,6 +59,7 @@ var item_types_array = [
 	ItemType.type.holy_heart,
 	ItemType.type.poorly_made_voodoo_doll,
 	ItemType.type.sleek_blades,
+	ItemType.type.dash_boots
 	]
 
 # on start

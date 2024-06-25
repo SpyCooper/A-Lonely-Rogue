@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://edhqnytou7yt"]
+[gd_scene load_steps=32 format=3 uid="uid://edhqnytou7yt"]
 
 [ext_resource type="Script" path="res://Scripts/UI/item_ui_slot.gd" id="1_l3s7d"]
 [ext_resource type="Texture2D" uid="uid://buoupuxk2qtji" path="res://Assets/Sprites/catalog_icons/dust_blade_icon.png" id="1_rdpab"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://b5aq6dmwlrckm" path="res://Assets/Sprites/catalog_icons/boots_icon.png" id="7_ojjqn"]
 [ext_resource type="Texture2D" uid="uid://65ti8e35t5bh" path="res://Assets/Sprites/catalog_icons/triple_blades_icon.png" id="8_wptkn"]
 [ext_resource type="Texture2D" uid="uid://cjonbmn8iaqkl" path="res://Assets/Sprites/catalog_icons/glass_blade_icon.png" id="9_woyga"]
+[ext_resource type="Texture2D" uid="uid://dyur5ubofnvf6" path="res://Assets/Sprites/catalog_icons/dash_boots_icon.png" id="11_3oghb"]
 [ext_resource type="Texture2D" uid="uid://bdq2hockskod5" path="res://Assets/Sprites/catalog_icons/poorly_made_voodoo_doll_icon.png" id="12_aq0hj"]
 [ext_resource type="Texture2D" uid="uid://d0l7ggcqcranr" path="res://Assets/Sprites/items/buring_voodoo_doll.png" id="13_x6q0j"]
 [ext_resource type="Texture2D" uid="uid://bxhnibool8yuh" path="res://Assets/Sprites/catalog_icons/sleek_blades_icon.png" id="14_ed182"]
@@ -45,6 +46,10 @@ region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yypc1"]
 atlas = ExtResource("8_wptkn")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_n15yf"]
+atlas = ExtResource("11_3oghb")
 region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_frrrf"]
@@ -139,6 +144,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_n15yf")
+}],
+"loop": false,
+"name": &"dash_boots",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_frrrf")
 }],
 "loop": false,
@@ -189,4 +202,4 @@ texture = ExtResource("2_kll03")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(9.84615, 7.38462)
 sprite_frames = SubResource("SpriteFrames_51jbf")
-animation = &"sleek_blade"
+animation = &"dash_boots"
