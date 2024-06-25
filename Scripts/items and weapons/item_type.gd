@@ -25,6 +25,18 @@ enum type
 	poison_gas,
 }
 
+# sets the various item types
+var repeatable_items = [
+	type.health_2,
+	type.health_1,
+	type.speed_boots,
+	type.quick_blades,
+	type.key,
+	type.sleek_blades,
+	type.shadow_heart,
+]
+
+
 # sets the spawned items in the floor
 var spawned_items = []
 

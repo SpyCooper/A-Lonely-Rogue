@@ -166,6 +166,7 @@ grow_vertical = 2
 theme = ExtResource("2_umit2")
 
 [node name="Monsters" type="TabBar" parent="TabContainer"]
+visible = false
 layout_mode = 2
 theme = ExtResource("2_umit2")
 
@@ -1419,7 +1420,6 @@ text = "- \"I wonder where I can get that cloak?\""
 autowrap_mode = 2
 
 [node name="Items" type="TabBar" parent="TabContainer"]
-visible = false
 layout_mode = 2
 theme = ExtResource("2_umit2")
 
@@ -2406,6 +2406,14 @@ theme_override_font_sizes/font_size = 32
 text = "- Gain health on every few kills but cannot heal by normal hearts"
 autowrap_mode = 2
 
+[node name="Bio3" type="Label" parent="TabContainer/Items/Panels/Shadow_heart_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "-  The heart heals those who already follow the shadows"
+autowrap_mode = 2
+
 [node name="Triple_blades_panel" type="Panel" parent="TabContainer/Items/Panels"]
 visible = false
 layout_mode = 0
@@ -2551,7 +2559,6 @@ text = "- Only seems to start appearing when someone has chosen the path of dark
 autowrap_mode = 2
 
 [node name="poorly_made_voodoo_doll_panel" type="Panel" parent="TabContainer/Items/Panels"]
-visible = false
 layout_mode = 0
 offset_right = 510.0
 offset_bottom = 513.0
@@ -2609,6 +2616,14 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
 text = "- Seems to always look like the person holding it"
+autowrap_mode = 2
+
+[node name="Bio3" type="Label" parent="TabContainer/Items/Panels/poorly_made_voodoo_doll_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- Only one can be used each time someone enters the dungeon"
 autowrap_mode = 2
 
 [node name="Sleek_blade_panel" type="Panel" parent="TabContainer/Items/Panels"]
@@ -2756,6 +2771,7 @@ text = "- How can you wear more than one pair of boots?"
 autowrap_mode = 2
 
 [node name="poison_gas_panel" type="Panel" parent="TabContainer/Items/Panels"]
+visible = false
 layout_mode = 0
 offset_right = 510.0
 offset_bottom = 513.0

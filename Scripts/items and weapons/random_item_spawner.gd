@@ -77,25 +77,26 @@ func _ready():
 # spawns a random item
 func spawn_item():
 	# get a random item from the item_array
-	var random_item_key = rng.randi_range(0, item_array.size())
+	var random_item_key = rng.randi_range(0, item_array.size()-1)
 	var item_has_spawned = false
 	var item_can_spawn = true
 	# for each item in items that have been spawned
 	for item in ItemType.get_spawned_items():
 		# if the item that has been spawned matches the random item
 		if item == item_types_array[random_item_key]:
-			# if the item is not a key or health item
-			if (item_types_array[random_item_key] != ItemType.type.health_2 && 
-			item_types_array[random_item_key] != ItemType.type.health_1 && 
-			item_types_array[random_item_key] != ItemType.type.key && 
-			item_types_array[random_item_key] != ItemType.type.speed_boots && 
-			item_types_array[random_item_key] != ItemType.type.quick_blades && 
-			item_types_array[random_item_key] != ItemType.type.sleek_blades):
-				# mark that the item has already been spawned
-				item_has_spawned = true
+			for type in ItemType.repeatable_items:
+				# if the item is not a repeatable item type
+				if (item_types_array[random_item_key] != type):
+					# mark that the item has already been spawned
+					item_has_spawned = true
 		## checks if the item can be spawned
+		# poorly made voodoo doll check
+		if item_types_array[random_item_key] == ItemType.type.poorly_made_voodoo_doll:
+			# if the poorly made voodoo doll has been collected, it cannot be spawned again
+			if Events.player.can_poorly_made_voodoo_doll_be_spawned == false:
+				item_can_spawn = false
 		# checks if the item type is a holy heart
-		if item_types_array[random_item_key] == ItemType.type.holy_heart:
+		elif item_types_array[random_item_key] == ItemType.type.holy_heart:
 			# checks to see if the player has collected a shadow_heart
 			if Events.player.shadow_heart_collected != true:
 				# if the player hasn't collected shadow_heart and the type was holy_heart, the item cannot spawn

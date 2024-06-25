@@ -59,6 +59,7 @@ var shadow_heart = false
 var shadow_heart_heal_counter = 0
 var shadow_heart_collected = false
 var poorly_made_voodoo_doll = false
+var can_poorly_made_voodoo_doll_be_spawned = true
 @onready var burning_sound = $burning_sound
 @onready var voodoo_doll_immunity_timer = $voodoo_doll_immunity_timer
 var immunity = false
@@ -395,6 +396,8 @@ func picked_up_item(item, display_text = true, sound = true):
 		# add the item to the collected items list on HUD and in player data
 		hud.item_added(item)
 		items_collected += [item]
+		# do not allow the poorly made voodoo doll to be spawned
+		can_poorly_made_voodoo_doll_be_spawned = false
 	elif item == ItemType.type.sleek_blades:
 		# add the sleek blade to the player
 		knife_speed_bonus += ItemType.sleek_blade_speed_bonus
@@ -472,7 +475,10 @@ func player_adjust_health(change : int):
 				# start death timer
 				death_timer.start()
 				# play the death animation
-				animated_sprite.play("death")
+				if shadow_heart:
+					animated_sprite.play("death_dark")
+				else:
+					animated_sprite.play("death")
 
 # returns the current weapons
 func get_current_weapons():
@@ -579,6 +585,12 @@ func load_player_data():
 	var temp_items_collected = PlayerData.items_collected
 	for item in temp_items_collected:
 		picked_up_item(item, false, false)
+		var can_be_spawned_again = false
+		for type in ItemType.repeatable_items:
+			if item == type:
+				can_be_spawned_again = true
+		if !can_be_spawned_again:
+			ItemType.add_spawned_item(item)
 	# refresh the HUD
 	hud.refresh_hearts(player_health)
 	hud.refresh_key_amount(number_of_keys)
@@ -590,6 +602,7 @@ func _on_player_fall_sound_timer_timeout():
 # when the death_timer runs out, the scene resets
 func _on_death_timer_timeout():
 	Engine.time_scale = 1
+	PlayerData.clear_data()
 	get_tree().change_scene_to_file("res://Scenes/Dungeon_floors/dungeon_floor_1.tscn")
 
 # returns the speed
