@@ -1,4 +1,4 @@
-[gd_scene load_steps=71 format=3 uid="uid://dc0xlg20ucy3n"]
+[gd_scene load_steps=75 format=3 uid="uid://dc0xlg20ucy3n"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Catalog.gd" id="1_mndmm"]
 [ext_resource type="Theme" uid="uid://pv4evjjac8wt" path="res://Assets/general_theme.tres" id="2_umit2"]
@@ -36,6 +36,8 @@
 [ext_resource type="Texture2D" uid="uid://nd1033fxydae" path="res://Assets/Sprites/catalog_icons/protective_charm_icon.png" id="33_8oaud"]
 [ext_resource type="Texture2D" uid="uid://dgasd5e1e6oro" path="res://Assets/Sprites/catalog_icons/rogue_in_a_bottle_icon.png" id="34_ej8l2"]
 [ext_resource type="Texture2D" uid="uid://cxdp1ww8okfv2" path="res://Assets/Sprites/catalog_icons/hurtful_charm_icon.png" id="35_jwmjl"]
+[ext_resource type="Texture2D" uid="uid://bl7r5tr8dsooy" path="res://Assets/Sprites/catalog_icons/magically_trapped_rogue_icon.png" id="36_ekr3x"]
+[ext_resource type="Texture2D" uid="uid://21jry0k85pcx" path="res://Assets/Sprites/catalog_icons/dead_rogue_head_icon.png" id="37_rsojq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ck2s6"]
 shader = ExtResource("3_qa2dv")
@@ -139,6 +141,12 @@ shader = ExtResource("3_qa2dv")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_re0nu"]
 shader = ExtResource("3_qa2dv")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_rl58c"]
+shader = ExtResource("3_qa2dv")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_d0sxx"]
+shader = ExtResource("3_qa2dv")
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rrvjp"]
 texture = ExtResource("7_88205")
 texture_margin_left = 8.0
@@ -176,6 +184,7 @@ offset_bottom = 297.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_umit2")
+current_tab = 2
 
 [node name="Monsters" type="TabBar" parent="TabContainer"]
 visible = false
@@ -1734,6 +1743,36 @@ alignment = 2
 icon_alignment = 1
 expand_icon = true
 
+[node name="Spot20" type="Control" parent="TabContainer/Items/ScrollContainer/GridContainer"]
+layout_mode = 2
+
+[node name="magically_trapped_rogue_button" type="Button" parent="TabContainer/Items/ScrollContainer/GridContainer/Spot20"]
+material = SubResource("ShaderMaterial_rl58c")
+layout_mode = 0
+offset_right = 93.0
+offset_bottom = 85.0
+theme_override_constants/icon_max_width = 64
+icon = ExtResource("36_ekr3x")
+flat = true
+alignment = 2
+icon_alignment = 1
+expand_icon = true
+
+[node name="Spot21" type="Control" parent="TabContainer/Items/ScrollContainer/GridContainer"]
+layout_mode = 2
+
+[node name="dead_rogues_head_button" type="Button" parent="TabContainer/Items/ScrollContainer/GridContainer/Spot21"]
+material = SubResource("ShaderMaterial_d0sxx")
+layout_mode = 0
+offset_right = 93.0
+offset_bottom = 85.0
+theme_override_constants/icon_max_width = 64
+icon = ExtResource("37_rsojq")
+flat = true
+alignment = 2
+icon_alignment = 1
+expand_icon = true
+
 [node name="Blank_spot" type="Control" parent="TabContainer/Items/ScrollContainer/GridContainer"]
 layout_mode = 2
 
@@ -3141,6 +3180,159 @@ theme_override_font_sizes/font_size = 32
 text = "- Who would find this comfortable?"
 autowrap_mode = 2
 
+[node name="magically_trapped_rogue_panel" type="Panel" parent="TabContainer/Items/Panels"]
+visible = false
+layout_mode = 0
+offset_left = 11.0
+offset_right = 521.0
+offset_bottom = 513.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_wrmxr")
+
+[node name="Sprite2D" type="Sprite2D" parent="TabContainer/Items/Panels/magically_trapped_rogue_panel"]
+position = Vector2(86.5, 87.5)
+scale = Vector2(9.0625, 9.0625)
+texture = ExtResource("36_ekr3x")
+
+[node name="Title" type="Label" parent="TabContainer/Items/Panels/magically_trapped_rogue_panel"]
+layout_mode = 0
+offset_left = 159.0
+offset_top = 15.0
+offset_right = 489.0
+offset_bottom = 156.0
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 48
+text = "Magically Trapped Rogue"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Type" type="Label" parent="TabContainer/Items/Panels/magically_trapped_rogue_panel"]
+layout_mode = 0
+offset_left = 159.0
+offset_top = 159.0
+offset_right = 489.0
+offset_bottom = 204.0
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "Type: Pet"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Items/Panels/magically_trapped_rogue_panel"]
+layout_mode = 0
+offset_left = 22.5
+offset_top = 165.5
+offset_right = 443.5
+offset_bottom = 496.5
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Bio" type="Label" parent="TabContainer/Items/Panels/magically_trapped_rogue_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- Spawns a dangling rogue pet"
+autowrap_mode = 2
+
+[node name="Bio2" type="Label" parent="TabContainer/Items/Panels/magically_trapped_rogue_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- The rogue will throw knives at enemies"
+autowrap_mode = 2
+
+[node name="Bio3" type="Label" parent="TabContainer/Items/Panels/magically_trapped_rogue_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- Has very limited health"
+autowrap_mode = 2
+
+[node name="Bio4" type="Label" parent="TabContainer/Items/Panels/magically_trapped_rogue_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- How does he float there?"
+autowrap_mode = 2
+
+[node name="dead_rogues_head_panel" type="Panel" parent="TabContainer/Items/Panels"]
+layout_mode = 0
+offset_left = 11.0
+offset_right = 521.0
+offset_bottom = 513.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_wrmxr")
+
+[node name="Sprite2D" type="Sprite2D" parent="TabContainer/Items/Panels/dead_rogues_head_panel"]
+position = Vector2(86.5, 87.5)
+scale = Vector2(9.0625, 9.0625)
+texture = ExtResource("37_rsojq")
+
+[node name="Title" type="Label" parent="TabContainer/Items/Panels/dead_rogues_head_panel"]
+layout_mode = 0
+offset_left = 159.0
+offset_top = 15.0
+offset_right = 489.0
+offset_bottom = 156.0
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 48
+text = "Dead Rogue's Head"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Type" type="Label" parent="TabContainer/Items/Panels/dead_rogues_head_panel"]
+layout_mode = 0
+offset_left = 159.0
+offset_top = 107.0
+offset_right = 489.0
+offset_bottom = 152.0
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "Type: Pet"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Items/Panels/dead_rogues_head_panel"]
+layout_mode = 0
+offset_left = 22.5
+offset_top = 165.5
+offset_right = 443.5
+offset_bottom = 496.5
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Bio" type="Label" parent="TabContainer/Items/Panels/dead_rogues_head_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- Spawns a rogue ghost pet"
+autowrap_mode = 2
+
+[node name="Bio2" type="Label" parent="TabContainer/Items/Panels/dead_rogues_head_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- The ghost will ocassionaly throw knives at enemies"
+autowrap_mode = 2
+
+[node name="Bio3" type="Label" parent="TabContainer/Items/Panels/dead_rogues_head_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- Cannot be hurt (he is a ghost)"
+autowrap_mode = 2
+
+[node name="Bio4" type="Label" parent="TabContainer/Items/Panels/dead_rogues_head_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- His journey must continue, but this is gross"
+autowrap_mode = 2
+
 [node name="Close_button" type="Button" parent="."]
 layout_mode = 0
 offset_left = 341.0
@@ -3187,4 +3379,6 @@ text = "X"
 [connection signal="pressed" from="TabContainer/Items/ScrollContainer/GridContainer/Spot17/Protective_charm_button" to="." method="_on_protective_charm_button_pressed"]
 [connection signal="pressed" from="TabContainer/Items/ScrollContainer/GridContainer/Spot18/rogue_in_a_bottle_button" to="." method="_on_rogue_in_a_bottle_button_pressed"]
 [connection signal="pressed" from="TabContainer/Items/ScrollContainer/GridContainer/Spot19/Hurtful_charm_button" to="." method="_on_hurtful_charm_button_pressed"]
+[connection signal="pressed" from="TabContainer/Items/ScrollContainer/GridContainer/Spot20/magically_trapped_rogue_button" to="." method="_on_magically_trapped_rogue_button_pressed"]
+[connection signal="pressed" from="TabContainer/Items/ScrollContainer/GridContainer/Spot21/dead_rogues_head_button" to="." method="_on_dead_rogues_head_button_pressed"]
 [connection signal="pressed" from="Close_button" to="." method="_on_close_button_pressed"]

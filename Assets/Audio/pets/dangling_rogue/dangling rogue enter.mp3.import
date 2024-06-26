@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b6vyj05076cgm"
+path="res://.godot/imported/dangling rogue enter.mp3-8fbec64b5f6e0615ff6726cb9aeed546.mp3str"
+
+[deps]
+
+source_file="res://Assets/Audio/pets/dangling_rogue/dangling rogue enter.mp3"
+dest_files=["res://.godot/imported/dangling rogue enter.mp3-8fbec64b5f6e0615ff6726cb9aeed546.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

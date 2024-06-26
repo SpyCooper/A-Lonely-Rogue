@@ -69,11 +69,15 @@ var knife_speed_bonus = 0
 var current_type : BladeType.blade_type = BladeType.blade_type.default
 var knife_scene = load("res://Scenes/knife.tscn")
 var items_collected = []
+
 # pet variables
 const PROTECTIVE_CHARM_SPAWN = preload("res://Scenes/pets/protective_charm_spawn.tscn")
 const HURTFUL_CHARM_SPAWN = preload("res://Scenes/pets/hurtful_charm_spawn.tscn")
+const DANGLING_ROGUE = preload("res://Scenes/pets/dangling_rogue.tscn")
+const DEAD_ROGUE = preload("res://Scenes/pets/dead_rogue.tscn")
 var current_pet = null
 var current_pet_item = ItemType.type.temp
+
 # usable items
 var use_item_cooldown = 3.0
 @onready var usable_item_cooldown_timer = $Usable_Item_cooldown_timer
@@ -466,6 +470,24 @@ func picked_up_item(item, display_text = true, sound = true):
 		items_collected += [item]
 		# spawn the pet to the player based on the item
 		add_pet(item)
+	elif item == ItemType.type.magically_trapped_rogue:
+		# display the item text
+		if display_text:
+			hud.display_text("Aquired a Magically Trapped Rogue!", "He will throw knives at enemies so you won't drop him!")
+		# add the item to the collected items list on HUD and in player data
+		hud.item_added(item)
+		items_collected += [item]
+		# spawn the pet to the player based on the item
+		add_pet(item)
+	elif item == ItemType.type.dead_rogues_head:
+		# display the item text
+		if display_text:
+			hud.display_text("Aquired a Dead Rogue's Head", "His quest will end someday...")
+		# add the item to the collected items list on HUD and in player data
+		hud.item_added(item)
+		items_collected += [item]
+		# spawn the pet to the player based on the item
+		add_pet(item)
 
 # calculate the attack speed
 func calculate_attack_speed():
@@ -818,7 +840,7 @@ func add_pet(pet_item : ItemType.type):
 	# if there is a current pet
 	if current_pet != null:
 		# remove the pet and the pet's item
-		current_pet.queue_free()
+		current_pet.kill_pet()
 		remove_item_from_items_collected(current_pet_item)
 		hud.remove_item_from_ui(current_pet_item)
 	# set the pet to be spawned based on it's item type
@@ -827,6 +849,10 @@ func add_pet(pet_item : ItemType.type):
 		spawn = PROTECTIVE_CHARM_SPAWN.instantiate()
 	elif pet_item == ItemType.type.hurtful_charm:
 		spawn = HURTFUL_CHARM_SPAWN.instantiate()
+	elif pet_item == ItemType.type.magically_trapped_rogue:
+		spawn = DANGLING_ROGUE.instantiate()
+	elif pet_item == ItemType.type.dead_rogues_head:
+		spawn = DEAD_ROGUE.instantiate()
 	# if there is a pet to be spawned
 	if spawn !=  null:
 		# spawn that pet

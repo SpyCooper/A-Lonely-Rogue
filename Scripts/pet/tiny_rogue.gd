@@ -8,6 +8,7 @@ extends Node2D
 @onready var smoke_bomb_sound = $smoke_bomb_sound
 @onready var woosh_sound = $woosh_sound
 const TINY_ROGUE_KNIFE = preload("res://Scenes/pets/tiny_rogue_knife.tscn")
+const TINY_ROGUE_LEAVE_SOUND = preload("res://Scenes/pets/tiny_rogue_leave_sound.tscn")
 
 # variables
 var can_spawn_knife = true
@@ -26,7 +27,7 @@ func _physics_process(_delta):
 	angle += 0.10
 	# if the tiny rogue can spawn a knife and can throw a knife
 	if can_spawn_knife && can_throw_knives:
-		# spawn a nive
+		# spawn a knife
 		var direction = Vector2(cos(angle), sin(angle))
 		var direction_normalized = direction.normalized()
 		var blade_instance = TINY_ROGUE_KNIFE.instantiate()
@@ -52,6 +53,10 @@ func _on_life_time_timer_timeout():
 	smoke_bomb_sound.play()
 	# start the leave animation timer
 	leave_animation_timer.start()
+	# spawn the tiny rogue leave sound
+	var sound = TINY_ROGUE_LEAVE_SOUND.instantiate()
+	sound.global_position = global_position
+	get_tree().current_scene.add_child(sound)
 
 # when the leave animation timer ends
 func _on_leave_animation_timer_timeout():

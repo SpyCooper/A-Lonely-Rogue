@@ -127,7 +127,12 @@ var rogue_in_a_bottle_unlocked = false
 @onready var hurtful_charm_button = $TabContainer/Items/ScrollContainer/GridContainer/Spot19/Hurtful_charm_button
 @onready var hurtful_charm_panel = $TabContainer/Items/Panels/hurtful_charm_panel
 var hurtful_charm_unlocked = false
-
+@onready var magically_trapped_rogue_button = $TabContainer/Items/ScrollContainer/GridContainer/Spot20/magically_trapped_rogue_button
+@onready var magically_trapped_rogue_panel = $TabContainer/Items/Panels/magically_trapped_rogue_panel
+var magically_trapped_rogue_unlocked = false
+@onready var dead_rogues_head_button = $TabContainer/Items/ScrollContainer/GridContainer/Spot21/dead_rogues_head_button
+@onready var dead_rogues_head_panel = $TabContainer/Items/Panels/dead_rogues_head_panel
+var dead_rogues_head_unlocked = false
 # on start
 func _ready():
 	# set the catalog reference
@@ -313,6 +318,14 @@ func load_data():
 			hurtful_charm_unlocked = data["hurtful_charm_unlocked"]
 			if hurtful_charm_unlocked:
 				hurtful_charm_button.material.shader = null
+			# magically_trapped_rogue check
+			magically_trapped_rogue_unlocked = data["magically_trapped_rogue_unlocked"]
+			if magically_trapped_rogue_unlocked:
+				magically_trapped_rogue_button.material.shader = null
+			# dead_rogues_head check
+			dead_rogues_head_unlocked = data["dead_rogues_head_unlocked"]
+			if dead_rogues_head_unlocked:
+				dead_rogues_head_button.material.shader = null
 
 # goes through all the panels and hides all of them
 func clear_panel():
@@ -353,6 +366,8 @@ func clear_panel():
 	protective_charm_panel.hide()
 	rogue_in_a_bottle_panel.hide()
 	hurtful_charm_panel.hide()
+	magically_trapped_rogue_panel.hide()
+	dead_rogues_head_panel.hide()
 
 ## ---------------------------------- Enemies --------------------------------------------------------
 
@@ -789,6 +804,20 @@ func unlock_item(item):
 			hurtful_charm_button.material.shader = null
 			# set the item to be unlocked
 			hurtful_charm_unlocked = true
+	elif item == ItemType.type.magically_trapped_rogue:
+		# if the item is locked
+		if !magically_trapped_rogue_unlocked:
+			# remove the locked shader
+			magically_trapped_rogue_button.material.shader = null
+			# set the item to be unlocked
+			magically_trapped_rogue_unlocked = true
+	elif item == ItemType.type.dead_rogues_head:
+		# if the item is locked
+		if !dead_rogues_head_unlocked:
+			# remove the locked shader
+			dead_rogues_head_button.material.shader = null
+			# set the item to be unlocked
+			dead_rogues_head_unlocked = true
 	
 	save_items()
 
@@ -820,6 +849,8 @@ func found_items():
 		"protective_charm_unlocked" : protective_charm_unlocked,
 		"rogue_in_a_bottle_unlocked" : rogue_in_a_bottle_unlocked,
 		"hurtful_charm_unlocked" : hurtful_charm_unlocked,
+		"magically_trapped_rogue_unlocked" : magically_trapped_rogue_unlocked,
+		"dead_rogues_head_unlocked" : dead_rogues_head_unlocked,
 	}
 	return data
 
@@ -993,3 +1024,21 @@ func _on_hurtful_charm_button_pressed():
 	if hurtful_charm_unlocked:
 		# show the item's info panel
 		hurtful_charm_panel.show()
+
+# when the magically_trapped_rogue button is pressed
+func _on_magically_trapped_rogue_button_pressed():
+	# clear the into panel
+	clear_panel()
+	# if the item is unlocked
+	if magically_trapped_rogue_unlocked:
+		# show the item's info panel
+		magically_trapped_rogue_panel.show()
+
+# when thedead_rogues_head button is pressed
+func _on_dead_rogues_head_button_pressed():
+	# clear the into panel
+	clear_panel()
+	# if the item is unlocked
+	if dead_rogues_head_unlocked:
+		# show the item's info panel
+		dead_rogues_head_panel.show()

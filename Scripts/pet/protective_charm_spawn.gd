@@ -24,4 +24,4 @@ func take_damage(damage):
 		# tell the player the pet died
 		get_parent().pet_died(ItemType.type.protective_charm)
 		# remove the pet
-		queue_free()
+		kill_pet()

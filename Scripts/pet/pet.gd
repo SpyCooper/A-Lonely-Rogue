@@ -30,7 +30,7 @@ func take_damage(damage):
 	health -= damage
 	if health <= 0:
 		get_parent().pet_died(ItemType.type.temp)
-		queue_free()
+		kill_pet()
 
 # resets the pet's hp
 func reset_hp():
@@ -43,3 +43,6 @@ func set_pet_hp(hp):
 # melee damage for a pet
 func _on_body_entered(body):
 	pass
+
+func kill_pet():
+	queue_free()

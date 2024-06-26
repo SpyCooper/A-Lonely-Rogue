@@ -26,6 +26,9 @@ enum type
 	protective_charm,
 	rogue_in_a_bottle,
 	hurtful_charm,
+	magically_trapped_rogue,
+	dead_rogues_head,
+	bomb,
 }
 
 # sets the various item types
@@ -37,6 +40,7 @@ var repeatable_items = [
 	type.key,
 	type.sleek_blades,
 	type.shadow_heart,
+	type.bomb,
 ]
 
 # sets the spawned items in the floor

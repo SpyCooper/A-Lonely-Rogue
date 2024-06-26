@@ -96,7 +96,7 @@ animations = [{
 
 [node name="tiny_rogue_knife" type="Area2D"]
 collision_layer = 12
-collision_mask = 13
+collision_mask = 12
 script = ExtResource("1_mk4qy")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -108,5 +108,10 @@ shape = SubResource("CapsuleShape2D_x78cu")
 rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_sormc")
 
+[node name="life_time_timer" type="Timer" parent="."]
+wait_time = 7.0
+one_shot = true
+
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="life_time_timer" to="." method="_on_life_time_timer_timeout"]

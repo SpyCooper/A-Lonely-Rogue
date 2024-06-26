@@ -334,6 +334,24 @@ func item_added(item):
 		item_ui.get_animated_sprite().play("hurtful_charm")
 		# sets the item's type
 		item_ui.set_item_type(ItemType.type.hurtful_charm)
+	elif item == ItemType.type.magically_trapped_rogue:
+		# create a item UI slot
+		var item_ui = ITEM_UI_SLOT.instantiate()
+		# add it to the items collected container
+		items_ui_container.add_child(item_ui)
+		# set the graphic to the item
+		item_ui.get_animated_sprite().play("magically_trapped_rogue")
+		# sets the item's type
+		item_ui.set_item_type(ItemType.type.magically_trapped_rogue)
+	elif item == ItemType.type.dead_rogues_head:
+		# create a item UI slot
+		var item_ui = ITEM_UI_SLOT.instantiate()
+		# add it to the items collected container
+		items_ui_container.add_child(item_ui)
+		# set the graphic to the item
+		item_ui.get_animated_sprite().play("dead_rogues_head")
+		# sets the item's type
+		item_ui.set_item_type(ItemType.type.dead_rogues_head)
 
 # removes an item from the ui
 func remove_item_from_ui(item_to_remove : ItemType.type):

@@ -1,0 +1,71 @@
+[gd_scene load_steps=12 format=3 uid="uid://b8re5oaadvs2l"]
+
+[ext_resource type="Script" path="res://Scripts/pet/dangling_rogue.gd" id="1_74mug"]
+[ext_resource type="Shader" uid="uid://dlroce5v6b0te" path="res://Scripts/shaders/player.tres" id="2_3b1dm"]
+[ext_resource type="Texture2D" uid="uid://dyooyc6oxepd3" path="res://Assets/Sprites/pets/dangling_rogue.png" id="3_i083f"]
+[ext_resource type="AudioStream" uid="uid://b6vyj05076cgm" path="res://Assets/Audio/pets/dangling_rogue/dangling rogue enter.mp3" id="4_eoqyl"]
+[ext_resource type="AudioStream" uid="uid://c54e6i3lo7n2g" path="res://Assets/Audio/pets/dangling_rogue/dangling rogue hit.mp3" id="5_iql8y"]
+[ext_resource type="AudioStream" uid="uid://c120pte0wgt4r" path="res://Assets/Audio/sound effects/woosh_sfx.mp3" id="5_iym83"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8as0q"]
+shader = ExtResource("2_3b1dm")
+shader_parameter/enabled = false
+shader_parameter/tint = Color(0.752941, 0.819608, 0.8, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s5igv"]
+atlas = ExtResource("3_i083f")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ughwu"]
+atlas = ExtResource("3_i083f")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_73i5a"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s5igv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ughwu")
+}],
+"loop": true,
+"name": &"default",
+"speed": 4.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_7uyc8"]
+radius = 6.0
+
+[node name="dangling_rogue" type="Area2D"]
+collision_layer = 6
+collision_mask = 6
+script = ExtResource("1_74mug")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_8as0q")
+sprite_frames = SubResource("SpriteFrames_73i5a")
+autoplay = "default"
+
+[node name="HitBox" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_7uyc8")
+
+[node name="enter_sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_eoqyl")
+bus = &"Sound Effect"
+
+[node name="hit_sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_iql8y")
+bus = &"Sound Effect"
+
+[node name="attack_timer" type="Timer" parent="."]
+wait_time = 1.5
+one_shot = true
+
+[node name="woosh_sound" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(0, -4)
+stream = ExtResource("5_iym83")
+bus = &"Sound Effect"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="attack_timer" to="." method="_on_attack_timer_timeout"]

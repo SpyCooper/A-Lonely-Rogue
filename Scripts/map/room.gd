@@ -110,3 +110,6 @@ func is_enemies():
 		return true
 	else:
 		return false
+
+func get_enemies_in_room():
+	return enemies_spawned

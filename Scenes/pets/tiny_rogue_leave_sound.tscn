@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://cdpnb3fky8q2b"]
+
+[ext_resource type="AudioStream" uid="uid://d044kugu1tr07" path="res://Assets/Audio/pets/dangling_rogue/dangling rogue leave.mp3" id="1_3da4x"]
+[ext_resource type="Script" path="res://Scripts/pet/tiny_rogue_leave_sound.gd" id="1_r5bxd"]
+
+[node name="tiny_rogue_leave_sound" type="Node2D"]
+script = ExtResource("1_r5bxd")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 1.5
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("1_3da4x")
+volume_db = 2.0
+bus = &"Sound Effect"
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

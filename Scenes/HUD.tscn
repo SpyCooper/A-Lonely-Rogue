@@ -303,22 +303,22 @@ text = "001"
 [node name="active_items_ui" type="Control" parent="."]
 anchors_preset = 0
 offset_left = 371.692
-offset_top = 2.46154
+offset_top = 4.30769
 offset_right = 371.692
-offset_bottom = 2.46154
+offset_bottom = 4.30769
 
 [node name="items_ui_container" type="VBoxContainer" parent="active_items_ui"]
 layout_mode = 0
 offset_right = 20.0
 offset_bottom = 40.0
-theme_override_constants/separation = 16
+theme_override_constants/separation = 19
 
 [node name="Usable_item" type="Control" parent="."]
 anchors_preset = 0
-offset_left = 353.538
-offset_top = 2.46154
-offset_right = 353.538
-offset_bottom = 2.46154
+offset_left = 352.0
+offset_top = 4.30769
+offset_right = 352.0
+offset_bottom = 4.30769
 
 [node name="usable_items_ui_container" type="VBoxContainer" parent="Usable_item"]
 layout_mode = 0

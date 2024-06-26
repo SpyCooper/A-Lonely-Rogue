@@ -23,7 +23,7 @@ const POISON_GAS_ITEM = preload("res://Scenes/items/poison_gas_item.tscn")
 const PROTECTIVE_CHARM_ITEM = preload("res://Scenes/items/protective_charm_item.tscn")
 const ROGUE_IN_A_BOTTLE_ITEM = preload("res://Scenes/items/rogue_in_a_bottle_item.tscn")
 const HURTFUL_CHARM_ITEM = preload("res://Scenes/items/hurtful_charm_item.tscn")
-
+const MAGICALLY_TRAPPED_ROGUE_ITEM = preload("res://Scenes/items/magically_trapped_rogue_item.tscn")
 # random number generator
 var rng = RandomNumberGenerator.new()
 
@@ -49,6 +49,7 @@ var item_array = [
 	PROTECTIVE_CHARM_ITEM,
 	ROGUE_IN_A_BOTTLE_ITEM,
 	HURTFUL_CHARM_ITEM,
+	MAGICALLY_TRAPPED_ROGUE_ITEM,
 	]
 # variable of item types in the same position of the item objects
 var item_types_array = [
@@ -72,6 +73,7 @@ var item_types_array = [
 	ItemType.type.protective_charm,
 	ItemType.type.rogue_in_a_bottle,
 	ItemType.type.hurtful_charm,
+	ItemType.type.magically_trapped_rogue,
 	]
 
 # on start

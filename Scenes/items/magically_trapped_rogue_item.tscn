@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://b20d2swrrfrvx"]
+
+[ext_resource type="PackedScene" uid="uid://jtiqth444hdl" path="res://Scenes/item.tscn" id="1_lw0ju"]
+[ext_resource type="Texture2D" uid="uid://dh85ichhvi5y2" path="res://Assets/Sprites/items/Items.png" id="2_4d83b"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_raxir"]
+atlas = ExtResource("2_4d83b")
+region = Rect2(288, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6and7"]
+atlas = ExtResource("2_4d83b")
+region = Rect2(288, 48, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_k81fq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_raxir")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6and7")
+}],
+"loop": true,
+"name": &"default",
+"speed": 3.0
+}]
+
+[node name="magically_trapped_rogue_item" type="Node2D"]
+z_index = 1
+
+[node name="item" parent="." instance=ExtResource("1_lw0ju")]
+item_type = 23
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(1, 0)
+sprite_frames = SubResource("SpriteFrames_k81fq")
+autoplay = "default"
+offset = Vector2(-1, 0)

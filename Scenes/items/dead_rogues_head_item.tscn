@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://dk6n0a1tcm2fs"]
+
+[ext_resource type="PackedScene" uid="uid://jtiqth444hdl" path="res://Scenes/item.tscn" id="1_ksov0"]
+[ext_resource type="Texture2D" uid="uid://dh85ichhvi5y2" path="res://Assets/Sprites/items/Items.png" id="2_nk3k4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l1wya"]
+atlas = ExtResource("2_nk3k4")
+region = Rect2(304, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jdwyu"]
+atlas = ExtResource("2_nk3k4")
+region = Rect2(304, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7vsam"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l1wya")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jdwyu")
+}],
+"loop": true,
+"name": &"default",
+"speed": 3.0
+}]
+
+[node name="dead_rogus_head_item" type="Node2D"]
+z_index = 1
+
+[node name="item" parent="." instance=ExtResource("1_ksov0")]
+item_type = 24
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(1, 0)
+sprite_frames = SubResource("SpriteFrames_7vsam")
+autoplay = "default"
+offset = Vector2(-1, 0)
