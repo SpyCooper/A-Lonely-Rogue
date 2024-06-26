@@ -12,6 +12,8 @@ class_name Player
 @onready var unlock_door_sound = $Unlock_door_sound
 @onready var woosh_sound = $woosh_sound
 @onready var item_break_sound = $item_break_sound
+@onready var hit_flash_animation_timer = $Hit_Flash_animation_player/hit_flash_animation_timer
+const PLAYER_SHADER = preload("res://Scripts/shaders/player.tres")
 
 # references related to the falling animation at the start of each floor
 @onready var fall_timer = $fall_timer
@@ -42,20 +44,24 @@ var number_of_keys = 0
 var dying = false
 var player_can_move = false
 var slow_percentage = 0.0
-const PLAYER_SHADER = preload("res://Scripts/shaders/player.tres")
 var dusted = false
 var dusted_stack = 0
 var dusted_slow = 0.35
-@onready var hit_flash_animation_timer = $Hit_Flash_animation_player/hit_flash_animation_timer
 var attacks_that_have_hit = []
 
-# upgrade variables
+# knife variables
 var poisoned_blade = false
 var shadow_blade = false
 var glass_blade = false
 var shadow_flame_blade = false
 var dust_blade = false
 var triple_blades = false
+var sleek_blade = false
+var knife_speed_bonus = 0
+var current_type : BladeType.blade_type = BladeType.blade_type.default
+var knife_scene = load("res://Scenes/knife.tscn")
+
+# passive item variables
 var shadow_heart = false
 var shadow_heart_heal_counter = 0
 var shadow_heart_collected = false
@@ -64,30 +70,29 @@ var can_poorly_made_voodoo_doll_be_spawned = true
 @onready var burning_sound = $burning_sound
 @onready var voodoo_doll_immunity_timer = $voodoo_doll_immunity_timer
 var immunity = false
-var sleek_blade = false
-var knife_speed_bonus = 0
-var current_type : BladeType.blade_type = BladeType.blade_type.default
-var knife_scene = load("res://Scenes/knife.tscn")
 var items_collected = []
 
 # pet variables
+var current_pet = null
+var current_pet_item = ItemType.type.temp
 const PROTECTIVE_CHARM_SPAWN = preload("res://Scenes/pets/protective_charm_spawn.tscn")
 const HURTFUL_CHARM_SPAWN = preload("res://Scenes/pets/hurtful_charm_spawn.tscn")
 const DANGLING_ROGUE = preload("res://Scenes/pets/dangling_rogue.tscn")
 const DEAD_ROGUE = preload("res://Scenes/pets/dead_rogue.tscn")
-var current_pet = null
-var current_pet_item = ItemType.type.temp
 
-# usable items
+# usable item variables
 var use_item_cooldown = 3.0
+var usable_item_stack_amount = 0
 @onready var usable_item_cooldown_timer = $Usable_Item_cooldown_timer
 var can_use_item = true
 var current_usable_item = ItemType.type.temp
+
+# usable item effects
 const PLAYER_FRIENDLY_POISON_AREA = preload("res://Scenes/player/player_friendly_poison_area.tscn")
 const TINY_ROGUE = preload("res://Scenes/pets/tiny_rogue.tscn")
-var usable_item_stack_amount = 0
 const BOMB = preload("res://Scenes/bomb.tscn")
-# dash boots
+
+# dash boots variables
 @onready var dash_timer = $Dash_timer
 var dash_speed_boost = 150.0
 var is_dashing = false
@@ -234,6 +239,99 @@ func _physics_process(_delta):
 		if Input.is_action_pressed("UseItem") && can_use_item:
 			# use a usable item
 			use_usable_item()
+
+
+## ------------------- falling animation functions ------------------------------------------------------------
+
+# when the fall timer ends
+func _on_fall_timer_timeout():
+	# hide the fall and fall shadow sprites
+	falling_shadow_sprite.hide()
+	if shadow_heart:
+		falling_sprite_dark.hide()
+	else:
+		falling_sprite.hide()
+	# play the stand up animation
+	stand_up_sprite.show()
+	if shadow_heart:
+		stand_up_sprite.play("stand_up_dark")
+	else:
+		stand_up_sprite.play("stand_up")
+	# start the stand up timer
+	stand_up_timer.start()
+
+# when the stand up timer ends
+func _on_stand_up_timer_timeout():
+	# show the normal animated sprite
+	animated_sprite.show()
+	# if the player has a shadow_heart, change the sprite
+	if shadow_heart:
+		animated_sprite.play("idle_down_dark")
+	# hide the stand up music
+	stand_up_sprite.hide()
+	# play the backgound music for the floor
+	get_parent().play_bg_music()
+	# allow the player to move
+	player_can_move = true
+	# show the hud
+	hud.show()
+	# show the floor text
+	if get_tree().current_scene.name == "Floor1":
+		hud.show_starting_text()
+	elif get_tree().current_scene.name == "Floor2":
+		hud.display_text("Floor 2", "There shouldn't not be any more slimes, right?")
+	elif get_tree().current_scene.name == "Floor3":
+		hud.display_text("Floor 3", "Sound like the dead here...")
+	elif get_tree().current_scene.name == "Floor4":
+		hud.display_text("Floor 4", "Did that shadow just move?")
+	elif get_tree().current_scene.name == "Floor5":
+		hud.display_text("Floor 5", "Time to get out of here...")
+
+# when the player fall sound timer ends, play the fall sound
+func _on_player_fall_sound_timer_timeout():
+	player_fall_sound.play()
+
+
+## ------------------- PlayerData functions ------------------------------------------------------------
+
+# save the player data to transfer between floors
+func save_player_data():
+	PlayerData.clear_data()
+	PlayerData.player_health = player_health
+	PlayerData.number_of_keys = number_of_keys
+	PlayerData.items_collected = items_collected
+	# save the pet data
+	if current_pet != null:
+		PlayerData.current_pet_health = current_pet.health
+
+# load the player data from previous floors
+func load_player_data():
+	player_health = PlayerData.player_health
+	number_of_keys = PlayerData.number_of_keys
+	# recollect the items obtained
+	var temp_items_collected = PlayerData.items_collected
+	for item in temp_items_collected:
+		# does not allow a player to load into a floor with a hurtful charm
+		if item != ItemType.type.hurtful_charm:
+			# pick up item
+			picked_up_item(item, false, false)
+			# check if it can be spawned again
+			var can_be_spawned_again = false
+			for type in ItemType.repeatable_items:
+				if item == type:
+					can_be_spawned_again = true
+			# if the item cannot be spawned again, do not let it spawn
+			if !can_be_spawned_again:
+				ItemType.add_spawned_item(item)
+		# destroys the hurtful charm item
+		else:
+			item_break_sound.play()
+	# refresh the HUD
+	hud.refresh_hearts(player_health)
+	hud.refresh_key_amount(number_of_keys)
+	# load the pet data
+	if current_pet != null:
+		current_pet.set_pet_hp(PlayerData.current_pet_health)
 
 
 ## ------------------- combat functions ----------------------------------------------------------------
@@ -629,98 +727,6 @@ func use_key():
 	else:
 		# return that a key was not used
 		return false
-
-## ------------------- falling animation functions ------------------------------------------------------------
-
-# when the fall timer ends
-func _on_fall_timer_timeout():
-	# hide the fall and fall shadow sprites
-	falling_shadow_sprite.hide()
-	if shadow_heart:
-		falling_sprite_dark.hide()
-	else:
-		falling_sprite.hide()
-	# play the stand up animation
-	stand_up_sprite.show()
-	if shadow_heart:
-		stand_up_sprite.play("stand_up_dark")
-	else:
-		stand_up_sprite.play("stand_up")
-	# start the stand up timer
-	stand_up_timer.start()
-
-# when the stand up timer ends
-func _on_stand_up_timer_timeout():
-	# show the normal animated sprite
-	animated_sprite.show()
-	# if the player has a shadow_heart, change the sprite
-	if shadow_heart:
-		animated_sprite.play("idle_down_dark")
-	# hide the stand up music
-	stand_up_sprite.hide()
-	# play the backgound music for the floor
-	get_parent().play_bg_music()
-	# allow the player to move
-	player_can_move = true
-	# show the hud
-	hud.show()
-	# show the floor text
-	if get_tree().current_scene.name == "Floor1":
-		hud.show_starting_text()
-	elif get_tree().current_scene.name == "Floor2":
-		hud.display_text("Floor 2", "There shouldn't not be any more slimes, right?")
-	elif get_tree().current_scene.name == "Floor3":
-		hud.display_text("Floor 3", "Sound like the dead here...")
-	elif get_tree().current_scene.name == "Floor4":
-		hud.display_text("Floor 4", "Did that shadow just move?")
-	elif get_tree().current_scene.name == "Floor5":
-		hud.display_text("Floor 5", "Time to get out of here...")
-
-# when the player fall sound timer ends, play the fall sound
-func _on_player_fall_sound_timer_timeout():
-	player_fall_sound.play()
-
-
-## ------------------- PlayerData functions ------------------------------------------------------------
-
-# save the player data to transfer between floors
-func save_player_data():
-	PlayerData.clear_data()
-	PlayerData.player_health = player_health
-	PlayerData.number_of_keys = number_of_keys
-	PlayerData.items_collected = items_collected
-	# save the pet data
-	if current_pet != null:
-		PlayerData.current_pet_health = current_pet.health
-
-# load the player data from previous floors
-func load_player_data():
-	player_health = PlayerData.player_health
-	number_of_keys = PlayerData.number_of_keys
-	# recollect the items obtained
-	var temp_items_collected = PlayerData.items_collected
-	for item in temp_items_collected:
-		# does not allow a player to load into a floor with a hurtful charm
-		if item != ItemType.type.hurtful_charm:
-			# pick up item
-			picked_up_item(item, false, false)
-			# check if it can be spawned again
-			var can_be_spawned_again = false
-			for type in ItemType.repeatable_items:
-				if item == type:
-					can_be_spawned_again = true
-			# if the item cannot be spawned again, do not let it spawn
-			if !can_be_spawned_again:
-				ItemType.add_spawned_item(item)
-		# destroys the hurtful charm item
-		else:
-			item_break_sound.play()
-	# refresh the HUD
-	hud.refresh_hearts(player_health)
-	hud.refresh_key_amount(number_of_keys)
-	# load the pet data
-	if current_pet != null:
-		current_pet.set_pet_hp(PlayerData.current_pet_health)
 
 ## ------------------- usable item functions -------------------------------------------
 
