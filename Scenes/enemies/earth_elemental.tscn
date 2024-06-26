@@ -190,6 +190,34 @@ region = Rect2(160, 160, 32, 32)
 atlas = ExtResource("2_icru6")
 region = Rect2(192, 160, 32, 32)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_c5pm3"]
+atlas = ExtResource("2_icru6")
+region = Rect2(0, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x7yy8"]
+atlas = ExtResource("2_icru6")
+region = Rect2(32, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rmbwt"]
+atlas = ExtResource("2_icru6")
+region = Rect2(64, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5keby"]
+atlas = ExtResource("2_icru6")
+region = Rect2(96, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_0lpf7"]
+atlas = ExtResource("2_icru6")
+region = Rect2(128, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kevhf"]
+atlas = ExtResource("2_icru6")
+region = Rect2(160, 192, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a6j32"]
+atlas = ExtResource("2_icru6")
+region = Rect2(192, 192, 32, 32)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_lx7w3"]
 atlas = ExtResource("2_icru6")
 region = Rect2(0, 256, 32, 32)
@@ -245,34 +273,6 @@ region = Rect2(160, 224, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_3xluc"]
 atlas = ExtResource("2_icru6")
 region = Rect2(192, 224, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_c5pm3"]
-atlas = ExtResource("2_icru6")
-region = Rect2(0, 192, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_x7yy8"]
-atlas = ExtResource("2_icru6")
-region = Rect2(32, 192, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_rmbwt"]
-atlas = ExtResource("2_icru6")
-region = Rect2(64, 192, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5keby"]
-atlas = ExtResource("2_icru6")
-region = Rect2(96, 192, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_0lpf7"]
-atlas = ExtResource("2_icru6")
-region = Rect2(128, 192, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kevhf"]
-atlas = ExtResource("2_icru6")
-region = Rect2(160, 192, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_a6j32"]
-atlas = ExtResource("2_icru6")
-region = Rect2(192, 192, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_uhx0a"]
 animations = [{
@@ -459,61 +459,9 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_qhkcd")
 }],
-"loop": true,
+"loop": false,
 "name": &"throw_down",
-"speed": 4.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_lx7w3")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_v1gfk")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_f6drd")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_p704i")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_84spn")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_68t76")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qva7d")
-}],
-"loop": true,
-"name": &"throw_right",
-"speed": 4.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_rgfrf")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xiiw6")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_difcy")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1nd7b")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_oxrie")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_6upry")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_3xluc")
-}],
-"loop": true,
-"name": &"throw_up",
-"speed": 4.0
+"speed": 10.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -537,9 +485,61 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_a6j32")
 }],
-"loop": true,
-"name": &"thrown_left",
-"speed": 4.0
+"loop": false,
+"name": &"throw_left",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lx7w3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v1gfk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f6drd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_p704i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_84spn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_68t76")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qva7d")
+}],
+"loop": false,
+"name": &"throw_right",
+"speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rgfrf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xiiw6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_difcy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1nd7b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oxrie")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6upry")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3xluc")
+}],
+"loop": false,
+"name": &"throw_up",
+"speed": 10.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m4p3k"]
@@ -563,7 +563,7 @@ shape = SubResource("CapsuleShape2D_jb7qj")
 material = SubResource("ShaderMaterial_cv438")
 position = Vector2(0, -12)
 sprite_frames = SubResource("SpriteFrames_uhx0a")
-animation = &"dying"
+animation = &"throw_down"
 autoplay = "move_down"
 
 [node name="DamagePlayer" parent="." instance=ExtResource("3_lhivs")]
@@ -605,19 +605,20 @@ stream = ExtResource("6_70ham")
 bus = &"Sound Effect"
 
 [node name="throw animation timer" type="Timer" parent="."]
+wait_time = 0.35
 one_shot = true
 
 [node name="rock_spawner_up" type="Marker2D" parent="."]
-position = Vector2(0, -30)
+position = Vector2(-11, -26)
 
 [node name="rock_spawner_down" type="Marker2D" parent="."]
-position = Vector2(0, 6)
+position = Vector2(8, 4)
 
 [node name="rock_spawner_right" type="Marker2D" parent="."]
-position = Vector2(18, -12)
+position = Vector2(14, -9)
 
 [node name="rock_spawner_left" type="Marker2D" parent="."]
-position = Vector2(-18, -12)
+position = Vector2(-14, -9)
 
 [connection signal="timeout" from="Spawn_timer" to="." method="_on_spawn_timer_timeout"]
 [connection signal="timeout" from="death_timer" to="." method="_on_death_timer_timeout"]

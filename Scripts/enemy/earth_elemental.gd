@@ -67,7 +67,7 @@ func _physics_process(_delta):
 			target_position = (player_position - global_position).normalized()
 			current_direction = get_look_direction(target_position)
 			# if a rock can be thrown in mid range
-			if can_throw && position.distance_to(player_position) < 100 && position.distance_to(player_position) > 60:
+			if can_throw && position.distance_to(player_position) < 120 && position.distance_to(player_position) > 70:
 				# reset the throw
 				can_throw = false
 				throw_timer = throw_timer_max

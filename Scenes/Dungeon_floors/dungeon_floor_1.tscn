@@ -118,7 +118,7 @@ texture = ExtResource("7_cdgba")
 [sub_resource type="TileSet" id="TileSet_pnge6"]
 sources/0 = SubResource("TileSetAtlasSource_a4f5t")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_grps3"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xsxgd"]
 resource_local_to_scene = true
 
 [node name="Floor1" type="Node2D"]
@@ -280,7 +280,7 @@ position = Vector2(-736, 0)
 locked = true
 
 [node name="gelatinous_cube" parent="." instance=ExtResource("13_axlkh")]
-material = SubResource("ShaderMaterial_grps3")
+material = SubResource("ShaderMaterial_xsxgd")
 position = Vector2(-735, -20)
 
 [node name="1_door_down" parent="." instance=ExtResource("14_hs83b")]
@@ -430,9 +430,6 @@ theme_override_colors/font_color = Color(0.376471, 0.231373, 0.227451, 1)
 text = "Press Left Mouse Button to throw knives"
 horizontal_alignment = 1
 autowrap_mode = 2
-
-[node name="Trapdoor" parent="Tutorial" instance=ExtResource("25_csphi")]
-position = Vector2(-85, -35)
 
 [connection signal="timeout" from="CanvasLayer/Fade_color/Fade_timer" to="." method="_on_fade_timer_timeout"]
 [connection signal="pressed" from="CanvasLayer/Pause_menu/Buttons_container/Control/Resume_button" to="CanvasLayer/Pause_menu" method="_on_resume_button_pressed"]

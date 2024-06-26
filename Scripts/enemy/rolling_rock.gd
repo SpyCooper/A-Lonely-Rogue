@@ -6,14 +6,14 @@ const ROCK_BREAK = preload("res://Scenes/enemies/rolling_rock/rock_break.tscn")
 
 # variables
 var move_direction
-var speed = 140
+var speed = 130
 
 # this is called when a earth_elemental throws a rock
 func spawned(target_direction, direction):
-	# sets the rock motion in the correct direction
-	animated_sprite.look_at(target_direction)
 	# sets the move direction to the target direction
 	move_direction = target_direction
+	# sets the rock motion in the correct direction
+	look_at(move_direction + global_position)
 
 # runs on every frane
 func _process(delta):

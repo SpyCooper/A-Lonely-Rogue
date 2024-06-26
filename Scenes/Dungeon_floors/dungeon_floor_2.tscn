@@ -360,6 +360,9 @@ position = Vector2(1189, 375)
 [node name="Trapdoor" parent="Floor Text2" instance=ExtResource("24_0uy8j")]
 position = Vector2(-2, -163)
 
+[node name="earth_elemental5" parent="." instance=ExtResource("15_83w35")]
+position = Vector2(-233, -30)
+
 [connection signal="timeout" from="CanvasLayer/Fade_color/Fade_timer" to="." method="_on_fade_timer_timeout"]
 [connection signal="pressed" from="CanvasLayer/Pause_menu/Buttons_container/Control/Resume_button" to="CanvasLayer/Pause_menu" method="_on_resume_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Pause_menu/Buttons_container/Control4/Catalog_button" to="CanvasLayer/Pause_menu" method="_on_catalog_button_pressed"]
