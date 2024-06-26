@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://b1m0opptrag7w"]
+[gd_scene load_steps=35 format=3 uid="uid://b1m0opptrag7w"]
 
 [ext_resource type="Script" path="res://Scripts/enemy/air_elemental.gd" id="1_f0asm"]
 [ext_resource type="Texture2D" uid="uid://bft7wqmpxqenp" path="res://Assets/Sprites/enemies/air_elemental.png" id="2_6pks0"]
@@ -38,30 +38,6 @@ region = Rect2(0, 64, 16, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_1ivp6"]
 atlas = ExtResource("2_6pks0")
 region = Rect2(0, 64, 16, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_a105y"]
-atlas = ExtResource("2_6pks0")
-region = Rect2(64, 32, 16, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_n35vp"]
-atlas = ExtResource("2_6pks0")
-region = Rect2(80, 32, 16, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_kj0b2"]
-atlas = ExtResource("2_6pks0")
-region = Rect2(96, 32, 16, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_1k05a"]
-atlas = ExtResource("2_6pks0")
-region = Rect2(64, 0, 16, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_udog2"]
-atlas = ExtResource("2_6pks0")
-region = Rect2(80, 0, 16, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_3vbio"]
-atlas = ExtResource("2_6pks0")
-region = Rect2(96, 0, 16, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sm0hr"]
 atlas = ExtResource("2_6pks0")
@@ -143,34 +119,6 @@ animations = [{
 "loop": false,
 "name": &"dying",
 "speed": 7.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_a105y")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_n35vp")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_kj0b2")
-}],
-"loop": true,
-"name": &"hit_left",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_1k05a")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_udog2")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_3vbio")
-}],
-"loop": true,
-"name": &"hit_right",
-"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -284,7 +232,7 @@ shape = SubResource("CapsuleShape2D_jb7qj")
 material = SubResource("ShaderMaterial_btki0")
 position = Vector2(0, -14)
 sprite_frames = SubResource("SpriteFrames_cuhg1")
-animation = &"hit_right"
+animation = &"dying"
 
 [node name="DamagePlayer" parent="." instance=ExtResource("3_r48b7")]
 collision_layer = 0

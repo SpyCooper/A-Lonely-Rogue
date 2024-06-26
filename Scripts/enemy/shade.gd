@@ -7,6 +7,9 @@ extends Enemy
 @onready var hit_sound = $HitSound
 @onready var spawn_sound = $SpawnSound
 @onready var spawn_timer = $Spawn_timer
+@onready var hit_flash_animation_player = $Hit_Flash_animation_player
+@onready var hit_flash_animation_timer = $Hit_Flash_animation_player/hit_flash_animation_timer
+const ENEMY_HIT_SHADER = preload("res://Scripts/shaders/enemy_hit_shader.gdshader")
 
 # attack variables
 var can_attack = false
@@ -29,8 +32,6 @@ var current_direction : look_direction
 
 # variables
 var can_move = true
-var playing_hit_animation = false
-var is_idle = false
 
 # sets the enemy's stats and references
 func _ready():
@@ -85,29 +86,10 @@ func _physics_process(_delta):
 				## NOTE: all these checks are identical but change the directions they look at
 				## Move left
 				if current_direction == look_direction.left :
-					# if any of the hit animations are playing
-					if animated_sprite.animation == "hit_move_right":
-						# switch to the same frame of the hit animation in the new direction
-						# this keeps hit animations running for the same duration
-						var frame = animated_sprite.frame
-						animated_sprite.play("hit_move_left")
-						animated_sprite.frame = frame
-					# if a hit animation is not actively playing a hit animation
-					elif playing_hit_animation != true || animated_sprite.is_playing() == false:
-						# plays the basic move animation and sets the playing_hit_animation to false
-						animated_sprite.play("move_left")
-						playing_hit_animation = false
-						is_idle = false
+					animated_sprite.play("move_left")
 				## Move right
 				elif current_direction == look_direction.right:
-					if animated_sprite.animation == "hit_move_left":
-						var frame = animated_sprite.frame
-						animated_sprite.play("hit_move_right")
-						animated_sprite.frame = frame
-					elif playing_hit_animation != true || animated_sprite.is_playing() == false:
-						animated_sprite.play("move_right")
-						playing_hit_animation = false
-						is_idle = false
+					animated_sprite.play("move_right")
 				if position.distance_to(player_position) > 8:
 					## has to use get_speed() to move based on dusted effect
 					move_and_collide(target_position.normalized() * get_speed())
@@ -132,42 +114,12 @@ func take_damage(damage, attack_identifer, is_effect):
 		health -= damage
 		# if health is greater than 0
 		if health > 0:
-			# play the hit animation based on the look direction
-			if current_direction == look_direction.left:
-				if attacking:
-					if animated_sprite.is_playing() == false:
-						animated_sprite.play("hit_idle_left")
-					elif animated_sprite.animation == "shadow_bolt_left_end":
-						var frame = animated_sprite.frame
-						animated_sprite.play("hit_shadow_bolt_left_end")
-						animated_sprite.frame = frame
-					elif animated_sprite.animation == "shadow_bolt_left_start":
-						var frame = animated_sprite.frame
-						animated_sprite.play("hit_shadow_bolt_left_end")
-						animated_sprite.frame = frame
-				else:
-					var frame = animated_sprite.frame
-					animated_sprite.frame = frame
-					animated_sprite.play("hit_move_left")
-			elif current_direction == look_direction.right:
-				if attacking:
-					if animated_sprite.is_playing() == false:
-						animated_sprite.play("hit_idle_right")
-					elif animated_sprite.animation == "shadow_bolt_right_end":
-						var frame = animated_sprite.frame
-						animated_sprite.play("hit_shadow_bolt_right_end")
-						animated_sprite.frame = frame
-					elif animated_sprite.animation == "shadow_bolt_right_start":
-						var frame = animated_sprite.frame
-						animated_sprite.play("hit_shadow_bolt_right_end")
-						animated_sprite.frame = frame
-				else:
-					var frame = animated_sprite.frame
-					animated_sprite.frame = frame
-					animated_sprite.play("hit_move_right")
-			# set the playing_hit_animation to true
-			playing_hit_animation = true
-			# play the hit sound
+			# plays the hit animation
+			animated_sprite.material.shader = null
+			animated_sprite.material.shader = ENEMY_HIT_SHADER
+			hit_flash_animation_player.play("hit_flash")
+			hit_flash_animation_timer.start()
+			# plays the hit sound
 			hit_sound.play()
 		# if the health is 0 or less
 		if health <= 0:
@@ -260,3 +212,8 @@ func _on_time_between_shadow_bolts_burst_timeout():
 func _on_shadow_bolt_spawn_timer_timeout():
 	# spawn a shadow bolt
 	spawn_shadow_bolt()
+
+# when the hit flash animation timer ends
+func _on_hit_flash_animation_timer_timeout():
+	# remove the hit flash shader
+	animated_sprite.material.shader = null

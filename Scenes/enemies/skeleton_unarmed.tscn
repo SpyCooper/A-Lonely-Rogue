@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://dn8ov0f6bhepk"]
+[gd_scene load_steps=39 format=3 uid="uid://dn8ov0f6bhepk"]
 
 [ext_resource type="Script" path="res://Scripts/enemy/skeleton_unarmed.gd" id="1_a3u5c"]
 [ext_resource type="Texture2D" uid="uid://bqpljvja1xgew" path="res://Assets/Sprites/enemies/skeleton_archer.png" id="2_clalg"]
@@ -212,6 +212,43 @@ height = 22.0
 radius = 2.0
 height = 8.0
 
+[sub_resource type="Animation" id="Animation_ly7xv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_5mjcq"]
+resource_name = "hit_flash"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4hf0x"]
+_data = {
+"RESET": SubResource("Animation_ly7xv"),
+"hit_flash": SubResource("Animation_5mjcq")
+}
+
 [node name="skeleton_unarmed" type="CharacterBody2D"]
 collision_layer = 12
 collision_mask = 9
@@ -267,5 +304,15 @@ stream = ExtResource("6_rqfyu")
 volume_db = 5.0
 bus = &"Sound Effect"
 
+[node name="Hit_Flash_animation_player" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_4hf0x")
+}
+
+[node name="hit_flash_animation_timer" type="Timer" parent="Hit_Flash_animation_player"]
+wait_time = 0.2
+one_shot = true
+
 [connection signal="timeout" from="Spawn_timer" to="." method="_on_spawn_timer_timeout"]
 [connection signal="timeout" from="death_timer" to="." method="_on_death_timer_timeout"]
+[connection signal="timeout" from="Hit_Flash_animation_player/hit_flash_animation_timer" to="." method="_on_hit_flash_animation_timer_timeout"]

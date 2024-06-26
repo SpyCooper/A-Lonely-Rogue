@@ -1,4 +1,4 @@
-[gd_scene load_steps=187 format=3 uid="uid://2rov0r5nrtfl"]
+[gd_scene load_steps=190 format=3 uid="uid://2rov0r5nrtfl"]
 
 [ext_resource type="Script" path="res://Scripts/enemy/lich.gd" id="1_dn4cx"]
 [ext_resource type="Texture2D" uid="uid://v3plaxgjdtbu" path="res://Assets/Sprites/enemies/Lich.png" id="2_jppa1"]
@@ -1332,6 +1332,43 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="Animation" id="Animation_ly7xv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_5mjcq"]
+resource_name = "hit_flash"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4hf0x"]
+_data = {
+"RESET": SubResource("Animation_ly7xv"),
+"hit_flash": SubResource("Animation_5mjcq")
+}
+
 [node name="lich" type="CharacterBody2D"]
 collision_layer = 12
 collision_mask = 9
@@ -1348,10 +1385,6 @@ position = Vector2(0, -27)
 sprite_frames = SubResource("SpriteFrames_e0nri")
 animation = &"heal_hit_idle_left"
 autoplay = "spawning"
-
-[node name="hit_animation_timer" type="Timer" parent="AnimatedSprite2D"]
-wait_time = 0.65
-one_shot = true
 
 [node name="DamagePlayer" parent="." instance=ExtResource("3_0l4bi")]
 position = Vector2(0, -34)
@@ -1477,7 +1510,15 @@ bus = &"Sound Effect"
 stream = ExtResource("6_eny8p")
 bus = &"Sound Effect"
 
-[connection signal="timeout" from="AnimatedSprite2D/hit_animation_timer" to="." method="_on_hit_animation_timer_timeout"]
+[node name="Hit_Flash_animation_player" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_4hf0x")
+}
+
+[node name="hit_flash_animation_timer" type="Timer" parent="Hit_Flash_animation_player"]
+wait_time = 0.2
+one_shot = true
+
 [connection signal="timeout" from="Attack_timer" to="." method="_on_attack_timer_timeout"]
 [connection signal="timeout" from="Death_timer" to="." method="_on_death_timer_timeout"]
 [connection signal="timeout" from="Spawn_timer" to="." method="_on_spawn_timer_timeout"]
@@ -1494,3 +1535,4 @@ bus = &"Sound Effect"
 [connection signal="timeout" from="time_before_heal_timer" to="." method="_on_time_before_heal_timer_timeout"]
 [connection signal="timeout" from="heal_animation_timer" to="." method="_on_heal_animation_timer_timeout"]
 [connection signal="timeout" from="temp_lightning_timer" to="." method="_on_temp_lightning_timer_timeout"]
+[connection signal="timeout" from="Hit_Flash_animation_player/hit_flash_animation_timer" to="." method="_on_hit_flash_animation_timer_timeout"]

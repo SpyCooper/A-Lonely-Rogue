@@ -171,7 +171,6 @@ func _on_time_between_attacks_timer_timeout():
 func get_animated_sprite():
 	return animated_sprite
 
-
 # when the hit flash animation timer ends
 func _on_hit_flash_animation_timer_timeout():
 	# remove the hit flash shader

@@ -3,11 +3,6 @@ extends Enemy
 # creates the class "slime" that other object can inherit from (specifically green_slime.gd)
 class_name slime
 
-# general enemy variables
-var target_position
-var current_direction : look_direction
-var playing_hit_animation = false
-
 # object references
 @onready var animated_sprite = $AnimatedSprite2D
 @onready var spawn_timer = $Spawn_timer
@@ -16,6 +11,13 @@ var playing_hit_animation = false
 @onready var death_sound = $DeathSound
 @onready var spawn_sound = $SpawnSound
 @onready var spawn_sound_timer = $Spawn_sound_timer
+@onready var hit_flash_animation_player = $Hit_Flash_animation_player
+@onready var hit_flash_animation_timer = $Hit_Flash_animation_player/hit_flash_animation_timer
+const ENEMY_HIT_SHADER = preload("res://Scripts/shaders/enemy_hit_shader.gdshader")
+
+# general enemy variables
+var target_position
+var current_direction : look_direction
 
 # sets the enemy's stats and references
 func _ready():
@@ -47,30 +49,12 @@ func _physics_process(_delta):
 			player_position = player.position
 			target_position = (player_position - global_position).normalized()
 			current_direction = get_left_right_look_direction(target_position)
-			
 			# flips the direction of the slime based on the if the target is on the left or right
 			if current_direction == look_direction.left:
-				# if any of the hit animations are playing
-				if animated_sprite.animation == "hit_right" :
-					# switch to the same frame of the hit animation in the new direction
-					# this keeps hit animations running for the same duration
-					var frame = animated_sprite.frame
-					animated_sprite.play("hit_left")
-					animated_sprite.frame = frame
-				# if a hit animation is not actively playing a hit animation
-				elif playing_hit_animation != true || animated_sprite.is_playing() == false:
-					# plays the basic move animation and sets the playing_hit_animation to false
-					animated_sprite.play("look_left")
-					playing_hit_animation = false
+				# plays the basic move animation and sets the playing_hit_animation to false
+				animated_sprite.play("look_left")
 			elif current_direction == look_direction.right:
-				if animated_sprite.animation == "hit_left" :
-					var frame = animated_sprite.frame
-					animated_sprite.play("hit_right")
-					animated_sprite.frame = frame
-				elif playing_hit_animation != true || animated_sprite.is_playing() == false:
-					animated_sprite.play("look_right")
-					playing_hit_animation = false
-			
+				animated_sprite.play("look_right")
 			# moves the slime to the player with a distance of 10
 			if position.distance_to(player_position) > 10:
 				## has to use get_speed() to move based on dusted effect
@@ -96,14 +80,12 @@ func take_damage(damage, attack_identifer, is_effect):
 		health -= damage
 		# if health is greater than 0
 		if health > 0:
-			# play the hit animation based on the look direction
-			if current_direction == look_direction.left:
-				animated_sprite.play("hit_left")
-			elif current_direction == look_direction.right:
-				animated_sprite.play("hit_right")
-			# set the playing_hit_animation to true
-			playing_hit_animation = true
-			# play the hit sound
+			# plays the hit animation
+			animated_sprite.material.shader = null
+			animated_sprite.material.shader = ENEMY_HIT_SHADER
+			hit_flash_animation_player.play("hit_flash")
+			hit_flash_animation_timer.start()
+			# plays the hit sound
 			hit_sound.play()
 		# if the health is 0 or less
 		if health <= 0:
@@ -136,3 +118,8 @@ func _on_death_timer_timeout():
 	catalog.unlock_enemy(EnemyTypes.enemy.blue_slime)
 	# call enemy slain
 	enemy_slain()
+
+# when the hit flash animation timer ends
+func _on_hit_flash_animation_timer_timeout():
+	# remove the hit flash shader
+	animated_sprite.material.shader = null

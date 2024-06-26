@@ -9,9 +9,9 @@ extends Enemy
 @onready var hud = %HUD
 @onready var direction_change_timer = $direction_change_timer
 @onready var hit_animation_timer = $AnimatedSprite2D/hit_animation_timer
-const HIT_SHADER = preload("res://Scripts/shaders/hit_shader.tres")
 @onready var hit_flash_animation_player = $Hit_Flash_animation_player
 @onready var hit_flash_animation_timer = $Hit_Flash_animation_player/hit_flash_animation_timer
+const ENEMY_HIT_SHADER = preload("res://Scripts/shaders/enemy_hit_shader.gdshader")
 
 # sound effect references
 @onready var hit_sound = $HitSound
@@ -166,7 +166,7 @@ func take_damage(damage, attack_identifer, is_effect):
 		if health > 0:
 			# plays the hit animation
 			animated_sprite.material.shader = null
-			animated_sprite.material.shader = HIT_SHADER
+			animated_sprite.material.shader = ENEMY_HIT_SHADER
 			hit_flash_animation_player.play("hit_flash")
 			hit_flash_animation_timer.start()
 			# plays the hit sound

@@ -13,7 +13,7 @@ class_name Player
 @onready var woosh_sound = $woosh_sound
 @onready var item_break_sound = $item_break_sound
 @onready var hit_flash_animation_timer = $Hit_Flash_animation_player/hit_flash_animation_timer
-const HIT_SHADER = preload("res://Scripts/shaders/hit_shader.tres")
+const HIT_SHADER = preload("res://Scripts/shaders/enemy_hit_shader.gdshader")
 
 # references related to the falling animation at the start of each floor
 @onready var fall_timer = $fall_timer

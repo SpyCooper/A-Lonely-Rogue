@@ -7,6 +7,9 @@ extends Enemy
 @onready var hit_sound = $HitSound
 @onready var spawn_sound = $SpawnSound
 @onready var spawn_timer = $Spawn_timer
+@onready var hit_flash_animation_player = $Hit_Flash_animation_player
+@onready var hit_flash_animation_timer = $Hit_Flash_animation_player/hit_flash_animation_timer
+const ENEMY_HIT_SHADER = preload("res://Scripts/shaders/enemy_hit_shader.gdshader")
 
 # attack variables
 var is_idle = false
@@ -25,7 +28,6 @@ var current_direction : look_direction
 
 # variables
 var can_move = true
-var playing_hit_animation = false
 
 # sets the enemy's stats and references
 func _ready():
@@ -79,27 +81,10 @@ func _physics_process(_delta):
 				## NOTE: all these checks are identical but change the directions they look at
 				## Move left
 				if current_direction == look_direction.left :
-					# if any of the hit animations are playing
-					if animated_sprite.animation == "hit_right":
-						# switch to the same frame of the hit animation in the new direction
-						# this keeps hit animations running for the same duration
-						var frame = animated_sprite.frame
-						animated_sprite.play("hit_left")
-						animated_sprite.frame = frame
-					# if a hit animation is not actively playing a hit animation
-					elif playing_hit_animation != true || animated_sprite.is_playing() == false:
-						# plays the basic move animation and sets the playing_hit_animation to false
-						animated_sprite.play("move_left")
-						playing_hit_animation = false
+					animated_sprite.play("move_left")
 				## Move right
 				elif current_direction == look_direction.right:
-					if animated_sprite.animation == "hit_left":
-						var frame = animated_sprite.frame
-						animated_sprite.play("hit_right")
-						animated_sprite.frame = frame
-					elif playing_hit_animation != true || animated_sprite.is_playing() == false:
-						animated_sprite.play("move_right")
-						playing_hit_animation = false
+					animated_sprite.play("move_right")
 				is_idle = false
 				## has to use get_speed() to move based on dusted effect
 				move_and_collide(target_position.normalized() * get_speed())
@@ -107,25 +92,11 @@ func _physics_process(_delta):
 			elif !attacking:
 				# play the idle left or right animation
 				if current_direction == look_direction.left:
-					# if a hit animation is playing
-					if animated_sprite.animation == "hit_right" || animated_sprite.animation == "hit_idle_right" || animated_sprite.animation == "attack_hit_left" || animated_sprite.animation == "attack_hit_right" || animated_sprite.animation == "hit_left":
-						# play the frame of the hit animation for the current direction
-						var frame = animated_sprite.frame
-						animated_sprite.play("hit_idle_left")
-						animated_sprite.frame = frame
-					# if a hit animation is not playing
-					elif playing_hit_animation != true || animated_sprite.is_playing() == false:
-						# play idle left
-						animated_sprite.play("idle_left")
-						is_idle = true
+					animated_sprite.play("idle_left")
+					is_idle = true
 				elif current_direction == look_direction.right:
-					if animated_sprite.animation == "hit_left" || animated_sprite.animation == "hit_idle_left" || animated_sprite.animation == "attack_hit_left" ||animated_sprite.animation == "attack_hit_right" || animated_sprite.animation == "hit_right":
-						var frame = animated_sprite.frame
-						animated_sprite.play("hit_idle_right")
-						animated_sprite.frame = frame
-					elif playing_hit_animation != true || animated_sprite.is_playing() == false:
-						animated_sprite.play("idle_right")
-						is_idle = true
+					animated_sprite.play("idle_right")
+					is_idle = true
 
 # runs when a knife (or other weapon) hits the enemy
 func take_damage(damage, attack_identifer, is_effect):
@@ -147,36 +118,12 @@ func take_damage(damage, attack_identifer, is_effect):
 		health -= damage
 		# if health is greater than 0
 		if health > 0:
-			# play the hit animation based on the look direction
-			if current_direction == look_direction.left:
-				# if attacking
-				if attacking:
-					# play the frame of the hit animation for the current direction
-					var frame = animated_sprite.frame
-					animated_sprite.frame = frame
-					animated_sprite.play("attack_hit_left")
-				# if the enemy is idle
-				elif is_idle:
-					animated_sprite.play("hit_idle_left")
-				# else play hit left
-				else:
-					var frame = animated_sprite.frame
-					animated_sprite.frame = frame
-					animated_sprite.play("hit_left")
-			elif current_direction == look_direction.right:
-				if attacking:
-					var frame = animated_sprite.frame
-					animated_sprite.frame = frame
-					animated_sprite.play("attack_hit_right")
-				elif is_idle:
-					animated_sprite.play("hit_idle_right")
-				else:
-					var frame = animated_sprite.frame
-					animated_sprite.frame = frame
-					animated_sprite.play("hit_right")
-			# set the playing_hit_animation to true
-			playing_hit_animation = true
-			# play the hit sound
+			# plays the hit animation
+			animated_sprite.material.shader = null
+			animated_sprite.material.shader = ENEMY_HIT_SHADER
+			hit_flash_animation_player.play("hit_flash")
+			hit_flash_animation_timer.start()
+			# plays the hit sound
 			hit_sound.play()
 		# if the health is 0 or less
 		if health <= 0:
@@ -248,3 +195,8 @@ func get_animated_sprite():
 func spawned_in_room():
 	player_in_room = true
 	spawning = false
+
+# when the hit flash animation timer ends
+func _on_hit_flash_animation_timer_timeout():
+	# remove the hit flash shader
+	animated_sprite.material.shader = null

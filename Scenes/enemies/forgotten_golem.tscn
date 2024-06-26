@@ -1,4 +1,4 @@
-[gd_scene load_steps=108 format=3 uid="uid://b603clqbguc3q"]
+[gd_scene load_steps=105 format=3 uid="uid://b603clqbguc3q"]
 
 [ext_resource type="Script" path="res://Scripts/enemy/forgotten_golem.gd" id="1_sed1a"]
 [ext_resource type="Texture2D" uid="uid://b22esc8f8445m" path="res://Assets/Sprites/enemies/forgotten_golem.png" id="2_cp87h"]
@@ -59,30 +59,6 @@ region = Rect2(864, 576, 96, 64)
 [sub_resource type="AtlasTexture" id="AtlasTexture_qw22l"]
 atlas = ExtResource("2_cp87h")
 region = Rect2(960, 576, 96, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_4atfm"]
-atlas = ExtResource("2_cp87h")
-region = Rect2(256, 64, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_qe8wr"]
-atlas = ExtResource("2_cp87h")
-region = Rect2(320, 64, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_0ccfe"]
-atlas = ExtResource("2_cp87h")
-region = Rect2(384, 64, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tayy8"]
-atlas = ExtResource("2_cp87h")
-region = Rect2(256, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_lnjar"]
-atlas = ExtResource("2_cp87h")
-region = Rect2(320, 0, 64, 64)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_d2g7w"]
-atlas = ExtResource("2_cp87h")
-region = Rect2(384, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ugw8r"]
 atlas = ExtResource("2_cp87h")
@@ -434,34 +410,6 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_4atfm")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_qe8wr")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_0ccfe")
-}],
-"loop": false,
-"name": &"hit_left",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_tayy8")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_lnjar")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_d2g7w")
-}],
-"loop": false,
-"name": &"hit_right",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_ugw8r")
 }, {
 "duration": 1.0,
@@ -745,6 +693,43 @@ height = 56.0
 radius = 5.0
 height = 54.0
 
+[sub_resource type="Animation" id="Animation_ly7xv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_5mjcq"]
+resource_name = "hit_flash"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4hf0x"]
+_data = {
+"RESET": SubResource("Animation_ly7xv"),
+"hit_flash": SubResource("Animation_5mjcq")
+}
+
 [node name="forgotten_golem" type="CharacterBody2D"]
 collision_layer = 12
 collision_mask = 9
@@ -760,7 +745,7 @@ shape = SubResource("CapsuleShape2D_yuh82")
 material = SubResource("ShaderMaterial_6k7h3")
 position = Vector2(0, -27)
 sprite_frames = SubResource("SpriteFrames_vnjlw")
-animation = &"laser_right"
+animation = &"dying"
 autoplay = "look_right"
 
 [node name="DamagePlayer" parent="." instance=ExtResource("3_qvvkh")]
@@ -853,6 +838,15 @@ stream = ExtResource("8_qr1pw")
 volume_db = -3.0
 bus = &"Sound Effect"
 
+[node name="Hit_Flash_animation_player" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_4hf0x")
+}
+
+[node name="hit_flash_animation_timer" type="Timer" parent="Hit_Flash_animation_player"]
+wait_time = 0.2
+one_shot = true
+
 [connection signal="timeout" from="Attack_timer" to="." method="_on_attack_timer_timeout"]
 [connection signal="timeout" from="Death_timer" to="." method="_on_death_timer_timeout"]
 [connection signal="timeout" from="Spawn_timer" to="." method="_on_spawn_timer_timeout"]
@@ -863,3 +857,4 @@ bus = &"Sound Effect"
 [connection signal="timeout" from="delay_player_position_timer" to="." method="_on_delay_player_position_timer_timeout"]
 [connection signal="timeout" from="vine_spin_animation_timer" to="." method="_on_vine_spin_animation_timer_timeout"]
 [connection signal="timeout" from="vine_spin_summon_timer" to="." method="_on_vine_spin_summon_timer_timeout"]
+[connection signal="timeout" from="Hit_Flash_animation_player/hit_flash_animation_timer" to="." method="_on_hit_flash_animation_timer_timeout"]

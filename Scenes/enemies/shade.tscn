@@ -1,4 +1,4 @@
-[gd_scene load_steps=97 format=3 uid="uid://1brne78u7lu8"]
+[gd_scene load_steps=100 format=3 uid="uid://1brne78u7lu8"]
 
 [ext_resource type="Script" path="res://Scripts/enemy/shade.gd" id="1_6nq7k"]
 [ext_resource type="Texture2D" uid="uid://4x6sdalrrx51" path="res://Assets/Sprites/enemies/shade.png" id="2_3wotp"]
@@ -697,6 +697,43 @@ animations = [{
 radius = 6.0
 height = 22.0
 
+[sub_resource type="Animation" id="Animation_ly7xv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_5mjcq"]
+resource_name = "hit_flash"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4hf0x"]
+_data = {
+"RESET": SubResource("Animation_ly7xv"),
+"hit_flash": SubResource("Animation_5mjcq")
+}
+
 [node name="shade" type="CharacterBody2D"]
 collision_layer = 12
 collision_mask = 9
@@ -768,8 +805,18 @@ position = Vector2(14, -7)
 wait_time = 0.3
 one_shot = true
 
+[node name="Hit_Flash_animation_player" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_4hf0x")
+}
+
+[node name="hit_flash_animation_timer" type="Timer" parent="Hit_Flash_animation_player"]
+wait_time = 0.2
+one_shot = true
+
 [connection signal="timeout" from="Spawn_timer" to="." method="_on_spawn_timer_timeout"]
 [connection signal="timeout" from="death_timer" to="." method="_on_death_timer_timeout"]
 [connection signal="timeout" from="shadow_bolt_spawn_timer" to="." method="_on_shadow_bolt_spawn_timer_timeout"]
 [connection signal="timeout" from="shadow_bolt_attack_timer" to="." method="_on_shadow_bolt_attack_timer_timeout"]
 [connection signal="timeout" from="time_between_shadow_bolts_burst" to="." method="_on_time_between_shadow_bolts_burst_timeout"]
+[connection signal="timeout" from="Hit_Flash_animation_player/hit_flash_animation_timer" to="." method="_on_hit_flash_animation_timer_timeout"]

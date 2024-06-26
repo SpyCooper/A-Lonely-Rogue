@@ -1,4 +1,4 @@
-[gd_scene load_steps=77 format=3 uid="uid://bbpy8jqtds75f"]
+[gd_scene load_steps=68 format=3 uid="uid://bbpy8jqtds75f"]
 
 [ext_resource type="Script" path="res://Scripts/enemy/earth_elemental.gd" id="1_2cg62"]
 [ext_resource type="Texture2D" uid="uid://dfc1l5ok8nb83" path="res://Assets/Sprites/enemies/earth_elemental.png" id="2_icru6"]
@@ -29,54 +29,6 @@ region = Rect2(64, 128, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_qylpf"]
 atlas = ExtResource("2_icru6")
 region = Rect2(96, 128, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_sllou"]
-atlas = ExtResource("2_icru6")
-region = Rect2(128, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_7r68j"]
-atlas = ExtResource("2_icru6")
-region = Rect2(160, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_5enyc"]
-atlas = ExtResource("2_icru6")
-region = Rect2(192, 0, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_v7efb"]
-atlas = ExtResource("2_icru6")
-region = Rect2(128, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_t5bxp"]
-atlas = ExtResource("2_icru6")
-region = Rect2(160, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_ppcff"]
-atlas = ExtResource("2_icru6")
-region = Rect2(192, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_0ttdh"]
-atlas = ExtResource("2_icru6")
-region = Rect2(128, 96, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_6brar"]
-atlas = ExtResource("2_icru6")
-region = Rect2(160, 96, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_tnrb4"]
-atlas = ExtResource("2_icru6")
-region = Rect2(192, 96, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_q0f41"]
-atlas = ExtResource("2_icru6")
-region = Rect2(128, 64, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_51fwg"]
-atlas = ExtResource("2_icru6")
-region = Rect2(160, 64, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_3lpyi"]
-atlas = ExtResource("2_icru6")
-region = Rect2(192, 64, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8a55i"]
 atlas = ExtResource("2_icru6")
@@ -295,62 +247,6 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_sllou")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_7r68j")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_5enyc")
-}],
-"loop": false,
-"name": &"hit_down",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_v7efb")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_t5bxp")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_ppcff")
-}],
-"loop": false,
-"name": &"hit_left",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_0ttdh")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_6brar")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_tnrb4")
-}],
-"loop": false,
-"name": &"hit_right",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_q0f41")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_51fwg")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_3lpyi")
-}],
-"loop": false,
-"name": &"hit_up",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_8a55i")
 }, {
 "duration": 1.0,
@@ -550,6 +446,43 @@ height = 28.0
 radius = 2.0
 height = 12.0
 
+[sub_resource type="Animation" id="Animation_ly7xv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_5mjcq"]
+resource_name = "hit_flash"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4hf0x"]
+_data = {
+"RESET": SubResource("Animation_ly7xv"),
+"hit_flash": SubResource("Animation_5mjcq")
+}
+
 [node name="earth_elemental" type="CharacterBody2D"]
 collision_layer = 12
 collision_mask = 9
@@ -563,7 +496,7 @@ shape = SubResource("CapsuleShape2D_jb7qj")
 material = SubResource("ShaderMaterial_cv438")
 position = Vector2(0, -12)
 sprite_frames = SubResource("SpriteFrames_uhx0a")
-animation = &"throw_down"
+animation = &"dying"
 autoplay = "move_down"
 
 [node name="DamagePlayer" parent="." instance=ExtResource("3_lhivs")]
@@ -620,6 +553,16 @@ position = Vector2(14, -9)
 [node name="rock_spawner_left" type="Marker2D" parent="."]
 position = Vector2(-14, -9)
 
+[node name="Hit_Flash_animation_player" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_4hf0x")
+}
+
+[node name="hit_flash_animation_timer" type="Timer" parent="Hit_Flash_animation_player"]
+wait_time = 0.2
+one_shot = true
+
 [connection signal="timeout" from="Spawn_timer" to="." method="_on_spawn_timer_timeout"]
 [connection signal="timeout" from="death_timer" to="." method="_on_death_timer_timeout"]
 [connection signal="timeout" from="throw animation timer" to="." method="_on_throw_animation_timer_timeout"]
+[connection signal="timeout" from="Hit_Flash_animation_player/hit_flash_animation_timer" to="." method="_on_hit_flash_animation_timer_timeout"]
