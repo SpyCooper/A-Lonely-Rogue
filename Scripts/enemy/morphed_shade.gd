@@ -9,7 +9,7 @@ extends Enemy
 @onready var hud = %HUD
 @onready var direction_change_timer = $direction_change_timer
 @onready var hit_animation_timer = $AnimatedSprite2D/hit_animation_timer
-const PLAYER_SHADER = preload("res://Scripts/shaders/player.tres")
+const HIT_SHADER = preload("res://Scripts/shaders/hit_shader.tres")
 @onready var hit_flash_animation_player = $Hit_Flash_animation_player
 @onready var hit_flash_animation_timer = $Hit_Flash_animation_player/hit_flash_animation_timer
 
@@ -164,11 +164,9 @@ func take_damage(damage, attack_identifer, is_effect):
 		health -= damage
 		# plays the hit sound if the HP after damage is > 0
 		if health > 0:
-			# plays the hit sound
-			hit_sound.play()
 			# plays the hit animation
 			animated_sprite.material.shader = null
-			animated_sprite.material.shader = PLAYER_SHADER
+			animated_sprite.material.shader = HIT_SHADER
 			hit_flash_animation_player.play("hit_flash")
 			hit_flash_animation_timer.start()
 			# plays the hit sound

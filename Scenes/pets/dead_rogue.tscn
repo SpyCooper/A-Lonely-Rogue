@@ -1,7 +1,7 @@
 [gd_scene load_steps=13 format=3 uid="uid://dgjm417weplte"]
 
 [ext_resource type="Script" path="res://Scripts/pet/dead_rogue.gd" id="1_ylu7w"]
-[ext_resource type="Shader" uid="uid://dlroce5v6b0te" path="res://Scripts/shaders/player.tres" id="2_m0dn3"]
+[ext_resource type="Shader" uid="uid://dlroce5v6b0te" path="res://Scripts/shaders/hit_shader.tres" id="2_m0dn3"]
 [ext_resource type="Texture2D" uid="uid://benpxihvb6a3r" path="res://Assets/Sprites/pets/ghostly_rogue.png" id="3_fknwa"]
 [ext_resource type="AudioStream" uid="uid://da2jep71daunv" path="res://Assets/Audio/pets/ghost_rogue_enter.mp3" id="4_165qt"]
 [ext_resource type="AudioStream" uid="uid://c120pte0wgt4r" path="res://Assets/Audio/sound effects/woosh_sfx.mp3" id="6_36ndo"]

@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://ba4fsyg83funj"]
 
 [ext_resource type="Script" path="res://Scripts/bomb_explosion.gd" id="1_02mvt"]
-[ext_resource type="Shader" uid="uid://dlroce5v6b0te" path="res://Scripts/shaders/player.tres" id="2_lpiga"]
+[ext_resource type="Shader" uid="uid://dlroce5v6b0te" path="res://Scripts/shaders/hit_shader.tres" id="2_lpiga"]
 [ext_resource type="Texture2D" uid="uid://bp6mk0ui8607q" path="res://Assets/Sprites/items/bomb.png" id="3_uscnl"]
 [ext_resource type="AudioStream" uid="uid://bbqxhlt7ju2cf" path="res://Assets/Audio/sound effects/bomb explosion.mp3" id="3_uvaf7"]
 

@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://d2l4fsgnjqqsx"]
 
 [ext_resource type="Script" path="res://Scripts/pet/protective_charm_spawn.gd" id="1_63x00"]
-[ext_resource type="Shader" uid="uid://dlroce5v6b0te" path="res://Scripts/shaders/player.tres" id="1_awera"]
+[ext_resource type="Shader" uid="uid://dlroce5v6b0te" path="res://Scripts/shaders/hit_shader.tres" id="1_awera"]
 [ext_resource type="Texture2D" uid="uid://bsax0geoljr8g" path="res://Assets/Sprites/pets/protective_charm_spawn.png" id="2_fnngj"]
 [ext_resource type="AudioStream" uid="uid://btv5eo2velj1n" path="res://Assets/Audio/pets/shooting-star-2-104073.mp3" id="4_4acsk"]
 

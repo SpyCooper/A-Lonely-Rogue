@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://b1m0opptrag7w"]
+[gd_scene load_steps=41 format=3 uid="uid://b1m0opptrag7w"]
 
 [ext_resource type="Script" path="res://Scripts/enemy/air_elemental.gd" id="1_f0asm"]
 [ext_resource type="Texture2D" uid="uid://bft7wqmpxqenp" path="res://Assets/Sprites/enemies/air_elemental.png" id="2_6pks0"]
@@ -154,7 +154,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_kj0b2")
 }],
-"loop": false,
+"loop": true,
 "name": &"hit_left",
 "speed": 5.0
 }, {
@@ -168,7 +168,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_3vbio")
 }],
-"loop": false,
+"loop": true,
 "name": &"hit_right",
 "speed": 5.0
 }, {
@@ -234,6 +234,43 @@ animations = [{
 radius = 5.0
 height = 22.0
 
+[sub_resource type="Animation" id="Animation_ly7xv"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_5mjcq"]
+resource_name = "hit_flash"
+length = 0.2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D:material:shader_parameter/enabled")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_4hf0x"]
+_data = {
+"RESET": SubResource("Animation_ly7xv"),
+"hit_flash": SubResource("Animation_5mjcq")
+}
+
 [node name="air_elemental" type="CharacterBody2D"]
 collision_layer = 12
 collision_mask = 9
@@ -247,7 +284,7 @@ shape = SubResource("CapsuleShape2D_jb7qj")
 material = SubResource("ShaderMaterial_btki0")
 position = Vector2(0, -14)
 sprite_frames = SubResource("SpriteFrames_cuhg1")
-animation = &"dying"
+animation = &"hit_right"
 
 [node name="DamagePlayer" parent="." instance=ExtResource("3_r48b7")]
 collision_layer = 0
@@ -289,6 +326,16 @@ stream = ExtResource("6_gcnj5")
 volume_db = 10.0
 bus = &"Sound Effect"
 
+[node name="Hit_Flash_animation_player" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_4hf0x")
+}
+
+[node name="hit_flash_animation_timer" type="Timer" parent="Hit_Flash_animation_player"]
+wait_time = 0.2
+one_shot = true
+
 [connection signal="timeout" from="Spawn_timer" to="." method="_on_spawn_timer_timeout"]
 [connection signal="timeout" from="death_timer" to="." method="_on_death_timer_timeout"]
 [connection signal="timeout" from="time_between_attacks_timer" to="." method="_on_time_between_attacks_timer_timeout"]
+[connection signal="timeout" from="Hit_Flash_animation_player/hit_flash_animation_timer" to="." method="_on_hit_flash_animation_timer_timeout"]

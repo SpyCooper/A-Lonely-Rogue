@@ -8,6 +8,9 @@ extends Enemy
 @onready var spawn_sound = $SpawnSound
 @onready var spawn_timer = $Spawn_timer
 @onready var exist_sound = $exist_sound
+@onready var hit_flash_animation_player = $Hit_Flash_animation_player
+@onready var hit_flash_animation_timer = $Hit_Flash_animation_player/hit_flash_animation_timer
+const ENEMY_HIT_SHADER = preload("res://Scripts/shaders/enemy_hit_shader.gdshader")
 
 # throw tornado variables
 var can_throw = false
@@ -24,7 +27,6 @@ var current_direction : look_direction
 
 # variables
 var can_move = true
-var playing_hit_animation = false
 
 # sets the enemy's stats and references
 func _ready():
@@ -69,27 +71,11 @@ func _physics_process(_delta):
 			## NOTE: all these checks are identical but change the directions they look at
 			## Move left
 			if current_direction == look_direction.left :
-				# if any of the hit animations are playing
-				if animated_sprite.animation == "hit_right" || animated_sprite.animation == "hit_up" || animated_sprite.animation == "hit_down" :
-					# switch to the same frame of the hit animation in the new direction
-					# this keeps hit animations running for the same duration
-					var frame = animated_sprite.frame
-					animated_sprite.play("hit_left")
-					animated_sprite.frame = frame
-				# if a hit animation is not actively playing a hit animation
-				elif playing_hit_animation != true || animated_sprite.is_playing() == false:
-					# plays the basic move animation and sets the playing_hit_animation to false
-					animated_sprite.play("move_left")
-					playing_hit_animation = false
+				# plays the basic move animation and sets the playing_hit_animation to false
+				animated_sprite.play("move_left")
 			## Move right
 			elif current_direction == look_direction.right:
-				if animated_sprite.animation == "hit_left" || animated_sprite.animation == "hit_up" || animated_sprite.animation == "hit_down":
-					var frame = animated_sprite.frame
-					animated_sprite.play("hit_right")
-					animated_sprite.frame = frame
-				elif playing_hit_animation != true || animated_sprite.is_playing() == false:
-					animated_sprite.play("move_right")
-					playing_hit_animation = false
+				animated_sprite.play("move_right")
 			# if the air elemental can throw tornados
 			if can_throw:
 				# reset the throw
@@ -122,14 +108,12 @@ func take_damage(damage, attack_identifer, is_effect):
 		health -= damage
 		# if health is greater than 0
 		if health > 0:
-			# play the hit animation based on the look direction
-			if current_direction == look_direction.left:
-				animated_sprite.play("hit_left")
-			elif current_direction == look_direction.right:
-				animated_sprite.play("hit_right")
-			# set the playing_hit_animation to true
-			playing_hit_animation = true
-			# play the hit sound
+			# plays the hit animation
+			animated_sprite.material.shader = null
+			animated_sprite.material.shader = ENEMY_HIT_SHADER
+			hit_flash_animation_player.play("hit_flash")
+			hit_flash_animation_timer.start()
+			# plays the hit sound
 			hit_sound.play()
 		# if the health is 0 or less
 		if health <= 0:
@@ -186,3 +170,9 @@ func _on_time_between_attacks_timer_timeout():
 # returns the animated sprite
 func get_animated_sprite():
 	return animated_sprite
+
+
+# when the hit flash animation timer ends
+func _on_hit_flash_animation_timer_timeout():
+	# remove the hit flash shader
+	animated_sprite.material.shader = null

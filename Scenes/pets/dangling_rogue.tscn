@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://b8re5oaadvs2l"]
 
 [ext_resource type="Script" path="res://Scripts/pet/dangling_rogue.gd" id="1_74mug"]
-[ext_resource type="Shader" uid="uid://dlroce5v6b0te" path="res://Scripts/shaders/player.tres" id="2_3b1dm"]
+[ext_resource type="Shader" uid="uid://dlroce5v6b0te" path="res://Scripts/shaders/hit_shader.tres" id="2_3b1dm"]
 [ext_resource type="Texture2D" uid="uid://dyooyc6oxepd3" path="res://Assets/Sprites/pets/dangling_rogue.png" id="3_i083f"]
 [ext_resource type="AudioStream" uid="uid://b6vyj05076cgm" path="res://Assets/Audio/pets/dangling_rogue/dangling rogue enter.mp3" id="4_eoqyl"]
 [ext_resource type="AudioStream" uid="uid://c54e6i3lo7n2g" path="res://Assets/Audio/pets/dangling_rogue/dangling rogue hit.mp3" id="5_iql8y"]

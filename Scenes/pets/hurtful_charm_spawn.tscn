@@ -1,7 +1,7 @@
 [gd_scene load_steps=12 format=3 uid="uid://c88uc478ry06"]
 
 [ext_resource type="Script" path="res://Scripts/pet/hurtful_charm_spawn.gd" id="1_j6n3j"]
-[ext_resource type="Shader" uid="uid://dlroce5v6b0te" path="res://Scripts/shaders/player.tres" id="2_jg0uf"]
+[ext_resource type="Shader" uid="uid://dlroce5v6b0te" path="res://Scripts/shaders/hit_shader.tres" id="2_jg0uf"]
 [ext_resource type="Texture2D" uid="uid://c16o8hpmlsaje" path="res://Assets/Sprites/pets/hurtful_charm_spawn.png" id="3_16m56"]
 [ext_resource type="AudioStream" uid="uid://c8hmv5r1vebqo" path="res://Assets/Audio/pets/basic-fire-whoosh-3-104223.mp3" id="4_1ccps"]
 

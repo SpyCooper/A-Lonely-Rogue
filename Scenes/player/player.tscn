@@ -1,7 +1,7 @@
 [gd_scene load_steps=91 format=3 uid="uid://dahgvmrgtix2i"]
 
 [ext_resource type="Texture2D" uid="uid://cq8j4qlvoeapy" path="res://Assets/Sprites/player/HoodedCharacter.png" id="2_4wocn"]
-[ext_resource type="Shader" uid="uid://dlroce5v6b0te" path="res://Scripts/shaders/player.tres" id="2_8414r"]
+[ext_resource type="Shader" uid="uid://dlroce5v6b0te" path="res://Scripts/shaders/hit_shader.tres" id="2_mscmd"]
 [ext_resource type="Script" path="res://Scripts/player/player.gd" id="2_x28dm"]
 [ext_resource type="Texture2D" uid="uid://dfwrwdrs0na2j" path="res://Assets/Sprites/player/falling_player.png" id="4_r1rwf"]
 [ext_resource type="AudioStream" uid="uid://bax74dwcrlidj" path="res://Assets/Audio/sound effects/male_hurt7-48124.mp3" id="5_26tj3"]
@@ -15,7 +15,7 @@
 [ext_resource type="AudioStream" uid="uid://mllntkylihdr" path="res://Assets/Audio/sound effects/glass-shatter-7-95202.mp3" id="13_0qney"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_uvp4x"]
-shader = ExtResource("2_8414r")
+shader = ExtResource("2_mscmd")
 shader_parameter/enabled = false
 shader_parameter/tint = Color(0.752941, 0.819608, 0.8, 1)
 

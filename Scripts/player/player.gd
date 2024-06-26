@@ -13,7 +13,7 @@ class_name Player
 @onready var woosh_sound = $woosh_sound
 @onready var item_break_sound = $item_break_sound
 @onready var hit_flash_animation_timer = $Hit_Flash_animation_player/hit_flash_animation_timer
-const PLAYER_SHADER = preload("res://Scripts/shaders/player.tres")
+const HIT_SHADER = preload("res://Scripts/shaders/hit_shader.tres")
 
 # references related to the falling animation at the start of each floor
 @onready var fall_timer = $fall_timer
@@ -427,7 +427,7 @@ func player_take_damage(is_ms_knife, attack_identifer):
 		player_adjust_health(-1)
 		# plays the hit flash animation
 		animated_sprite.material.shader = null
-		animated_sprite.material.shader = PLAYER_SHADER
+		animated_sprite.material.shader = HIT_SHADER
 		hit_sound.play()
 		hit_flash_animation_player.play("hit_flash")
 		hit_flash_animation_timer.start()
