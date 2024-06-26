@@ -4,6 +4,7 @@ extends Control
 @onready var animated_sprite_2d = $AnimatedSprite2D
 @onready var grey_out_sprite = $GreyOut_sprite
 @onready var cooldown_label = $GreyOut_sprite/cooldown_Label
+@onready var stack_label = $stack_Label
 
 var item_type : ItemType.type
 
@@ -14,6 +15,8 @@ var timer = 0.0
 func _ready():
 	# hide the cooldown
 	hide_cooldown()
+	# set the stack amount
+	adjust_stack(1)
 
 func set_item_type(item: ItemType.type):
 	item_type = item
@@ -55,3 +58,10 @@ func hide_cooldown():
 	# reset the label and hide the timer
 	cooldown_label.text = str("%1.1f" % 0.0)
 	cooldown_label.hide()
+
+func adjust_stack(stack_amount : int):
+	if stack_amount <= 1:
+		stack_label.hide()
+	else:
+		stack_label.show()
+		stack_label.text = str(stack_amount)

@@ -22,7 +22,6 @@ func _process(delta):
 		if !life_time_timer_started:
 			life_time_timer.start()
 			life_time_timer_started = true
-			print(life_time_timer_started)
 
 # runs when a object enters the Area2D's collider
 func _on_body_entered(body):

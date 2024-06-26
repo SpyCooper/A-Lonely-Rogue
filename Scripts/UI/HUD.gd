@@ -379,6 +379,8 @@ func current_usable_item(usable_item : ItemType.type):
 		usable_item_ui_slot.get_animated_sprite().play("poison_gas")
 	elif usable_item == ItemType.type.rogue_in_a_bottle:
 		usable_item_ui_slot.get_animated_sprite().play("rogue_in_a_bottle")
+	elif usable_item == ItemType.type.bomb:
+		usable_item_ui_slot.get_animated_sprite().play("bomb")
 
 # when the usable item is used for a time
 func used_usable_item(time):
@@ -388,3 +390,6 @@ func used_usable_item(time):
 # hides the usable_item
 func hide_usable_item():
 	usable_item_ui_slot.hide()
+
+func adjust_usable_item_stack_amount(stack_amount : int):
+	usable_item_ui_slot.adjust_stack(stack_amount)

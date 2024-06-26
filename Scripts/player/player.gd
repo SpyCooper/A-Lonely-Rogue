@@ -85,6 +85,8 @@ var can_use_item = true
 var current_usable_item = ItemType.type.temp
 const PLAYER_FRIENDLY_POISON_AREA = preload("res://Scenes/player/player_friendly_poison_area.tscn")
 const TINY_ROGUE = preload("res://Scenes/pets/tiny_rogue.tscn")
+var usable_item_stack_amount = 0
+const BOMB = preload("res://Scenes/bomb.tscn")
 # dash boots
 @onready var dash_timer = $Dash_timer
 var dash_speed_boost = 150.0
@@ -430,6 +432,8 @@ func picked_up_item(item, display_text = true, sound = true):
 		# add the item to the collected items list on HUD and in player data
 		hud.current_usable_item(current_usable_item)
 		items_collected += [item]
+		# adjust the usable items stack UI
+		usable_item_added(current_usable_item)
 	elif item == ItemType.type.poison_gas:
 		# removes the current_usable_item from the player's collected items
 		remove_item_from_items_collected(current_usable_item)
@@ -441,6 +445,8 @@ func picked_up_item(item, display_text = true, sound = true):
 		# add the item to the collected items list on HUD and in player data
 		hud.current_usable_item(current_usable_item)
 		items_collected += [item]
+		# adjust the usable items stack UI
+		usable_item_added(current_usable_item)
 	elif item == ItemType.type.protective_charm:
 		# display the item text
 		if display_text:
@@ -461,6 +467,8 @@ func picked_up_item(item, display_text = true, sound = true):
 		# add the item to the collected items list on HUD and in player data
 		hud.current_usable_item(current_usable_item)
 		items_collected += [item]
+		# adjust the usable items stack UI
+		usable_item_added(current_usable_item)
 	elif item == ItemType.type.hurtful_charm:
 		# display the item text
 		if display_text:
@@ -488,6 +496,28 @@ func picked_up_item(item, display_text = true, sound = true):
 		items_collected += [item]
 		# spawn the pet to the player based on the item
 		add_pet(item)
+	elif item == ItemType.type.bomb:
+		# if the current usable item type is already a bomb
+		if current_usable_item == ItemType.type.bomb:
+			# add one to the stack
+			usable_item_stack_amount += 1
+		# if the current usable item type is not already a bomb
+		else:
+			# removes the current_usable_item from the player's collected items
+			remove_item_from_items_collected(current_usable_item)
+			# set the current item for the player to the dash boots
+			current_usable_item = item
+			# add the item to the collected items list on HUD and in player data
+			hud.current_usable_item(current_usable_item)
+			# set the usable item stack to 1
+			usable_item_stack_amount = 1
+		# display the item text
+		if display_text:
+			hud.display_text("Aquired a Bomb!", "Use when you need an explosion!")
+		# adjust the usable items stack UI
+		usable_item_added(current_usable_item)
+		# add the item to the collected items in player data
+		items_collected += [item]
 
 # calculate the attack speed
 func calculate_attack_speed():
@@ -759,7 +789,6 @@ func use_usable_item():
 		elif current_usable_item == ItemType.type.rogue_in_a_bottle:
 			# use an item
 			used_usable_item()
-			print("used item")
 			# spawn the poison gas
 			var tiny_rogue = TINY_ROGUE.instantiate()
 			get_parent().add_child(tiny_rogue)
@@ -767,8 +796,51 @@ func use_usable_item():
 			## set the usable item to temp (nothing)
 			current_usable_item = ItemType.type.temp
 			remove_item_from_items_collected(ItemType.type.rogue_in_a_bottle)
+		elif current_usable_item == ItemType.type.bomb:
+			# use an item
+			used_usable_item()
+			# spawn the poison gas
+			var bomb_instance = BOMB.instantiate()
+			get_parent().add_child(bomb_instance)
+			bomb_instance.global_position = global_position
+			# remove 1 from the stack amount
+			usable_item_stack_amount -= 1
+			# if the stack is 0
+			if usable_item_stack_amount == 0:
+				# set the current usable itme to nothing
+				current_usable_item = ItemType.type.temp
+				# remove the move from items collected
+				remove_item_from_items_collected(ItemType.type.bomb)
+				# refresh the stack amount
+				hud.adjust_usable_item_stack_amount(usable_item_stack_amount)
+			# if the stack is  not 0
+			else:
+				# remove the move from items collected without sound
+				remove_item_from_items_collected(ItemType.type.bomb, false)
+				# refresh the stack amount
+				hud.adjust_usable_item_stack_amount(usable_item_stack_amount)
 		else:
 			pass
+		# if the current useable item is temp (nothing) remove the current_usable_item ui
+		if current_usable_item == ItemType.type.temp:
+			# hides the usable item UI
+			hud.hide_usable_item()
+
+# when a usable item is added
+func usable_item_added(item_type : ItemType.type):
+	# check if the item is stackable
+	var stackable_item = false
+	if item_type == ItemType.type.bomb:
+		stackable_item = true
+	# if the item is stackable
+	if stackable_item:
+		# adjust the usable items stack UI
+		hud.adjust_usable_item_stack_amount(usable_item_stack_amount)
+	# if the item is not stackable
+	else:
+		# reset the item stack
+		usable_item_stack_amount = 1
+		hud.adjust_usable_item_stack_amount(usable_item_stack_amount)
 
 # when an item is used
 func used_usable_item():
@@ -789,12 +861,13 @@ func _on_usable_item_cooldown_timer_timeout():
 		hud.hide_usable_item()
 
 # removes the first item from items collected
-func remove_item_from_items_collected(item_to_remove : ItemType.type):
+func remove_item_from_items_collected(item_to_remove : ItemType.type, playsound : bool = true):
 	if item_to_remove != ItemType.type.temp:
 		for i in range(0, items_collected.size()):
 			if items_collected[i] == item_to_remove:
 				items_collected.remove_at(i)
-				item_break_sound.play()
+				if playsound:
+					item_break_sound.play()
 				return
 
 # when the player dashes

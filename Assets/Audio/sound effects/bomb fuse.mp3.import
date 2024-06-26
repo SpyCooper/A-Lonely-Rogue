@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cxxp1kykyi7u2"
+path="res://.godot/imported/bomb fuse.mp3-634c42289212975d93a5c114df044d7f.mp3str"
+
+[deps]
+
+source_file="res://Assets/Audio/sound effects/bomb fuse.mp3"
+dest_files=["res://.godot/imported/bomb fuse.mp3-634c42289212975d93a5c114df044d7f.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

@@ -1,0 +1,73 @@
+[gd_scene load_steps=11 format=3 uid="uid://ba4fsyg83funj"]
+
+[ext_resource type="Script" path="res://Scripts/bomb_explosion.gd" id="1_02mvt"]
+[ext_resource type="Shader" uid="uid://dlroce5v6b0te" path="res://Scripts/shaders/player.tres" id="2_lpiga"]
+[ext_resource type="Texture2D" uid="uid://bp6mk0ui8607q" path="res://Assets/Sprites/items/bomb.png" id="3_uscnl"]
+[ext_resource type="AudioStream" uid="uid://bbqxhlt7ju2cf" path="res://Assets/Audio/sound effects/bomb explosion.mp3" id="3_uvaf7"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8as0q"]
+shader = ExtResource("2_lpiga")
+shader_parameter/enabled = false
+shader_parameter/tint = Color(0.752941, 0.819608, 0.8, 1)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sl0no"]
+atlas = ExtResource("3_uscnl")
+region = Rect2(0, 48, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tfanr"]
+atlas = ExtResource("3_uscnl")
+region = Rect2(96, 48, 48, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qqn52"]
+atlas = ExtResource("3_uscnl")
+region = Rect2(144, 48, 48, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jeyk8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sl0no")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tfanr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_qqn52")
+}],
+"loop": false,
+"name": &"default",
+"speed": 8.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wjigd"]
+radius = 21.0238
+
+[node name="bomb_explosion" type="Area2D"]
+y_sort_enabled = true
+collision_layer = 4
+collision_mask = 4
+script = ExtResource("1_02mvt")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+material = SubResource("ShaderMaterial_8as0q")
+position = Vector2(0, -2)
+sprite_frames = SubResource("SpriteFrames_jeyk8")
+autoplay = "default"
+frame = 2
+frame_progress = 1.0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_wjigd")
+
+[node name="life_time_timer" type="Timer" parent="."]
+wait_time = 0.75
+one_shot = true
+
+[node name="explosion_sound" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(0, -2)
+stream = ExtResource("3_uvaf7")
+autoplay = true
+bus = &"Sound Effect"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="life_time_timer" to="." method="_on_life_time_timer_timeout"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=75 format=3 uid="uid://dc0xlg20ucy3n"]
+[gd_scene load_steps=77 format=3 uid="uid://dc0xlg20ucy3n"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Catalog.gd" id="1_mndmm"]
 [ext_resource type="Theme" uid="uid://pv4evjjac8wt" path="res://Assets/general_theme.tres" id="2_umit2"]
@@ -38,6 +38,7 @@
 [ext_resource type="Texture2D" uid="uid://cxdp1ww8okfv2" path="res://Assets/Sprites/catalog_icons/hurtful_charm_icon.png" id="35_jwmjl"]
 [ext_resource type="Texture2D" uid="uid://bl7r5tr8dsooy" path="res://Assets/Sprites/catalog_icons/magically_trapped_rogue_icon.png" id="36_ekr3x"]
 [ext_resource type="Texture2D" uid="uid://21jry0k85pcx" path="res://Assets/Sprites/catalog_icons/dead_rogue_head_icon.png" id="37_rsojq"]
+[ext_resource type="Texture2D" uid="uid://rfjsdx0wxqnq" path="res://Assets/Sprites/catalog_icons/bomb_icon.png" id="38_i5cay"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ck2s6"]
 shader = ExtResource("3_qa2dv")
@@ -88,6 +89,9 @@ shader = ExtResource("3_qa2dv")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qvpgg"]
 resource_local_to_scene = true
+shader = ExtResource("3_qa2dv")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_xs1sf"]
 shader = ExtResource("3_qa2dv")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_pfafq"]
@@ -1488,6 +1492,21 @@ alignment = 2
 icon_alignment = 1
 expand_icon = true
 
+[node name="Spot22" type="Control" parent="TabContainer/Items/ScrollContainer/GridContainer"]
+layout_mode = 2
+
+[node name="bomb_button" type="Button" parent="TabContainer/Items/ScrollContainer/GridContainer/Spot22"]
+material = SubResource("ShaderMaterial_xs1sf")
+layout_mode = 0
+offset_right = 93.0
+offset_bottom = 85.0
+theme_override_constants/icon_max_width = 64
+icon = ExtResource("38_i5cay")
+flat = true
+alignment = 2
+icon_alignment = 1
+expand_icon = true
+
 [node name="Spot3" type="Control" parent="TabContainer/Items/ScrollContainer/GridContainer"]
 layout_mode = 2
 
@@ -1954,6 +1973,75 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
 text = "- Can be used with other blade effects"
+autowrap_mode = 2
+
+[node name="bomb_panel" type="Panel" parent="TabContainer/Items/Panels"]
+visible = false
+layout_mode = 0
+offset_left = 11.0
+offset_right = 521.0
+offset_bottom = 513.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_wrmxr")
+
+[node name="Sprite2D" type="Sprite2D" parent="TabContainer/Items/Panels/bomb_panel"]
+position = Vector2(97, 93)
+scale = Vector2(9.0625, 9.0625)
+texture = ExtResource("38_i5cay")
+
+[node name="Title" type="Label" parent="TabContainer/Items/Panels/bomb_panel"]
+layout_mode = 0
+offset_left = 159.0
+offset_top = 15.0
+offset_right = 489.0
+offset_bottom = 156.0
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 48
+text = "Bomb"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Type" type="Label" parent="TabContainer/Items/Panels/bomb_panel"]
+layout_mode = 0
+offset_left = 159.0
+offset_top = 71.0
+offset_right = 489.0
+offset_bottom = 116.0
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "Type: Active"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Items/Panels/bomb_panel"]
+layout_mode = 0
+offset_left = 22.5
+offset_top = 165.5
+offset_right = 443.5
+offset_bottom = 496.5
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Bio" type="Label" parent="TabContainer/Items/Panels/bomb_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- Throws a bomb at your feet!"
+autowrap_mode = 2
+
+[node name="Bio2" type="Label" parent="TabContainer/Items/Panels/bomb_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- Bomb will explode after a few seconds"
+autowrap_mode = 2
+
+[node name="Bio3" type="Label" parent="TabContainer/Items/Panels/bomb_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- Hurts enemies but not the user"
 autowrap_mode = 2
 
 [node name="Glass_blade_panel" type="Panel" parent="TabContainer/Items/Panels"]
@@ -3208,9 +3296,9 @@ autowrap_mode = 2
 [node name="Type" type="Label" parent="TabContainer/Items/Panels/magically_trapped_rogue_panel"]
 layout_mode = 0
 offset_left = 159.0
-offset_top = 159.0
+offset_top = 164.0
 offset_right = 489.0
-offset_bottom = 204.0
+offset_bottom = 209.0
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
 text = "Type: Pet"
@@ -3258,6 +3346,7 @@ text = "- How does he float there?"
 autowrap_mode = 2
 
 [node name="dead_rogues_head_panel" type="Panel" parent="TabContainer/Items/Panels"]
+visible = false
 layout_mode = 0
 offset_left = 11.0
 offset_right = 521.0
@@ -3284,9 +3373,9 @@ autowrap_mode = 2
 [node name="Type" type="Label" parent="TabContainer/Items/Panels/dead_rogues_head_panel"]
 layout_mode = 0
 offset_left = 159.0
-offset_top = 107.0
+offset_top = 116.0
 offset_right = 489.0
-offset_bottom = 152.0
+offset_bottom = 161.0
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
 text = "Type: Pet"
@@ -3362,6 +3451,7 @@ text = "X"
 [connection signal="pressed" from="TabContainer/Bosses/ScrollContainer/GridContainer/Spot4/Morphed_Shade_button" to="." method="_on_morphed_shade_button_pressed"]
 [connection signal="pressed" from="TabContainer/Items/ScrollContainer/GridContainer/Spot/Boots_button" to="." method="_on_boots_button_pressed"]
 [connection signal="pressed" from="TabContainer/Items/ScrollContainer/GridContainer/Spot2/dust_blade_button" to="." method="_on_dust_blade_button_pressed"]
+[connection signal="pressed" from="TabContainer/Items/ScrollContainer/GridContainer/Spot22/bomb_button" to="." method="_on_bomb_button_pressed"]
 [connection signal="pressed" from="TabContainer/Items/ScrollContainer/GridContainer/Spot3/Glass_blade_button" to="." method="_on_glass_blade_button_pressed"]
 [connection signal="pressed" from="TabContainer/Items/ScrollContainer/GridContainer/Spot4/Heart_button" to="." method="_on_heart_button_pressed"]
 [connection signal="pressed" from="TabContainer/Items/ScrollContainer/GridContainer/Spot5/Key_button" to="." method="_on_key_button_pressed"]

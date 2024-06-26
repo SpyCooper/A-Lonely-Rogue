@@ -133,6 +133,10 @@ var magically_trapped_rogue_unlocked = false
 @onready var dead_rogues_head_button = $TabContainer/Items/ScrollContainer/GridContainer/Spot21/dead_rogues_head_button
 @onready var dead_rogues_head_panel = $TabContainer/Items/Panels/dead_rogues_head_panel
 var dead_rogues_head_unlocked = false
+@onready var bomb_button = $TabContainer/Items/ScrollContainer/GridContainer/Spot22/bomb_button
+@onready var bomb_panel = $TabContainer/Items/Panels/bomb_panel
+var bomb_unlocked = false
+
 # on start
 func _ready():
 	# set the catalog reference
@@ -326,6 +330,10 @@ func load_data():
 			dead_rogues_head_unlocked = data["dead_rogues_head_unlocked"]
 			if dead_rogues_head_unlocked:
 				dead_rogues_head_button.material.shader = null
+			# bomb check
+			bomb_unlocked = data["bomb_unlocked"]
+			if bomb_unlocked:
+				bomb_button.material.shader = null
 
 # goes through all the panels and hides all of them
 func clear_panel():
@@ -368,6 +376,7 @@ func clear_panel():
 	hurtful_charm_panel.hide()
 	magically_trapped_rogue_panel.hide()
 	dead_rogues_head_panel.hide()
+	bomb_panel.hide()
 
 ## ---------------------------------- Enemies --------------------------------------------------------
 
@@ -818,6 +827,13 @@ func unlock_item(item):
 			dead_rogues_head_button.material.shader = null
 			# set the item to be unlocked
 			dead_rogues_head_unlocked = true
+	elif item == ItemType.type.bomb:
+		# if the item is locked
+		if !bomb_unlocked:
+			# remove the locked shader
+			bomb_button.material.shader = null
+			# set the item to be unlocked
+			bomb_unlocked = true
 	
 	save_items()
 
@@ -851,6 +867,7 @@ func found_items():
 		"hurtful_charm_unlocked" : hurtful_charm_unlocked,
 		"magically_trapped_rogue_unlocked" : magically_trapped_rogue_unlocked,
 		"dead_rogues_head_unlocked" : dead_rogues_head_unlocked,
+		"bomb_unlocked" : bomb_unlocked,
 	}
 	return data
 
@@ -1034,7 +1051,7 @@ func _on_magically_trapped_rogue_button_pressed():
 		# show the item's info panel
 		magically_trapped_rogue_panel.show()
 
-# when thedead_rogues_head button is pressed
+# when the dead_rogues_head button is pressed
 func _on_dead_rogues_head_button_pressed():
 	# clear the into panel
 	clear_panel()
@@ -1042,3 +1059,12 @@ func _on_dead_rogues_head_button_pressed():
 	if dead_rogues_head_unlocked:
 		# show the item's info panel
 		dead_rogues_head_panel.show()
+
+# when bomb button is pressed
+func _on_bomb_button_pressed():
+	# clear the into panel
+	clear_panel()
+	# if the item is unlocked
+	if bomb_unlocked:
+		# show the item's info panel
+		bomb_panel.show()

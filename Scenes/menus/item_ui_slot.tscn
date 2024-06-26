@@ -1,4 +1,4 @@
-[gd_scene load_steps=45 format=3 uid="uid://edhqnytou7yt"]
+[gd_scene load_steps=47 format=3 uid="uid://edhqnytou7yt"]
 
 [ext_resource type="Script" path="res://Scripts/UI/item_ui_slot.gd" id="1_l3s7d"]
 [ext_resource type="Texture2D" uid="uid://buoupuxk2qtji" path="res://Assets/Sprites/catalog_icons/dust_blade_icon.png" id="1_rdpab"]
@@ -12,6 +12,7 @@
 [ext_resource type="Texture2D" uid="uid://65ti8e35t5bh" path="res://Assets/Sprites/catalog_icons/triple_blades_icon.png" id="8_wptkn"]
 [ext_resource type="Texture2D" uid="uid://cjonbmn8iaqkl" path="res://Assets/Sprites/catalog_icons/glass_blade_icon.png" id="9_woyga"]
 [ext_resource type="Texture2D" uid="uid://dyur5ubofnvf6" path="res://Assets/Sprites/catalog_icons/dash_boots_icon.png" id="11_3oghb"]
+[ext_resource type="Texture2D" uid="uid://rfjsdx0wxqnq" path="res://Assets/Sprites/catalog_icons/bomb_icon.png" id="11_ehgms"]
 [ext_resource type="Texture2D" uid="uid://bdq2hockskod5" path="res://Assets/Sprites/catalog_icons/poorly_made_voodoo_doll_icon.png" id="12_aq0hj"]
 [ext_resource type="Texture2D" uid="uid://21jry0k85pcx" path="res://Assets/Sprites/catalog_icons/dead_rogue_head_icon.png" id="12_qhgli"]
 [ext_resource type="Texture2D" uid="uid://cmwm5gbdg4wt3" path="res://Assets/Sprites/catalog_icons/poison_gas_icon.png" id="13_55gr7"]
@@ -54,6 +55,10 @@ region = Rect2(0, 0, 16, 16)
 [sub_resource type="AtlasTexture" id="AtlasTexture_yypc1"]
 atlas = ExtResource("8_wptkn")
 region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l2lmd"]
+atlas = ExtResource("11_ehgms")
+region = Rect2(0, 0, 17, 17)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_n15yf"]
 atlas = ExtResource("11_3oghb")
@@ -175,6 +180,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_l2lmd")
+}],
+"loop": false,
+"name": &"bomb",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_n15yf")
 }],
 "loop": false,
@@ -281,7 +294,19 @@ texture = ExtResource("2_kll03")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(10, 7)
 sprite_frames = SubResource("SpriteFrames_51jbf")
-animation = &"Shadow_blade"
+animation = &"bomb"
+
+[node name="stack_Label" type="Label" parent="."]
+offset_left = 7.0
+offset_top = 9.0
+offset_right = 79.0
+offset_bottom = 54.0
+scale = Vector2(0.15, 0.15)
+theme = ExtResource("16_fpotc")
+theme_override_font_sizes/font_size = 48
+text = "000"
+horizontal_alignment = 2
+vertical_alignment = 2
 
 [node name="GreyOut_sprite" type="Sprite2D" parent="."]
 position = Vector2(10, 7)
