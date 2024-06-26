@@ -346,8 +346,9 @@ func remove_item_from_ui(item_to_remove : ItemType.type):
 func play_poorly_made_voodoo_doll_fire():
 	var item_ui_slots = items_ui_container.get_children()
 	for ui in item_ui_slots:
-		if ui.get_animated_sprite().animation == "poorly_made_voodoo":
+		if ui.get_item_type() == ItemType.type.poorly_made_voodoo_doll:
 			ui.get_animated_sprite().play("poorly_made_voodoo_fire")
+			return
 
 # sets the current useable item
 func current_usable_item(usable_item : ItemType.type):

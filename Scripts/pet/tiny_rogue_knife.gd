@@ -1,7 +1,5 @@
 extends Knife
 
-# variables
-
 # this is called when the player is clicks
 func spawned_tiny_knife(click_position):
 	# $AnimatedSprite2D has to be called here since 

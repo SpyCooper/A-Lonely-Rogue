@@ -8,7 +8,6 @@ var distance_from_player = 15
 var max_health
 var health
 var speed = 0.10
-var can_take_damage : bool
 
 # on start
 func _ready():
@@ -17,8 +16,6 @@ func _ready():
 	health = max_health
 	distance_from_player = 15
 	speed = 0.10
-	# if it isn't supposed to take damage, just remove collision from the pet
-	can_take_damage = true
 	position += Vector2(0, distance_from_player)
 
 # called on set intervals
@@ -28,13 +25,12 @@ func _physics_process(_delta):
 	global_position = Events.player.global_position + Vector2.RIGHT.rotated(angle) * distance_from_player
 	look_at(Events.player.position)
 
-# deals damage to the pet
+# basic damage function
 func take_damage(damage):
-	if can_take_damage:
-		health -= damage
-		if health <= 0:
-			get_parent().pet_died(ItemType.type.temp)
-			queue_free()
+	health -= damage
+	if health <= 0:
+		get_parent().pet_died(ItemType.type.temp)
+		queue_free()
 
 # resets the pet's hp
 func reset_hp():

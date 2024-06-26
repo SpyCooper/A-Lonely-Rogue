@@ -813,19 +813,23 @@ func pet_died(pet_item : ItemType.type):
 	# remove the current pet
 	current_pet = null
 
+# adds a pet based on the item type
 func add_pet(pet_item : ItemType.type):
+	# if there is a current pet
 	if current_pet != null:
+		# remove the pet and the pet's item
 		current_pet.queue_free()
 		remove_item_from_items_collected(current_pet_item)
 		hud.remove_item_from_ui(current_pet_item)
-	
+	# set the pet to be spawned based on it's item type
 	var spawn = null
 	if pet_item == ItemType.type.protective_charm:
 		spawn = PROTECTIVE_CHARM_SPAWN.instantiate()
 	elif pet_item == ItemType.type.hurtful_charm:
 		spawn = HURTFUL_CHARM_SPAWN.instantiate()
-	
+	# if there is a pet to be spawned
 	if spawn !=  null:
+		# spawn that pet
 		current_pet_item = pet_item
 		add_child(spawn)
 		current_pet = spawn

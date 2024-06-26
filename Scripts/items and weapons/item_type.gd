@@ -39,7 +39,6 @@ var repeatable_items = [
 	type.shadow_heart,
 ]
 
-
 # sets the spawned items in the floor
 var spawned_items = []
 

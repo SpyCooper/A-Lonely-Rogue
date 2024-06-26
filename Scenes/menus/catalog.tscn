@@ -1775,16 +1775,16 @@ offset_bottom = 513.0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_wrmxr")
 
 [node name="Sprite2D" type="Sprite2D" parent="TabContainer/Items/Panels/Boots_panel"]
-position = Vector2(107, 96)
+position = Vector2(86.5, 87.5)
 scale = Vector2(9.0625, 9.0625)
 texture = ExtResource("7_pwe50")
 
 [node name="Title" type="Label" parent="TabContainer/Items/Panels/Boots_panel"]
 layout_mode = 0
-offset_left = 180.0
-offset_top = 34.0
-offset_right = 510.0
-offset_bottom = 79.0
+offset_left = 159.5
+offset_top = 25.5
+offset_right = 489.5
+offset_bottom = 70.5
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 48
 text = "Speed Boots"
@@ -1792,10 +1792,10 @@ horizontal_alignment = 1
 
 [node name="Type" type="Label" parent="TabContainer/Items/Panels/Boots_panel"]
 layout_mode = 0
-offset_left = 180.0
-offset_top = 85.0
-offset_right = 510.0
-offset_bottom = 130.0
+offset_left = 159.5
+offset_top = 76.5
+offset_right = 489.5
+offset_bottom = 121.5
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
 text = "Type: Passive"
@@ -1803,10 +1803,10 @@ horizontal_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Items/Panels/Boots_panel"]
 layout_mode = 0
-offset_left = 43.0
-offset_top = 174.0
-offset_right = 464.0
-offset_bottom = 505.0
+offset_left = 22.5
+offset_top = 165.5
+offset_right = 443.5
+offset_bottom = 496.5
 theme_override_constants/separation = 16
 alignment = 1
 
@@ -1826,6 +1826,22 @@ theme_override_font_sizes/font_size = 32
 text = "- Stackable"
 autowrap_mode = 2
 
+[node name="Bio3" type="Label" parent="TabContainer/Items/Panels/Boots_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- Can be worn with other boots"
+autowrap_mode = 2
+
+[node name="Bio4" type="Label" parent="TabContainer/Items/Panels/Boots_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- How does one wear more than 2 boots?"
+autowrap_mode = 2
+
 [node name="Dust_blade_panel" type="Panel" parent="TabContainer/Items/Panels"]
 visible = false
 layout_mode = 0
@@ -1834,16 +1850,16 @@ offset_bottom = 513.0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_wrmxr")
 
 [node name="Sprite2D" type="Sprite2D" parent="TabContainer/Items/Panels/Dust_blade_panel"]
-position = Vector2(107, 96)
+position = Vector2(86.5, 87.5)
 scale = Vector2(9.0625, 9.0625)
 texture = ExtResource("8_7dlgj")
 
 [node name="Title" type="Label" parent="TabContainer/Items/Panels/Dust_blade_panel"]
 layout_mode = 0
-offset_left = 180.0
-offset_top = 34.0
-offset_right = 510.0
-offset_bottom = 79.0
+offset_left = 159.5
+offset_top = 25.5
+offset_right = 489.5
+offset_bottom = 70.5
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 48
 text = "Dust Blade"
@@ -1851,10 +1867,10 @@ horizontal_alignment = 1
 
 [node name="Type" type="Label" parent="TabContainer/Items/Panels/Dust_blade_panel"]
 layout_mode = 0
-offset_left = 180.0
-offset_top = 85.0
-offset_right = 510.0
-offset_bottom = 130.0
+offset_left = 159.5
+offset_top = 76.5
+offset_right = 489.5
+offset_bottom = 121.5
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
 text = "Type: Passive"
@@ -1862,10 +1878,10 @@ horizontal_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Items/Panels/Dust_blade_panel"]
 layout_mode = 0
-offset_left = 43.0
-offset_top = 174.0
-offset_right = 464.0
-offset_bottom = 505.0
+offset_left = 22.5
+offset_top = 165.5
+offset_right = 443.5
+offset_bottom = 496.5
 theme_override_constants/separation = 16
 alignment = 1
 
@@ -1909,16 +1925,16 @@ offset_bottom = 513.0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_wrmxr")
 
 [node name="Sprite2D" type="Sprite2D" parent="TabContainer/Items/Panels/Glass_blade_panel"]
-position = Vector2(107, 96)
+position = Vector2(86.5, 87.5)
 scale = Vector2(9.0625, 9.0625)
 texture = ExtResource("9_it2e5")
 
 [node name="Title" type="Label" parent="TabContainer/Items/Panels/Glass_blade_panel"]
 layout_mode = 0
-offset_left = 180.0
-offset_top = 34.0
-offset_right = 510.0
-offset_bottom = 79.0
+offset_left = 159.5
+offset_top = 25.5
+offset_right = 489.5
+offset_bottom = 70.5
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 48
 text = "Glass Blade"
@@ -1926,10 +1942,10 @@ horizontal_alignment = 1
 
 [node name="Type" type="Label" parent="TabContainer/Items/Panels/Glass_blade_panel"]
 layout_mode = 0
-offset_left = 180.0
-offset_top = 85.0
-offset_right = 510.0
-offset_bottom = 130.0
+offset_left = 159.5
+offset_top = 76.5
+offset_right = 489.5
+offset_bottom = 121.5
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
 text = "Type: Passive"
@@ -1937,10 +1953,10 @@ horizontal_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Items/Panels/Glass_blade_panel"]
 layout_mode = 0
-offset_left = 43.0
-offset_top = 174.0
-offset_right = 464.0
-offset_bottom = 505.0
+offset_left = 22.5
+offset_top = 165.5
+offset_right = 443.5
+offset_bottom = 496.5
 theme_override_constants/separation = 16
 alignment = 1
 
@@ -1984,16 +2000,16 @@ offset_bottom = 513.0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_wrmxr")
 
 [node name="Sprite2D" type="Sprite2D" parent="TabContainer/Items/Panels/Heart_panel"]
-position = Vector2(107, 96)
+position = Vector2(86.5, 87.5)
 scale = Vector2(9.0625, 9.0625)
 texture = ExtResource("10_rth6b")
 
 [node name="Title" type="Label" parent="TabContainer/Items/Panels/Heart_panel"]
 layout_mode = 0
-offset_left = 180.0
-offset_top = 34.0
-offset_right = 510.0
-offset_bottom = 79.0
+offset_left = 159.5
+offset_top = 25.5
+offset_right = 489.5
+offset_bottom = 70.5
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 48
 text = "Hearts"
@@ -2001,21 +2017,21 @@ horizontal_alignment = 1
 
 [node name="Type" type="Label" parent="TabContainer/Items/Panels/Heart_panel"]
 layout_mode = 0
-offset_left = 180.0
-offset_top = 85.0
-offset_right = 510.0
-offset_bottom = 130.0
+offset_left = 159.5
+offset_top = 76.5
+offset_right = 489.5
+offset_bottom = 121.5
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
-text = "Type: Passive"
+text = "Type: Instant"
 horizontal_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Items/Panels/Heart_panel"]
 layout_mode = 0
-offset_left = 43.0
-offset_top = 174.0
-offset_right = 464.0
-offset_bottom = 505.0
+offset_left = 22.5
+offset_top = 165.5
+offset_right = 443.5
+offset_bottom = 496.5
 theme_override_constants/separation = 16
 alignment = 1
 
@@ -2059,16 +2075,16 @@ offset_bottom = 513.0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_wrmxr")
 
 [node name="Sprite2D" type="Sprite2D" parent="TabContainer/Items/Panels/Key_panel"]
-position = Vector2(107, 96)
+position = Vector2(86.5, 87.5)
 scale = Vector2(9.0625, 9.0625)
 texture = ExtResource("11_ibehw")
 
 [node name="Title" type="Label" parent="TabContainer/Items/Panels/Key_panel"]
 layout_mode = 0
-offset_left = 180.0
-offset_top = 34.0
-offset_right = 510.0
-offset_bottom = 79.0
+offset_left = 159.5
+offset_top = 25.5
+offset_right = 489.5
+offset_bottom = 70.5
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 48
 text = "Keys"
@@ -2076,21 +2092,21 @@ horizontal_alignment = 1
 
 [node name="Type" type="Label" parent="TabContainer/Items/Panels/Key_panel"]
 layout_mode = 0
-offset_left = 180.0
-offset_top = 85.0
-offset_right = 510.0
-offset_bottom = 130.0
+offset_left = 159.5
+offset_top = 76.5
+offset_right = 489.5
+offset_bottom = 121.5
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
-text = "Type: Passive"
+text = "Type: Instant"
 horizontal_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Items/Panels/Key_panel"]
 layout_mode = 0
-offset_left = 43.0
-offset_top = 174.0
-offset_right = 464.0
-offset_bottom = 505.0
+offset_left = 22.5
+offset_top = 165.5
+offset_right = 443.5
+offset_bottom = 496.5
 theme_override_constants/separation = 16
 alignment = 1
 
@@ -2126,16 +2142,16 @@ offset_bottom = 513.0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_wrmxr")
 
 [node name="Sprite2D" type="Sprite2D" parent="TabContainer/Items/Panels/Poison_panel"]
-position = Vector2(107, 96)
+position = Vector2(86.5, 87.5)
 scale = Vector2(9.0625, 9.0625)
 texture = ExtResource("12_tanwh")
 
 [node name="Title" type="Label" parent="TabContainer/Items/Panels/Poison_panel"]
 layout_mode = 0
-offset_left = 180.0
-offset_top = 34.0
-offset_right = 510.0
-offset_bottom = 79.0
+offset_left = 159.5
+offset_top = 25.5
+offset_right = 489.5
+offset_bottom = 70.5
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 48
 text = "Poison"
@@ -2143,10 +2159,10 @@ horizontal_alignment = 1
 
 [node name="KillCount" type="Label" parent="TabContainer/Items/Panels/Poison_panel"]
 layout_mode = 0
-offset_left = 180.0
-offset_top = 85.0
-offset_right = 510.0
-offset_bottom = 130.0
+offset_left = 159.5
+offset_top = 76.5
+offset_right = 489.5
+offset_bottom = 121.5
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
 text = "Type: Passive"
@@ -2154,10 +2170,10 @@ horizontal_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Items/Panels/Poison_panel"]
 layout_mode = 0
-offset_left = 43.0
-offset_top = 174.0
-offset_right = 464.0
-offset_bottom = 505.0
+offset_left = 22.5
+offset_top = 165.5
+offset_right = 443.5
+offset_bottom = 496.5
 theme_override_constants/separation = 16
 alignment = 1
 
@@ -2201,16 +2217,16 @@ offset_bottom = 513.0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_wrmxr")
 
 [node name="Sprite2D" type="Sprite2D" parent="TabContainer/Items/Panels/Quick_blades_panel"]
-position = Vector2(107, 96)
+position = Vector2(83.5, 87.5)
 scale = Vector2(9.0625, 9.0625)
 texture = ExtResource("13_54ceg")
 
 [node name="Title" type="Label" parent="TabContainer/Items/Panels/Quick_blades_panel"]
 layout_mode = 0
-offset_left = 180.0
-offset_top = 34.0
-offset_right = 510.0
-offset_bottom = 79.0
+offset_left = 156.5
+offset_top = 25.5
+offset_right = 486.5
+offset_bottom = 70.5
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 48
 text = "Quick Blades"
@@ -2218,10 +2234,10 @@ horizontal_alignment = 1
 
 [node name="Type" type="Label" parent="TabContainer/Items/Panels/Quick_blades_panel"]
 layout_mode = 0
-offset_left = 180.0
-offset_top = 85.0
-offset_right = 510.0
-offset_bottom = 130.0
+offset_left = 156.5
+offset_top = 76.5
+offset_right = 486.5
+offset_bottom = 121.5
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
 text = "Type: Passive"
@@ -2229,10 +2245,10 @@ horizontal_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Items/Panels/Quick_blades_panel"]
 layout_mode = 0
-offset_left = 43.0
-offset_top = 174.0
-offset_right = 464.0
-offset_bottom = 505.0
+offset_left = 19.5
+offset_top = 165.5
+offset_right = 440.5
+offset_bottom = 496.5
 theme_override_constants/separation = 16
 alignment = 1
 
@@ -2268,16 +2284,16 @@ offset_bottom = 513.0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_wrmxr")
 
 [node name="Sprite2D" type="Sprite2D" parent="TabContainer/Items/Panels/Shadow_blade_panel"]
-position = Vector2(107, 96)
+position = Vector2(77.5, 87.5)
 scale = Vector2(9.0625, 9.0625)
 texture = ExtResource("14_f7ls3")
 
 [node name="Title" type="Label" parent="TabContainer/Items/Panels/Shadow_blade_panel"]
 layout_mode = 0
-offset_left = 180.0
-offset_top = 34.0
-offset_right = 510.0
-offset_bottom = 79.0
+offset_left = 150.5
+offset_top = 25.5
+offset_right = 480.5
+offset_bottom = 70.5
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 48
 text = "Shadow Blade"
@@ -2285,10 +2301,10 @@ horizontal_alignment = 1
 
 [node name="Type" type="Label" parent="TabContainer/Items/Panels/Shadow_blade_panel"]
 layout_mode = 0
-offset_left = 180.0
-offset_top = 85.0
-offset_right = 510.0
-offset_bottom = 130.0
+offset_left = 150.5
+offset_top = 76.5
+offset_right = 480.5
+offset_bottom = 121.5
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
 text = "Type: Passive"
@@ -2296,10 +2312,10 @@ horizontal_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Items/Panels/Shadow_blade_panel"]
 layout_mode = 0
-offset_left = 43.0
-offset_top = 174.0
-offset_right = 464.0
-offset_bottom = 505.0
+offset_left = 13.5
+offset_top = 165.5
+offset_right = 434.5
+offset_bottom = 496.5
 theme_override_constants/separation = 16
 alignment = 1
 
@@ -2327,16 +2343,16 @@ offset_bottom = 513.0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_wrmxr")
 
 [node name="Sprite2D" type="Sprite2D" parent="TabContainer/Items/Panels/Shadow_flame_panel"]
-position = Vector2(107, 96)
+position = Vector2(83.5, 87.5)
 scale = Vector2(9.0625, 9.0625)
 texture = ExtResource("15_edtcw")
 
 [node name="Title" type="Label" parent="TabContainer/Items/Panels/Shadow_flame_panel"]
 layout_mode = 0
-offset_left = 180.0
-offset_top = 34.0
-offset_right = 510.0
-offset_bottom = 79.0
+offset_left = 156.5
+offset_top = 25.5
+offset_right = 486.5
+offset_bottom = 70.5
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 48
 text = "Shadow Flame"
@@ -2344,10 +2360,10 @@ horizontal_alignment = 1
 
 [node name="Type" type="Label" parent="TabContainer/Items/Panels/Shadow_flame_panel"]
 layout_mode = 0
-offset_left = 180.0
-offset_top = 85.0
-offset_right = 510.0
-offset_bottom = 130.0
+offset_left = 156.5
+offset_top = 76.5
+offset_right = 486.5
+offset_bottom = 121.5
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
 text = "Type: Passive"
@@ -2355,10 +2371,10 @@ horizontal_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Items/Panels/Shadow_flame_panel"]
 layout_mode = 0
-offset_left = 43.0
-offset_top = 174.0
-offset_right = 464.0
-offset_bottom = 505.0
+offset_left = 19.5
+offset_top = 165.5
+offset_right = 440.5
+offset_bottom = 498.5
 theme_override_constants/separation = 16
 alignment = 1
 
@@ -2402,16 +2418,16 @@ offset_bottom = 513.0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_wrmxr")
 
 [node name="Sprite2D" type="Sprite2D" parent="TabContainer/Items/Panels/Shadow_heart_panel"]
-position = Vector2(107, 96)
+position = Vector2(86.5, 91.5)
 scale = Vector2(9.0625, 9.0625)
 texture = ExtResource("16_wku84")
 
 [node name="Title" type="Label" parent="TabContainer/Items/Panels/Shadow_heart_panel"]
 layout_mode = 0
-offset_left = 180.0
-offset_top = 34.0
-offset_right = 510.0
-offset_bottom = 79.0
+offset_left = 159.5
+offset_top = 29.5
+offset_right = 489.5
+offset_bottom = 74.5
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 48
 text = "Shadow Heart"
@@ -2419,10 +2435,10 @@ horizontal_alignment = 1
 
 [node name="Type" type="Label" parent="TabContainer/Items/Panels/Shadow_heart_panel"]
 layout_mode = 0
-offset_left = 180.0
-offset_top = 85.0
-offset_right = 510.0
-offset_bottom = 130.0
+offset_left = 159.5
+offset_top = 80.5
+offset_right = 489.5
+offset_bottom = 125.5
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
 text = "Type: Passive"
@@ -2430,10 +2446,10 @@ horizontal_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Items/Panels/Shadow_heart_panel"]
 layout_mode = 0
-offset_left = 43.0
-offset_top = 174.0
-offset_right = 464.0
-offset_bottom = 505.0
+offset_left = 22.5
+offset_top = 169.5
+offset_right = 443.5
+offset_bottom = 500.5
 theme_override_constants/separation = 16
 alignment = 1
 
@@ -2469,16 +2485,16 @@ offset_bottom = 513.0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_wrmxr")
 
 [node name="Sprite2D" type="Sprite2D" parent="TabContainer/Items/Panels/Triple_blades_panel"]
-position = Vector2(107, 96)
+position = Vector2(86.5, 87.5)
 scale = Vector2(9.0625, 9.0625)
 texture = ExtResource("17_elum5")
 
 [node name="Title" type="Label" parent="TabContainer/Items/Panels/Triple_blades_panel"]
 layout_mode = 0
-offset_left = 180.0
-offset_top = 34.0
-offset_right = 510.0
-offset_bottom = 79.0
+offset_left = 159.5
+offset_top = 25.5
+offset_right = 489.5
+offset_bottom = 70.5
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 48
 text = "Triple Blades"
@@ -2486,10 +2502,10 @@ horizontal_alignment = 1
 
 [node name="Type" type="Label" parent="TabContainer/Items/Panels/Triple_blades_panel"]
 layout_mode = 0
-offset_left = 180.0
-offset_top = 85.0
-offset_right = 510.0
-offset_bottom = 130.0
+offset_left = 159.5
+offset_top = 76.5
+offset_right = 489.5
+offset_bottom = 121.5
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
 text = "Type: Passive"
@@ -2497,10 +2513,10 @@ horizontal_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Items/Panels/Triple_blades_panel"]
 layout_mode = 0
-offset_left = 43.0
-offset_top = 174.0
-offset_right = 464.0
-offset_bottom = 505.0
+offset_left = 22.5
+offset_top = 165.5
+offset_right = 443.5
+offset_bottom = 496.5
 theme_override_constants/separation = 16
 alignment = 1
 
@@ -2544,16 +2560,16 @@ offset_bottom = 513.0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_wrmxr")
 
 [node name="Sprite2D" type="Sprite2D" parent="TabContainer/Items/Panels/holy_heart_panel"]
-position = Vector2(107, 96)
-scale = Vector2(9.0625, 9.0625)
+position = Vector2(88.75, 87.75)
+scale = Vector2(7.338, 7.338)
 texture = ExtResource("28_ngkm7")
 
 [node name="Title" type="Label" parent="TabContainer/Items/Panels/holy_heart_panel"]
 layout_mode = 0
-offset_left = 180.0
-offset_top = 34.0
-offset_right = 510.0
-offset_bottom = 79.0
+offset_left = 161.75
+offset_top = 25.75
+offset_right = 491.75
+offset_bottom = 70.75
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 48
 text = "Holy Heart"
@@ -2561,21 +2577,21 @@ horizontal_alignment = 1
 
 [node name="Type" type="Label" parent="TabContainer/Items/Panels/holy_heart_panel"]
 layout_mode = 0
-offset_left = 180.0
-offset_top = 85.0
-offset_right = 510.0
-offset_bottom = 130.0
+offset_left = 161.75
+offset_top = 76.75
+offset_right = 491.75
+offset_bottom = 121.75
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
-text = "Type: Passive"
+text = "Type: Instant"
 horizontal_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Items/Panels/holy_heart_panel"]
 layout_mode = 0
-offset_left = 43.0
-offset_top = 174.0
-offset_right = 464.0
-offset_bottom = 505.0
+offset_left = 24.75
+offset_top = 165.75
+offset_right = 445.75
+offset_bottom = 496.75
 theme_override_constants/separation = 16
 alignment = 1
 
@@ -2584,7 +2600,7 @@ custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
-text = "- Cleanses the shows from the one who collects this"
+text = "- Cleanses the shadows from the one who collects this"
 autowrap_mode = 2
 
 [node name="Bio2" type="Label" parent="TabContainer/Items/Panels/holy_heart_panel/VBoxContainer"]
@@ -2611,16 +2627,16 @@ offset_bottom = 513.0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_wrmxr")
 
 [node name="Sprite2D" type="Sprite2D" parent="TabContainer/Items/Panels/poorly_made_voodoo_doll_panel"]
-position = Vector2(107, 96)
+position = Vector2(86.5, 87.5)
 scale = Vector2(9.0625, 9.0625)
 texture = ExtResource("29_snomr")
 
 [node name="Title" type="Label" parent="TabContainer/Items/Panels/poorly_made_voodoo_doll_panel"]
 layout_mode = 0
-offset_left = 180.0
-offset_top = 34.0
-offset_right = 510.0
-offset_bottom = 79.0
+offset_left = 159.5
+offset_top = 25.5
+offset_right = 489.5
+offset_bottom = 118.5
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 48
 text = "Poorly-made Voodoo Doll"
@@ -2629,10 +2645,10 @@ autowrap_mode = 2
 
 [node name="Type" type="Label" parent="TabContainer/Items/Panels/poorly_made_voodoo_doll_panel"]
 layout_mode = 0
-offset_left = 180.0
-offset_top = 125.0
-offset_right = 510.0
-offset_bottom = 170.0
+offset_left = 159.5
+offset_top = 116.5
+offset_right = 489.5
+offset_bottom = 161.5
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
 text = "Type: Passive"
@@ -2640,10 +2656,10 @@ horizontal_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Items/Panels/poorly_made_voodoo_doll_panel"]
 layout_mode = 0
-offset_left = 43.0
-offset_top = 174.0
-offset_right = 464.0
-offset_bottom = 505.0
+offset_left = 22.5
+offset_top = 165.5
+offset_right = 443.5
+offset_bottom = 496.5
 theme_override_constants/separation = 16
 alignment = 1
 
@@ -2652,7 +2668,7 @@ custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
-text = "- When taking fatal damage, provides a very short time of immunity from all damage"
+text = "- When taking fatal damage, the user gains a very short time of immunity"
 autowrap_mode = 2
 
 [node name="Bio2" type="Label" parent="TabContainer/Items/Panels/poorly_made_voodoo_doll_panel/VBoxContainer"]
@@ -2660,7 +2676,7 @@ custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
-text = "- Seems to always look like the person holding it"
+text = "- Seems to always look like the person observing it"
 autowrap_mode = 2
 
 [node name="Bio3" type="Label" parent="TabContainer/Items/Panels/poorly_made_voodoo_doll_panel/VBoxContainer"]
@@ -2679,16 +2695,16 @@ offset_bottom = 513.0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_wrmxr")
 
 [node name="Sprite2D" type="Sprite2D" parent="TabContainer/Items/Panels/Sleek_blade_panel"]
-position = Vector2(107, 96)
+position = Vector2(86.5, 87.5)
 scale = Vector2(9.0625, 9.0625)
 texture = ExtResource("30_608bm")
 
 [node name="Title" type="Label" parent="TabContainer/Items/Panels/Sleek_blade_panel"]
 layout_mode = 0
-offset_left = 180.0
-offset_top = 34.0
-offset_right = 510.0
-offset_bottom = 79.0
+offset_left = 159.5
+offset_top = 25.5
+offset_right = 489.5
+offset_bottom = 70.5
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 48
 text = "Sleek Blade"
@@ -2696,10 +2712,10 @@ horizontal_alignment = 1
 
 [node name="Type" type="Label" parent="TabContainer/Items/Panels/Sleek_blade_panel"]
 layout_mode = 0
-offset_left = 180.0
-offset_top = 85.0
-offset_right = 510.0
-offset_bottom = 130.0
+offset_left = 159.5
+offset_top = 76.5
+offset_right = 489.5
+offset_bottom = 121.5
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
 text = "Type: Passive"
@@ -2707,10 +2723,10 @@ horizontal_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Items/Panels/Sleek_blade_panel"]
 layout_mode = 0
-offset_left = 43.0
-offset_top = 174.0
-offset_right = 464.0
-offset_bottom = 505.0
+offset_left = 22.5
+offset_top = 165.5
+offset_right = 443.5
+offset_bottom = 496.5
 theme_override_constants/separation = 16
 alignment = 1
 
@@ -2746,16 +2762,16 @@ offset_bottom = 513.0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_wrmxr")
 
 [node name="Sprite2D" type="Sprite2D" parent="TabContainer/Items/Panels/Dash_boots_panel"]
-position = Vector2(107, 96)
+position = Vector2(86.5, 87.5)
 scale = Vector2(9.0625, 9.0625)
 texture = ExtResource("31_pitxh")
 
 [node name="Title" type="Label" parent="TabContainer/Items/Panels/Dash_boots_panel"]
 layout_mode = 0
-offset_left = 180.0
-offset_top = 34.0
-offset_right = 510.0
-offset_bottom = 79.0
+offset_left = 159.5
+offset_top = 25.5
+offset_right = 489.5
+offset_bottom = 70.5
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 48
 text = "Dash Boots"
@@ -2763,10 +2779,10 @@ horizontal_alignment = 1
 
 [node name="Type" type="Label" parent="TabContainer/Items/Panels/Dash_boots_panel"]
 layout_mode = 0
-offset_left = 180.0
-offset_top = 85.0
-offset_right = 510.0
-offset_bottom = 130.0
+offset_left = 159.5
+offset_top = 76.5
+offset_right = 489.5
+offset_bottom = 121.5
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
 text = "Type: Active"
@@ -2774,10 +2790,10 @@ horizontal_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Items/Panels/Dash_boots_panel"]
 layout_mode = 0
-offset_left = 43.0
-offset_top = 174.0
-offset_right = 464.0
-offset_bottom = 505.0
+offset_left = 22.5
+offset_top = 165.5
+offset_right = 443.5
+offset_bottom = 496.5
 theme_override_constants/separation = 16
 alignment = 1
 
@@ -2802,7 +2818,7 @@ custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
-text = "- Works with Speed Boots"
+text = "- Can be used with Speed Boots"
 autowrap_mode = 2
 
 [node name="Bio4" type="Label" parent="TabContainer/Items/Panels/Dash_boots_panel/VBoxContainer"]
@@ -2821,16 +2837,16 @@ offset_bottom = 513.0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_wrmxr")
 
 [node name="Sprite2D" type="Sprite2D" parent="TabContainer/Items/Panels/poison_gas_panel"]
-position = Vector2(107, 96)
+position = Vector2(86.5, 87.5)
 scale = Vector2(9.0625, 9.0625)
 texture = ExtResource("32_vadho")
 
 [node name="Title" type="Label" parent="TabContainer/Items/Panels/poison_gas_panel"]
 layout_mode = 0
-offset_left = 180.0
-offset_top = 34.0
-offset_right = 510.0
-offset_bottom = 79.0
+offset_left = 159.5
+offset_top = 25.5
+offset_right = 489.5
+offset_bottom = 118.5
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 48
 text = "Bottle of Poison Gas"
@@ -2839,10 +2855,10 @@ autowrap_mode = 2
 
 [node name="Type" type="Label" parent="TabContainer/Items/Panels/poison_gas_panel"]
 layout_mode = 0
-offset_left = 177.0
-offset_top = 125.0
-offset_right = 507.0
-offset_bottom = 170.0
+offset_left = 156.5
+offset_top = 116.5
+offset_right = 486.5
+offset_bottom = 161.5
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
 text = "Type: Active"
@@ -2850,10 +2866,10 @@ horizontal_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Items/Panels/poison_gas_panel"]
 layout_mode = 0
-offset_left = 43.0
-offset_top = 174.0
-offset_right = 464.0
-offset_bottom = 505.0
+offset_left = 22.5
+offset_top = 165.5
+offset_right = 443.5
+offset_bottom = 496.5
 theme_override_constants/separation = 16
 alignment = 1
 
@@ -2878,7 +2894,7 @@ custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
-text = "- Does not hurt the user"
+text = "- Poison gass from the bottle does not hurt the user"
 autowrap_mode = 2
 
 [node name="Bio4" type="Label" parent="TabContainer/Items/Panels/poison_gas_panel/VBoxContainer"]
@@ -2886,7 +2902,7 @@ custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
-text = "- Seems to be different in color to monsters poison"
+text = "- Seems to be different in color than monster's gas"
 autowrap_mode = 2
 
 [node name="protective_charm_panel" type="Panel" parent="TabContainer/Items/Panels"]
@@ -2897,16 +2913,16 @@ offset_bottom = 513.0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_wrmxr")
 
 [node name="Sprite2D" type="Sprite2D" parent="TabContainer/Items/Panels/protective_charm_panel"]
-position = Vector2(107, 96)
+position = Vector2(86.5, 87.5)
 scale = Vector2(9.0625, 9.0625)
 texture = ExtResource("33_8oaud")
 
 [node name="Title" type="Label" parent="TabContainer/Items/Panels/protective_charm_panel"]
 layout_mode = 0
-offset_left = 180.0
-offset_top = 34.0
-offset_right = 510.0
-offset_bottom = 79.0
+offset_left = 159.5
+offset_top = 25.5
+offset_right = 489.5
+offset_bottom = 118.5
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 48
 text = "Protective Charm"
@@ -2915,10 +2931,10 @@ autowrap_mode = 2
 
 [node name="Type" type="Label" parent="TabContainer/Items/Panels/protective_charm_panel"]
 layout_mode = 0
-offset_left = 180.0
-offset_top = 125.0
-offset_right = 510.0
-offset_bottom = 170.0
+offset_left = 159.5
+offset_top = 116.5
+offset_right = 489.5
+offset_bottom = 161.5
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
 text = "Type: Pet"
@@ -2926,10 +2942,10 @@ horizontal_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Items/Panels/protective_charm_panel"]
 layout_mode = 0
-offset_left = 43.0
-offset_top = 174.0
-offset_right = 464.0
-offset_bottom = 505.0
+offset_left = 22.5
+offset_top = 165.5
+offset_right = 443.5
+offset_bottom = 498.5
 theme_override_constants/separation = 16
 alignment = 1
 
@@ -2973,16 +2989,16 @@ offset_bottom = 513.0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_wrmxr")
 
 [node name="Sprite2D" type="Sprite2D" parent="TabContainer/Items/Panels/rogue_in_a_bottle_panel"]
-position = Vector2(107, 96)
+position = Vector2(86.5, 87.5)
 scale = Vector2(9.0625, 9.0625)
 texture = ExtResource("34_ej8l2")
 
 [node name="Title" type="Label" parent="TabContainer/Items/Panels/rogue_in_a_bottle_panel"]
 layout_mode = 0
-offset_left = 180.0
-offset_top = 34.0
-offset_right = 510.0
-offset_bottom = 79.0
+offset_left = 159.5
+offset_top = 25.5
+offset_right = 489.5
+offset_bottom = 118.5
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 48
 text = "Rogue-In-A-Bottle"
@@ -2991,10 +3007,10 @@ autowrap_mode = 2
 
 [node name="Type" type="Label" parent="TabContainer/Items/Panels/rogue_in_a_bottle_panel"]
 layout_mode = 0
-offset_left = 180.0
-offset_top = 125.0
-offset_right = 510.0
-offset_bottom = 170.0
+offset_left = 159.5
+offset_top = 116.5
+offset_right = 489.5
+offset_bottom = 161.5
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
 text = "Type: Active"
@@ -3002,10 +3018,10 @@ horizontal_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Items/Panels/rogue_in_a_bottle_panel"]
 layout_mode = 0
-offset_left = 43.0
-offset_top = 174.0
-offset_right = 464.0
-offset_bottom = 505.0
+offset_left = 22.5
+offset_top = 165.5
+offset_right = 443.5
+offset_bottom = 496.5
 theme_override_constants/separation = 16
 alignment = 1
 
@@ -3022,7 +3038,7 @@ custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
-text = "- Tiny rogues throw a flurry of knives for a short time, then leave"
+text = "- Tiny rogues throw a flurry of knives for a short time, then leaves"
 autowrap_mode = 2
 
 [node name="Bio3" type="Label" parent="TabContainer/Items/Panels/rogue_in_a_bottle_panel/VBoxContainer"]
@@ -3033,6 +3049,14 @@ theme_override_font_sizes/font_size = 32
 text = "- How'd he get in there?"
 autowrap_mode = 2
 
+[node name="Bio4" type="Label" parent="TabContainer/Items/Panels/rogue_in_a_bottle_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- That doesn't look like a bottle to me..."
+autowrap_mode = 2
+
 [node name="hurtful_charm_panel" type="Panel" parent="TabContainer/Items/Panels"]
 visible = false
 layout_mode = 0
@@ -3041,16 +3065,16 @@ offset_bottom = 513.0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_wrmxr")
 
 [node name="Sprite2D" type="Sprite2D" parent="TabContainer/Items/Panels/hurtful_charm_panel"]
-position = Vector2(107, 96)
+position = Vector2(86.5, 87.5)
 scale = Vector2(9.0625, 9.0625)
 texture = ExtResource("35_jwmjl")
 
 [node name="Title" type="Label" parent="TabContainer/Items/Panels/hurtful_charm_panel"]
 layout_mode = 0
-offset_left = 180.0
-offset_top = 34.0
-offset_right = 510.0
-offset_bottom = 79.0
+offset_left = 159.5
+offset_top = 25.5
+offset_right = 489.5
+offset_bottom = 70.5
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 48
 text = "Hurtful Charm"
@@ -3059,10 +3083,10 @@ autowrap_mode = 2
 
 [node name="Type" type="Label" parent="TabContainer/Items/Panels/hurtful_charm_panel"]
 layout_mode = 0
-offset_left = 180.0
-offset_top = 85.0
-offset_right = 510.0
-offset_bottom = 130.0
+offset_left = 159.5
+offset_top = 76.5
+offset_right = 489.5
+offset_bottom = 121.5
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
 text = "Type: Pet"
@@ -3070,10 +3094,10 @@ horizontal_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Items/Panels/hurtful_charm_panel"]
 layout_mode = 0
-offset_left = 43.0
-offset_top = 174.0
-offset_right = 464.0
-offset_bottom = 505.0
+offset_left = 22.5
+offset_top = 165.5
+offset_right = 443.5
+offset_bottom = 496.5
 theme_override_constants/separation = 16
 alignment = 1
 
@@ -3114,7 +3138,7 @@ custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
-text = "- Why would you wear this?"
+text = "- Who would find this comfortable?"
 autowrap_mode = 2
 
 [node name="Close_button" type="Button" parent="."]
