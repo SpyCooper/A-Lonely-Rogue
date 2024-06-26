@@ -65,8 +65,6 @@ func _on_area_entered(area):
 	# if the body is a pet, deal damage to it
 	if area is Pet:
 		area.take_damage(1)
-	# if the body is not enemy or is a collisiong_with_player scene of an enemy
-	if area != Enemy && area.name != "collision_with_player":
 		# if the mage needs to know when the shadow bolt dies
 		if call_mage:
 			# tell the mage that spawned the shadow bolt that the shadow bolt is destroyed
