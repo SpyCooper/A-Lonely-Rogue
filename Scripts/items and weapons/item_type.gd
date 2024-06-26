@@ -43,6 +43,11 @@ var repeatable_items = [
 	type.bomb,
 ]
 
+# sets the various item types
+var stackable_items = [
+	type.bomb,
+]
+
 # sets the spawned items in the floor
 var spawned_items = []
 

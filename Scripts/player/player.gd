@@ -95,6 +95,8 @@ const PLAYER_AFTER_IMAGE = preload("res://Scenes/player/player_after_image.tscn"
 @onready var after_image_spawn_timer = $after_image_spawn_timer
 var after_images = 0
 
+## ------------------- basic node functions ----------------------------------------------------------------
+
 # runs on start
 func _ready():
 	# sets the stats for the player
@@ -233,6 +235,79 @@ func _physics_process(_delta):
 			# use a usable item
 			use_usable_item()
 
+
+## ------------------- combat functions ----------------------------------------------------------------
+
+# calculate the attack speed
+func calculate_attack_speed():
+	time_to_fire_max = time_to_fire_max / attacks_per_second
+
+# returns the current weapons
+func get_current_weapons():
+	var current_blades = []
+	if sleek_blade == true:
+		current_blades += [BladeType.blade_type.sleek]
+	if poisoned_blade == true:
+		current_blades += [BladeType.blade_type.posioned]
+	if shadow_flame_blade == true:
+		current_blades += [BladeType.blade_type.shadow_flame]
+	if dust_blade == true:
+		current_blades += [BladeType.blade_type.dust]
+	if shadow_blade == true:
+		current_blades += [BladeType.blade_type.shadow]
+	if glass_blade == true:
+		current_blades += [BladeType.blade_type.glass]
+	return current_blades
+
+# if the enemy is killed
+func killed_enemy():
+	# if the shadow heart is active, increase health by 1
+	if shadow_heart == true:
+		shadow_heart_heal_counter += 1
+		if shadow_heart_heal_counter == 3:
+			shadow_heart_heal_counter = 0
+			player_adjust_health(1)
+
+# returns the speed
+func get_speed():
+	# if the player is dashing
+	if is_dashing:
+		# add the dashing speed to the movement speed
+		return speed * (1.0 - slow_percentage) + dash_speed_boost
+	else:
+		return speed * (1.0 - slow_percentage)
+
+# applies the slow
+func apply_slow(slow_perc):
+	slow_percentage += slow_perc
+
+# removes a slow
+func remove_slow(slow_perc):
+	slow_percentage -= slow_perc
+
+# sets the dusted status
+func set_dusted_status(status):
+	if status == true:
+		dusted_stack += 1
+		dusted = true
+		# if this is the first dusted stack
+		if dusted_stack == 1:
+			# apply the dustes slow
+			apply_slow(dusted_slow)
+	else:
+		dusted_stack -= 1
+	# if all dusted stacks are gone, the player is no longer dusted
+	if dusted_stack == 0:
+		dusted = false
+		remove_slow(dusted_slow)
+
+# returns if the player is has dust_blade effect on them
+func is_dusted():
+	return dusted
+
+
+## ------------------- health functions ----------------------------------------------------------------
+
 # runs when an enemy hits the player
 func player_take_damage(is_ms_knife, attack_identifer):
 	# checks if the attack can hit (used for the morphed shade fight
@@ -258,270 +333,6 @@ func player_take_damage(is_ms_knife, attack_identifer):
 		hit_sound.play()
 		hit_flash_animation_player.play("hit_flash")
 		hit_flash_animation_timer.start()
-
-# runs when an item is picked up
-func picked_up_item(item, display_text = true, sound = true):
-	# unlock the item in the catalog
-	Events.catalog.unlock_item(item)
-	# if sound is allowed, play tthe sound
-	if sound:
-		item_pickup_sound.play()
-	# there is probably a better way to do this but this will work for now
-	# check the enum in item.gd for the numbers
-	# for each item, add it's effect
-	if item == ItemType.type.temp:
-		print("picked up temp item")
-	elif item == ItemType.type.health_2:
-		# if the player does not have shadow heart, add HP
-		if shadow_heart == false:
-			player_adjust_health(2)
-	elif item == ItemType.type.health_1:
-		# if the player does not have shadow heart, add HP
-		if shadow_heart == false:
-			player_adjust_health(1)
-	elif item == ItemType.type.poisoned_blades:
-		# display the item text
-		if display_text:
-			hud.display_text("Aquired Poisoned Blades!", "Blades damage enemies after a short time for light damage.")
-		# add the poison blade to the player
-		poisoned_blade = true
-		# set current blade to poisoned
-		current_type = BladeType.blade_type.posioned
-		# add the item to the collected items list on HUD and in player data
-		hud.item_added(item)
-		items_collected += [item]
-	elif item == ItemType.type.speed_boots:
-		# increase the player's speed
-		speed += ItemType.speed_boots_movement_speed_bonus
-		# display the item text
-		if display_text:
-			hud.display_text("Aquired Speed Boots!", "You run faster.")
-		# add the item to the collected items list on HUD and in player data
-		hud.item_added(item)
-		items_collected += [item]
-	elif item == ItemType.type.quick_blades:
-		# increase attack speed
-		attacks_per_second += ItemType.quick_blades_attack_speed_bonus
-		#recalculate the attack_speed()
-		calculate_attack_speed()
-		# display the item text
-		if display_text:
-			hud.display_text("Aquired Quicker Blades!", "Blades can be thrown faster.")
-		# add the item to the collected items list on HUD and in player data
-		hud.item_added(item)
-		items_collected += [item]
-	elif item == ItemType.type.shadow_flame:
-		# add the shadow flame blade to the player
-		shadow_flame_blade = true
-		# set current blade to shadow flame
-		current_type = BladeType.blade_type.shadow_flame
-		# display the item text
-		if display_text:
-			hud.display_text("Aquired Shadowflame!", "Blades damage enemies after a time for moderate damage.")
-		# add the item to the collected items list on HUD and in player data
-		hud.item_added(item)
-		items_collected += [item]
-	elif item == ItemType.type.shadow_blade:
-		# add the shadow blade to the player
-		shadow_blade = true
-		# set current blade to shadow
-		current_type = BladeType.blade_type.shadow
-		# display the item text
-		if display_text:
-			hud.display_text("Aquired Shadow Blades!", "Blades do increased damage.")
-		# add the item to the collected items list on HUD and in player data
-		hud.item_added(item)
-		items_collected += [item]
-	elif item == ItemType.type.key:
-		# increase the number of keys
-		number_of_keys += 1
-		# refresh the key counter on the HUD
-		hud.refresh_key_amount(number_of_keys)
-		# display the item text
-		if display_text:
-			hud.display_text("Aquired a Key!", "Use it to open a locked door!")
-	elif item == ItemType.type.shadow_heart:
-		# add the shadow heart to the player
-		shadow_heart = true
-		# refresh the player's HP, and send that shadow_heart is active
-		hud.refresh_hearts(player_health, shadow_heart)
-		# display the item text
-		if display_text:
-			hud.display_text("Aquired the Shadow Heart!", "You follow the path of darkness now...")
-		# add the item to the collected items in player data
-		items_collected += [item]
-		# mark that the shadow_heart has been collected (used for holy heart)
-		shadow_heart_collected = true
-	elif item == ItemType.type.triple_blades:
-		# add triple blades to the player
-		triple_blades = true
-		# display the item text
-		if display_text:
-			hud.display_text("Aquired Triple Blades!", "You can now throw 3 blades at once!")
-		# add the item to the collected items list on HUD and in player data
-		hud.item_added(item)
-		items_collected += [item]
-	elif item == ItemType.type.dust_blade:
-		# add dust blades to the player
-		dust_blade = true
-		# set current blade to dust
-		current_type = BladeType.blade_type.dust
-		# display the item text
-		if display_text:
-			hud.display_text("Aquired Dust Blades!", "Attacks will slow enemies!")
-		# add the item to the collected items list on HUD and in player data
-		hud.item_added(item)
-		items_collected += [item]
-	elif item == ItemType.type.glass_blade:
-		# add glass blades to the player
-		glass_blade = true
-		# set current blade to glass
-		current_type = BladeType.blade_type.glass
-		# display the item text
-		if display_text:
-			hud.display_text("Aquired Glass Blades!", "Blades will shoot shrapnel on hit!")
-		# add the item to the collected items list on HUD and in player data
-		hud.item_added(item)
-		items_collected += [item]
-	elif item == ItemType.type.holy_heart:
-		# add the holy heart to the player
-		# if the shadow_heart is active
-		if shadow_heart == true:
-			# remove the shadow_heart
-			shadow_heart = false
-			# removes the shadow_heart from the player's collected items
-			remove_item_from_items_collected(ItemType.type.shadow_heart)
-		else:
-			# if the shadow_heart is not active, heal the player
-			player_adjust_health(2)
-		# refresh the player's HP, and send that shadow_heart is not active
-		hud.refresh_hearts(player_health, shadow_heart)
-		# display the item text
-		if display_text:
-			hud.display_text("Aquired the Holy Heart!", "You've been blessed!")
-	elif item == ItemType.type.poorly_made_voodoo_doll:
-		# add poorly made voodoo doll to the player
-		poorly_made_voodoo_doll = true
-		# display the item text
-		if display_text:
-			hud.display_text("Aquired a Poorly-made Voodoo Doll!", "Does this look like me?")
-		# add the item to the collected items list on HUD and in player data
-		hud.item_added(item)
-		items_collected += [item]
-		# do not allow the poorly made voodoo doll to be spawned
-		can_poorly_made_voodoo_doll_be_spawned = false
-	elif item == ItemType.type.sleek_blades:
-		# add the sleek blade to the player
-		knife_speed_bonus += ItemType.sleek_blade_speed_bonus
-		# set current blade to sleek
-		current_type = BladeType.blade_type.sleek
-		# display the item text
-		if display_text:
-			hud.display_text("Aquired Sleek Blades!", "Blades move faster through the air.")
-		# add the item to the collected items list on HUD and in player data
-		hud.item_added(item)
-		items_collected += [item]
-	elif item == ItemType.type.dash_boots:
-		# removes the current_usable_item from the player's collected items
-		remove_item_from_items_collected(current_usable_item)
-		# set the current item for the player to the dash boots
-		current_usable_item = item
-		# display the item text
-		if display_text:
-			hud.display_text("Aquired a Dash Boots!", "Allows you to dash by double tapping!")
-		# add the item to the collected items list on HUD and in player data
-		hud.current_usable_item(current_usable_item)
-		items_collected += [item]
-		# adjust the usable items stack UI
-		usable_item_added(current_usable_item)
-	elif item == ItemType.type.poison_gas:
-		# removes the current_usable_item from the player's collected items
-		remove_item_from_items_collected(current_usable_item)
-		# set the current item for the player to the dash boots
-		current_usable_item = item
-		# display the item text
-		if display_text:
-			hud.display_text("Aquired a Bottle of Poison Gas!", "Breaking the bottle surrounds you poison!")
-		# add the item to the collected items list on HUD and in player data
-		hud.current_usable_item(current_usable_item)
-		items_collected += [item]
-		# adjust the usable items stack UI
-		usable_item_added(current_usable_item)
-	elif item == ItemType.type.protective_charm:
-		# display the item text
-		if display_text:
-			hud.display_text("Aquired a Protective Charm!", "It's spawn will block some projectiles for you!")
-		# add the item to the collected items list on HUD and in player data
-		hud.item_added(item)
-		items_collected += [item]
-		# spawn the pet to the player based on the item
-		add_pet(item)
-	elif item == ItemType.type.rogue_in_a_bottle:
-		# removes the current_usable_item from the player's collected items
-		remove_item_from_items_collected(current_usable_item)
-		# set the current item for the player to the dash boots
-		current_usable_item = item
-		# display the item text
-		if display_text:
-			hud.display_text("Aquired a Rogue-In-A-Bottle!", "Break when you need a little help!")
-		# add the item to the collected items list on HUD and in player data
-		hud.current_usable_item(current_usable_item)
-		items_collected += [item]
-		# adjust the usable items stack UI
-		usable_item_added(current_usable_item)
-	elif item == ItemType.type.hurtful_charm:
-		# display the item text
-		if display_text:
-			hud.display_text("Aquired a Hurtful Charm!", "It will deal damage to enemies around you!")
-		# add the item to the collected items list on HUD and in player data
-		hud.item_added(item)
-		items_collected += [item]
-		# spawn the pet to the player based on the item
-		add_pet(item)
-	elif item == ItemType.type.magically_trapped_rogue:
-		# display the item text
-		if display_text:
-			hud.display_text("Aquired a Magically Trapped Rogue!", "He will throw knives at enemies so you won't drop him!")
-		# add the item to the collected items list on HUD and in player data
-		hud.item_added(item)
-		items_collected += [item]
-		# spawn the pet to the player based on the item
-		add_pet(item)
-	elif item == ItemType.type.dead_rogues_head:
-		# display the item text
-		if display_text:
-			hud.display_text("Aquired a Dead Rogue's Head", "His quest will end someday...")
-		# add the item to the collected items list on HUD and in player data
-		hud.item_added(item)
-		items_collected += [item]
-		# spawn the pet to the player based on the item
-		add_pet(item)
-	elif item == ItemType.type.bomb:
-		# if the current usable item type is already a bomb
-		if current_usable_item == ItemType.type.bomb:
-			# add one to the stack
-			usable_item_stack_amount += 1
-		# if the current usable item type is not already a bomb
-		else:
-			# removes the current_usable_item from the player's collected items
-			remove_item_from_items_collected(current_usable_item)
-			# set the current item for the player to the dash boots
-			current_usable_item = item
-			# add the item to the collected items list on HUD and in player data
-			hud.current_usable_item(current_usable_item)
-			# set the usable item stack to 1
-			usable_item_stack_amount = 1
-		# display the item text
-		if display_text:
-			hud.display_text("Aquired a Bomb!", "Use when you need an explosion!")
-		# adjust the usable items stack UI
-		usable_item_added(current_usable_item)
-		# add the item to the collected items in player data
-		items_collected += [item]
-
-# calculate the attack speed
-func calculate_attack_speed():
-	time_to_fire_max = time_to_fire_max / attacks_per_second
 
 # adjust player's health
 # used to heal and take damage
@@ -567,31 +378,241 @@ func player_adjust_health(change : int):
 				else:
 					animated_sprite.play("death")
 
-# returns the current weapons
-func get_current_weapons():
-	var current_blades = []
-	if sleek_blade == true:
-		current_blades += [BladeType.blade_type.sleek]
-	if poisoned_blade == true:
-		current_blades += [BladeType.blade_type.posioned]
-	if shadow_flame_blade == true:
-		current_blades += [BladeType.blade_type.shadow_flame]
-	if dust_blade == true:
-		current_blades += [BladeType.blade_type.dust]
-	if shadow_blade == true:
-		current_blades += [BladeType.blade_type.shadow]
-	if glass_blade == true:
-		current_blades += [BladeType.blade_type.glass]
-	return current_blades
+# when the hit flash aniamtion timer ends
+func _on_hit_flash_animation_timer_timeout():
+	animated_sprite.material.shader = null
 
-# if the enemy is killed
-func killed_enemy():
-	# if the shadow heart is active, increase health by 1
-	if shadow_heart == true:
-		shadow_heart_heal_counter += 1
-		if shadow_heart_heal_counter == 3:
-			shadow_heart_heal_counter = 0
+# return if the player is dying
+func get_is_dying():
+	return dying
+
+# when the death_timer runs out, the scene resets
+func _on_death_timer_timeout():
+	Engine.time_scale = 1
+	PlayerData.clear_data()
+	get_tree().change_scene_to_file("res://Scenes/Dungeon_floors/dungeon_floor_1.tscn")
+
+
+## ------------------- general item functions ----------------------------------------------------------------
+
+# runs when an item is picked up
+func picked_up_item(item, display_text = true, sound = true):
+	# unlock the item in the catalog
+	Events.catalog.unlock_item(item)
+	# if sound is allowed, play tthe sound
+	if sound:
+		item_pickup_sound.play()
+	# there is probably a better way to do this but this will work for now
+	# check the enum in item.gd for the numbers
+	# for each item, add it's effect
+	if item == ItemType.type.temp:
+		pass
+	elif item == ItemType.type.health_2:
+		# if the player does not have shadow heart, add HP
+		if shadow_heart == false:
+			player_adjust_health(2)
+	elif item == ItemType.type.health_1:
+		# if the player does not have shadow heart, add HP
+		if shadow_heart == false:
 			player_adjust_health(1)
+	elif item == ItemType.type.poisoned_blades:
+		# display the item text
+		if display_text:
+			hud.display_text("Aquired Poisoned Blades!", "Blades damage enemies after a short time for light damage.")
+		# add the poison blade to the player
+		poisoned_blade = true
+		# set current blade to poisoned
+		current_type = BladeType.blade_type.posioned
+		# add the item to the collected items list on HUD and in player data
+		add_passive_item(item)
+	elif item == ItemType.type.speed_boots:
+		# increase the player's speed
+		speed += ItemType.speed_boots_movement_speed_bonus
+		# display the item text
+		if display_text:
+			hud.display_text("Aquired Speed Boots!", "You run faster.")
+		# add the item to the collected items list on HUD and in player data
+		add_passive_item(item)
+	elif item == ItemType.type.quick_blades:
+		# increase attack speed
+		attacks_per_second += ItemType.quick_blades_attack_speed_bonus
+		#recalculate the attack_speed()
+		calculate_attack_speed()
+		# display the item text
+		if display_text:
+			hud.display_text("Aquired Quicker Blades!", "Blades can be thrown faster.")
+		# add the item to the collected items list on HUD and in player data
+		add_passive_item(item)
+	elif item == ItemType.type.shadow_flame:
+		# add the shadow flame blade to the player
+		shadow_flame_blade = true
+		# set current blade to shadow flame
+		current_type = BladeType.blade_type.shadow_flame
+		# display the item text
+		if display_text:
+			hud.display_text("Aquired Shadowflame!", "Blades damage enemies after a time for moderate damage.")
+		# add the item to the collected items list on HUD and in player data
+		add_passive_item(item)
+	elif item == ItemType.type.shadow_blade:
+		# add the shadow blade to the player
+		shadow_blade = true
+		# set current blade to shadow
+		current_type = BladeType.blade_type.shadow
+		# display the item text
+		if display_text:
+			hud.display_text("Aquired Shadow Blades!", "Blades do increased damage.")
+		# add the item to the collected items list on HUD and in player data
+		add_passive_item(item)
+	elif item == ItemType.type.key:
+		# increase the number of keys
+		number_of_keys += 1
+		# refresh the key counter on the HUD
+		hud.refresh_key_amount(number_of_keys)
+		# display the item text
+		if display_text:
+			hud.display_text("Aquired a Key!", "Use it to open a locked door!")
+	elif item == ItemType.type.shadow_heart:
+		# if the player already has a shadow heart, add HP
+		if shadow_heart == true:
+			player_adjust_health(2)
+		else:
+			# add the shadow heart to the player
+			shadow_heart = true
+		# refresh the player's HP, and send that shadow_heart is active
+		hud.refresh_hearts(player_health, shadow_heart)
+		# display the item text
+		if display_text:
+			hud.display_text("Aquired the Shadow Heart!", "You follow the path of darkness now...")
+		# add the item to the collected items in player data
+		items_collected += [item]
+		# mark that the shadow_heart has been collected (used for holy heart)
+		if shadow_heart_collected == false:
+			shadow_heart_collected = true
+	elif item == ItemType.type.triple_blades:
+		# add triple blades to the player
+		triple_blades = true
+		# display the item text
+		if display_text:
+			hud.display_text("Aquired Triple Blades!", "You can now throw 3 blades at once!")
+		# add the item to the collected items list on HUD and in player data
+		add_passive_item(item)
+	elif item == ItemType.type.dust_blade:
+		# add dust blades to the player
+		dust_blade = true
+		# set current blade to dust
+		current_type = BladeType.blade_type.dust
+		# display the item text
+		if display_text:
+			hud.display_text("Aquired Dust Blades!", "Attacks will slow enemies!")
+		# add the item to the collected items list on HUD and in player data
+		add_passive_item(item)
+	elif item == ItemType.type.glass_blade:
+		# add glass blades to the player
+		glass_blade = true
+		# set current blade to glass
+		current_type = BladeType.blade_type.glass
+		# display the item text
+		if display_text:
+			hud.display_text("Aquired Glass Blades!", "Blades will shoot shrapnel on hit!")
+		# add the item to the collected items list on HUD and in player data
+		add_passive_item(item)
+	elif item == ItemType.type.holy_heart:
+		# add the holy heart to the player
+		# if the shadow_heart is active
+		if shadow_heart == true:
+			# remove the shadow_heart
+			shadow_heart = false
+			# removes the shadow_heart from the player's collected items
+			remove_item_from_items_collected(ItemType.type.shadow_heart)
+		else:
+			# if the shadow_heart is not active, heal the player
+			player_adjust_health(2)
+		# refresh the player's HP, and send that shadow_heart is not active
+		hud.refresh_hearts(player_health, shadow_heart)
+		# display the item text
+		if display_text:
+			hud.display_text("Aquired the Holy Heart!", "You've been blessed!")
+	elif item == ItemType.type.poorly_made_voodoo_doll:
+		# add poorly made voodoo doll to the player
+		poorly_made_voodoo_doll = true
+		# display the item text
+		if display_text:
+			hud.display_text("Aquired a Poorly-made Voodoo Doll!", "Does this look like me?")
+		# add the item to the collected items list on HUD and in player data
+		add_passive_item(item)
+		# do not allow the poorly made voodoo doll to be spawned
+		can_poorly_made_voodoo_doll_be_spawned = false
+	elif item == ItemType.type.sleek_blades:
+		# add the sleek blade to the player
+		knife_speed_bonus += ItemType.sleek_blade_speed_bonus
+		# set current blade to sleek
+		current_type = BladeType.blade_type.sleek
+		# display the item text
+		if display_text:
+			hud.display_text("Aquired Sleek Blades!", "Blades move faster through the air.")
+		# add the item to the collected items list on HUD and in player data
+		add_passive_item(item)
+	elif item == ItemType.type.dash_boots:
+		# display the item text
+		if display_text:
+			hud.display_text("Aquired a Dash Boots!", "Allows you to dash by double tapping!")
+		# add the usable item
+		usable_item_added(item)
+	elif item == ItemType.type.poison_gas:
+		# display the item text
+		if display_text:
+			hud.display_text("Aquired a Bottle of Poison Gas!", "Breaking the bottle surrounds you poison!")
+		# add the usable item
+		usable_item_added(item)
+	elif item == ItemType.type.protective_charm:
+		# display the item text
+		if display_text:
+			hud.display_text("Aquired a Protective Charm!", "It's spawn will block some projectiles for you!")
+		# adds the pet item and spawns in the pet to the player based on the item
+		add_pet(item)
+	elif item == ItemType.type.rogue_in_a_bottle:
+		if display_text:
+			hud.display_text("Aquired a Rogue-In-A-Bottle!", "Break when you need a little help!")
+		# add the usable item
+		usable_item_added(item)
+	elif item == ItemType.type.hurtful_charm:
+		# display the item text
+		if display_text:
+			hud.display_text("Aquired a Hurtful Charm!", "It will deal damage to enemies around you!")
+		# adds the pet item and spawns in the pet to the player based on the item
+		add_pet(item)
+	elif item == ItemType.type.magically_trapped_rogue:
+		# display the item text
+		if display_text:
+			hud.display_text("Aquired a Magically Trapped Rogue!", "He will throw knives at enemies so you won't drop him!")
+		# adds the pet item and spawns in the pet to the player based on the item
+		add_pet(item)
+	elif item == ItemType.type.dead_rogues_head:
+		# display the item text
+		if display_text:
+			hud.display_text("Aquired a Dead Rogue's Head", "His quest will end someday...")
+		# adds the pet item and spawns in the pet to the player based on the item
+		add_pet(item)
+	elif item == ItemType.type.bomb:
+		if display_text:
+			hud.display_text("Aquired a Bomb!", "Use when you need an explosion!")
+		# add the usable item
+		usable_item_added(item)
+
+# adds the item to the collected items list on HUD and in player data
+func add_passive_item(item : ItemType.type):
+	hud.item_added(item)
+	items_collected += [item]
+
+# removes the first item from items collected
+func remove_item_from_items_collected(item_to_remove : ItemType.type, playsound : bool = true):
+	if item_to_remove != ItemType.type.temp:
+		for i in range(0, items_collected.size()):
+			if items_collected[i] == item_to_remove:
+				items_collected.remove_at(i)
+				if playsound:
+					item_break_sound.play()
+				return
 
 # use a key
 func use_key():
@@ -609,9 +630,7 @@ func use_key():
 		# return that a key was not used
 		return false
 
-# return if the player is dying
-func get_is_dying():
-	return dying
+## ------------------- falling animation functions ------------------------------------------------------------
 
 # when the fall timer ends
 func _on_fall_timer_timeout():
@@ -657,6 +676,13 @@ func _on_stand_up_timer_timeout():
 	elif get_tree().current_scene.name == "Floor5":
 		hud.display_text("Floor 5", "Time to get out of here...")
 
+# when the player fall sound timer ends, play the fall sound
+func _on_player_fall_sound_timer_timeout():
+	player_fall_sound.play()
+
+
+## ------------------- PlayerData functions ------------------------------------------------------------
+
 # save the player data to transfer between floors
 func save_player_data():
 	PlayerData.clear_data()
@@ -696,76 +722,7 @@ func load_player_data():
 	if current_pet != null:
 		current_pet.set_pet_hp(PlayerData.current_pet_health)
 
-# when the player fall sound timer ends, play the fall sound
-func _on_player_fall_sound_timer_timeout():
-	player_fall_sound.play()
-
-# when the death_timer runs out, the scene resets
-func _on_death_timer_timeout():
-	Engine.time_scale = 1
-	PlayerData.clear_data()
-	get_tree().change_scene_to_file("res://Scenes/Dungeon_floors/dungeon_floor_1.tscn")
-
-# returns the speed
-func get_speed():
-	# if the player is dashing
-	if is_dashing:
-		# add the dashing speed to the movement speed
-		return speed * (1.0 - slow_percentage) + dash_speed_boost
-	else:
-		return speed * (1.0 - slow_percentage)
-
-# applies the slow
-func apply_slow(slow_perc):
-	slow_percentage += slow_perc
-
-# removes a slow
-func remove_slow(slow_perc):
-	slow_percentage -= slow_perc
-
-# returns the animated sprite
-func get_animated_sprite():
-	return animated_sprite
-
-# when the hit flash aniamtion timer ends
-func _on_hit_flash_animation_timer_timeout():
-	animated_sprite.material.shader = null
-
-# sets the dusted status
-func set_dusted_status(status):
-	if status == true:
-		dusted_stack += 1
-		dusted = true
-		# if this is the first dusted stack
-		if dusted_stack == 1:
-			# apply the dustes slow
-			apply_slow(dusted_slow)
-	else:
-		dusted_stack -= 1
-	# if all dusted stacks are gone, the player is no longer dusted
-	if dusted_stack == 0:
-		dusted = false
-		remove_slow(dusted_slow)
-
-# returns if the player is has dust_blade effect on them
-func is_dusted():
-	return dusted
-
-# when the player enters a room
-func room_entered():
-	# reset the attack identifier
-	current_attack_identifier = 0
-	# reset attack that have hit (used mainly for the morphed shade fight)
-	attacks_that_have_hit = []
-
-# when the voodoo doll immunity timer ends
-func _on_voodoo_doll_immunity_timer_timeout():
-	# set immunity to false
-	immunity = false
-	# remove the poorly made voodoo doll from the items collected
-	remove_item_from_items_collected(ItemType.type.poorly_made_voodoo_doll)
-	# remove the poorly made voodoo doll from the items collected ui
-	hud.remove_item_from_ui(ItemType.type.poorly_made_voodoo_doll)
+## ------------------- usable item functions -------------------------------------------
 
 # uses an item
 func use_usable_item():
@@ -827,20 +784,35 @@ func use_usable_item():
 			hud.hide_usable_item()
 
 # when a usable item is added
-func usable_item_added(item_type : ItemType.type):
-	# check if the item is stackable
-	var stackable_item = false
-	if item_type == ItemType.type.bomb:
-		stackable_item = true
-	# if the item is stackable
-	if stackable_item:
-		# adjust the usable items stack UI
-		hud.adjust_usable_item_stack_amount(usable_item_stack_amount)
-	# if the item is not stackable
-	else:
+func usable_item_added(item : ItemType.type):
+	var stackable = false
+	for item_type in ItemType.stackable_items:
+		if item == item_type:
+			stackable = true
+	if !stackable:
+		# removes the current_usable_item from the player's collected items
+		remove_item_from_items_collected(current_usable_item)
+		# set the current item for the player to the dash boots
+		current_usable_item = item
 		# reset the item stack
 		usable_item_stack_amount = 1
 		hud.adjust_usable_item_stack_amount(usable_item_stack_amount)
+	# if the item is stackable
+	elif stackable:
+		if current_usable_item == item:
+			usable_item_stack_amount += 1
+		else:
+			# removes the current_usable_item from the player's collected items
+			remove_item_from_items_collected(current_usable_item)
+			# set the current item for the player to the dash boots
+			current_usable_item = item
+			# set the usable item stack to 1
+			usable_item_stack_amount = 1
+		# adjust the usable items stack UI
+		hud.adjust_usable_item_stack_amount(usable_item_stack_amount)
+	hud.current_usable_item(current_usable_item)
+	if item != ItemType.type.temp:
+		items_collected += [item]
 
 # when an item is used
 func used_usable_item():
@@ -860,15 +832,14 @@ func _on_usable_item_cooldown_timer_timeout():
 		# hides the usable item UI
 		hud.hide_usable_item()
 
-# removes the first item from items collected
-func remove_item_from_items_collected(item_to_remove : ItemType.type, playsound : bool = true):
-	if item_to_remove != ItemType.type.temp:
-		for i in range(0, items_collected.size()):
-			if items_collected[i] == item_to_remove:
-				items_collected.remove_at(i)
-				if playsound:
-					item_break_sound.play()
-				return
+# when the voodoo doll immunity timer ends
+func _on_voodoo_doll_immunity_timer_timeout():
+	# set immunity to false
+	immunity = false
+	# remove the poorly made voodoo doll from the items collected
+	remove_item_from_items_collected(ItemType.type.poorly_made_voodoo_doll)
+	# remove the poorly made voodoo doll from the items collected ui
+	hud.remove_item_from_ui(ItemType.type.poorly_made_voodoo_doll)
 
 # when the player dashes
 func dash():
@@ -900,6 +871,37 @@ func _on_after_image_spawn_timer_timeout():
 		# reset the after images
 		after_images = 0
 
+
+## ------------------- pet functions -------------------------------------------
+
+# adds a pet based on the item type
+func add_pet(pet_item : ItemType.type):
+	if pet_item != ItemType.type.temp:
+		# add the item to the collected items list on HUD and in player data
+		add_passive_item(pet_item)
+		# if there is a current pet
+		if current_pet != null:
+			# remove the pet and the pet's item
+			current_pet.kill_pet()
+			remove_item_from_items_collected(current_pet_item)
+			hud.remove_item_from_ui(current_pet_item)
+		# set the pet to be spawned based on it's item type
+		var spawn = null
+		if pet_item == ItemType.type.protective_charm:
+			spawn = PROTECTIVE_CHARM_SPAWN.instantiate()
+		elif pet_item == ItemType.type.hurtful_charm:
+			spawn = HURTFUL_CHARM_SPAWN.instantiate()
+		elif pet_item == ItemType.type.magically_trapped_rogue:
+			spawn = DANGLING_ROGUE.instantiate()
+		elif pet_item == ItemType.type.dead_rogues_head:
+			spawn = DEAD_ROGUE.instantiate()
+		# if there is a pet to be spawned
+		if spawn !=  null:
+			# spawn that pet
+			current_pet_item = pet_item
+			add_child(spawn)
+			current_pet = spawn
+
 # when a pet dies
 func pet_died(pet_item : ItemType.type):
 	# remove the pet_item from the items collected and UI
@@ -908,27 +910,16 @@ func pet_died(pet_item : ItemType.type):
 	# remove the current pet
 	current_pet = null
 
-# adds a pet based on the item type
-func add_pet(pet_item : ItemType.type):
-	# if there is a current pet
-	if current_pet != null:
-		# remove the pet and the pet's item
-		current_pet.kill_pet()
-		remove_item_from_items_collected(current_pet_item)
-		hud.remove_item_from_ui(current_pet_item)
-	# set the pet to be spawned based on it's item type
-	var spawn = null
-	if pet_item == ItemType.type.protective_charm:
-		spawn = PROTECTIVE_CHARM_SPAWN.instantiate()
-	elif pet_item == ItemType.type.hurtful_charm:
-		spawn = HURTFUL_CHARM_SPAWN.instantiate()
-	elif pet_item == ItemType.type.magically_trapped_rogue:
-		spawn = DANGLING_ROGUE.instantiate()
-	elif pet_item == ItemType.type.dead_rogues_head:
-		spawn = DEAD_ROGUE.instantiate()
-	# if there is a pet to be spawned
-	if spawn !=  null:
-		# spawn that pet
-		current_pet_item = pet_item
-		add_child(spawn)
-		current_pet = spawn
+
+## ------------------- other functions needed -------------------------------------------
+
+# returns the animated sprite
+func get_animated_sprite():
+	return animated_sprite
+
+# when the player enters a room
+func room_entered():
+	# reset the attack identifier
+	current_attack_identifier = 0
+	# reset attack that have hit (used mainly for the morphed shade fight)
+	attacks_that_have_hit = []
