@@ -14,7 +14,7 @@ var can_throw = false
 
 func _ready():
 	# sets the pet variables
-	max_health = 3
+	max_health = 1
 	health = max_health
 	distance_from_player = 20
 	speed = .05

@@ -9,6 +9,9 @@ var can_throw = false
 @onready var enter_sound = $enter_sound
 @onready var hit_sound = $hit_sound
 const TINY_ROGUE_LEAVE_SOUND = preload("res://Scenes/pets/tiny_rogue_leave_sound.tscn")
+@onready var hit_flash_animation_player = $Hit_Flash_animation_player
+@onready var hit_flash_animation_timer = $Hit_Flash_animation_player/hit_flash_animation_timer
+const HIT_SHADER = preload("res://Scripts/shaders/enemy_hit_shader.gdshader")
 
 func _ready():
 	# sets the pet variables
@@ -61,8 +64,15 @@ func _physics_process(_delta):
 func take_damage(damage):
 	# remove health
 	health -= damage
-	# plays the pet hit sound
-	hit_sound.play()
+	# if health is above 0
+	if health > 0:
+		# plays the hit animation
+		animated_sprite.material.shader = null
+		animated_sprite.material.shader = HIT_SHADER
+		hit_flash_animation_player.play("hit_flash")
+		hit_flash_animation_timer.start()
+		# plays the hit sound
+		hit_sound.play()
 	# if health is 0
 	if health <= 0:
 		# tell the player the pet died
@@ -83,3 +93,8 @@ func kill_pet():
 	get_tree().current_scene.add_child(sound)
 	# removes the pet
 	queue_free()
+
+# when the hit flash animation timer ends
+func _on_hit_flash_animation_timer_timeout():
+	# remove the hit flash shader
+	animated_sprite.material.shader = null
