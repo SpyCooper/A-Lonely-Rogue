@@ -89,8 +89,8 @@ tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(247.385, -0.25, 0, 0.25, 0, 189.231, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 0.4)
+"points": PackedFloat32Array(274.667, -0.25, 0, 0.25, 0, 205.333, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.6)
 }
 
 [sub_resource type="Animation" id="Animation_w1m86"]
@@ -98,24 +98,13 @@ resource_name = "Leave"
 tracks/0/type = "bezier"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:position:x")
+tracks/0/path = NodePath(".:position:y")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(194.154, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/1/type = "bezier"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:position:y")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
 "handle_modes": PackedInt32Array(0, 0),
-"points": PackedFloat32Array(189.231, -0.25, 0, 0.25, 0, 247.385, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0, 0.7)
+"points": PackedFloat32Array(205.333, -0.25, 0, 0.25, 0, 266.667, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.8)
 }
 
 [sub_resource type="Animation" id="Animation_fslxk"]
@@ -123,23 +112,12 @@ length = 0.001
 tracks/0/type = "bezier"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:position:x")
+tracks/0/path = NodePath(".:position:y")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(194.154, -0.25, 0, 0.25, 0),
-"times": PackedFloat32Array(0)
-}
-tracks/1/type = "bezier"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath(".:position:y")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
-"handle_modes": PackedInt32Array(0),
-"points": PackedFloat32Array(247.385, -0.25, 0, 0.25, 0),
+"points": PackedFloat32Array(272, -0.25, 0, 0.25, 0),
 "times": PackedFloat32Array(0)
 }
 
@@ -178,7 +156,7 @@ animations = [{
 top_level = true
 layout_mode = 3
 anchors_preset = 0
-scale = Vector2(3.25, 3.25)
+scale = Vector2(3, 3)
 size_flags_horizontal = 3
 size_flags_vertical = 3
 script = ExtResource("1_slvuw")
@@ -222,7 +200,7 @@ autoplay = "no_heart"
 speed_scale = 0.0
 
 [node name="ScrollTextBox" type="Sprite2D" parent="."]
-position = Vector2(194.154, 247.385)
+position = Vector2(213.333, 272)
 texture = ExtResource("3_nxqli")
 
 [node name="Main Text" type="Label" parent="ScrollTextBox"]
@@ -253,13 +231,18 @@ libraries = {
 }
 
 [node name="TextBoxTimer" type="Timer" parent="."]
+wait_time = 1.5
 
 [node name="HealthBar" type="ProgressBar" parent="."]
-layout_mode = 0
-offset_left = 80.9231
-offset_top = 195.385
-offset_right = 306.923
-offset_bottom = 209.385
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 101.333
+offset_top = 210.667
+offset_right = 327.333
+offset_bottom = 224.667
+grow_horizontal = 2
 theme = ExtResource("5_6yeb1")
 theme_override_styles/background = ExtResource("6_oonku")
 theme_override_styles/fill = SubResource("StyleBoxFlat_ph6gr")
@@ -302,10 +285,10 @@ text = "001"
 
 [node name="active_items_ui" type="Control" parent="."]
 anchors_preset = 0
-offset_left = 371.692
-offset_top = 4.30769
-offset_right = 371.692
-offset_bottom = 4.30769
+offset_left = 402.667
+offset_top = 5.33333
+offset_right = 402.667
+offset_bottom = 5.33333
 
 [node name="items_ui_container" type="VBoxContainer" parent="active_items_ui"]
 layout_mode = 0
@@ -313,12 +296,15 @@ offset_right = 20.0
 offset_bottom = 40.0
 theme_override_constants/separation = 19
 
+[node name="Usable_Item_UI_slot2" parent="active_items_ui/items_ui_container" instance=ExtResource("7_63oe1")]
+layout_mode = 2
+
 [node name="Usable_item" type="Control" parent="."]
 anchors_preset = 0
-offset_left = 352.0
-offset_top = 4.30769
-offset_right = 352.0
-offset_bottom = 4.30769
+offset_left = 381.333
+offset_top = 5.33333
+offset_right = 381.333
+offset_bottom = 5.33333
 
 [node name="usable_items_ui_container" type="VBoxContainer" parent="Usable_item"]
 layout_mode = 0
