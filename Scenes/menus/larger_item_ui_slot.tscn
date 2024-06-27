@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://ctgxe1xpnykuc"]
+[gd_scene load_steps=50 format=3 uid="uid://ctgxe1xpnykuc"]
 
 [ext_resource type="Script" path="res://Scripts/UI/item_ui_slot.gd" id="1_b8hg7"]
 [ext_resource type="Texture2D" uid="uid://da8a0jgjae011" path="res://Assets/Sprites/UI/rounded_corners_square-export.png" id="2_ii87q"]
@@ -15,6 +15,7 @@
 [ext_resource type="Texture2D" uid="uid://21jry0k85pcx" path="res://Assets/Sprites/catalog_icons/dead_rogue_head_icon.png" id="13_5pa2x"]
 [ext_resource type="Texture2D" uid="uid://cjonbmn8iaqkl" path="res://Assets/Sprites/catalog_icons/glass_blade_icon.png" id="14_xexi3"]
 [ext_resource type="Texture2D" uid="uid://cxdp1ww8okfv2" path="res://Assets/Sprites/catalog_icons/hurtful_charm_icon.png" id="15_cjny6"]
+[ext_resource type="Texture2D" uid="uid://cnhdwkw15f4v0" path="res://Assets/Sprites/catalog_icons/holy_heart_icon.png" id="15_f8lrp"]
 [ext_resource type="Texture2D" uid="uid://bl7r5tr8dsooy" path="res://Assets/Sprites/catalog_icons/magically_trapped_rogue_icon.png" id="16_nvvxa"]
 [ext_resource type="Texture2D" uid="uid://cmwm5gbdg4wt3" path="res://Assets/Sprites/catalog_icons/poison_gas_icon.png" id="17_rjcok"]
 [ext_resource type="Texture2D" uid="uid://bdq2hockskod5" path="res://Assets/Sprites/catalog_icons/poorly_made_voodoo_doll_icon.png" id="18_qrm06"]
@@ -72,6 +73,10 @@ region = Rect2(0, 0, 16, 16)
 atlas = ExtResource("14_xexi3")
 region = Rect2(0, 0, 16, 16)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_ss8qs"]
+atlas = ExtResource("15_f8lrp")
+region = Rect2(0, 0, 24, 24)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_btxan"]
 atlas = ExtResource("15_cjny6")
 region = Rect2(0, 0, 16, 16)
@@ -106,6 +111,10 @@ region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3uc6d"]
 atlas = ExtResource("21_16vdo")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jflw0"]
+atlas = ExtResource("8_3xt8q")
 region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bn66n"]
@@ -212,6 +221,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_ss8qs")
+}],
+"loop": false,
+"name": &"holy_heart",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_btxan")
 }],
 "loop": false,
@@ -274,6 +291,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_jflw0")
+}],
+"loop": false,
+"name": &"shadow_heart",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_bn66n")
 }],
 "loop": false,
@@ -295,7 +320,7 @@ texture = ExtResource("2_ii87q")
 position = Vector2(-3.8147e-06, -3.8147e-06)
 scale = Vector2(5, 5)
 sprite_frames = SubResource("SpriteFrames_51jbf")
-animation = &"Poison"
+animation = &"holy_heart"
 
 [node name="stack_Label" type="Label" parent="."]
 layout_mode = 0

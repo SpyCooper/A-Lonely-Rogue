@@ -1,8 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://dxghds0ocxa2e"]
+[gd_scene load_steps=14 format=3 uid="uid://dxghds0ocxa2e"]
 
 [ext_resource type="Script" path="res://Scripts/UI/game_won.gd" id="1_cu3yu"]
 [ext_resource type="PackedScene" uid="uid://duv7i8yak343i" path="res://Scenes/HUD.tscn" id="2_805em"]
 [ext_resource type="Script" path="res://Scripts/UI/Pause_menu.gd" id="3_fffbo"]
+[ext_resource type="PackedScene" uid="uid://8to1qmbdos4" path="res://Scenes/menus/items_horizontal_container.tscn" id="3_yrw2o"]
 [ext_resource type="Theme" uid="uid://pv4evjjac8wt" path="res://Assets/general_theme.tres" id="4_5xkum"]
 [ext_resource type="PackedScene" uid="uid://bigg81dibglne" path="res://Scenes/menus/options_menu.tscn" id="5_dupvv"]
 [ext_resource type="PackedScene" uid="uid://dc0xlg20ucy3n" path="res://Scenes/menus/catalog.tscn" id="6_ry6bc"]
@@ -85,14 +86,14 @@ layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = 380.5
+offset_left = 395.0
 offset_top = 80.0
-offset_right = 827.5
+offset_right = 854.0
 offset_bottom = 125.0
 grow_horizontal = 2
 theme = ExtResource("4_5xkum")
 theme_override_font_sizes/font_size = 48
-text = "Dungeon completed!"
+text = "Dungeon conquered!"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -171,22 +172,17 @@ text = "No items were used"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Items_used_icons" type="GridContainer" parent="CanvasLayer/Text and stats"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 23.0
-anchor_top = 8.425
-anchor_right = 8.675
-anchor_bottom = 8.725
-offset_left = -291.0
-offset_right = 291.0
-grow_horizontal = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-theme_override_constants/h_separation = 100
-theme_override_constants/v_separation = 110
-columns = 10
-metadata/_edit_use_anchors_ = true
+[node name="Items_verticle_container" type="VBoxContainer" parent="CanvasLayer/Text and stats"]
+layout_mode = 0
+offset_left = 68.0
+offset_top = 349.0
+offset_right = 1206.0
+offset_bottom = 479.0
+theme_override_constants/separation = 130
+alignment = 1
+
+[node name="items_horizontal_container" parent="CanvasLayer/Text and stats/Items_verticle_container" instance=ExtResource("3_yrw2o")]
+layout_mode = 2
 
 [node name="Fade_color" type="ColorRect" parent="CanvasLayer"]
 visible = false

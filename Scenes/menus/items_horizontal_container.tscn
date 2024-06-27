@@ -1,0 +1,5 @@
+[gd_scene format=3 uid="uid://8to1qmbdos4"]
+
+[node name="items_horizontal_container" type="HBoxContainer"]
+theme_override_constants/separation = 130
+alignment = 1

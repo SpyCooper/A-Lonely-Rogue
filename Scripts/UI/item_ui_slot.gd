@@ -7,6 +7,7 @@ extends Control
 @onready var stack_label = $stack_Label
 
 var item_type : ItemType.type
+var stack = 1
 
 # variables
 var timer = 0.0
@@ -65,3 +66,8 @@ func adjust_stack(stack_amount : int):
 	else:
 		stack_label.show()
 		stack_label.text = str(stack_amount)
+
+func add_to_stack():
+	stack_label.show()
+	stack += 1
+	stack_label.text = str(stack)
