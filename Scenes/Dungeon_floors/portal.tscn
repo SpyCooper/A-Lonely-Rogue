@@ -1,0 +1,95 @@
+[gd_scene load_steps=11 format=3 uid="uid://bwwi5pgmppd0k"]
+
+[ext_resource type="Script" path="res://Scripts/map/portal.gd" id="1_njhyd"]
+[ext_resource type="Texture2D" uid="uid://baeg67r3sndyu" path="res://Assets/Sprites/map/portal.png" id="2_qkee0"]
+[ext_resource type="AudioStream" uid="uid://m5dp46dkvovl" path="res://Assets/Audio/sound effects/trapdoor.mp3" id="3_4es31"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_eohpr"]
+atlas = ExtResource("2_qkee0")
+region = Rect2(0, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h802p"]
+atlas = ExtResource("2_qkee0")
+region = Rect2(32, 0, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_km5rg"]
+atlas = ExtResource("2_qkee0")
+region = Rect2(64, 0, 32, 48)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_fdgel"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_eohpr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h802p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_km5rg")
+}],
+"loop": true,
+"name": &"default",
+"speed": 4.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n1bjw"]
+size = Vector2(16, 16)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bedrn"]
+size = Vector2(6.25, 31)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_q5jth"]
+size = Vector2(17, 11)
+
+[node name="portal" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_njhyd")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -7)
+sprite_frames = SubResource("SpriteFrames_fdgel")
+autoplay = "default"
+
+[node name="teleporter" type="Area2D" parent="."]
+z_index = 1
+position = Vector2(0, -10)
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="teleporter"]
+shape = SubResource("RectangleShape2D_n1bjw")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(0, -7)
+stream = ExtResource("3_4es31")
+bus = &"Sound Effect"
+
+[node name="Wall" type="StaticBody2D" parent="."]
+position = Vector2(0, -14)
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall"]
+position = Vector2(-11.5, -1.5)
+shape = SubResource("RectangleShape2D_bedrn")
+
+[node name="Wall2" type="StaticBody2D" parent="."]
+position = Vector2(23, -14)
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall2"]
+position = Vector2(-11.5, -1.5)
+shape = SubResource("RectangleShape2D_bedrn")
+
+[node name="Wall3" type="StaticBody2D" parent="."]
+position = Vector2(12, -24)
+collision_layer = 3
+collision_mask = 3
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Wall3"]
+position = Vector2(-12, -1.5)
+shape = SubResource("RectangleShape2D_q5jth")
+
+[connection signal="body_entered" from="teleporter" to="." method="_on_teleporter_body_entered"]

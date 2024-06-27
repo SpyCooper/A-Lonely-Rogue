@@ -1,14 +1,10 @@
-[gd_scene load_steps=11 format=3 uid="uid://bkufwdw0nnsfc"]
+[gd_scene load_steps=10 format=3 uid="uid://bkufwdw0nnsfc"]
 
 [ext_resource type="Script" path="res://Scripts/bomb.gd" id="1_0p5um"]
-[ext_resource type="Shader" uid="uid://dlroce5v6b0te" path="res://Scripts/shaders/hit_shader.tres" id="2_mx2dx"]
 [ext_resource type="Texture2D" uid="uid://bp6mk0ui8607q" path="res://Assets/Sprites/items/bomb.png" id="3_810r0"]
 [ext_resource type="AudioStream" uid="uid://cxxp1kykyi7u2" path="res://Assets/Audio/sound effects/bomb fuse.mp3" id="4_ncsn4"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8as0q"]
-shader = ExtResource("2_mx2dx")
-shader_parameter/enabled = false
-shader_parameter/tint = Color(0.752941, 0.819608, 0.8, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yqidf"]
 atlas = ExtResource("3_810r0")

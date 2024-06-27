@@ -1,0 +1,325 @@
+[gd_scene load_steps=13 format=3 uid="uid://dxghds0ocxa2e"]
+
+[ext_resource type="Script" path="res://Scripts/UI/game_won.gd" id="1_cu3yu"]
+[ext_resource type="PackedScene" uid="uid://duv7i8yak343i" path="res://Scenes/HUD.tscn" id="2_805em"]
+[ext_resource type="Script" path="res://Scripts/UI/Pause_menu.gd" id="3_fffbo"]
+[ext_resource type="Theme" uid="uid://pv4evjjac8wt" path="res://Assets/general_theme.tres" id="4_5xkum"]
+[ext_resource type="PackedScene" uid="uid://bigg81dibglne" path="res://Scenes/menus/options_menu.tscn" id="5_dupvv"]
+[ext_resource type="PackedScene" uid="uid://dc0xlg20ucy3n" path="res://Scenes/menus/catalog.tscn" id="6_ry6bc"]
+[ext_resource type="Script" path="res://Scripts/map/Transition Camera.gd" id="7_2gepo"]
+[ext_resource type="AudioStream" uid="uid://de1jje6nelok4" path="res://Assets/Audio/background music/bgm029-dark-fantasy-horror-mystery-horror-148349.mp3" id="10_vxiy1"]
+
+[sub_resource type="Animation" id="Animation_27xwy"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_hdwk4"]
+resource_name = "fade_in"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 1), Color(0, 0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_jlyk7"]
+resource_name = "fade_out"
+length = 2.0
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:color")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(0, 0, 0, 0), Color(0, 0, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_k1oyi"]
+_data = {
+"RESET": SubResource("Animation_27xwy"),
+"fade_in": SubResource("Animation_hdwk4"),
+"fade_out": SubResource("Animation_jlyk7")
+}
+
+[node name="Game_won" type="Node2D"]
+y_sort_enabled = true
+script = ExtResource("1_cu3yu")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="BG color" type="ColorRect" parent="CanvasLayer"]
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0, 0, 0, 1)
+
+[node name="Text and stats" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="Title text" type="Label" parent="CanvasLayer/Text and stats"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 380.5
+offset_top = 80.0
+offset_right = 827.5
+offset_bottom = 125.0
+grow_horizontal = 2
+theme = ExtResource("4_5xkum")
+theme_override_font_sizes/font_size = 48
+text = "Dungeon completed!"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Buttons_container" type="VBoxContainer" parent="CanvasLayer/Text and stats"]
+layout_mode = 0
+offset_left = 506.0
+offset_top = 548.0
+offset_right = 586.0
+offset_bottom = 592.0
+scale = Vector2(3, 3)
+theme_override_constants/separation = 22
+
+[node name="Control" type="Control" parent="CanvasLayer/Text and stats/Buttons_container"]
+layout_mode = 2
+
+[node name="replay_button" type="Button" parent="CanvasLayer/Text and stats/Buttons_container/Control"]
+layout_mode = 2
+offset_right = 108.0
+offset_bottom = 26.0
+scale = Vector2(0.733, 0.733)
+theme = ExtResource("4_5xkum")
+action_mode = 0
+text = "Replay"
+
+[node name="Control2" type="Control" parent="CanvasLayer/Text and stats/Buttons_container"]
+layout_mode = 2
+
+[node name="MainMenu_button" type="Button" parent="CanvasLayer/Text and stats/Buttons_container/Control2"]
+layout_mode = 2
+offset_right = 108.0
+offset_bottom = 26.0
+scale = Vector2(0.733, 0.733)
+theme = ExtResource("4_5xkum")
+theme_override_font_sizes/font_size = 0
+action_mode = 0
+text = "Main Menu"
+
+[node name="Stats" type="VBoxContainer" parent="CanvasLayer/Text and stats"]
+layout_mode = 0
+offset_left = 297.0
+offset_top = 157.0
+offset_right = 957.0
+offset_bottom = 295.0
+theme_override_constants/separation = 16
+
+[node name="Health Gained" type="Label" parent="CanvasLayer/Text and stats/Stats"]
+layout_mode = 2
+theme = ExtResource("4_5xkum")
+theme_override_font_sizes/font_size = 32
+text = "Health Gained: 000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="DamageTaken" type="Label" parent="CanvasLayer/Text and stats/Stats"]
+layout_mode = 2
+theme = ExtResource("4_5xkum")
+theme_override_font_sizes/font_size = 32
+text = "Damage Taken: 000"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Items_used_text" type="Label" parent="CanvasLayer/Text and stats/Stats"]
+layout_mode = 2
+theme = ExtResource("4_5xkum")
+theme_override_font_sizes/font_size = 32
+text = "Items Used:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="no_Items_used_text" type="Label" parent="CanvasLayer/Text and stats/Stats"]
+visible = false
+layout_mode = 2
+theme = ExtResource("4_5xkum")
+theme_override_font_sizes/font_size = 32
+text = "No items were used"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Items_used_icons" type="GridContainer" parent="CanvasLayer/Text and stats"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 23.0
+anchor_top = 8.425
+anchor_right = 8.675
+anchor_bottom = 8.725
+offset_left = -291.0
+offset_right = 291.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/h_separation = 100
+theme_override_constants/v_separation = 110
+columns = 10
+metadata/_edit_use_anchors_ = true
+
+[node name="Fade_color" type="ColorRect" parent="CanvasLayer"]
+visible = false
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0, 0, 0, 1)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer/Fade_color"]
+libraries = {
+"": SubResource("AnimationLibrary_k1oyi")
+}
+
+[node name="Fade_timer" type="Timer" parent="CanvasLayer/Fade_color"]
+wait_time = 2.5
+
+[node name="HUD" parent="CanvasLayer" instance=ExtResource("2_805em")]
+unique_name_in_owner = true
+visible = false
+
+[node name="Pause_menu" type="Control" parent="CanvasLayer"]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(3.25, 3.25)
+script = ExtResource("3_fffbo")
+
+[node name="color_rect" type="ColorRect" parent="CanvasLayer/Pause_menu"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -886.154
+offset_bottom = -498.462
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.827451)
+
+[node name="Label" type="Label" parent="CanvasLayer/Pause_menu"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 19.6923
+offset_right = -886.0
+offset_bottom = 49.6923
+grow_horizontal = 2
+theme = ExtResource("4_5xkum")
+theme_override_font_sizes/font_size = 32
+text = "Paused"
+horizontal_alignment = 1
+
+[node name="Buttons_container" type="VBoxContainer" parent="CanvasLayer/Pause_menu"]
+layout_mode = 0
+offset_left = 159.385
+offset_top = 80.0
+offset_right = 239.385
+offset_bottom = 167.0
+theme_override_constants/separation = 22
+
+[node name="Control" type="Control" parent="CanvasLayer/Pause_menu/Buttons_container"]
+layout_mode = 2
+
+[node name="Resume_button" type="Button" parent="CanvasLayer/Pause_menu/Buttons_container/Control"]
+layout_mode = 2
+offset_right = 108.0
+offset_bottom = 26.0
+scale = Vector2(0.733, 0.733)
+theme = ExtResource("4_5xkum")
+theme_override_font_sizes/font_size = 0
+action_mode = 0
+text = "Resume"
+
+[node name="Control4" type="Control" parent="CanvasLayer/Pause_menu/Buttons_container"]
+layout_mode = 2
+
+[node name="Catalog_button" type="Button" parent="CanvasLayer/Pause_menu/Buttons_container/Control4"]
+layout_mode = 2
+offset_right = 109.0
+offset_bottom = 26.0
+scale = Vector2(0.733, 0.733)
+theme = ExtResource("4_5xkum")
+action_mode = 0
+text = "Catalog"
+
+[node name="Control3" type="Control" parent="CanvasLayer/Pause_menu/Buttons_container"]
+layout_mode = 2
+
+[node name="Options_button" type="Button" parent="CanvasLayer/Pause_menu/Buttons_container/Control3"]
+layout_mode = 2
+offset_right = 108.0
+offset_bottom = 26.0
+scale = Vector2(0.733, 0.733)
+theme = ExtResource("4_5xkum")
+action_mode = 0
+text = "Options"
+
+[node name="Control2" type="Control" parent="CanvasLayer/Pause_menu/Buttons_container"]
+layout_mode = 2
+
+[node name="MainMenu_button" type="Button" parent="CanvasLayer/Pause_menu/Buttons_container/Control2"]
+layout_mode = 2
+offset_right = 108.0
+offset_bottom = 26.0
+scale = Vector2(0.733, 0.733)
+theme = ExtResource("4_5xkum")
+theme_override_font_sizes/font_size = 0
+action_mode = 0
+text = "Main Menu"
+
+[node name="Options_menu" parent="CanvasLayer" instance=ExtResource("5_dupvv")]
+visible = false
+
+[node name="Catalog" parent="CanvasLayer" instance=ExtResource("6_ry6bc")]
+visible = false
+
+[node name="Transition Camera" type="Camera2D" parent="."]
+zoom = Vector2(3.31, 3.31)
+position_smoothing_enabled = true
+position_smoothing_speed = 10.0
+script = ExtResource("7_2gepo")
+
+[node name="BG music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_vxiy1")
+volume_db = -2.0
+bus = &"Music"
+
+[connection signal="pressed" from="CanvasLayer/Text and stats/Buttons_container/Control/replay_button" to="." method="_on_replay_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Text and stats/Buttons_container/Control2/MainMenu_button" to="." method="_on_main_menu_button_pressed"]
+[connection signal="timeout" from="CanvasLayer/Fade_color/Fade_timer" to="." method="_on_fade_timer_timeout"]
+[connection signal="pressed" from="CanvasLayer/Pause_menu/Buttons_container/Control/Resume_button" to="CanvasLayer/Pause_menu" method="_on_resume_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Pause_menu/Buttons_container/Control4/Catalog_button" to="CanvasLayer/Pause_menu" method="_on_catalog_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Pause_menu/Buttons_container/Control3/Options_button" to="CanvasLayer/Pause_menu" method="_on_options_button_pressed"]
+[connection signal="pressed" from="CanvasLayer/Pause_menu/Buttons_container/Control2/MainMenu_button" to="CanvasLayer/Pause_menu" method="_on_main_menu_button_pressed"]

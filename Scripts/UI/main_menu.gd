@@ -14,6 +14,8 @@ var fade_out = false
 
 # on ready
 func _ready():
+	# clears the player's run
+	PlayerData.clear_run_data()
 	# fade in
 	fade_color.show()
 	animation_player.play("fade_in")

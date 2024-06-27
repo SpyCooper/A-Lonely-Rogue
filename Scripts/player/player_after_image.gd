@@ -3,8 +3,8 @@ extends Node2D
 @onready var animated_sprite = $AnimatedSprite2D
 @onready var timer = $Timer
 
-# on start
-func _ready():
+# when spawned
+func spawned():
 	# set the same animation as the player
 	animated_sprite.play(Events.player.get_animated_sprite().animation)
 	# start the timer

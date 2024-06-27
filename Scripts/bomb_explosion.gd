@@ -3,7 +3,7 @@ extends Node2D
 @onready var explosion_sound = $explosion_sound
 @onready var life_time_timer = $life_time_timer
 
-func _ready():
+func spawned():
 	# start the life timer
 	life_time_timer.start()
 

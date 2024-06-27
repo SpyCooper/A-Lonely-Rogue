@@ -75,8 +75,8 @@ var items_collected = []
 # pet variables
 var current_pet = null
 var current_pet_item = ItemType.type.temp
-const PROTECTIVE_CHARM_SPAWN = preload("res://Scenes/pets/protective_charm_spawn.tscn")
 const HURTFUL_CHARM_SPAWN = preload("res://Scenes/pets/hurtful_charm_spawn.tscn")
+const PROTECTIVE_CHARM_SPAWN = preload("res://Scenes/pets/protective_charm_spawn.tscn")
 const DANGLING_ROGUE = preload("res://Scenes/pets/dangling_rogue.tscn")
 const DEAD_ROGUE = preload("res://Scenes/pets/dead_rogue.tscn")
 
@@ -436,14 +436,33 @@ func player_take_damage(is_ms_knife, attack_identifer):
 # used to heal and take damage
 func player_adjust_health(change : int):
 	if !immunity:
+		# checks if there was a health change
+		var did_health_change = false
+		var health_change = 0
 		# if the change will put the the player's health above the max, set to the max
 		if(player_health + change > PLAYER_HEALTH_MAX):
+			# add the health change
+			health_change = PLAYER_HEALTH_MAX - player_health
+			did_health_change = true
+			# set the players hp
 			player_health = PLAYER_HEALTH_MAX
 		# else, add the change
 		else:
+			# set the players hp
 			player_health += change
+			# add the health change if there is one
+			if change != 0:
+				health_change = change
+				did_health_change = true
 		# refresh the hearts for the player
 		hud.refresh_hearts(player_health, shadow_heart)
+		# if there was a health change
+		if did_health_change:
+			# add the change to the health healed and damage taken
+			if change > 0:
+				PlayerData.health_healed += change
+			elif change < 0:
+				PlayerData.damage_taken += abs(change)
 		# if health is <= 0
 		if player_health <= 0:
 			# if the player has a poorly made voodoo doll
@@ -523,6 +542,8 @@ func picked_up_item(item, display_text = true, sound = true):
 		current_type = BladeType.blade_type.posioned
 		# add the item to the collected items list on HUD and in player data
 		add_passive_item(item)
+		# add item to the items used
+		PlayerData.items_used += [item]
 	elif item == ItemType.type.speed_boots:
 		# increase the player's speed
 		speed += ItemType.speed_boots_movement_speed_bonus
@@ -531,6 +552,8 @@ func picked_up_item(item, display_text = true, sound = true):
 			hud.display_text("Aquired Speed Boots!", "You run faster.")
 		# add the item to the collected items list on HUD and in player data
 		add_passive_item(item)
+		# add item to the items used
+		PlayerData.items_used += [item]
 	elif item == ItemType.type.quick_blades:
 		# increase attack speed
 		attacks_per_second += ItemType.quick_blades_attack_speed_bonus
@@ -541,6 +564,8 @@ func picked_up_item(item, display_text = true, sound = true):
 			hud.display_text("Aquired Quicker Blades!", "Blades can be thrown faster.")
 		# add the item to the collected items list on HUD and in player data
 		add_passive_item(item)
+		# add item to the items used
+		PlayerData.items_used += [item]
 	elif item == ItemType.type.shadow_flame:
 		# add the shadow flame blade to the player
 		shadow_flame_blade = true
@@ -551,6 +576,8 @@ func picked_up_item(item, display_text = true, sound = true):
 			hud.display_text("Aquired Shadowflame!", "Blades damage enemies after a time for moderate damage.")
 		# add the item to the collected items list on HUD and in player data
 		add_passive_item(item)
+		# add item to the items used
+		PlayerData.items_used += [item]
 	elif item == ItemType.type.shadow_blade:
 		# add the shadow blade to the player
 		shadow_blade = true
@@ -561,6 +588,8 @@ func picked_up_item(item, display_text = true, sound = true):
 			hud.display_text("Aquired Shadow Blades!", "Blades do increased damage.")
 		# add the item to the collected items list on HUD and in player data
 		add_passive_item(item)
+		# add item to the items used
+		PlayerData.items_used += [item]
 	elif item == ItemType.type.key:
 		# increase the number of keys
 		number_of_keys += 1
@@ -576,6 +605,8 @@ func picked_up_item(item, display_text = true, sound = true):
 		else:
 			# add the shadow heart to the player
 			shadow_heart = true
+			# add the shadow heart to the items used
+			PlayerData.items_used += [item]
 		# refresh the player's HP, and send that shadow_heart is active
 		hud.refresh_hearts(player_health, shadow_heart)
 		# display the item text
@@ -594,6 +625,8 @@ func picked_up_item(item, display_text = true, sound = true):
 			hud.display_text("Aquired Triple Blades!", "You can now throw 3 blades at once!")
 		# add the item to the collected items list on HUD and in player data
 		add_passive_item(item)
+		# add item to the items used
+		PlayerData.items_used += [item]
 	elif item == ItemType.type.dust_blade:
 		# add dust blades to the player
 		dust_blade = true
@@ -604,6 +637,8 @@ func picked_up_item(item, display_text = true, sound = true):
 			hud.display_text("Aquired Dust Blades!", "Attacks will slow enemies!")
 		# add the item to the collected items list on HUD and in player data
 		add_passive_item(item)
+		# add item to the items used
+		PlayerData.items_used += [item]
 	elif item == ItemType.type.glass_blade:
 		# add glass blades to the player
 		glass_blade = true
@@ -614,6 +649,8 @@ func picked_up_item(item, display_text = true, sound = true):
 			hud.display_text("Aquired Glass Blades!", "Blades will shoot shrapnel on hit!")
 		# add the item to the collected items list on HUD and in player data
 		add_passive_item(item)
+		# add item to the items used
+		PlayerData.items_used += [item]
 	elif item == ItemType.type.holy_heart:
 		# add the holy heart to the player
 		# if the shadow_heart is active
@@ -622,6 +659,8 @@ func picked_up_item(item, display_text = true, sound = true):
 			shadow_heart = false
 			# removes the shadow_heart from the player's collected items
 			remove_item_from_items_collected(ItemType.type.shadow_heart)
+			# add item to the items used
+			PlayerData.items_used += [item]
 		else:
 			# if the shadow_heart is not active, heal the player
 			player_adjust_health(2)
@@ -640,6 +679,8 @@ func picked_up_item(item, display_text = true, sound = true):
 		add_passive_item(item)
 		# do not allow the poorly made voodoo doll to be spawned
 		can_poorly_made_voodoo_doll_be_spawned = false
+		# add item to the items used
+		PlayerData.items_used += [item]
 	elif item == ItemType.type.sleek_blades:
 		# add the sleek blade to the player
 		knife_speed_bonus += ItemType.sleek_blade_speed_bonus
@@ -650,52 +691,70 @@ func picked_up_item(item, display_text = true, sound = true):
 			hud.display_text("Aquired Sleek Blades!", "Blades move faster through the air.")
 		# add the item to the collected items list on HUD and in player data
 		add_passive_item(item)
+		# add item to the items used
+		PlayerData.items_used += [item]
 	elif item == ItemType.type.dash_boots:
 		# display the item text
 		if display_text:
 			hud.display_text("Aquired a Dash Boots!", "Allows you to dash by double tapping!")
 		# add the usable item
 		usable_item_added(item)
+		# add item to the items used
+		PlayerData.items_used += [item]
 	elif item == ItemType.type.poison_gas:
 		# display the item text
 		if display_text:
 			hud.display_text("Aquired a Bottle of Poison Gas!", "Breaking the bottle surrounds you poison!")
 		# add the usable item
 		usable_item_added(item)
+		# add item to the items used
+		PlayerData.items_used += [item]
 	elif item == ItemType.type.protective_charm:
 		# display the item text
 		if display_text:
 			hud.display_text("Aquired a Protective Charm!", "It's spawn will block some projectiles for you!")
 		# adds the pet item and spawns in the pet to the player based on the item
 		add_pet(item)
+		# add item to the items used
+		PlayerData.items_used += [item]
 	elif item == ItemType.type.rogue_in_a_bottle:
 		if display_text:
 			hud.display_text("Aquired a Rogue-In-A-Bottle!", "Break when you need a little help!")
 		# add the usable item
 		usable_item_added(item)
+		# add item to the items used
+		PlayerData.items_used += [item]
 	elif item == ItemType.type.hurtful_charm:
 		# display the item text
 		if display_text:
 			hud.display_text("Aquired a Hurtful Charm!", "It will deal damage to enemies around you!")
 		# adds the pet item and spawns in the pet to the player based on the item
 		add_pet(item)
+		# add item to the items used
+		PlayerData.items_used += [item]
 	elif item == ItemType.type.magically_trapped_rogue:
 		# display the item text
 		if display_text:
 			hud.display_text("Aquired a Magically Trapped Rogue!", "He will throw knives at enemies so you won't drop him!")
 		# adds the pet item and spawns in the pet to the player based on the item
 		add_pet(item)
+		# add item to the items used
+		PlayerData.items_used += [item]
 	elif item == ItemType.type.dead_rogues_head:
 		# display the item text
 		if display_text:
 			hud.display_text("Aquired a Dead Rogue's Head", "His quest will end someday...")
 		# adds the pet item and spawns in the pet to the player based on the item
 		add_pet(item)
+		# add item to the items used
+		PlayerData.items_used += [item]
 	elif item == ItemType.type.bomb:
 		if display_text:
 			hud.display_text("Aquired a Bomb!", "Use when you need an explosion!")
 		# add the usable item
 		usable_item_added(item)
+		# add item to the items used
+		PlayerData.items_used += [item]
 
 # adds the item to the collected items list on HUD and in player data
 func add_passive_item(item : ItemType.type):
@@ -754,8 +813,9 @@ func use_usable_item():
 			used_usable_item()
 			# spawn the poison gas
 			var tiny_rogue = TINY_ROGUE.instantiate()
-			get_parent().add_child(tiny_rogue)
+			get_tree().current_scene.add_child(tiny_rogue)
 			tiny_rogue.global_position = global_position
+			tiny_rogue.spawned()
 			## set the usable item to temp (nothing)
 			current_usable_item = ItemType.type.temp
 			remove_item_from_items_collected(ItemType.type.rogue_in_a_bottle)
@@ -764,8 +824,9 @@ func use_usable_item():
 			used_usable_item()
 			# spawn the poison gas
 			var bomb_instance = BOMB.instantiate()
-			get_parent().add_child(bomb_instance)
 			bomb_instance.global_position = global_position
+			get_parent().add_child(bomb_instance)
+			bomb_instance.spawned()
 			# remove 1 from the stack amount
 			usable_item_stack_amount -= 1
 			# if the stack is 0
@@ -866,6 +927,7 @@ func _on_after_image_spawn_timer_timeout():
 	var after_image = PLAYER_AFTER_IMAGE.instantiate()
 	get_parent().add_child(after_image)
 	after_image.global_position = global_position
+	after_image.spawned()
 	# increment after images
 	after_images += 1
 	# if there aren't 2 after images down

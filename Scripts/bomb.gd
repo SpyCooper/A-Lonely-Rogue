@@ -6,8 +6,8 @@ extends Node2D
 @onready var fuse_sound = $fuse_sound
 const BOMB_EXPLOSION = preload("res://Scenes/bomb_explosion.tscn")
 
-# on ready
-func _ready():
+# when spawned
+func spawned():
 	# start the life time timer
 	life_time_timer.start()
 	# play the animation
@@ -21,5 +21,6 @@ func _on_life_time_timer_timeout():
 	var explosion = BOMB_EXPLOSION.instantiate()
 	get_tree().current_scene.add_child(explosion)
 	explosion.global_position = global_position
+	explosion.spawned()
 	# remove the bomb
 	queue_free()

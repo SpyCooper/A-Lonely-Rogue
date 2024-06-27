@@ -1,15 +1,11 @@
-[gd_scene load_steps=16 format=3 uid="uid://btl7fq5v4uej2"]
+[gd_scene load_steps=15 format=3 uid="uid://btl7fq5v4uej2"]
 
 [ext_resource type="Script" path="res://Scripts/pet/tiny_rogue.gd" id="1_sr743"]
-[ext_resource type="Shader" uid="uid://dlroce5v6b0te" path="res://Scripts/shaders/hit_shader.tres" id="2_ipl3t"]
 [ext_resource type="Texture2D" uid="uid://dq8jijmb6ntra" path="res://Assets/Sprites/pets/tiny_rogue.png" id="3_rw61b"]
 [ext_resource type="AudioStream" uid="uid://c120pte0wgt4r" path="res://Assets/Audio/sound effects/woosh_sfx.mp3" id="4_xc845"]
 [ext_resource type="AudioStream" uid="uid://c28624epg66bs" path="res://Assets/Audio/pets/smoke-bomb-6761.mp3" id="5_xlvnq"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_8as0q"]
-shader = ExtResource("2_ipl3t")
-shader_parameter/enabled = false
-shader_parameter/tint = Color(0.752941, 0.819608, 0.8, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_anrmi"]
 atlas = ExtResource("3_rw61b")

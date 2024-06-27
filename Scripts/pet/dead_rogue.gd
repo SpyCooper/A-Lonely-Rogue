@@ -23,11 +23,13 @@ func _ready():
 	Events.room_entered.connect(func(room):
 		# track the current_room
 		room_ref = room
+		# reset the attacks
+		can_throw = false
+		# start the attack timer
+		attack_timer.start()
 	)
 	# plays the pet enter sound
 	enter_sound.play()
-	# start the attack timer
-	attack_timer.start()
 
 # called on set intervals
 func _physics_process(_delta):

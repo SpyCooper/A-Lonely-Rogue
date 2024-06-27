@@ -15,8 +15,8 @@ var can_spawn_knife = true
 var can_throw_knives = true
 var angle = 0.0
 
-# on ready
-func _ready():
+# when spawned
+func spawned():
 	# start the knife throws timer
 	time_between_knife_throws_timer.start()
 	# start the life time timer
