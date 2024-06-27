@@ -74,7 +74,7 @@ func check_if_item_exists(item_to_check : ItemType.type):
 func add_item_to_items_used(item : ItemType.type):
 	for position in range(0, items_verticle_container.get_children().size()):
 		var item_row = items_verticle_container.get_child(position)
-		if item_row.get_children().size() < 9:
+		if item_row.get_children().size() < 11:
 			var item_ui = LARGER_ITEM_UI_SLOT.instantiate()
 			# add it to the items collected container
 			item_row.add_child(item_ui)

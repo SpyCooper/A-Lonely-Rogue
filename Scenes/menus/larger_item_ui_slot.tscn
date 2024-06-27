@@ -309,7 +309,7 @@ animations = [{
 [node name="Larger_item_UI_slot" type="Control"]
 layout_mode = 3
 anchors_preset = 0
-scale = Vector2(0.1, 0.1)
+scale = Vector2(0.01, 0.01)
 script = ExtResource("1_b8hg7")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]

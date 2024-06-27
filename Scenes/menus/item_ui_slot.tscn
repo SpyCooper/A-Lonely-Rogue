@@ -297,6 +297,7 @@ sprite_frames = SubResource("SpriteFrames_51jbf")
 animation = &"bomb"
 
 [node name="stack_Label" type="Label" parent="."]
+layout_mode = 0
 offset_left = 7.0
 offset_top = 9.0
 offset_right = 79.0
