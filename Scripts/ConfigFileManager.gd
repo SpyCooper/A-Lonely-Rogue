@@ -20,11 +20,14 @@ func _ready():
 		config.set_value("audio", "master_volume", 1.0)
 		config.set_value("audio", "music_volume", 1.0)
 		config.set_value("audio", "sfx_volume", 1.0)
+		# set the window mode
+		config.set_value("window settings", "fullscreen", false)
 		# save the file
 		config.save(FILE_PATH)
 	# if the file exists, load the settings file
 	else:
 		config.load(FILE_PATH)
+		load_window_settings()
 
 # saves the audio setting that is inputted
 func save_audio_setting(key : String, value):
@@ -94,3 +97,24 @@ func load_keybindings():
 		keybindings[key] = input_event
 	# return the keybindings
 	return keybindings
+
+
+func save_window_settings(key : String, value):
+	config.set_value("window settings", key, value)
+	# save the settings
+	config.save(FILE_PATH)
+
+func load_window_settings():
+	var keybindings = {}
+	# each keybindings in the keybindings sections
+	var keys = config.get_section_keys("window settings")
+	# for each key in the keybindings
+	for key in keys:
+		var input_event
+		# get the string for the keybinding
+		var value = config.get_value("window settings", key)
+		if key == "fullscreen":
+			if value == true:
+				DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+			elif value == false:
+				DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)

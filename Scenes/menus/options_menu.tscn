@@ -25,114 +25,25 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_0qoy4")
 layout_mode = 1
 anchors_preset = 10
 anchor_right = 1.0
-offset_top = 34.0
-offset_bottom = 79.0
+offset_left = 560.0
+offset_top = 32.0
+offset_right = -558.0
+offset_bottom = 77.0
 grow_horizontal = 2
 theme = ExtResource("2_srt6f")
 theme_override_font_sizes/font_size = 48
 text = "Options"
 horizontal_alignment = 1
 
-[node name="close_options_button" type="Button" parent="Panel"]
-layout_mode = 1
-offset_left = 535.0
-offset_top = 635.0
-offset_right = 765.0
-offset_bottom = 691.0
-theme = ExtResource("2_srt6f")
-theme_override_font_sizes/font_size = 32
-text = "Close"
-
-[node name="Sound_sliders" type="GridContainer" parent="Panel"]
-layout_mode = 0
-offset_left = 543.0
-offset_top = 472.0
-offset_right = 543.0
-offset_bottom = 568.0
-theme_override_constants/v_separation = 48
-
-[node name="master_sound" type="Control" parent="Panel/Sound_sliders"]
-visible = false
-layout_mode = 2
-
-[node name="master_sound_slider" type="HSlider" parent="Panel/Sound_sliders/master_sound"]
-layout_mode = 0
-offset_left = 127.0
-offset_top = -8.0
-offset_right = 311.0
-offset_bottom = 16.0
-theme = ExtResource("2_srt6f")
-max_value = 10.0
-value = 5.0
-
-[node name="master_sound_label" type="Label" parent="Panel/Sound_sliders/master_sound"]
-layout_mode = 0
-offset_left = -141.0
-offset_top = -8.0
-offset_right = 111.0
-offset_bottom = 22.0
-theme = ExtResource("2_srt6f")
-theme_override_font_sizes/font_size = 32
-text = "Master Volume: 5"
-horizontal_alignment = 2
-
-[node name="music_sound" type="Control" parent="Panel/Sound_sliders"]
-layout_mode = 2
-
-[node name="music_sound_slider" type="HSlider" parent="Panel/Sound_sliders/music_sound"]
-layout_mode = 0
-offset_left = 127.0
-offset_top = -8.0
-offset_right = 311.0
-offset_bottom = 16.0
-theme = ExtResource("2_srt6f")
-max_value = 10.0
-value = 5.0
-
-[node name="music_sound_label" type="Label" parent="Panel/Sound_sliders/music_sound"]
-layout_mode = 0
-offset_left = -128.0
-offset_top = -8.0
-offset_right = 110.0
-offset_bottom = 22.0
-theme = ExtResource("2_srt6f")
-theme_override_font_sizes/font_size = 32
-text = "Music Volume: 5"
-horizontal_alignment = 2
-
-[node name="sfx_sound" type="Control" parent="Panel/Sound_sliders"]
-layout_mode = 2
-
-[node name="sfx_sound_slider" type="HSlider" parent="Panel/Sound_sliders/sfx_sound"]
-layout_mode = 0
-offset_left = 127.0
-offset_top = -8.0
-offset_right = 311.0
-offset_bottom = 16.0
-theme = ExtResource("2_srt6f")
-max_value = 10.0
-value = 5.0
-
-[node name="sfx_sound_label" type="Label" parent="Panel/Sound_sliders/sfx_sound"]
-layout_mode = 0
-offset_left = -100.0
-offset_top = -8.0
-offset_right = 110.0
-offset_bottom = 22.0
-theme = ExtResource("2_srt6f")
-theme_override_font_sizes/font_size = 32
-text = "SFX Volume: 5"
-horizontal_alignment = 2
-
 [node name="KeyBinds" type="VBoxContainer" parent="Panel"]
 layout_mode = 1
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -293.0
-offset_top = 115.0
-offset_right = -293.0
-offset_bottom = 390.0
+offset_left = -296.0
+offset_top = 104.0
+offset_right = -296.0
+offset_bottom = 379.0
 grow_horizontal = 2
 theme_override_constants/separation = 55
 
@@ -256,7 +167,125 @@ theme = ExtResource("2_srt6f")
 theme_override_font_sizes/font_size = 32
 text = "Space"
 
+[node name="Sound_sliders" type="GridContainer" parent="Panel"]
+layout_mode = 0
+offset_left = 536.0
+offset_top = 456.0
+offset_right = 536.0
+offset_bottom = 552.0
+theme_override_constants/v_separation = 48
+
+[node name="master_sound" type="Control" parent="Panel/Sound_sliders"]
+visible = false
+layout_mode = 2
+
+[node name="master_sound_slider" type="HSlider" parent="Panel/Sound_sliders/master_sound"]
+layout_mode = 0
+offset_left = 127.0
+offset_top = -8.0
+offset_right = 311.0
+offset_bottom = 16.0
+theme = ExtResource("2_srt6f")
+max_value = 10.0
+value = 5.0
+
+[node name="master_sound_label" type="Label" parent="Panel/Sound_sliders/master_sound"]
+layout_mode = 0
+offset_left = -141.0
+offset_top = -8.0
+offset_right = 111.0
+offset_bottom = 22.0
+theme = ExtResource("2_srt6f")
+theme_override_font_sizes/font_size = 32
+text = "Master Volume: 5"
+horizontal_alignment = 2
+
+[node name="music_sound" type="Control" parent="Panel/Sound_sliders"]
+layout_mode = 2
+
+[node name="music_sound_slider" type="HSlider" parent="Panel/Sound_sliders/music_sound"]
+layout_mode = 0
+offset_left = 127.0
+offset_top = -8.0
+offset_right = 311.0
+offset_bottom = 16.0
+theme = ExtResource("2_srt6f")
+max_value = 10.0
+value = 5.0
+
+[node name="music_sound_label" type="Label" parent="Panel/Sound_sliders/music_sound"]
+layout_mode = 0
+offset_left = -128.0
+offset_top = -8.0
+offset_right = 110.0
+offset_bottom = 22.0
+theme = ExtResource("2_srt6f")
+theme_override_font_sizes/font_size = 32
+text = "Music Volume: 5"
+horizontal_alignment = 2
+
+[node name="sfx_sound" type="Control" parent="Panel/Sound_sliders"]
+layout_mode = 2
+
+[node name="sfx_sound_slider" type="HSlider" parent="Panel/Sound_sliders/sfx_sound"]
+layout_mode = 0
+offset_left = 127.0
+offset_top = -8.0
+offset_right = 311.0
+offset_bottom = 16.0
+theme = ExtResource("2_srt6f")
+max_value = 10.0
+value = 5.0
+
+[node name="sfx_sound_label" type="Label" parent="Panel/Sound_sliders/sfx_sound"]
+layout_mode = 0
+offset_left = -100.0
+offset_top = -8.0
+offset_right = 110.0
+offset_bottom = 22.0
+theme = ExtResource("2_srt6f")
+theme_override_font_sizes/font_size = 32
+text = "SFX Volume: 5"
+horizontal_alignment = 2
+
+[node name="Screen_mode" type="Control" parent="Panel"]
+layout_mode = 2
+anchors_preset = 0
+offset_left = 440.0
+offset_top = 552.0
+offset_right = 440.0
+offset_bottom = 552.0
+
+[node name="window_mode_label" type="Label" parent="Panel/Screen_mode"]
+layout_mode = 0
+offset_right = 198.0
+offset_bottom = 30.0
+theme = ExtResource("2_srt6f")
+theme_override_font_sizes/font_size = 32
+text = "Window Mode"
+
+[node name="toggle_fullscreen_button" type="Button" parent="Panel/Screen_mode"]
+layout_mode = 0
+offset_left = 205.0
+offset_top = -9.0
+offset_right = 415.0
+offset_bottom = 33.0
+theme = ExtResource("2_srt6f")
+theme_override_font_sizes/font_size = 32
+text = "Fullscreen"
+
+[node name="close_options_button" type="Button" parent="Panel"]
+layout_mode = 1
+offset_left = 528.0
+offset_top = 640.0
+offset_right = 758.0
+offset_bottom = 696.0
+theme = ExtResource("2_srt6f")
+theme_override_font_sizes/font_size = 32
+text = "Close"
+
 [node name="Awaiting_input" type="ColorRect" parent="Panel"]
+visible = false
 layout_mode = 0
 offset_right = 1280.0
 offset_bottom = 720.0
@@ -284,13 +313,14 @@ theme_override_font_sizes/font_size = 16
 text = "]]] to quit"
 horizontal_alignment = 1
 
-[connection signal="pressed" from="Panel/close_options_button" to="." method="_on_close_options_button_pressed"]
-[connection signal="value_changed" from="Panel/Sound_sliders/master_sound/master_sound_slider" to="." method="_on_master_sound_slider_value_changed"]
-[connection signal="value_changed" from="Panel/Sound_sliders/music_sound/music_sound_slider" to="." method="_on_music_sound_slider_value_changed"]
-[connection signal="value_changed" from="Panel/Sound_sliders/sfx_sound/sfx_sound_slider" to="." method="_on_sfx_sound_slider_value_changed"]
 [connection signal="pressed" from="Panel/KeyBinds/Move_up/up_button" to="." method="_on_up_button_pressed"]
 [connection signal="pressed" from="Panel/KeyBinds/Move_down/down_button" to="." method="_on_down_button_pressed"]
 [connection signal="pressed" from="Panel/KeyBinds/Move_left/left_button" to="." method="_on_left_button_pressed"]
 [connection signal="pressed" from="Panel/KeyBinds/Move_right/right_button" to="." method="_on_right_button_pressed"]
 [connection signal="pressed" from="Panel/KeyBinds/Throw/throw_button" to="." method="_on_throw_button_pressed"]
 [connection signal="pressed" from="Panel/KeyBinds/Use Item/Use_item_button" to="." method="_on_use_item_button_pressed"]
+[connection signal="value_changed" from="Panel/Sound_sliders/master_sound/master_sound_slider" to="." method="_on_master_sound_slider_value_changed"]
+[connection signal="value_changed" from="Panel/Sound_sliders/music_sound/music_sound_slider" to="." method="_on_music_sound_slider_value_changed"]
+[connection signal="value_changed" from="Panel/Sound_sliders/sfx_sound/sfx_sound_slider" to="." method="_on_sfx_sound_slider_value_changed"]
+[connection signal="pressed" from="Panel/Screen_mode/toggle_fullscreen_button" to="." method="_on_toggle_fullscreen_button_pressed"]
+[connection signal="pressed" from="Panel/close_options_button" to="." method="_on_close_options_button_pressed"]

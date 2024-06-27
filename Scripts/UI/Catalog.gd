@@ -166,73 +166,88 @@ func load_data():
 			var json = JSON.new()
 			var parse_result = json.parse(json_string)
 			var data = json.get_data()
-			# blue slime check
-			blue_slime_unlocked = data["blue_slime_unlocked"]
-			if blue_slime_unlocked:
-				blue_slime_button.material.shader = null
-				blue_slime_kill_count = data["blue_slime_kill_count"]
-			# green slime check
-			green_slime_unlocked = data["green_slime_unlocked"]
-			if green_slime_unlocked:
-				green_slime_button.material.shader = null
-				green_slime_kill_count = data["green_slime_kill_count"]
-			# gelatinous cube check
-			gelatinous_cube_unlocked = data["gelatinous_cube_unlocked"]
-			if gelatinous_cube_unlocked:
-				gelatinous_cube_button.material.shader = null
-				gelatinous_cube_kill_count = data["gelatinous_cube_kill_count"]
-			# earth elemental check
-			earth_elemental_unlocked = data["earth_elemental_unlocked"]
-			if earth_elemental_unlocked:
-				earth_elemental_button.material.shader = null
-				earth_elemental_kill_count = data["earth_elemental_kill_count"]
-			# air elemental check
-			air_elemental_unlocked = data["air_elemental_unlocked"]
-			if air_elemental_unlocked:
-				air_elemental_button.material.shader = null
-				air_elemental_kill_count = data["air_elemental_kill_count"]
-			# forgotten golem check
-			forgotten_golem_unlocked = data["forgotten_golem_unlocked"]
-			if forgotten_golem_unlocked:
-				forgotten_golem_button.material.shader = null
-				forgotten_golem_kill_count = data["forgotten_golem_kill_count"]
-			# skeleton warrior check
-			skeleton_warrior_unlocked = data["skeleton_warrior_unlocked"]
-			if skeleton_warrior_unlocked:
-				skeleton_warrior_button.material.shader = null
-				skeleton_warrior_kill_count = data["skeleton_warrior_kill_count"]
-			# skeleton archer check
-			skeleton_archer_unlocked = data["skeleton_archer_unlocked"]
-			if skeleton_archer_unlocked:
-				skeleton_archer_button.material.shader = null
-				skeleton_archer_kill_count = data["skeleton_archer_kill_count"]
-			# skeleton mage check
-			skeleton_mage_unlocked = data["skeleton_mage_unlocked"]
-			if skeleton_mage_unlocked:
-				skeleton_mage_button.material.shader = null
-				skeleton_mage_kill_count = data["skeleton_mage_kill_count"]
-			# lich check
-			lich_unlocked = data["lich_unlocked"]
-			if lich_unlocked:
-				lich_button.material.shader = null
-				lich_kill_count = data["lich_kill_count"]
-			# shade check
-			shade_unlocked = data["shade_unlocked"]
-			if shade_unlocked:
-				shade_button.material.shader = null
-				shade_kill_count = data["shade_kill_count"]
-			# skeleton check
-			skeleton_unlocked = data["skeleton_unlocked"]
-			if skeleton_unlocked:
-				skeleton_button.material.shader = null
-				skeleton_kill_count = data["skeleton_kill_count"]
-			# morphed shade check
-			morphed_shade_unlocked = data["morphed_shade_unlocked"]
-			if morphed_shade_unlocked:
-				morphed_shade_button.material.shader = null
-				morphed_shade_kill_count = data["morphed_shade_kill_count"]
+			for enemy in data:
+				if enemy == "blue_slime_unlocked":
+					# blue slime check
+					blue_slime_unlocked = data["blue_slime_unlocked"]
+					if blue_slime_unlocked:
+						blue_slime_button.material.shader = null
+						blue_slime_kill_count = data["blue_slime_kill_count"]
+				elif enemy == "green_slime_unlocked":
+					# green slime check
+					green_slime_unlocked = data["green_slime_unlocked"]
+					if green_slime_unlocked:
+						green_slime_button.material.shader = null
+						green_slime_kill_count = data["green_slime_kill_count"]
+				elif enemy == "gelatinous_cube_unlocked":
+					# gelatinous cube check
+					gelatinous_cube_unlocked = data["gelatinous_cube_unlocked"]
+					if gelatinous_cube_unlocked:
+						gelatinous_cube_button.material.shader = null
+						gelatinous_cube_kill_count = data["gelatinous_cube_kill_count"]
+				elif enemy == "earth_elemental_unlocked":
+					# earth elemental check
+					earth_elemental_unlocked = data["earth_elemental_unlocked"]
+					if earth_elemental_unlocked:
+						earth_elemental_button.material.shader = null
+						earth_elemental_kill_count = data["earth_elemental_kill_count"]
+				elif enemy == "air_elemental_unlocked":
+					# air elemental check
+					air_elemental_unlocked = data["air_elemental_unlocked"]
+					if air_elemental_unlocked:
+						air_elemental_button.material.shader = null
+						air_elemental_kill_count = data["air_elemental_kill_count"]
+				elif enemy == "forgotten_golem_unlocked":
+					# forgotten golem check
+					forgotten_golem_unlocked = data["forgotten_golem_unlocked"]
+					if forgotten_golem_unlocked:
+						forgotten_golem_button.material.shader = null
+						forgotten_golem_kill_count = data["forgotten_golem_kill_count"]
+				elif enemy == "skeleton_warrior_unlocked":
+					# skeleton warrior check
+					skeleton_warrior_unlocked = data["skeleton_warrior_unlocked"]
+					if skeleton_warrior_unlocked:
+						skeleton_warrior_button.material.shader = null
+						skeleton_warrior_kill_count = data["skeleton_warrior_kill_count"]
+				elif enemy == "skeleton_archer_unlocked":
+					# skeleton archer check
+					skeleton_archer_unlocked = data["skeleton_archer_unlocked"]
+					if skeleton_archer_unlocked:
+						skeleton_archer_button.material.shader = null
+						skeleton_archer_kill_count = data["skeleton_archer_kill_count"]
+				elif enemy == "skeleton_mage_unlocked":
+					# skeleton mage check
+					skeleton_mage_unlocked = data["skeleton_mage_unlocked"]
+					if skeleton_mage_unlocked:
+						skeleton_mage_button.material.shader = null
+						skeleton_mage_kill_count = data["skeleton_mage_kill_count"]
+				elif enemy == "lich_unlocked":
+					# lich check
+					lich_unlocked = data["lich_unlocked"]
+					if lich_unlocked:
+						lich_button.material.shader = null
+						lich_kill_count = data["lich_kill_count"]
+				elif enemy == "shade_unlocked":
+					# shade check
+					shade_unlocked = data["shade_unlocked"]
+					if shade_unlocked:
+						shade_button.material.shader = null
+						shade_kill_count = data["shade_kill_count"]
+				elif enemy == "skeleton_unlocked":
+					# skeleton check
+					skeleton_unlocked = data["skeleton_unlocked"]
+					if skeleton_unlocked:
+						skeleton_button.material.shader = null
+						skeleton_kill_count = data["skeleton_kill_count"]
+				elif enemy == "morphed_shade_unlocked":
+					# morphed shade check
+					morphed_shade_unlocked = data["morphed_shade_unlocked"]
+					if morphed_shade_unlocked:
+						morphed_shade_button.material.shader = null
+						morphed_shade_kill_count = data["morphed_shade_kill_count"]
 			# update the kill counts in the catalog
 			update_kill_counts()
+		save_enemies()
 	
 	# if itemsfound does not exist
 	if !FileAccess.file_exists("user://itemsfound.save"):
@@ -246,94 +261,118 @@ func load_data():
 			var json = JSON.new()
 			var parse_result = json.parse(json_string)
 			var data = json.get_data()
-			# speed boots check
-			speed_boots_unlocked = data["speed_boots_unlocked"]
-			if speed_boots_unlocked:
-				speed_boots_button.material.shader = null
-			# dust blade check
-			dust_blade_unlocked = data["dust_blade_unlocked"]
-			if dust_blade_unlocked:
-				dust_blade_button.material.shader = null
-			# glass blade check
-			glass_blade_unlocked = data["glass_blade_unlocked"]
-			if glass_blade_unlocked:
-				glass_blade_button.material.shader = null
-			# heart check
-			heart_unlocked = data["heart_unlocked"]
-			if heart_unlocked:
-				heart_button.material.shader = null
-			# key check
-			key_unlocked = data["key_unlocked"]
-			if key_unlocked:
-				key_button.material.shader = null
-			# poison blade check
-			poison_unlocked = data["poison_unlocked"]
-			if poison_unlocked:
-				poison_button.material.shader = null
-			# quick blade check
-			quick_blades_unlocked = data["quick_blades_unlocked"]
-			if quick_blades_unlocked:
-				quick_blades_button.material.shader = null
-			# shadow blade check
-			shadow_blade_unlocked = data["shadow_blade_unlocked"]
-			if shadow_blade_unlocked:
-				shadow_blade_button.material.shader = null
-			# shadow flame blade check
-			shadow_flame_unlocked = data["shadow_flame_unlocked"]
-			if shadow_flame_unlocked:
-				shadow_flame_button.material.shader = null
-			# shadow heart check
-			shadow_heart_unlocked = data["shadow_heart_unlocked"]
-			if shadow_heart_unlocked:
-				shadow_heart_button.material.shader = null
-			# triple blades check
-			triple_blades_unlocked = data["triple_blades_unlocked"]
-			if triple_blades_unlocked:
-				triple_blades_button.material.shader = null
-			# holy heart check
-			holy_heart_unlocked = data["holy_heart_unlocked"]
-			if holy_heart_unlocked:
-				holy_heart_button.material.shader = null
-			# poorly_made_voodoo_doll check
-			poorly_made_voodoo_doll_unlocked = data["poorly_made_voodoo_doll_unlocked"]
-			if poorly_made_voodoo_doll_unlocked:
-				poorly_made_voodoo_doll_button.material.shader = null
-			# sleek blade check
-			sleek_blade_unlocked = data["sleek_blade_unlocked"]
-			if sleek_blade_unlocked:
-				sleek_blade_button.material.shader = null
-			# dash boots check
-			dash_boots_unlocked = data["dash_boots_unlocked"]
-			if dash_boots_unlocked:
-				dash_boots_button.material.shader = null
-			# poison gas check
-			poison_gas_unlocked = data["poison_gas_unlocked"]
-			if poison_gas_unlocked:
-				poison_gas_button.material.shader = null
-			# protective charm check
-			protective_charm_unlocked = data["protective_charm_unlocked"]
-			if protective_charm_unlocked:
-				protective_charm_button.material.shader = null
-			# rogue_in_a_bottle check
-			rogue_in_a_bottle_unlocked = data["rogue_in_a_bottle_unlocked"]
-			if rogue_in_a_bottle_unlocked:
-				rogue_in_a_bottle_button.material.shader = null
-			# hurtful charm check
-			hurtful_charm_unlocked = data["hurtful_charm_unlocked"]
-			if hurtful_charm_unlocked:
-				hurtful_charm_button.material.shader = null
-			# magically_trapped_rogue check
-			magically_trapped_rogue_unlocked = data["magically_trapped_rogue_unlocked"]
-			if magically_trapped_rogue_unlocked:
-				magically_trapped_rogue_button.material.shader = null
-			# dead_rogues_head check
-			dead_rogues_head_unlocked = data["dead_rogues_head_unlocked"]
-			if dead_rogues_head_unlocked:
-				dead_rogues_head_button.material.shader = null
-			# bomb check
-			bomb_unlocked = data["bomb_unlocked"]
-			if bomb_unlocked:
-				bomb_button.material.shader = null
+			for item in data:
+				if item == "speed_boots_unlocked":
+					# speed boots check
+					speed_boots_unlocked = data["speed_boots_unlocked"]
+					if speed_boots_unlocked:
+						speed_boots_button.material.shader = null
+				elif item == "dust_blade_unlocked":
+					# dust blade check
+					dust_blade_unlocked = data["dust_blade_unlocked"]
+					if dust_blade_unlocked:
+						dust_blade_button.material.shader = null
+				elif item == "glass_blade_unlocked":
+					# glass blade check
+					glass_blade_unlocked = data["glass_blade_unlocked"]
+					if glass_blade_unlocked:
+						glass_blade_button.material.shader = null
+				elif item == "heart_unlocked":
+					# heart check
+					heart_unlocked = data["heart_unlocked"]
+					if heart_unlocked:
+						heart_button.material.shader = null
+				elif item == "key_unlocked":
+					# key check
+					key_unlocked = data["key_unlocked"]
+					if key_unlocked:
+						key_button.material.shader = null
+				elif item == "poison_unlocked":
+					# poison blade check
+					poison_unlocked = data["poison_unlocked"]
+					if poison_unlocked:
+						poison_button.material.shader = null
+				elif item == "quick_blades_unlocked":
+					# quick blade check
+					quick_blades_unlocked = data["quick_blades_unlocked"]
+					if quick_blades_unlocked:
+						quick_blades_button.material.shader = null
+				elif item == "shadow_blade_unlocked":
+					# shadow blade check
+					shadow_blade_unlocked = data["shadow_blade_unlocked"]
+					if shadow_blade_unlocked:
+						shadow_blade_button.material.shader = null
+				elif item == "shadow_flame_unlocked":
+					# shadow flame blade check
+					shadow_flame_unlocked = data["shadow_flame_unlocked"]
+					if shadow_flame_unlocked:
+						shadow_flame_button.material.shader = null
+				elif item == "shadow_heart_unlocked":
+					# shadow heart check
+					shadow_heart_unlocked = data["shadow_heart_unlocked"]
+					if shadow_heart_unlocked:
+						shadow_heart_button.material.shader = null
+				elif item == "triple_blades_unlocked":
+					# triple blades check
+					triple_blades_unlocked = data["triple_blades_unlocked"]
+					if triple_blades_unlocked:
+						triple_blades_button.material.shader = null
+				elif item == "holy_heart_unlocked":
+					# holy heart check
+					holy_heart_unlocked = data["holy_heart_unlocked"]
+					if holy_heart_unlocked:
+						holy_heart_button.material.shader = null
+				elif item == "poorly_made_voodoo_doll_unlocked":
+					# poorly_made_voodoo_doll check
+					poorly_made_voodoo_doll_unlocked = data["poorly_made_voodoo_doll_unlocked"]
+					if poorly_made_voodoo_doll_unlocked:
+						poorly_made_voodoo_doll_button.material.shader = null
+				elif item == "sleek_blade_unlocked":
+					# sleek blade check
+					sleek_blade_unlocked = data["sleek_blade_unlocked"]
+					if sleek_blade_unlocked:
+						sleek_blade_button.material.shader = null
+				elif item == "dash_boots_unlocked":
+					# dash boots check
+					dash_boots_unlocked = data["dash_boots_unlocked"]
+					if dash_boots_unlocked:
+						dash_boots_button.material.shader = null
+				elif item == "poison_gas_unlocked":
+					# poison gas check
+					poison_gas_unlocked = data["poison_gas_unlocked"]
+					if poison_gas_unlocked:
+						poison_gas_button.material.shader = null
+				elif item == "protective_charm_unlocked":
+					# protective charm check
+					protective_charm_unlocked = data["protective_charm_unlocked"]
+					if protective_charm_unlocked:
+						protective_charm_button.material.shader = null
+				elif item == "rogue_in_a_bottle_unlocked":
+					# rogue_in_a_bottle check
+					rogue_in_a_bottle_unlocked = data["rogue_in_a_bottle_unlocked"]
+					if rogue_in_a_bottle_unlocked:
+						rogue_in_a_bottle_button.material.shader = null
+				elif item == "hurtful_charm_unlocked":
+					# hurtful charm check
+					hurtful_charm_unlocked = data["hurtful_charm_unlocked"]
+					if hurtful_charm_unlocked:
+						hurtful_charm_button.material.shader = null
+				elif item == "magically_trapped_rogue_unlocked":
+					# magically_trapped_rogue check
+					magically_trapped_rogue_unlocked = data["magically_trapped_rogue_unlocked"]
+					if magically_trapped_rogue_unlocked:
+						magically_trapped_rogue_button.material.shader = null
+				elif item == "dead_rogues_head_unlocked":
+					# dead_rogues_head check
+					dead_rogues_head_unlocked = data["dead_rogues_head_unlocked"]
+					if dead_rogues_head_unlocked:
+						dead_rogues_head_button.material.shader = null
+				elif item == "bomb_unlocked":
+					# bomb check
+					bomb_unlocked = data["bomb_unlocked"]
+					if bomb_unlocked:
+						bomb_button.material.shader = null
+		save_items()
 
 # goes through all the panels and hides all of them
 func clear_panel():

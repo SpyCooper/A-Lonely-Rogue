@@ -1,0 +1,101 @@
+[gd_scene load_steps=3 format=3 uid="uid://b52og3hhvj0k3"]
+
+[ext_resource type="Script" path="res://Scripts/UI/Pause_menu.gd" id="1_t7kga"]
+[ext_resource type="Theme" uid="uid://pv4evjjac8wt" path="res://Assets/general_theme.tres" id="2_tjh8n"]
+
+[node name="Pause_menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(3.25, 3.25)
+script = ExtResource("1_t7kga")
+
+[node name="color_rect" type="ColorRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -886.154
+offset_bottom = -498.462
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 0.827451)
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 19.6923
+offset_right = -886.0
+offset_bottom = 49.6923
+grow_horizontal = 2
+theme = ExtResource("2_tjh8n")
+theme_override_font_sizes/font_size = 32
+text = "Paused"
+horizontal_alignment = 1
+
+[node name="Buttons_container" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 157.846
+offset_top = 84.9231
+offset_right = 237.846
+offset_bottom = 171.923
+theme_override_constants/separation = 22
+
+[node name="Control" type="Control" parent="Buttons_container"]
+layout_mode = 2
+
+[node name="Resume_button" type="Button" parent="Buttons_container/Control"]
+layout_mode = 2
+offset_right = 108.0
+offset_bottom = 26.0
+scale = Vector2(0.733, 0.733)
+theme = ExtResource("2_tjh8n")
+theme_override_font_sizes/font_size = 0
+action_mode = 0
+text = "Resume"
+
+[node name="Control4" type="Control" parent="Buttons_container"]
+layout_mode = 2
+
+[node name="Catalog_button" type="Button" parent="Buttons_container/Control4"]
+layout_mode = 2
+offset_right = 109.0
+offset_bottom = 26.0
+scale = Vector2(0.733, 0.733)
+theme = ExtResource("2_tjh8n")
+action_mode = 0
+text = "Catalog"
+
+[node name="Control3" type="Control" parent="Buttons_container"]
+layout_mode = 2
+
+[node name="Options_button" type="Button" parent="Buttons_container/Control3"]
+layout_mode = 2
+offset_right = 108.0
+offset_bottom = 26.0
+scale = Vector2(0.733, 0.733)
+theme = ExtResource("2_tjh8n")
+action_mode = 0
+text = "Options"
+
+[node name="Control2" type="Control" parent="Buttons_container"]
+layout_mode = 2
+
+[node name="MainMenu_button" type="Button" parent="Buttons_container/Control2"]
+layout_mode = 2
+offset_right = 108.0
+offset_bottom = 26.0
+scale = Vector2(0.733, 0.733)
+theme = ExtResource("2_tjh8n")
+theme_override_font_sizes/font_size = 0
+action_mode = 0
+text = "Main Menu"
+
+[connection signal="pressed" from="Buttons_container/Control/Resume_button" to="." method="_on_resume_button_pressed"]
+[connection signal="pressed" from="Buttons_container/Control4/Catalog_button" to="." method="_on_catalog_button_pressed"]
+[connection signal="pressed" from="Buttons_container/Control3/Options_button" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="Buttons_container/Control2/MainMenu_button" to="." method="_on_main_menu_button_pressed"]

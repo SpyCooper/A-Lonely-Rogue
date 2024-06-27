@@ -18,6 +18,10 @@ extends Control
 @onready var use_item_button = $"Panel/KeyBinds/Use Item/Use_item_button"
 @onready var close_input_screen_text = $Panel/Awaiting_input/sub_text
 
+# other object references
+@onready var window_mode_label = $Panel/Screen_mode/window_mode_label
+@onready var toggle_fullscreen_button = $Panel/Screen_mode/toggle_fullscreen_button
+
 # variables
 var action_queued
 var checking_input = false
@@ -35,6 +39,8 @@ func _ready():
 	load_audio_from_settings()
 	# set the pause menu button
 	close_input_screen_text.text = InputMap.action_get_events("Pause")[0].as_text() + " to quit"
+	# set the window mode text
+	set_window_mode_text()
 
 # when the close button is pressed, hide the menu
 func _on_close_options_button_pressed():
@@ -178,3 +184,19 @@ func input_screen_close():
 func input_screen_open():
 	awaiting_input.show()
 	checking_input = true
+
+func _on_toggle_fullscreen_button_pressed():
+	if DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_WINDOWED:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN)
+		set_window_mode_text()
+		ConfigFileManager.save_window_settings("fullscreen", true)
+	elif DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED)
+		set_window_mode_text()
+		ConfigFileManager.save_window_settings("fullscreen", false)
+
+func set_window_mode_text():
+	if DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_WINDOWED:
+		toggle_fullscreen_button.text = "Windowed"
+	elif DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN:
+		toggle_fullscreen_button.text = "Fullscreen"
