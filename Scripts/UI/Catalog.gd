@@ -873,7 +873,6 @@ func unlock_item(item):
 			bomb_button.material.shader = null
 			# set the item to be unlocked
 			bomb_unlocked = true
-	
 	save_items()
 
 # saves the items found to "itemsfound.save"

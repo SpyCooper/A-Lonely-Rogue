@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://dxreyo0ai8tju"]
+[gd_scene load_steps=25 format=3 uid="uid://dxreyo0ai8tju"]
 
 [ext_resource type="Script" path="res://Scripts/map/dungeon_floor.gd" id="1_ygtwv"]
 [ext_resource type="PackedScene" uid="uid://duv7i8yak343i" path="res://Scenes/HUD.tscn" id="2_ta3sb"]
@@ -17,6 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://bycygvf0dkbr1" path="res://Scenes/items/heart_2_pickup.tscn" id="15_5jcnp"]
 [ext_resource type="PackedScene" uid="uid://lnvy0o75ud8f" path="res://Scenes/enemies/morphed_shade.tscn" id="16_r660b"]
 [ext_resource type="PackedScene" uid="uid://bwwi5pgmppd0k" path="res://Scenes/Dungeon_floors/portal.tscn" id="17_etrge"]
+[ext_resource type="PackedScene" uid="uid://dkv6yw1egf4o1" path="res://Scenes/items/bomb_item.tscn" id="24_oy8fw"]
 
 [sub_resource type="Animation" id="Animation_27xwy"]
 length = 0.001
@@ -233,5 +234,8 @@ position = Vector2(0, -1494)
 
 [node name="morphed_shade" parent="." instance=ExtResource("16_r660b")]
 position = Vector2(0, -1256)
+
+[node name="bomb_item" parent="." instance=ExtResource("24_oy8fw")]
+position = Vector2(-75, 35)
 
 [connection signal="timeout" from="CanvasLayer/Fade_color/Fade_timer" to="." method="_on_fade_timer_timeout"]

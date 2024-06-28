@@ -11,12 +11,13 @@ config_version=5
 [application]
 
 config/name="A Lonely Rogue"
-run/main_scene="res://Scenes/Dungeon_floors/dungeon_floor_5.tscn"
+run/main_scene="res://Scenes/Dungeon_floors/game_won.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="A_Lonely_Rogue"
 config/features=PackedStringArray("4.2", "Forward Plus")
 boot_splash/show_image=false
 config/icon="res://Assets/Sprites/A_Lonely_Rogue_Icon.png"
+config/windows_native_icon="res://Assets/Sprites/A_Lonely_Rogue.ico"
 
 [autoload]
 

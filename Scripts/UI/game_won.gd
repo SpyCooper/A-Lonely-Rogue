@@ -4,15 +4,18 @@ extends Node2D
 @onready var fade_color = $CanvasLayer/Fade_color
 @onready var animation_player = $CanvasLayer/Fade_color/AnimationPlayer
 @onready var fade_timer = $CanvasLayer/Fade_color/Fade_timer
-@onready var bg_music = $"BG music"
+@onready var bg_music = $"bg_music"
 
+# stat variables
 @onready var health_gained = $"CanvasLayer/Text and stats/Stats/Health Gained"
 @onready var damage_taken = $"CanvasLayer/Text and stats/Stats/DamageTaken"
 
+# items used variables
 const LARGER_ITEM_UI_SLOT = preload("res://Scenes/menus/larger_item_ui_slot.tscn")
 @onready var no_items_used_text = $"CanvasLayer/Text and stats/Stats/no_Items_used_text"
 @onready var items_verticle_container = $"CanvasLayer/Text and stats/Items_verticle_container"
 const ITEMS_HORIZONTAL_CONTAINER = preload("res://Scenes/menus/items_horizontal_container.tscn")
+
 
 # variables
 var fade_in = true
@@ -26,6 +29,11 @@ func _ready():
 	fade_timer.start()
 	# load the player's stats for this run
 	load_stats()
+	# play the intro music
+	#intro_music.play()
+	## start the timer for the switch from intro to loop
+	#intro_to_end_timer.start()
+	bg_music.play()
 
 # when the fade timer ends
 func _on_fade_timer_timeout():
@@ -36,7 +44,7 @@ func _on_fade_timer_timeout():
 
 # plays the background music on the floor
 func play_bg_music():
-	bg_music.play()
+	pass
 
 func _on_replay_button_pressed():
 	Engine.time_scale = 1.0
