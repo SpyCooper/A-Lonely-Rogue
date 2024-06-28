@@ -106,6 +106,8 @@ func take_damage(damage, attack_identifer, is_effect):
 		attacks_that_hit += [attack_identifer]
 		# subtracts the health
 		health -= damage
+		# add the damage to the player's stats
+		PlayerData.damage_dealt += damage
 		# if health is greater than 0
 		if health > 0:
 			# plays the hit animation
@@ -144,28 +146,32 @@ func _on_spawn_timer_timeout():
 
 # throw a tornado at the player
 func throw_tornado():
-	# get the player's position
-	player_position = player.position
-	target_position = (player_position - global_position).normalized()
-	# create and spawn the tornado to move toward the player's direction
-	var tornado = TORNADO.instantiate()
-	get_parent().add_child(tornado)
-	tornado.global_position = global_position
-	tornado.spawned(target_position, current_direction)
-	# increase the amount of tornados in this throw
-	thrown_counter += 1
-	# start the time between throws timer
-	time_between_attacks_timer.start()
+	# checks to make sure the character isn't dying
+	if !dying:
+		# get the player's position
+		player_position = player.position
+		target_position = (player_position - global_position).normalized()
+		# create and spawn the tornado to move toward the player's direction
+		var tornado = TORNADO.instantiate()
+		get_parent().add_child(tornado)
+		tornado.global_position = global_position
+		tornado.spawned(target_position, current_direction)
+		# increase the amount of tornados in this throw
+		thrown_counter += 1
+		# start the time between throws timer
+		time_between_attacks_timer.start()
 
 # when the time between throws timer ends
 func _on_time_between_attacks_timer_timeout():
-	# if 3 throws have not been reached
-	if thrown_counter < 3:
-		# throw another tornado
-		throw_tornado()
-	# if 3 tornados have been thrown, reset the counter
-	else:
-		thrown_counter = 0
+	# checks to make sure the character isn't dying
+	if !dying:
+		# if 3 throws have not been reached
+		if thrown_counter < 3:
+			# throw another tornado
+			throw_tornado()
+		# if 3 tornados have been thrown, reset the counter
+		else:
+			thrown_counter = 0
 
 # returns the animated sprite
 func get_animated_sprite():

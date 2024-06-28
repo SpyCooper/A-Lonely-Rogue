@@ -1,14 +1,14 @@
-[gd_scene load_steps=14 format=3 uid="uid://dxghds0ocxa2e"]
+[gd_scene load_steps=14 format=3 uid="uid://dncm3xa0wyx74"]
 
-[ext_resource type="Script" path="res://Scripts/UI/game_won.gd" id="1_cu3yu"]
-[ext_resource type="PackedScene" uid="uid://duv7i8yak343i" path="res://Scenes/menus/HUD.tscn" id="2_805em"]
-[ext_resource type="Script" path="res://Scripts/UI/Pause_menu.gd" id="3_fffbo"]
-[ext_resource type="PackedScene" uid="uid://8to1qmbdos4" path="res://Scenes/menus/items_horizontal_container.tscn" id="3_yrw2o"]
-[ext_resource type="Theme" uid="uid://pv4evjjac8wt" path="res://Assets/general_theme.tres" id="4_5xkum"]
-[ext_resource type="PackedScene" uid="uid://bigg81dibglne" path="res://Scenes/menus/options_menu.tscn" id="5_dupvv"]
-[ext_resource type="PackedScene" uid="uid://dc0xlg20ucy3n" path="res://Scenes/menus/catalog.tscn" id="6_ry6bc"]
-[ext_resource type="Script" path="res://Scripts/map/Transition Camera.gd" id="7_2gepo"]
-[ext_resource type="AudioStream" uid="uid://7cqyifbigt20" path="res://Assets/Audio/background music/end_screen_loop.mp3" id="10_ffbu0"]
+[ext_resource type="Script" path="res://Scripts/UI/game_won.gd" id="1_xqodn"]
+[ext_resource type="Theme" uid="uid://pv4evjjac8wt" path="res://Assets/general_theme.tres" id="2_34uky"]
+[ext_resource type="PackedScene" uid="uid://8to1qmbdos4" path="res://Scenes/menus/items_horizontal_container.tscn" id="3_dw2y5"]
+[ext_resource type="PackedScene" uid="uid://duv7i8yak343i" path="res://Scenes/menus/HUD.tscn" id="4_ks73i"]
+[ext_resource type="Script" path="res://Scripts/UI/Pause_menu.gd" id="5_4r02n"]
+[ext_resource type="PackedScene" uid="uid://bigg81dibglne" path="res://Scenes/menus/options_menu.tscn" id="6_plre3"]
+[ext_resource type="PackedScene" uid="uid://dc0xlg20ucy3n" path="res://Scenes/menus/catalog.tscn" id="7_6wkc5"]
+[ext_resource type="PackedScene" uid="uid://dxlj826ndney4" path="res://Scenes/map/transition_camera.tscn" id="8_rw2u7"]
+[ext_resource type="AudioStream" uid="uid://7cqyifbigt20" path="res://Assets/Audio/background music/end_screen_loop.mp3" id="9_p1pxg"]
 
 [sub_resource type="Animation" id="Animation_27xwy"]
 length = 0.001
@@ -66,7 +66,7 @@ _data = {
 
 [node name="Game_won" type="Node2D"]
 y_sort_enabled = true
-script = ExtResource("1_cu3yu")
+script = ExtResource("1_xqodn")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -77,10 +77,13 @@ color = Color(0, 0, 0, 1)
 
 [node name="Text and stats" type="Control" parent="CanvasLayer"]
 layout_mode = 3
-anchors_preset = 0
-offset_top = -32.0
-offset_right = 40.0
-offset_bottom = 8.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="Title text" type="Label" parent="CanvasLayer/Text and stats"]
 layout_mode = 1
@@ -89,13 +92,13 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = 388.0
-offset_top = 60.0
-offset_right = 847.0
-offset_bottom = 105.0
+offset_left = -229.0
+offset_top = -300.0
+offset_right = 230.0
+offset_bottom = -255.0
 grow_horizontal = 2
 grow_vertical = 2
-theme = ExtResource("4_5xkum")
+theme = ExtResource("2_34uky")
 theme_override_font_sizes/font_size = 48
 text = "Dungeon conquered!"
 horizontal_alignment = 1
@@ -108,18 +111,25 @@ anchor_left = 16.075
 anchor_top = 5.525
 anchor_right = 16.075
 anchor_bottom = 5.525
-offset_left = -140.0
-offset_top = -69.0
-offset_right = 140.0
-offset_bottom = 69.0
+offset_left = -527.0
+offset_top = -216.0
+offset_right = -245.0
+offset_bottom = -2.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 16
-metadata/_edit_use_anchors_ = true
+
+[node name="Title" type="Label" parent="CanvasLayer/Text and stats/Stats"]
+layout_mode = 2
+theme = ExtResource("2_34uky")
+theme_override_font_sizes/font_size = 32
+text = "Stats:"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="Health Gained" type="Label" parent="CanvasLayer/Text and stats/Stats"]
 layout_mode = 2
-theme = ExtResource("4_5xkum")
+theme = ExtResource("2_34uky")
 theme_override_font_sizes/font_size = 32
 text = "Health Gained: 000"
 horizontal_alignment = 1
@@ -127,59 +137,62 @@ vertical_alignment = 1
 
 [node name="DamageTaken" type="Label" parent="CanvasLayer/Text and stats/Stats"]
 layout_mode = 2
-theme = ExtResource("4_5xkum")
+theme = ExtResource("2_34uky")
 theme_override_font_sizes/font_size = 32
 text = "Damage Taken: 000"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="Items_used_text" type="Label" parent="CanvasLayer/Text and stats/Stats"]
+[node name="Enemies_Killed" type="Label" parent="CanvasLayer/Text and stats/Stats"]
 layout_mode = 2
-theme = ExtResource("4_5xkum")
+theme = ExtResource("2_34uky")
 theme_override_font_sizes/font_size = 32
-text = "Items Used:"
+text = "Enemies Killed: 000"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="no_Items_used_text" type="Label" parent="CanvasLayer/Text and stats/Stats"]
-visible = false
+[node name="Damage Dealt" type="Label" parent="CanvasLayer/Text and stats/Stats"]
 layout_mode = 2
-theme = ExtResource("4_5xkum")
+theme = ExtResource("2_34uky")
 theme_override_font_sizes/font_size = 32
-text = "No items were used"
+text = "Damage Dealt: 0000"
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="Items_verticle_container" type="VBoxContainer" parent="CanvasLayer/Text and stats"]
-layout_mode = 0
-offset_left = 56.0
-offset_top = 272.0
-offset_right = 1226.0
-offset_bottom = 521.0
-theme_override_constants/separation = 130
-alignment = 1
-
-[node name="items_horizontal_container" parent="CanvasLayer/Text and stats/Items_verticle_container" instance=ExtResource("3_yrw2o")]
-layout_mode = 2
 
 [node name="Buttons_container" type="VBoxContainer" parent="CanvasLayer/Text and stats"]
-layout_mode = 0
-offset_left = 520.0
-offset_top = 584.0
-offset_right = 600.0
-offset_bottom = 628.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -462.0
+offset_top = 177.0
+offset_right = -382.0
+offset_bottom = 221.0
+grow_horizontal = 2
+grow_vertical = 2
 scale = Vector2(3, 3)
-theme_override_constants/separation = 22
+theme_override_constants/separation = 25
 
 [node name="Control" type="Control" parent="CanvasLayer/Text and stats/Buttons_container"]
 layout_mode = 2
 
 [node name="replay_button" type="Button" parent="CanvasLayer/Text and stats/Buttons_container/Control"]
-layout_mode = 2
-offset_right = 108.0
-offset_bottom = 26.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -54.0
+offset_top = -13.0
+offset_right = 54.0
+offset_bottom = 13.0
+grow_horizontal = 2
+grow_vertical = 2
 scale = Vector2(0.733, 0.733)
-theme = ExtResource("4_5xkum")
+theme = ExtResource("2_34uky")
 action_mode = 0
 text = "Replay"
 
@@ -187,14 +200,63 @@ text = "Replay"
 layout_mode = 2
 
 [node name="MainMenu_button" type="Button" parent="CanvasLayer/Text and stats/Buttons_container/Control2"]
-layout_mode = 2
-offset_right = 108.0
-offset_bottom = 26.0
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -54.0
+offset_top = -13.0
+offset_right = 54.0
+offset_bottom = 13.0
+grow_horizontal = 2
+grow_vertical = 2
 scale = Vector2(0.733, 0.733)
-theme = ExtResource("4_5xkum")
+theme = ExtResource("2_34uky")
 theme_override_font_sizes/font_size = 0
 action_mode = 0
 text = "Main Menu"
+
+[node name="Items_used_text" type="Label" parent="CanvasLayer/Text and stats"]
+layout_mode = 2
+offset_left = -185.0
+offset_top = -216.0
+offset_right = 583.0
+offset_bottom = -186.0
+theme = ExtResource("2_34uky")
+theme_override_font_sizes/font_size = 32
+text = "Items Used:"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Items_verticle_container" type="VBoxContainer" parent="CanvasLayer/Text and stats"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -185.0
+offset_top = -120.0
+offset_right = 583.0
+offset_bottom = 140.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 130
+alignment = 1
+
+[node name="no_Items_used_text" type="Label" parent="CanvasLayer/Text and stats/Items_verticle_container"]
+visible = false
+layout_mode = 2
+theme = ExtResource("2_34uky")
+theme_override_font_sizes/font_size = 32
+text = "No items were used"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="items_horizontal_container" parent="CanvasLayer/Text and stats/Items_verticle_container" instance=ExtResource("3_dw2y5")]
+layout_mode = 2
 
 [node name="Fade_color" type="ColorRect" parent="CanvasLayer"]
 visible = false
@@ -210,7 +272,7 @@ libraries = {
 [node name="Fade_timer" type="Timer" parent="CanvasLayer/Fade_color"]
 wait_time = 2.5
 
-[node name="HUD" parent="CanvasLayer" instance=ExtResource("2_805em")]
+[node name="HUD" parent="CanvasLayer" instance=ExtResource("4_ks73i")]
 unique_name_in_owner = true
 visible = false
 
@@ -223,7 +285,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(3.25, 3.25)
-script = ExtResource("3_fffbo")
+script = ExtResource("5_4r02n")
 
 [node name="color_rect" type="ColorRect" parent="CanvasLayer/Pause_menu"]
 layout_mode = 1
@@ -244,7 +306,7 @@ offset_top = 19.6923
 offset_right = -886.0
 offset_bottom = 49.6923
 grow_horizontal = 2
-theme = ExtResource("4_5xkum")
+theme = ExtResource("2_34uky")
 theme_override_font_sizes/font_size = 32
 text = "Paused"
 horizontal_alignment = 1
@@ -265,7 +327,7 @@ layout_mode = 2
 offset_right = 108.0
 offset_bottom = 26.0
 scale = Vector2(0.733, 0.733)
-theme = ExtResource("4_5xkum")
+theme = ExtResource("2_34uky")
 theme_override_font_sizes/font_size = 0
 action_mode = 0
 text = "Resume"
@@ -278,7 +340,7 @@ layout_mode = 2
 offset_right = 109.0
 offset_bottom = 26.0
 scale = Vector2(0.733, 0.733)
-theme = ExtResource("4_5xkum")
+theme = ExtResource("2_34uky")
 action_mode = 0
 text = "Catalog"
 
@@ -290,7 +352,7 @@ layout_mode = 2
 offset_right = 108.0
 offset_bottom = 26.0
 scale = Vector2(0.733, 0.733)
-theme = ExtResource("4_5xkum")
+theme = ExtResource("2_34uky")
 action_mode = 0
 text = "Options"
 
@@ -302,25 +364,21 @@ layout_mode = 2
 offset_right = 108.0
 offset_bottom = 26.0
 scale = Vector2(0.733, 0.733)
-theme = ExtResource("4_5xkum")
+theme = ExtResource("2_34uky")
 theme_override_font_sizes/font_size = 0
 action_mode = 0
 text = "Main Menu"
 
-[node name="Options_menu" parent="CanvasLayer" instance=ExtResource("5_dupvv")]
+[node name="Options_menu" parent="CanvasLayer" instance=ExtResource("6_plre3")]
 visible = false
 
-[node name="Catalog" parent="CanvasLayer" instance=ExtResource("6_ry6bc")]
+[node name="Catalog" parent="CanvasLayer" instance=ExtResource("7_6wkc5")]
 visible = false
 
-[node name="Transition Camera" type="Camera2D" parent="."]
-zoom = Vector2(3.31, 3.31)
-position_smoothing_enabled = true
-position_smoothing_speed = 10.0
-script = ExtResource("7_2gepo")
+[node name="Transition Camera" parent="." instance=ExtResource("8_rw2u7")]
 
 [node name="bg_music" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("10_ffbu0")
+stream = ExtResource("9_p1pxg")
 volume_db = -2.0
 bus = &"Music"
 

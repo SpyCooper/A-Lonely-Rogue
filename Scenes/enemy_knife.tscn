@@ -95,6 +95,8 @@ shape = SubResource("CapsuleShape2D_x78cu")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 rotation = 1.5708
 sprite_frames = SubResource("SpriteFrames_sormc")
+animation = &"shadow_blade"
+autoplay = "shadow_blade"
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

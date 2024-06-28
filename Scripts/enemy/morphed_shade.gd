@@ -162,6 +162,10 @@ func take_damage(damage, attack_identifer, is_effect):
 		attacks_that_hit += [attack_identifer]
 		# deals the damage to the enemy
 		health -= damage
+		# add the damage to the player's stats
+		PlayerData.damage_dealt += damage
+		# adjust the boss health bar in the HUD
+		hud.adjust_health_bar(health)
 		# plays the hit sound if the HP after damage is > 0
 		if health > 0:
 			# plays the hit animation
@@ -183,8 +187,6 @@ func take_damage(damage, attack_identifer, is_effect):
 			death_sound.play()
 			# stops the boss music
 			boss_music.stop()
-		# adjust the boss health bar in the HUD
-		hud.adjust_health_bar(health)
 
 # returns the animated sprite
 func get_animated_sprite():

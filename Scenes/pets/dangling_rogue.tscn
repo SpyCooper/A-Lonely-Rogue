@@ -165,6 +165,7 @@ bus = &"Sound Effect"
 
 [node name="hit_sound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("5_iql8y")
+volume_db = 5.0
 bus = &"Sound Effect"
 
 [node name="attack_timer" type="Timer" parent="."]

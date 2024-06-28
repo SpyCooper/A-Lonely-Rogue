@@ -124,6 +124,8 @@ func take_damage(damage, attack_identifer, is_effect):
 		attacks_that_hit += [attack_identifer]
 		# subtracts the health
 		health -= damage
+		# add the damage to the player's stats
+		PlayerData.damage_dealt += damage
 		# if health is greater than 0
 		if health > 0:
 			# plays the hit animation
@@ -158,38 +160,42 @@ func _on_spawn_timer_timeout():
 
 # throw a rock at the player's current position
 func throw_rock():
-	# gets the player's position and looks toward it
-	player_position = player.position
-	target_position = (player_position - global_position).normalized()
-	# create and spawn the rock to move toward the player's direction
-	var rolling_rock = ROLLING_ROCK.instantiate()
-	get_parent().add_child(rolling_rock)
-	if current_direction == look_direction.up:
-		rolling_rock.global_position = rock_spawner_up.global_position
-	elif current_direction == look_direction.down:
-		rolling_rock.global_position = rock_spawner_down.global_position
-	elif current_direction == look_direction.left:
-		rolling_rock.global_position = rock_spawner_left.global_position
-	elif current_direction == look_direction.right:
-		rolling_rock.global_position = rock_spawner_right.global_position
-	rolling_rock.spawned(target_position, current_direction)
-	# start the animation timer
-	throw_animation_timer.start()
+	# checks to make sure the character isn't dying
+	if !dying:
+		# gets the player's position and looks toward it
+		player_position = player.position
+		target_position = (player_position - global_position).normalized()
+		# create and spawn the rock to move toward the player's direction
+		var rolling_rock = ROLLING_ROCK.instantiate()
+		get_parent().add_child(rolling_rock)
+		if current_direction == look_direction.up:
+			rolling_rock.global_position = rock_spawner_up.global_position
+		elif current_direction == look_direction.down:
+			rolling_rock.global_position = rock_spawner_down.global_position
+		elif current_direction == look_direction.left:
+			rolling_rock.global_position = rock_spawner_left.global_position
+		elif current_direction == look_direction.right:
+			rolling_rock.global_position = rock_spawner_right.global_position
+		rolling_rock.spawned(target_position, current_direction)
+		# start the animation timer
+		throw_animation_timer.start()
 
 # when the animation timer ends
 func _on_throw_animation_timer_timeout():
-	# if the rock hasn't been thrown
-	if !thrown:
-		# spawn the rock
-		throw_rock()
-		# mark the rock as thrown
-		thrown = true
-	# if the rock has been thrown
-	else:
-		# reset thrown
-		thrown = false
-		# allow elemental to move
-		can_move = true
+	# checks to make sure the character isn't dying
+	if !dying:
+		# if the rock hasn't been thrown
+		if !thrown:
+			# spawn the rock
+			throw_rock()
+			# mark the rock as thrown
+			thrown = true
+		# if the rock has been thrown
+		else:
+			# reset thrown
+			thrown = false
+			# allow elemental to move
+			can_move = true
 
 # returns the animated sprite
 func get_animated_sprite():

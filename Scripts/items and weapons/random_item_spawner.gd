@@ -98,6 +98,7 @@ func spawn_item():
 	var random_item_key = rng.randi_range(0, item_array.size()-1)
 	var item_has_spawned = false
 	var item_can_spawn = true
+	
 	# for each item in items that have been spawned
 	for item in ItemType.get_spawned_items():
 		# if the item that has been spawned matches the random item
@@ -107,32 +108,55 @@ func spawn_item():
 				if (item_types_array[random_item_key] != type):
 					# mark that the item has already been spawned
 					item_has_spawned = true
-		## checks if the item can be spawned
-		# poorly made voodoo doll check
-		if item_types_array[random_item_key] == ItemType.type.poorly_made_voodoo_doll:
-			# if the poorly made voodoo doll has been collected, it cannot be spawned again
-			if Events.player.can_poorly_made_voodoo_doll_be_spawned == false:
-				item_can_spawn = false
-		# checks if the item type is a holy heart
-		elif item_types_array[random_item_key] == ItemType.type.holy_heart:
-			# checks to see if the player has collected a shadow_heart
-			if Events.player.shadow_heart_collected != true:
-				# if the player hasn't collected shadow_heart and the type was holy_heart, the item cannot spawn
-				item_can_spawn = false
-		# checks if the item type is a poison_gas
-		elif item_types_array[random_item_key] == ItemType.type.poison_gas:
-			# only allow the spawn of poison gas on floors 3 and 4
-			if Events.current_floor == "Floor3" || Events.current_floor == "Floor4":
-				item_can_spawn = true
-			else:
-				item_can_spawn = false
-		# checks if the item type is a protective charm
-		elif item_types_array[random_item_key] == ItemType.type.protective_charm:
-			# only allow the spawn of protective charm on floors other than 1
-			if Events.current_floor != "Floor1":
-				item_can_spawn = true
-			else:
-				item_can_spawn = false
+	
+	## checks if the item can be spawned
+	# poorly made voodoo doll check
+	if item_types_array[random_item_key] == ItemType.type.poorly_made_voodoo_doll:
+		# if the poorly made voodoo doll has been collected, it cannot be spawned again
+		if Events.player.can_poorly_made_voodoo_doll_be_spawned == false:
+			item_can_spawn = false
+	# checks if the item type is a holy heart
+	elif item_types_array[random_item_key] == ItemType.type.holy_heart:
+		# checks to see if the player has collected a shadow_heart
+		if Events.player.shadow_heart_collected != true:
+			# if the player hasn't collected shadow_heart and the type was holy_heart, the item cannot spawn
+			item_can_spawn = false
+	# checks if the item type is a poison_gas
+	elif item_types_array[random_item_key] == ItemType.type.poison_gas:
+		# only allow the spawn of poison gas on floors 3 and 4
+		if Events.current_floor == "Floor3" || Events.current_floor == "Floor4":
+			item_can_spawn = true
+		else:
+			item_can_spawn = false
+	# checks if the item type is a protective charm
+	elif item_types_array[random_item_key] == ItemType.type.protective_charm:
+		# only allow the spawn of protective charm on floors other than 1
+		if Events.current_floor != "Floor1":
+			item_can_spawn = true
+		else:
+			item_can_spawn = false
+	# checks if the item type is a dead rogue's head
+	elif item_types_array[random_item_key] == ItemType.type.dead_rogues_head:
+		# only allow the spawn of dead rogue's head on floors other than 1 or 2
+		if Events.current_floor == "Floor1" || Events.current_floor == "Floor2":
+			item_can_spawn = false
+		else:
+			item_can_spawn = true
+	# checks if the item type is a magically_trapped_rogue
+	elif item_types_array[random_item_key] == ItemType.type.magically_trapped_rogue:
+		# only allow the spawn of magically_trapped_rogued on floors other than 1
+		if Events.current_floor == "Floor1":
+			item_can_spawn = false
+		else:
+			item_can_spawn = true
+	# checks if the item type is a rogue_in_a_bottle
+	elif item_types_array[random_item_key] == ItemType.type.rogue_in_a_bottle:
+		# only allow the spawn of rogue_in_a_bottle on floors other than 1
+		if Events.current_floor == "Floor1":
+			item_can_spawn = false
+		else:
+			item_can_spawn = true
+	
 	# if the item is not spawned and can spawned
 	if item_has_spawned == false && item_can_spawn == true:
 		# spawn the item
@@ -142,7 +166,7 @@ func spawn_item():
 		ItemType.add_spawned_item(item_types_array[random_item_key])
 		# remove the item spawner
 		queue_free()
-	# if the item has already been spawned, call spawn item again
-	elif item_has_spawned == true:
+	# can'e be spawned or has been spawned, spawn a different item
+	else:
 		spawn_item()
 	

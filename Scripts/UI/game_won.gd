@@ -9,12 +9,15 @@ extends Node2D
 # stat variables
 @onready var health_gained = $"CanvasLayer/Text and stats/Stats/Health Gained"
 @onready var damage_taken = $"CanvasLayer/Text and stats/Stats/DamageTaken"
+@onready var enemies_killed = $"CanvasLayer/Text and stats/Stats/Enemies_Killed"
+@onready var damage_dealt = $"CanvasLayer/Text and stats/Stats/Damage Dealt"
 
 # items used variables
 const LARGER_ITEM_UI_SLOT = preload("res://Scenes/menus/larger_item_ui_slot.tscn")
-@onready var no_items_used_text = $"CanvasLayer/Text and stats/Stats/no_Items_used_text"
+#@onready var no_items_used_text = $"CanvasLayer/Text and stats/Stats/no_Items_used_text"
 @onready var items_verticle_container = $"CanvasLayer/Text and stats/Items_verticle_container"
 const ITEMS_HORIZONTAL_CONTAINER = preload("res://Scenes/menus/items_horizontal_container.tscn")
+@onready var no_items_used_text = $"CanvasLayer/Text and stats/Items_verticle_container/no_Items_used_text"
 
 
 # variables
@@ -29,10 +32,7 @@ func _ready():
 	fade_timer.start()
 	# load the player's stats for this run
 	load_stats()
-	# play the intro music
-	#intro_music.play()
-	## start the timer for the switch from intro to loop
-	#intro_to_end_timer.start()
+	# play the music
 	bg_music.play()
 
 # when the fade timer ends
@@ -54,6 +54,7 @@ func _on_replay_button_pressed():
 
 func _on_main_menu_button_pressed():
 	Engine.time_scale = 1.0
+	PlayerData.clear_data()
 	PlayerData.clear_run_data()
 	get_tree().change_scene_to_file("res://Scenes/main_menu.tscn")
 
@@ -63,6 +64,11 @@ func load_stats():
 	health_gained.text = "Health Gained: " + str(PlayerData.health_healed)
 	# sets the damage taken
 	damage_taken.text = "Damage Taken: " + str(PlayerData.damage_taken)
+	# sets the enemies killed
+	enemies_killed.text = "Enemies Killed: " + str(PlayerData.enemies_killed)
+	# sets the damage dealt
+	damage_dealt.text = "Damage Dealth: " + str(PlayerData.damage_dealt)
+	
 	# sets the items used
 	# if no items were used, show the no items used text
 	if PlayerData.items_used.size() == 0:
@@ -80,9 +86,9 @@ func check_if_item_exists(item_to_check : ItemType.type):
 	return false
 
 func add_item_to_items_used(item : ItemType.type):
-	for position in range(0, items_verticle_container.get_children().size()):
+	for position in range(1, items_verticle_container.get_children().size()):
 		var item_row = items_verticle_container.get_child(position)
-		if item_row.get_children().size() < 11:
+		if item_row.get_children().size() < 7:
 			var item_ui = LARGER_ITEM_UI_SLOT.instantiate()
 			# add it to the items collected container
 			item_row.add_child(item_ui)

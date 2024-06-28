@@ -119,6 +119,8 @@ func take_damage(damage, attack_identifer, is_effect):
 		attacks_that_hit += [attack_identifer]
 		# subtracts the health
 		health -= damage
+		# add the damage to the player's stats
+		PlayerData.damage_dealt += damage
 		# if health is greater than 0
 		if health > 0:
 			# plays the hit animation
@@ -153,23 +155,25 @@ func _on_spawn_timer_timeout():
 
 # when the enemy attacks
 func attack():
-	# set bool variables
-	can_attack = false
-	can_move = false
-	attacking = true
-	# reset the can attack timer
-	can_attack_timer = can_attack_timer_max
-	# play the attack left or right animation
-	if current_direction == Enemy.look_direction.right:
-		animated_sprite.play("attack_right")
-	elif current_direction == Enemy.look_direction.left:
-		animated_sprite.play("attack_left")
-	# play the attack animation timer
-	attack_animation_timer.start()
-	# play the slash projection spawn timer
-	slash_projection_spawn_timer.start()
-	# play the attack sound
-	attack_sound.play()
+	# checks to make sure the character isn't dying
+	if !dying:
+		# set bool variables
+		can_attack = false
+		can_move = false
+		attacking = true
+		# reset the can attack timer
+		can_attack_timer = can_attack_timer_max
+		# play the attack left or right animation
+		if current_direction == Enemy.look_direction.right:
+			animated_sprite.play("attack_right")
+		elif current_direction == Enemy.look_direction.left:
+			animated_sprite.play("attack_left")
+		# play the attack animation timer
+		attack_animation_timer.start()
+		# play the slash projection spawn timer
+		slash_projection_spawn_timer.start()
+		# play the attack sound
+		attack_sound.play()
 
 # when the attack animation timer
 func _on_attack_animation_timer_timeout():
@@ -180,16 +184,18 @@ func _on_attack_animation_timer_timeout():
 
 # when the slash projection spawn animation timer
 func _on_slash_projection_spawn_timer_timeout():
-	# get the player position
-	player_position = player.position
-	target_position = (player_position - global_position).normalized()
-	# spawn the clash projectile
-	var slash = SLASH_PROJECTILE.instantiate()
-	get_parent().add_child(slash)
-	# set the slash position
-	slash.global_position = global_position
-	# tell the slash that it spawned
-	slash.spawned(target_position)
+	# checks to make sure the character isn't dying
+	if !dying:
+		# get the player position
+		player_position = player.position
+		target_position = (player_position - global_position).normalized()
+		# spawn the clash projectile
+		var slash = SLASH_PROJECTILE.instantiate()
+		get_parent().add_child(slash)
+		# set the slash position
+		slash.global_position = global_position
+		# tell the slash that it spawned
+		slash.spawned(target_position)
 
 # returns the animated sprite
 func get_animated_sprite():

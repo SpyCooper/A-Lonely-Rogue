@@ -276,16 +276,7 @@ func _on_stand_up_timer_timeout():
 	# show the hud
 	hud.show()
 	# show the floor text
-	if get_tree().current_scene.name == "Floor1":
-		hud.show_starting_text()
-	elif get_tree().current_scene.name == "Floor2":
-		hud.display_text("Floor 2", "There shouldn't not be any more slimes, right?")
-	elif get_tree().current_scene.name == "Floor3":
-		hud.display_text("Floor 3", "Sound like the dead here...")
-	elif get_tree().current_scene.name == "Floor4":
-		hud.display_text("Floor 4", "Did that shadow just move?")
-	elif get_tree().current_scene.name == "Floor5":
-		hud.display_text("Floor 5", "Time to get out of here...")
+	hud.show_floor_text()
 
 # when the player fall sound timer ends, play the fall sound
 func _on_player_fall_sound_timer_timeout():
@@ -314,7 +305,7 @@ func load_player_data():
 		# does not allow a player to load into a floor with a hurtful charm
 		if item != ItemType.type.hurtful_charm:
 			# pick up item
-			picked_up_item(item, false, false)
+			picked_up_item(item, false, false, false)
 			# check if it can be spawned again
 			var can_be_spawned_again = false
 			for type in ItemType.repeatable_items:
@@ -365,6 +356,7 @@ func killed_enemy():
 		if shadow_heart_heal_counter == 3:
 			shadow_heart_heal_counter = 0
 			player_adjust_health(1)
+	PlayerData.enemies_killed += 1
 
 # returns the speed
 func get_speed():
@@ -507,13 +499,14 @@ func get_is_dying():
 func _on_death_timer_timeout():
 	Engine.time_scale = 1
 	PlayerData.clear_data()
+	PlayerData.clear_run_data()
 	get_tree().change_scene_to_file("res://Scenes/Dungeon_floors/dungeon_floor_1.tscn")
 
 
 ## ------------------- general item functions ----------------------------------------------------------------
 
 # runs when an item is picked up
-func picked_up_item(item, display_text = true, sound = true):
+func picked_up_item(item, display_text = true, sound = true, add_to_items_used = true):
 	# unlock the item in the catalog
 	Events.catalog.unlock_item(item)
 	# if sound is allowed, play tthe sound
@@ -542,8 +535,10 @@ func picked_up_item(item, display_text = true, sound = true):
 		current_type = BladeType.blade_type.posioned
 		# add the item to the collected items list on HUD and in player data
 		add_passive_item(item)
-		# add item to the items used
-		PlayerData.items_used += [item]
+		# check if the item needs to be added to items used
+		if add_to_items_used:
+			# add item to the items used
+			PlayerData.items_used += [item]
 	elif item == ItemType.type.speed_boots:
 		# increase the player's speed
 		speed += ItemType.speed_boots_movement_speed_bonus
@@ -552,8 +547,10 @@ func picked_up_item(item, display_text = true, sound = true):
 			hud.display_text("Aquired Speed Boots!", "You run faster.")
 		# add the item to the collected items list on HUD and in player data
 		add_passive_item(item)
-		# add item to the items used
-		PlayerData.items_used += [item]
+		# check if the item needs to be added to items used
+		if add_to_items_used:
+			# add item to the items used
+			PlayerData.items_used += [item]
 	elif item == ItemType.type.quick_blades:
 		# increase attack speed
 		attacks_per_second += ItemType.quick_blades_attack_speed_bonus
@@ -564,8 +561,10 @@ func picked_up_item(item, display_text = true, sound = true):
 			hud.display_text("Aquired Quicker Blades!", "Blades can be thrown faster.")
 		# add the item to the collected items list on HUD and in player data
 		add_passive_item(item)
-		# add item to the items used
-		PlayerData.items_used += [item]
+		# check if the item needs to be added to items used
+		if add_to_items_used:
+			# add item to the items used
+			PlayerData.items_used += [item]
 	elif item == ItemType.type.shadow_flame:
 		# add the shadow flame blade to the player
 		shadow_flame_blade = true
@@ -576,8 +575,10 @@ func picked_up_item(item, display_text = true, sound = true):
 			hud.display_text("Aquired Shadowflame!", "Blades damage enemies after a time for moderate damage.")
 		# add the item to the collected items list on HUD and in player data
 		add_passive_item(item)
-		# add item to the items used
-		PlayerData.items_used += [item]
+		# check if the item needs to be added to items used
+		if add_to_items_used:
+			# add item to the items used
+			PlayerData.items_used += [item]
 	elif item == ItemType.type.shadow_blade:
 		# add the shadow blade to the player
 		shadow_blade = true
@@ -588,8 +589,10 @@ func picked_up_item(item, display_text = true, sound = true):
 			hud.display_text("Aquired Shadow Blades!", "Blades do increased damage.")
 		# add the item to the collected items list on HUD and in player data
 		add_passive_item(item)
-		# add item to the items used
-		PlayerData.items_used += [item]
+		# check if the item needs to be added to items used
+		if add_to_items_used:
+			# add item to the items used
+			PlayerData.items_used += [item]
 	elif item == ItemType.type.key:
 		# increase the number of keys
 		number_of_keys += 1
@@ -597,7 +600,7 @@ func picked_up_item(item, display_text = true, sound = true):
 		hud.refresh_key_amount(number_of_keys)
 		# display the item text
 		if display_text:
-			hud.display_text("Aquired a Key!", "Use it to open a locked door!")
+			hud.display_text("Aquired a Key!", "Used to open a locked doors!")
 	elif item == ItemType.type.shadow_heart:
 		# if the player already has a shadow heart, add HP
 		if shadow_heart == true:
@@ -605,8 +608,10 @@ func picked_up_item(item, display_text = true, sound = true):
 		else:
 			# add the shadow heart to the player
 			shadow_heart = true
-			# add the shadow heart to the items used
-			PlayerData.items_used += [item]
+			# check if the item needs to be added to items used
+			if add_to_items_used:
+				# add item to the items used
+				PlayerData.items_used += [item]
 		# refresh the player's HP, and send that shadow_heart is active
 		hud.refresh_hearts(player_health, shadow_heart)
 		# display the item text
@@ -625,8 +630,10 @@ func picked_up_item(item, display_text = true, sound = true):
 			hud.display_text("Aquired Triple Blades!", "You can now throw 3 blades at once!")
 		# add the item to the collected items list on HUD and in player data
 		add_passive_item(item)
-		# add item to the items used
-		PlayerData.items_used += [item]
+		# check if the item needs to be added to items used
+		if add_to_items_used:
+			# add item to the items used
+			PlayerData.items_used += [item]
 	elif item == ItemType.type.dust_blade:
 		# add dust blades to the player
 		dust_blade = true
@@ -637,8 +644,10 @@ func picked_up_item(item, display_text = true, sound = true):
 			hud.display_text("Aquired Dust Blades!", "Attacks will slow enemies!")
 		# add the item to the collected items list on HUD and in player data
 		add_passive_item(item)
-		# add item to the items used
-		PlayerData.items_used += [item]
+		# check if the item needs to be added to items used
+		if add_to_items_used:
+			# add item to the items used
+			PlayerData.items_used += [item]
 	elif item == ItemType.type.glass_blade:
 		# add glass blades to the player
 		glass_blade = true
@@ -646,11 +655,13 @@ func picked_up_item(item, display_text = true, sound = true):
 		current_type = BladeType.blade_type.glass
 		# display the item text
 		if display_text:
-			hud.display_text("Aquired Glass Blades!", "Blades will shoot shrapnel on hit!")
+			hud.display_text("Aquired Glass Blades!", "Blades will explode into shrapnel!")
 		# add the item to the collected items list on HUD and in player data
 		add_passive_item(item)
-		# add item to the items used
-		PlayerData.items_used += [item]
+		# check if the item needs to be added to items used
+		if add_to_items_used:
+			# add item to the items used
+			PlayerData.items_used += [item]
 	elif item == ItemType.type.holy_heart:
 		# add the holy heart to the player
 		# if the shadow_heart is active
@@ -659,8 +670,10 @@ func picked_up_item(item, display_text = true, sound = true):
 			shadow_heart = false
 			# removes the shadow_heart from the player's collected items
 			remove_item_from_items_collected(ItemType.type.shadow_heart)
-			# add item to the items used
-			PlayerData.items_used += [item]
+			# check if the item needs to be added to items used
+			if add_to_items_used:
+				# add item to the items used
+				PlayerData.items_used += [item]
 		else:
 			# if the shadow_heart is not active, heal the player
 			player_adjust_health(2)
@@ -679,8 +692,10 @@ func picked_up_item(item, display_text = true, sound = true):
 		add_passive_item(item)
 		# do not allow the poorly made voodoo doll to be spawned
 		can_poorly_made_voodoo_doll_be_spawned = false
-		# add item to the items used
-		PlayerData.items_used += [item]
+		# check if the item needs to be added to items used
+		if add_to_items_used:
+			# add item to the items used
+			PlayerData.items_used += [item]
 	elif item == ItemType.type.sleek_blades:
 		# add the sleek blade to the player
 		knife_speed_bonus += ItemType.sleek_blade_speed_bonus
@@ -691,70 +706,88 @@ func picked_up_item(item, display_text = true, sound = true):
 			hud.display_text("Aquired Sleek Blades!", "Blades move faster through the air.")
 		# add the item to the collected items list on HUD and in player data
 		add_passive_item(item)
-		# add item to the items used
-		PlayerData.items_used += [item]
+		# check if the item needs to be added to items used
+		if add_to_items_used:
+			# add item to the items used
+			PlayerData.items_used += [item]
 	elif item == ItemType.type.dash_boots:
 		# display the item text
 		if display_text:
-			hud.display_text("Aquired a Dash Boots!", "Allows you to dash by double tapping!")
+			hud.display_text("Aquired a Dash Boots!", "Allows you to dash!")
 		# add the usable item
 		usable_item_added(item)
-		# add item to the items used
-		PlayerData.items_used += [item]
+		# check if the item needs to be added to items used
+		if add_to_items_used:
+			# add item to the items used
+			PlayerData.items_used += [item]
 	elif item == ItemType.type.poison_gas:
 		# display the item text
 		if display_text:
 			hud.display_text("Aquired a Bottle of Poison Gas!", "Breaking the bottle surrounds you poison!")
 		# add the usable item
 		usable_item_added(item)
-		# add item to the items used
-		PlayerData.items_used += [item]
+		# check if the item needs to be added to items used
+		if add_to_items_used:
+			# add item to the items used
+			PlayerData.items_used += [item]
 	elif item == ItemType.type.protective_charm:
 		# display the item text
 		if display_text:
-			hud.display_text("Aquired a Protective Charm!", "It's spawn will block some projectiles for you!")
+			hud.display_text("Aquired a Protective Charm!", "The stasr will protect you!")
 		# adds the pet item and spawns in the pet to the player based on the item
 		add_pet(item)
-		# add item to the items used
-		PlayerData.items_used += [item]
+		# check if the item needs to be added to items used
+		if add_to_items_used:
+			# add item to the items used
+			PlayerData.items_used += [item]
 	elif item == ItemType.type.rogue_in_a_bottle:
 		if display_text:
 			hud.display_text("Aquired a Rogue-In-A-Bottle!", "Break when you need a little help!")
 		# add the usable item
 		usable_item_added(item)
-		# add item to the items used
-		PlayerData.items_used += [item]
+		# check if the item needs to be added to items used
+		if add_to_items_used:
+			# add item to the items used
+			PlayerData.items_used += [item]
 	elif item == ItemType.type.hurtful_charm:
 		# display the item text
 		if display_text:
-			hud.display_text("Aquired a Hurtful Charm!", "It will deal damage to enemies around you!")
+			hud.display_text("Aquired a Hurtful Charm!", "Summons a limited time fire ball that's hot to the touch!")
 		# adds the pet item and spawns in the pet to the player based on the item
 		add_pet(item)
-		# add item to the items used
-		PlayerData.items_used += [item]
+		# check if the item needs to be added to items used
+		if add_to_items_used:
+			# add item to the items used
+			PlayerData.items_used += [item]
 	elif item == ItemType.type.magically_trapped_rogue:
 		# display the item text
 		if display_text:
 			hud.display_text("Aquired a Magically Trapped Rogue!", "He will throw knives at enemies so you won't drop him!")
 		# adds the pet item and spawns in the pet to the player based on the item
 		add_pet(item)
-		# add item to the items used
-		PlayerData.items_used += [item]
+		# check if the item needs to be added to items used
+		if add_to_items_used:
+			# add item to the items used
+			PlayerData.items_used += [item]
 	elif item == ItemType.type.dead_rogues_head:
 		# display the item text
 		if display_text:
 			hud.display_text("Aquired a Dead Rogue's Head", "His quest will end someday...")
 		# adds the pet item and spawns in the pet to the player based on the item
 		add_pet(item)
-		# add item to the items used
-		PlayerData.items_used += [item]
+		# check if the item needs to be added to items used
+		if add_to_items_used:
+			# add item to the items used
+			PlayerData.items_used += [item]
 	elif item == ItemType.type.bomb:
 		if display_text:
 			hud.display_text("Aquired a Bomb!", "Use when you need an explosion!")
 		# add the usable item
 		usable_item_added(item)
-		# add item to the items used
-		PlayerData.items_used += [item]
+		# check if the item needs to be added to items used
+		if add_to_items_used:
+			# add item to the items used
+			PlayerData.items_used += [item]
 
 # adds the item to the collected items list on HUD and in player data
 func add_passive_item(item : ItemType.type):

@@ -43,8 +43,8 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_iuwna"]
-radius = 5.0
-height = 16.0
+radius = 3.0
+height = 12.0
 
 [node name="hurtful_charm_spawn" type="Area2D"]
 collision_layer = 0

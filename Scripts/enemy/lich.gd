@@ -136,6 +136,10 @@ func take_damage(damage, attack_identifer, is_effect):
 		attacks_that_hit += [attack_identifer]
 		# deals the damage to the enemy
 		health -= damage
+		# add the damage to the player's stats
+		PlayerData.damage_dealt += damage
+		# adjust the boss health bar in the HUD
+		hud.adjust_health_bar(health)
 		# plays the hit sound if the HP after damage is > 0
 		if health > 0:
 			# plays the hit animation
@@ -157,8 +161,6 @@ func take_damage(damage, attack_identifer, is_effect):
 			death_sound.play()
 			# spawn_sound is the portal sound
 			spawn_sound.play()
-		# adjust the boss health bar in the HUD
-		hud.adjust_health_bar(health)
 
 # returns the animated sprite
 func get_animated_sprite():
@@ -264,41 +266,45 @@ func hide_lightning():
 
 # spawns two random skeletons
 func spawn_skeletons():
-	# runs twice
-	for n in [1, 2]:
-		# gets a random type of skeleton
-		var random_number = rng.randi_range(1, 3)
-		var random_skel = SKELETON_WARRIOR
-		if random_number == 1:
-			random_skel = SKELETON_ARCHER
-		elif random_number == 2:
-			random_skel = SKELETON_MAGE
-		elif random_number == 3:
-			random_skel = SKELETON_WARRIOR
-		# set the correct spawn location for this iteration
-		var spawn_location
-		if n == 1:
-			spawn_location = skeleton_spawn_left_location
-		elif n == 2:
-			spawn_location = skeleton_spawn_right_location
-		# spawns the skeleton for this iteration
-		var skel = random_skel.instantiate()
-		get_parent().add_child(skel)
-		skel.spawned_in_room()
-		# set the skeleton's position
-		skel.global_position = spawn_location.global_position
+	# checks to make sure the character isn't dying
+	if !dying:
+		# runs twice
+		for n in [1, 2]:
+			# gets a random type of skeleton
+			var random_number = rng.randi_range(1, 3)
+			var random_skel = SKELETON_WARRIOR
+			if random_number == 1:
+				random_skel = SKELETON_ARCHER
+			elif random_number == 2:
+				random_skel = SKELETON_MAGE
+			elif random_number == 3:
+				random_skel = SKELETON_WARRIOR
+			# set the correct spawn location for this iteration
+			var spawn_location
+			if n == 1:
+				spawn_location = skeleton_spawn_left_location
+			elif n == 2:
+				spawn_location = skeleton_spawn_right_location
+			# spawns the skeleton for this iteration
+			var skel = random_skel.instantiate()
+			get_parent().add_child(skel)
+			skel.spawned_in_room()
+			# set the skeleton's position
+			skel.global_position = spawn_location.global_position
 
 # when the lich does a shadow ball attack
 func shadow_ball_attack():
-	# plays the correct animation for the shadow_ball attack
-	if current_direction == look_direction.right:
-		animated_sprite.play("shadow_ball_right")
-	elif current_direction == look_direction.left:
-		animated_sprite.play("shadow_ball_left")
-	# starts the shadow ball animation timer
-	shadow_ball_anim_timer.start()
-	# starts the shadow ball spawn timer
-	shadow_ball_spawn_timer.start()
+	# checks to make sure the character isn't dying
+	if !dying:
+		# plays the correct animation for the shadow_ball attack
+		if current_direction == look_direction.right:
+			animated_sprite.play("shadow_ball_right")
+		elif current_direction == look_direction.left:
+			animated_sprite.play("shadow_ball_left")
+		# starts the shadow ball animation timer
+		shadow_ball_anim_timer.start()
+		# starts the shadow ball spawn timer
+		shadow_ball_spawn_timer.start()
 
 # when the shadow ball animation timer ends
 func _on_shadow_ball_anim_timer_timeout():
@@ -307,39 +313,45 @@ func _on_shadow_ball_anim_timer_timeout():
 
 # starts the shadow ball spawn timer
 func _on_shadow_ball_spawn_timer_timeout():
-	# spawn the shadow ball
-	spawn_shadow_ball()
+	# checks to make sure the character isn't dying
+	if !dying:
+		# spawn the shadow ball
+		spawn_shadow_ball()
 
 # spawns a shadow ball
 func spawn_shadow_ball():
-	# play the magic casting sound
-	magic_casting_sound.play()
-	# gets the correct spawn location of the shadow ball
-	var spawn_location = shadow_ball_spawn_right
-	if current_direction == look_direction.left:
-		spawn_location = shadow_ball_spawn_left
-	# spawns the shadow ball at the correct position
-	var shadow_ball = SHADOW_BALL.instantiate()
-	shadow_ball.global_position = spawn_location.global_position
-	get_parent().add_child(shadow_ball)
-	# tell the shadow ball that it spawned
-	shadow_ball.spawned()
+	# checks to make sure the character isn't dying
+	if !dying:
+		# play the magic casting sound
+		magic_casting_sound.play()
+		# gets the correct spawn location of the shadow ball
+		var spawn_location = shadow_ball_spawn_right
+		if current_direction == look_direction.left:
+			spawn_location = shadow_ball_spawn_left
+		# spawns the shadow ball at the correct position
+		var shadow_ball = SHADOW_BALL.instantiate()
+		shadow_ball.global_position = spawn_location.global_position
+		get_parent().add_child(shadow_ball)
+		# tell the shadow ball that it spawned
+		shadow_ball.spawned()
 
 # when the lich summons poison
 func summon_poison():
-	# play the magic casting sound
-	magic_casting_sound.play()
-	# play the correct casting direction (shadow_ball_right is used for single handed casting)
-	if current_direction == look_direction.right:
-		animated_sprite.play("shadow_ball_right")
-	elif current_direction == look_direction.left:
-		animated_sprite.play("shadow_ball_left")
-	# grabs a temporary player position
-	temp_player_pos = player.global_position
-	# starts the animation timer, the spawn timer, and the delayed player position timer
-	summon_poison_anim_timer.start()
-	summon_poison_spawn_timer.start()
-	delay_player_pos_timer.start()
+	# checks to make sure the character isn't dying
+	if !dying:
+		# play the magic casting sound
+		magic_casting_sound.play()
+		# play the correct casting direction (shadow_ball_right is used for single handed casting)
+		if current_direction == look_direction.right:
+			animated_sprite.play("shadow_ball_right")
+		elif current_direction == look_direction.left:
+			animated_sprite.play("shadow_ball_left")
+		# grabs a temporary player position
+		temp_player_pos = player.global_position
+		# starts the animation timer, the spawn timer, and the delayed player position timer
+		summon_poison_anim_timer.start()
+		summon_poison_spawn_timer.start()
+		delay_player_pos_timer.start()
 
 # when the summon poison animation timer ends
 func _on_summon_poison_anim_timer_timeout():
@@ -347,11 +359,13 @@ func _on_summon_poison_anim_timer_timeout():
 
 # when the summon poison spawn timer ends
 func _on_summon_poison_spawn_timer_timeout():
-	# spawn the poison area
-	var poison_area = POISON_AREA.instantiate()
-	get_parent().add_child(poison_area)
-	# tell the poison area that it's spawned
-	poison_area.spawned(temp_player_pos)
+	# checks to make sure the character isn't dying
+	if !dying:
+		# spawn the poison area
+		var poison_area = POISON_AREA.instantiate()
+		get_parent().add_child(poison_area)
+		# tell the poison area that it's spawned
+		poison_area.spawned(temp_player_pos)
 
 # when delayed player position timer ends
 func _on_delay_player_pos_timer_timeout():
@@ -360,96 +374,108 @@ func _on_delay_player_pos_timer_timeout():
 
 # when the lich does a heal attack
 func heal_attack():
-	# start the heal animation timer
-	heal_animation_timer.start()
-	# plays the correct animation
-	if current_direction == look_direction.left:
-		animated_sprite.play("heal_start_left")
-	elif current_direction == look_direction.right:
-		animated_sprite.play("heal_start_right")
-	# starts the summon one lightning timer
-	summon_one_lighning_timer.start()
+	# checks to make sure the character isn't dying
+	if !dying:
+		# start the heal animation timer
+		heal_animation_timer.start()
+		# plays the correct animation
+		if current_direction == look_direction.left:
+			animated_sprite.play("heal_start_left")
+		elif current_direction == look_direction.right:
+			animated_sprite.play("heal_start_right")
+		# starts the summon one lightning timer
+		summon_one_lighning_timer.start()
 
 # when the summon one lightning timer ends
 func _on_summon_one_lighning_timer_timeout():
-	# play the lightning strike sound effect
-	lightning_strike_sound.play()
-	# check the current direction
-	if current_direction == look_direction.left:
-		# show the correct lightning
-		lightning_left.show()
-		# play the correct heal idle animation
-		animated_sprite.play("heal_idle_left")
-	else:
-		lightning_right.show()
-		animated_sprite.play("heal_idle_right")
-	# starts the lightning duration heal timer
-	lighning_duration_heal_timer.start()
+	# checks to make sure the character isn't dying
+	if !dying:
+		# play the lightning strike sound effect
+		lightning_strike_sound.play()
+		# check the current direction
+		if current_direction == look_direction.left:
+			# show the correct lightning
+			lightning_left.show()
+			# play the correct heal idle animation
+			animated_sprite.play("heal_idle_left")
+		else:
+			lightning_right.show()
+			animated_sprite.play("heal_idle_right")
+		# starts the lightning duration heal timer
+		lighning_duration_heal_timer.start()
 
 # when the lightning duration heal timer ends
 func _on_lighning_duration_heal_timer_timeout():
-	# hide the lightning
-	hide_lightning()
-	# spawn an unarmed skeleton
-	spawn_unarmed_skeleton()
+	# checks to make sure the character isn't dying
+	if !dying:
+		# hide the lightning
+		hide_lightning()
+		# spawn an unarmed skeleton
+		spawn_unarmed_skeleton()
 
 # spawns one unarmed skeleton for the heal attack
 func spawn_unarmed_skeleton():
-	# set the correct skeleton spawn location
-	var spawn_location = skeleton_spawn_right_location
-	if current_direction == look_direction.left:
-		spawn_location = skeleton_spawn_left_location
-	# spawn the skeleton
-	var skel = SKELETON_UNARMED.instantiate()
-	get_parent().add_child(skel)
-	skel.spawned_in_room()
-	# set the skeleton's position
-	skel.global_position = spawn_location.global_position
-	# saves the object reference
-	unarmed_skeleton = skel
-	# starts the timer before heal timer
-	time_before_heal_timer.start()
+	# checks to make sure the character isn't dying
+	if !dying:
+		# set the correct skeleton spawn location
+		var spawn_location = skeleton_spawn_right_location
+		if current_direction == look_direction.left:
+			spawn_location = skeleton_spawn_left_location
+		# spawn the skeleton
+		var skel = SKELETON_UNARMED.instantiate()
+		get_parent().add_child(skel)
+		skel.spawned_in_room()
+		# set the skeleton's position
+		skel.global_position = spawn_location.global_position
+		# saves the object reference
+		unarmed_skeleton = skel
+		# starts the timer before heal timer
+		time_before_heal_timer.start()
 
 # when the timer before heal timer ends
 func _on_time_before_heal_timer_timeout():
-	# if the unarmed skeleton still exists
-	if unarmed_skeleton != null:
-		# spawn a lightning strike at that location
-		temp_lightning = LIGHTNING.instantiate()
-		add_child(temp_lightning)
-		# adjust the lightning position
-		temp_lightning.global_position = unarmed_skeleton.global_position + Vector2(0, -125)
-		# start the temporary lightning timer
-		temp_lightning_timer.start()
-		# play the lightning strike sound effect
-		lightning_strike_sound.play()
-		# despawn the unarmed skeleton
-		unarmed_skeleton.despawn()
-		# heal the lich
-		heal()
-		# plays the correct heal ending success animation
-		if current_direction == look_direction.right:
-			animated_sprite.play("heal_end_success_right")
+	# checks to make sure the character isn't dying
+	if !dying:
+		# if the unarmed skeleton still exists
+		if unarmed_skeleton != null:
+			# spawn a lightning strike at that location
+			temp_lightning = LIGHTNING.instantiate()
+			add_child(temp_lightning)
+			# adjust the lightning position
+			temp_lightning.global_position = unarmed_skeleton.global_position + Vector2(0, -125)
+			# start the temporary lightning timer
+			temp_lightning_timer.start()
+			# play the lightning strike sound effect
+			lightning_strike_sound.play()
+			# despawn the unarmed skeleton
+			unarmed_skeleton.despawn()
+			# heal the lich
+			heal()
+			# plays the correct heal ending success animation
+			if current_direction == look_direction.right:
+				animated_sprite.play("heal_end_success_right")
+			else:
+				animated_sprite.play("heal_end_success_left")
+		# if the skeleton does not exist
 		else:
-			animated_sprite.play("heal_end_success_left")
-	# if the skeleton does not exist
-	else:
-		# play the correct heal ending fail animation
-		if current_direction == look_direction.right:
-			animated_sprite.play("heal_end_fail_right")
-		else:
-			animated_sprite.play("heal_end_fail_left")
-		
+			# play the correct heal ending fail animation
+			if current_direction == look_direction.right:
+				animated_sprite.play("heal_end_fail_right")
+			else:
+				animated_sprite.play("heal_end_fail_left")
+			
 
 # heals the lich
 func heal():
-	# heals the lich for the correct amount
-	if health + heal_amount > max_health:
-		health = max_health
-	else:
-		health += heal_amount
-	# adjust the boss health bar in the HUD
-	hud.adjust_health_bar(health)
+	# checks to make sure the character isn't dying
+	if !dying:
+		# heals the lich for the correct amount
+		if health + heal_amount > max_health:
+			health = max_health
+		else:
+			health += heal_amount
+		# adjust the boss health bar in the HUD
+		hud.adjust_health_bar(health)
 
 # when the heal animation timer ends
 func _on_heal_animation_timer_timeout():

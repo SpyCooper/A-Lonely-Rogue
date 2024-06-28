@@ -112,6 +112,8 @@ func take_damage(damage, attack_identifer, is_effect):
 		attacks_that_hit += [attack_identifer]
 		# subtracts the health
 		health -= damage
+		# add the damage to the player's stats
+		PlayerData.damage_dealt += damage
 		# if health is greater than 0
 		if health > 0:
 			# plays the hit animation
@@ -150,21 +152,23 @@ func get_animated_sprite():
 
 # when the shade attacks
 func attack():
-	# set bool variables
-	attacking = true
-	can_move = false
-	can_attack = false
-	# play the correct attack direction
-	if current_direction == look_direction.left:
-		animated_sprite.play("shadow_bolt_left_start")
-	elif current_direction == look_direction.right:
-		animated_sprite.play("shadow_bolt_right_start")
-	# reset the can attack timer
-	can_attack_timer = can_attack_timer_max
-	# start the spawn timer
-	shadow_bolt_spawn_timer.start()
-	# start the attack timer
-	shadow_bolt_attack_timer.start()
+	# checks to make sure the character isn't dying
+	if !dying:
+		# set bool variables
+		attacking = true
+		can_move = false
+		can_attack = false
+		# play the correct attack direction
+		if current_direction == look_direction.left:
+			animated_sprite.play("shadow_bolt_left_start")
+		elif current_direction == look_direction.right:
+			animated_sprite.play("shadow_bolt_right_start")
+		# reset the can attack timer
+		can_attack_timer = can_attack_timer_max
+		# start the spawn timer
+		shadow_bolt_spawn_timer.start()
+		# start the attack timer
+		shadow_bolt_attack_timer.start()
 
 # when the shadow bolt attack timer ends
 func _on_shadow_bolt_attack_timer_timeout():
@@ -176,42 +180,48 @@ func _on_shadow_bolt_attack_timer_timeout():
 
 # spawns 1 shadow bolt
 func spawn_shadow_bolt():
-	# increase the amount of shadow bolts spawned in this burst
-	spawned_in_current_burst += 1
-	# play the attack sound
-	attack_sound.play()
-	# soawb the shadow bolt
-	var shadow_bolt = SHADOW_BOLT.instantiate()
-	if current_direction == look_direction.left:
-		shadow_bolt.global_position = shadow_bolt_spawn_left.global_position
-	elif current_direction == look_direction.right:
-		shadow_bolt.global_position = shadow_bolt_spawn_right.global_position
-	get_parent().add_child(shadow_bolt)
-	# tell the shadow bolt that it spawned
-	shadow_bolt.spawned(self, false)
-	# start the time between shadow bolts burst timer
-	time_between_shadow_bolts_burst.start()
+	# checks to make sure the character isn't dying
+	if !dying:
+		# increase the amount of shadow bolts spawned in this burst
+		spawned_in_current_burst += 1
+		# play the attack sound
+		attack_sound.play()
+		# soawb the shadow bolt
+		var shadow_bolt = SHADOW_BOLT.instantiate()
+		if current_direction == look_direction.left:
+			shadow_bolt.global_position = shadow_bolt_spawn_left.global_position
+		elif current_direction == look_direction.right:
+			shadow_bolt.global_position = shadow_bolt_spawn_right.global_position
+		get_parent().add_child(shadow_bolt)
+		# tell the shadow bolt that it spawned
+		shadow_bolt.spawned(self, false)
+		# start the time between shadow bolts burst timer
+		time_between_shadow_bolts_burst.start()
 
 # when the time between shadow bolts burst timer ends
 func _on_time_between_shadow_bolts_burst_timeout():
-	# if the max shadow bolts in this burst have not been reached
-	if spawned_in_current_burst < max_spawn_in_burst:
-		# spawn another shadow bolt
-		spawn_shadow_bolt()
-	# if the max shadow bolts per burst has been reached
-	else:
-		# reset the shadow bolts spawned in this burst
-		spawned_in_current_burst = 0
-		# play the correct attack ending animation
-		if current_direction == look_direction.left:
-			animated_sprite.play("shadow_bolt_left_end")
-		elif current_direction == look_direction.right:
-			animated_sprite.play("shadow_bolt_right_end")
+	# checks to make sure the character isn't dying
+	if !dying:
+		# if the max shadow bolts in this burst have not been reached
+		if spawned_in_current_burst < max_spawn_in_burst:
+			# spawn another shadow bolt
+			spawn_shadow_bolt()
+		# if the max shadow bolts per burst has been reached
+		else:
+			# reset the shadow bolts spawned in this burst
+			spawned_in_current_burst = 0
+			# play the correct attack ending animation
+			if current_direction == look_direction.left:
+				animated_sprite.play("shadow_bolt_left_end")
+			elif current_direction == look_direction.right:
+				animated_sprite.play("shadow_bolt_right_end")
 
 # when the shadow bolt spawn timer ends
 func _on_shadow_bolt_spawn_timer_timeout():
-	# spawn a shadow bolt
-	spawn_shadow_bolt()
+	# checks to make sure the character isn't dying
+	if !dying:
+		# spawn a shadow bolt
+		spawn_shadow_bolt()
 
 # when the hit flash animation timer ends
 func _on_hit_flash_animation_timer_timeout():

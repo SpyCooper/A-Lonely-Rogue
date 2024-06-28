@@ -287,21 +287,22 @@ anchors_preset = 0
 script = ExtResource("1_l3s7d")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-position = Vector2(10, 7)
+position = Vector2(9, 9)
 scale = Vector2(0.15, 0.15)
 texture = ExtResource("2_kll03")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(10, 7)
+position = Vector2(9, 9)
 sprite_frames = SubResource("SpriteFrames_51jbf")
-animation = &"bomb"
+animation = &"poorly_made_voodoo"
 
 [node name="stack_Label" type="Label" parent="."]
+visible = false
 layout_mode = 0
-offset_left = 7.0
-offset_top = 9.0
-offset_right = 79.0
-offset_bottom = 54.0
+offset_left = 6.0
+offset_top = 11.0
+offset_right = 78.0
+offset_bottom = 56.0
 scale = Vector2(0.15, 0.15)
 theme = ExtResource("16_fpotc")
 theme_override_font_sizes/font_size = 48
@@ -310,7 +311,8 @@ horizontal_alignment = 2
 vertical_alignment = 2
 
 [node name="GreyOut_sprite" type="Sprite2D" parent="."]
-position = Vector2(10, 7)
+visible = false
+position = Vector2(9, 9)
 scale = Vector2(0.15, 0.15)
 texture = ExtResource("2_kll03")
 

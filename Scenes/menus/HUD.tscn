@@ -292,21 +292,38 @@ offset_bottom = 5.33333
 
 [node name="items_ui_container" type="VBoxContainer" parent="active_items_ui"]
 layout_mode = 0
-offset_right = 20.0
-offset_bottom = 40.0
+offset_left = 2.33301
+offset_top = -1.66666
+offset_right = 22.333
+offset_bottom = 38.3333
 theme_override_constants/separation = 19
 
 [node name="Usable_item" type="Control" parent="."]
 anchors_preset = 0
-offset_left = 384.0
+offset_left = 385.333
 offset_top = 5.33333
-offset_right = 384.0
+offset_right = 385.333
 offset_bottom = 5.33333
+
+[node name="active_item text" type="Label" parent="Usable_item"]
+layout_mode = 2
+offset_left = -0.333333
+offset_top = 16.0
+offset_right = 44.6667
+offset_bottom = 31.0
+scale = Vector2(0.412718, 0.412718)
+theme = ExtResource("5_6yeb1")
+theme_override_font_sizes/font_size = 16
+text = "Active"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="usable_items_ui_container" type="VBoxContainer" parent="Usable_item"]
 layout_mode = 0
-offset_right = 20.0
-offset_bottom = 40.0
+offset_left = -0.333333
+offset_top = -1.66666
+offset_right = 19.6667
+offset_bottom = 38.3333
 theme_override_constants/separation = 16
 
 [node name="Usable_Item_UI_slot" parent="Usable_item/usable_items_ui_container" instance=ExtResource("7_63oe1")]

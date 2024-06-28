@@ -17,7 +17,7 @@ func _ready():
 	# sets the pet variables
 	max_health = 3
 	health = max_health
-	distance_from_player = 20
+	distance_from_player = 15
 	speed = .05
 	position += Vector2(0, distance_from_player)
 	# when the room_entered signal is sent

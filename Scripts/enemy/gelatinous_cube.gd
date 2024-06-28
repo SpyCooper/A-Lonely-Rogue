@@ -128,6 +128,10 @@ func take_damage(damage, attack_identifer, is_effect):
 		attacks_that_hit += [attack_identifer]
 		# deals the damage to the enemy
 		health -= damage
+		# add the damage to the player's stats
+		PlayerData.damage_dealt += damage
+		# adjust the boss health bar in the HUD
+		hud.adjust_health_bar(health)
 		# if the HP after damage is > 0
 		if health > 0:
 			# plays the hit animation
@@ -252,42 +256,44 @@ func _on_spawn_timer_timeout():
 # when the spawn freeze timer ends
 # NOTE: this is for spawning in slime
 func _on_spawn_freeze_timer_timeout():
-	# for each slime to be spawned
-	for spawn in slime_to_be_spawned:
-		# creat a green slime
-		var green_slime = GREEN_SLIME.instantiate()
-		# make the green slime a child of the scene and not the gel cube
-		get_parent().add_child(green_slime)
-		# tell the green slime they spawned in the room
-		green_slime.spawned_in_room()
-		# set the position of the green slime
-		if spawn == spawn_location.top:
-			green_slime.global_position = spawner_top.global_position
-		elif spawn == spawn_location.right:
-			green_slime.global_position = spawner_right.global_position
-		elif spawn == spawn_location.left:
-			green_slime.global_position = spawner_left.global_position
-		elif spawn == spawn_location.bottom:
-			green_slime.global_position = spawner_bottom.global_position
-		# check for a collision at the spawn location
-		var vect = Vector2(0.0,0.0)
-		var collision = green_slime.move_and_collide(vect)
-		# if there is a collision at the location, despawn the slime
-		if collision != null:
-			green_slime.despawn()
-	
-	# hide all the spawning sprites
-	animated_bottom.hide()
-	animated_left.hide()
-	animated_right.hide()
-	animated_top.hide()
-	
-	# reset the slime_to_be_spawned
-	slime_to_be_spawned = []
-	# stop the spawn_freeze_timer
-	spawn_freeze_timer.stop()
-	# start the wait after spawn timer
-	wait_after_spawn_timer.start()
+	# checks to make sure the character isn't dying
+	if !dying:
+		# for each slime to be spawned
+		for spawn in slime_to_be_spawned:
+			# creat a green slime
+			var green_slime = GREEN_SLIME.instantiate()
+			# make the green slime a child of the scene and not the gel cube
+			get_parent().add_child(green_slime)
+			# tell the green slime they spawned in the room
+			green_slime.spawned_in_room()
+			# set the position of the green slime
+			if spawn == spawn_location.top:
+				green_slime.global_position = spawner_top.global_position
+			elif spawn == spawn_location.right:
+				green_slime.global_position = spawner_right.global_position
+			elif spawn == spawn_location.left:
+				green_slime.global_position = spawner_left.global_position
+			elif spawn == spawn_location.bottom:
+				green_slime.global_position = spawner_bottom.global_position
+			# check for a collision at the spawn location
+			var vect = Vector2(0.0,0.0)
+			var collision = green_slime.move_and_collide(vect)
+			# if there is a collision at the location, despawn the slime
+			if collision != null:
+				green_slime.despawn()
+		
+		# hide all the spawning sprites
+		animated_bottom.hide()
+		animated_left.hide()
+		animated_right.hide()
+		animated_top.hide()
+		
+		# reset the slime_to_be_spawned
+		slime_to_be_spawned = []
+		# stop the spawn_freeze_timer
+		spawn_freeze_timer.stop()
+		# start the wait after spawn timer
+		wait_after_spawn_timer.start()
 
 # when the wait after spawn timer ends, the gel_cube can move again
 func _on_wait_after_spawn_timer_timeout():

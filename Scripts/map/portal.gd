@@ -10,4 +10,4 @@ func _on_teleporter_body_entered(body):
 	if body is Player:
 		if get_tree().current_scene.name == "Floor5":
 			# change to the game won screen
-			Events.floor_changed.emit("res://Scenes/Dungeon_floors/game_won.tscn")
+			Events.floor_changed.emit("res://Scenes/Dungeon_floors/game_won_2.tscn")

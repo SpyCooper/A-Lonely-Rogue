@@ -29,6 +29,7 @@ const ITEM_UI_SLOT = preload("res://Scenes/menus/item_ui_slot.tscn")
 
 # usable item collected UI references=
 @onready var usable_item_ui_slot = $Usable_item/usable_items_ui_container/Usable_Item_UI_slot
+@onready var active_item_text = $"Usable_item/active_item text"
 
 
 # on start
@@ -43,7 +44,7 @@ func _ready():
 	# reset the scroll text animation
 	animation_player.play("RESET")
 	# hides the usable item slot
-	usable_item_ui_slot.hide()
+	hide_usable_item()
 
 # show the corresponding hearts to the players HP and if the player collected a shadow heart
 func refresh_hearts(health, shadow_heart = false):
@@ -214,10 +215,20 @@ func adjust_health_bar(current_health):
 func hide_health_bar():
 	health_bar.hide()
 
-# shows the starting text for floor 1
-func show_starting_text():
+# shows the floor
+func show_floor_text():
 	show_player_health()
 	display_text("Find a way out ...", "Who knows what's down here")
+	if get_tree().current_scene.name == "Floor1":
+		display_text("Floor 1", "Why is the ground so slimy?")
+	elif get_tree().current_scene.name == "Floor2":
+		display_text("Floor 2", "There shouldn't not be any more slimes, right?")
+	elif get_tree().current_scene.name == "Floor3":
+		display_text("Floor 3", "Sound like the dead down here...")
+	elif get_tree().current_scene.name == "Floor4":
+		display_text("Floor 4", "Did that shadow just move?")
+	elif get_tree().current_scene.name == "Floor5":
+		display_text("Floor 5", "Time to get out...")
 
 # changes the key amount to match the key amount inputted
 func refresh_key_amount(key_amount):
@@ -372,6 +383,7 @@ func play_poorly_made_voodoo_doll_fire():
 func current_usable_item(usable_item : ItemType.type):
 	# show the usable item slot
 	usable_item_ui_slot.show()
+	active_item_text.show()
 	# matches the item type of item
 	if usable_item == ItemType.type.dash_boots:
 		usable_item_ui_slot.get_animated_sprite().play("dash_boots")
@@ -390,6 +402,7 @@ func used_usable_item(time):
 # hides the usable_item
 func hide_usable_item():
 	usable_item_ui_slot.hide()
+	active_item_text.hide()
 
 func adjust_usable_item_stack_amount(stack_amount : int):
 	usable_item_ui_slot.adjust_stack(stack_amount)

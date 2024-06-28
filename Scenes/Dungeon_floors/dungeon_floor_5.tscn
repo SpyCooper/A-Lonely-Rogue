@@ -1,12 +1,12 @@
-[gd_scene load_steps=25 format=3 uid="uid://dxreyo0ai8tju"]
+[gd_scene load_steps=24 format=3 uid="uid://dxreyo0ai8tju"]
 
 [ext_resource type="Script" path="res://Scripts/map/dungeon_floor.gd" id="1_ygtwv"]
-[ext_resource type="PackedScene" uid="uid://duv7i8yak343i" path="res://Scenes/HUD.tscn" id="2_ta3sb"]
+[ext_resource type="PackedScene" uid="uid://duv7i8yak343i" path="res://Scenes/menus/HUD.tscn" id="2_ta3sb"]
 [ext_resource type="PackedScene" uid="uid://b52og3hhvj0k3" path="res://Scenes/menus/pause_menu.tscn" id="3_yx6x7"]
 [ext_resource type="Theme" uid="uid://pv4evjjac8wt" path="res://Assets/general_theme.tres" id="4_rp8nv"]
 [ext_resource type="PackedScene" uid="uid://bigg81dibglne" path="res://Scenes/menus/options_menu.tscn" id="5_60ylx"]
 [ext_resource type="PackedScene" uid="uid://dc0xlg20ucy3n" path="res://Scenes/menus/catalog.tscn" id="6_6xsaq"]
-[ext_resource type="Script" path="res://Scripts/map/Transition Camera.gd" id="7_ulkmb"]
+[ext_resource type="PackedScene" uid="uid://dxlj826ndney4" path="res://Scenes/map/transition_camera.tscn" id="6_8b26c"]
 [ext_resource type="Texture2D" uid="uid://drktqhtj5vluu" path="res://Assets/Sprites/map/TileSet.png" id="8_fhr48"]
 [ext_resource type="PackedScene" uid="uid://dahgvmrgtix2i" path="res://Scenes/player/player.tscn" id="9_kpeox"]
 [ext_resource type="AudioStream" uid="uid://de1jje6nelok4" path="res://Assets/Audio/background music/bgm029-dark-fantasy-horror-mystery-horror-148349.mp3" id="10_arma7"]
@@ -17,7 +17,6 @@
 [ext_resource type="PackedScene" uid="uid://bycygvf0dkbr1" path="res://Scenes/items/heart_2_pickup.tscn" id="15_5jcnp"]
 [ext_resource type="PackedScene" uid="uid://lnvy0o75ud8f" path="res://Scenes/enemies/morphed_shade.tscn" id="16_r660b"]
 [ext_resource type="PackedScene" uid="uid://bwwi5pgmppd0k" path="res://Scenes/Dungeon_floors/portal.tscn" id="17_etrge"]
-[ext_resource type="PackedScene" uid="uid://dkv6yw1egf4o1" path="res://Scenes/items/bomb_item.tscn" id="24_oy8fw"]
 
 [sub_resource type="Animation" id="Animation_27xwy"]
 length = 0.001
@@ -137,11 +136,7 @@ visible = false
 [node name="Catalog" parent="CanvasLayer" instance=ExtResource("6_6xsaq")]
 visible = false
 
-[node name="Transition Camera" type="Camera2D" parent="."]
-zoom = Vector2(3.31, 3.31)
-position_smoothing_enabled = true
-position_smoothing_speed = 10.0
-script = ExtResource("7_ulkmb")
+[node name="Transition Camera" parent="." instance=ExtResource("6_8b26c")]
 
 [node name="void_background" type="TileMap" parent="."]
 z_index = -7
@@ -234,8 +229,5 @@ position = Vector2(0, -1494)
 
 [node name="morphed_shade" parent="." instance=ExtResource("16_r660b")]
 position = Vector2(0, -1256)
-
-[node name="bomb_item" parent="." instance=ExtResource("24_oy8fw")]
-position = Vector2(-75, 35)
 
 [connection signal="timeout" from="CanvasLayer/Fade_color/Fade_timer" to="." method="_on_fade_timer_timeout"]

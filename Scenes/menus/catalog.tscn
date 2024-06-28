@@ -168,23 +168,26 @@ offset_right = 631.0
 offset_bottom = 322.0
 script = ExtResource("1_mndmm")
 
-[node name="ColorRect" type="ColorRect" parent="."]
+[node name="CenterContainer" type="CenterContainer" parent="."]
 layout_mode = 0
-offset_left = -631.0
-offset_top = -322.0
-offset_right = 649.0
-offset_bottom = 398.0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="ColorRect" type="ColorRect" parent="CenterContainer"]
+layout_mode = 2
 color = Color(0, 0, 0, 0.00392157)
 
 [node name="TabContainer" type="TabContainer" parent="."]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -368.0
-offset_top = -255.0
-offset_right = 366.0
-offset_bottom = 297.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -367.0
+offset_top = -253.0
+offset_right = 367.0
+offset_bottom = 299.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_umit2")

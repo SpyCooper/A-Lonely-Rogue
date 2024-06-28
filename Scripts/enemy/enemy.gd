@@ -76,6 +76,8 @@ func take_damage(damage, attack_identifer, is_effect):
 	if attack_can_hit:
 		# deal damage
 		health -= damage
+		# add the damage to the player's stats
+		PlayerData.damage_dealt += damage
 		# if health <= 0 kills the enemy
 		if health <= 0:
 			enemy_slain()

@@ -30,7 +30,7 @@ var can_move = true
 # sets the enemy's stats and references
 func _ready():
 	speed = 0.0
-	health = 7
+	health = 9
 	sleep()
 	player = Events.player
 	max_health = health
@@ -93,6 +93,8 @@ func take_damage(damage, attack_identifer, is_effect):
 		attacks_that_hit += [attack_identifer]
 		# subtracts the health
 		health -= damage
+		# add the damage to the player's stats
+		PlayerData.damage_dealt += damage
 		# if health is greater than 0
 		if health > 0:
 			# plays the hit animation
@@ -131,16 +133,18 @@ func _on_spawn_timer_timeout():
 
 # when the enemy attacks
 func attack():
-	# play the attack sound
-	attack_sound.play()
-	# set can attack to false
-	can_attack = false
-	# spawn the shadow bolt
-	var shadow_bolt = SHADOW_BOLT.instantiate()
-	shadow_bolt.position = summoning_circle.position
-	add_child(shadow_bolt)
-	# tell the shadow bolt that it spawned
-	shadow_bolt.spawned(self, true)
+	# checks to make sure the character isn't dying
+	if !dying:
+		# play the attack sound
+		attack_sound.play()
+		# set can attack to false
+		can_attack = false
+		# spawn the shadow bolt
+		var shadow_bolt = SHADOW_BOLT.instantiate()
+		shadow_bolt.position = summoning_circle.position
+		add_child(shadow_bolt)
+		# tell the shadow bolt that it spawned
+		shadow_bolt.spawned(self, true)
 
 # when shadow bolt gone is called by a shadow bolt
 func shadow_bolt_gone():

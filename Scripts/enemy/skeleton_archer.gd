@@ -116,6 +116,8 @@ func take_damage(damage, attack_identifer, is_effect):
 		attacks_that_hit += [attack_identifer]
 		# subtracts the health
 		health -= damage
+		# add the damage to the player's stats
+		PlayerData.damage_dealt += damage
 		# if health is greater than 0
 		if health > 0:
 			# plays the hit animation
@@ -150,42 +152,48 @@ func _on_spawn_timer_timeout():
 
 # when the enemy attacking
 func attack():
-	# set bool values
-	can_attack = false
-	can_move = false
-	attacking = true
-	# reset can attack timer
-	can_attack_timer = can_attack_timer_max
-	# play the attack animation for the current direction
-	if current_direction == Enemy.look_direction.right:
-		animated_sprite.play("attack_right")
-	elif current_direction == Enemy.look_direction.left:
-		animated_sprite.play("attack_left")
-	# play the attack animation timer
-	attack_animation_timer.start()
-	# play the arrow spawn timer
-	arrow_spawn_timer.start()
+	# checks to make sure the character isn't dying
+	if !dying:
+		# set bool values
+		can_attack = false
+		can_move = false
+		attacking = true
+		# reset can attack timer
+		can_attack_timer = can_attack_timer_max
+		# play the attack animation for the current direction
+		if current_direction == Enemy.look_direction.right:
+			animated_sprite.play("attack_right")
+		elif current_direction == Enemy.look_direction.left:
+			animated_sprite.play("attack_left")
+		# play the attack animation timer
+		attack_animation_timer.start()
+		# play the arrow spawn timer
+		arrow_spawn_timer.start()
 
 # when the attack animation timer ends
 func _on_attack_animation_timer_timeout():
-	# set can move and attacking
-	can_move = true
-	attacking = false
+	# checks to make sure the character isn't dying
+	if !dying:
+		# set can move and attacking
+		can_move = true
+		attacking = false
 
 # when the arrow spawn timer ends
 func _on_arrow_spawn_timer_timeout():
-	# play the attack sound
-	attack_sound.play()
-	# get the player position
-	player_position = player.position
-	target_position = (player_position - global_position).normalized()
-	# spawn the arrow
-	var arrow = ARROW.instantiate()
-	get_parent().add_child(arrow)
-	# set the arrow's position
-	arrow.global_position = global_position
-	# tell the arrow that it's spawned
-	arrow.spawned(target_position)
+	# checks to make sure the character isn't dying
+	if !dying:
+		# play the attack sound
+		attack_sound.play()
+		# get the player position
+		player_position = player.position
+		target_position = (player_position - global_position).normalized()
+		# spawn the arrow
+		var arrow = ARROW.instantiate()
+		get_parent().add_child(arrow)
+		# set the arrow's position
+		arrow.global_position = global_position
+		# tell the arrow that it's spawned
+		arrow.spawned(target_position)
 
 # returns the animated sprite
 func get_animated_sprite():

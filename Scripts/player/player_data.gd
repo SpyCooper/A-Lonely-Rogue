@@ -10,6 +10,8 @@ var current_pet_health = 0
 
 var health_healed = 0
 var damage_taken = 0
+var damage_dealt = 0
+var enemies_killed = 0
 var items_used = []
 
 # clears the data saved for the player
@@ -28,4 +30,6 @@ func clear_run_data():
 	
 	health_healed = 0
 	damage_taken = 0
+	damage_dealt = 0
+	enemies_killed = 0
 	items_used = []

@@ -118,6 +118,10 @@ func take_damage(damage, attack_identifer, is_effect):
 		attacks_that_hit += [attack_identifer]
 		# deals the damage to the enemy
 		health -= damage
+		# add the damage to the player's stats
+		PlayerData.damage_dealt += damage
+		# adjust the boss health bar in the HUD
+		hud.adjust_health_bar(health)
 		# plays the hit sound if the HP after damage is > 0
 		if health > 0:
 			# plays the hit animation
@@ -137,8 +141,6 @@ func take_damage(damage, attack_identifer, is_effect):
 			animated_sprite.play("dying")
 			# plays the death sound
 			death_sound.play()
-		# adjust the boss health bar in the HUD
-		hud.adjust_health_bar(health)
 
 # returns the animated sprite
 func get_animated_sprite():
@@ -209,34 +211,38 @@ func random_attack():
 
 # when the golem is doing a laser attack
 func laser_attack():
-	# look in the correct direction
-	if current_direction == look_direction.right:
-		animated_sprite.play("laser_right")
-	elif current_direction == look_direction.left:
-		animated_sprite.play("laser_left")
-	# start the laser spawn timer
-	laser_spawn_timer.start()
-	# start the laser attack end timer
-	laser_attack_end_timer.start()
+	# checks to make sure the character isn't dying
+	if !dying:
+		# look in the correct direction
+		if current_direction == look_direction.right:
+			animated_sprite.play("laser_right")
+		elif current_direction == look_direction.left:
+			animated_sprite.play("laser_left")
+		# start the laser spawn timer
+		laser_spawn_timer.start()
+		# start the laser attack end timer
+		laser_attack_end_timer.start()
 
 # when the laser spawn timer ends
 func _on_laser_spawn_timer_timeout():
-	# set the correct laser spawn location
-	var laser_spawn_location = laser_spawn_right_location
-	if current_direction == look_direction.left:
-		laser_spawn_location = laser_spawn_left_location
-	# get the player position
-	player_position = player.position
-	target_position = (player_position - laser_spawn_location.global_position).normalized()
-	# spawn the laser
-	var laser = LASER.instantiate()
-	get_parent().add_child(laser)
-	# set the laser's position
-	laser.global_position = laser_spawn_location.global_position
-	# tell the laser that it's spawned
-	laser.spawned(target_position)
-	# play the laser attack sound
-	laser_attack_sound.play()
+	# checks to make sure the character isn't dying
+	if !dying:
+		# set the correct laser spawn location
+		var laser_spawn_location = laser_spawn_right_location
+		if current_direction == look_direction.left:
+			laser_spawn_location = laser_spawn_left_location
+		# get the player position
+		player_position = player.position
+		target_position = (player_position - laser_spawn_location.global_position).normalized()
+		# spawn the laser
+		var laser = LASER.instantiate()
+		get_parent().add_child(laser)
+		# set the laser's position
+		laser.global_position = laser_spawn_location.global_position
+		# tell the laser that it's spawned
+		laser.spawned(target_position)
+		# play the laser attack sound
+		laser_attack_sound.play()
 
 # when the laser attack end timer ends
 func _on_laser_attack_end_timer_timeout():
@@ -245,21 +251,23 @@ func _on_laser_attack_end_timer_timeout():
 
 # summons vines
 func summon_vines():
-	# play the correct vine summon animation
-	if current_direction == look_direction.right:
-		animated_sprite.play("vines_summon_right")
-	elif current_direction == look_direction.left:
-		animated_sprite.play("vines_summon_left")
-	# play the attack sound
-	attack_sound.play()
-	# sets a temp position to spawn the vines
-	summon_vines_temp_pos = player.global_position
-	# start the summon vines timer (for the animation)
-	summon_vines_timer.start()
-	# start the summon vines spawn timer (used to actually spawn the vines)
-	summon_vines_spawn_timer.start()
-	# start the delayed player position timer (used to get a closer player position to when the vines spawn)
-	delay_player_position_timer.start()
+	# checks to make sure the character isn't dying
+	if !dying:
+		# play the correct vine summon animation
+		if current_direction == look_direction.right:
+			animated_sprite.play("vines_summon_right")
+		elif current_direction == look_direction.left:
+			animated_sprite.play("vines_summon_left")
+		# play the attack sound
+		attack_sound.play()
+		# sets a temp position to spawn the vines
+		summon_vines_temp_pos = player.global_position
+		# start the summon vines timer (for the animation)
+		summon_vines_timer.start()
+		# start the summon vines spawn timer (used to actually spawn the vines)
+		summon_vines_spawn_timer.start()
+		# start the delayed player position timer (used to get a closer player position to when the vines spawn)
+		delay_player_position_timer.start()
 
 # when the summon vines timer ends
 func _on_summon_vines_timer_timeout():
@@ -268,13 +276,15 @@ func _on_summon_vines_timer_timeout():
 
 # when the summon vines spawn timer ends
 func _on_summon_vines_spawn_timer_timeout():
-	# spawn the vine area
-	var vine_area = VINE_AREA.instantiate()
-	get_parent().add_child(vine_area)
-	# tell the vine area that it's spawned
-	vine_area.spawned(self, summon_vines_temp_pos)
-	# set the active vines to true
-	vines_active = true
+	# checks to make sure the character isn't dying
+	if !dying:
+		# spawn the vine area
+		var vine_area = VINE_AREA.instantiate()
+		get_parent().add_child(vine_area)
+		# tell the vine area that it's spawned
+		vine_area.spawned(self, summon_vines_temp_pos)
+		# set the active vines to true
+		vines_active = true
 
 # when the vine area leaves, it calls this
 func vines_expired():
@@ -288,16 +298,18 @@ func _on_delay_player_position_timer_timeout():
 
 # when the golem does a vine spin attack
 func vine_spin_attack():
-	# sets the correct vine spin animation
-	if current_direction == look_direction.right:
-		animated_sprite.play("vine_spin_right")
-	elif current_direction == look_direction.left:
-		animated_sprite.play("vine_spin_left")
-	# play the attack sound
-	attack_sound.play()
-	# start the vine spin timers
-	vine_spin_animation_timer.start()
-	vine_spin_summon_timer.start()
+	# checks to make sure the character isn't dying
+	if !dying:
+		# sets the correct vine spin animation
+		if current_direction == look_direction.right:
+			animated_sprite.play("vine_spin_right")
+		elif current_direction == look_direction.left:
+			animated_sprite.play("vine_spin_left")
+		# play the attack sound
+		attack_sound.play()
+		# start the vine spin timers
+		vine_spin_animation_timer.start()
+		vine_spin_summon_timer.start()
 
 # when the vines spin animation timer ends
 func _on_vine_spin_animation_timer_timeout():
@@ -306,10 +318,12 @@ func _on_vine_spin_animation_timer_timeout():
 
 # when the vines spin summon timer ends
 func _on_vine_spin_summon_timer_timeout():
-	# spawns the vine spin
-	var vine_spin_scene = VINE_SPIN.instantiate()
-	get_parent().add_child(vine_spin_scene)
-	vine_spin_scene.global_position = player.global_position
+	# checks to make sure the character isn't dying
+	if !dying:
+		# spawns the vine spin
+		var vine_spin_scene = VINE_SPIN.instantiate()
+		get_parent().add_child(vine_spin_scene)
+		vine_spin_scene.global_position = player.global_position
 
 # when the attacks end
 func attack_end():

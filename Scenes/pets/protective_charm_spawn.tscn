@@ -152,7 +152,7 @@ shape = SubResource("CircleShape2D_7uyc8")
 
 [node name="star_sound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_4acsk")
-volume_db = 3.0
+volume_db = 5.0
 bus = &"Sound Effect"
 
 [node name="Hit_Flash_animation_player" type="AnimationPlayer" parent="."]
