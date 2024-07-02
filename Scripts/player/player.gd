@@ -212,6 +212,7 @@ func _physics_process(_delta):
 				blade_instance.position = position + click_position_normalized*3
 				blade_instance.spawned(click_position_normalized, current_type, self, current_attack_identifier, knife_speed_bonus)
 				get_parent().add_child(blade_instance)
+				blade_instance.global_position = animated_sprite.global_position
 				# plays the knife throw sound when the blade is spawned
 				woosh_sound.play()
 				# if the player has triple blades, spawn the two other blades
@@ -224,6 +225,7 @@ func _physics_process(_delta):
 					blade_instance_2.position = position + rad_added_bottom*3
 					blade_instance_2.spawned(rad_added_bottom, current_type, self, current_attack_identifier, knife_speed_bonus)
 					get_parent().add_child(blade_instance_2)
+					blade_instance_2.global_position = animated_sprite.global_position
 					# top blade
 					var rad_added_top = Vector2(cos(radians - 0.25), sin(radians - 0.25))
 					rad_added_top = rad_added_top.normalized()
@@ -231,6 +233,7 @@ func _physics_process(_delta):
 					blade_instance_3.position = position + rad_added_top*3
 					blade_instance_3.spawned(rad_added_top, current_type, self, current_attack_identifier, knife_speed_bonus)
 					get_parent().add_child(blade_instance_3)
+					blade_instance_3.global_position = animated_sprite.global_position
 				# resets the time to fire
 				time_to_fire = time_to_fire_max
 				# increments the attack identifier
@@ -733,7 +736,7 @@ func picked_up_item(item, display_text = true, sound = true, add_to_items_used =
 	elif item == ItemType.type.protective_charm:
 		# display the item text
 		if display_text:
-			hud.display_text("Aquired a Protective Charm!", "The stasr will protect you!")
+			hud.display_text("Aquired a Protective Charm!", "The stars will protect you!")
 		# adds the pet item and spawns in the pet to the player based on the item
 		add_pet(item)
 		# check if the item needs to be added to items used
@@ -772,7 +775,7 @@ func picked_up_item(item, display_text = true, sound = true, add_to_items_used =
 	elif item == ItemType.type.dead_rogues_head:
 		# display the item text
 		if display_text:
-			hud.display_text("Aquired a Dead Rogue's Head", "His quest will end someday...")
+			hud.display_text("Aquired a Dead Rogue's Head", "His journey must continue...")
 		# adds the pet item and spawns in the pet to the player based on the item
 		add_pet(item)
 		# check if the item needs to be added to items used

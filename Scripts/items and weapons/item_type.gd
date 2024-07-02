@@ -40,6 +40,7 @@ var repeatable_items = [
 	type.key,
 	type.sleek_blades,
 	type.shadow_heart,
+	type.holy_heart,
 	type.bomb,
 ]
 

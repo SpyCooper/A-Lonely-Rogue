@@ -173,7 +173,7 @@ animations = [{
 script = ExtResource("1_hyewn")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -8)
+position = Vector2(0, -6)
 sprite_frames = SubResource("SpriteFrames_6teqi")
 animation = &"attack"
 frame = 10
@@ -192,7 +192,7 @@ wait_time = 0.42
 one_shot = true
 
 [node name="Marker2D" type="Marker2D" parent="."]
-position = Vector2(0, -8)
+position = Vector2(0, -6)
 
 [node name="attack_sound" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_f2aj6")

@@ -55,7 +55,7 @@ var slime_to_be_spawned = []
 func _ready():
 	# basic enemy stats
 	speed = 0.25
-	health = 50
+	health = 60
 	max_health = health
 	# sets references to the player and catalog
 	catalog = Events.catalog
@@ -151,6 +151,9 @@ func take_damage(damage, attack_identifer, is_effect):
 			animated_sprite.play("death")
 			# plays the death sound
 			death_sound.play()
+			# remove the damage player hitbox
+			damage_player.queue_free()
+			remove_hitbox()
 
 # returns the animated sprite
 func get_animated_sprite():

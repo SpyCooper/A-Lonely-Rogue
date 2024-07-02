@@ -7,6 +7,7 @@ extends Enemy
 @onready var hit_sound = $HitSound
 @onready var spawn_sound = $SpawnSound
 @onready var spawn_timer = $Spawn_timer
+@onready var damage_player = $DamagePlayer
 
 # throw rocks variables
 var can_throw = false
@@ -22,6 +23,7 @@ const ROLLING_ROCK = preload("res://Scenes/enemies/rolling_rock/rolling_rock.tsc
 @onready var hit_flash_animation_timer = $Hit_Flash_animation_player/hit_flash_animation_timer
 @onready var hit_flash_animation_player = $Hit_Flash_animation_player
 const ENEMY_HIT_SHADER = preload("res://Scripts/shaders/enemy_hit_shader.gdshader")
+
 # general enemy variables
 var target_position
 var current_direction : look_direction
@@ -32,7 +34,7 @@ var can_move = true
 # sets the enemy's stats and references
 func _ready():
 	speed = .5
-	health = 10
+	health = 12
 	sleep()
 	player = Events.player
 	max_health = health
@@ -146,6 +148,9 @@ func take_damage(damage, attack_identifer, is_effect):
 			# plays the sound sound and starts the death timer
 			death_timer.start()
 			death_sound.play()
+			# remove the damage player hitbox
+			damage_player.queue_free()
+			remove_hitbox()
 
 # when death timer ends
 func _on_death_timer_timeout():

@@ -31,6 +31,7 @@ var dusted_stack = 0
 # object references
 var player
 var catalog
+@onready var hitbox = $hitbox
 
 # defines a basic reay function for all enemies
 ## NOTE: ALL ENEMIES NEED TO HAVE THEIR OWN READY FUNCTION
@@ -181,3 +182,7 @@ func is_spawning():
 # returns if the enemy is currently going through a death animation
 func is_dying():
 	return dying
+
+# removes the enemy's hitbox
+func remove_hitbox():
+	hitbox.queue_free()

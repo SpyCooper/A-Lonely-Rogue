@@ -15,6 +15,7 @@ var type : BladeType.blade_type = BladeType.blade_type.default
 var player_ref
 var base_damage = 1
 var attack_identifer
+const KNIFE_HIT = preload("res://Scenes/knife_hit.tscn")
 
 # this is called when the player is clicks
 func spawned(click_position, blade_type, player, current_attack_identifier, knife_speed_bonus):
@@ -62,6 +63,11 @@ func _on_body_entered(body):
 				body.add_child(DUST_BLADE_EFFECT.instantiate())
 		# the knife deals damage to the enemies hit
 		body.take_damage(damage, attack_identifer, false)
+	
+	var knife_hit_sound = KNIFE_HIT.instantiate()
+	knife_hit_sound.position = position
+	get_parent().add_child(knife_hit_sound)
+	
 	# if the player has glass blade
 	for blade_type in player_ref.get_current_weapons():
 		if blade_type == BladeType.blade_type.glass:
@@ -70,6 +76,7 @@ func _on_body_entered(body):
 			glass_explosion_spawn.position = position
 			get_parent().add_child(glass_explosion_spawn)
 			glass_explosion_spawn.emitting = true
+	
 	# removes the knife from the screen
 	queue_free()
 

@@ -1,12 +1,12 @@
-[gd_scene load_steps=12 format=3 uid="uid://qk1ocx2yfygp"]
+[gd_scene load_steps=13 format=3 uid="uid://qk1ocx2yfygp"]
 
 [ext_resource type="Script" path="res://Scripts/map/room.gd" id="1_20rfj"]
 [ext_resource type="Texture2D" uid="uid://drktqhtj5vluu" path="res://Assets/Sprites/map/TileSet.png" id="2_ue01v"]
-[ext_resource type="Texture2D" uid="uid://kxhil66jucyt" path="res://Assets/Sprites/map/doors.png" id="3_bjidg"]
+[ext_resource type="Texture2D" uid="uid://cwvcqu2i6y3pd" path="res://Assets/Sprites/map/doors.png" id="3_0fdri"]
 [ext_resource type="Script" path="res://Scripts/map/door_visual.gd" id="4_x3t56"]
 [ext_resource type="PackedScene" uid="uid://besxs1hm25htm" path="res://Scenes/map/door.tscn" id="5_8hrpf"]
 [ext_resource type="PackedScene" uid="uid://ci4t04cng0qhi" path="res://Scenes/map/key_checks.tscn" id="6_gftau"]
-
+[ext_resource type="AudioStream" uid="uid://0ngw3s8rrax2" path="res://Assets/Audio/sound effects/door_closing.mp3" id="6_tapvc"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ltqhq"]
 texture = ExtResource("2_ue01v")
@@ -121,16 +121,14 @@ texture = ExtResource("2_ue01v")
 physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_ltqhq")
 
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_sfl1d"]
-texture = ExtResource("3_bjidg")
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tdabb"]
+texture = ExtResource("3_0fdri")
 0:0/0 = 0
 0:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 0:0/0/physics_layer_0/angular_velocity = 0.0
-0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 1:0/0 = 0
 1:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 1:0/0/physics_layer_0/angular_velocity = 0.0
-1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-8, -8, 8, -8, 8, 8, -8, 8)
 2:0/0 = 0
 2:0/0/physics_layer_0/linear_velocity = Vector2(0, 0)
 2:0/0/physics_layer_0/angular_velocity = 0.0
@@ -161,7 +159,7 @@ texture = ExtResource("3_bjidg")
 
 [sub_resource type="TileSet" id="TileSet_2idqk"]
 physics_layer_0/collision_layer = 1
-sources/0 = SubResource("TileSetAtlasSource_sfl1d")
+sources/0 = SubResource("TileSetAtlasSource_tdabb")
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_td0c5"]
 size = Vector2(306, 149)
@@ -236,9 +234,14 @@ position = Vector2(0, -49)
 
 [node name="key_checks" parent="." instance=ExtResource("6_gftau")]
 
+[node name="door_sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_tapvc")
+volume_db = -5.0
+bus = &"Sound Effect"
+
 [connection signal="body_entered" from="player detector" to="." method="_on_player_detector_body_entered"]
-[connection signal="body_entered" from="enemy detector" to="." method="_on_player_detector_body_entered"]
 [connection signal="body_entered" from="enemy detector" to="." method="_on_enemy_detector_body_entered"]
+[connection signal="body_entered" from="enemy detector" to="." method="_on_player_detector_body_entered"]
 [connection signal="body_exited" from="enemy detector" to="." method="_on_enemy_detector_body_exited"]
 
 [editable path="DoorLeft"]

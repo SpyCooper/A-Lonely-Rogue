@@ -98,29 +98,39 @@ func spawn_item():
 	var random_item_key = rng.randi_range(0, item_array.size()-1)
 	var item_has_spawned = false
 	var item_can_spawn = true
+	var is_repeatable = false
 	
 	# for each item in items that have been spawned
 	for item in ItemType.get_spawned_items():
 		# if the item that has been spawned matches the random item
 		if item == item_types_array[random_item_key]:
-			for type in ItemType.repeatable_items:
-				# if the item is not a repeatable item type
-				if (item_types_array[random_item_key] != type):
-					# mark that the item has already been spawned
-					item_has_spawned = true
+			item_has_spawned = true
+	
+	for repeatable_type in ItemType.repeatable_items:
+		# if the item is not a repeatable item type
+			if item_types_array[random_item_key] == repeatable_type:
+				# mark that the item has already been spawned
+				is_repeatable = true
+				item_has_spawned = false
+	
 	
 	## checks if the item can be spawned
+	# holy heart check
+	if item_types_array[random_item_key] == ItemType.type.holy_heart:
+		# checks to see if the player has collected a shadow_heart
+		if Events.player.shadow_heart_collected == true:
+			# if the player hasn't collected shadow_heart and the type was holy_heart, the item cannot spawn
+			item_can_spawn = true
+			item_has_spawned = false
+		else:
+			item_can_spawn = false
 	# poorly made voodoo doll check
 	if item_types_array[random_item_key] == ItemType.type.poorly_made_voodoo_doll:
 		# if the poorly made voodoo doll has been collected, it cannot be spawned again
 		if Events.player.can_poorly_made_voodoo_doll_be_spawned == false:
 			item_can_spawn = false
-	# checks if the item type is a holy heart
-	elif item_types_array[random_item_key] == ItemType.type.holy_heart:
-		# checks to see if the player has collected a shadow_heart
-		if Events.player.shadow_heart_collected != true:
-			# if the player hasn't collected shadow_heart and the type was holy_heart, the item cannot spawn
-			item_can_spawn = false
+		else:
+			item_can_spawn = true
 	# checks if the item type is a poison_gas
 	elif item_types_array[random_item_key] == ItemType.type.poison_gas:
 		# only allow the spawn of poison gas on floors 3 and 4
@@ -166,7 +176,9 @@ func spawn_item():
 		ItemType.add_spawned_item(item_types_array[random_item_key])
 		# remove the item spawner
 		queue_free()
-	# can'e be spawned or has been spawned, spawn a different item
+	# can't be spawned or has been spawned, spawn a different item
 	else:
 		spawn_item()
+	
+
 	

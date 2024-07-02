@@ -69,7 +69,7 @@ var can_move = true
 func _ready():
 	# basic enemy stats
 	speed = 0.4
-	max_health = 80
+	max_health = 90
 	health = max_health
 	# sets references to the player and catalog
 	catalog = Events.catalog
@@ -161,6 +161,9 @@ func take_damage(damage, attack_identifer, is_effect):
 			death_sound.play()
 			# spawn_sound is the portal sound
 			spawn_sound.play()
+			# remove the damage player hitbox
+			damage_player.queue_free()
+			remove_hitbox()
 
 # returns the animated sprite
 func get_animated_sprite():
@@ -436,26 +439,27 @@ func spawn_unarmed_skeleton():
 func _on_time_before_heal_timer_timeout():
 	# checks to make sure the character isn't dying
 	if !dying:
-		# if the unarmed skeleton still exists
+		# if the unarmed skeleton still exists and isn't dying
 		if unarmed_skeleton != null:
-			# spawn a lightning strike at that location
-			temp_lightning = LIGHTNING.instantiate()
-			add_child(temp_lightning)
-			# adjust the lightning position
-			temp_lightning.global_position = unarmed_skeleton.global_position + Vector2(0, -125)
-			# start the temporary lightning timer
-			temp_lightning_timer.start()
-			# play the lightning strike sound effect
-			lightning_strike_sound.play()
-			# despawn the unarmed skeleton
-			unarmed_skeleton.despawn()
-			# heal the lich
-			heal()
-			# plays the correct heal ending success animation
-			if current_direction == look_direction.right:
-				animated_sprite.play("heal_end_success_right")
-			else:
-				animated_sprite.play("heal_end_success_left")
+			if !unarmed_skeleton.is_dying():
+				# spawn a lightning strike at that location
+				temp_lightning = LIGHTNING.instantiate()
+				add_child(temp_lightning)
+				# adjust the lightning position
+				temp_lightning.global_position = unarmed_skeleton.global_position + Vector2(0, -125)
+				# start the temporary lightning timer
+				temp_lightning_timer.start()
+				# play the lightning strike sound effect
+				lightning_strike_sound.play()
+				# despawn the unarmed skeleton
+				unarmed_skeleton.despawn()
+				# heal the lich
+				heal()
+				# plays the correct heal ending success animation
+				if current_direction == look_direction.right:
+					animated_sprite.play("heal_end_success_right")
+				else:
+					animated_sprite.play("heal_end_success_left")
 		# if the skeleton does not exist
 		else:
 			# play the correct heal ending fail animation

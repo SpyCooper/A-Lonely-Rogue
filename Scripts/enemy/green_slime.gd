@@ -6,7 +6,7 @@ extends slime
 # these are different from the blue slimes
 func _ready():
 	speed = .6
-	health = 7
+	health = 8
 	sleep()
 	player = Events.player
 	max_health = health

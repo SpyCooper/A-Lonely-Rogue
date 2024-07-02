@@ -7,7 +7,7 @@ func _ready():
 	# sets the pet variables
 	max_health = 1
 	health = max_health
-	distance_from_player = 20
+	distance_from_player = 25
 	speed = .05
 	position += Vector2(0, distance_from_player)
 	# plays the pet sound

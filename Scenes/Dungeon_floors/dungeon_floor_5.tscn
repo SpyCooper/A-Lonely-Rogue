@@ -129,6 +129,7 @@ wait_time = 2.5
 unique_name_in_owner = true
 
 [node name="Pause_menu" parent="CanvasLayer" instance=ExtResource("3_yx6x7")]
+visible = false
 
 [node name="Options_menu" parent="CanvasLayer" instance=ExtResource("5_60ylx")]
 visible = false

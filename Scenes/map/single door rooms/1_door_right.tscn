@@ -1,11 +1,11 @@
-[gd_scene load_steps=11 format=3 uid="uid://bsx1c82kckqom"]
+[gd_scene load_steps=12 format=3 uid="uid://bsx1c82kckqom"]
 
 [ext_resource type="Script" path="res://Scripts/map/room.gd" id="1_yj2yj"]
 [ext_resource type="Texture2D" uid="uid://drktqhtj5vluu" path="res://Assets/Sprites/map/TileSet.png" id="2_v8o5f"]
-[ext_resource type="Texture2D" uid="uid://kxhil66jucyt" path="res://Assets/Sprites/map/doors.png" id="3_fbt7c"]
+[ext_resource type="Texture2D" uid="uid://cwvcqu2i6y3pd" path="res://Assets/Sprites/map/doors.png" id="3_fbt7c"]
 [ext_resource type="Script" path="res://Scripts/map/door_visual.gd" id="4_cytxw"]
 [ext_resource type="PackedScene" uid="uid://besxs1hm25htm" path="res://Scenes/map/door.tscn" id="5_hw3ag"]
-
+[ext_resource type="AudioStream" uid="uid://0ngw3s8rrax2" path="res://Assets/Audio/sound effects/door_closing.mp3" id="6_5lx4n"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_ltqhq"]
 texture = ExtResource("2_v8o5f")
@@ -206,6 +206,11 @@ position = Vector2(172, 0)
 
 [node name="Marker2D" parent="DoorRight" index="1"]
 position = Vector2(46, 0)
+
+[node name="door_sound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_5lx4n")
+volume_db = -5.0
+bus = &"Sound Effect"
 
 [connection signal="body_entered" from="player detector" to="." method="_on_player_detector_body_entered"]
 [connection signal="body_entered" from="enemy detector" to="." method="_on_player_detector_body_entered"]

@@ -187,6 +187,9 @@ func take_damage(damage, attack_identifer, is_effect):
 			death_sound.play()
 			# stops the boss music
 			boss_music.stop()
+			# remove the damage player hitbox
+			damage_player.queue_free()
+			remove_hitbox()
 
 # returns the animated sprite
 func get_animated_sprite():

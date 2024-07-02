@@ -5,6 +5,7 @@ extends Node2D
 @onready var door_right = $DoorVisualRight
 @onready var door_down = $DoorVisualDown
 @onready var door_left = $DoorVisualLeft
+@onready var door_sound = $door_sound
 
 # sets up the number of enemies
 var number_of_enemies = 0
@@ -48,8 +49,9 @@ func _on_enemy_detector_body_exited(body):
 	if body is Enemy:
 		# remove a enemy from the count
 		number_of_enemies -= 1
+		enemies_spawned.remove_at(enemies_spawned.find(body))
 		# if all enemies are gone, disable the doors
-		if number_of_enemies == 0:
+		if number_of_enemies == 0 && enemies_spawned.size() == 0:
 			disable_all_doors()
 
 # hide all doors

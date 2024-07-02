@@ -242,7 +242,7 @@ collision_layer = 12
 collision_mask = 9
 script = ExtResource("1_fr1f0")
 
-[node name="Hitbox" type="CollisionShape2D" parent="."]
+[node name="hitbox" type="CollisionShape2D" parent="."]
 position = Vector2(0, -3)
 shape = SubResource("CircleShape2D_mj62a")
 

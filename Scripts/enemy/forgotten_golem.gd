@@ -52,7 +52,7 @@ var can_move = true
 func _ready():
 	# basic enemy stats
 	speed = 0.0
-	health = 90
+	health = 100
 	max_health = health
 	# sets references to the player and catalog
 	catalog = Events.catalog
@@ -141,6 +141,9 @@ func take_damage(damage, attack_identifer, is_effect):
 			animated_sprite.play("dying")
 			# plays the death sound
 			death_sound.play()
+			# remove the damage player hitbox
+			damage_player.queue_free()
+			remove_hitbox()
 
 # returns the animated sprite
 func get_animated_sprite():

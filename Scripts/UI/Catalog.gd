@@ -538,7 +538,7 @@ func unlock_enemy(enemy):
 			# set the enemy to be unlocked
 			morphed_shade_unlocked = true
 		# increase the kill count and update the counts in the catalog
-		shade_kill_count += 1
+		morphed_shade_kill_count += 1
 	update_kill_counts()
 	# saves the enemies to the catalog file
 	save_enemies()

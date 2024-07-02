@@ -11,6 +11,7 @@ extends Enemy
 @onready var hit_flash_animation_player = $Hit_Flash_animation_player
 @onready var hit_flash_animation_timer = $Hit_Flash_animation_player/hit_flash_animation_timer
 const ENEMY_HIT_SHADER = preload("res://Scripts/shaders/enemy_hit_shader.gdshader")
+@onready var damage_player = $DamagePlayer
 
 # throw tornado variables
 var can_throw = false
@@ -31,7 +32,7 @@ var can_move = true
 # sets the enemy's stats and references
 func _ready():
 	speed = .7
-	health = 8
+	health = 10
 	sleep()
 	player = Events.player
 	max_health = health
@@ -77,7 +78,7 @@ func _physics_process(_delta):
 			elif current_direction == look_direction.right:
 				animated_sprite.play("move_right")
 			# if the air elemental can throw tornados
-			if can_throw:
+			if can_throw && position.distance_to(player_position) < 80:
 				# reset the throw
 				can_throw = false
 				# reset the throw timer
@@ -130,6 +131,9 @@ func take_damage(damage, attack_identifer, is_effect):
 			# plays the sound sound and starts the death timer
 			death_timer.start()
 			death_sound.play()
+			# remove the damage player hitbox
+			damage_player.queue_free()
+			remove_hitbox()
 
 # when death timer ends
 func _on_death_timer_timeout():

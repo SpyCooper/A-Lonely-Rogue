@@ -165,7 +165,7 @@ bus = &"Music"
 [node name="4_door_room" parent="." instance=ExtResource("12_emqrm")]
 position = Vector2(0, 208)
 
-[node name="DoorVisualDown" parent="4_door_room" index="5"]
+[node name="DoorVisualDown" parent="4_door_room" index="9"]
 locked = true
 
 [node name="2_door_hallway_horizontal" parent="." instance=ExtResource("13_as714")]
