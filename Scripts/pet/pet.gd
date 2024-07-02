@@ -41,7 +41,7 @@ func set_pet_hp(hp):
 	health = hp
 
 # melee damage for a pet
-func _on_body_entered(body):
+func _on_body_entered(_body):
 	pass
 
 func kill_pet():

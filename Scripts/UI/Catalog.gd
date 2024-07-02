@@ -164,7 +164,7 @@ func load_data():
 		while saved_enemies.get_position() < saved_enemies.get_length():
 			var json_string = saved_enemies.get_line()
 			var json = JSON.new()
-			var parse_result = json.parse(json_string)
+			json.parse(json_string)
 			var data = json.get_data()
 			for enemy in data:
 				if enemy == "blue_slime_unlocked":
@@ -259,7 +259,7 @@ func load_data():
 		while saved_items.get_position() < saved_items.get_length():
 			var json_string = saved_items.get_line()
 			var json = JSON.new()
-			var parse_result = json.parse(json_string)
+			json.parse(json_string)
 			var data = json.get_data()
 			for item in data:
 				if item == "speed_boots_unlocked":

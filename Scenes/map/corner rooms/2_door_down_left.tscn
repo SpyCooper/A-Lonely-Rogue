@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://drktqhtj5vluu" path="res://Assets/Sprites/map/TileSet.png" id="2_ft0qk"]
 [ext_resource type="Texture2D" uid="uid://cwvcqu2i6y3pd" path="res://Assets/Sprites/map/doors.png" id="3_31xa2"]
 [ext_resource type="Script" path="res://Scripts/map/door_visual.gd" id="4_d46mw"]
-[ext_resource type="PackedScene" uid="uid://besxs1hm25htm" path="res://Scenes/map/door.tscn" id="5_2ca55"]
+[ext_resource type="PackedScene" uid="uid://besxs1hm25htm" path="res://Scenes/map/room_components/door_tp.tscn" id="5_2ca55"]
 [ext_resource type="PackedScene" uid="uid://ci4t04cng0qhi" path="res://Scenes/map/key_checks.tscn" id="6_bw46j"]
 [ext_resource type="AudioStream" uid="uid://0ngw3s8rrax2" path="res://Assets/Audio/sound effects/door_closing.mp3" id="7_y7wof"]
 

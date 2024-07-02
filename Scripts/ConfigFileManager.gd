@@ -105,12 +105,10 @@ func save_window_settings(key : String, value):
 	config.save(FILE_PATH)
 
 func load_window_settings():
-	var keybindings = {}
 	# each keybindings in the keybindings sections
 	var keys = config.get_section_keys("window settings")
 	# for each key in the keybindings
 	for key in keys:
-		var input_event
 		# get the string for the keybinding
 		var value = config.get_value("window settings", key)
 		if key == "fullscreen":

@@ -14,7 +14,7 @@ func _ready():
 	fire_ball_sound.play()
 
 # ignore damage
-func take_damage(damage):
+func take_damage(_damage):
 	pass
 
 # melee damage for a pet

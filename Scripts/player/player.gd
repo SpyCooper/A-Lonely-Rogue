@@ -48,6 +48,7 @@ var dusted = false
 var dusted_stack = 0
 var dusted_slow = 0.35
 var attacks_that_have_hit = []
+var current_room = null
 
 # knife variables
 var poisoned_blade = false
@@ -433,7 +434,7 @@ func player_adjust_health(change : int):
 	if !immunity:
 		# checks if there was a health change
 		var did_health_change = false
-		var health_change = 0
+		var health_change
 		# if the change will put the the player's health above the max, set to the max
 		if(player_health + change > PLAYER_HEALTH_MAX):
 			# add the health change
@@ -455,9 +456,9 @@ func player_adjust_health(change : int):
 		if did_health_change:
 			# add the change to the health healed and damage taken
 			if change > 0:
-				PlayerData.health_healed += change
+				PlayerData.health_healed += health_change
 			elif change < 0:
-				PlayerData.damage_taken += abs(change)
+				PlayerData.damage_taken += abs(health_change)
 		# if health is <= 0
 		if player_health <= 0:
 			# if the player has a poorly made voodoo doll
@@ -604,6 +605,8 @@ func picked_up_item(item, display_text = true, sound = true, add_to_items_used =
 		# display the item text
 		if display_text:
 			hud.display_text("Aquired a Key!", "Used to open a locked doors!")
+		# lets the current room know the player has keys
+		current_room.player_obtained_keys()
 	elif item == ItemType.type.shadow_heart:
 		# if the player already has a shadow heart, add HP
 		if shadow_heart == true:
@@ -823,6 +826,12 @@ func use_key():
 		# return that a key was not used
 		return false
 
+func has_keys():
+	if number_of_keys > 0:
+		return true
+	else:
+		return false
+
 ## ------------------- usable item functions -------------------------------------------
 
 # uses an item
@@ -1022,8 +1031,10 @@ func get_animated_sprite():
 	return animated_sprite
 
 # when the player enters a room
-func room_entered():
+func room_entered(room):
 	# reset the attack identifier
 	current_attack_identifier = 0
 	# reset attack that have hit (used mainly for the morphed shade fight)
 	attacks_that_have_hit = []
+	# sets the current room
+	current_room = room

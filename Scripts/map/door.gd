@@ -1,9 +1,46 @@
-extends Area2D
+extends StaticBody2D
 
-# object references
-@onready var marker_2d = $Marker2D
+@onready var animated_sprite = $AnimatedSprite2D
+@onready var collision_shape = $CollisionShape2D
+@onready var open_timer = $open_timer
 
-# when the player enters the door teleporter, teleport the player to the next room
-func _on_body_entered(body):
-	if body is Player:
-		body.global_position = marker_2d.global_position
+# sets the locked status
+@export var locked = false
+
+func _ready():
+	if locked:
+		lock()
+	else:
+		animated_sprite.play("gone")
+
+# return the locked status
+func is_locked():
+	return locked
+
+# unlock the door
+func unlock():
+	locked = false
+	open_door()
+
+# lock the door
+func lock():
+	locked = true
+	close_door()
+
+func close_door():
+	animated_sprite.play("close")
+
+func open_door():
+	if !locked:
+		animated_sprite.play("open")
+		open_timer.start()
+
+func _on_open_timer_timeout():
+	if collision_shape != null:
+		collision_shape.queue_free()
+
+func disable_door():
+	if !locked:
+		animated_sprite.play("gone")
+		if collision_shape != null:
+			collision_shape.queue_free()

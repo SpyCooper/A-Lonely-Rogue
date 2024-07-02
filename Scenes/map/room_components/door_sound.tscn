@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://b10n6gh82eb6t"]
+
+[ext_resource type="AudioStream" uid="uid://cnigkhow64c1r" path="res://Assets/Audio/sound effects/door_close.mp3" id="1_kx6rc"]
+
+[node name="door_sound" type="AudioStreamPlayer"]
+stream = ExtResource("1_kx6rc")
+volume_db = -5.0
+bus = &"Sound Effect"
