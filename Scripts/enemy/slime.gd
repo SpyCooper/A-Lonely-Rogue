@@ -10,7 +10,6 @@ class_name slime
 @onready var hit_sound = $HitSound
 @onready var death_sound = $DeathSound
 @onready var spawn_sound = $SpawnSound
-@onready var spawn_sound_timer = $Spawn_sound_timer
 @onready var hit_flash_animation_player = $Hit_Flash_animation_player
 @onready var hit_flash_animation_timer = $Hit_Flash_animation_player/hit_flash_animation_timer
 const ENEMY_HIT_SHADER = preload("res://Scripts/shaders/enemy_hit_shader.gdshader")

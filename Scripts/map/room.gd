@@ -11,9 +11,9 @@ extends Node2D
 # sets up the number of enemies
 var enemies_spawned = []
 
-func _ready():
-	# set if the doors are locked, etc
-	top_door.lock()
+#func _ready():
+	## set if the doors are locked, etc
+	#top_door.lock()
 
 # when a body enters the player_detector
 func _on_player_detector_body_entered(body):

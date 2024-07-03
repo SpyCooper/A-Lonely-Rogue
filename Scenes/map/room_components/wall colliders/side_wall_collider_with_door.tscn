@@ -1,15 +1,15 @@
 [gd_scene load_steps=2 format=3 uid="uid://bcifmje2xjvvb"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qb187"]
-size = Vector2(29.5, 66)
+size = Vector2(30.5, 66)
 
 [node name="Left_wall_collider_with_door" type="StaticBody2D"]
 position = Vector2(-176, 0)
 
 [node name="top" type="CollisionShape2D" parent="."]
-position = Vector2(-0.5, -52)
+position = Vector2(-0.25, -52)
 shape = SubResource("RectangleShape2D_qb187")
 
 [node name="bottom" type="CollisionShape2D" parent="."]
-position = Vector2(-0.25, 51)
+position = Vector2(0, 51)
 shape = SubResource("RectangleShape2D_qb187")

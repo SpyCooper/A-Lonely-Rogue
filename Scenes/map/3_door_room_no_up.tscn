@@ -1,0 +1,75 @@
+[gd_scene load_steps=13 format=3 uid="uid://kbe2aiqeulfc"]
+
+[ext_resource type="Script" path="res://Scripts/map/room.gd" id="1_i4jav"]
+[ext_resource type="Texture2D" uid="uid://q8u3vcegdeyf" path="res://Assets/Sprites/map/rooms/3_door_no_up.png" id="2_wcpmw"]
+[ext_resource type="PackedScene" uid="uid://rgs46tyeih8y" path="res://Scenes/map/room_components/wall colliders/bottom_wall_collider_with_door.tscn" id="4_p3umn"]
+[ext_resource type="PackedScene" uid="uid://bcifmje2xjvvb" path="res://Scenes/map/room_components/wall colliders/side_wall_collider_with_door.tscn" id="5_k4x74"]
+[ext_resource type="PackedScene" uid="uid://c22lvxdmhbtwy" path="res://Scenes/map/room_components/player_detector.tscn" id="6_g20p2"]
+[ext_resource type="PackedScene" uid="uid://bwb84wsvb077u" path="res://Scenes/map/room_components/enemy_detector.tscn" id="7_cr6ak"]
+[ext_resource type="PackedScene" uid="uid://besxs1hm25htm" path="res://Scenes/map/room_components/door_tp.tscn" id="8_5egm5"]
+[ext_resource type="PackedScene" uid="uid://c8gymm5o5gc4r" path="res://Scenes/map/room_components/top_bottom_door.tscn" id="9_fxnqy"]
+[ext_resource type="PackedScene" uid="uid://bog8apffuihdu" path="res://Scenes/map/room_components/left_right_door.tscn" id="10_x0jwg"]
+[ext_resource type="PackedScene" uid="uid://ci4t04cng0qhi" path="res://Scenes/map/key_checks.tscn" id="11_0gigj"]
+[ext_resource type="PackedScene" uid="uid://b10n6gh82eb6t" path="res://Scenes/map/room_components/door_sound.tscn" id="12_bcxtp"]
+[ext_resource type="PackedScene" uid="uid://dgoivmdbub18f" path="res://Scenes/map/room_components/wall colliders/top_bottom_wall_collider.tscn" id="12_sieds"]
+
+[node name="3_door_no_up" type="Node2D"]
+z_index = -1
+script = ExtResource("1_i4jav")
+
+[node name="Floor_sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_wcpmw")
+
+[node name="Bottom_wall_collider_with_door" parent="." instance=ExtResource("4_p3umn")]
+
+[node name="Left_wall_collider_with_door" parent="." instance=ExtResource("5_k4x74")]
+
+[node name="Right_wall_collider_with_door2" parent="." instance=ExtResource("5_k4x74")]
+position = Vector2(177, 0)
+
+[node name="top_wall_collider" parent="." instance=ExtResource("12_sieds")]
+position = Vector2(0, -99)
+
+[node name="player detector" parent="." instance=ExtResource("6_g20p2")]
+collision_layer = 2
+
+[node name="enemy detector" parent="." instance=ExtResource("7_cr6ak")]
+
+[node name="DoorTPLeft" parent="." instance=ExtResource("8_5egm5")]
+position = Vector2(-179, 0)
+
+[node name="Marker2D" parent="DoorTPLeft" index="1"]
+position = Vector2(-46, 0)
+
+[node name="DoorTPRight" parent="." instance=ExtResource("8_5egm5")]
+position = Vector2(179, 0)
+
+[node name="Marker2D" parent="DoorTPRight" index="1"]
+position = Vector2(46, 0)
+
+[node name="DoorTPDown" parent="." instance=ExtResource("8_5egm5")]
+position = Vector2(0, 99)
+
+[node name="Marker2D" parent="DoorTPDown" index="1"]
+position = Vector2(0, 48)
+
+[node name="bottom_door" parent="." instance=ExtResource("9_fxnqy")]
+position = Vector2(0, 91)
+
+[node name="left_door" parent="." instance=ExtResource("10_x0jwg")]
+position = Vector2(-165, -3)
+
+[node name="right_door" parent="." instance=ExtResource("10_x0jwg")]
+position = Vector2(166, -3)
+
+[node name="key_checks" parent="." instance=ExtResource("11_0gigj")]
+
+[node name="door_sound" parent="." instance=ExtResource("12_bcxtp")]
+
+[connection signal="body_entered" from="player detector" to="." method="_on_player_detector_body_entered"]
+[connection signal="body_entered" from="enemy detector" to="." method="_on_enemy_detector_body_entered"]
+[connection signal="body_exited" from="enemy detector" to="." method="_on_enemy_detector_body_exited"]
+
+[editable path="DoorTPLeft"]
+[editable path="DoorTPRight"]
+[editable path="DoorTPDown"]
