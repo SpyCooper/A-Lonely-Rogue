@@ -76,7 +76,7 @@ func _physics_process(_delta):
 		# if the player is in the room, the enemy can move, and the game isn't paused
 		if player && can_move && Engine.time_scale != 0.0:
 			# gets the player's position and looks toward it
-			player_position = player.position
+			player_position = player.get_player_position()
 			target_position = (player_position - global_position).normalized()
 			current_direction = get_left_right_look_direction(target_position)
 			# if the golem can attack
@@ -235,7 +235,7 @@ func _on_laser_spawn_timer_timeout():
 		if current_direction == look_direction.left:
 			laser_spawn_location = laser_spawn_left_location
 		# get the player position
-		player_position = player.position
+		player_position = player.get_player_position()
 		target_position = (player_position - laser_spawn_location.global_position).normalized()
 		# spawn the laser
 		var laser = LASER.instantiate()

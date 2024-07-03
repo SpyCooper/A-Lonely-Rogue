@@ -155,6 +155,7 @@ layer_0/tile_data = PackedInt32Array(-4456529, 65536, 2, -4390993, 65536, 2, -43
 
 [node name="Player" parent="." instance=ExtResource("8_sxh6v")]
 unique_name_in_owner = true
+position = Vector2(0, 4)
 
 [node name="3_door_no_up" parent="." instance=ExtResource("21_w5yvv")]
 

@@ -118,7 +118,7 @@ texture = ExtResource("7_cdgba")
 [sub_resource type="TileSet" id="TileSet_pnge6"]
 sources/0 = SubResource("TileSetAtlasSource_a4f5t")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_u1114"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_17xuq"]
 resource_local_to_scene = true
 
 [node name="Floor1" type="Node2D"]
@@ -162,7 +162,7 @@ layer_0/tile_data = PackedInt32Array(-4456529, 65536, 2, -4390993, 65536, 2, -43
 
 [node name="Player" parent="." instance=ExtResource("8_sndu2")]
 unique_name_in_owner = true
-position = Vector2(1, 0)
+position = Vector2(0, 4)
 
 [node name="4_door_room" parent="." instance=ExtResource("9_ete15")]
 
@@ -252,7 +252,7 @@ position = Vector2(459, 44)
 position = Vector2(447, -47)
 
 [node name="gelatinous_cube" parent="." instance=ExtResource("13_axlkh")]
-material = SubResource("ShaderMaterial_u1114")
+material = SubResource("ShaderMaterial_17xuq")
 position = Vector2(-768, -33)
 
 [node name="slime4" parent="." instance=ExtResource("10_rrme3")]

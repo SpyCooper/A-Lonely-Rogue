@@ -14,7 +14,7 @@ func _process(delta):
 	# check if the shadow ball is_spawned
 	if is_spawned:
 		# look at and follow the player
-		var player_position = player.position
+		var player_position = player.get_player_position()
 		move_direction = (player_position - global_position).normalized()
 		look_at(player_position)
 		# moves the shadow ball based on the thrown direction

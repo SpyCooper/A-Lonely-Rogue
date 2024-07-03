@@ -1038,3 +1038,7 @@ func room_entered(room):
 	attacks_that_have_hit = []
 	# sets the current room
 	current_room = room
+
+# gets the player model's position
+func get_player_position():
+	return animated_sprite.global_position

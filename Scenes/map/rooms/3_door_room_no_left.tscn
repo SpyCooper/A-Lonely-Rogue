@@ -36,12 +36,14 @@ collision_layer = 2
 
 [node name="DoorTPRight" parent="." instance=ExtResource("8_8meqp")]
 position = Vector2(179, 0)
+tp_direction = 2
 
 [node name="Marker2D" parent="DoorTPRight" index="1"]
 position = Vector2(46, 0)
 
 [node name="DoorTPDown" parent="." instance=ExtResource("8_8meqp")]
 position = Vector2(0, 99)
+tp_direction = 1
 
 [node name="Marker2D" parent="DoorTPDown" index="1"]
 position = Vector2(0, 48)

@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://besxs1hm25htm"]
+
+[ext_resource type="Script" path="res://Scripts/map/door_tp.gd" id="1_060um"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_44kgt"]
+size = Vector2(28, 26)
+
+[node name="Door_tp" type="Area2D"]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_060um")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, -1)
+shape = SubResource("RectangleShape2D_44kgt")
+
+[node name="Marker2D" type="Marker2D" parent="."]
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

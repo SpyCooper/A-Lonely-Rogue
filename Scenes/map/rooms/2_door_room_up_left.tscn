@@ -33,6 +33,7 @@ collision_layer = 2
 
 [node name="DoorTPLeft" parent="." instance=ExtResource("8_i423j")]
 position = Vector2(-179, 0)
+tp_direction = 3
 
 [node name="Marker2D" parent="DoorTPLeft" index="1"]
 position = Vector2(-46, 0)
