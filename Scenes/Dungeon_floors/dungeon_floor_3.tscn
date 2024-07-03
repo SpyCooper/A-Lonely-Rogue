@@ -8,28 +8,28 @@
 [ext_resource type="PackedScene" uid="uid://dxlj826ndney4" path="res://Scenes/map/transition_camera.tscn" id="6_r7rvd"]
 [ext_resource type="Texture2D" uid="uid://drktqhtj5vluu" path="res://Assets/Sprites/map/TileSet.png" id="8_2wdng"]
 [ext_resource type="PackedScene" uid="uid://dahgvmrgtix2i" path="res://Scenes/player/player.tscn" id="9_j4ic3"]
-[ext_resource type="PackedScene" uid="uid://cj7h10qvuo84a" path="res://Scenes/map/4_door_room.tscn" id="10_0wor3"]
-[ext_resource type="PackedScene" uid="uid://c8oq11ct5sm2c" path="res://Scenes/map/3_door_rooms/3_door_no_up.tscn" id="10_te0c4"]
-[ext_resource type="PackedScene" uid="uid://coxlx2ylhc6q8" path="res://Scenes/map/corner rooms/2_door_up_right.tscn" id="11_sie2n"]
-[ext_resource type="PackedScene" uid="uid://dqkgb1e1soyjs" path="res://Scenes/map/single door rooms/1_door_down.tscn" id="12_b8j2h"]
-[ext_resource type="PackedScene" uid="uid://bk3i0p3dmgy8i" path="res://Scenes/map/hallways/2_door_hallway_vertical.tscn" id="13_whocg"]
-[ext_resource type="PackedScene" uid="uid://bm78w1b0to7t5" path="res://Scenes/map/corner rooms/2_door_up_left.tscn" id="14_4da7u"]
-[ext_resource type="PackedScene" uid="uid://cy8hip4fllaxy" path="res://Scenes/map/corner rooms/2_door_down_right.tscn" id="15_48tmx"]
-[ext_resource type="PackedScene" uid="uid://dw37vbmnwivg6" path="res://Scenes/map/single door rooms/1_door_left.tscn" id="16_dlpyg"]
-[ext_resource type="PackedScene" uid="uid://qk1ocx2yfygp" path="res://Scenes/map/3_door_rooms/3_door_no_right.tscn" id="16_tmcui"]
-[ext_resource type="PackedScene" uid="uid://cvwlccke1gs7h" path="res://Scenes/map/hallways/2_door_hallway_horizontal.tscn" id="17_rhaue"]
+[ext_resource type="PackedScene" uid="uid://cj7h10qvuo84a" path="res://Scenes/map/rooms/4_door_room.tscn" id="10_0wor3"]
 [ext_resource type="Texture2D" uid="uid://dveuvlvaajxjc" path="res://Assets/Sprites/map/boss_door_symbol.png" id="18_vl42c"]
-[ext_resource type="PackedScene" uid="uid://xbughqfxfbr6" path="res://Scenes/map/single door rooms/1_door_up.tscn" id="21_apsn0"]
 [ext_resource type="PackedScene" uid="uid://w1pgiqf773o0" path="res://Scenes/random_item_spawner.tscn" id="21_v3p58"]
 [ext_resource type="PackedScene" uid="uid://cfta80h76u0k2" path="res://Scenes/item_chest.tscn" id="22_byt5a"]
+[ext_resource type="PackedScene" uid="uid://che2yfugx3uto" path="res://Scenes/map/rooms/2_door_room_up_right.tscn" id="23_2twha"]
 [ext_resource type="PackedScene" uid="uid://bycygvf0dkbr1" path="res://Scenes/items/heart_2_pickup.tscn" id="23_vpsya"]
+[ext_resource type="PackedScene" uid="uid://01wblyc3frib" path="res://Scenes/map/rooms/2_door_up_down.tscn" id="24_6i01l"]
+[ext_resource type="PackedScene" uid="uid://p8b28nuu8aah" path="res://Scenes/map/rooms/1_door_room_left.tscn" id="26_3rhqf"]
 [ext_resource type="AudioStream" uid="uid://qi6piahv8xaw" path="res://Assets/Audio/background music/fairy-tale-fantasy-123608.mp3" id="26_efvkt"]
+[ext_resource type="PackedScene" uid="uid://duu1fv8fg83r6" path="res://Scenes/map/rooms/3_door_room_no_right.tscn" id="26_qe4ic"]
 [ext_resource type="PackedScene" uid="uid://bd4j5c5ldoecs" path="res://Scenes/items/heart_1_pickup.tscn" id="26_tdym4"]
 [ext_resource type="PackedScene" uid="uid://dy8i23c2qb18k" path="res://Scenes/enemies/skeleton_archer.tscn" id="27_2rgoa"]
+[ext_resource type="PackedScene" uid="uid://be4pn2ua63aka" path="res://Scenes/map/rooms/1_door_room_down.tscn" id="27_070dd"]
 [ext_resource type="PackedScene" uid="uid://b1opxnh484w82" path="res://Scenes/enemies/skeleton_warrior.tscn" id="27_m8eep"]
+[ext_resource type="PackedScene" uid="uid://dao0vj3oommmj" path="res://Scenes/map/rooms/2_door_down_right.tscn" id="28_1fxgh"]
 [ext_resource type="PackedScene" uid="uid://dvwf7rte2gvv2" path="res://Scenes/enemies/skeleton_mage.tscn" id="28_qvxnw"]
+[ext_resource type="PackedScene" uid="uid://dktq14smf6rpt" path="res://Scenes/map/rooms/2_door_left_right.tscn" id="29_knyc7"]
 [ext_resource type="PackedScene" uid="uid://cr3t522vle50y" path="res://Scenes/Dungeon_floors/trapdoor.tscn" id="29_y03cp"]
+[ext_resource type="PackedScene" uid="uid://kbe2aiqeulfc" path="res://Scenes/map/rooms/3_door_room_no_up.tscn" id="30_6aff7"]
 [ext_resource type="PackedScene" uid="uid://2rov0r5nrtfl" path="res://Scenes/enemies/lich.tscn" id="31_a1r24"]
+[ext_resource type="PackedScene" uid="uid://dojypve83qk4b" path="res://Scenes/map/rooms/1_door_room_up.tscn" id="31_dlpxq"]
+[ext_resource type="PackedScene" uid="uid://dp3cijhg2nws2" path="res://Scenes/map/rooms/2_door_room_up_left.tscn" id="31_it750"]
 
 [sub_resource type="Animation" id="Animation_27xwy"]
 length = 0.001
@@ -161,64 +161,72 @@ layer_0/tile_data = PackedInt32Array(-4456529, 65536, 2, -4390993, 65536, 2, -43
 [node name="Player" parent="." instance=ExtResource("9_j4ic3")]
 unique_name_in_owner = true
 
-[node name="2_door_up_right" parent="." instance=ExtResource("11_sie2n")]
+[node name="2_door_up_right" parent="." instance=ExtResource("23_2twha")]
 
-[node name="2_door_hallway_verical" parent="." instance=ExtResource("13_whocg")]
-position = Vector2(0, -208)
-
-[node name="item_chest" parent="." instance=ExtResource("22_byt5a")]
-position = Vector2(-85, -210)
+[node name="2_door_up_down" parent="." instance=ExtResource("24_6i01l")]
+position = Vector2(0, -224)
 
 [node name="4_door_room" parent="." instance=ExtResource("10_0wor3")]
-position = Vector2(0, -416)
+position = Vector2(0, -448)
 
-[node name="2_door_up_right2" parent="." instance=ExtResource("11_sie2n")]
-position = Vector2(-368, -416)
+[node name="1_door_left" parent="." instance=ExtResource("26_3rhqf")]
+position = Vector2(384, -448)
 
-[node name="2_door_down_right" parent="." instance=ExtResource("15_48tmx")]
-position = Vector2(-368, -624)
+[node name="3_door_no_right" parent="." instance=ExtResource("26_qe4ic")]
+position = Vector2(0, -672)
 
-[node name="3_door_no_right" parent="." instance=ExtResource("16_tmcui")]
-position = Vector2(0, -624)
+[node name="top_door" parent="3_door_no_right" index="10"]
+locked = true
 
-[node name="1_door_down" parent="." instance=ExtResource("12_b8j2h")]
-position = Vector2(0, -832)
+[node name="1_door_down3" parent="." instance=ExtResource("27_070dd")]
+position = Vector2(0, -896)
 
-[node name="Random Item Spawner2" parent="1_door_down" instance=ExtResource("21_v3p58")]
-position = Vector2(-66, 1)
+[node name="Random Item Spawner2" parent="1_door_down3" instance=ExtResource("21_v3p58")]
+position = Vector2(-68, 0)
 
-[node name="1_door_left" parent="." instance=ExtResource("16_dlpyg")]
-position = Vector2(368, -416)
+[node name="2_door_down_right" parent="." instance=ExtResource("28_1fxgh")]
+position = Vector2(-384, -672)
 
-[node name="2_door_hallway_horizontal" parent="." instance=ExtResource("17_rhaue")]
-position = Vector2(368, 0)
+[node name="2_door_up_right2" parent="." instance=ExtResource("23_2twha")]
+position = Vector2(-384, -448)
 
-[node name="3_door_no_up" parent="." instance=ExtResource("10_te0c4")]
-position = Vector2(736, 0)
+[node name="2_door_left_right" parent="." instance=ExtResource("29_knyc7")]
+position = Vector2(384, 0)
 
-[node name="1_door_up" parent="." instance=ExtResource("21_apsn0")]
-position = Vector2(736, 208)
+[node name="3_door_no_up" parent="." instance=ExtResource("30_6aff7")]
+position = Vector2(768, 0)
 
-[node name="Random Item Spawner" parent="1_door_up" instance=ExtResource("21_v3p58")]
-position = Vector2(0, 45)
+[node name="1_door_up2" parent="." instance=ExtResource("31_dlpxq")]
+position = Vector2(768, 224)
 
-[node name="2_door_up_left" parent="." instance=ExtResource("14_4da7u")]
-position = Vector2(1104, 0)
+[node name="Random Item Spawner" parent="1_door_up2" instance=ExtResource("21_v3p58")]
+position = Vector2(1, -1)
 
-[node name="2_door_hallway_verical2" parent="." instance=ExtResource("13_whocg")]
-position = Vector2(1104, -208)
+[node name="2_door_up_left" parent="." instance=ExtResource("31_it750")]
+position = Vector2(1152, 0)
 
-[node name="2_door_hallway_verical3" parent="." instance=ExtResource("13_whocg")]
-position = Vector2(1104, -416)
+[node name="2_door_up_down2" parent="." instance=ExtResource("24_6i01l")]
+position = Vector2(1152, -224)
 
-[node name="1_door_down2" parent="." instance=ExtResource("12_b8j2h")]
-position = Vector2(1104, -624)
+[node name="2_door_up_down3" parent="." instance=ExtResource("24_6i01l")]
+position = Vector2(1152, -448)
 
-[node name="Random Item Spawner3" parent="1_door_down2" instance=ExtResource("21_v3p58")]
-position = Vector2(-64, 4)
+[node name="1_door_down" parent="." instance=ExtResource("27_070dd")]
+position = Vector2(1152, -672)
+
+[node name="Random Item Spawner3" parent="1_door_down" instance=ExtResource("21_v3p58")]
+position = Vector2(-75, 2)
+
+[node name="BG music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("26_efvkt")
+volume_db = -5.0
+bus = &"Music"
+
+[node name="item_chest" parent="." instance=ExtResource("22_byt5a")]
+position = Vector2(-91, -219)
 
 [node name="Floor Text" type="Node2D" parent="."]
-position = Vector2(1104, -115)
+position = Vector2(1152, -137)
 
 [node name="BossDoorSymbol2" type="Sprite2D" parent="Floor Text"]
 z_index = -1
@@ -226,84 +234,79 @@ position = Vector2(0, -163)
 texture = ExtResource("18_vl42c")
 
 [node name="heart_2_pickup" parent="." instance=ExtResource("23_vpsya")]
-position = Vector2(1032, -209)
+position = Vector2(1090, -225)
 
 [node name="heart_1_pickup" parent="." instance=ExtResource("26_tdym4")]
-position = Vector2(393, -415)
+position = Vector2(384, -449)
 
 [node name="item_chest2" parent="." instance=ExtResource("22_byt5a")]
-position = Vector2(-415, -645)
+position = Vector2(-416, -691)
 
 [node name="heart_1_pickup2" parent="." instance=ExtResource("26_tdym4")]
-position = Vector2(74, -830)
-
-[node name="BG music" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("26_efvkt")
-volume_db = -5.0
-bus = &"Music"
+position = Vector2(68, -896)
 
 [node name="skeleton_warrior" parent="." instance=ExtResource("27_m8eep")]
-position = Vector2(-100, -440)
+position = Vector2(-114, -485)
 
 [node name="skeleton_archer" parent="." instance=ExtResource("27_2rgoa")]
-position = Vector2(103, -448)
+position = Vector2(92, -491)
 
 [node name="skeleton_mage" parent="." instance=ExtResource("28_qvxnw")]
 position = Vector2(467, -24)
 
 [node name="skeleton_archer2" parent="." instance=ExtResource("27_2rgoa")]
-position = Vector2(-452, -442)
+position = Vector2(-492, -481)
 
 [node name="skeleton_archer3" parent="." instance=ExtResource("27_2rgoa")]
-position = Vector2(-415, -368)
+position = Vector2(-420, -381)
 
 [node name="skeleton_archer4" parent="." instance=ExtResource("27_2rgoa")]
-position = Vector2(-263, -458)
+position = Vector2(-289, -493)
 
 [node name="skeleton_warrior2" parent="." instance=ExtResource("27_m8eep")]
-position = Vector2(-78, -592)
+position = Vector2(-92, -614)
 
 [node name="skeleton_archer5" parent="." instance=ExtResource("27_2rgoa")]
-position = Vector2(-69, -673)
+position = Vector2(-106, -716)
 
 [node name="skeleton_warrior4" parent="." instance=ExtResource("27_m8eep")]
-position = Vector2(70, -365)
+position = Vector2(87, -396)
 
 [node name="skeleton_archer6" parent="." instance=ExtResource("27_2rgoa")]
-position = Vector2(112, -667)
+position = Vector2(116, -706)
 
 [node name="skeleton_mage2" parent="." instance=ExtResource("28_qvxnw")]
 position = Vector2(428, 55)
 
 [node name="skeleton_archer7" parent="." instance=ExtResource("27_2rgoa")]
-position = Vector2(800, 59)
+position = Vector2(834, 61)
 
 [node name="skeleton_mage4" parent="." instance=ExtResource("28_qvxnw")]
-position = Vector2(695, 51)
+position = Vector2(710, 62)
 
 [node name="skeleton_warrior3" parent="." instance=ExtResource("27_m8eep")]
-position = Vector2(1047, 49)
+position = Vector2(1069, 64)
 
 [node name="skeleton_mage5" parent="." instance=ExtResource("28_qvxnw")]
-position = Vector2(1031, -35)
+position = Vector2(1046, -40)
 
 [node name="skeleton_mage6" parent="." instance=ExtResource("28_qvxnw")]
-position = Vector2(1201, 59)
+position = Vector2(1236, 60)
 
 [node name="skeleton_archer8" parent="." instance=ExtResource("27_2rgoa")]
-position = Vector2(1187, -49)
+position = Vector2(1247, -44)
 
 [node name="skeleton_warrior5" parent="." instance=ExtResource("27_m8eep")]
-position = Vector2(827, -38)
+position = Vector2(786, -39)
 
 [node name="heart_2_pickup2" parent="." instance=ExtResource("23_vpsya")]
-position = Vector2(1176, -618)
+position = Vector2(1219, -666)
 
 [node name="lich" parent="." instance=ExtResource("31_a1r24")]
-position = Vector2(1104, -427)
+position = Vector2(1153, -457)
 
 [node name="Floor Text2" type="Node2D" parent="."]
-position = Vector2(1149, -520)
+position = Vector2(1195, -576)
 
 [node name="Trapdoor" parent="Floor Text2" instance=ExtResource("29_y03cp")]
 position = Vector2(-47, -155)
@@ -311,6 +314,6 @@ position = Vector2(-47, -155)
 [connection signal="timeout" from="CanvasLayer/Fade_color/Fade_timer" to="." method="_on_fade_timer_timeout"]
 
 [editable path="3_door_no_right"]
-[editable path="3_door_no_right/DoorLeft"]
-[editable path="3_door_no_right/DoorDown"]
-[editable path="3_door_no_right/DoorUp"]
+[editable path="3_door_no_right/DoorTPLeft"]
+[editable path="3_door_no_right/DoorTPDown"]
+[editable path="3_door_no_right/DoorTPUp"]

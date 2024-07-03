@@ -98,5 +98,9 @@ sprite_frames = SubResource("SpriteFrames_sormc")
 animation = &"shadow_blade"
 autoplay = "shadow_blade"
 
+[node name="lifetime_timer" type="Timer" parent="."]
+wait_time = 5.0
+
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="timeout" from="lifetime_timer" to="." method="_on_lifetime_timer_timeout"]

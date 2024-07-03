@@ -8,22 +8,22 @@
 [ext_resource type="PackedScene" uid="uid://dxlj826ndney4" path="res://Scenes/map/transition_camera.tscn" id="6_p1dch"]
 [ext_resource type="Texture2D" uid="uid://drktqhtj5vluu" path="res://Assets/Sprites/map/TileSet.png" id="7_ujxs0"]
 [ext_resource type="PackedScene" uid="uid://dahgvmrgtix2i" path="res://Scenes/player/player.tscn" id="8_sxh6v"]
-[ext_resource type="PackedScene" uid="uid://c8oq11ct5sm2c" path="res://Scenes/map/3_door_rooms/3_door_no_up.tscn" id="11_ebeb5"]
 [ext_resource type="PackedScene" uid="uid://b1m0opptrag7w" path="res://Scenes/enemies/air_elemental.tscn" id="12_cox8u"]
-[ext_resource type="PackedScene" uid="uid://coxlx2ylhc6q8" path="res://Scenes/map/corner rooms/2_door_up_right.tscn" id="14_5eek1"]
-[ext_resource type="PackedScene" uid="uid://bk3i0p3dmgy8i" path="res://Scenes/map/hallways/2_door_hallway_vertical.tscn" id="15_2x6a5"]
 [ext_resource type="PackedScene" uid="uid://bbpy8jqtds75f" path="res://Scenes/enemies/earth_elemental.tscn" id="15_83w35"]
-[ext_resource type="PackedScene" uid="uid://dqkgb1e1soyjs" path="res://Scenes/map/single door rooms/1_door_down.tscn" id="15_an5fh"]
-[ext_resource type="PackedScene" uid="uid://bm78w1b0to7t5" path="res://Scenes/map/corner rooms/2_door_up_left.tscn" id="16_mf70j"]
-[ext_resource type="PackedScene" uid="uid://cy8hip4fllaxy" path="res://Scenes/map/corner rooms/2_door_down_right.tscn" id="17_djsfq"]
-[ext_resource type="PackedScene" uid="uid://dw37vbmnwivg6" path="res://Scenes/map/single door rooms/1_door_left.tscn" id="18_lc5ec"]
-[ext_resource type="PackedScene" uid="uid://cvwlccke1gs7h" path="res://Scenes/map/hallways/2_door_hallway_horizontal.tscn" id="19_rcg1l"]
 [ext_resource type="Texture2D" uid="uid://dveuvlvaajxjc" path="res://Assets/Sprites/map/boss_door_symbol.png" id="20_7pjkk"]
 [ext_resource type="PackedScene" uid="uid://w1pgiqf773o0" path="res://Scenes/random_item_spawner.tscn" id="21_dxntd"]
+[ext_resource type="PackedScene" uid="uid://kbe2aiqeulfc" path="res://Scenes/map/rooms/3_door_room_no_up.tscn" id="21_w5yvv"]
+[ext_resource type="PackedScene" uid="uid://che2yfugx3uto" path="res://Scenes/map/rooms/2_door_room_up_right.tscn" id="22_spn1r"]
 [ext_resource type="PackedScene" uid="uid://cfta80h76u0k2" path="res://Scenes/item_chest.tscn" id="22_ulsr0"]
+[ext_resource type="PackedScene" uid="uid://dp3cijhg2nws2" path="res://Scenes/map/rooms/2_door_room_up_left.tscn" id="22_w71hv"]
+[ext_resource type="PackedScene" uid="uid://be4pn2ua63aka" path="res://Scenes/map/rooms/1_door_room_down.tscn" id="23_brn7c"]
+[ext_resource type="PackedScene" uid="uid://dao0vj3oommmj" path="res://Scenes/map/rooms/2_door_down_right.tscn" id="23_xxnt1"]
 [ext_resource type="PackedScene" uid="uid://cr3t522vle50y" path="res://Scenes/Dungeon_floors/trapdoor.tscn" id="24_0uy8j"]
+[ext_resource type="PackedScene" uid="uid://p8b28nuu8aah" path="res://Scenes/map/rooms/1_door_room_left.tscn" id="24_4hnrt"]
 [ext_resource type="AudioStream" uid="uid://cafv10fm7n26w" path="res://Assets/Audio/background music/magic-castle-instrumental-for-you-10675.mp3" id="25_1rtdh"]
 [ext_resource type="PackedScene" uid="uid://bycygvf0dkbr1" path="res://Scenes/items/heart_2_pickup.tscn" id="25_kj0jc"]
+[ext_resource type="PackedScene" uid="uid://01wblyc3frib" path="res://Scenes/map/rooms/2_door_up_down.tscn" id="25_vgmys"]
+[ext_resource type="PackedScene" uid="uid://dktq14smf6rpt" path="res://Scenes/map/rooms/2_door_left_right.tscn" id="26_4erv0"]
 [ext_resource type="PackedScene" uid="uid://b603clqbguc3q" path="res://Scenes/enemies/forgotten_golem.tscn" id="26_xygb7"]
 
 [sub_resource type="Animation" id="Animation_27xwy"]
@@ -156,55 +156,59 @@ layer_0/tile_data = PackedInt32Array(-4456529, 65536, 2, -4390993, 65536, 2, -43
 [node name="Player" parent="." instance=ExtResource("8_sxh6v")]
 unique_name_in_owner = true
 
-[node name="3_door_no_up" parent="." instance=ExtResource("11_ebeb5")]
+[node name="3_door_no_up" parent="." instance=ExtResource("21_w5yvv")]
 
-[node name="2_door_up_right" parent="." instance=ExtResource("14_5eek1")]
-position = Vector2(-368, 0)
+[node name="2_door_up_right2" parent="." instance=ExtResource("22_spn1r")]
+position = Vector2(-384, 0)
 
-[node name="DoorVisualUp" parent="2_door_up_right" index="1"]
+[node name="top_door" parent="2_door_up_right2" index="7"]
 locked = true
 
-[node name="1_door_down" parent="." instance=ExtResource("15_an5fh")]
-position = Vector2(-368, -208)
+[node name="1_door_down2" parent="." instance=ExtResource("23_brn7c")]
+position = Vector2(-383, -224)
 
-[node name="Random Item Spawner" parent="1_door_down" instance=ExtResource("21_dxntd")]
-position = Vector2(-20, -6)
+[node name="Random Item Spawner" parent="1_door_down2" instance=ExtResource("21_dxntd")]
+position = Vector2(0, 1)
 
-[node name="2_door_hallway_verical" parent="." instance=ExtResource("15_2x6a5")]
-position = Vector2(0, 208)
+[node name="2_door_up_left" parent="." instance=ExtResource("22_w71hv")]
+position = Vector2(384, 0)
 
-[node name="2_door_up_right2" parent="." instance=ExtResource("14_5eek1")]
-position = Vector2(0, 416)
+[node name="2_door_down_right" parent="." instance=ExtResource("23_xxnt1")]
+position = Vector2(384, -224)
 
-[node name="2_door_up_left" parent="." instance=ExtResource("16_mf70j")]
-position = Vector2(368, 0)
-
-[node name="2_door_down_right" parent="." instance=ExtResource("17_djsfq")]
-position = Vector2(368, -208)
-
-[node name="1_door_left" parent="." instance=ExtResource("18_lc5ec")]
-position = Vector2(736, -208)
+[node name="1_door_left" parent="." instance=ExtResource("24_4hnrt")]
+position = Vector2(768, -224)
 
 [node name="Random Item Spawner2" parent="1_door_left" instance=ExtResource("21_dxntd")]
-position = Vector2(-38, -5)
 
-[node name="2_door_hallway_horizontal" parent="." instance=ExtResource("19_rcg1l")]
-position = Vector2(368, 416)
+[node name="2_door_up_down" parent="." instance=ExtResource("25_vgmys")]
+position = Vector2(0, 224)
 
-[node name="2_door_up_left2" parent="." instance=ExtResource("16_mf70j")]
-position = Vector2(736, 416)
+[node name="2_door_up_right" parent="." instance=ExtResource("22_spn1r")]
+position = Vector2(0, 448)
 
-[node name="2_door_down_right2" parent="." instance=ExtResource("17_djsfq")]
-position = Vector2(736, 208)
+[node name="2_door_left_right" parent="." instance=ExtResource("26_4erv0")]
+position = Vector2(384, 448)
 
-[node name="1_door_left2" parent="." instance=ExtResource("18_lc5ec")]
-position = Vector2(1104, 208)
+[node name="2_door_up_left2" parent="." instance=ExtResource("22_w71hv")]
+position = Vector2(768, 448)
 
-[node name="Random Item Spawner" parent="1_door_left2" instance=ExtResource("21_dxntd")]
-position = Vector2(1, -33)
+[node name="2_door_down_right2" parent="." instance=ExtResource("23_xxnt1")]
+position = Vector2(768, 224)
+
+[node name="1_door_left3" parent="." instance=ExtResource("24_4hnrt")]
+position = Vector2(1152, 224)
+
+[node name="Random Item Spawner" parent="1_door_left3" instance=ExtResource("21_dxntd")]
+position = Vector2(0, -38)
+
+[node name="BG music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("25_1rtdh")
+volume_db = -2.0
+bus = &"Music"
 
 [node name="Floor Text" type="Node2D" parent="."]
-position = Vector2(736, 451)
+position = Vector2(768, 476)
 
 [node name="BossDoorSymbol" type="Sprite2D" parent="Floor Text"]
 z_index = -1
@@ -212,60 +216,55 @@ position = Vector2(0, -104)
 texture = ExtResource("20_7pjkk")
 
 [node name="air_elemental" parent="." instance=ExtResource("12_cox8u")]
-position = Vector2(464, -36)
+position = Vector2(463, 6)
 
 [node name="air_elemental2" parent="." instance=ExtResource("12_cox8u")]
-position = Vector2(89, 470)
+position = Vector2(35, 513)
 
 [node name="earth_elemental" parent="." instance=ExtResource("15_83w35")]
-position = Vector2(-65, 462)
+position = Vector2(-109, 426)
 
 [node name="earth_elemental2" parent="." instance=ExtResource("15_83w35")]
 position = Vector2(-85, 246)
 
 [node name="air_elemental3" parent="." instance=ExtResource("12_cox8u")]
-position = Vector2(266, -166)
+position = Vector2(272, -171)
 
 [node name="air_elemental4" parent="." instance=ExtResource("12_cox8u")]
-position = Vector2(318, -236)
+position = Vector2(304, -258)
 
 [node name="air_elemental5" parent="." instance=ExtResource("12_cox8u")]
-position = Vector2(439, -239)
+position = Vector2(491, -268)
 
 [node name="air_elemental6" parent="." instance=ExtResource("12_cox8u")]
-position = Vector2(655, 373)
+position = Vector2(661, 404)
 
 [node name="earth_elemental3" parent="." instance=ExtResource("15_83w35")]
-position = Vector2(746, 476)
+position = Vector2(745, 500)
 
 [node name="air_elemental7" parent="." instance=ExtResource("12_cox8u")]
-position = Vector2(837, 400)
+position = Vector2(860, 422)
 
 [node name="earth_elemental4" parent="." instance=ExtResource("15_83w35")]
-position = Vector2(114, 394)
+position = Vector2(98, 408)
 
 [node name="item_chest" parent="." instance=ExtResource("22_ulsr0")]
-position = Vector2(367, 371)
+position = Vector2(385, 407)
 
 [node name="heart_2_pickup" parent="." instance=ExtResource("25_kj0jc")]
-position = Vector2(1107, 254)
-
-[node name="BG music" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("25_1rtdh")
-volume_db = -2.0
-bus = &"Music"
+position = Vector2(1152, 263)
 
 [node name="forgotten_golem" parent="." instance=ExtResource("26_xygb7")]
-position = Vector2(736, 192)
+position = Vector2(767, 217)
 
 [node name="Floor Text2" type="Node2D" parent="."]
-position = Vector2(1189, 375)
+position = Vector2(1239, 384)
 
 [node name="Trapdoor" parent="Floor Text2" instance=ExtResource("24_0uy8j")]
 position = Vector2(-2, -163)
 
 [connection signal="timeout" from="CanvasLayer/Fade_color/Fade_timer" to="." method="_on_fade_timer_timeout"]
 
-[editable path="2_door_up_right"]
-[editable path="2_door_up_right/DoorRight"]
-[editable path="2_door_up_right/DoorUp"]
+[editable path="2_door_up_right2"]
+[editable path="2_door_up_right2/DoorTPRight"]
+[editable path="2_door_up_right2/DoorTPUp"]

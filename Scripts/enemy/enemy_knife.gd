@@ -7,6 +7,9 @@ var animated_sprite
 var dust_player = false
 const DUST_BLADE_EFFECT = preload("res://Scenes/status_effects/dust_blade_effect.tscn")
 var attack_identifer
+const KNIFE_HIT = preload("res://Scenes/knife_hit.tscn")
+@onready var lifetime_timer = $lifetime_timer
+var timer_started = false
 
 # this is called when the player is clicks
 func spawned(click_position, dust_blade_active, current_attack_identifier, knife_speed_bonus):
@@ -29,6 +32,11 @@ func spawned(click_position, dust_blade_active, current_attack_identifier, knife
 func _process(delta):
 	# moves the knife based on the thrown direction
 	position += move_direction * speed * delta
+	# starts the lifetime timer if it hasn't started
+	if !timer_started:
+		# starts the lifetime timer
+		lifetime_timer.start()
+		timer_started = true
 
 # runs when a object enters the Area2D's collider
 func _on_body_entered(body):
@@ -41,5 +49,13 @@ func _on_body_entered(body):
 		if dust_player:
 			# add the dust blade effect to the player
 			body.add_child(DUST_BLADE_EFFECT.instantiate())
+	# plays the knife hit sound
+	var knife_hit_sound = KNIFE_HIT.instantiate()
+	knife_hit_sound.position = position
+	get_parent().add_child(knife_hit_sound)
 	# removes the knife from the screen
+	queue_free()
+
+# when the lifetime timer ends, remove the knife
+func _on_lifetime_timer_timeout():
 	queue_free()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=39 format=3 uid="uid://8jxi88fj77dd"]
+[gd_scene load_steps=37 format=3 uid="uid://8jxi88fj77dd"]
 
 [ext_resource type="PackedScene" uid="uid://duv7i8yak343i" path="res://Scenes/menus/HUD.tscn" id="1_80esy"]
 [ext_resource type="Script" path="res://Scripts/map/dungeon_floor.gd" id="1_dvl4e"]
@@ -9,28 +9,26 @@
 [ext_resource type="PackedScene" uid="uid://dxlj826ndney4" path="res://Scenes/map/transition_camera.tscn" id="7_bvxhe"]
 [ext_resource type="Texture2D" uid="uid://drktqhtj5vluu" path="res://Assets/Sprites/map/TileSet.png" id="7_cdgba"]
 [ext_resource type="PackedScene" uid="uid://dahgvmrgtix2i" path="res://Scenes/player/player.tscn" id="8_sndu2"]
-[ext_resource type="PackedScene" uid="uid://cj7h10qvuo84a" path="res://Scenes/map/4_door_room.tscn" id="9_ete15"]
+[ext_resource type="PackedScene" uid="uid://cj7h10qvuo84a" path="res://Scenes/map/rooms/4_door_room.tscn" id="9_ete15"]
 [ext_resource type="PackedScene" uid="uid://x2so2ayusjw6" path="res://Scenes/enemies/slime.tscn" id="10_rrme3"]
-[ext_resource type="PackedScene" uid="uid://cvwlccke1gs7h" path="res://Scenes/map/hallways/2_door_hallway_horizontal.tscn" id="11_5kewh"]
-[ext_resource type="PackedScene" uid="uid://coxlx2ylhc6q8" path="res://Scenes/map/corner rooms/2_door_up_right.tscn" id="12_vpadt"]
 [ext_resource type="PackedScene" uid="uid://brvqwais7jcmk" path="res://Scenes/enemies/gelatinous_cube.tscn" id="13_axlkh"]
-[ext_resource type="PackedScene" uid="uid://dqkgb1e1soyjs" path="res://Scenes/map/single door rooms/1_door_down.tscn" id="14_hs83b"]
 [ext_resource type="PackedScene" uid="uid://w1pgiqf773o0" path="res://Scenes/random_item_spawner.tscn" id="15_vmcx5"]
-[ext_resource type="PackedScene" uid="uid://bgqs7pv3wsi6a" path="res://Scenes/map/3_door_rooms/3_door_no_down.tscn" id="16_bsspr"]
-[ext_resource type="PackedScene" uid="uid://qk1ocx2yfygp" path="res://Scenes/map/3_door_rooms/3_door_no_right.tscn" id="17_k0g53"]
-[ext_resource type="PackedScene" uid="uid://c8oq11ct5sm2c" path="res://Scenes/map/3_door_rooms/3_door_no_up.tscn" id="18_1mnge"]
-[ext_resource type="PackedScene" uid="uid://dw37vbmnwivg6" path="res://Scenes/map/single door rooms/1_door_left.tscn" id="19_lom38"]
-[ext_resource type="PackedScene" uid="uid://cy1he2qqxmp7t" path="res://Scenes/map/3_door_rooms/3_door_no_left.tscn" id="20_4ekxh"]
-[ext_resource type="PackedScene" uid="uid://bsx1c82kckqom" path="res://Scenes/map/single door rooms/1_door_right.tscn" id="21_2ivy2"]
-[ext_resource type="PackedScene" uid="uid://bm78w1b0to7t5" path="res://Scenes/map/corner rooms/2_door_up_left.tscn" id="22_r2q0b"]
 [ext_resource type="PackedScene" uid="uid://cfta80h76u0k2" path="res://Scenes/item_chest.tscn" id="23_nr1kn"]
+[ext_resource type="PackedScene" uid="uid://nl45rowphdwa" path="res://Scenes/map/rooms/3_door_room_no_left.tscn" id="24_6u3q4"]
 [ext_resource type="PackedScene" uid="uid://dfctt8og03c2e" path="res://Scenes/items/key_item.tscn" id="24_y83ib"]
 [ext_resource type="PackedScene" uid="uid://cr3t522vle50y" path="res://Scenes/Dungeon_floors/trapdoor.tscn" id="25_csphi"]
+[ext_resource type="PackedScene" uid="uid://k0t5cu3qhof5" path="res://Scenes/map/rooms/3_door_room_no_down.tscn" id="25_m2mvb"]
+[ext_resource type="PackedScene" uid="uid://dp3cijhg2nws2" path="res://Scenes/map/rooms/2_door_room_up_left.tscn" id="26_3lvu6"]
 [ext_resource type="AudioStream" uid="uid://ciw6spax0xy06" path="res://Assets/Audio/background music/8bit-mix-56351.mp3" id="27_26f5p"]
+[ext_resource type="PackedScene" uid="uid://duu1fv8fg83r6" path="res://Scenes/map/rooms/3_door_room_no_right.tscn" id="27_w4i8a"]
 [ext_resource type="Script" path="res://Scripts/map/Tutorial.gd" id="28_14004"]
+[ext_resource type="PackedScene" uid="uid://cbg5wdbuh0hhw" path="res://Scenes/map/rooms/1_door_room_right.tscn" id="28_cmtrx"]
+[ext_resource type="PackedScene" uid="uid://p8b28nuu8aah" path="res://Scenes/map/rooms/1_door_room_left.tscn" id="28_ekw3m"]
 [ext_resource type="Texture2D" uid="uid://dveuvlvaajxjc" path="res://Assets/Sprites/map/boss_door_symbol.png" id="29_8oo7y"]
-[ext_resource type="PackedScene" uid="uid://bycygvf0dkbr1" path="res://Scenes/items/heart_2_pickup.tscn" id="30_1gxwi"]
-[ext_resource type="PackedScene" uid="uid://cw70kqvbifsnr" path="res://Scenes/items/shadow_heart_item.tscn" id="31_xp8ja"]
+[ext_resource type="PackedScene" uid="uid://kbe2aiqeulfc" path="res://Scenes/map/rooms/3_door_room_no_up.tscn" id="29_le430"]
+[ext_resource type="PackedScene" uid="uid://dktq14smf6rpt" path="res://Scenes/map/rooms/2_door_left_right.tscn" id="29_tb2c2"]
+[ext_resource type="PackedScene" uid="uid://che2yfugx3uto" path="res://Scenes/map/rooms/2_door_room_up_right.tscn" id="30_y76vo"]
+[ext_resource type="PackedScene" uid="uid://be4pn2ua63aka" path="res://Scenes/map/rooms/1_door_room_down.tscn" id="31_pljao"]
 
 [sub_resource type="Animation" id="Animation_27xwy"]
 length = 0.001
@@ -120,7 +118,7 @@ texture = ExtResource("7_cdgba")
 [sub_resource type="TileSet" id="TileSet_pnge6"]
 sources/0 = SubResource("TileSetAtlasSource_a4f5t")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_0iv0e"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_u1114"]
 resource_local_to_scene = true
 
 [node name="Floor1" type="Node2D"]
@@ -166,11 +164,86 @@ layer_0/tile_data = PackedInt32Array(-4456529, 65536, 2, -4390993, 65536, 2, -43
 unique_name_in_owner = true
 position = Vector2(1, 0)
 
-[node name="Center" parent="." instance=ExtResource("9_ete15")]
+[node name="4_door_room" parent="." instance=ExtResource("9_ete15")]
 
-[node name="Right" parent="." instance=ExtResource("9_ete15")]
-y_sort_enabled = true
-position = Vector2(368, 0)
+[node name="3_door_no_left" parent="." instance=ExtResource("24_6u3q4")]
+position = Vector2(0, 224)
+
+[node name="3_door_no_down" parent="." instance=ExtResource("25_m2mvb")]
+position = Vector2(0, 448)
+
+[node name="2_door_up_left" parent="." instance=ExtResource("26_3lvu6")]
+position = Vector2(384, 448)
+
+[node name="3_door_no_right" parent="." instance=ExtResource("27_w4i8a")]
+position = Vector2(384, 224)
+
+[node name="1_door_right2" parent="." instance=ExtResource("28_cmtrx")]
+position = Vector2(-384, 448)
+
+[node name="Random Item Spawner" parent="1_door_right2" instance=ExtResource("15_vmcx5")]
+position = Vector2(-8, -43)
+
+[node name="4_door_room2" parent="." instance=ExtResource("9_ete15")]
+position = Vector2(384, 0)
+
+[node name="1_door_left3" parent="." instance=ExtResource("28_ekw3m")]
+position = Vector2(768, 0)
+
+[node name="Random Item Spawner" parent="1_door_left3" instance=ExtResource("15_vmcx5")]
+position = Vector2(23, 0)
+
+[node name="3_door_no_right2" parent="." instance=ExtResource("27_w4i8a")]
+position = Vector2(384, -224)
+
+[node name="3_door_no_left2" parent="." instance=ExtResource("24_6u3q4")]
+position = Vector2(0, -224)
+
+[node name="3_door_no_up" parent="." instance=ExtResource("29_le430")]
+position = Vector2(0, -448)
+
+[node name="3_door_no_up2" parent="." instance=ExtResource("29_le430")]
+position = Vector2(384, -448)
+
+[node name="2_door_left_right" parent="." instance=ExtResource("29_tb2c2")]
+position = Vector2(768, -448)
+
+[node name="1_door_left" parent="." instance=ExtResource("28_ekw3m")]
+position = Vector2(1152, -448)
+
+[node name="Random Item Spawner" parent="1_door_left" instance=ExtResource("15_vmcx5")]
+position = Vector2(8, 1)
+
+[node name="2_door_up_right2" parent="." instance=ExtResource("30_y76vo")]
+position = Vector2(-384, -448)
+
+[node name="1_door_down3" parent="." instance=ExtResource("31_pljao")]
+position = Vector2(-384, -672)
+
+[node name="Random Item Spawner" parent="1_door_down3" instance=ExtResource("15_vmcx5")]
+
+[node name="2_door_left_right2" parent="." instance=ExtResource("29_tb2c2")]
+position = Vector2(-384, 0)
+
+[node name="2_door_up_right3" parent="." instance=ExtResource("30_y76vo")]
+position = Vector2(-768, 0)
+
+[node name="top_door" parent="2_door_up_right3" index="7"]
+locked = true
+
+[node name="1_door_down2" parent="." instance=ExtResource("31_pljao")]
+position = Vector2(-768, -224)
+
+[node name="Random Item Spawner" parent="1_door_down2" instance=ExtResource("15_vmcx5")]
+position = Vector2(-37, 16)
+
+[node name="Random Item Spawner2" parent="1_door_down2" instance=ExtResource("15_vmcx5")]
+position = Vector2(99, 16)
+
+[node name="BG music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("27_26f5p")
+volume_db = -2.0
+bus = &"Music"
 
 [node name="slime2" parent="." instance=ExtResource("10_rrme3")]
 position = Vector2(459, 44)
@@ -178,120 +251,45 @@ position = Vector2(459, 44)
 [node name="slime" parent="." instance=ExtResource("10_rrme3")]
 position = Vector2(447, -47)
 
-[node name="2_door_hallway_horizontal" parent="." instance=ExtResource("11_5kewh")]
-position = Vector2(-368, 0)
-
-[node name="2_door_up_right" parent="." instance=ExtResource("12_vpadt")]
-position = Vector2(-736, 0)
-
-[node name="DoorVisualUp" parent="2_door_up_right" index="1"]
-locked = true
-
 [node name="gelatinous_cube" parent="." instance=ExtResource("13_axlkh")]
-material = SubResource("ShaderMaterial_0iv0e")
-position = Vector2(-735, -20)
-
-[node name="1_door_down" parent="." instance=ExtResource("14_hs83b")]
-position = Vector2(-736, -208)
-
-[node name="Random Item Spawner" parent="1_door_down" instance=ExtResource("15_vmcx5")]
-position = Vector2(-69, 0)
-
-[node name="Random Item Spawner2" parent="1_door_down" instance=ExtResource("15_vmcx5")]
-position = Vector2(67, 0)
-
-[node name="3_door_no_down" parent="." instance=ExtResource("16_bsspr")]
-position = Vector2(0, 416)
+material = SubResource("ShaderMaterial_u1114")
+position = Vector2(-768, -33)
 
 [node name="slime4" parent="." instance=ExtResource("10_rrme3")]
-position = Vector2(51, 452)
+position = Vector2(63, 486)
 
 [node name="slime3" parent="." instance=ExtResource("10_rrme3")]
-position = Vector2(-36, 418)
-
-[node name="3_door_no_right" parent="." instance=ExtResource("17_k0g53")]
-position = Vector2(368, 208)
-
-[node name="3_door_no_up" parent="." instance=ExtResource("18_1mnge")]
-position = Vector2(0, -416)
-
-[node name="1_door_left" parent="." instance=ExtResource("19_lom38")]
-position = Vector2(736, 0)
-
-[node name="Random Item Spawner" parent="1_door_left" instance=ExtResource("15_vmcx5")]
-position = Vector2(80, 0)
-
-[node name="3_door_no_left" parent="." instance=ExtResource("20_4ekxh")]
-position = Vector2(0, -208)
-
-[node name="3_door_no_right2" parent="." instance=ExtResource("17_k0g53")]
-position = Vector2(368, -208)
-
-[node name="3_door_no_up2" parent="." instance=ExtResource("18_1mnge")]
-position = Vector2(368, -416)
-
-[node name="2_door_up_right2" parent="." instance=ExtResource("12_vpadt")]
-position = Vector2(-368, -416)
+position = Vector2(-71, 415)
 
 [node name="slime5" parent="." instance=ExtResource("10_rrme3")]
-position = Vector2(-449, -397)
+position = Vector2(-457, -417)
 
 [node name="slime6" parent="." instance=ExtResource("10_rrme3")]
-position = Vector2(-370, -464)
+position = Vector2(-329, -485)
 
 [node name="slime7" parent="." instance=ExtResource("10_rrme3")]
-position = Vector2(-351, -378)
-
-[node name="1_door_down2" parent="." instance=ExtResource("14_hs83b")]
-position = Vector2(-368, -624)
-
-[node name="Random Item Spawner" parent="1_door_down2" instance=ExtResource("15_vmcx5")]
-
-[node name="2_door_hallway_horizontal2" parent="." instance=ExtResource("11_5kewh")]
-position = Vector2(736, -416)
+position = Vector2(-310, -381)
 
 [node name="slime8" parent="." instance=ExtResource("10_rrme3")]
-position = Vector2(686, -461)
+position = Vector2(694, -488)
 
 [node name="slime9" parent="." instance=ExtResource("10_rrme3")]
-position = Vector2(729, -369)
+position = Vector2(750, -383)
 
 [node name="slime10" parent="." instance=ExtResource("10_rrme3")]
-position = Vector2(811, -445)
+position = Vector2(847, -475)
 
-[node name="1_door_left2" parent="." instance=ExtResource("19_lom38")]
-position = Vector2(1104, -416)
-
-[node name="Random Item Spawner" parent="1_door_left2" instance=ExtResource("15_vmcx5")]
-
-[node name="1_door_right" parent="." instance=ExtResource("21_2ivy2")]
-position = Vector2(-368, 416)
-
-[node name="Random Item Spawner" parent="1_door_right" instance=ExtResource("15_vmcx5")]
-position = Vector2(-74, -45)
-
-[node name="2_door_up_left" parent="." instance=ExtResource("22_r2q0b")]
-position = Vector2(368, 416)
-
-[node name="item_chest" parent="2_door_up_left" instance=ExtResource("23_nr1kn")]
-position = Vector2(91, 45)
-
-[node name="3_door_no_left2" parent="." instance=ExtResource("20_4ekxh")]
-position = Vector2(0, 208)
+[node name="item_chest" parent="." instance=ExtResource("23_nr1kn")]
+position = Vector2(459, 461)
 
 [node name="key_pickup" parent="." instance=ExtResource("24_y83ib")]
-position = Vector2(-443, 450)
-
-[node name="BG music" type="AudioStreamPlayer" parent="."]
-stream = ExtResource("27_26f5p")
-volume_db = -2.0
-bus = &"Music"
+position = Vector2(-383, 494)
 
 [node name="Floor Text" type="Node2D" parent="."]
-position = Vector2(-515, 66)
+position = Vector2(-538, 66)
 
 [node name="Trapdoor" parent="Floor Text" instance=ExtResource("25_csphi")]
-position = Vector2(-220, -321)
+position = Vector2(-230, -329)
 
 [node name="BossDoorSymbol" type="Sprite2D" parent="Floor Text"]
 z_index = -1
@@ -310,9 +308,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -84.0
-offset_top = -284.0
+offset_top = -294.0
 offset_right = 89.0
-offset_bottom = -246.0
+offset_bottom = -256.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("3_yxx55")
@@ -329,9 +327,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -84.0
-offset_top = -204.0
+offset_top = -193.0
 offset_right = 93.0
-offset_bottom = -171.0
+offset_bottom = -160.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
@@ -361,27 +359,8 @@ text = "Press Space to use active items"
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="heart_2_pickup" parent="." instance=ExtResource("30_1gxwi")]
-position = Vector2(-93, -4)
-
-[node name="heart_2_pickup2" parent="." instance=ExtResource("30_1gxwi")]
-position = Vector2(-53, -23)
-
-[node name="shadow_heart_item" parent="." instance=ExtResource("31_xp8ja")]
-position = Vector2(-138, 22)
-
 [connection signal="timeout" from="CanvasLayer/Fade_color/Fade_timer" to="." method="_on_fade_timer_timeout"]
 
-[editable path="Center"]
-[editable path="Center/DoorTPLeft"]
-[editable path="Center/DoorTPRight"]
-[editable path="Center/DoorTPDown"]
-[editable path="Center/DoorTPUp"]
-[editable path="Right"]
-[editable path="Right/DoorTPLeft"]
-[editable path="Right/DoorTPRight"]
-[editable path="Right/DoorTPDown"]
-[editable path="Right/DoorTPUp"]
-[editable path="2_door_up_right"]
-[editable path="2_door_up_right/DoorRight"]
-[editable path="2_door_up_right/DoorUp"]
+[editable path="2_door_up_right3"]
+[editable path="2_door_up_right3/DoorTPRight"]
+[editable path="2_door_up_right3/DoorTPUp"]

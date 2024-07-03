@@ -10,12 +10,12 @@
 [ext_resource type="Texture2D" uid="uid://drktqhtj5vluu" path="res://Assets/Sprites/map/TileSet.png" id="8_fhr48"]
 [ext_resource type="PackedScene" uid="uid://dahgvmrgtix2i" path="res://Scenes/player/player.tscn" id="9_kpeox"]
 [ext_resource type="AudioStream" uid="uid://de1jje6nelok4" path="res://Assets/Audio/background music/bgm029-dark-fantasy-horror-mystery-horror-148349.mp3" id="10_arma7"]
-[ext_resource type="PackedScene" uid="uid://xbughqfxfbr6" path="res://Scenes/map/single door rooms/1_door_up.tscn" id="11_gl4f5"]
-[ext_resource type="PackedScene" uid="uid://bk3i0p3dmgy8i" path="res://Scenes/map/hallways/2_door_hallway_vertical.tscn" id="12_ch4v7"]
 [ext_resource type="Texture2D" uid="uid://dveuvlvaajxjc" path="res://Assets/Sprites/map/boss_door_symbol.png" id="13_hdfy6"]
-[ext_resource type="PackedScene" uid="uid://dqkgb1e1soyjs" path="res://Scenes/map/single door rooms/1_door_down.tscn" id="14_ekxaj"]
 [ext_resource type="PackedScene" uid="uid://bycygvf0dkbr1" path="res://Scenes/items/heart_2_pickup.tscn" id="15_5jcnp"]
+[ext_resource type="PackedScene" uid="uid://dojypve83qk4b" path="res://Scenes/map/rooms/1_door_room_up.tscn" id="15_21r3c"]
+[ext_resource type="PackedScene" uid="uid://01wblyc3frib" path="res://Scenes/map/rooms/2_door_up_down.tscn" id="16_7t14g"]
 [ext_resource type="PackedScene" uid="uid://lnvy0o75ud8f" path="res://Scenes/enemies/morphed_shade.tscn" id="16_r660b"]
+[ext_resource type="PackedScene" uid="uid://be4pn2ua63aka" path="res://Scenes/map/rooms/1_door_room_down.tscn" id="17_eo8ie"]
 [ext_resource type="PackedScene" uid="uid://bwwi5pgmppd0k" path="res://Scenes/Dungeon_floors/portal.tscn" id="17_etrge"]
 
 [sub_resource type="Animation" id="Animation_27xwy"]
@@ -149,39 +149,39 @@ layer_0/tile_data = PackedInt32Array(-4456529, 65536, 2, -4390993, 65536, 2, -43
 unique_name_in_owner = true
 position = Vector2(1, 0)
 
+[node name="1_door_up" parent="." instance=ExtResource("15_21r3c")]
+
+[node name="2_door_up_down" parent="." instance=ExtResource("16_7t14g")]
+position = Vector2(0, -224)
+
+[node name="2_door_up_down2" parent="." instance=ExtResource("16_7t14g")]
+position = Vector2(0, -448)
+
+[node name="2_door_up_down3" parent="." instance=ExtResource("16_7t14g")]
+position = Vector2(0, -672)
+
+[node name="2_door_up_down4" parent="." instance=ExtResource("16_7t14g")]
+position = Vector2(0, -896)
+
+[node name="2_door_up_down5" parent="." instance=ExtResource("16_7t14g")]
+position = Vector2(0, -1120)
+
+[node name="2_door_up_down6" parent="." instance=ExtResource("16_7t14g")]
+position = Vector2(0, -1344)
+
+[node name="1_door_down" parent="." instance=ExtResource("17_eo8ie")]
+position = Vector2(0, -1568)
+
 [node name="BG music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("10_arma7")
 volume_db = -2.0
 bus = &"Music"
 
-[node name="1_door_up" parent="." instance=ExtResource("11_gl4f5")]
-
-[node name="2_door_hallway_verical" parent="." instance=ExtResource("12_ch4v7")]
-position = Vector2(0, -208)
-
-[node name="2_door_hallway_verical2" parent="." instance=ExtResource("12_ch4v7")]
-position = Vector2(0, -416)
-
-[node name="2_door_hallway_verical5" parent="." instance=ExtResource("12_ch4v7")]
-position = Vector2(-1, -624)
-
-[node name="2_door_hallway_verical6" parent="." instance=ExtResource("12_ch4v7")]
-position = Vector2(-1, -832)
-
-[node name="2_door_hallway_verical3" parent="." instance=ExtResource("12_ch4v7")]
-position = Vector2(-1, -1040)
-
-[node name="2_door_hallway_verical4" parent="." instance=ExtResource("12_ch4v7")]
-position = Vector2(-1, -1248)
-
-[node name="1_door_down" parent="." instance=ExtResource("14_ekxaj")]
-position = Vector2(-1, -1456)
-
 [node name="heart_2_pickup" parent="." instance=ExtResource("15_5jcnp")]
-position = Vector2(0, -439)
+position = Vector2(0, -486)
 
 [node name="Floor Text" type="Node2D" parent="."]
-position = Vector2(5, -393)
+position = Vector2(5, -440)
 
 [node name="floor_label" type="Label" parent="Floor Text"]
 z_index = -1
@@ -209,9 +209,9 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -92.0
-offset_top = -657.0
+offset_top = -714.0
 offset_right = 81.0
-offset_bottom = -642.0
+offset_bottom = -699.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("4_rp8nv")
@@ -222,13 +222,13 @@ autowrap_mode = 2
 
 [node name="BossDoorSymbol" type="Sprite2D" parent="Floor Text"]
 z_index = -1
-position = Vector2(-6, -716)
+position = Vector2(-5, -755)
 texture = ExtResource("13_hdfy6")
 
 [node name="portal" parent="." instance=ExtResource("17_etrge")]
-position = Vector2(0, -1494)
+position = Vector2(0, -1609)
 
 [node name="morphed_shade" parent="." instance=ExtResource("16_r660b")]
-position = Vector2(0, -1256)
+position = Vector2(0, -1360)
 
 [connection signal="timeout" from="CanvasLayer/Fade_color/Fade_timer" to="." method="_on_fade_timer_timeout"]

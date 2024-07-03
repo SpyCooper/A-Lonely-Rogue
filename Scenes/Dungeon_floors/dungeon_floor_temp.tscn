@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://f60vqhrifhvo"]
+[gd_scene load_steps=19 format=3 uid="uid://f60vqhrifhvo"]
 
 [ext_resource type="Script" path="res://Scripts/map/dungeon_floor.gd" id="1_2bdxt"]
 [ext_resource type="PackedScene" uid="uid://duv7i8yak343i" path="res://Scenes/menus/HUD.tscn" id="2_0gt8c"]
@@ -8,19 +8,9 @@
 [ext_resource type="Texture2D" uid="uid://drktqhtj5vluu" path="res://Assets/Sprites/map/TileSet.png" id="6_ws3qk"]
 [ext_resource type="PackedScene" uid="uid://dxlj826ndney4" path="res://Scenes/map/transition_camera.tscn" id="7_sxsuq"]
 [ext_resource type="PackedScene" uid="uid://dahgvmrgtix2i" path="res://Scenes/player/player.tscn" id="8_yojfq"]
-[ext_resource type="PackedScene" uid="uid://cj7h10qvuo84a" path="res://Scenes/map/4_door_room.tscn" id="9_fhmwm"]
+[ext_resource type="PackedScene" uid="uid://cj7h10qvuo84a" path="res://Scenes/map/rooms/4_door_room.tscn" id="9_fhmwm"]
 [ext_resource type="PackedScene" uid="uid://x2so2ayusjw6" path="res://Scenes/enemies/slime.tscn" id="10_3sor3"]
 [ext_resource type="PackedScene" uid="uid://dfctt8og03c2e" path="res://Scenes/items/key_item.tscn" id="12_tup6n"]
-[ext_resource type="PackedScene" uid="uid://nl45rowphdwa" path="res://Scenes/map/3_door_room_no_left.tscn" id="13_dma4w"]
-[ext_resource type="PackedScene" uid="uid://01wblyc3frib" path="res://Scenes/map/2_door_up_down.tscn" id="14_hfjc3"]
-[ext_resource type="PackedScene" uid="uid://bg582yctmjj1a" path="res://Scenes/map/2_door_down_left.tscn" id="15_8fw1q"]
-[ext_resource type="PackedScene" uid="uid://dao0vj3oommmj" path="res://Scenes/map/2_door_down_right.tscn" id="16_e5lty"]
-[ext_resource type="PackedScene" uid="uid://dp3cijhg2nws2" path="res://Scenes/map/2_door_room_up_left.tscn" id="17_1cis7"]
-[ext_resource type="PackedScene" uid="uid://dktq14smf6rpt" path="res://Scenes/map/2_door_left_right.tscn" id="19_6crcr"]
-[ext_resource type="PackedScene" uid="uid://be4pn2ua63aka" path="res://Scenes/map/1_door_room_down.tscn" id="20_2nhyq"]
-[ext_resource type="PackedScene" uid="uid://dojypve83qk4b" path="res://Scenes/map/1_door_room_up.tscn" id="21_8jilr"]
-[ext_resource type="PackedScene" uid="uid://cbg5wdbuh0hhw" path="res://Scenes/map/1_door_room_right.tscn" id="22_1r2ru"]
-[ext_resource type="PackedScene" uid="uid://p8b28nuu8aah" path="res://Scenes/map/1_door_room_left.tscn" id="22_rfpd6"]
 [ext_resource type="AudioStream" uid="uid://ciw6spax0xy06" path="res://Assets/Audio/background music/8bit-mix-56351.mp3" id="25_6u5ig"]
 
 [sub_resource type="Animation" id="Animation_27xwy"]
@@ -159,10 +149,10 @@ position = Vector2(1, 0)
 [node name="Center" parent="." instance=ExtResource("9_fhmwm")]
 
 [node name="slime2" parent="." instance=ExtResource("10_3sor3")]
-position = Vector2(1134, -7)
+position = Vector2(475, -13)
 
 [node name="slime" parent="." instance=ExtResource("10_3sor3")]
-position = Vector2(-1068, -224)
+position = Vector2(354, 40)
 
 [node name="BG music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("25_6u5ig")
@@ -180,35 +170,5 @@ position = Vector2(78, 26)
 
 [node name="4_door_room" parent="." instance=ExtResource("9_fhmwm")]
 position = Vector2(384, 0)
-
-[node name="3_door_no_left" parent="." instance=ExtResource("13_dma4w")]
-position = Vector2(-384, 0)
-
-[node name="2_door_up_down" parent="." instance=ExtResource("14_hfjc3")]
-position = Vector2(-384, -224)
-
-[node name="2_door_down_left" parent="." instance=ExtResource("15_8fw1q")]
-position = Vector2(-384, -448)
-
-[node name="2_door_down_right" parent="." instance=ExtResource("16_e5lty")]
-position = Vector2(-768, -448)
-
-[node name="2_door_up_left" parent="." instance=ExtResource("17_1cis7")]
-position = Vector2(-768, -224)
-
-[node name="2_door_left_right" parent="." instance=ExtResource("19_6crcr")]
-position = Vector2(768, 0)
-
-[node name="1_door_down" parent="." instance=ExtResource("20_2nhyq")]
-position = Vector2(385, -224)
-
-[node name="1_door_up" parent="." instance=ExtResource("21_8jilr")]
-position = Vector2(384, 224)
-
-[node name="1_door_left" parent="." instance=ExtResource("22_rfpd6")]
-position = Vector2(1150, 0)
-
-[node name="1_door_right" parent="." instance=ExtResource("22_1r2ru")]
-position = Vector2(-1151, -224)
 
 [connection signal="timeout" from="CanvasLayer/Fade_color/Fade_timer" to="." method="_on_fade_timer_timeout"]

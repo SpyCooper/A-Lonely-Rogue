@@ -7,6 +7,8 @@ const POISON_EFFECT = preload("res://Scenes/status_effects/poison_effect.tscn")
 const SHADOW_FLAME_EFFECT = preload("res://Scenes/status_effects/shadow_flame_effect.tscn")
 const DUST_BLADE_EFFECT = preload("res://Scenes/status_effects/dust_blade_effect.tscn")
 const GLASS_SHRAPNEL = preload("res://Scenes/status_effects/glass_shrapnel.tscn")
+@onready var lifetime_timer = $lifetime_timer
+var timer_started = false
 
 # variables
 var move_direction
@@ -36,6 +38,11 @@ func spawned(click_position, blade_type, player, current_attack_identifier, knif
 func _process(delta):
 	# moves the knife based on the thrown direction
 	position += move_direction * speed * delta
+	# starts the lifetime timer if it hasn't started
+	if !timer_started:
+		# starts the lifetime timer
+		lifetime_timer.start()
+		timer_started = true
 
 # runs when a object enters the Area2D's collider
 func _on_body_entered(body):
@@ -63,11 +70,10 @@ func _on_body_entered(body):
 				body.add_child(DUST_BLADE_EFFECT.instantiate())
 		# the knife deals damage to the enemies hit
 		body.take_damage(damage, attack_identifer, false)
-	
+	# plays the knife hit sound
 	var knife_hit_sound = KNIFE_HIT.instantiate()
 	knife_hit_sound.position = position
 	get_parent().add_child(knife_hit_sound)
-	
 	# if the player has glass blade
 	for blade_type in player_ref.get_current_weapons():
 		if blade_type == BladeType.blade_type.glass:
@@ -76,7 +82,6 @@ func _on_body_entered(body):
 			glass_explosion_spawn.position = position
 			get_parent().add_child(glass_explosion_spawn)
 			glass_explosion_spawn.emitting = true
-	
 	# removes the knife from the screen
 	queue_free()
 
@@ -94,3 +99,7 @@ func change_blade_type(animated_sprite, blade_type):
 		animated_sprite.play("poison_blade")
 	elif blade_type == BladeType.blade_type.sleek:
 		animated_sprite.play("sleek_blade")
+
+# when the lifetime timer ends, remove the knife
+func _on_lifetime_timer_timeout():
+	queue_free()
