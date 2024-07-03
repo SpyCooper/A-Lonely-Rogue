@@ -52,7 +52,7 @@ position = Vector2(0, -4)
 sprite_frames = SubResource("SpriteFrames_dgvc8")
 
 [node name="life_time_timer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 2.3
 one_shot = true
 
 [node name="fuse_sound" type="AudioStreamPlayer2D" parent="."]

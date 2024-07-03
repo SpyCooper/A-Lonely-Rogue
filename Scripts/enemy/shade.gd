@@ -15,6 +15,7 @@ const ENEMY_HIT_SHADER = preload("res://Scripts/shaders/enemy_hit_shader.gdshade
 # attack variables
 var can_attack = false
 var can_attack_timer_max = 7
+var can_attack_timer_range = 2.0
 var can_attack_timer = can_attack_timer_max
 var attacking = false
 @onready var attack_sound = $attack_sound
@@ -30,6 +31,9 @@ const SHADOW_BOLT = preload("res://Scenes/enemies/shadow_bolt/shadow_bolt.tscn")
 # general enemy variables
 var target_position
 var current_direction : look_direction
+
+# defines a random number generator
+var rng = RandomNumberGenerator.new()
 
 # variables
 var can_move = true
@@ -168,7 +172,7 @@ func attack():
 		elif current_direction == look_direction.right:
 			animated_sprite.play("shadow_bolt_right_start")
 		# reset the can attack timer
-		can_attack_timer = can_attack_timer_max
+		can_attack_timer = rng.randf_range(can_attack_timer_max-can_attack_timer_range, can_attack_timer_max+can_attack_timer_range)
 		# start the spawn timer
 		shadow_bolt_spawn_timer.start()
 		# start the attack timer

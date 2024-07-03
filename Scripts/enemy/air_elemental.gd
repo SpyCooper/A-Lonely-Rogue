@@ -17,10 +17,14 @@ const ENEMY_HIT_SHADER = preload("res://Scripts/shaders/enemy_hit_shader.gdshade
 var can_throw = false
 var thrown = false
 var throw_timer_max = 2.25
+var throw_timer_range = 1.0
 var throw_timer = throw_timer_max
 var thrown_counter = 0
 const TORNADO = preload("res://Scenes/enemies/tornado/tornado.tscn")
 @onready var time_between_attacks_timer = $time_between_attacks_timer
+
+# defines a random number generator
+var rng = RandomNumberGenerator.new()
 
 # general enemy variables
 var target_position
@@ -82,7 +86,7 @@ func _physics_process(_delta):
 				# reset the throw
 				can_throw = false
 				# reset the throw timer
-				throw_timer = throw_timer_max
+				throw_timer = rng.randf_range(throw_timer_max-throw_timer_range, throw_timer_max+throw_timer_range)
 				# throw the first tornado
 				throw_tornado()
 			# if the enemy is not within 60 pixels of the player

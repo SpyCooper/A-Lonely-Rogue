@@ -162,7 +162,7 @@ shape = SubResource("CircleShape2D_3jliw")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Key_check_up"]
 sprite_frames = SubResource("SpriteFrames_sj45s")
-animation = &"non_pulsing"
+animation = &"pulsing"
 
 [node name="Key_check_down" type="Area2D" parent="."]
 position = Vector2(0, 76)

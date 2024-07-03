@@ -290,7 +290,8 @@ func spawn_skeletons():
 				spawn_location = skeleton_spawn_right_location
 			# spawns the skeleton for this iteration
 			var skel = random_skel.instantiate()
-			get_parent().add_child(skel)
+			add_child(skel)
+			skel.reparent(get_parent())
 			skel.spawned_in_room()
 			# set the skeleton's position
 			skel.global_position = spawn_location.global_position
@@ -426,7 +427,8 @@ func spawn_unarmed_skeleton():
 			spawn_location = skeleton_spawn_left_location
 		# spawn the skeleton
 		var skel = SKELETON_UNARMED.instantiate()
-		get_parent().add_child(skel)
+		add_child(skel)
+		skel.reparent(get_parent())
 		skel.spawned_in_room()
 		# set the skeleton's position
 		skel.global_position = spawn_location.global_position

@@ -35,7 +35,7 @@ func _ready():
 func _physics_process(_delta):
 	# circles around the player
 	angle += speed
-	global_position = Events.player.global_position + Vector2.RIGHT.rotated(angle) * distance_from_player
+	global_position = Events.player.get_player_position() + Vector2.RIGHT.rotated(angle) * distance_from_player
 	## does not look at the player like the charms do
 	# if the player is in a room
 	if room_ref != null:

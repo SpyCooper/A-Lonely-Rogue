@@ -10,6 +10,7 @@ extends Node2D
 
 # sets up the number of enemies
 var enemies_spawned = []
+var can_play_sound = false
 
 #func _ready():
 	## set if the doors are locked, etc
@@ -41,13 +42,14 @@ func _on_player_detector_body_entered(body):
 				enemy.wake_up()
 			# check the lock status when the player enters the room
 			key_checks.locks_changed(false)
+			
 
 # when an body enters
 func _on_enemy_detector_body_entered(body):
 	# if the body is an enemy
 	if body is Enemy:
 		# adds an enemy to the count and a refernce to the enemy
-		enemies_spawned += [body]
+		enemies_spawned = enemies_spawned + [body]
 
 # when a body exits the enemy detector
 func _on_enemy_detector_body_exited(body):
@@ -76,6 +78,7 @@ func close_all_doors():
 		right_door.close_door()
 	# plays the door sound
 	door_sound.play()
+	print("closing")
 
 # opens all doors
 func open_all_doors():
@@ -89,6 +92,7 @@ func open_all_doors():
 		right_door.open_door()
 	# plays the door sound
 	door_sound.play()
+	print("opening")
 
 # disables all doors
 func disable_all_doors():
@@ -117,6 +121,7 @@ func unlock_door(door):
 			right_door.open_door()
 	# plays the door sound
 	door_sound.play()
+	print("unlocking")
 
 # if there are enemies in the room, return true
 func is_enemies():

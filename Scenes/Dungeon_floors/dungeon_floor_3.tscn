@@ -9,10 +9,10 @@
 [ext_resource type="Texture2D" uid="uid://drktqhtj5vluu" path="res://Assets/Sprites/map/TileSet.png" id="8_2wdng"]
 [ext_resource type="PackedScene" uid="uid://dahgvmrgtix2i" path="res://Scenes/player/player.tscn" id="9_j4ic3"]
 [ext_resource type="PackedScene" uid="uid://cj7h10qvuo84a" path="res://Scenes/map/rooms/4_door_room.tscn" id="10_0wor3"]
-[ext_resource type="Texture2D" uid="uid://dveuvlvaajxjc" path="res://Assets/Sprites/map/boss_door_symbol.png" id="18_vl42c"]
 [ext_resource type="PackedScene" uid="uid://w1pgiqf773o0" path="res://Scenes/random_item_spawner.tscn" id="21_v3p58"]
 [ext_resource type="PackedScene" uid="uid://cfta80h76u0k2" path="res://Scenes/item_chest.tscn" id="22_byt5a"]
 [ext_resource type="PackedScene" uid="uid://che2yfugx3uto" path="res://Scenes/map/rooms/2_door_room_up_right.tscn" id="23_2twha"]
+[ext_resource type="PackedScene" uid="uid://5dt5o5bwrdc2" path="res://Scenes/map/boss_door_icon.tscn" id="23_7vhby"]
 [ext_resource type="PackedScene" uid="uid://bycygvf0dkbr1" path="res://Scenes/items/heart_2_pickup.tscn" id="23_vpsya"]
 [ext_resource type="PackedScene" uid="uid://01wblyc3frib" path="res://Scenes/map/rooms/2_door_up_down.tscn" id="24_6i01l"]
 [ext_resource type="PackedScene" uid="uid://p8b28nuu8aah" path="res://Scenes/map/rooms/1_door_room_left.tscn" id="26_3rhqf"]
@@ -229,10 +229,8 @@ position = Vector2(-91, -219)
 [node name="Floor Text" type="Node2D" parent="."]
 position = Vector2(1152, -137)
 
-[node name="BossDoorSymbol2" type="Sprite2D" parent="Floor Text"]
-z_index = -1
+[node name="Boss_door_sprite" parent="Floor Text" instance=ExtResource("23_7vhby")]
 position = Vector2(0, -163)
-texture = ExtResource("18_vl42c")
 
 [node name="heart_2_pickup" parent="." instance=ExtResource("23_vpsya")]
 position = Vector2(1090, -225)

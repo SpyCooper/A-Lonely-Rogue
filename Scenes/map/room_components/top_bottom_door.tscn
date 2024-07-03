@@ -118,7 +118,7 @@ shape = SubResource("RectangleShape2D_j4ndf")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, -2.5)
 sprite_frames = SubResource("SpriteFrames_a7ht6")
-animation = &"close"
+animation = &"gone"
 
 [node name="open_timer" type="Timer" parent="."]
 wait_time = 0.5

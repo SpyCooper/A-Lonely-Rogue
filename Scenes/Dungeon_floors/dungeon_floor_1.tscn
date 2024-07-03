@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://8jxi88fj77dd"]
+[gd_scene load_steps=42 format=3 uid="uid://8jxi88fj77dd"]
 
 [ext_resource type="PackedScene" uid="uid://duv7i8yak343i" path="res://Scenes/menus/HUD.tscn" id="1_80esy"]
 [ext_resource type="Script" path="res://Scripts/map/dungeon_floor.gd" id="1_dvl4e"]
@@ -20,15 +20,20 @@
 [ext_resource type="PackedScene" uid="uid://k0t5cu3qhof5" path="res://Scenes/map/rooms/3_door_room_no_down.tscn" id="25_m2mvb"]
 [ext_resource type="PackedScene" uid="uid://dp3cijhg2nws2" path="res://Scenes/map/rooms/2_door_room_up_left.tscn" id="26_3lvu6"]
 [ext_resource type="AudioStream" uid="uid://ciw6spax0xy06" path="res://Assets/Audio/background music/8bit-mix-56351.mp3" id="27_26f5p"]
+[ext_resource type="PackedScene" uid="uid://5dt5o5bwrdc2" path="res://Scenes/map/boss_door_icon.tscn" id="27_fiseb"]
 [ext_resource type="PackedScene" uid="uid://duu1fv8fg83r6" path="res://Scenes/map/rooms/3_door_room_no_right.tscn" id="27_w4i8a"]
 [ext_resource type="Script" path="res://Scripts/map/Tutorial.gd" id="28_14004"]
 [ext_resource type="PackedScene" uid="uid://cbg5wdbuh0hhw" path="res://Scenes/map/rooms/1_door_room_right.tscn" id="28_cmtrx"]
 [ext_resource type="PackedScene" uid="uid://p8b28nuu8aah" path="res://Scenes/map/rooms/1_door_room_left.tscn" id="28_ekw3m"]
-[ext_resource type="Texture2D" uid="uid://dveuvlvaajxjc" path="res://Assets/Sprites/map/boss_door_symbol.png" id="29_8oo7y"]
 [ext_resource type="PackedScene" uid="uid://kbe2aiqeulfc" path="res://Scenes/map/rooms/3_door_room_no_up.tscn" id="29_le430"]
 [ext_resource type="PackedScene" uid="uid://dktq14smf6rpt" path="res://Scenes/map/rooms/2_door_left_right.tscn" id="29_tb2c2"]
+[ext_resource type="PackedScene" uid="uid://dkv6yw1egf4o1" path="res://Scenes/items/bomb_item.tscn" id="30_dowci"]
+[ext_resource type="PackedScene" uid="uid://ptwmn1mfta68" path="res://Scenes/items/triple_blades_item.tscn" id="30_hsd44"]
 [ext_resource type="PackedScene" uid="uid://che2yfugx3uto" path="res://Scenes/map/rooms/2_door_room_up_right.tscn" id="30_y76vo"]
+[ext_resource type="PackedScene" uid="uid://dk6n0a1tcm2fs" path="res://Scenes/items/dead_rogues_head_item.tscn" id="31_3iy1c"]
+[ext_resource type="PackedScene" uid="uid://bvs3eiuarm1bo" path="res://Scenes/items/glass_blade_item.tscn" id="31_7lbc8"]
 [ext_resource type="PackedScene" uid="uid://be4pn2ua63aka" path="res://Scenes/map/rooms/1_door_room_down.tscn" id="31_pljao"]
+[ext_resource type="PackedScene" uid="uid://cqh48ul0w7s8b" path="res://Scenes/items/shadow_blade_item.tscn" id="33_16las"]
 
 [sub_resource type="Animation" id="Animation_27xwy"]
 length = 0.001
@@ -118,7 +123,7 @@ texture = ExtResource("7_cdgba")
 [sub_resource type="TileSet" id="TileSet_pnge6"]
 sources/0 = SubResource("TileSetAtlasSource_a4f5t")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_17xuq"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_edg1r"]
 resource_local_to_scene = true
 
 [node name="Floor1" type="Node2D"]
@@ -252,7 +257,7 @@ position = Vector2(459, 44)
 position = Vector2(447, -47)
 
 [node name="gelatinous_cube" parent="." instance=ExtResource("13_axlkh")]
-material = SubResource("ShaderMaterial_17xuq")
+material = SubResource("ShaderMaterial_edg1r")
 position = Vector2(-768, -33)
 
 [node name="slime4" parent="." instance=ExtResource("10_rrme3")]
@@ -291,10 +296,7 @@ position = Vector2(-538, 66)
 [node name="Trapdoor" parent="Floor Text" instance=ExtResource("25_csphi")]
 position = Vector2(-230, -329)
 
-[node name="BossDoorSymbol" type="Sprite2D" parent="Floor Text"]
-z_index = -1
-position = Vector2(0, -66)
-texture = ExtResource("29_8oo7y")
+[node name="Boss_door_icon" parent="Floor Text" instance=ExtResource("27_fiseb")]
 
 [node name="Tutorial" type="Node2D" parent="."]
 position = Vector2(0, 226)
@@ -358,6 +360,21 @@ theme_override_colors/font_color = Color(0.376471, 0.231373, 0.227451, 1)
 text = "Press Space to use active items"
 horizontal_alignment = 1
 autowrap_mode = 2
+
+[node name="bomb_item" parent="." instance=ExtResource("30_dowci")]
+position = Vector2(-69, 8)
+
+[node name="dead_rogus_head_item" parent="." instance=ExtResource("31_3iy1c")]
+position = Vector2(-34, -33)
+
+[node name="triple_blades_item" parent="." instance=ExtResource("30_hsd44")]
+position = Vector2(-456, 16)
+
+[node name="shadow_blade_item" parent="." instance=ExtResource("33_16las")]
+position = Vector2(-410, 15)
+
+[node name="glass_blade_item" parent="." instance=ExtResource("31_7lbc8")]
+position = Vector2(-362, 25)
 
 [connection signal="timeout" from="CanvasLayer/Fade_color/Fade_timer" to="." method="_on_fade_timer_timeout"]
 

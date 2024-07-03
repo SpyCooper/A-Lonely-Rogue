@@ -266,7 +266,8 @@ func _on_spawn_freeze_timer_timeout():
 			# creat a green slime
 			var green_slime = GREEN_SLIME.instantiate()
 			# make the green slime a child of the scene and not the gel cube
-			get_parent().add_child(green_slime)
+			add_child(green_slime)
+			green_slime.reparent(get_parent())
 			# tell the green slime they spawned in the room
 			green_slime.spawned_in_room()
 			# set the position of the green slime
@@ -279,8 +280,7 @@ func _on_spawn_freeze_timer_timeout():
 			elif spawn == spawn_location.bottom:
 				green_slime.global_position = spawner_bottom.global_position
 			# check for a collision at the spawn location
-			var vect = Vector2(0.0,0.0)
-			var collision = green_slime.move_and_collide(vect)
+			var collision = green_slime.move_and_collide(Vector2(0.0,0.0))
 			# if there is a collision at the location, despawn the slime
 			if collision != null:
 				green_slime.despawn()

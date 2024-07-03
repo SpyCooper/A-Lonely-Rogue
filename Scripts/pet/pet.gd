@@ -22,7 +22,7 @@ func _ready():
 func _physics_process(_delta):
 	# circles around the player
 	angle += speed
-	global_position = Events.player.global_position + Vector2.RIGHT.rotated(angle) * distance_from_player
+	global_position = Events.player.get_player_position() + Vector2.RIGHT.rotated(angle) * distance_from_player
 	look_at(Events.player.position)
 
 # basic damage function

@@ -767,7 +767,7 @@ one_shot = true
 [node name="HitSound" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(0, -7)
 stream = ExtResource("4_arb5w")
-volume_db = 10.0
+volume_db = 13.0
 bus = &"Sound Effect"
 
 [node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
@@ -779,7 +779,7 @@ bus = &"Sound Effect"
 [node name="SpawnSound" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(0, -7)
 stream = ExtResource("6_220jm")
-volume_db = 10.0
+volume_db = 13.0
 bus = &"Sound Effect"
 
 [node name="attack_sound" type="AudioStreamPlayer2D" parent="."]
@@ -802,7 +802,7 @@ position = Vector2(-14, -7)
 position = Vector2(14, -7)
 
 [node name="time_between_shadow_bolts_burst" type="Timer" parent="."]
-wait_time = 0.3
+wait_time = 0.4
 one_shot = true
 
 [node name="Hit_Flash_animation_player" type="AnimationPlayer" parent="."]

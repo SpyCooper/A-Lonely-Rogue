@@ -10,9 +10,9 @@
 [ext_resource type="Texture2D" uid="uid://drktqhtj5vluu" path="res://Assets/Sprites/map/TileSet.png" id="8_fhr48"]
 [ext_resource type="PackedScene" uid="uid://dahgvmrgtix2i" path="res://Scenes/player/player.tscn" id="9_kpeox"]
 [ext_resource type="AudioStream" uid="uid://de1jje6nelok4" path="res://Assets/Audio/background music/bgm029-dark-fantasy-horror-mystery-horror-148349.mp3" id="10_arma7"]
-[ext_resource type="Texture2D" uid="uid://dveuvlvaajxjc" path="res://Assets/Sprites/map/boss_door_symbol.png" id="13_hdfy6"]
 [ext_resource type="PackedScene" uid="uid://bycygvf0dkbr1" path="res://Scenes/items/heart_2_pickup.tscn" id="15_5jcnp"]
 [ext_resource type="PackedScene" uid="uid://dojypve83qk4b" path="res://Scenes/map/rooms/1_door_room_up.tscn" id="15_21r3c"]
+[ext_resource type="PackedScene" uid="uid://5dt5o5bwrdc2" path="res://Scenes/map/boss_door_icon.tscn" id="15_whw35"]
 [ext_resource type="PackedScene" uid="uid://01wblyc3frib" path="res://Scenes/map/rooms/2_door_up_down.tscn" id="16_7t14g"]
 [ext_resource type="PackedScene" uid="uid://lnvy0o75ud8f" path="res://Scenes/enemies/morphed_shade.tscn" id="16_r660b"]
 [ext_resource type="PackedScene" uid="uid://be4pn2ua63aka" path="res://Scenes/map/rooms/1_door_room_down.tscn" id="17_eo8ie"]
@@ -220,10 +220,8 @@ text = "Good luck"
 horizontal_alignment = 1
 autowrap_mode = 2
 
-[node name="BossDoorSymbol" type="Sprite2D" parent="Floor Text"]
-z_index = -1
+[node name="Boss_door_sprite" parent="Floor Text" instance=ExtResource("15_whw35")]
 position = Vector2(-5, -755)
-texture = ExtResource("13_hdfy6")
 
 [node name="portal" parent="." instance=ExtResource("17_etrge")]
 position = Vector2(0, -1609)
