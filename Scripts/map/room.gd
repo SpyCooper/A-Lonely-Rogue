@@ -42,7 +42,6 @@ func _on_player_detector_body_entered(body):
 				enemy.wake_up()
 			# check the lock status when the player enters the room
 			key_checks.locks_changed(false)
-			
 
 # when an body enters
 func _on_enemy_detector_body_entered(body):
@@ -136,3 +135,11 @@ func get_enemies_in_room():
 # when the player obtains a key, reset the locks icons
 func player_obtained_keys():
 	key_checks.locks_changed(true)
+
+func enemy_spawned(enemy):
+	# enable the doors
+	close_all_doors()
+	# check the lock status when the player enters the room
+	key_checks.locks_changed(false)
+	# adds an enemy to the count and a refernce to the enemy
+	enemies_spawned = enemies_spawned + [enemy]

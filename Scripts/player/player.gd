@@ -1038,6 +1038,7 @@ func room_entered(room):
 	attacks_that_have_hit = []
 	# sets the current room
 	current_room = room
+	Events.current_room = current_room
 
 # gets the player model's position
 func get_player_position():

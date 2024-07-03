@@ -119,7 +119,6 @@ y_sort_enabled = true
 script = ExtResource("1_yjxmx")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-visible = false
 
 [node name="Fade_color" type="ColorRect" parent="CanvasLayer"]
 offset_right = 1280.0
@@ -168,9 +167,6 @@ locked = true
 
 [node name="1_door_down2" parent="." instance=ExtResource("23_brn7c")]
 position = Vector2(-383, -224)
-
-[node name="Random Item Spawner" parent="1_door_down2" instance=ExtResource("21_dxntd")]
-position = Vector2(0, 1)
 
 [node name="2_door_up_left" parent="." instance=ExtResource("22_w71hv")]
 position = Vector2(384, 0)
@@ -265,6 +261,9 @@ position = Vector2(1239, 384)
 
 [node name="Trapdoor" parent="Floor Text2" instance=ExtResource("24_0uy8j")]
 position = Vector2(382, -163)
+
+[node name="item_chest2" parent="." instance=ExtResource("22_ulsr0")]
+position = Vector2(-384, -252)
 
 [connection signal="timeout" from="CanvasLayer/Fade_color/Fade_timer" to="." method="_on_fade_timer_timeout"]
 

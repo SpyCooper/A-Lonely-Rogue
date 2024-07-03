@@ -8,3 +8,4 @@ signal floor_changed(floor)
 var player
 var catalog
 var current_floor = "floor1"
+var current_room
