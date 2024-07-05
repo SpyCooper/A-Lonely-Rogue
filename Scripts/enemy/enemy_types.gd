@@ -18,4 +18,8 @@ enum enemy
 	morphed_shade,
 	mimic,
 	skeleton,
+	emerald_skeleton,
+	sapphire_pegasus,
+	quartz_behemoth,
+	obsidian_devil,
 }

@@ -181,30 +181,32 @@ func _on_spawn_timer_timeout():
 
 # does an attack
 func attack():
-	# gets the player's position
-	player_position = player.get_player_position()
-	jump_direction = (player_position - global_position).normalized()
-	current_direction = get_left_right_look_direction(jump_direction)
-	# plays the correct attack animation
-	if current_direction == look_direction.right:
-		animated_sprite.play("attack_right")
-	elif current_direction == look_direction.left:
-		animated_sprite.play("attack_left")
-	# disables attacks and sets the state to attacking
-	can_attack = false
-	current_state = state.attacking
-	# plays the attack sound
-	attack_sound.play()
+	if !dying:
+		# gets the player's position
+		player_position = player.get_player_position()
+		jump_direction = (player_position - global_position).normalized()
+		current_direction = get_left_right_look_direction(jump_direction)
+		# plays the correct attack animation
+		if current_direction == look_direction.right:
+			animated_sprite.play("attack_right")
+		elif current_direction == look_direction.left:
+			animated_sprite.play("attack_left")
+		# disables attacks and sets the state to attacking
+		can_attack = false
+		current_state = state.attacking
+		# plays the attack sound
+		attack_sound.play()
 
 # lands the mimic after an attack
 func land():
-	# plays the correct landing animation
-	if current_direction == look_direction.right:
-		animated_sprite.play("land_right")
-	elif current_direction == look_direction.left:
-		animated_sprite.play("land_left")
-	# sets the current state to landing
-	current_state = state.landing
+	if !dying:
+		# plays the correct landing animation
+		if current_direction == look_direction.right:
+			animated_sprite.play("land_right")
+		elif current_direction == look_direction.left:
+			animated_sprite.play("land_left")
+		# sets the current state to landing
+		current_state = state.landing
 
 # when the attack timer ends
 func _on_attack_timer_timeout():

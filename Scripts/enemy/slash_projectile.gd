@@ -1,5 +1,7 @@
 extends Area2D
 
+class_name slash_projection
+
 # object references
 @onready var animated_sprite = $AnimatedSprite2D
 

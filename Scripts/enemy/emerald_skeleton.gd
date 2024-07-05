@@ -1,56 +1,23 @@
-extends Enemy
-
-class_name skeleton_warrior
+extends skeleton_warrior
 
 # object references
-@onready var animated_sprite = $AnimatedSprite2D
-@onready var death_timer = $death_timer
-@onready var death_sound = $DeathSound
-@onready var hit_sound = $HitSound
-@onready var spawn_sound = $SpawnSound
-@onready var spawn_timer = $Spawn_timer
-@onready var hit_flash_animation_player = $Hit_Flash_animation_player
-@onready var hit_flash_animation_timer = $Hit_Flash_animation_player/hit_flash_animation_timer
-const ENEMY_HIT_SHADER = preload("res://Scripts/shaders/enemy_hit_shader.gdshader")
-@onready var damage_player = $DamagePlayer
-
+@onready var hud = %HUD
+const LARGE_SLASH_PROJECTILE = preload("res://Scenes/enemies/slash_projectile/large_slash_projectile.tscn")
 # attack variables
-var can_attack = false
-var can_attack_timer_max = 1.5
-var can_attack_timer = can_attack_timer_max
-var attacking = false
-@onready var attack_animation_timer = $attack_animation_timer
-const SLASH_PROJECTILE = preload("res://Scenes/enemies/slash_projectile/slash_projectile.tscn")
-@onready var slash_projection_spawn_timer = $slash_projection_spawn_timer
-@onready var attack_sound = $attack_sound
 
-# general enemy variables
-var target_position
-var current_direction : look_direction
-
-# variables
-var can_move = true
-var is_idle = false
+var slash_count = 0
+var slash_count_max = 2
 
 # sets the enemy's stats and references
 func _ready():
-	speed = .7
-	health = 17
+	speed = .5
+	health = 55
 	sleep()
 	player = Events.player
 	max_health = health
 	catalog = Events.catalog
-
-# when the enemy wakes up
-func wake_up():
-	# player is now in the room
-	player_in_room = true
-	# the spawn animation is played
-	animated_sprite.play("spawning")
-	# the spawn_timer is started
-	spawn_timer.start()
-	# the spawn sound in played
-	spawn_sound.play()
+	can_attack_timer_max = 2
+	can_attack_timer = can_attack_timer_max
 
 # on every frame
 func _process(delta):
@@ -75,11 +42,11 @@ func _physics_process(_delta):
 			target_position = (player_position - global_position).normalized()
 			current_direction = get_left_right_look_direction(target_position)
 			# if the enemy can attack and is less than 50 pixels away from the player
-			if can_attack && position.distance_to(player_position) < 50:
+			if can_attack && position.distance_to(player_position) < 75:
 				# attack
 				attack()
 			# if the enemy is further than 50 pixels
-			elif position.distance_to(player_position) >= 50:
+			elif position.distance_to(player_position) >= 75:
 				# look in the direction of the player
 				# flips the direction of the skeleton warrior based on the current_direction
 				## NOTE: all these checks are identical but change the directions they look at
@@ -122,6 +89,8 @@ func take_damage(damage, attack_identifer, is_effect):
 		attacks_that_hit += [attack_identifer]
 		# subtracts the health
 		health -= damage
+		# adjust the boss health bar in the HUD
+		hud.adjust_health_bar(health)
 		# add the damage to the player's stats
 		PlayerData.damage_dealt += damage
 		# if health is greater than 0
@@ -150,69 +119,41 @@ func take_damage(damage, attack_identifer, is_effect):
 
 # when death timer ends
 func _on_death_timer_timeout():
+	# hide the health bar
+	hud.hide_health_bar()
 	# unlock the skeleton warrior in the catalog
-	catalog.unlock_enemy(EnemyTypes.enemy.skeleton_warrior)
+	catalog.unlock_enemy(EnemyTypes.enemy.emerald_skeleton)
 	# call enemy slain
 	enemy_slain()
 
 # when spawn timer ends
 func _on_spawn_timer_timeout():
 	spawning = false
-
-# when the enemy attacks
-func attack():
-	# checks to make sure the character isn't dying
-	if !dying:
-		# set bool variables
-		can_attack = false
-		can_move = false
-		attacking = true
-		# reset the can attack timer
-		can_attack_timer = can_attack_timer_max
-		# play the attack left or right animation
-		if current_direction == Enemy.look_direction.right:
-			animated_sprite.play("attack_right")
-		elif current_direction == Enemy.look_direction.left:
-			animated_sprite.play("attack_left")
-		# play the attack animation timer
-		attack_animation_timer.start()
-		# play the slash projection spawn timer
-		slash_projection_spawn_timer.start()
-		# play the attack sound
-		attack_sound.play()
-
-# when the attack animation timer
-func _on_attack_animation_timer_timeout():
-	# set can move to true
-	can_move = true
-	# set attack to false
-	attacking = false
+	# show the lich's health bar in the HUD
+	hud.set_health_bar(max_health, "Emerald Skeleton")
 
 # when the slash projection spawn animation timer
 func _on_slash_projection_spawn_timer_timeout():
 	# checks to make sure the character isn't dying
 	if !dying:
-		# get the player position
-		player_position = player.get_player_position()
-		target_position = (player_position - global_position).normalized()
-		# spawn the clash projectile
-		var slash = SLASH_PROJECTILE.instantiate()
-		get_parent().add_child(slash)
-		# set the slash position
-		slash.global_position = global_position
-		# tell the slash that it spawned
-		slash.spawned(target_position)
-
-# returns the animated sprite
-func get_animated_sprite():
-	return animated_sprite
-
-# when called, the player and the enemy are considered to be in the same room
-func spawned_in_room():
-	player_in_room = true
-	spawning = false
-
-# when the hit flash animation timer ends
-func _on_hit_flash_animation_timer_timeout():
-	# remove the hit flash shader
-	animated_sprite.material.shader = null
+		if slash_count < slash_count_max:
+			# get the player position
+			player_position = player.get_player_position()
+			target_position = (player_position - global_position).normalized()
+			# spawn the clash projectile
+			var slash = LARGE_SLASH_PROJECTILE.instantiate()
+			get_parent().add_child(slash)
+			# set the slash position
+			slash.global_position = animated_sprite.global_position
+			# tell the slash that it spawned
+			slash.spawned(target_position)
+			slash_count += 1
+			slash_projection_spawn_timer.start()
+			if current_direction == look_direction.right:
+				if slash_count == 2:
+					slash.animated_sprite.flip_v = true
+			elif current_direction == look_direction.left:
+				if slash_count == 1:
+					slash.animated_sprite.flip_v = true
+		else:
+			slash_count = 0
