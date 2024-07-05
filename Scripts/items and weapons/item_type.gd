@@ -18,7 +18,7 @@ enum type
 	shadow_heart,
 	holy_heart,
 	poorly_made_voodoo_doll,
-	mysterious_key,
+	cursed_key,
 	holy_key,
 	dash_boots,
 	sleek_blades,

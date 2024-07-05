@@ -67,6 +67,11 @@ var skeleton_kill_count = 0
 @onready var morphed_shade_kill_count_label = $TabContainer/Bosses/Panels/Morphed_Shade_panel/KillCount
 var morphed_shade_unlocked = false
 var morphed_shade_kill_count = 0
+@onready var mimic_button = $TabContainer/Bosses/ScrollContainer/GridContainer/Spot5/Mimic_button
+@onready var mimic_panel = $TabContainer/Bosses/Panels/mimic_panel
+@onready var mimic_kill_count_label = $TabContainer/Bosses/Panels/mimic_panel/KillCount
+var mimic_unlocked = false
+var mimic_kill_count = 0
 
 # items variables
 # all enemy sections on the catalog need a reference to it's button, the panel, and a bool
@@ -136,6 +141,12 @@ var dead_rogues_head_unlocked = false
 @onready var bomb_button = $TabContainer/Items/ScrollContainer/GridContainer/Spot22/bomb_button
 @onready var bomb_panel = $TabContainer/Items/Panels/bomb_panel
 var bomb_unlocked = false
+@onready var cursed_key_button = $TabContainer/Items/ScrollContainer/GridContainer/Spot23/cursed_key_button
+@onready var cursed_key_panel = $TabContainer/Items/Panels/cursed_key_panel
+var cursed_key_unlocked = false
+@onready var holy_key_button = $TabContainer/Items/ScrollContainer/GridContainer/Spot24/holy_key_button
+@onready var holy_key_panel = $TabContainer/Items/Panels/holy_key_panel
+var holy_key_unlocked = false
 
 # on start
 func _ready():
@@ -245,6 +256,12 @@ func load_data():
 					if morphed_shade_unlocked:
 						morphed_shade_button.material.shader = null
 						morphed_shade_kill_count = data["morphed_shade_kill_count"]
+				elif enemy == "mimic_unlocked":
+					# mimic check
+					mimic_unlocked = data["mimic_unlocked"]
+					if mimic_unlocked:
+						mimic_button.material.shader = null
+						mimic_kill_count = data["mimic_kill_count"]
 			# update the kill counts in the catalog
 			update_kill_counts()
 		save_enemies()
@@ -372,6 +389,16 @@ func load_data():
 					bomb_unlocked = data["bomb_unlocked"]
 					if bomb_unlocked:
 						bomb_button.material.shader = null
+				elif item == "cursed_key_unlocked":
+					# cursed_key check
+					cursed_key_unlocked = data["cursed_key_unlocked"]
+					if cursed_key_unlocked:
+						cursed_key_button.material.shader = null
+				elif item == "holy_key_unlocked":
+					# holy_key check
+					holy_key_unlocked = data["holy_key_unlocked"]
+					if holy_key_unlocked:
+						holy_key_button.material.shader = null
 		save_items()
 
 # goes through all the panels and hides all of them
@@ -392,6 +419,7 @@ func clear_panel():
 	forgotten_golem_panel.hide()
 	lich_panel.hide()
 	morphed_shade_panel.hide()
+	mimic_panel.hide()
 	
 	# items tab
 	speed_boots_panel.hide()
@@ -416,7 +444,9 @@ func clear_panel():
 	magically_trapped_rogue_panel.hide()
 	dead_rogues_head_panel.hide()
 	bomb_panel.hide()
-
+	cursed_key_panel.hide()
+	holy_key_panel.hide()
+	
 ## ---------------------------------- Enemies --------------------------------------------------------
 
 # unlocks an enemy based on it's type
@@ -539,6 +569,15 @@ func unlock_enemy(enemy):
 			morphed_shade_unlocked = true
 		# increase the kill count and update the counts in the catalog
 		morphed_shade_kill_count += 1
+	elif enemy == EnemyTypes.enemy.mimic:
+		# if the enemy is locked
+		if !mimic_unlocked:
+			# remove the locked shader
+			mimic_button.material.shader = null
+			# set the enemy to be unlocked
+			mimic_unlocked = true
+		# increase the kill count and update the counts in the catalog
+		mimic_kill_count += 1
 	update_kill_counts()
 	# saves the enemies to the catalog file
 	save_enemies()
@@ -572,6 +611,8 @@ func found_enemies():
 		"skeleton_kill_count" : skeleton_kill_count,
 		"morphed_shade_unlocked" : morphed_shade_unlocked,
 		"morphed_shade_kill_count" : morphed_shade_kill_count,
+		"mimic_unlocked" : mimic_unlocked,
+		"mimic_kill_count" : mimic_kill_count,
 	}
 	return data
 
@@ -590,6 +631,7 @@ func update_kill_counts():
 	shade_kill_count_label.text = "Killed: " + str(shade_kill_count)
 	skeleton_kill_count_label.text = "Killed: " + str(skeleton_kill_count)
 	morphed_shade_kill_count_label.text = "Killed: " + str(morphed_shade_kill_count)
+	mimic_kill_count_label.text = "Killed: " + str(mimic_kill_count)
 
 # when the blue slime button is presed
 func _on_blue_slime_pressed():
@@ -707,6 +749,16 @@ func _on_morphed_shade_button_pressed():
 	if morphed_shade_unlocked:
 		# show the enemy's info panel
 		morphed_shade_panel.show()
+
+# when the mimic button is presed
+func _on_mimic_button_pressed():
+	# clear the info panel
+	clear_panel()
+	# if the enemy is unlocked
+	if mimic_unlocked:
+		# show the enemy's info panel
+		mimic_panel.show()
+
 
 # saves the enemy found to "enemiesfound.save"
 func save_enemies():
@@ -873,6 +925,20 @@ func unlock_item(item):
 			bomb_button.material.shader = null
 			# set the item to be unlocked
 			bomb_unlocked = true
+	elif item == ItemType.type.cursed_key:
+		# if the item is locked
+		if !cursed_key_unlocked:
+			# remove the locked shader
+			cursed_key_button.material.shader = null
+			# set the item to be unlocked
+			cursed_key_unlocked = true
+	elif item == ItemType.type.holy_key:
+		# if the item is locked
+		if !holy_key_unlocked:
+			# remove the locked shader
+			holy_key_button.material.shader = null
+			# set the item to be unlocked
+			holy_key_unlocked = true
 	save_items()
 
 # saves the items found to "itemsfound.save"
@@ -906,6 +972,8 @@ func found_items():
 		"magically_trapped_rogue_unlocked" : magically_trapped_rogue_unlocked,
 		"dead_rogues_head_unlocked" : dead_rogues_head_unlocked,
 		"bomb_unlocked" : bomb_unlocked,
+		"cursed_key_unlocked" : cursed_key_unlocked,
+		"holy_key_unlocked" : holy_key_unlocked,
 	}
 	return data
 
@@ -1106,3 +1174,21 @@ func _on_bomb_button_pressed():
 	if bomb_unlocked:
 		# show the item's info panel
 		bomb_panel.show()
+
+# when cursed_key button is pressed
+func _on_cursed_key_button_pressed():
+	# clear the into panel
+	clear_panel()
+	# if the item is unlocked
+	if cursed_key_unlocked:
+		# show the item's info panel
+		cursed_key_panel.show()
+
+# when holy key button is pressed
+func _on_holy_key_button_pressed():
+	# clear the into panel
+	clear_panel()
+	# if the item is unlocked
+	if holy_key_unlocked:
+		# show the item's info panel
+		holy_key_panel.show()

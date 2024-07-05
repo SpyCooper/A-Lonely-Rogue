@@ -363,6 +363,24 @@ func item_added(item):
 		item_ui.get_animated_sprite().play("dead_rogues_head")
 		# sets the item's type
 		item_ui.set_item_type(ItemType.type.dead_rogues_head)
+	elif item == ItemType.type.cursed_key:
+		# create a item UI slot
+		var item_ui = ITEM_UI_SLOT.instantiate()
+		# add it to the items collected container
+		items_ui_container.add_child(item_ui)
+		# set the graphic to the item
+		item_ui.get_animated_sprite().play("cursed_key")
+		# sets the item's type
+		item_ui.set_item_type(ItemType.type.cursed_key)
+	elif item == ItemType.type.holy_key:
+		# create a item UI slot
+		var item_ui = ITEM_UI_SLOT.instantiate()
+		# add it to the items collected container
+		items_ui_container.add_child(item_ui)
+		# set the graphic to the item
+		item_ui.get_animated_sprite().play("holy_key")
+		# sets the item's type
+		item_ui.set_item_type(ItemType.type.holy_key)
 
 # removes an item from the ui
 func remove_item_from_ui(item_to_remove : ItemType.type):

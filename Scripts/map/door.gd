@@ -27,9 +27,6 @@ func lock():
 	locked = true
 	close_door()
 
-func close_door():
-	animated_sprite.play("close")
-
 func open_door():
 	if !locked:
 		animated_sprite.play("open")
@@ -37,10 +34,14 @@ func open_door():
 
 func _on_open_timer_timeout():
 	if collision_shape != null:
-		collision_shape.queue_free()
+		collision_shape.set_deferred("disabled", true)
 
+func close_door():
+	animated_sprite.play("close")
+	collision_shape.set_deferred("disabled", false)
+	
 func disable_door():
 	if !locked:
 		animated_sprite.play("gone")
 		if collision_shape != null:
-			collision_shape.queue_free()
+			collision_shape.set_deferred("disabled", true)

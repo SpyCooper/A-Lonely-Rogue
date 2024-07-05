@@ -1,16 +1,16 @@
-[gd_scene load_steps=41 format=3 uid="uid://875d70v45smd"]
+[gd_scene load_steps=37 format=3 uid="uid://875d70v45smd"]
 
 [ext_resource type="Script" path="res://Scripts/enemy/mimic.gd" id="1_jwo0i"]
 [ext_resource type="Texture2D" uid="uid://be3mshe7llva8" path="res://Assets/Sprites/enemies/mimic.png" id="2_3bp77"]
 [ext_resource type="PackedScene" uid="uid://q3bng0o4u44l" path="res://Scenes/enemies/damage_player.tscn" id="3_3er4u"]
-[ext_resource type="AudioStream" uid="uid://7t416r1qbiq6" path="res://Assets/Audio/mimic/mimic_hurt.mp3" id="4_4ahau"]
-[ext_resource type="AudioStream" uid="uid://78rcq05af78m" path="res://Assets/Audio/mimic/mimic_spawn.mp3" id="4_vwme5"]
-[ext_resource type="AudioStream" uid="uid://byblnn5qjm52g" path="res://Assets/Audio/mimic/mimic_death.mp3" id="5_trkmr"]
-[ext_resource type="AudioStream" uid="uid://btgaa6ven3j1h" path="res://Assets/Audio/mimic/small-monster-attack-195712.mp3" id="6_j6mq5"]
+[ext_resource type="AudioStream" uid="uid://ci0gjw23q1fjp" path="res://Assets/Audio/earth_elemental/cinematic-rock-smash-177982.mp3" id="4_loov6"]
+[ext_resource type="AudioStream" uid="uid://q3oe074iycdw" path="res://Assets/Audio/forgotten_golem/power-on-39172.mp3" id="5_gdwb0"]
+[ext_resource type="AudioStream" uid="uid://bnhyfbesh82ug" path="res://Assets/Audio/forgotten_golem/power-off-96139.mp3" id="6_2tm2e"]
+[ext_resource type="AudioStream" uid="uid://cx3nro8tcsa6v" path="res://Assets/Audio/forgotten_golem/the-magical-surprise-141291.mp3" id="8_t588y"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yuh82"]
-radius = 8.0
-height = 28.0
+radius = 10.7984
+height = 26.3941
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6k7h3"]
 resource_local_to_scene = true
@@ -46,26 +46,6 @@ region = Rect2(64, 32, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_vfgto"]
 atlas = ExtResource("2_3bp77")
 region = Rect2(96, 32, 32, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_6su08"]
-atlas = ExtResource("2_3bp77")
-region = Rect2(0, 96, 16, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_e8m5c"]
-atlas = ExtResource("2_3bp77")
-region = Rect2(16, 96, 16, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_x1e8u"]
-atlas = ExtResource("2_3bp77")
-region = Rect2(32, 96, 16, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_rjbyc"]
-atlas = ExtResource("2_3bp77")
-region = Rect2(48, 96, 16, 32)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_oh0tq"]
-atlas = ExtResource("2_3bp77")
-region = Rect2(64, 96, 16, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g7ndx"]
 atlas = ExtResource("2_3bp77")
@@ -136,7 +116,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"attack_left",
-"speed": 12.0
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -153,27 +133,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"attack_right",
-"speed": 12.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_6su08")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_e8m5c")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_x1e8u")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_rjbyc")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_oh0tq")
-}],
-"loop": false,
-"name": &"dying",
-"speed": 4.0
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -190,7 +150,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"land_left",
-"speed": 12.0
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -207,7 +167,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"land_right",
-"speed": 12.0
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -231,8 +191,12 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cagpp"]
-radius = 8.0
-height = 22.0
+radius = 23.0
+height = 56.0
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_84dmf"]
+radius = 5.0
+height = 54.0
 
 [sub_resource type="Animation" id="Animation_ly7xv"]
 length = 0.001
@@ -277,32 +241,36 @@ collision_mask = 9
 script = ExtResource("1_jwo0i")
 
 [node name="hitbox" type="CollisionShape2D" parent="."]
-position = Vector2(2.30926e-13, -14)
+position = Vector2(-2.30926e-13, -30)
+rotation = 1.5708
+scale = Vector2(2.36147, 2.50056)
 shape = SubResource("CapsuleShape2D_yuh82")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 material = SubResource("ShaderMaterial_6k7h3")
-position = Vector2(0, -14)
+position = Vector2(0, -27)
 sprite_frames = SubResource("SpriteFrames_kvfmi")
-animation = &"dying"
+animation = &"land_right"
 
 [node name="DamagePlayer" parent="." instance=ExtResource("3_3er4u")]
 position = Vector2(0, -34)
 collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DamagePlayer"]
-position = Vector2(0, 20)
+position = Vector2(0, 4)
+rotation = 1.5708
 shape = SubResource("CapsuleShape2D_cagpp")
 
 [node name="Attack_timer" type="Timer" parent="."]
-wait_time = 0.35
+wait_time = 0.5
 one_shot = true
 
 [node name="Death_timer" type="Timer" parent="."]
-wait_time = 1.5
+wait_time = 2.1
 one_shot = true
 
 [node name="Spawn_timer" type="Timer" parent="."]
+wait_time = 1.1
 one_shot = true
 
 [node name="collision_with_player" type="CharacterBody2D" parent="."]
@@ -313,27 +281,28 @@ collision_mask = 2
 [node name="CollisionShape2D" type="CollisionShape2D" parent="collision_with_player"]
 position = Vector2(0, 3)
 rotation = 1.5708
+shape = SubResource("CapsuleShape2D_84dmf")
 
 [node name="HitSound" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(0, -21)
-stream = ExtResource("4_4ahau")
-volume_db = -2.0
+stream = ExtResource("4_loov6")
+volume_db = -3.0
 bus = &"Sound Effect"
 
 [node name="SpawnSound" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(0, -21)
-stream = ExtResource("4_vwme5")
-volume_db = 3.0
+stream = ExtResource("5_gdwb0")
+volume_db = -5.0
 bus = &"Sound Effect"
 
 [node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(0, -21)
-stream = ExtResource("5_trkmr")
-volume_db = 7.0
+stream = ExtResource("6_2tm2e")
+volume_db = -5.0
 bus = &"Sound Effect"
 
 [node name="attack_sound" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("6_j6mq5")
+stream = ExtResource("8_t588y")
 volume_db = -3.0
 bus = &"Sound Effect"
 

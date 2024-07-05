@@ -1,4 +1,4 @@
-[gd_scene load_steps=47 format=3 uid="uid://edhqnytou7yt"]
+[gd_scene load_steps=51 format=3 uid="uid://edhqnytou7yt"]
 
 [ext_resource type="Script" path="res://Scripts/UI/item_ui_slot.gd" id="1_l3s7d"]
 [ext_resource type="Texture2D" uid="uid://buoupuxk2qtji" path="res://Assets/Sprites/catalog_icons/dust_blade_icon.png" id="1_rdpab"]
@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://cjonbmn8iaqkl" path="res://Assets/Sprites/catalog_icons/glass_blade_icon.png" id="9_woyga"]
 [ext_resource type="Texture2D" uid="uid://dyur5ubofnvf6" path="res://Assets/Sprites/catalog_icons/dash_boots_icon.png" id="11_3oghb"]
 [ext_resource type="Texture2D" uid="uid://rfjsdx0wxqnq" path="res://Assets/Sprites/catalog_icons/bomb_icon.png" id="11_ehgms"]
+[ext_resource type="Texture2D" uid="uid://dkppi7365f1jk" path="res://Assets/Sprites/catalog_icons/cursed_key_icon.png" id="12_784s4"]
 [ext_resource type="Texture2D" uid="uid://bdq2hockskod5" path="res://Assets/Sprites/catalog_icons/poorly_made_voodoo_doll_icon.png" id="12_aq0hj"]
 [ext_resource type="Texture2D" uid="uid://21jry0k85pcx" path="res://Assets/Sprites/catalog_icons/dead_rogue_head_icon.png" id="12_qhgli"]
 [ext_resource type="Texture2D" uid="uid://cmwm5gbdg4wt3" path="res://Assets/Sprites/catalog_icons/poison_gas_icon.png" id="13_55gr7"]
@@ -21,6 +22,7 @@
 [ext_resource type="Texture2D" uid="uid://bxhnibool8yuh" path="res://Assets/Sprites/catalog_icons/sleek_blades_icon.png" id="14_ed182"]
 [ext_resource type="Texture2D" uid="uid://bl7r5tr8dsooy" path="res://Assets/Sprites/catalog_icons/magically_trapped_rogue_icon.png" id="14_fcngd"]
 [ext_resource type="Theme" uid="uid://pv4evjjac8wt" path="res://Assets/general_theme.tres" id="16_fpotc"]
+[ext_resource type="Texture2D" uid="uid://dcqbojsxfu3r2" path="res://Assets/Sprites/catalog_icons/holy_key_icon.png" id="16_gsumr"]
 [ext_resource type="Texture2D" uid="uid://nd1033fxydae" path="res://Assets/Sprites/catalog_icons/protective_charm_icon.png" id="16_yme46"]
 [ext_resource type="Texture2D" uid="uid://dgasd5e1e6oro" path="res://Assets/Sprites/catalog_icons/rogue_in_a_bottle_icon.png" id="17_ix503"]
 
@@ -60,6 +62,10 @@ region = Rect2(0, 0, 16, 16)
 atlas = ExtResource("11_ehgms")
 region = Rect2(0, 0, 17, 17)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_xbot7"]
+atlas = ExtResource("12_784s4")
+region = Rect2(0, 0, 16, 16)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_n15yf"]
 atlas = ExtResource("11_3oghb")
 region = Rect2(0, 0, 16, 16)
@@ -70,6 +76,10 @@ region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_frrrf"]
 atlas = ExtResource("9_woyga")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y6wbo"]
+atlas = ExtResource("16_gsumr")
 region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_btxan"]
@@ -188,6 +198,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_xbot7")
+}],
+"loop": false,
+"name": &"cursed_key",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_n15yf")
 }],
 "loop": false,
@@ -208,6 +226,14 @@ animations = [{
 }],
 "loop": false,
 "name": &"glass_blade",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y6wbo")
+}],
+"loop": false,
+"name": &"holy_key",
 "speed": 5.0
 }, {
 "frames": [{
@@ -294,7 +320,7 @@ texture = ExtResource("2_kll03")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(9, 9)
 sprite_frames = SubResource("SpriteFrames_51jbf")
-animation = &"poorly_made_voodoo"
+animation = &"holy_key"
 
 [node name="stack_Label" type="Label" parent="."]
 visible = false

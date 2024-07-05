@@ -77,7 +77,6 @@ func close_all_doors():
 		right_door.close_door()
 	# plays the door sound
 	door_sound.play()
-	print("closing")
 
 # opens all doors
 func open_all_doors():
@@ -91,7 +90,6 @@ func open_all_doors():
 		right_door.open_door()
 	# plays the door sound
 	door_sound.play()
-	print("opening")
 
 # disables all doors
 func disable_all_doors():
@@ -120,7 +118,6 @@ func unlock_door(door):
 			right_door.open_door()
 	# plays the door sound
 	door_sound.play()
-	print("unlocking")
 
 # if there are enemies in the room, return true
 func is_enemies():
@@ -136,10 +133,8 @@ func get_enemies_in_room():
 func player_obtained_keys():
 	key_checks.locks_changed(true)
 
-func enemy_spawned(enemy):
+func enemy_spawned_in_room():
 	# enable the doors
 	close_all_doors()
 	# check the lock status when the player enters the room
 	key_checks.locks_changed(false)
-	# adds an enemy to the count and a refernce to the enemy
-	enemies_spawned = enemies_spawned + [enemy]

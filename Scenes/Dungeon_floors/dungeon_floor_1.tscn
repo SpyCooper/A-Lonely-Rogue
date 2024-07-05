@@ -118,7 +118,7 @@ texture = ExtResource("7_cdgba")
 [sub_resource type="TileSet" id="TileSet_pnge6"]
 sources/0 = SubResource("TileSetAtlasSource_a4f5t")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_jsjnx"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_m14dp"]
 resource_local_to_scene = true
 
 [node name="Floor1" type="Node2D"]
@@ -252,7 +252,7 @@ position = Vector2(459, 44)
 position = Vector2(447, -47)
 
 [node name="gelatinous_cube" parent="." instance=ExtResource("13_axlkh")]
-material = SubResource("ShaderMaterial_jsjnx")
+material = SubResource("ShaderMaterial_m14dp")
 position = Vector2(-768, -33)
 
 [node name="slime4" parent="." instance=ExtResource("10_rrme3")]
@@ -355,24 +355,6 @@ theme_override_colors/font_color = Color(0.376471, 0.231373, 0.227451, 1)
 text = "Press Space to use active items"
 horizontal_alignment = 1
 autowrap_mode = 2
-
-[node name="item_chest2" parent="." instance=ExtResource("23_nr1kn")]
-position = Vector2(-92, 177)
-
-[node name="item_chest3" parent="." instance=ExtResource("23_nr1kn")]
-position = Vector2(-97, 264)
-
-[node name="item_chest4" parent="." instance=ExtResource("23_nr1kn")]
-position = Vector2(-62, 230)
-
-[node name="item_chest5" parent="." instance=ExtResource("23_nr1kn")]
-position = Vector2(-24, 175)
-
-[node name="item_chest6" parent="." instance=ExtResource("23_nr1kn")]
-position = Vector2(-21, 275)
-
-[node name="item_chest7" parent="." instance=ExtResource("23_nr1kn")]
-position = Vector2(70, 199)
 
 [connection signal="timeout" from="CanvasLayer/Fade_color/Fade_timer" to="." method="_on_fade_timer_timeout"]
 

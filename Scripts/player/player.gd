@@ -72,6 +72,8 @@ var can_poorly_made_voodoo_doll_be_spawned = true
 @onready var voodoo_doll_immunity_timer = $voodoo_doll_immunity_timer
 var immunity = false
 var items_collected = []
+var cursed_key = false
+var holy_key = false
 
 # pet variables
 var current_pet = null
@@ -213,7 +215,7 @@ func _physics_process(_delta):
 				blade_instance.position = position + click_position_normalized*3
 				blade_instance.spawned(click_position_normalized, current_type, self, current_attack_identifier, knife_speed_bonus)
 				get_parent().add_child(blade_instance)
-				blade_instance.global_position = animated_sprite.global_position
+				blade_instance.global_position = get_player_position()
 				# plays the knife throw sound when the blade is spawned
 				woosh_sound.play()
 				# if the player has triple blades, spawn the two other blades
@@ -223,18 +225,16 @@ func _physics_process(_delta):
 					var rad_added_bottom = Vector2(cos(radians + 0.25), sin(radians + 0.25))
 					rad_added_bottom = rad_added_bottom.normalized()
 					var blade_instance_2 = knife_scene.instantiate()
-					blade_instance_2.position = position + rad_added_bottom*3
 					blade_instance_2.spawned(rad_added_bottom, current_type, self, current_attack_identifier, knife_speed_bonus)
 					get_parent().add_child(blade_instance_2)
-					blade_instance_2.global_position = animated_sprite.global_position
+					blade_instance_2.global_position = get_player_position()
 					# top blade
 					var rad_added_top = Vector2(cos(radians - 0.25), sin(radians - 0.25))
 					rad_added_top = rad_added_top.normalized()
 					var blade_instance_3 = knife_scene.instantiate()
-					blade_instance_3.position = position + rad_added_top*3
 					blade_instance_3.spawned(rad_added_top, current_type, self, current_attack_identifier, knife_speed_bonus)
 					get_parent().add_child(blade_instance_3)
-					blade_instance_3.global_position = animated_sprite.global_position
+					blade_instance_3.global_position = get_player_position()
 				# resets the time to fire
 				time_to_fire = time_to_fire_max
 				# increments the attack identifier
@@ -794,6 +794,44 @@ func picked_up_item(item, display_text = true, sound = true, add_to_items_used =
 		if add_to_items_used:
 			# add item to the items used
 			PlayerData.items_used += [item]
+	elif item == ItemType.type.cursed_key:
+		# add the cursed key to the player
+		cursed_key = true
+		# display the item text
+		if display_text:
+			hud.display_text("Aquired Cursed Key!", "You will always be unlucky when opening chests")
+		# add the item to the collected items list on HUD and in player data
+		add_passive_item(item)
+		# check if the item needs to be added to items used
+		if add_to_items_used:
+			# add item to the items used
+			PlayerData.items_used += [item]
+		# if the player has the holy key, remove it
+		if holy_key == true:
+			holy_key = false
+			# remove holy key from items collected
+			remove_item_from_items_collected(ItemType.type.holy_key)
+			# remove the holy key from the items collected ui
+			hud.remove_item_from_ui(ItemType.type.holy_key)
+	elif item == ItemType.type.holy_key:
+		# add the cursed key to the player
+		holy_key = true
+		# display the item text
+		if display_text:
+			hud.display_text("Aquired Holy Key!", "You will always be lucky when opening chests")
+		# add the item to the collected items list on HUD and in player data
+		add_passive_item(item)
+		# check if the item needs to be added to items used
+		if add_to_items_used:
+			# add item to the items used
+			PlayerData.items_used += [item]
+		# if the player has the holy key, remove it
+		if cursed_key == true:
+			cursed_key = false
+			# remove holy key from items collected
+			remove_item_from_items_collected(ItemType.type.cursed_key)
+			# remove the holy key from the items collected ui
+			hud.remove_item_from_ui(ItemType.type.cursed_key)
 
 # adds the item to the collected items list on HUD and in player data
 func add_passive_item(item : ItemType.type):
@@ -971,7 +1009,7 @@ func _on_after_image_spawn_timer_timeout():
 	# spawn an after image
 	var after_image = PLAYER_AFTER_IMAGE.instantiate()
 	get_parent().add_child(after_image)
-	after_image.global_position = global_position
+	after_image.global_position = get_player_position()
 	after_image.spawned()
 	# increment after images
 	after_images += 1
@@ -1043,3 +1081,11 @@ func room_entered(room):
 # gets the player model's position
 func get_player_position():
 	return animated_sprite.global_position
+
+# return if the player has the cursed key
+func get_cursed_key_status():
+	return cursed_key
+	
+# return if the player has the holy key
+func get_holy_key_status():
+	return holy_key

@@ -1,0 +1,39 @@
+[gd_scene load_steps=6 format=3 uid="uid://drsh4lle1vgtr"]
+
+[ext_resource type="PackedScene" uid="uid://jtiqth444hdl" path="res://Scenes/item.tscn" id="1_uffn2"]
+[ext_resource type="Texture2D" uid="uid://dh85ichhvi5y2" path="res://Assets/Sprites/items/Items.png" id="2_oqwg4"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lvvuf"]
+atlas = ExtResource("2_oqwg4")
+region = Rect2(224, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ocqqv"]
+atlas = ExtResource("2_oqwg4")
+region = Rect2(224, 16, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_oaxmr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lvvuf")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ocqqv")
+}],
+"loop": true,
+"name": &"default",
+"speed": 3.0
+}]
+
+[node name="cursed_key_item" type="Node2D"]
+z_index = 1
+
+[node name="item" parent="." instance=ExtResource("1_uffn2")]
+item_type = 15
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(1, 0)
+sprite_frames = SubResource("SpriteFrames_oaxmr")
+autoplay = "default"
+frame_progress = 0.518218
+offset = Vector2(-1, 0)
