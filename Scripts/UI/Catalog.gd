@@ -72,6 +72,12 @@ var morphed_shade_kill_count = 0
 @onready var mimic_kill_count_label = $TabContainer/Bosses/Panels/mimic_panel/KillCount
 var mimic_unlocked = false
 var mimic_kill_count = 0
+@onready var emerald_skeleton_button = $TabContainer/Bosses/ScrollContainer/GridContainer/Spot6/Emerald_Skeleton_button
+@onready var emerald_skeleton_panel = $TabContainer/Bosses/Panels/emerald_skeleton_panel
+@onready var emerald_skeleton_kill_count_label = $TabContainer/Bosses/Panels/emerald_skeleton_panel/KillCount
+var emerald_skeleton_unlocked = false
+var emerald_skeleton_kill_count = 0
+
 
 # items variables
 # all enemy sections on the catalog need a reference to it's button, the panel, and a bool
@@ -262,6 +268,12 @@ func load_data():
 					if mimic_unlocked:
 						mimic_button.material.shader = null
 						mimic_kill_count = data["mimic_kill_count"]
+				elif enemy == "emerald_skeleton_unlocked":
+					# emerald_skeleton check
+					emerald_skeleton_unlocked = data["emerald_skeleton_unlocked"]
+					if emerald_skeleton_unlocked:
+						emerald_skeleton_button.material.shader = null
+						emerald_skeleton_kill_count = data["emerald_skeleton_kill_count"]
 			# update the kill counts in the catalog
 			update_kill_counts()
 		save_enemies()
@@ -420,6 +432,7 @@ func clear_panel():
 	lich_panel.hide()
 	morphed_shade_panel.hide()
 	mimic_panel.hide()
+	emerald_skeleton_panel.hide()
 	
 	# items tab
 	speed_boots_panel.hide()
@@ -578,6 +591,15 @@ func unlock_enemy(enemy):
 			mimic_unlocked = true
 		# increase the kill count and update the counts in the catalog
 		mimic_kill_count += 1
+	elif enemy == EnemyTypes.enemy.emerald_skeleton:
+		# if the enemy is locked
+		if !emerald_skeleton_unlocked:
+			# remove the locked shader
+			emerald_skeleton_button.material.shader = null
+			# set the enemy to be unlocked
+			emerald_skeleton_unlocked = true
+		# increase the kill count and update the counts in the catalog
+		emerald_skeleton_kill_count += 1
 	update_kill_counts()
 	# saves the enemies to the catalog file
 	save_enemies()
@@ -613,6 +635,8 @@ func found_enemies():
 		"morphed_shade_kill_count" : morphed_shade_kill_count,
 		"mimic_unlocked" : mimic_unlocked,
 		"mimic_kill_count" : mimic_kill_count,
+		"emerald_skeleton_unlocked" : emerald_skeleton_unlocked,
+		"emerald_skeleton_kill_count" : emerald_skeleton_kill_count,
 	}
 	return data
 
@@ -632,6 +656,7 @@ func update_kill_counts():
 	skeleton_kill_count_label.text = "Killed: " + str(skeleton_kill_count)
 	morphed_shade_kill_count_label.text = "Killed: " + str(morphed_shade_kill_count)
 	mimic_kill_count_label.text = "Killed: " + str(mimic_kill_count)
+	emerald_skeleton_kill_count_label.text = "Killed: " + str(emerald_skeleton_kill_count)
 
 # when the blue slime button is presed
 func _on_blue_slime_pressed():
@@ -759,6 +784,14 @@ func _on_mimic_button_pressed():
 		# show the enemy's info panel
 		mimic_panel.show()
 
+# when the emerald skeleton button is presed
+func _on_emerald_skeleton_button_pressed():
+	# clear the info panel
+	clear_panel()
+	# if the enemy is unlocked
+	if emerald_skeleton_unlocked:
+		# show the enemy's info panel
+		emerald_skeleton_panel.show()
 
 # saves the enemy found to "enemiesfound.save"
 func save_enemies():

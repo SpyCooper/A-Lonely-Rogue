@@ -13,7 +13,7 @@ var slash_count_max = 2
 # sets the enemy's stats and references
 func _ready():
 	speed = .45
-	health = 55
+	health = 1
 	sleep()
 	player = Events.player
 	max_health = health

@@ -1,4 +1,4 @@
-[gd_scene load_steps=83 format=3 uid="uid://dc0xlg20ucy3n"]
+[gd_scene load_steps=85 format=3 uid="uid://dc0xlg20ucy3n"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Catalog.gd" id="1_mndmm"]
 [ext_resource type="Theme" uid="uid://pv4evjjac8wt" path="res://Assets/general_theme.tres" id="2_umit2"]
@@ -42,6 +42,7 @@
 [ext_resource type="Texture2D" uid="uid://21jry0k85pcx" path="res://Assets/Sprites/catalog_icons/dead_rogue_head_icon.png" id="37_rsojq"]
 [ext_resource type="Texture2D" uid="uid://rfjsdx0wxqnq" path="res://Assets/Sprites/catalog_icons/bomb_icon.png" id="38_i5cay"]
 [ext_resource type="Texture2D" uid="uid://ftcqqrjklsx1" path="res://Assets/Sprites/catalog_icons/mimic_icon.png" id="39_lo8cp"]
+[ext_resource type="Texture2D" uid="uid://ds3kg5f48plbd" path="res://Assets/Sprites/catalog_icons/emerald_skeleton_icon.png" id="42_mkd7a"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tfafd"]
 shader = ExtResource("3_qa2dv")
@@ -161,6 +162,9 @@ shader = ExtResource("3_qa2dv")
 shader = ExtResource("3_qa2dv")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_b78rv"]
+shader = ExtResource("3_qa2dv")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_hohcg"]
 shader = ExtResource("3_qa2dv")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rrvjp"]
@@ -3278,6 +3282,39 @@ alignment = 2
 icon_alignment = 1
 expand_icon = true
 
+[node name="Spot6" type="Control" parent="TabContainer/Bosses/ScrollContainer/GridContainer"]
+layout_mode = 2
+
+[node name="Emerald_Skeleton_button" type="Button" parent="TabContainer/Bosses/ScrollContainer/GridContainer/Spot6"]
+material = SubResource("ShaderMaterial_hohcg")
+layout_mode = 0
+offset_left = 31.83
+offset_right = 136.83
+offset_bottom = 85.0
+scale = Vector2(1.22, 1.22)
+theme_override_constants/icon_max_width = 64
+icon = ExtResource("42_mkd7a")
+flat = true
+alignment = 2
+icon_alignment = 1
+expand_icon = true
+
+[node name="EmptySpot" type="Control" parent="TabContainer/Bosses/ScrollContainer/GridContainer"]
+layout_mode = 2
+
+[node name="Emerald_Skeleton_button" type="Button" parent="TabContainer/Bosses/ScrollContainer/GridContainer/EmptySpot"]
+material = SubResource("ShaderMaterial_hohcg")
+layout_mode = 0
+offset_left = 31.83
+offset_right = 136.83
+offset_bottom = 85.0
+scale = Vector2(1.22, 1.22)
+theme_override_constants/icon_max_width = 64
+flat = true
+alignment = 2
+icon_alignment = 1
+expand_icon = true
+
 [node name="Panels" type="Control" parent="TabContainer/Bosses"]
 layout_mode = 3
 anchors_preset = 0
@@ -3590,6 +3627,7 @@ text = "- I wonder where I can get that cloak?"
 autowrap_mode = 2
 
 [node name="mimic_panel" type="Panel" parent="TabContainer/Bosses/Panels"]
+visible = false
 layout_mode = 0
 offset_right = 510.0
 offset_bottom = 513.0
@@ -3664,6 +3702,73 @@ theme_override_font_sizes/font_size = 32
 text = "- Should probably open chest with knives"
 autowrap_mode = 2
 
+[node name="emerald_skeleton_panel" type="Panel" parent="TabContainer/Bosses/Panels"]
+layout_mode = 0
+offset_right = 510.0
+offset_bottom = 513.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_wrmxr")
+
+[node name="Sprite2D" type="Sprite2D" parent="TabContainer/Bosses/Panels/emerald_skeleton_panel"]
+position = Vector2(107, 100)
+scale = Vector2(3.2685, 3.2685)
+texture = ExtResource("42_mkd7a")
+
+[node name="Title" type="Label" parent="TabContainer/Bosses/Panels/emerald_skeleton_panel"]
+layout_mode = 0
+offset_left = 180.0
+offset_top = 34.0
+offset_right = 510.0
+offset_bottom = 79.0
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 48
+text = "Emerald Skeleton"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="KillCount" type="Label" parent="TabContainer/Bosses/Panels/emerald_skeleton_panel"]
+layout_mode = 0
+offset_left = 180.0
+offset_top = 124.0
+offset_right = 510.0
+offset_bottom = 169.0
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "Killed: 1"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Bosses/Panels/emerald_skeleton_panel"]
+layout_mode = 0
+offset_left = 43.0
+offset_top = 174.0
+offset_right = 464.0
+offset_bottom = 505.0
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Bio" type="Label" parent="TabContainer/Bosses/Panels/emerald_skeleton_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- A large skeleton warrior made out of emerald"
+autowrap_mode = 2
+
+[node name="Bio2" type="Label" parent="TabContainer/Bosses/Panels/emerald_skeleton_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- Swings its sword to create two large moving slashes"
+autowrap_mode = 2
+
+[node name="Bio4" type="Label" parent="TabContainer/Bosses/Panels/emerald_skeleton_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- I wonder how much this would sell for?"
+autowrap_mode = 2
+
 [node name="Close_button" type="Button" parent="."]
 layout_mode = 0
 offset_left = 341.0
@@ -3716,4 +3821,5 @@ text = "X"
 [connection signal="pressed" from="TabContainer/Bosses/ScrollContainer/GridContainer/Spot3/Lich_button" to="." method="_on_lich_button_pressed"]
 [connection signal="pressed" from="TabContainer/Bosses/ScrollContainer/GridContainer/Spot4/Morphed_Shade_button" to="." method="_on_morphed_shade_button_pressed"]
 [connection signal="pressed" from="TabContainer/Bosses/ScrollContainer/GridContainer/Spot5/Mimic_button" to="." method="_on_mimic_button_pressed"]
+[connection signal="pressed" from="TabContainer/Bosses/ScrollContainer/GridContainer/Spot6/Emerald_Skeleton_button" to="." method="_on_emerald_skeleton_button_pressed"]
 [connection signal="pressed" from="Close_button" to="." method="_on_close_button_pressed"]
