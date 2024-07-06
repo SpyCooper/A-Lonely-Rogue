@@ -29,6 +29,10 @@ enum type
 	magically_trapped_rogue,
 	dead_rogues_head,
 	bomb,
+	emerald_skull,
+	sapphire_horn,
+	quartz_boots,
+	onyx_hand,
 }
 
 # sets the various item types

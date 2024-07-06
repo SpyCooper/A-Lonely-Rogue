@@ -68,6 +68,10 @@ func _on_body_entered(body):
 			# applies the effect of the dust blade
 			elif blade_type == BladeType.blade_type.dust:
 				body.add_child(DUST_BLADE_EFFECT.instantiate())
+		# check if the player has the emerald skull
+		if player_ref.has_emerald_skull():
+			damage += 1
+		print(damage)
 		# the knife deals damage to the enemies hit
 		body.take_damage(damage, attack_identifer, false)
 	# plays the knife hit sound

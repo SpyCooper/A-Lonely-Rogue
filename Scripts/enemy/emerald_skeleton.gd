@@ -3,6 +3,8 @@ extends skeleton_warrior
 # object references
 @onready var hud = %HUD
 const LARGE_SLASH_PROJECTILE = preload("res://Scenes/enemies/slash_projectile/large_slash_projectile.tscn")
+const EMERALD_SKULL_ITEM = preload("res://Scenes/items/emerald_skull_item.tscn")
+
 # attack variables
 @onready var slash_1 = $slash_1
 @onready var slash_2 = $slash_2
@@ -13,7 +15,7 @@ var slash_count_max = 2
 # sets the enemy's stats and references
 func _ready():
 	speed = .45
-	health = 1
+	health = 5
 	sleep()
 	player = Events.player
 	max_health = health
@@ -105,6 +107,10 @@ func _on_death_timer_timeout():
 	hud.hide_health_bar()
 	# unlock the skeleton warrior in the catalog
 	catalog.unlock_enemy(EnemyTypes.enemy.emerald_skeleton)
+	# spawn a boss's item when the emerald skeleton dies
+	var item = EMERALD_SKULL_ITEM.instantiate()
+	get_parent().add_child(item)
+	item.global_position = animated_sprite.global_position
 	# call enemy slain
 	enemy_slain()
 

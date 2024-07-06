@@ -185,6 +185,27 @@ func add_item_to_items_used(item : ItemType.type):
 					item_ui.set_item_type(ItemType.type.holy_heart)
 				else:
 					item_ui.queue_free()
+			elif item == ItemType.type.holy_key:
+				if !check_if_item_exists(item):
+					item_ui.get_animated_sprite().play("holy_key")
+					# sets the item's type
+					item_ui.set_item_type(ItemType.type.holy_key)
+				else:
+					item_ui.queue_free()
+			elif item == ItemType.type.cursed_key:
+				if !check_if_item_exists(item):
+					item_ui.get_animated_sprite().play("cursed_key")
+					# sets the item's type
+					item_ui.set_item_type(ItemType.type.cursed_key)
+				else:
+					item_ui.queue_free()
+			elif item == ItemType.type.emerald_skull:
+				if !check_if_item_exists(item):
+					item_ui.get_animated_sprite().play("emerald_skull")
+					# sets the item's type
+					item_ui.set_item_type(ItemType.type.emerald_skull)
+				else:
+					item_ui.queue_free()
 			else:
 				item_ui.queue_free()
 		else:

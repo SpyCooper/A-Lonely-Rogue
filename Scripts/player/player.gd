@@ -74,6 +74,7 @@ var immunity = false
 var items_collected = []
 var cursed_key = false
 var holy_key = false
+var emerald_skull = false
 
 # pet variables
 var current_pet = null
@@ -832,6 +833,19 @@ func picked_up_item(item, display_text = true, sound = true, add_to_items_used =
 			remove_item_from_items_collected(ItemType.type.cursed_key)
 			# remove the holy key from the items collected ui
 			hud.remove_item_from_ui(ItemType.type.cursed_key)
+	elif item == ItemType.type.emerald_skull:
+		# add the cursed key to the player
+		emerald_skull = true
+		# display the item text
+		if display_text:
+			hud.display_text("Aquired the Emerald Skull!", "The warrior blesses your knives")
+		# add the item to the collected items list on HUD and in player data
+		add_passive_item(item)
+		# check if the item needs to be added to items used
+		if add_to_items_used:
+			# add item to the items used
+			PlayerData.items_used += [item]
+
 
 # adds the item to the collected items list on HUD and in player data
 func add_passive_item(item : ItemType.type):
@@ -1089,3 +1103,7 @@ func get_cursed_key_status():
 # return if the player has the holy key
 func get_holy_key_status():
 	return holy_key
+
+# returns if the player has the emerald skull
+func has_emerald_skull():
+	return emerald_skull

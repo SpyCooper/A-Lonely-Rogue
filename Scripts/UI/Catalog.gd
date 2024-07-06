@@ -153,6 +153,9 @@ var cursed_key_unlocked = false
 @onready var holy_key_button = $TabContainer/Items/ScrollContainer/GridContainer/Spot24/holy_key_button
 @onready var holy_key_panel = $TabContainer/Items/Panels/holy_key_panel
 var holy_key_unlocked = false
+@onready var emerald_skull_button = $TabContainer/Items/ScrollContainer/GridContainer/Spot25/emerald_skull_button
+@onready var emerald_skull_panel = $TabContainer/Items/Panels/emerald_skull_panel
+var emerald_skull_unlocked = false
 
 # on start
 func _ready():
@@ -459,6 +462,7 @@ func clear_panel():
 	bomb_panel.hide()
 	cursed_key_panel.hide()
 	holy_key_panel.hide()
+	emerald_skull_panel.hide()
 	
 ## ---------------------------------- Enemies --------------------------------------------------------
 
@@ -972,6 +976,13 @@ func unlock_item(item):
 			holy_key_button.material.shader = null
 			# set the item to be unlocked
 			holy_key_unlocked = true
+	elif item == ItemType.type.emerald_skull:
+		# if the item is locked
+		if !emerald_skull_unlocked:
+			# remove the locked shader
+			emerald_skull_button.material.shader = null
+			# set the item to be unlocked
+			emerald_skull_unlocked = true
 	save_items()
 
 # saves the items found to "itemsfound.save"
@@ -1007,6 +1018,7 @@ func found_items():
 		"bomb_unlocked" : bomb_unlocked,
 		"cursed_key_unlocked" : cursed_key_unlocked,
 		"holy_key_unlocked" : holy_key_unlocked,
+		"emerald_skeleton_unlocked" : emerald_skeleton_unlocked,
 	}
 	return data
 
@@ -1225,3 +1237,12 @@ func _on_holy_key_button_pressed():
 	if holy_key_unlocked:
 		# show the item's info panel
 		holy_key_panel.show()
+
+# when emerald_skull button is pressed
+func _on_emerald_skull_button_pressed():
+	# clear the into panel
+	clear_panel()
+	# if the item is unlocked
+	if emerald_skull_unlocked:
+		# show the item's info panel
+		emerald_skull_panel.show()

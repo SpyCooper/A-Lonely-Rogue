@@ -381,6 +381,15 @@ func item_added(item):
 		item_ui.get_animated_sprite().play("holy_key")
 		# sets the item's type
 		item_ui.set_item_type(ItemType.type.holy_key)
+	elif item == ItemType.type.emerald_skull:
+		# create a item UI slot
+		var item_ui = ITEM_UI_SLOT.instantiate()
+		# add it to the items collected container
+		items_ui_container.add_child(item_ui)
+		# set the graphic to the item
+		item_ui.get_animated_sprite().play("emerald_skull")
+		# sets the item's type
+		item_ui.set_item_type(ItemType.type.emerald_skull)
 
 # removes an item from the ui
 func remove_item_from_ui(item_to_remove : ItemType.type):
