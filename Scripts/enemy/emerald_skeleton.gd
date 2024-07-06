@@ -4,31 +4,22 @@ extends skeleton_warrior
 @onready var hud = %HUD
 const LARGE_SLASH_PROJECTILE = preload("res://Scenes/enemies/slash_projectile/large_slash_projectile.tscn")
 # attack variables
+@onready var slash_1 = $slash_1
+@onready var slash_2 = $slash_2
 
 var slash_count = 0
 var slash_count_max = 2
 
 # sets the enemy's stats and references
 func _ready():
-	speed = .5
+	speed = .45
 	health = 55
 	sleep()
 	player = Events.player
 	max_health = health
 	catalog = Events.catalog
-	can_attack_timer_max = 2
+	can_attack_timer_max = 3
 	can_attack_timer = can_attack_timer_max
-
-# on every frame
-func _process(delta):
-	# if the enemy cannot attack
-	if !can_attack:
-		# decrement the attack timer
-		can_attack_timer -= delta
-		# if the cant attack timer is less than or equal to 0
-		if can_attack_timer <= 0:
-			# allow the enemy to attack
-			can_attack = true
 
 # called every frame
 func _physics_process(_delta):
@@ -42,11 +33,11 @@ func _physics_process(_delta):
 			target_position = (player_position - global_position).normalized()
 			current_direction = get_left_right_look_direction(target_position)
 			# if the enemy can attack and is less than 50 pixels away from the player
-			if can_attack && position.distance_to(player_position) < 75:
+			if can_attack && position.distance_to(player_position) < 85:
 				# attack
 				attack()
 			# if the enemy is further than 50 pixels
-			elif position.distance_to(player_position) >= 75:
+			else:
 				# look in the direction of the player
 				# flips the direction of the skeleton warrior based on the current_direction
 				## NOTE: all these checks are identical but change the directions they look at
@@ -61,15 +52,6 @@ func _physics_process(_delta):
 					is_idle = false
 				## has to use get_speed() to move based on dusted effect
 				move_and_collide(target_position.normalized() * get_speed())
-			# if the enemy is not attacking
-			elif !attacking:
-				# play the idle left or right animation
-				if current_direction == look_direction.left:
-					animated_sprite.play("idle_left")
-					is_idle = true
-				elif current_direction == look_direction.right:
-					animated_sprite.play("idle_right")
-					is_idle = true
 
 # runs when a knife (or other weapon) hits the enemy
 func take_damage(damage, attack_identifer, is_effect):
@@ -132,11 +114,35 @@ func _on_spawn_timer_timeout():
 	# show the lich's health bar in the HUD
 	hud.set_health_bar(max_health, "Emerald Skeleton")
 
+# when the enemy attacks
+func attack():
+	# checks to make sure the character isn't dying
+	if !dying:
+		# set bool variables
+		can_attack = false
+		can_move = false
+		attacking = true
+		# reset the can attack timer
+		can_attack_timer = can_attack_timer_max
+		# play the attack left or right animation
+		if current_direction == Enemy.look_direction.right:
+			animated_sprite.play("attack_right")
+		elif current_direction == Enemy.look_direction.left:
+			animated_sprite.play("attack_left")
+		# play the attack animation timer
+		attack_animation_timer.start()
+		# play the slash projection spawn timer
+		slash_projection_spawn_timer.start()
+
 # when the slash projection spawn animation timer
 func _on_slash_projection_spawn_timer_timeout():
 	# checks to make sure the character isn't dying
 	if !dying:
 		if slash_count < slash_count_max:
+			if slash_count == 0:
+				slash_1.play()
+			elif slash_count == 1:
+				slash_2.play()
 			# get the player position
 			player_position = player.get_player_position()
 			target_position = (player_position - global_position).normalized()

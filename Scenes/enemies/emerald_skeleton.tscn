@@ -1,12 +1,13 @@
-[gd_scene load_steps=71 format=3 uid="uid://bdtkoha8ckjht"]
+[gd_scene load_steps=76 format=3 uid="uid://bdtkoha8ckjht"]
 
 [ext_resource type="Script" path="res://Scripts/enemy/emerald_skeleton.gd" id="1_521dh"]
 [ext_resource type="Texture2D" uid="uid://ykqwffuiw74w" path="res://Assets/Sprites/enemies/emerald_skeleton.png" id="3_b7204"]
 [ext_resource type="PackedScene" uid="uid://q3bng0o4u44l" path="res://Scenes/enemies/damage_player.tscn" id="3_xmwtl"]
-[ext_resource type="AudioStream" uid="uid://bhv41nlvf4jnd" path="res://Assets/Audio/skeletons/skeleton_hit.mp3" id="4_xtrbs"]
-[ext_resource type="AudioStream" uid="uid://c7tvjpaxdudw5" path="res://Assets/Audio/skeletons/hugecrack-86690.mp3" id="5_avoc7"]
-[ext_resource type="AudioStream" uid="uid://b33c1occd27uo" path="res://Assets/Audio/skeletons/bones-2-88481.mp3" id="6_v2bft"]
-[ext_resource type="AudioStream" uid="uid://csski07p4vyey" path="res://Assets/Audio/skeletons/sword-sound-2-36274.mp3" id="7_42iw3"]
+[ext_resource type="AudioStream" uid="uid://d03thuh5nst60" path="res://Assets/Audio/emerald_skeleton/wine-glass-clink-36036.mp3" id="4_ip6mn"]
+[ext_resource type="AudioStream" uid="uid://lgffp72yqaqh" path="res://Assets/Audio/emerald_skeleton/glass-break-2-80964.mp3" id="5_u88x1"]
+[ext_resource type="AudioStream" uid="uid://bgm75w5iy2ssh" path="res://Assets/Audio/emerald_skeleton/magic-strike-5856.mp3" id="6_ejyn2"]
+[ext_resource type="AudioStream" uid="uid://dkwibtjhgn1co" path="res://Assets/Audio/emerald_skeleton/sword_slash_1.mp3" id="8_x20ex"]
+[ext_resource type="AudioStream" uid="uid://cuubf2g4y680j" path="res://Assets/Audio/emerald_skeleton/sword_slash_2.mp3" id="9_mybnh"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_jb7qj"]
 radius = 13.0
@@ -135,25 +136,25 @@ region = Rect2(64, 128, 64, 128)
 atlas = ExtResource("3_b7204")
 region = Rect2(64, 128, 64, 128)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_8p0vk"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_hqq10"]
 atlas = ExtResource("3_b7204")
-region = Rect2(384, 384, 64, 128)
+region = Rect2(0, 512, 64, 128)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_3xjf8"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_pcwlx"]
 atlas = ExtResource("3_b7204")
-region = Rect2(448, 384, 64, 128)
+region = Rect2(64, 512, 64, 128)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_i8m8e"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_h2n70"]
 atlas = ExtResource("3_b7204")
-region = Rect2(512, 384, 64, 128)
+region = Rect2(128, 512, 64, 128)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_itrg7"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_y4l48"]
 atlas = ExtResource("3_b7204")
-region = Rect2(576, 384, 64, 128)
+region = Rect2(192, 512, 64, 128)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_utni3"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_y36sk"]
 atlas = ExtResource("3_b7204")
-region = Rect2(640, 384, 64, 128)
+region = Rect2(256, 512, 64, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_yp2ww"]
 atlas = ExtResource("3_b7204")
@@ -211,29 +212,45 @@ region = Rect2(256, 0, 64, 64)
 atlas = ExtResource("3_b7204")
 region = Rect2(320, 0, 64, 64)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_fta5t"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_3d8mc"]
 atlas = ExtResource("3_b7204")
 region = Rect2(0, 384, 64, 128)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_dd4kt"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_el4j1"]
 atlas = ExtResource("3_b7204")
 region = Rect2(64, 384, 64, 128)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_v7en7"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_yfqmj"]
 atlas = ExtResource("3_b7204")
 region = Rect2(128, 384, 64, 128)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_h3coe"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_ohvqf"]
 atlas = ExtResource("3_b7204")
 region = Rect2(192, 384, 64, 128)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_l5tmd"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_uiaog"]
 atlas = ExtResource("3_b7204")
 region = Rect2(256, 384, 64, 128)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_fe0ci"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_ow0lp"]
 atlas = ExtResource("3_b7204")
 region = Rect2(320, 384, 64, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q1ui3"]
+atlas = ExtResource("3_b7204")
+region = Rect2(384, 384, 64, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wm2d3"]
+atlas = ExtResource("3_b7204")
+region = Rect2(448, 384, 64, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lclya"]
+atlas = ExtResource("3_b7204")
+region = Rect2(512, 384, 64, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rclw1"]
+atlas = ExtResource("3_b7204")
+region = Rect2(576, 384, 64, 128)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_sgeqo"]
 animations = [{
@@ -285,7 +302,7 @@ animations = [{
 }],
 "loop": false,
 "name": &"attack_left",
-"speed": 14.0
+"speed": 18.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -335,25 +352,25 @@ animations = [{
 }],
 "loop": false,
 "name": &"attack_right",
-"speed": 14.0
+"speed": 18.0
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_8p0vk")
+"texture": SubResource("AtlasTexture_hqq10")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_3xjf8")
+"texture": SubResource("AtlasTexture_pcwlx")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_i8m8e")
+"texture": SubResource("AtlasTexture_h2n70")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_itrg7")
+"texture": SubResource("AtlasTexture_y4l48")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_utni3")
+"texture": SubResource("AtlasTexture_y36sk")
 }],
-"loop": true,
+"loop": false,
 "name": &"dying",
 "speed": 5.0
 }, {
@@ -421,26 +438,38 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_fta5t")
+"texture": SubResource("AtlasTexture_3d8mc")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_dd4kt")
+"texture": SubResource("AtlasTexture_el4j1")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_v7en7")
+"texture": SubResource("AtlasTexture_yfqmj")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_h3coe")
+"texture": SubResource("AtlasTexture_ohvqf")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_l5tmd")
+"texture": SubResource("AtlasTexture_uiaog")
 }, {
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_fe0ci")
+"texture": SubResource("AtlasTexture_ow0lp")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q1ui3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wm2d3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lclya")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rclw1")
 }],
 "loop": false,
 "name": &"spawning",
-"speed": 4.0
+"speed": 5.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m4p3k"]
@@ -501,7 +530,7 @@ shape = SubResource("CapsuleShape2D_jb7qj")
 material = SubResource("ShaderMaterial_q00da")
 position = Vector2(0, -28)
 sprite_frames = SubResource("SpriteFrames_sgeqo")
-animation = &"attack_left"
+animation = &"dying"
 
 [node name="DamagePlayer" parent="." instance=ExtResource("3_xmwtl")]
 collision_layer = 0
@@ -512,7 +541,7 @@ rotation = 1.5708
 shape = SubResource("CapsuleShape2D_m4p3k")
 
 [node name="Spawn_timer" type="Timer" parent="."]
-wait_time = 1.4
+wait_time = 2.2
 one_shot = true
 
 [node name="death_timer" type="Timer" parent="."]
@@ -524,7 +553,7 @@ wait_time = 1.2
 one_shot = true
 
 [node name="slash_projection_spawn_timer" type="Timer" parent="."]
-wait_time = 0.4
+wait_time = 0.25
 one_shot = true
 
 [node name="collision_with_player" type="CharacterBody2D" parent="."]
@@ -539,22 +568,22 @@ shape = SubResource("CapsuleShape2D_pkjnt")
 
 [node name="HitSound" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(1, -14)
-stream = ExtResource("4_xtrbs")
+stream = ExtResource("4_ip6mn")
+volume_db = -2.0
 bus = &"Sound Effect"
 
 [node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(1, -14)
-stream = ExtResource("5_avoc7")
+stream = ExtResource("5_u88x1")
 bus = &"Sound Effect"
 
 [node name="SpawnSound" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(1, -14)
-stream = ExtResource("6_v2bft")
+stream = ExtResource("6_ejyn2")
 bus = &"Sound Effect"
 
 [node name="attack_sound" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(1, -14)
-stream = ExtResource("7_42iw3")
 bus = &"Sound Effect"
 
 [node name="Hit_Flash_animation_player" type="AnimationPlayer" parent="."]
@@ -565,6 +594,14 @@ libraries = {
 [node name="hit_flash_animation_timer" type="Timer" parent="Hit_Flash_animation_player"]
 wait_time = 0.2
 one_shot = true
+
+[node name="slash_1" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_x20ex")
+bus = &"Sound Effect"
+
+[node name="slash_2" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_mybnh")
+bus = &"Sound Effect"
 
 [connection signal="timeout" from="Spawn_timer" to="." method="_on_spawn_timer_timeout"]
 [connection signal="timeout" from="death_timer" to="." method="_on_death_timer_timeout"]
