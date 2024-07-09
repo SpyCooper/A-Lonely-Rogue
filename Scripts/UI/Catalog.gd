@@ -77,7 +77,11 @@ var mimic_kill_count = 0
 @onready var emerald_skeleton_kill_count_label = $TabContainer/Bosses/Panels/emerald_skeleton_panel/KillCount
 var emerald_skeleton_unlocked = false
 var emerald_skeleton_kill_count = 0
-
+@onready var sapphire_pegasus_button = $TabContainer/Bosses/ScrollContainer/GridContainer/Spot7/Sapphire_Pegasus_button
+@onready var sapphire_pegasus_panel = $TabContainer/Bosses/Panels/sapphire_pegasus_panel
+@onready var sapphire_pegasus_kill_count_label = $TabContainer/Bosses/Panels/sapphire_pegasus_panel/KillCountLabel
+var sapphire_pegasus_unlocked = false
+var sapphire_pegasus_kill_count = 0
 
 # items variables
 # all enemy sections on the catalog need a reference to it's button, the panel, and a bool
@@ -277,6 +281,12 @@ func load_data():
 					if emerald_skeleton_unlocked:
 						emerald_skeleton_button.material.shader = null
 						emerald_skeleton_kill_count = data["emerald_skeleton_kill_count"]
+				elif enemy == "sapphire_pegasus_unlocked":
+					# sapphire_pegasus check
+					sapphire_pegasus_unlocked = data["sapphire_pegasus_unlocked"]
+					if sapphire_pegasus_unlocked:
+						sapphire_pegasus_button.material.shader = null
+						sapphire_pegasus_kill_count = data["sapphire_pegasus_kill_count"]
 			# update the kill counts in the catalog
 			update_kill_counts()
 		save_enemies()
@@ -414,6 +424,11 @@ func load_data():
 					holy_key_unlocked = data["holy_key_unlocked"]
 					if holy_key_unlocked:
 						holy_key_button.material.shader = null
+				elif item == "emerald_skull_unlocked":
+					# holy_key check
+					emerald_skull_unlocked = data["emerald_skull_unlocked"]
+					if emerald_skull_unlocked:
+						emerald_skull_button.material.shader = null
 		save_items()
 
 # goes through all the panels and hides all of them
@@ -436,6 +451,7 @@ func clear_panel():
 	morphed_shade_panel.hide()
 	mimic_panel.hide()
 	emerald_skeleton_panel.hide()
+	sapphire_pegasus_panel.hide()
 	
 	# items tab
 	speed_boots_panel.hide()
@@ -604,6 +620,15 @@ func unlock_enemy(enemy):
 			emerald_skeleton_unlocked = true
 		# increase the kill count and update the counts in the catalog
 		emerald_skeleton_kill_count += 1
+	elif enemy == EnemyTypes.enemy.sapphire_pegasus:
+		# if the enemy is locked
+		if !sapphire_pegasus_unlocked:
+			# remove the locked shader
+			sapphire_pegasus_button.material.shader = null
+			# set the enemy to be unlocked
+			sapphire_pegasus_unlocked = true
+		# increase the kill count and update the counts in the catalog
+		sapphire_pegasus_kill_count += 1
 	update_kill_counts()
 	# saves the enemies to the catalog file
 	save_enemies()
@@ -641,6 +666,8 @@ func found_enemies():
 		"mimic_kill_count" : mimic_kill_count,
 		"emerald_skeleton_unlocked" : emerald_skeleton_unlocked,
 		"emerald_skeleton_kill_count" : emerald_skeleton_kill_count,
+		"sapphire_pegasus_unlocked" : sapphire_pegasus_unlocked,
+		"sapphire_pegasus_kill_count" : sapphire_pegasus_kill_count,
 	}
 	return data
 
@@ -661,6 +688,7 @@ func update_kill_counts():
 	morphed_shade_kill_count_label.text = "Killed: " + str(morphed_shade_kill_count)
 	mimic_kill_count_label.text = "Killed: " + str(mimic_kill_count)
 	emerald_skeleton_kill_count_label.text = "Killed: " + str(emerald_skeleton_kill_count)
+	sapphire_pegasus_kill_count_label.text = "Killed: " + str(sapphire_pegasus_kill_count)
 
 # when the blue slime button is presed
 func _on_blue_slime_pressed():
@@ -796,6 +824,15 @@ func _on_emerald_skeleton_button_pressed():
 	if emerald_skeleton_unlocked:
 		# show the enemy's info panel
 		emerald_skeleton_panel.show()
+
+# when the sapphire pegasus button is presed
+func _on_sapphire_pegasus_button_pressed():
+	# clear the info panel
+	clear_panel()
+	# if the enemy is unlocked
+	if sapphire_pegasus_unlocked:
+		# show the enemy's info panel
+		sapphire_pegasus_panel.show()
 
 # saves the enemy found to "enemiesfound.save"
 func save_enemies():
@@ -1018,7 +1055,7 @@ func found_items():
 		"bomb_unlocked" : bomb_unlocked,
 		"cursed_key_unlocked" : cursed_key_unlocked,
 		"holy_key_unlocked" : holy_key_unlocked,
-		"emerald_skeleton_unlocked" : emerald_skeleton_unlocked,
+		"emerald_skull_unlocked" : emerald_skull_unlocked,
 	}
 	return data
 

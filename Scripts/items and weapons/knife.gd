@@ -71,7 +71,6 @@ func _on_body_entered(body):
 		# check if the player has the emerald skull
 		if player_ref.has_emerald_skull():
 			damage += 1
-		print(damage)
 		# the knife deals damage to the enemies hit
 		body.take_damage(damage, attack_identifer, false)
 	# plays the knife hit sound

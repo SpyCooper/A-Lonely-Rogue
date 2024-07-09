@@ -104,7 +104,6 @@ func spawn_item():
 	var random_item_key = rng.randi_range(0, item_array.size()-1)
 	var item_has_spawned = false
 	var item_can_spawn = true
-	var is_repeatable = false
 	
 	# for each item in items that have been spawned
 	for item in ItemType.get_spawned_items():
@@ -116,7 +115,6 @@ func spawn_item():
 		# if the item is not a repeatable item type
 			if item_types_array[random_item_key] == repeatable_type:
 				# mark that the item has already been spawned
-				is_repeatable = true
 				item_has_spawned = false
 	
 	

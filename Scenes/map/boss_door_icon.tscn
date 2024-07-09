@@ -109,6 +109,7 @@ animations = [{
 }]
 
 [node name="Boss_door_sprite" type="AnimatedSprite2D"]
+z_index = -1
 position = Vector2(0, -66)
 sprite_frames = SubResource("SpriteFrames_3m6cd")
 autoplay = "default"
