@@ -264,7 +264,7 @@ func summon_vines():
 		# play the attack sound
 		attack_sound.play()
 		# sets a temp position to spawn the vines
-		summon_vines_temp_pos = player.global_position
+		summon_vines_temp_pos = player.get_player_position()
 		# start the summon vines timer (for the animation)
 		summon_vines_timer.start()
 		# start the summon vines spawn timer (used to actually spawn the vines)
@@ -297,7 +297,7 @@ func vines_expired():
 # when the delay player position timer ends
 func _on_delay_player_position_timer_timeout():
 	# sets a temp position to spawn the vines
-	summon_vines_temp_pos = player.global_position
+	summon_vines_temp_pos = player.get_player_position()
 
 # when the golem does a vine spin attack
 func vine_spin_attack():
@@ -326,7 +326,7 @@ func _on_vine_spin_summon_timer_timeout():
 		# spawns the vine spin
 		var vine_spin_scene = VINE_SPIN.instantiate()
 		get_parent().add_child(vine_spin_scene)
-		vine_spin_scene.global_position = player.global_position
+		vine_spin_scene.global_position = player.get_player_position()
 
 # when the attacks end
 func attack_end():

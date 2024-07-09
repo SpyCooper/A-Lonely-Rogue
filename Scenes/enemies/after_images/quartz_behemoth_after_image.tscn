@@ -1,0 +1,48 @@
+[gd_scene load_steps=7 format=3 uid="uid://betk0v3cjj2e1"]
+
+[ext_resource type="Script" path="res://Scripts/enemy/quartz_behemoth_after_image.gd" id="1_t0lid"]
+[ext_resource type="Texture2D" uid="uid://dgatoeoa186su" path="res://Assets/Sprites/enemies/quartz_behemoth.png" id="2_mkg3o"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_la5u8"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ax1hu"]
+atlas = ExtResource("2_mkg3o")
+region = Rect2(0, 192, 80, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v74lo"]
+atlas = ExtResource("2_mkg3o")
+region = Rect2(0, 64, 96, 64)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8fru5"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ax1hu")
+}],
+"loop": true,
+"name": &"move_left",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v74lo")
+}],
+"loop": false,
+"name": &"move_right",
+"speed": 5.0
+}]
+
+[node name="QuartzBehemothAfterImage" type="Node2D"]
+script = ExtResource("1_t0lid")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.552941)
+material = SubResource("ShaderMaterial_la5u8")
+position = Vector2(0, 1)
+sprite_frames = SubResource("SpriteFrames_8fru5")
+animation = &"move_left"
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.15
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

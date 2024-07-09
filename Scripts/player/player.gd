@@ -1041,21 +1041,14 @@ func _on_dash_timer_timeout():
 
 # when the after image spawn timer ends
 func _on_after_image_spawn_timer_timeout():
-	# spawn an after image
-	var after_image = PLAYER_AFTER_IMAGE.instantiate()
-	get_parent().add_child(after_image)
-	after_image.global_position = get_player_position()
-	after_image.spawned()
-	# increment after images
-	after_images += 1
-	# if there aren't 2 after images down
-	if after_images < 3:
+	if is_dashing:
+		# spawn an after image
+		var after_image = PLAYER_AFTER_IMAGE.instantiate()
+		get_parent().add_child(after_image)
+		after_image.global_position = get_player_position()
+		after_image.spawned()
 		# start the after image spawn timer
 		after_image_spawn_timer.start()
-	# if there two after images down
-	else:
-		# reset the after images
-		after_images = 0
 
 
 ## ------------------- pet functions -------------------------------------------
