@@ -1,4 +1,4 @@
-[gd_scene load_steps=89 format=3 uid="uid://dc0xlg20ucy3n"]
+[gd_scene load_steps=91 format=3 uid="uid://dc0xlg20ucy3n"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Catalog.gd" id="1_mndmm"]
 [ext_resource type="Theme" uid="uid://pv4evjjac8wt" path="res://Assets/general_theme.tres" id="2_umit2"]
@@ -32,6 +32,7 @@
 [ext_resource type="Texture2D" uid="uid://dcqbojsxfu3r2" path="res://Assets/Sprites/catalog_icons/holy_key_icon.png" id="27_g8gnh"]
 [ext_resource type="Texture2D" uid="uid://bb2nmaeol5m8t" path="res://Assets/Sprites/catalog_icons/emerald_skull.png" id="28_0ken5"]
 [ext_resource type="Texture2D" uid="uid://cnhdwkw15f4v0" path="res://Assets/Sprites/catalog_icons/holy_heart_icon.png" id="28_ngkm7"]
+[ext_resource type="Texture2D" uid="uid://cedjftvldsvsj" path="res://Assets/Sprites/catalog_icons/sapphire_horn_icon.png" id="28_r375j"]
 [ext_resource type="Texture2D" uid="uid://bdq2hockskod5" path="res://Assets/Sprites/catalog_icons/poorly_made_voodoo_doll_icon.png" id="29_snomr"]
 [ext_resource type="Texture2D" uid="uid://bxhnibool8yuh" path="res://Assets/Sprites/catalog_icons/sleek_blades_icon.png" id="30_608bm"]
 [ext_resource type="Texture2D" uid="uid://dyur5ubofnvf6" path="res://Assets/Sprites/catalog_icons/dash_boots_icon.png" id="31_pitxh"]
@@ -118,6 +119,9 @@ shader = ExtResource("3_qa2dv")
 shader = ExtResource("3_qa2dv")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_y266a"]
+shader = ExtResource("3_qa2dv")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_yy14v"]
 shader = ExtResource("3_qa2dv")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_a1lwt"]
@@ -217,7 +221,6 @@ grow_vertical = 2
 theme = ExtResource("2_umit2")
 
 [node name="Items" type="TabBar" parent="TabContainer"]
-visible = false
 layout_mode = 2
 theme = ExtResource("2_umit2")
 
@@ -590,6 +593,21 @@ offset_right = 93.0
 offset_bottom = 85.0
 theme_override_constants/icon_max_width = 64
 icon = ExtResource("27_g8gnh")
+flat = true
+alignment = 2
+icon_alignment = 1
+expand_icon = true
+
+[node name="Spot26" type="Control" parent="TabContainer/Items/ScrollContainer/GridContainer"]
+layout_mode = 2
+
+[node name="sapphire_horn_button" type="Button" parent="TabContainer/Items/ScrollContainer/GridContainer/Spot26"]
+material = SubResource("ShaderMaterial_yy14v")
+layout_mode = 0
+offset_right = 93.0
+offset_bottom = 85.0
+theme_override_constants/icon_max_width = 64
+icon = ExtResource("28_r375j")
 flat = true
 alignment = 2
 icon_alignment = 1
@@ -2386,7 +2404,76 @@ theme_override_font_sizes/font_size = 32
 text = "- How do you hold this with the wings there?"
 autowrap_mode = 2
 
+[node name="sapphire_horn_panel" type="Panel" parent="TabContainer/Items/Panels"]
+layout_mode = 0
+offset_left = 11.0
+offset_right = 521.0
+offset_bottom = 513.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_wrmxr")
+
+[node name="Sprite2D" type="Sprite2D" parent="TabContainer/Items/Panels/sapphire_horn_panel"]
+position = Vector2(86.5, 87.5)
+scale = Vector2(9.0625, 9.0625)
+texture = ExtResource("28_r375j")
+
+[node name="Title" type="Label" parent="TabContainer/Items/Panels/sapphire_horn_panel"]
+layout_mode = 0
+offset_left = 159.0
+offset_top = 15.0
+offset_right = 489.0
+offset_bottom = 156.0
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 48
+text = "Sapphire Horn"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Type" type="Label" parent="TabContainer/Items/Panels/sapphire_horn_panel"]
+layout_mode = 0
+offset_left = 159.0
+offset_top = 69.0
+offset_right = 489.0
+offset_bottom = 114.0
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "Type: Passive"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Items/Panels/sapphire_horn_panel"]
+layout_mode = 0
+offset_left = 22.5
+offset_top = 165.5
+offset_right = 443.5
+offset_bottom = 496.5
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Bio" type="Label" parent="TabContainer/Items/Panels/sapphire_horn_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- While holding, increase movement speed"
+autowrap_mode = 2
+
+[node name="Bio5" type="Label" parent="TabContainer/Items/Panels/sapphire_horn_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- Dropped from the Sapphire Pegasus"
+autowrap_mode = 2
+
+[node name="Bio3" type="Label" parent="TabContainer/Items/Panels/sapphire_horn_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- A special crystal object"
+autowrap_mode = 2
+
 [node name="emerald_skull_panel" type="Panel" parent="TabContainer/Items/Panels"]
+visible = false
 layout_mode = 0
 offset_left = 11.0
 offset_right = 521.0
@@ -3281,6 +3368,7 @@ text = "- What an unforunate soul"
 autowrap_mode = 2
 
 [node name="Bosses" type="TabBar" parent="TabContainer"]
+visible = false
 layout_mode = 2
 theme = ExtResource("2_umit2")
 
@@ -4008,6 +4096,7 @@ text = "X"
 [connection signal="pressed" from="TabContainer/Items/ScrollContainer/GridContainer/Spot21/dead_rogues_head_button" to="." method="_on_dead_rogues_head_button_pressed"]
 [connection signal="pressed" from="TabContainer/Items/ScrollContainer/GridContainer/Spot23/cursed_key_button" to="." method="_on_cursed_key_button_pressed"]
 [connection signal="pressed" from="TabContainer/Items/ScrollContainer/GridContainer/Spot24/holy_key_button" to="." method="_on_holy_key_button_pressed"]
+[connection signal="pressed" from="TabContainer/Items/ScrollContainer/GridContainer/Spot26/sapphire_horn_button" to="." method="_on_sapphire_horn_button_pressed"]
 [connection signal="pressed" from="TabContainer/Items/ScrollContainer/GridContainer/Spot25/emerald_skull_button" to="." method="_on_emerald_skull_button_pressed"]
 [connection signal="pressed" from="TabContainer/Monsters/ScrollContainer/GridContainer/Spot/Blue_slime" to="." method="_on_blue_slime_pressed"]
 [connection signal="pressed" from="TabContainer/Monsters/ScrollContainer/GridContainer/Spot2/Green_slime" to="." method="_on_green_slime_pressed"]

@@ -160,6 +160,10 @@ var holy_key_unlocked = false
 @onready var emerald_skull_button = $TabContainer/Items/ScrollContainer/GridContainer/Spot25/emerald_skull_button
 @onready var emerald_skull_panel = $TabContainer/Items/Panels/emerald_skull_panel
 var emerald_skull_unlocked = false
+@onready var sapphire_horn_button = $TabContainer/Items/ScrollContainer/GridContainer/Spot26/sapphire_horn_button
+@onready var sapphire_horn_panel = $TabContainer/Items/Panels/sapphire_horn_panel
+var sapphire_horn_unlocked = false
+
 
 # on start
 func _ready():
@@ -425,10 +429,15 @@ func load_data():
 					if holy_key_unlocked:
 						holy_key_button.material.shader = null
 				elif item == "emerald_skull_unlocked":
-					# holy_key check
+					# emerald_skull check
 					emerald_skull_unlocked = data["emerald_skull_unlocked"]
 					if emerald_skull_unlocked:
 						emerald_skull_button.material.shader = null
+				elif item == "sapphire_horn_unlocked":
+					# sapphire_horn check
+					sapphire_horn_unlocked = data["sapphire_horn_unlocked"]
+					if sapphire_horn_unlocked:
+						sapphire_horn_button.material.shader = null
 		save_items()
 
 # goes through all the panels and hides all of them
@@ -479,6 +488,7 @@ func clear_panel():
 	cursed_key_panel.hide()
 	holy_key_panel.hide()
 	emerald_skull_panel.hide()
+	sapphire_horn_panel.hide()
 	
 ## ---------------------------------- Enemies --------------------------------------------------------
 
@@ -1020,6 +1030,13 @@ func unlock_item(item):
 			emerald_skull_button.material.shader = null
 			# set the item to be unlocked
 			emerald_skull_unlocked = true
+	elif item == ItemType.type.sapphire_horn:
+		# if the item is locked
+		if !sapphire_horn_unlocked:
+			# remove the locked shader
+			sapphire_horn_button.material.shader = null
+			# set the item to be unlocked
+			sapphire_horn_unlocked = true
 	save_items()
 
 # saves the items found to "itemsfound.save"
@@ -1056,6 +1073,7 @@ func found_items():
 		"cursed_key_unlocked" : cursed_key_unlocked,
 		"holy_key_unlocked" : holy_key_unlocked,
 		"emerald_skull_unlocked" : emerald_skull_unlocked,
+		"sapphire_horn_unlocked" : sapphire_horn_unlocked,
 	}
 	return data
 
@@ -1283,3 +1301,12 @@ func _on_emerald_skull_button_pressed():
 	if emerald_skull_unlocked:
 		# show the item's info panel
 		emerald_skull_panel.show()
+
+# when sapphire_horn button is pressed
+func _on_sapphire_horn_button_pressed():
+	# clear the into panel
+	clear_panel()
+	# if the item is unlocked
+	if sapphire_horn_unlocked:
+		# show the item's info panel
+		sapphire_horn_panel.show()
