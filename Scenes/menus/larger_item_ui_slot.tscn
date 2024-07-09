@@ -1,4 +1,4 @@
-[gd_scene load_steps=55 format=3 uid="uid://ctgxe1xpnykuc"]
+[gd_scene load_steps=57 format=3 uid="uid://ctgxe1xpnykuc"]
 
 [ext_resource type="Script" path="res://Scripts/UI/item_ui_slot.gd" id="1_b8hg7"]
 [ext_resource type="Texture2D" uid="uid://da8a0jgjae011" path="res://Assets/Sprites/UI/rounded_corners_square-export.png" id="2_ii87q"]
@@ -27,6 +27,7 @@
 [ext_resource type="Texture2D" uid="uid://dgasd5e1e6oro" path="res://Assets/Sprites/catalog_icons/rogue_in_a_bottle_icon.png" id="21_16vdo"]
 [ext_resource type="Texture2D" uid="uid://bxhnibool8yuh" path="res://Assets/Sprites/catalog_icons/sleek_blades_icon.png" id="22_xyfvl"]
 [ext_resource type="Theme" uid="uid://pv4evjjac8wt" path="res://Assets/general_theme.tres" id="23_kwxpj"]
+[ext_resource type="Texture2D" uid="uid://cedjftvldsvsj" path="res://Assets/Sprites/catalog_icons/sapphire_horn_icon.png" id="25_kocnh"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tmdcs"]
 atlas = ExtResource("3_6n6lt")
@@ -122,6 +123,10 @@ region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3uc6d"]
 atlas = ExtResource("21_16vdo")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c1g35"]
+atlas = ExtResource("25_kocnh")
 region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jflw0"]
@@ -318,6 +323,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_c1g35")
+}],
+"loop": false,
+"name": &"sapphire_horn",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_jflw0")
 }],
 "loop": false,
@@ -347,7 +360,7 @@ texture = ExtResource("2_ii87q")
 position = Vector2(-3.8147e-06, -3.8147e-06)
 scale = Vector2(5, 5)
 sprite_frames = SubResource("SpriteFrames_51jbf")
-animation = &"sleek_blade"
+animation = &"sapphire_horn"
 
 [node name="stack_Label" type="Label" parent="."]
 layout_mode = 0

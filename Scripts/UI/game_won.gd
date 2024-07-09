@@ -206,6 +206,13 @@ func add_item_to_items_used(item : ItemType.type):
 					item_ui.set_item_type(ItemType.type.emerald_skull)
 				else:
 					item_ui.queue_free()
+			elif item == ItemType.type.sapphire_horn:
+				if !check_if_item_exists(item):
+					item_ui.get_animated_sprite().play("sapphire_horn")
+					# sets the item's type
+					item_ui.set_item_type(ItemType.type.sapphire_horn)
+				else:
+					item_ui.queue_free()
 			else:
 				item_ui.queue_free()
 		else:

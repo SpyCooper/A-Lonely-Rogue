@@ -17,7 +17,7 @@ enum state
 @onready var hit_flash_animation_timer = $Hit_Flash_animation_player/hit_flash_animation_timer
 @onready var hit_flash_animation_player = $Hit_Flash_animation_player
 const ENEMY_HIT_SHADER = preload("res://Scripts/shaders/enemy_hit_shader.gdshader")
-const RANDOM_ITEM_SPAWNER = preload("res://Scenes/random_item_spawner.tscn")
+const SAPPHIRE_HORN_ITEM = preload("res://Scenes/items/sapphire_horn_item.tscn")
 
 # sound effect references
 @onready var hit_sound = $HitSound
@@ -40,7 +40,7 @@ var current_state = state.grounded
 func _ready():
 	# basic enemy stats
 	speed = 2.7
-	health = 4
+	health = 45
 	max_health = health
 	# sets references to the player and catalog
 	catalog = Events.catalog
@@ -150,12 +150,10 @@ func _on_death_timer_timeout():
 	hud.hide_health_bar()
 	# unlock the enemy in the catalog
 	catalog.unlock_enemy(EnemyTypes.enemy.sapphire_pegasus)
-	# spawn a random item when the mimic dies
-	var random_item = RANDOM_ITEM_SPAWNER.instantiate()
-	random_item.position = position
-	var item = random_item
-	get_parent().add_child(random_item)
-	item.spawn_item()
+	# spawn the item for the mini boss the mini boss dies
+	var item = SAPPHIRE_HORN_ITEM.instantiate()
+	item.position = position
+	get_parent().add_child(item)
 	# call enemy_slain()
 	enemy_slain()
 

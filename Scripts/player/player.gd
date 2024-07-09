@@ -74,7 +74,11 @@ var immunity = false
 var items_collected = []
 var cursed_key = false
 var holy_key = false
+
+# crystal items
 var emerald_skull = false
+var sapphire_horn = false
+var sapphire_horn_speed_boost = 15.0
 
 # pet variables
 var current_pet = null
@@ -365,12 +369,17 @@ func killed_enemy():
 
 # returns the speed
 func get_speed():
+	var speed_bonus = 0.0
+	# if the player has the sapphire horn
+	if sapphire_horn:
+		speed_bonus += sapphire_horn_speed_boost
+	
 	# if the player is dashing
 	if is_dashing:
 		# add the dashing speed to the movement speed
-		return speed * (1.0 - slow_percentage) + dash_speed_boost
+		return (speed + speed_bonus) * (1.0 - slow_percentage) + dash_speed_boost
 	else:
-		return speed * (1.0 - slow_percentage)
+		return (speed + speed_bonus) * (1.0 - slow_percentage)
 
 # applies the slow
 func apply_slow(slow_perc):
@@ -834,7 +843,7 @@ func picked_up_item(item, display_text = true, sound = true, add_to_items_used =
 			# remove the holy key from the items collected ui
 			hud.remove_item_from_ui(ItemType.type.cursed_key)
 	elif item == ItemType.type.emerald_skull:
-		# add the cursed key to the player
+		# add the emerald_skull to the player
 		emerald_skull = true
 		# display the item text
 		if display_text:
@@ -845,7 +854,18 @@ func picked_up_item(item, display_text = true, sound = true, add_to_items_used =
 		if add_to_items_used:
 			# add item to the items used
 			PlayerData.items_used += [item]
-
+	elif item == ItemType.type.sapphire_horn:
+		# add the sapphire_horn to the player
+		sapphire_horn = true
+		# display the item text
+		if display_text:
+			hud.display_text("Aquired the Sapphire Horn!", "The pegasus blesses your speed")
+		# add the item to the collected items list on HUD and in player data
+		add_passive_item(item)
+		# check if the item needs to be added to items used
+		if add_to_items_used:
+			# add item to the items used
+			PlayerData.items_used += [item]
 
 # adds the item to the collected items list on HUD and in player data
 func add_passive_item(item : ItemType.type):
@@ -878,6 +898,7 @@ func use_key():
 		# return that a key was not used
 		return false
 
+# returns if the player has keys
 func has_keys():
 	if number_of_keys > 0:
 		return true

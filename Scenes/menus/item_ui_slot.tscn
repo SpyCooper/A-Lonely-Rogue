@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://edhqnytou7yt"]
+[gd_scene load_steps=55 format=3 uid="uid://edhqnytou7yt"]
 
 [ext_resource type="Script" path="res://Scripts/UI/item_ui_slot.gd" id="1_l3s7d"]
 [ext_resource type="Texture2D" uid="uid://buoupuxk2qtji" path="res://Assets/Sprites/catalog_icons/dust_blade_icon.png" id="1_rdpab"]
@@ -26,6 +26,7 @@
 [ext_resource type="Texture2D" uid="uid://dcqbojsxfu3r2" path="res://Assets/Sprites/catalog_icons/holy_key_icon.png" id="16_gsumr"]
 [ext_resource type="Texture2D" uid="uid://nd1033fxydae" path="res://Assets/Sprites/catalog_icons/protective_charm_icon.png" id="16_yme46"]
 [ext_resource type="Texture2D" uid="uid://dgasd5e1e6oro" path="res://Assets/Sprites/catalog_icons/rogue_in_a_bottle_icon.png" id="17_ix503"]
+[ext_resource type="Texture2D" uid="uid://cedjftvldsvsj" path="res://Assets/Sprites/catalog_icons/sapphire_horn_icon.png" id="25_vox0w"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_tmdcs"]
 atlas = ExtResource("1_rdpab")
@@ -121,6 +122,10 @@ region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3uc6d"]
 atlas = ExtResource("17_ix503")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5qo4f"]
+atlas = ExtResource("25_vox0w")
 region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_bn66n"]
@@ -313,6 +318,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_5qo4f")
+}],
+"loop": false,
+"name": &"sapphire_horn",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_bn66n")
 }],
 "loop": false,
@@ -333,7 +346,7 @@ texture = ExtResource("2_kll03")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(9, 9)
 sprite_frames = SubResource("SpriteFrames_51jbf")
-animation = &"emerald_skull"
+animation = &"sapphire_horn"
 
 [node name="stack_Label" type="Label" parent="."]
 visible = false
