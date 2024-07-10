@@ -21,5 +21,5 @@ enum enemy
 	emerald_skeleton,
 	sapphire_pegasus,
 	quartz_behemoth,
-	obsidian_devil,
+	onyx_demon,
 }

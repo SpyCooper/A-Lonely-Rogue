@@ -55,7 +55,7 @@ var current_state = state.idle
 func _ready():
 	# basic enemy stats
 	speed = 4.0
-	health = 5
+	health = 50
 	max_health = health
 	# sets references to the player and catalog
 	catalog = Events.catalog
@@ -176,8 +176,8 @@ func _on_death_timer_timeout():
 	catalog.unlock_enemy(EnemyTypes.enemy.quartz_behemoth)
 	# spawn the item for the mini boss the mini boss dies
 	var item = QUARTZ_BOOTS_ITEM.instantiate()
-	item.position = animated_sprite.position
 	get_parent().add_child(item)
+	item.global_position = animated_sprite.global_position
 	# call enemy_slain()
 	enemy_slain()
 
