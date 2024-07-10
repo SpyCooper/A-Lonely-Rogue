@@ -168,7 +168,9 @@ var emerald_skull_unlocked = false
 @onready var sapphire_horn_button = $TabContainer/Items/ScrollContainer/GridContainer/Spot26/sapphire_horn_button
 @onready var sapphire_horn_panel = $TabContainer/Items/Panels/sapphire_horn_panel
 var sapphire_horn_unlocked = false
-
+@onready var quartz_boots_button = $TabContainer/Items/ScrollContainer/GridContainer/Spot27/quartz_boots_button
+@onready var quartz_boots_panel = $TabContainer/Items/Panels/quartz_boots_panel
+var quartz_boots_unlocked = false
 
 # on start
 func _ready():
@@ -501,6 +503,7 @@ func clear_panel():
 	holy_key_panel.hide()
 	emerald_skull_panel.hide()
 	sapphire_horn_panel.hide()
+	quartz_boots_panel.hide()
 	
 ## ---------------------------------- Enemies --------------------------------------------------------
 
@@ -1070,6 +1073,13 @@ func unlock_item(item):
 			sapphire_horn_button.material.shader = null
 			# set the item to be unlocked
 			sapphire_horn_unlocked = true
+	elif item == ItemType.type.quartz_boots:
+		# if the item is locked
+		if !quartz_boots_unlocked:
+			# remove the locked shader
+			quartz_boots_button.material.shader = null
+			# set the item to be unlocked
+			quartz_boots_unlocked = true
 	save_items()
 
 # saves the items found to "itemsfound.save"
@@ -1107,6 +1117,7 @@ func found_items():
 		"holy_key_unlocked" : holy_key_unlocked,
 		"emerald_skull_unlocked" : emerald_skull_unlocked,
 		"sapphire_horn_unlocked" : sapphire_horn_unlocked,
+		"quartz_boots_unlocked" : quartz_boots_unlocked,
 	}
 	return data
 
@@ -1343,3 +1354,12 @@ func _on_sapphire_horn_button_pressed():
 	if sapphire_horn_unlocked:
 		# show the item's info panel
 		sapphire_horn_panel.show()
+
+# when quartz_boots button is pressed
+func _on_quartz_boots_button_pressed():
+	# clear the into panel
+	clear_panel()
+	# if the item is unlocked
+	if quartz_boots_unlocked:
+		# show the item's info panel
+		quartz_boots_panel.show()

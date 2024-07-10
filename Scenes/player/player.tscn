@@ -867,6 +867,9 @@ stream = ExtResource("13_0qney")
 volume_db = 5.0
 bus = &"Sound Effect"
 
+[node name="quartz_spike_spawn_timer" type="Timer" parent="."]
+wait_time = 0.5
+
 [connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]
 [connection signal="timeout" from="Hit_Flash_animation_player/hit_flash_animation_timer" to="." method="_on_hit_flash_animation_timer_timeout"]
 [connection signal="timeout" from="fall_timer" to="." method="_on_fall_timer_timeout"]
@@ -876,3 +879,4 @@ bus = &"Sound Effect"
 [connection signal="timeout" from="Usable_Item_cooldown_timer" to="." method="_on_usable_item_cooldown_timer_timeout"]
 [connection signal="timeout" from="Dash_timer" to="." method="_on_dash_timer_timeout"]
 [connection signal="timeout" from="after_image_spawn_timer" to="." method="_on_after_image_spawn_timer_timeout"]
+[connection signal="timeout" from="quartz_spike_spawn_timer" to="." method="_on_quartz_spike_spawn_timer_timeout"]

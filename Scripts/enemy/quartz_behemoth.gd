@@ -17,6 +17,7 @@ enum state
 @onready var hit_flash_animation_timer = $Hit_Flash_animation_player/hit_flash_animation_timer
 @onready var hit_flash_animation_player = $Hit_Flash_animation_player
 const ENEMY_HIT_SHADER = preload("res://Scripts/shaders/enemy_hit_shader.gdshader")
+const QUARTZ_BOOTS_ITEM = preload("res://Scenes/items/quartz_boots_item.tscn")
 
 # sound effect references
 @onready var hit_sound = $HitSound
@@ -173,6 +174,10 @@ func _on_death_timer_timeout():
 	hud.hide_health_bar()
 	# unlock the enemy in the catalog
 	catalog.unlock_enemy(EnemyTypes.enemy.quartz_behemoth)
+	# spawn the item for the mini boss the mini boss dies
+	var item = QUARTZ_BOOTS_ITEM.instantiate()
+	item.position = animated_sprite.position
+	get_parent().add_child(item)
 	# call enemy_slain()
 	enemy_slain()
 

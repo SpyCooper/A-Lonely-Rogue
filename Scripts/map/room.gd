@@ -42,6 +42,8 @@ func _on_player_detector_body_entered(body):
 				enemy.wake_up()
 			# check the lock status when the player enters the room
 			key_checks.locks_changed(false)
+			
+			Events.player.room_has_enemies()
 
 # when an body enters
 func _on_enemy_detector_body_entered(body):
@@ -90,6 +92,8 @@ func open_all_doors():
 		right_door.open_door()
 	# plays the door sound
 	door_sound.play()
+	
+	Events.player.room_cleared()
 
 # disables all doors
 func disable_all_doors():
@@ -138,3 +142,4 @@ func enemy_spawned_in_room():
 	close_all_doors()
 	# check the lock status when the player enters the room
 	key_checks.locks_changed(false)
+	Events.player.room_has_enemies()

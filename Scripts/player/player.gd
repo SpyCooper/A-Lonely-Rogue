@@ -79,6 +79,10 @@ var holy_key = false
 var emerald_skull = false
 var sapphire_horn = false
 var sapphire_horn_speed_boost = 15.0
+var quartz_boots = false
+@onready var quartz_spike_spawn_timer = $quartz_spike_spawn_timer
+var can_spawn_quartz_spike = false
+const QUARTZ_SPIKE_FRIENDLY = preload("res://Scenes/player/quartz_spike_friendly.tscn")
 
 # pet variables
 var current_pet = null
@@ -866,6 +870,18 @@ func picked_up_item(item, display_text = true, sound = true, add_to_items_used =
 		if add_to_items_used:
 			# add item to the items used
 			PlayerData.items_used += [item]
+	elif item == ItemType.type.quartz_boots:
+		# add the sapphire_horn to the player
+		quartz_boots = true
+		# display the item text
+		if display_text:
+			hud.display_text("Aquired Quartz Boots!", "The behemoth blesses the ground you walk")
+		# add the item to the collected items list on HUD and in player data
+		add_passive_item(item)
+		# check if the item needs to be added to items used
+		if add_to_items_used:
+			# add item to the items used
+			PlayerData.items_used += [item]
 
 # adds the item to the collected items list on HUD and in player data
 func add_passive_item(item : ItemType.type):
@@ -1121,3 +1137,19 @@ func get_holy_key_status():
 # returns if the player has the emerald skull
 func has_emerald_skull():
 	return emerald_skull
+
+func room_has_enemies():
+	if quartz_boots:
+		can_spawn_quartz_spike = true
+		quartz_spike_spawn_timer.start()
+
+func _on_quartz_spike_spawn_timer_timeout():
+	# checks to make sure the character isn't dying
+	if !dying && can_spawn_quartz_spike:
+		# spawns the vine spin
+		var spike = QUARTZ_SPIKE_FRIENDLY.instantiate()
+		get_parent().add_child(spike)
+		spike.set_spawn_position(get_player_position())
+
+func room_cleared():
+	can_spawn_quartz_spike = false
