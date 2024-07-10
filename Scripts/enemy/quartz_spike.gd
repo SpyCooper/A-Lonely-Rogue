@@ -6,9 +6,10 @@ extends Node2D
 @onready var attack_animation_timer = $attack_animation_timer
 @onready var exit_animation_timer = $exit_animation_timer
 @onready var marker = $Marker2D
-@onready var attack_sound = $attack_sound
 const QUARTZ_SPIKE_DAMAGE_AREA = preload("res://Scenes/enemies/quartz_spike/quartz_spike_damage_area.tscn")
 @onready var damage_player = $DamagePlayer
+@onready var attack_sound = $attack_sound
+@onready var enter_sound = $enter_sound
 
 # variables
 var damage_area_scene
@@ -21,6 +22,9 @@ func _ready():
 	animated_sprite.play("enter")
 	# adjusts the scene's position
 	position -= animated_sprite.position
+	
+	enter_sound.play()
+
 
 # when the enter animation timer ends
 func _on_enter_animation_timer_timeout():

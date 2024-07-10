@@ -29,6 +29,7 @@ const ENEMY_HIT_SHADER = preload("res://Scripts/shaders/enemy_hit_shader.gdshade
 @onready var dash_timer = $dash_timer
 const QUARTZ_BEHEMOTH_AFTER_IMAGE = preload("res://Scenes/enemies/after_images/quartz_behemoth_after_image.tscn")
 var dash_direction = Vector2(0, 0)
+@onready var dash_sound = $dash_sound
 
 # spike attack variables
 var spikes_active = false
@@ -37,6 +38,7 @@ var spikes_active = false
 @onready var spikes_spawn_start_offset_timer = $spikes_spawn_start_offset_timer
 @onready var spawn_spikes_timer = $spawn_spikes_timer
 const QUARTZ_SPIKE = preload("res://Scenes/enemies/quartz_spike/quartz_spike.tscn")
+@onready var attack_sound = $attack_sound
 
 # defines a random number generator
 var rng = RandomNumberGenerator.new()
@@ -52,7 +54,7 @@ var current_state = state.idle
 func _ready():
 	# basic enemy stats
 	speed = 4.0
-	health = 50
+	health = 5
 	max_health = health
 	# sets references to the player and catalog
 	catalog = Events.catalog
@@ -218,7 +220,7 @@ func attack_end():
 		# start the attack timer
 		attack_timer.start(rng.randf_range(0.7, 3.0))
 	else:
-		attack_timer.start(3)
+		attack_timer.start(4)
 	current_state = state.idle
 
 # when the hit flash animation timer ends
@@ -243,6 +245,8 @@ func dash():
 		current_state = state.dashing
 		# start the after image spawn timer
 		after_image_spawn_timer.start()
+		
+		dash_sound.play()
 
 # set a new random direction
 func random_dash_direction(hit_object : bool):
@@ -335,6 +339,8 @@ func spike_attack():
 		
 		spike_attack_animation_timer.start()
 		spikes_spawn_start_offset_timer.start()
+		
+		attack_sound.play()
 
 func _on_spike_attack_duration_timeout():
 	spikes_active = false

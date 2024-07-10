@@ -1,8 +1,10 @@
-[gd_scene load_steps=18 format=3 uid="uid://dfksvwbjs8huj"]
+[gd_scene load_steps=20 format=3 uid="uid://dfksvwbjs8huj"]
 
 [ext_resource type="Script" path="res://Scripts/enemy/quartz_spike.gd" id="1_7flie"]
 [ext_resource type="Texture2D" uid="uid://dgatoeoa186su" path="res://Assets/Sprites/enemies/quartz_behemoth.png" id="2_undw8"]
 [ext_resource type="PackedScene" uid="uid://q3bng0o4u44l" path="res://Scenes/enemies/damage_player.tscn" id="3_g805w"]
+[ext_resource type="AudioStream" uid="uid://whv2e3dismk1" path="res://Assets/Audio/quartz_behemoth/quartz_spike_attack.mp3" id="3_mltqa"]
+[ext_resource type="AudioStream" uid="uid://bmce7mgdpyp2u" path="res://Assets/Audio/quartz_behemoth/quartz_spike_enter.mp3" id="5_oy2km"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_ymqqu"]
 atlas = ExtResource("2_undw8")
@@ -124,7 +126,7 @@ frame = 2
 frame_progress = 1.0
 
 [node name="enter_animation_timer" type="Timer" parent="."]
-wait_time = 0.4
+wait_time = 0.5
 one_shot = true
 
 [node name="attack_animation_timer" type="Timer" parent="."]
@@ -140,11 +142,17 @@ position = Vector2(0, -11)
 
 [node name="attack_sound" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(0, -5)
+stream = ExtResource("3_mltqa")
 volume_db = -2.0
 bus = &"Sound Effect"
 
 [node name="DamagePlayer" parent="." instance=ExtResource("3_g805w")]
 position = Vector2(0, -9)
+
+[node name="enter_sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_oy2km")
+volume_db = 5.0
+bus = &"Sound Effect"
 
 [connection signal="timeout" from="enter_animation_timer" to="." method="_on_enter_animation_timer_timeout"]
 [connection signal="timeout" from="attack_animation_timer" to="." method="_on_attack_animation_timer_timeout"]
