@@ -43,7 +43,7 @@ var current_state = state.idle
 func _ready():
 	# basic enemy stats
 	speed = 0.0
-	health = 5
+	health = 75
 	max_health = health
 	# sets references to the player and catalog
 	catalog = Events.catalog

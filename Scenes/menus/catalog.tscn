@@ -1,4 +1,4 @@
-[gd_scene load_steps=95 format=3 uid="uid://dc0xlg20ucy3n"]
+[gd_scene load_steps=97 format=3 uid="uid://dc0xlg20ucy3n"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Catalog.gd" id="1_mndmm"]
 [ext_resource type="Theme" uid="uid://pv4evjjac8wt" path="res://Assets/general_theme.tres" id="2_umit2"]
@@ -48,6 +48,7 @@
 [ext_resource type="Texture2D" uid="uid://ds3kg5f48plbd" path="res://Assets/Sprites/catalog_icons/emerald_skeleton_icon.png" id="42_mkd7a"]
 [ext_resource type="Texture2D" uid="uid://v203n41vooxl" path="res://Assets/Sprites/catalog_icons/sapphire_pegasus_icon.png" id="44_2k7x8"]
 [ext_resource type="Texture2D" uid="uid://c77ddb1nd1w47" path="res://Assets/Sprites/catalog_icons/quartz_behemoth_icon.png" id="45_5as8v"]
+[ext_resource type="Texture2D" uid="uid://bjp7i6m1vfjs0" path="res://Assets/Sprites/catalog_icons/Onyx_demon_icon.png" id="48_02rwa"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tfafd"]
 shader = ExtResource("3_qa2dv")
@@ -185,6 +186,9 @@ shader = ExtResource("3_qa2dv")
 shader = ExtResource("3_qa2dv")
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_hohcg"]
+shader = ExtResource("3_qa2dv")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_b8mf1"]
 shader = ExtResource("3_qa2dv")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rrvjp"]
@@ -3621,6 +3625,23 @@ alignment = 2
 icon_alignment = 1
 expand_icon = true
 
+[node name="Spot9" type="Control" parent="TabContainer/Bosses/ScrollContainer/GridContainer"]
+layout_mode = 2
+
+[node name="Onyx_Demon_button" type="Button" parent="TabContainer/Bosses/ScrollContainer/GridContainer/Spot9"]
+material = SubResource("ShaderMaterial_b8mf1")
+layout_mode = 0
+offset_left = 31.83
+offset_right = 136.83
+offset_bottom = 85.0
+scale = Vector2(1.22, 1.22)
+theme_override_constants/icon_max_width = 64
+icon = ExtResource("48_02rwa")
+flat = true
+alignment = 2
+icon_alignment = 1
+expand_icon = true
+
 [node name="EmptySpot" type="Control" parent="TabContainer/Bosses/ScrollContainer/GridContainer"]
 layout_mode = 2
 
@@ -4101,6 +4122,7 @@ text = "- Prefers to stay on the ground"
 autowrap_mode = 2
 
 [node name="quartz_behemoth_panel" type="Panel" parent="TabContainer/Bosses/Panels"]
+visible = false
 layout_mode = 0
 offset_right = 510.0
 offset_bottom = 513.0
@@ -4251,6 +4273,89 @@ theme_override_font_sizes/font_size = 32
 text = "- I wonder how much this would sell for?"
 autowrap_mode = 2
 
+[node name="onyx_demon_panel" type="Panel" parent="TabContainer/Bosses/Panels"]
+layout_mode = 0
+offset_right = 510.0
+offset_bottom = 513.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_wrmxr")
+
+[node name="Sprite2D" type="Sprite2D" parent="TabContainer/Bosses/Panels/onyx_demon_panel"]
+position = Vector2(107, 85)
+scale = Vector2(2.95238, 2.95238)
+texture = ExtResource("48_02rwa")
+
+[node name="Title" type="Label" parent="TabContainer/Bosses/Panels/onyx_demon_panel"]
+layout_mode = 0
+offset_left = 180.0
+offset_top = 34.0
+offset_right = 510.0
+offset_bottom = 79.0
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 48
+text = "Onyx Demon"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="KillCount" type="Label" parent="TabContainer/Bosses/Panels/onyx_demon_panel"]
+layout_mode = 0
+offset_left = 180.0
+offset_top = 79.0
+offset_right = 510.0
+offset_bottom = 124.0
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "Killed: 1"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Bosses/Panels/onyx_demon_panel"]
+layout_mode = 0
+offset_left = 43.0
+offset_top = 174.0
+offset_right = 464.0
+offset_bottom = 505.0
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Bio" type="Label" parent="TabContainer/Bosses/Panels/onyx_demon_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- A demon made out of onyx"
+autowrap_mode = 2
+
+[node name="Bio2" type="Label" parent="TabContainer/Bosses/Panels/onyx_demon_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- Creates void orbs that split apart when they hit"
+autowrap_mode = 2
+
+[node name="Bio5" type="Label" parent="TabContainer/Bosses/Panels/onyx_demon_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- Void orb pass through enemies"
+autowrap_mode = 2
+
+[node name="Bio3" type="Label" parent="TabContainer/Bosses/Panels/onyx_demon_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- Drops an its hand when killed"
+autowrap_mode = 2
+
+[node name="Bio4" type="Label" parent="TabContainer/Bosses/Panels/onyx_demon_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- What a horrendous sight"
+autowrap_mode = 2
+
 [node name="Close_button" type="Button" parent="."]
 layout_mode = 0
 offset_left = 341.0
@@ -4309,4 +4414,5 @@ text = "X"
 [connection signal="pressed" from="TabContainer/Bosses/ScrollContainer/GridContainer/Spot7/Sapphire_Pegasus_button" to="." method="_on_sapphire_pegasus_button_pressed"]
 [connection signal="pressed" from="TabContainer/Bosses/ScrollContainer/GridContainer/Spot8/Quartz_behemoth_button" to="." method="_on_quartz_behemoth_button_pressed"]
 [connection signal="pressed" from="TabContainer/Bosses/ScrollContainer/GridContainer/Spot6/Emerald_Skeleton_button" to="." method="_on_emerald_skeleton_button_pressed"]
+[connection signal="pressed" from="TabContainer/Bosses/ScrollContainer/GridContainer/Spot9/Onyx_Demon_button" to="." method="_on_onyx_demon_button_pressed"]
 [connection signal="pressed" from="Close_button" to="." method="_on_close_button_pressed"]

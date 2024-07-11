@@ -45,7 +45,7 @@ func _on_body_entered(body):
 	if body is Player:
 		# damage player (it is not a morphed_shade attack, attack_identifer doesn't matter so 0)
 		body.player_take_damage(false, 0)
-	if !immunity:
+	elif !immunity:
 		# if the body is not enemy or is a collisiong_with_player scene of an enemy
 		if body != Enemy && body.name != "collision_with_player":
 			if can_split:

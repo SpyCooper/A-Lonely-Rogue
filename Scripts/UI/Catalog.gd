@@ -87,6 +87,11 @@ var sapphire_pegasus_kill_count = 0
 @onready var quartz_behemoth_kill_count_label = $TabContainer/Bosses/Panels/quartz_behemoth_panel/KillCountLabel
 var quartz_behemoth_unlocked = false
 var quartz_behemoth_kill_count = 0
+@onready var onyx_demon_button = $TabContainer/Bosses/ScrollContainer/GridContainer/Spot9/Onyx_Demon_button
+@onready var onyx_demon_panel = $TabContainer/Bosses/Panels/onyx_demon_panel
+@onready var onyx_demon_kill_count_label = $TabContainer/Bosses/Panels/onyx_demon_panel/KillCount
+var onyx_demon_unlocked = false
+var onyx_demon_kill_count = 0
 
 # items variables
 # all enemy sections on the catalog need a reference to it's button, the panel, and a bool
@@ -304,6 +309,12 @@ func load_data():
 					if quartz_behemoth_unlocked:
 						quartz_behemoth_button.material.shader = null
 						quartz_behemoth_kill_count = data["quartz_behemoth_kill_count"]
+				elif enemy == "onyx_demon_unlocked":
+					# quartz_behemoth check
+					onyx_demon_unlocked = data["onyx_demon_unlocked"]
+					if onyx_demon_unlocked:
+						onyx_demon_button.material.shader = null
+						onyx_demon_kill_count = data["onyx_demon_kill_count"]
 			# update the kill counts in the catalog
 			update_kill_counts()
 		save_enemies()
@@ -475,6 +486,7 @@ func clear_panel():
 	emerald_skeleton_panel.hide()
 	sapphire_pegasus_panel.hide()
 	quartz_behemoth_panel.hide()
+	onyx_demon_panel.hide()
 	
 	# items tab
 	speed_boots_panel.hide()
@@ -663,6 +675,15 @@ func unlock_enemy(enemy):
 			quartz_behemoth_unlocked = true
 		# increase the kill count and update the counts in the catalog
 		quartz_behemoth_kill_count += 1
+	elif enemy == EnemyTypes.enemy.onyx_demon:
+		# if the enemy is locked
+		if !onyx_demon_unlocked:
+			# remove the locked shader
+			onyx_demon_button.material.shader = null
+			# set the enemy to be unlocked
+			onyx_demon_unlocked = true
+		# increase the kill count and update the counts in the catalog
+		onyx_demon_kill_count += 1
 	update_kill_counts()
 	# saves the enemies to the catalog file
 	save_enemies()
@@ -704,6 +725,8 @@ func found_enemies():
 		"sapphire_pegasus_kill_count" : sapphire_pegasus_kill_count,
 		"quartz_behemoth_unlocked" : quartz_behemoth_unlocked,
 		"quartz_behemoth_kill_count" : quartz_behemoth_kill_count,
+		"onyx_demon_unlocked" : onyx_demon_unlocked,
+		"onyx_demon_kill_count" : onyx_demon_kill_count,
 	}
 	return data
 
@@ -726,6 +749,7 @@ func update_kill_counts():
 	emerald_skeleton_kill_count_label.text = "Killed: " + str(emerald_skeleton_kill_count)
 	sapphire_pegasus_kill_count_label.text = "Killed: " + str(sapphire_pegasus_kill_count)
 	quartz_behemoth_kill_count_label.text = "Killed: " + str(quartz_behemoth_kill_count)
+	onyx_demon_kill_count_label.text = "Killed: " + str(onyx_demon_kill_count)
 
 # when the blue slime button is presed
 func _on_blue_slime_pressed():
@@ -879,6 +903,15 @@ func _on_quartz_behemoth_button_pressed():
 	if quartz_behemoth_unlocked:
 		# show the enemy's info panel
 		quartz_behemoth_panel.show()
+
+# when the onyx demon button is presed
+func _on_onyx_demon_button_pressed():
+	# clear the info panel
+	clear_panel()
+	# if the enemy is unlocked
+	if onyx_demon_unlocked:
+		# show the enemy's info panel
+		onyx_demon_panel.show()
 
 # saves the enemy found to "enemiesfound.save"
 func save_enemies():
