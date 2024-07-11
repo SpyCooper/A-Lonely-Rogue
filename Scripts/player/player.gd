@@ -78,7 +78,6 @@ var holy_key = false
 # crystal items
 var emerald_skull = false
 var sapphire_horn = false
-var sapphire_horn_speed_boost = 15.0
 var quartz_boots = false
 @onready var quartz_spike_spawn_timer = $quartz_spike_spawn_timer
 var can_spawn_quartz_spike = false
@@ -377,7 +376,7 @@ func get_speed():
 	var speed_bonus = 0.0
 	# if the player has the sapphire horn
 	if sapphire_horn:
-		speed_bonus += sapphire_horn_speed_boost
+		speed_bonus += ItemType.sapphire_horn_speed_boost
 	
 	# if the player is dashing
 	if is_dashing:

@@ -5,6 +5,7 @@ extends Area2D
 @onready var immunity_timer = $immunity_timer
 var immunity = false
 const VOID_ORB_FRIENDLY = preload("res://Scenes/pets/void_orb_friendly.tscn")
+@onready var lifetime_timer = $lifetime_timer
 
 # variables
 var move_direction
@@ -36,6 +37,7 @@ func spawned(direction, split = false):
 	can_split = split
 	immunity = true
 	immunity_timer.start()
+	lifetime_timer.start()
 
 # when the shadow ball hits something
 func _on_body_entered(body):
@@ -76,3 +78,7 @@ func split():
 
 func _on_immunity_timer_timeout():
 	immunity = false
+
+
+func _on_lifetime_timer_timeout():
+	queue_free()

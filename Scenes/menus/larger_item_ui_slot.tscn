@@ -386,7 +386,7 @@ texture = ExtResource("2_ii87q")
 position = Vector2(-3.8147e-06, -3.8147e-06)
 scale = Vector2(5, 5)
 sprite_frames = SubResource("SpriteFrames_51jbf")
-animation = &"onyx_hand"
+animation = &"sleek_blade"
 
 [node name="stack_Label" type="Label" parent="."]
 layout_mode = 0

@@ -45,7 +45,7 @@ const ENEMY_KNIFE = preload("res://Scenes/enemy_knife.tscn")
 # on start
 func _ready():
 	# basic enemy stats
-	speed = 1.0
+	speed = 1.1
 	max_health = 100
 	health = max_health
 	# sets references to the player and catalog
@@ -308,6 +308,9 @@ func load_player_data():
 		elif item == ItemType.type.sleek_blades:
 			# increases knife movement speed
 			knife_speed_bonus += ItemType.sleek_blade_speed_bonus
+		elif item == ItemType.type.sapphire_horn:
+			# increases knife movement speed
+			speed = speed + (ItemType.sapphire_horn_speed_boost / 100)
 	# recalculates the attack speed
 	calculate_attack_speed()
 

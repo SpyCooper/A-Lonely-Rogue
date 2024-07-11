@@ -60,6 +60,7 @@ var spawned_items = []
 var speed_boots_movement_speed_bonus = 10
 var quick_blades_attack_speed_bonus = 0.25
 var sleek_blade_speed_bonus = 25
+var sapphire_horn_speed_boost = 10
 
 # return spawned items
 func get_spawned_items():
