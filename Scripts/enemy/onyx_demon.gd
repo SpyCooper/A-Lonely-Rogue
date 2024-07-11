@@ -20,15 +20,16 @@ const ENEMY_HIT_SHADER = preload("res://Scripts/shaders/enemy_hit_shader.gdshade
 # sound effect references
 @onready var hit_sound = $HitSound
 @onready var spawn_sound = $SpawnSound
-@onready var death_sound = $DeathSound
 @onready var spawn_sound_timer = $Spawn_sound_timer
+const ONYX_DEMON_DEATH = preload("res://Scenes/enemies/void_orb/onyx_demon_death.tscn")
+@onready var attack_sound = $attack_sound
 
 # attack variables
-const QUASAR = preload("res://Scenes/enemies/quasar/quasar.tscn")
-@onready var quasar_spawn_timer = $quasar_spawn_timer
+const VOID_ORB = preload("res://Scenes/enemies/void_orb/void_orb.tscn")
 @onready var attack_animation_timer = $attack_animation_timer
-var quasar_spawns = 0
-@onready var quasar_spawn_interval = $quasar_spawn_interval
+var void_orb_spawns = 0
+@onready var void_orb_spawn_timer = $void_orb_spawn_timer
+@onready var void_orb_spawn_interval = $void_orb_spawn_interval
 
 
 # basic enemy variables
@@ -42,7 +43,7 @@ var current_state = state.idle
 func _ready():
 	# basic enemy stats
 	speed = 0.0
-	health = 75
+	health = 5
 	max_health = health
 	# sets references to the player and catalog
 	catalog = Events.catalog
@@ -130,7 +131,10 @@ func take_damage(damage, attack_identifer, is_effect):
 			# plays the death animation
 			animated_sprite.play("dying")
 			# plays the death sound
-			death_sound.play()
+			var death_sound = ONYX_DEMON_DEATH.instantiate()
+			get_parent().add_child(death_sound)
+			death_sound.global_position = animated_sprite.global_position
+			death_sound.spawned()
 			# remove the damage player hitbox
 			damage_player.queue_free()
 			remove_hitbox()
@@ -183,7 +187,7 @@ func attack():
 			animated_sprite.play("attack_right")
 		if current_direction == look_direction.left:
 			animated_sprite.play("attack_left")
-		quasar_spawn_timer.start()
+		void_orb_spawn_timer.start()
 		can_attack = false
 		current_state = state.attacking
 
@@ -197,35 +201,35 @@ func _on_hit_flash_animation_timer_timeout():
 	# remove the hit flash shader
 	animated_sprite.material.shader = null
 
-func _on_quasar_spawn_timer_timeout():
-	# checks to make sure the character isn't dying
-	spawn_quasar()
-
 func _on_attack_animation_timer_timeout():
 	attack_end()
 
-func spawn_quasar():
+func spawn_void_orb():
 	if !dying:
+		attack_sound.play()
 		# get the player's position
 		player_position = player.get_player_position()
 		var projectile_direction = (player_position - animated_sprite.global_position).normalized()
-		# create and spawn the quasar to move toward the player's direction
-		var quasar = QUASAR.instantiate()
-		get_parent().add_child(quasar)
-		quasar.global_position = animated_sprite.global_position
-		quasar.spawned(projectile_direction, true)
-		quasar.scale = Vector2(2, 2)
-		quasar_spawns += 1
+		# create and spawn the void_orb to move toward the player's direction
+		var void_orb = VOID_ORB.instantiate()
+		get_parent().add_child(void_orb)
+		void_orb.global_position = animated_sprite.global_position
+		void_orb.spawned(projectile_direction, true, true)
+		void_orb_spawns += 1
 		
-		if quasar_spawns == 3:
+		if void_orb_spawns == 3:
 			if animated_sprite.animation == "attack_left":
 				animated_sprite.play("attack_left_end")
 			if animated_sprite.animation == "attack_right":
 				animated_sprite.play("attack_right_end")
 			attack_animation_timer.start()
-			quasar_spawns = 0
+			void_orb_spawns = 0
 		else:
-			quasar_spawn_interval.start()
+			void_orb_spawn_interval.start()
 
-func _on_quasar_spawn_interval_timeout():
-	spawn_quasar()
+func _on_void_orb_spawn_timer_timeout():
+	# checks to make sure the character isn't dying
+	spawn_void_orb()
+
+func _on_void_orb_spawn_interval_timeout():
+	spawn_void_orb()

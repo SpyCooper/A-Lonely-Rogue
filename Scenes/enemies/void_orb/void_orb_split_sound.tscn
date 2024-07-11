@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://cl70g16ufht78"]
+
+[ext_resource type="Script" path="res://Scripts/enemy/onyx_demon_death.gd" id="1_geyrs"]
+[ext_resource type="AudioStream" uid="uid://bsjw53uow7fdd" path="res://Assets/Audio/onyx_demon/void_orb_split.mp3" id="2_ameaf"]
+
+[node name="void_orb_split_sound" type="Node2D"]
+script = ExtResource("1_geyrs")
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_ameaf")
+volume_db = -5.0
+bus = &"Sound Effect"
+
+[connection signal="finished" from="AudioStreamPlayer2D" to="." method="_on_audio_stream_player_2d_finished"]

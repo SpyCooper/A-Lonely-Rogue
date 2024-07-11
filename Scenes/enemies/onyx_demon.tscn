@@ -1,8 +1,11 @@
-[gd_scene load_steps=42 format=3 uid="uid://e2kyf4akk1wn"]
+[gd_scene load_steps=56 format=3 uid="uid://e2kyf4akk1wn"]
 
 [ext_resource type="Script" path="res://Scripts/enemy/onyx_demon.gd" id="1_744yv"]
 [ext_resource type="Texture2D" uid="uid://m1ulxsej3gw7" path="res://Assets/Sprites/enemies/Onyx_demon.png" id="2_amh6n"]
 [ext_resource type="PackedScene" uid="uid://q3bng0o4u44l" path="res://Scenes/enemies/damage_player.tscn" id="3_28fil"]
+[ext_resource type="AudioStream" uid="uid://d1rccuwahisw2" path="res://Assets/Audio/onyx_demon/laugh-demon-sound-effect-23-11505.mp3" id="4_2jmaa"]
+[ext_resource type="AudioStream" uid="uid://cfiumfxwlt5hr" path="res://Assets/Audio/onyx_demon/onyx_demon_hit.mp3" id="4_xrl3x"]
+[ext_resource type="AudioStream" uid="uid://c7x12juqvqhym" path="res://Assets/Audio/onyx_demon/onyx_demon_attack.mp3" id="6_17yek"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nyloe"]
 radius = 8.89277
@@ -115,6 +118,30 @@ region = Rect2(800, 192, 80, 64)
 atlas = ExtResource("2_amh6n")
 region = Rect2(880, 192, 80, 64)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_lx0rq"]
+atlas = ExtResource("2_amh6n")
+region = Rect2(0, 320, 80, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6us31"]
+atlas = ExtResource("2_amh6n")
+region = Rect2(80, 320, 80, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ykv0y"]
+atlas = ExtResource("2_amh6n")
+region = Rect2(160, 320, 80, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_661dr"]
+atlas = ExtResource("2_amh6n")
+region = Rect2(240, 320, 80, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x41fx"]
+atlas = ExtResource("2_amh6n")
+region = Rect2(320, 320, 80, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nqh7n"]
+atlas = ExtResource("2_amh6n")
+region = Rect2(400, 320, 80, 64)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_42s30"]
 atlas = ExtResource("2_amh6n")
 region = Rect2(0, 0, 80, 64)
@@ -130,6 +157,26 @@ region = Rect2(0, 128, 80, 64)
 [sub_resource type="AtlasTexture" id="AtlasTexture_gsltv"]
 atlas = ExtResource("2_amh6n")
 region = Rect2(80, 128, 80, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mnhau"]
+atlas = ExtResource("2_amh6n")
+region = Rect2(0, 256, 80, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s04n6"]
+atlas = ExtResource("2_amh6n")
+region = Rect2(80, 256, 80, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rhgxq"]
+atlas = ExtResource("2_amh6n")
+region = Rect2(160, 256, 80, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_bb0xt"]
+atlas = ExtResource("2_amh6n")
+region = Rect2(240, 256, 80, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dy18m"]
+atlas = ExtResource("2_amh6n")
+region = Rect2(320, 256, 80, 64)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_npt66"]
 animations = [{
@@ -233,6 +280,29 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_lx0rq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6us31")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ykv0y")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_661dr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x41fx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nqh7n")
+}],
+"loop": false,
+"name": &"dying",
+"speed": 4.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_42s30")
 }, {
 "duration": 1.0,
@@ -252,6 +322,26 @@ animations = [{
 "loop": true,
 "name": &"idle_right",
 "speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mnhau")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s04n6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rhgxq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_bb0xt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dy18m")
+}],
+"loop": false,
+"name": &"spawning",
+"speed": 4.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_g4sa5"]
@@ -313,7 +403,7 @@ shape = SubResource("CapsuleShape2D_nyloe")
 material = SubResource("ShaderMaterial_6k7h3")
 position = Vector2(0, -23)
 sprite_frames = SubResource("SpriteFrames_npt66")
-animation = &"attack_right_end"
+animation = &"spawning"
 
 [node name="DamagePlayer" parent="." instance=ExtResource("3_28fil")]
 position = Vector2(0, -34)
@@ -328,7 +418,7 @@ wait_time = 3.0
 one_shot = true
 
 [node name="Death_timer" type="Timer" parent="."]
-wait_time = 2.1
+wait_time = 1.8
 one_shot = true
 
 [node name="Spawn_timer" type="Timer" parent="."]
@@ -347,18 +437,18 @@ shape = SubResource("CapsuleShape2D_84dmf")
 
 [node name="HitSound" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(0, -21)
-volume_db = -3.0
+stream = ExtResource("4_xrl3x")
+volume_db = -2.0
 bus = &"Sound Effect"
 
 [node name="SpawnSound" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(0, -21)
-bus = &"Sound Effect"
-
-[node name="DeathSound" type="AudioStreamPlayer2D" parent="."]
-position = Vector2(0, -21)
+stream = ExtResource("4_2jmaa")
 bus = &"Sound Effect"
 
 [node name="attack_sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_17yek")
+volume_db = 3.0
 bus = &"Sound Effect"
 
 [node name="Hit_Flash_animation_player" type="AnimationPlayer" parent="."]
@@ -370,14 +460,14 @@ libraries = {
 wait_time = 0.2
 one_shot = true
 
-[node name="quasar_spawn_timer" type="Timer" parent="."]
+[node name="void_orb_spawn_timer" type="Timer" parent="."]
 one_shot = true
 
 [node name="attack_animation_timer" type="Timer" parent="."]
 wait_time = 0.75
 one_shot = true
 
-[node name="quasar_spawn_interval" type="Timer" parent="."]
+[node name="void_orb_spawn_interval" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
 
@@ -385,6 +475,6 @@ one_shot = true
 [connection signal="timeout" from="Death_timer" to="." method="_on_death_timer_timeout"]
 [connection signal="timeout" from="Spawn_timer" to="." method="_on_spawn_timer_timeout"]
 [connection signal="timeout" from="Hit_Flash_animation_player/hit_flash_animation_timer" to="." method="_on_hit_flash_animation_timer_timeout"]
-[connection signal="timeout" from="quasar_spawn_timer" to="." method="_on_quasar_spawn_timer_timeout"]
+[connection signal="timeout" from="void_orb_spawn_timer" to="." method="_on_void_orb_spawn_timer_timeout"]
 [connection signal="timeout" from="attack_animation_timer" to="." method="_on_attack_animation_timer_timeout"]
-[connection signal="timeout" from="quasar_spawn_interval" to="." method="_on_quasar_spawn_interval_timeout"]
+[connection signal="timeout" from="void_orb_spawn_interval" to="." method="_on_void_orb_spawn_interval_timeout"]
