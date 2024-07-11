@@ -88,7 +88,7 @@ func _physics_process(_delta):
 		if player && can_move && Engine.time_scale != 0.0:
 			# gets the player's position and looks toward it
 			player_position = player.get_player_position()
-			target_position = (player_position - global_position).normalized()
+			target_position = (player_position - animated_sprite.global_position).normalized()
 			current_direction = get_look_direction(target_position)
 			# flips the direction of the gelatinous cube based on the current_direction
 			## NOTE: all these checks are identical but change the directions they look at

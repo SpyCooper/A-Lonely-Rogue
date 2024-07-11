@@ -79,7 +79,7 @@ func _physics_process(_delta):
 		if player && can_move && Engine.time_scale != 0.0:
 			# gets the player's position and looks toward it
 			player_position = player.get_player_position()
-			target_position = (player_position - global_position).normalized()
+			target_position = (player_position - animated_sprite.global_position).normalized()
 			current_direction = get_left_right_look_direction(target_position)
 			# if the shade can attack and is further than 30 pixels
 			if can_attack == true && animated_sprite.global_position.distance_to(player_position) > 30:

@@ -59,7 +59,7 @@ func _physics_process(_delta):
 		if player && Engine.time_scale != 0.0:
 			# gets the player's position and looks toward it
 			player_position = player.get_player_position()
-			target_position = (player_position - global_position).normalized()
+			target_position = (player_position - animated_sprite.global_position).normalized()
 			current_direction = get_left_right_look_direction(target_position)
 			# look in the direction of the player
 			# flips the direction of the skeleton archer based on the current_direction

@@ -16,6 +16,7 @@ enum state
 @onready var hit_flash_animation_timer = $Hit_Flash_animation_player/hit_flash_animation_timer
 @onready var hit_flash_animation_player = $Hit_Flash_animation_player
 const ENEMY_HIT_SHADER = preload("res://Scripts/shaders/enemy_hit_shader.gdshader")
+const ONYX_HAND_ITEM = preload("res://Scenes/items/onyx_hand_item.tscn")
 
 # sound effect references
 @onready var hit_sound = $HitSound
@@ -67,7 +68,7 @@ func _physics_process(_delta):
 		if player && can_move && Engine.time_scale != 0.0:
 			# gets the player's position and looks toward it
 			player_position = player.get_player_position()
-			target_position = (player_position - global_position).normalized()
+			target_position = (player_position - animated_sprite.global_position).normalized()
 			# if the golem can attack
 			if can_attack:
 				# do a random attack
@@ -149,9 +150,9 @@ func _on_death_timer_timeout():
 	# unlock the enemy in the catalog
 	catalog.unlock_enemy(EnemyTypes.enemy.onyx_demon)
 	# spawn the item for the mini boss the mini boss dies
-	#var item = QUARTZ_BOOTS_ITEM.instantiate()
-	#get_parent().add_child(item)
-	#item.global_position = animated_sprite.global_position
+	var item = ONYX_HAND_ITEM.instantiate()
+	get_parent().add_child(item)
+	item.global_position = animated_sprite.global_position
 	# call enemy_slain()
 	enemy_slain()
 

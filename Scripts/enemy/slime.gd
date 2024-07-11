@@ -47,7 +47,7 @@ func _physics_process(_delta):
 		if player && Engine.time_scale != 0.0:
 			# gets the target player position
 			player_position = player.get_player_position()
-			target_position = (player_position - global_position).normalized()
+			target_position = (player_position - animated_sprite.global_position).normalized()
 			current_direction = get_left_right_look_direction(target_position)
 			# flips the direction of the slime based on the if the target is on the left or right
 			if current_direction == look_direction.left:

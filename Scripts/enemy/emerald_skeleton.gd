@@ -32,10 +32,10 @@ func _physics_process(_delta):
 		if player && can_move && Engine.time_scale != 0.0:
 			# gets the player's position and looks toward it
 			player_position = player.get_player_position()
-			target_position = (player_position - global_position).normalized()
+			target_position = (player_position - animated_sprite.global_position).normalized()
 			current_direction = get_left_right_look_direction(target_position)
 			# if the enemy can attack and is less than 50 pixels away from the player
-			if can_attack && position.distance_to(player_position) < 85:
+			if can_attack && position.distance_to(player_position) < 100:
 				# attack
 				attack()
 			# if the enemy is further than 50 pixels
@@ -152,7 +152,7 @@ func _on_slash_projection_spawn_timer_timeout():
 				slash_2.play()
 			# get the player position
 			player_position = player.get_player_position()
-			target_position = (player_position - global_position).normalized()
+			target_position = (player_position - animated_sprite.global_position).normalized()
 			# spawn the clash projectile
 			var slash = LARGE_SLASH_PROJECTILE.instantiate()
 			get_parent().add_child(slash)

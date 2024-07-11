@@ -70,7 +70,7 @@ func _physics_process(_delta):
 		if player && can_move && Engine.time_scale != 0.0:
 			# gets the player's position and looks toward it
 			player_position = player.get_player_position()
-			target_position = (player_position - global_position).normalized()
+			target_position = (player_position - animated_sprite.global_position).normalized()
 			current_direction = get_left_right_look_direction(target_position)
 			# if the enemy can attack and is less than 100 pixels away from the player
 			if can_attack && animated_sprite.global_position.distance_to(player_position) < 100:
@@ -190,12 +190,12 @@ func _on_arrow_spawn_timer_timeout():
 		attack_sound.play()
 		# get the player position
 		player_position = player.get_player_position()
-		target_position = (player_position - global_position).normalized()
+		target_position = (player_position - animated_sprite.global_position).normalized()
 		# spawn the arrow
 		var arrow = ARROW.instantiate()
 		get_parent().add_child(arrow)
 		# set the arrow's position
-		arrow.global_position = global_position
+		arrow.global_position = animated_sprite.global_position
 		# tell the arrow that it's spawned
 		arrow.spawned(target_position)
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://8jxi88fj77dd"]
+[gd_scene load_steps=37 format=3 uid="uid://8jxi88fj77dd"]
 
 [ext_resource type="PackedScene" uid="uid://duv7i8yak343i" path="res://Scenes/menus/HUD.tscn" id="1_80esy"]
 [ext_resource type="Script" path="res://Scripts/map/dungeon_floor.gd" id="1_dvl4e"]
@@ -27,7 +27,6 @@
 [ext_resource type="PackedScene" uid="uid://p8b28nuu8aah" path="res://Scenes/map/rooms/1_door_room_left.tscn" id="28_ekw3m"]
 [ext_resource type="PackedScene" uid="uid://kbe2aiqeulfc" path="res://Scenes/map/rooms/3_door_room_no_up.tscn" id="29_le430"]
 [ext_resource type="PackedScene" uid="uid://dktq14smf6rpt" path="res://Scenes/map/rooms/2_door_left_right.tscn" id="29_tb2c2"]
-[ext_resource type="PackedScene" uid="uid://b1opxnh484w82" path="res://Scenes/enemies/skeleton_warrior.tscn" id="30_omytf"]
 [ext_resource type="PackedScene" uid="uid://che2yfugx3uto" path="res://Scenes/map/rooms/2_door_room_up_right.tscn" id="30_y76vo"]
 [ext_resource type="PackedScene" uid="uid://be4pn2ua63aka" path="res://Scenes/map/rooms/1_door_room_down.tscn" id="31_pljao"]
 
@@ -119,7 +118,7 @@ texture = ExtResource("7_cdgba")
 [sub_resource type="TileSet" id="TileSet_pnge6"]
 sources/0 = SubResource("TileSetAtlasSource_a4f5t")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_mpbxi"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_s2bej"]
 resource_local_to_scene = true
 
 [node name="Floor1" type="Node2D"]
@@ -253,7 +252,7 @@ position = Vector2(459, 44)
 position = Vector2(447, -47)
 
 [node name="gelatinous_cube" parent="." instance=ExtResource("13_axlkh")]
-material = SubResource("ShaderMaterial_mpbxi")
+material = SubResource("ShaderMaterial_s2bej")
 position = Vector2(-768, -33)
 
 [node name="slime4" parent="." instance=ExtResource("10_rrme3")]
@@ -356,9 +355,6 @@ theme_override_colors/font_color = Color(0.376471, 0.231373, 0.227451, 1)
 text = "Press Space to use active items"
 horizontal_alignment = 1
 autowrap_mode = 2
-
-[node name="skeleton_warrior" parent="." instance=ExtResource("30_omytf")]
-position = Vector2(-395, 15)
 
 [connection signal="timeout" from="CanvasLayer/Fade_color/Fade_timer" to="." method="_on_fade_timer_timeout"]
 
