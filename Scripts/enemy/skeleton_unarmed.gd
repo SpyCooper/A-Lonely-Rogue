@@ -51,7 +51,7 @@ func _physics_process(_delta):
 			target_position = (player_position - animated_sprite.global_position).normalized()
 			current_direction = get_left_right_look_direction(target_position)
 			# if the enemy is further than 8 pixels
-			if animated_sprite.global_position.distance_to(player_position) > 8:
+			if animated_sprite.global_position.distance_to(player_position) > 5:
 				# look in the direction of the player
 				# flips the direction of the skeleton based on the current_direction
 				## NOTE: all these checks are identical but change the directions they look at
