@@ -48,23 +48,7 @@ func _physics_process(_delta):
 
 # when the pet takes damage
 func take_damage(damage):
-	# remove health
-	health -= damage
-	# if health is above 0
-	if health > 0:
-		# plays the hit animation
-		animated_sprite.material.shader = null
-		animated_sprite.material.shader = HIT_SHADER
-		hit_flash_animation_player.play("hit_flash")
-		hit_flash_animation_timer.start()
-		# plays the hit sound
-		hit_sound.play()
-	# if health is 0
-	if health <= 0:
-		# tell the player the pet died
-		get_parent().pet_died(ItemType.type.onyx_hand)
-		# remove the pet
-		kill_pet()
+	pass
 
 # when the attack timer ends
 func _on_attack_timer_timeout():

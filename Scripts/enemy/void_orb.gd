@@ -101,6 +101,5 @@ func split():
 	split_sound.global_position = animated_sprite.global_position
 	split_sound.spawned()
 
-
 func _on_immunity_timer_timeout():
 	immunity = false
