@@ -408,6 +408,15 @@ func item_added(item):
 		item_ui.get_animated_sprite().play("quartz_boots")
 		# sets the item's type
 		item_ui.set_item_type(ItemType.type.quartz_boots)
+	elif item == ItemType.type.onyx_hand:
+		# create a item UI slot
+		var item_ui = ITEM_UI_SLOT.instantiate()
+		# add it to the items collected container
+		items_ui_container.add_child(item_ui)
+		# set the graphic to the item
+		item_ui.get_animated_sprite().play("onyx_hand")
+		# sets the item's type
+		item_ui.set_item_type(ItemType.type.onyx_hand)
 
 # removes an item from the ui
 func remove_item_from_ui(item_to_remove : ItemType.type):

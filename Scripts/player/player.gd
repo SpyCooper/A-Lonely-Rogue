@@ -83,6 +83,7 @@ var quartz_boots = false
 @onready var quartz_spike_spawn_timer = $quartz_spike_spawn_timer
 var can_spawn_quartz_spike = false
 const QUARTZ_SPIKE_FRIENDLY = preload("res://Scenes/player/quartz_spike_friendly.tscn")
+const ONYX_DEMON_SMALL = preload("res://Scenes/pets/onyx_demon_small.tscn")
 
 # pet variables
 var current_pet = null
@@ -882,6 +883,16 @@ func picked_up_item(item, display_text = true, sound = true, add_to_items_used =
 		if add_to_items_used:
 			# add item to the items used
 			PlayerData.items_used += [item]
+	elif item == ItemType.type.onyx_hand:
+		# display the item text
+		if display_text:
+			hud.display_text("Aquired the Onyx Hand", "Strange how much smaller he is now...")
+		# adds the pet item and spawns in the pet to the player based on the item
+		add_pet(item)
+		# check if the item needs to be added to items used
+		if add_to_items_used:
+			# add item to the items used
+			PlayerData.items_used += [item]
 
 # adds the item to the collected items list on HUD and in player data
 func add_passive_item(item : ItemType.type):
@@ -1090,6 +1101,8 @@ func add_pet(pet_item : ItemType.type):
 			spawn = DANGLING_ROGUE.instantiate()
 		elif pet_item == ItemType.type.dead_rogues_head:
 			spawn = DEAD_ROGUE.instantiate()
+		elif pet_item == ItemType.type.onyx_hand:
+			spawn = ONYX_DEMON_SMALL.instantiate()
 		# if there is a pet to be spawned
 		if spawn !=  null:
 			# spawn that pet

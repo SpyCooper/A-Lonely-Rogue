@@ -1,0 +1,38 @@
+[gd_scene load_steps=6 format=3 uid="uid://c0lcs25l84nbh"]
+
+[ext_resource type="PackedScene" uid="uid://jtiqth444hdl" path="res://Scenes/item.tscn" id="1_h42rh"]
+[ext_resource type="Texture2D" uid="uid://dh85ichhvi5y2" path="res://Assets/Sprites/items/Items.png" id="2_7ub5s"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cmq6i"]
+atlas = ExtResource("2_7ub5s")
+region = Rect2(384, 0, 16, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2lhu4"]
+atlas = ExtResource("2_7ub5s")
+region = Rect2(384, 32, 16, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_u3srh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cmq6i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2lhu4")
+}],
+"loop": true,
+"name": &"default",
+"speed": 3.0
+}]
+
+[node name="onyx_hand_item" type="Node2D"]
+z_index = 1
+
+[node name="item" parent="." instance=ExtResource("1_h42rh")]
+item_type = 29
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(1, 0)
+sprite_frames = SubResource("SpriteFrames_u3srh")
+autoplay = "default"
+offset = Vector2(-1, 0)

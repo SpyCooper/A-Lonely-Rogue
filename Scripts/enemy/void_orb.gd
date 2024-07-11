@@ -6,6 +6,7 @@ const VOID_ORB = preload("res://Scenes/enemies/void_orb/void_orb.tscn")
 @onready var immunity_timer = $immunity_timer
 var immunity = false
 const VOID_ORB_SPLIT_SOUND = preload("res://Scenes/enemies/void_orb/void_orb_split_sound.tscn")
+#const VOID_ORB_FRIENDLY = preload("res://Scenes/enemies/void_orb/void_orb_friendly.tscn")
 
 # variables
 var move_direction
@@ -13,6 +14,7 @@ var speed = 125
 var player
 var is_spawned = false
 var can_split = true
+var spawn_friendly = false
 
 # runs on every frame
 func _process(delta):
@@ -27,7 +29,7 @@ func _physics_process(delta):
 		rotation += 0.15
 
 # this is called when a Lich spawns a shadow ball
-func spawned(direction, split = false, large = false):
+func spawned(direction, split = false, large = false, friendly = false):
 	# set the player reference
 	player = Events.player
 	# set is_spawned to true
@@ -38,6 +40,8 @@ func spawned(direction, split = false, large = false):
 	immunity_timer.start()
 	if large:
 		scale = Vector2(2, 2)
+	if friendly:
+		spawn_friendly = true
 
 # when the shadow ball hits something
 func _on_body_entered(body):
@@ -45,6 +49,8 @@ func _on_body_entered(body):
 	if body is Player:
 		# damage player (it is not a morphed_shade attack, attack_identifer doesn't matter so 0)
 		body.player_take_damage(false, 0)
+	elif body is Enemy:
+		body.take_damage(1, 0, true)
 	elif !immunity:
 		# if the body is not enemy or is a collisiong_with_player scene of an enemy
 		if body != Enemy && body.name != "collision_with_player":

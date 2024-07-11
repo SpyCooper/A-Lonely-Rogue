@@ -220,6 +220,13 @@ func add_item_to_items_used(item : ItemType.type):
 					item_ui.set_item_type(ItemType.type.quartz_boots)
 				else:
 					item_ui.queue_free()
+			elif item == ItemType.type.onyx_hand:
+				if !check_if_item_exists(item):
+					item_ui.get_animated_sprite().play("onyx_hand")
+					# sets the item's type
+					item_ui.set_item_type(ItemType.type.onyx_hand)
+				else:
+					item_ui.queue_free()
 			else:
 				item_ui.queue_free()
 		else:

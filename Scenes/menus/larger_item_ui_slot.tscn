@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://ctgxe1xpnykuc"]
+[gd_scene load_steps=61 format=3 uid="uid://ctgxe1xpnykuc"]
 
 [ext_resource type="Script" path="res://Scripts/UI/item_ui_slot.gd" id="1_b8hg7"]
 [ext_resource type="Texture2D" uid="uid://da8a0jgjae011" path="res://Assets/Sprites/UI/rounded_corners_square-export.png" id="2_ii87q"]
@@ -23,6 +23,7 @@
 [ext_resource type="Texture2D" uid="uid://cmwm5gbdg4wt3" path="res://Assets/Sprites/catalog_icons/poison_gas_icon.png" id="17_rjcok"]
 [ext_resource type="Texture2D" uid="uid://bdq2hockskod5" path="res://Assets/Sprites/catalog_icons/poorly_made_voodoo_doll_icon.png" id="18_qrm06"]
 [ext_resource type="Texture2D" uid="uid://d0l7ggcqcranr" path="res://Assets/Sprites/items/buring_voodoo_doll.png" id="19_kq26k"]
+[ext_resource type="Texture2D" uid="uid://bma80of11bg2d" path="res://Assets/Sprites/catalog_icons/onyx_hand_icon.png" id="20_3cby1"]
 [ext_resource type="Texture2D" uid="uid://nd1033fxydae" path="res://Assets/Sprites/catalog_icons/protective_charm_icon.png" id="20_syglk"]
 [ext_resource type="Texture2D" uid="uid://dgasd5e1e6oro" path="res://Assets/Sprites/catalog_icons/rogue_in_a_bottle_icon.png" id="21_16vdo"]
 [ext_resource type="Texture2D" uid="uid://bxhnibool8yuh" path="res://Assets/Sprites/catalog_icons/sleek_blades_icon.png" id="22_xyfvl"]
@@ -96,6 +97,10 @@ region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xywox"]
 atlas = ExtResource("16_nvvxa")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yennm"]
+atlas = ExtResource("20_3cby1")
 region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_nasul"]
@@ -282,6 +287,14 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_yennm")
+}],
+"loop": false,
+"name": &"onyx_hand",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_nasul")
 }],
 "loop": false,
@@ -373,7 +386,7 @@ texture = ExtResource("2_ii87q")
 position = Vector2(-3.8147e-06, -3.8147e-06)
 scale = Vector2(5, 5)
 sprite_frames = SubResource("SpriteFrames_51jbf")
-animation = &"quartz_boots"
+animation = &"onyx_hand"
 
 [node name="stack_Label" type="Label" parent="."]
 layout_mode = 0

@@ -25,12 +25,11 @@ const ONYX_DEMON_DEATH = preload("res://Scenes/enemies/void_orb/onyx_demon_death
 @onready var attack_sound = $attack_sound
 
 # attack variables
-const VOID_ORB = preload("res://Scenes/enemies/void_orb/void_orb.tscn")
 @onready var attack_animation_timer = $attack_animation_timer
 var void_orb_spawns = 0
 @onready var void_orb_spawn_timer = $void_orb_spawn_timer
 @onready var void_orb_spawn_interval = $void_orb_spawn_interval
-
+const VOID_ORB = preload("res://Scenes/enemies/void_orb/void_orb.tscn")
 
 # basic enemy variables
 var target_position
@@ -212,9 +211,9 @@ func spawn_void_orb():
 		var projectile_direction = (player_position - animated_sprite.global_position).normalized()
 		# create and spawn the void_orb to move toward the player's direction
 		var void_orb = VOID_ORB.instantiate()
-		get_parent().add_child(void_orb)
+		get_tree().current_scene.add_child(void_orb)
 		void_orb.global_position = animated_sprite.global_position
-		void_orb.spawned(projectile_direction, true, true)
+		void_orb.spawned(projectile_direction, true, true, false)
 		void_orb_spawns += 1
 		
 		if void_orb_spawns == 3:
