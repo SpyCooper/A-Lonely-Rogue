@@ -176,6 +176,9 @@ var sapphire_horn_unlocked = false
 @onready var quartz_boots_button = $TabContainer/Items/ScrollContainer/GridContainer/Spot27/quartz_boots_button
 @onready var quartz_boots_panel = $TabContainer/Items/Panels/quartz_boots_panel
 var quartz_boots_unlocked = false
+@onready var onyx_hand_button = $TabContainer/Items/ScrollContainer/GridContainer/Spot28/onyx_hand_button
+@onready var onyx_hand_panel = $TabContainer/Items/Panels/onyx_hand_panel
+var onyx_hand_unlocked = false
 
 # on start
 func _ready():
@@ -462,6 +465,16 @@ func load_data():
 					sapphire_horn_unlocked = data["sapphire_horn_unlocked"]
 					if sapphire_horn_unlocked:
 						sapphire_horn_button.material.shader = null
+				elif item == "quartz_boots_unlocked":
+					# quartz_boots check
+					quartz_boots_unlocked = data["quartz_boots_unlocked"]
+					if quartz_boots_unlocked:
+						quartz_boots_button.material.shader = null
+				elif item == "onyx_hand_unlocked":
+					# onyx_hand check
+					onyx_hand_unlocked = data["onyx_hand_unlocked"]
+					if onyx_hand_unlocked:
+						onyx_hand_button.material.shader = null
 		save_items()
 
 # goes through all the panels and hides all of them
@@ -516,6 +529,7 @@ func clear_panel():
 	emerald_skull_panel.hide()
 	sapphire_horn_panel.hide()
 	quartz_boots_panel.hide()
+	onyx_hand_panel.hide()
 	
 ## ---------------------------------- Enemies --------------------------------------------------------
 
@@ -1113,6 +1127,13 @@ func unlock_item(item):
 			quartz_boots_button.material.shader = null
 			# set the item to be unlocked
 			quartz_boots_unlocked = true
+	elif item == ItemType.type.onyx_hand:
+		# if the item is locked
+		if !onyx_hand_unlocked:
+			# remove the locked shader
+			onyx_hand_button.material.shader = null
+			# set the item to be unlocked
+			onyx_hand_unlocked = true
 	save_items()
 
 # saves the items found to "itemsfound.save"
@@ -1151,6 +1172,7 @@ func found_items():
 		"emerald_skull_unlocked" : emerald_skull_unlocked,
 		"sapphire_horn_unlocked" : sapphire_horn_unlocked,
 		"quartz_boots_unlocked" : quartz_boots_unlocked,
+		"onyx_hand_unlocked" : onyx_hand_unlocked,
 	}
 	return data
 
@@ -1396,3 +1418,12 @@ func _on_quartz_boots_button_pressed():
 	if quartz_boots_unlocked:
 		# show the item's info panel
 		quartz_boots_panel.show()
+
+# when onyx_hand button is pressed
+func _on_onyx_hand_button_pressed():
+	# clear the into panel
+	clear_panel()
+	# if the item is unlocked
+	if onyx_hand_unlocked:
+		# show the item's info panel
+		onyx_hand_panel.show()

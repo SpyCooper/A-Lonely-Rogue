@@ -17,7 +17,7 @@ func _ready():
 	# sets the pet variables
 	max_health = 10
 	health = max_health
-	distance_from_player = 20
+	distance_from_player = 25
 	speed = .06
 	position += Vector2(0, distance_from_player)
 	# when the room_entered signal is sent
@@ -89,5 +89,5 @@ func attack():
 	# disable can spawn
 	can_throw = false
 	# start the attack timer
-	attack_timer.start()
+	attack_timer.start(rng.randf_range(1.25, 2.5))
 	# play the attack sound
