@@ -213,7 +213,7 @@ func spawn_void_orb():
 		var void_orb = VOID_ORB.instantiate()
 		get_tree().current_scene.add_child(void_orb)
 		void_orb.global_position = animated_sprite.global_position
-		void_orb.spawned(projectile_direction, true, true, false)
+		void_orb.spawned(projectile_direction, true, true)
 		void_orb_spawns += 1
 		
 		if void_orb_spawns == 3:

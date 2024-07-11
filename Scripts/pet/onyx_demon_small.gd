@@ -9,7 +9,7 @@ var can_throw = false
 @onready var hit_flash_animation_player = $Hit_Flash_animation_player
 @onready var hit_flash_animation_timer = $Hit_Flash_animation_player/hit_flash_animation_timer
 const HIT_SHADER = preload("res://Scripts/shaders/enemy_hit_shader.gdshader")
-#const VOID_ORB_FRIENDLY = preload("res://Scenes/enemies/void_orb/void_orb_friendly.tscn")
+const VOID_ORB_FRIENDLY = preload("res://Scenes/pets/void_orb_friendly.tscn")
 # defines a random number generator
 var rng = RandomNumberGenerator.new()
 
@@ -78,13 +78,13 @@ func attack():
 	# normalize the movement vector
 	var direction = Vector2(vec_x, vec_y).normalized()
 	
-	#if direction == Vector2(0,0):
-		#direction = Vector2(0.5,0.5).normalized()
-	## throw a knife at an enemy
-	#var void_orb = VOID_ORB_FRIENDLY.instantiate()
-	#get_tree().current_scene.add_child(void_orb)
-	#void_orb.global_position = animated_sprite.global_position
-	#void_orb.spawned(direction, true, false, true)
+	if direction == Vector2(0,0):
+		direction = Vector2(0.5,0.5).normalized()
+	# throw a knife at an enemy
+	var void_orb = VOID_ORB_FRIENDLY.instantiate()
+	get_tree().current_scene.add_child(void_orb)
+	void_orb.global_position = animated_sprite.global_position
+	void_orb.spawned(direction, true)
 	
 	# disable can spawn
 	can_throw = false
