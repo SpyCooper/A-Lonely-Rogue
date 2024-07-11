@@ -104,7 +104,7 @@ func _physics_process(_delta):
 				elif current_direction == look_direction.down:
 						animated_sprite.play("move_down")
 				# moves the earth elemental to a distance of 8 to the player
-				if position.distance_to(player_position) > 8:
+				if animated_sprite.global_position.distance_to(player_position) > 8:
 					## has to use get_speed() to move based on dusted effect
 					move_and_collide(target_position.normalized() * get_speed())
 

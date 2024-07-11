@@ -68,7 +68,7 @@ func _physics_process(_delta):
 			# if the mimic is attacking
 			elif current_state == state.attacking:
 				# if the distance to the attack position is greater than 3
-				if position.distance_to(player_position) > 3:
+				if animated_sprite.global_position.distance_to(player_position) > 3:
 					## has to use get_speed() to move based on dusted effect
 					# check for a collision
 					var collision = move_and_collide(jump_direction.normalized() * get_speed())
@@ -184,7 +184,7 @@ func attack():
 	if !dying:
 		# gets the player's position
 		player_position = player.get_player_position()
-		jump_direction = (player_position - global_position).normalized()
+		jump_direction = (player_position - animated_sprite.global_position).normalized()
 		current_direction = get_left_right_look_direction(jump_direction)
 		# plays the correct attack animation
 		if current_direction == look_direction.right:

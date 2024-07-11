@@ -82,7 +82,7 @@ func _physics_process(_delta):
 			target_position = (player_position - global_position).normalized()
 			current_direction = get_left_right_look_direction(target_position)
 			# if the shade can attack and is further than 30 pixels
-			if can_attack == true && position.distance_to(player_position) > 30:
+			if can_attack == true && animated_sprite.global_position.distance_to(player_position) > 30:
 				attack()
 			# else if the shade can move
 			elif can_move:
@@ -95,7 +95,7 @@ func _physics_process(_delta):
 				## Move right
 				elif current_direction == look_direction.right:
 					animated_sprite.play("move_right")
-				if position.distance_to(player_position) > 8:
+				if animated_sprite.global_position.distance_to(player_position) > 8:
 					## has to use get_speed() to move based on dusted effect
 					move_and_collide(target_position.normalized() * get_speed())
 

@@ -96,7 +96,7 @@ func _physics_process(_delta):
 					animated_sprite.play("look_right")
 				## NOTE: the golem cannot move currently but this is here just in case this is changes
 				# moves the golem to a distance of 15 to the player
-				if position.distance_to(player_position) > 15:
+				if animated_sprite.global_position.distance_to(player_position) > 15:
 					## has to use get_speed() to move based on dusted effect
 					move_and_collide(target_position.normalized() * get_speed())
 

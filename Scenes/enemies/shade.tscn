@@ -695,7 +695,7 @@ animations = [{
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_m4p3k"]
 radius = 6.0
-height = 22.0
+height = 24.0
 
 [sub_resource type="Animation" id="Animation_ly7xv"]
 length = 0.001
@@ -754,7 +754,7 @@ position = Vector2(-1, 5)
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="DamagePlayer"]
-position = Vector2(1, -12)
+position = Vector2(1, -11)
 shape = SubResource("CapsuleShape2D_m4p3k")
 
 [node name="Spawn_timer" type="Timer" parent="."]

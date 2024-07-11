@@ -56,7 +56,7 @@ func _physics_process(_delta):
 			elif current_direction == look_direction.right:
 				animated_sprite.play("look_right")
 			# moves the slime to the player with a distance of 10
-			if position.distance_to(player_position) > 10:
+			if animated_sprite.global_position.distance_to(player_position) > 5:
 				## has to use get_speed() to move based on dusted effect
 				move_and_collide(target_position.normalized() * get_speed())
 
