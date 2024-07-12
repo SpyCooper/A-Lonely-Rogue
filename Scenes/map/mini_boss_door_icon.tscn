@@ -1,0 +1,115 @@
+[gd_scene load_steps=17 format=3 uid="uid://bmcwy07w158r4"]
+
+[ext_resource type="Texture2D" uid="uid://dlx85q2wcw107" path="res://Assets/Sprites/map/mini_boss_door_symbol.png" id="1_4imi2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a2j3o"]
+atlas = ExtResource("1_4imi2")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h1xy3"]
+atlas = ExtResource("1_4imi2")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ojlgw"]
+atlas = ExtResource("1_4imi2")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_511fa"]
+atlas = ExtResource("1_4imi2")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rjqbh"]
+atlas = ExtResource("1_4imi2")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cxj6n"]
+atlas = ExtResource("1_4imi2")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h3bbr"]
+atlas = ExtResource("1_4imi2")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vrxci"]
+atlas = ExtResource("1_4imi2")
+region = Rect2(112, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_leeuy"]
+atlas = ExtResource("1_4imi2")
+region = Rect2(96, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rbo7h"]
+atlas = ExtResource("1_4imi2")
+region = Rect2(80, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ubrg0"]
+atlas = ExtResource("1_4imi2")
+region = Rect2(64, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rmyy5"]
+atlas = ExtResource("1_4imi2")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_umemi"]
+atlas = ExtResource("1_4imi2")
+region = Rect2(32, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q1un5"]
+atlas = ExtResource("1_4imi2")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3mr0t"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a2j3o")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h1xy3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ojlgw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_511fa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rjqbh")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cxj6n")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h3bbr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vrxci")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_leeuy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rbo7h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ubrg0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rmyy5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_umemi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q1un5")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[node name="Mini_boss_door_sprite" type="AnimatedSprite2D"]
+z_index = -1
+position = Vector2(0, -66)
+sprite_frames = SubResource("SpriteFrames_3mr0t")
+autoplay = "default"

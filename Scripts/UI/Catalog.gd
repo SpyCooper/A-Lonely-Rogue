@@ -164,9 +164,9 @@ var bomb_unlocked = false
 @onready var cursed_key_button = $TabContainer/Items/ScrollContainer/GridContainer/Spot23/cursed_key_button
 @onready var cursed_key_panel = $TabContainer/Items/Panels/cursed_key_panel
 var cursed_key_unlocked = false
-@onready var holy_key_button = $TabContainer/Items/ScrollContainer/GridContainer/Spot24/holy_key_button
-@onready var holy_key_panel = $TabContainer/Items/Panels/holy_key_panel
-var holy_key_unlocked = false
+@onready var lady_lucks_key_button = $TabContainer/Items/ScrollContainer/GridContainer/Spot24/lady_lucks_key_button
+@onready var lady_lucks_key_panel = $TabContainer/Items/Panels/lady_lucks_key_panel
+var lady_lucks_key_unlocked = false
 @onready var emerald_skull_button = $TabContainer/Items/ScrollContainer/GridContainer/Spot25/emerald_skull_button
 @onready var emerald_skull_panel = $TabContainer/Items/Panels/emerald_skull_panel
 var emerald_skull_unlocked = false
@@ -450,11 +450,11 @@ func load_data():
 					cursed_key_unlocked = data["cursed_key_unlocked"]
 					if cursed_key_unlocked:
 						cursed_key_button.material.shader = null
-				elif item == "holy_key_unlocked":
-					# holy_key check
-					holy_key_unlocked = data["holy_key_unlocked"]
-					if holy_key_unlocked:
-						holy_key_button.material.shader = null
+				elif item == "lady_lucks_key_unlocked":
+					# lady_lucks_key check
+					lady_lucks_key_unlocked = data["lady_lucks_key_unlocked"]
+					if lady_lucks_key_unlocked:
+						lady_lucks_key_button.material.shader = null
 				elif item == "emerald_skull_unlocked":
 					# emerald_skull check
 					emerald_skull_unlocked = data["emerald_skull_unlocked"]
@@ -525,7 +525,7 @@ func clear_panel():
 	dead_rogues_head_panel.hide()
 	bomb_panel.hide()
 	cursed_key_panel.hide()
-	holy_key_panel.hide()
+	lady_lucks_key_panel.hide()
 	emerald_skull_panel.hide()
 	sapphire_horn_panel.hide()
 	quartz_boots_panel.hide()
@@ -1099,13 +1099,13 @@ func unlock_item(item):
 			cursed_key_button.material.shader = null
 			# set the item to be unlocked
 			cursed_key_unlocked = true
-	elif item == ItemType.type.holy_key:
+	elif item == ItemType.type.lady_lucks_key:
 		# if the item is locked
-		if !holy_key_unlocked:
+		if !lady_lucks_key_unlocked:
 			# remove the locked shader
-			holy_key_button.material.shader = null
+			lady_lucks_key_button.material.shader = null
 			# set the item to be unlocked
-			holy_key_unlocked = true
+			lady_lucks_key_unlocked = true
 	elif item == ItemType.type.emerald_skull:
 		# if the item is locked
 		if !emerald_skull_unlocked:
@@ -1168,7 +1168,7 @@ func found_items():
 		"dead_rogues_head_unlocked" : dead_rogues_head_unlocked,
 		"bomb_unlocked" : bomb_unlocked,
 		"cursed_key_unlocked" : cursed_key_unlocked,
-		"holy_key_unlocked" : holy_key_unlocked,
+		"lady_lucks_key_unlocked" : lady_lucks_key_unlocked,
 		"emerald_skull_unlocked" : emerald_skull_unlocked,
 		"sapphire_horn_unlocked" : sapphire_horn_unlocked,
 		"quartz_boots_unlocked" : quartz_boots_unlocked,
@@ -1383,15 +1383,6 @@ func _on_cursed_key_button_pressed():
 		# show the item's info panel
 		cursed_key_panel.show()
 
-# when holy key button is pressed
-func _on_holy_key_button_pressed():
-	# clear the into panel
-	clear_panel()
-	# if the item is unlocked
-	if holy_key_unlocked:
-		# show the item's info panel
-		holy_key_panel.show()
-
 # when emerald_skull button is pressed
 func _on_emerald_skull_button_pressed():
 	# clear the into panel
@@ -1427,3 +1418,12 @@ func _on_onyx_hand_button_pressed():
 	if onyx_hand_unlocked:
 		# show the item's info panel
 		onyx_hand_panel.show()
+
+# when lady_lucks_key button is pressed
+func _on_lady_lucks_key_button_pressed():
+	# clear the into panel
+	clear_panel()
+	# if the item is unlocked
+	if lady_lucks_key_unlocked:
+		# show the item's info panel
+		lady_lucks_key_panel.show()

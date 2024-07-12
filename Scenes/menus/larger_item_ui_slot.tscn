@@ -19,7 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://cnhdwkw15f4v0" path="res://Assets/Sprites/catalog_icons/holy_heart_icon.png" id="15_f8lrp"]
 [ext_resource type="Texture2D" uid="uid://bb2nmaeol5m8t" path="res://Assets/Sprites/catalog_icons/emerald_skull.png" id="15_nmvt8"]
 [ext_resource type="Texture2D" uid="uid://bl7r5tr8dsooy" path="res://Assets/Sprites/catalog_icons/magically_trapped_rogue_icon.png" id="16_nvvxa"]
-[ext_resource type="Texture2D" uid="uid://dcqbojsxfu3r2" path="res://Assets/Sprites/catalog_icons/holy_key_icon.png" id="17_7sv72"]
+[ext_resource type="Texture2D" uid="uid://dcqbojsxfu3r2" path="res://Assets/Sprites/catalog_icons/lady_lucks_key_icon.png" id="17_7sv72"]
 [ext_resource type="Texture2D" uid="uid://cmwm5gbdg4wt3" path="res://Assets/Sprites/catalog_icons/poison_gas_icon.png" id="17_rjcok"]
 [ext_resource type="Texture2D" uid="uid://bdq2hockskod5" path="res://Assets/Sprites/catalog_icons/poorly_made_voodoo_doll_icon.png" id="18_qrm06"]
 [ext_resource type="Texture2D" uid="uid://d0l7ggcqcranr" path="res://Assets/Sprites/items/buring_voodoo_doll.png" id="19_kq26k"]
@@ -87,12 +87,12 @@ region = Rect2(0, 0, 16, 16)
 atlas = ExtResource("15_f8lrp")
 region = Rect2(0, 0, 24, 24)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_mhpu7"]
-atlas = ExtResource("17_7sv72")
-region = Rect2(0, 0, 16, 16)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_btxan"]
 atlas = ExtResource("15_cjny6")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mhpu7"]
+atlas = ExtResource("17_7sv72")
 region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xywox"]
@@ -263,18 +263,18 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_mhpu7")
-}],
-"loop": false,
-"name": &"holy_key",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_btxan")
 }],
 "loop": false,
 "name": &"hurtful_charm",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mhpu7")
+}],
+"loop": false,
+"name": &"lady_lucks_key",
 "speed": 5.0
 }, {
 "frames": [{
@@ -386,7 +386,7 @@ texture = ExtResource("2_ii87q")
 position = Vector2(-3.8147e-06, -3.8147e-06)
 scale = Vector2(5, 5)
 sprite_frames = SubResource("SpriteFrames_51jbf")
-animation = &"sleek_blade"
+animation = &"lady_lucks_key"
 
 [node name="stack_Label" type="Label" parent="."]
 layout_mode = 0

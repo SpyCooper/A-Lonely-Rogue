@@ -19,7 +19,7 @@ enum type
 	holy_heart,
 	poorly_made_voodoo_doll,
 	cursed_key,
-	holy_key,
+	lady_lucks_key,
 	dash_boots,
 	sleek_blades,
 	poison_gas,

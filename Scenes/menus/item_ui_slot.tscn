@@ -23,7 +23,7 @@
 [ext_resource type="Texture2D" uid="uid://bl7r5tr8dsooy" path="res://Assets/Sprites/catalog_icons/magically_trapped_rogue_icon.png" id="14_fcngd"]
 [ext_resource type="Texture2D" uid="uid://bb2nmaeol5m8t" path="res://Assets/Sprites/catalog_icons/emerald_skull.png" id="15_ldbnt"]
 [ext_resource type="Theme" uid="uid://pv4evjjac8wt" path="res://Assets/general_theme.tres" id="16_fpotc"]
-[ext_resource type="Texture2D" uid="uid://dcqbojsxfu3r2" path="res://Assets/Sprites/catalog_icons/holy_key_icon.png" id="16_gsumr"]
+[ext_resource type="Texture2D" uid="uid://dcqbojsxfu3r2" path="res://Assets/Sprites/catalog_icons/lady_lucks_key_icon.png" id="16_gsumr"]
 [ext_resource type="Texture2D" uid="uid://nd1033fxydae" path="res://Assets/Sprites/catalog_icons/protective_charm_icon.png" id="16_yme46"]
 [ext_resource type="Texture2D" uid="uid://dgasd5e1e6oro" path="res://Assets/Sprites/catalog_icons/rogue_in_a_bottle_icon.png" id="17_ix503"]
 [ext_resource type="Texture2D" uid="uid://bma80of11bg2d" path="res://Assets/Sprites/catalog_icons/onyx_hand_icon.png" id="20_aualm"]
@@ -86,12 +86,12 @@ region = Rect2(0, 0, 16, 16)
 atlas = ExtResource("9_woyga")
 region = Rect2(0, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_y6wbo"]
-atlas = ExtResource("16_gsumr")
-region = Rect2(0, 0, 16, 16)
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_btxan"]
 atlas = ExtResource("13_83nyj")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y6wbo"]
+atlas = ExtResource("16_gsumr")
 region = Rect2(0, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xywox"]
@@ -258,18 +258,18 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_y6wbo")
-}],
-"loop": false,
-"name": &"holy_key",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
 "texture": SubResource("AtlasTexture_btxan")
 }],
 "loop": false,
 "name": &"hurtful_charm",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y6wbo")
+}],
+"loop": false,
+"name": &"lady_lucks_key",
 "speed": 5.0
 }, {
 "frames": [{
@@ -372,7 +372,7 @@ texture = ExtResource("2_kll03")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(9, 9)
 sprite_frames = SubResource("SpriteFrames_51jbf")
-animation = &"onyx_hand"
+animation = &"lady_lucks_key"
 
 [node name="stack_Label" type="Label" parent="."]
 visible = false

@@ -73,7 +73,7 @@ var can_poorly_made_voodoo_doll_be_spawned = true
 var immunity = false
 var items_collected = []
 var cursed_key = false
-var holy_key = false
+var lady_lucks_key = false
 
 # crystal items
 var emerald_skull = false
@@ -821,18 +821,18 @@ func picked_up_item(item, display_text = true, sound = true, add_to_items_used =
 			# add item to the items used
 			PlayerData.items_used += [item]
 		# if the player has the holy key, remove it
-		if holy_key == true:
-			holy_key = false
+		if lady_lucks_key == true:
+			lady_lucks_key = false
 			# remove holy key from items collected
-			remove_item_from_items_collected(ItemType.type.holy_key)
+			remove_item_from_items_collected(ItemType.type.lady_lucks_key)
 			# remove the holy key from the items collected ui
-			hud.remove_item_from_ui(ItemType.type.holy_key)
-	elif item == ItemType.type.holy_key:
+			hud.remove_item_from_ui(ItemType.type.lady_lucks_key)
+	elif item == ItemType.type.lady_lucks_key:
 		# add the cursed key to the player
-		holy_key = true
+		lady_lucks_key = true
 		# display the item text
 		if display_text:
-			hud.display_text("Aquired Holy Key!", "You will always be lucky when opening chests")
+			hud.display_text("Aquired Lady Luck's key!", "You will always be lucky when opening chests")
 		# add the item to the collected items list on HUD and in player data
 		add_passive_item(item)
 		# check if the item needs to be added to items used
@@ -1143,8 +1143,8 @@ func get_cursed_key_status():
 	return cursed_key
 	
 # return if the player has the holy key
-func get_holy_key_status():
-	return holy_key
+func get_lady_lucks_key_status():
+	return lady_lucks_key
 
 # returns if the player has the emerald skull
 func has_emerald_skull():

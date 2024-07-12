@@ -37,7 +37,7 @@ func _on_timer_timeout():
 func chest_logic():
 	if Events.player.get_cursed_key_status() == true:
 		spawn_mimic()
-	elif Events.player.get_holy_key_status() == true:
+	elif Events.player.get_lady_lucks_key_status() == true:
 		spawn_item()
 	else:
 		if is_mimic:

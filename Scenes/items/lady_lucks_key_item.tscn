@@ -1,14 +1,14 @@
 [gd_scene load_steps=6 format=3 uid="uid://d0eh82dn6jth6"]
 
-[ext_resource type="PackedScene" uid="uid://jtiqth444hdl" path="res://Scenes/item.tscn" id="1_fedtv"]
-[ext_resource type="Texture2D" uid="uid://dh85ichhvi5y2" path="res://Assets/Sprites/items/Items.png" id="2_s6y85"]
+[ext_resource type="PackedScene" uid="uid://jtiqth444hdl" path="res://Scenes/item.tscn" id="1_k5654"]
+[ext_resource type="Texture2D" uid="uid://dh85ichhvi5y2" path="res://Assets/Sprites/items/Items.png" id="2_4jaf1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_27ris"]
-atlas = ExtResource("2_s6y85")
+atlas = ExtResource("2_4jaf1")
 region = Rect2(240, 0, 16, 16)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xv7hl"]
-atlas = ExtResource("2_s6y85")
+atlas = ExtResource("2_4jaf1")
 region = Rect2(240, 16, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_sldeq"]
@@ -25,10 +25,10 @@ animations = [{
 "speed": 3.0
 }]
 
-[node name="holy_key_item" type="Node2D"]
+[node name="lady_lucks_key_item" type="Node2D"]
 z_index = 1
 
-[node name="item" parent="." instance=ExtResource("1_fedtv")]
+[node name="item" parent="." instance=ExtResource("1_k5654")]
 item_type = 16
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

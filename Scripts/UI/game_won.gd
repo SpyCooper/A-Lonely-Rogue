@@ -185,11 +185,11 @@ func add_item_to_items_used(item : ItemType.type):
 					item_ui.set_item_type(ItemType.type.holy_heart)
 				else:
 					item_ui.queue_free()
-			elif item == ItemType.type.holy_key:
+			elif item == ItemType.type.lady_lucks_key:
 				if !check_if_item_exists(item):
-					item_ui.get_animated_sprite().play("holy_key")
+					item_ui.get_animated_sprite().play("lady_lucks_key")
 					# sets the item's type
-					item_ui.set_item_type(ItemType.type.holy_key)
+					item_ui.set_item_type(ItemType.type.lady_lucks_key)
 				else:
 					item_ui.queue_free()
 			elif item == ItemType.type.cursed_key:

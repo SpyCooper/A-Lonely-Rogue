@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://bs0rdltsmfopr"]
+[gd_scene load_steps=39 format=3 uid="uid://bs0rdltsmfopr"]
 
 [ext_resource type="Script" path="res://Scripts/map/dungeon_floor.gd" id="1_xbvmb"]
 [ext_resource type="PackedScene" uid="uid://duv7i8yak343i" path="res://Scenes/menus/HUD.tscn" id="2_1h1xt"]
@@ -22,14 +22,16 @@
 [ext_resource type="PackedScene" uid="uid://dy8i23c2qb18k" path="res://Scenes/enemies/skeleton_archer.tscn" id="27_2rgoa"]
 [ext_resource type="PackedScene" uid="uid://be4pn2ua63aka" path="res://Scenes/map/rooms/1_door_room_down.tscn" id="27_070dd"]
 [ext_resource type="PackedScene" uid="uid://b1opxnh484w82" path="res://Scenes/enemies/skeleton_warrior.tscn" id="27_m8eep"]
-[ext_resource type="PackedScene" uid="uid://dao0vj3oommmj" path="res://Scenes/map/rooms/2_door_down_right.tscn" id="28_1fxgh"]
 [ext_resource type="PackedScene" uid="uid://dvwf7rte2gvv2" path="res://Scenes/enemies/skeleton_mage.tscn" id="28_qvxnw"]
 [ext_resource type="PackedScene" uid="uid://dktq14smf6rpt" path="res://Scenes/map/rooms/2_door_left_right.tscn" id="29_knyc7"]
 [ext_resource type="PackedScene" uid="uid://cr3t522vle50y" path="res://Scenes/Dungeon_floors/trapdoor.tscn" id="29_y03cp"]
 [ext_resource type="PackedScene" uid="uid://kbe2aiqeulfc" path="res://Scenes/map/rooms/3_door_room_no_up.tscn" id="30_6aff7"]
+[ext_resource type="PackedScene" uid="uid://bmcwy07w158r4" path="res://Scenes/map/mini_boss_door_icon.tscn" id="30_pxgh5"]
 [ext_resource type="PackedScene" uid="uid://2rov0r5nrtfl" path="res://Scenes/enemies/lich.tscn" id="31_a1r24"]
 [ext_resource type="PackedScene" uid="uid://dojypve83qk4b" path="res://Scenes/map/rooms/1_door_room_up.tscn" id="31_dlpxq"]
 [ext_resource type="PackedScene" uid="uid://dp3cijhg2nws2" path="res://Scenes/map/rooms/2_door_room_up_left.tscn" id="31_it750"]
+[ext_resource type="PackedScene" uid="uid://cbg5wdbuh0hhw" path="res://Scenes/map/rooms/1_door_room_right.tscn" id="31_t3a5a"]
+[ext_resource type="PackedScene" uid="uid://bdtkoha8ckjht" path="res://Scenes/enemies/emerald_skeleton.tscn" id="32_34jc5"]
 
 [sub_resource type="Animation" id="Animation_27xwy"]
 length = 0.001
@@ -160,7 +162,6 @@ layer_0/tile_data = PackedInt32Array(-4456529, 65536, 2, -4390993, 65536, 2, -43
 
 [node name="Player" parent="." instance=ExtResource("9_j4ic3")]
 unique_name_in_owner = true
-position = Vector2(0, 4)
 
 [node name="2_door_up_right" parent="." instance=ExtResource("23_2twha")]
 
@@ -184,9 +185,6 @@ position = Vector2(0, -896)
 
 [node name="Random Item Spawner2" parent="1_door_down3" instance=ExtResource("21_v3p58")]
 position = Vector2(-68, 0)
-
-[node name="2_door_down_right" parent="." instance=ExtResource("28_1fxgh")]
-position = Vector2(-384, -672)
 
 [node name="2_door_up_right2" parent="." instance=ExtResource("23_2twha")]
 position = Vector2(-384, -448)
@@ -218,6 +216,17 @@ position = Vector2(1152, -672)
 [node name="Random Item Spawner3" parent="1_door_down" instance=ExtResource("21_v3p58")]
 position = Vector2(-75, 2)
 
+[node name="3_door_no_up2" parent="." instance=ExtResource("30_6aff7")]
+position = Vector2(-384, -672)
+
+[node name="1_door_right" parent="." instance=ExtResource("31_t3a5a")]
+position = Vector2(-768, -672)
+
+[node name="Floor Text3" type="Node2D" parent="."]
+position = Vector2(-538, -606)
+
+[node name="Mini_boss_door_sprite" parent="Floor Text3" instance=ExtResource("30_pxgh5")]
+
 [node name="BG music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("26_efvkt")
 volume_db = -5.0
@@ -231,6 +240,9 @@ position = Vector2(1152, -137)
 
 [node name="Boss_door_sprite" parent="Floor Text" instance=ExtResource("23_7vhby")]
 position = Vector2(0, -163)
+
+[node name="emerald_skeleton" parent="." instance=ExtResource("32_34jc5")]
+position = Vector2(-857, -655)
 
 [node name="heart_2_pickup" parent="." instance=ExtResource("23_vpsya")]
 position = Vector2(1090, -225)
