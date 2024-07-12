@@ -26,13 +26,13 @@ animations = [{
 }]
 
 [node name="holy_heart_item" type="Node2D"]
-z_index = 1
 
 [node name="item" parent="." instance=ExtResource("1_4vo77")]
+position = Vector2(0, -13)
 item_type = 13
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(1, 0)
+position = Vector2(1, -15)
 sprite_frames = SubResource("SpriteFrames_oaxmr")
 autoplay = "default"
 offset = Vector2(-1, 0)

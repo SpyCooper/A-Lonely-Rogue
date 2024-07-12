@@ -26,13 +26,13 @@ animations = [{
 }]
 
 [node name="dash_boots_item" type="Node2D"]
-z_index = 1
 
 [node name="item" parent="." instance=ExtResource("1_c8nye")]
+position = Vector2(0, -8)
 item_type = 17
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(1, 0)
+position = Vector2(1, -8)
 sprite_frames = SubResource("SpriteFrames_wbiaw")
 autoplay = "default"
 offset = Vector2(-1, 0)

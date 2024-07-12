@@ -26,13 +26,13 @@ animations = [{
 }]
 
 [node name="onyx_hand_item" type="Node2D"]
-z_index = 1
 
 [node name="item" parent="." instance=ExtResource("1_h42rh")]
+position = Vector2(0, -12)
 item_type = 29
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(1, 0)
+position = Vector2(1, -12)
 sprite_frames = SubResource("SpriteFrames_u3srh")
 autoplay = "default"
 offset = Vector2(-1, 0)

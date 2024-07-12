@@ -26,13 +26,13 @@ animations = [{
 }]
 
 [node name="cursed_key_item" type="Node2D"]
-z_index = 1
 
 [node name="item" parent="." instance=ExtResource("1_uffn2")]
+position = Vector2(0, -5)
 item_type = 15
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(1, 0)
+position = Vector2(1, -5)
 sprite_frames = SubResource("SpriteFrames_oaxmr")
 autoplay = "default"
 frame_progress = 0.518218

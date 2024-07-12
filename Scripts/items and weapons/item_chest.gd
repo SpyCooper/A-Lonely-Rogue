@@ -48,9 +48,9 @@ func chest_logic():
 func spawn_item():
 	# create a random item spawner
 	var random_item = RANDOM_ITEM_SPAWNER.instantiate()
-	random_item.position = position
 	item = random_item
-	get_parent().add_child(random_item)
+	get_tree().current_scene.add_child(random_item)
+	random_item.global_position = global_position
 	# play the animation
 	animated_sprite.play("default")
 	# start the timer

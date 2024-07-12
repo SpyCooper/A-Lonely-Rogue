@@ -3,7 +3,6 @@
 [ext_resource type="PackedScene" uid="uid://jtiqth444hdl" path="res://Scenes/item.tscn" id="1_hw3d6"]
 [ext_resource type="Texture2D" uid="uid://dh85ichhvi5y2" path="res://Assets/Sprites/items/Items.png" id="2_72okg"]
 
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_1lc30"]
 atlas = ExtResource("2_72okg")
 region = Rect2(128, 48, 16, 16)
@@ -20,11 +19,12 @@ animations = [{
 }]
 
 [node name="heart_2_pickup" type="Node2D"]
-z_index = 1
 
 [node name="item" parent="." instance=ExtResource("1_hw3d6")]
+position = Vector2(0, -8)
 collision_mask = 2
 item_type = 1
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -8)
 sprite_frames = SubResource("SpriteFrames_jkp4k")

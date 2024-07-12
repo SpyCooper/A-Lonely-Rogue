@@ -175,8 +175,8 @@ func spawn_item():
 	if item_has_spawned == false && item_can_spawn == true:
 		# spawn the item
 		var spawned_item = item_array[random_item_key].instantiate()
-		spawned_item.position = position
-		get_parent().add_child(spawned_item)
+		get_tree().current_scene.add_child(spawned_item)
+		spawned_item.global_position = global_position
 		ItemType.add_spawned_item(item_types_array[random_item_key])
 		# remove the item spawner
 		queue_free()

@@ -26,13 +26,13 @@ animations = [{
 }]
 
 [node name="bomb_item" type="Node2D"]
-z_index = 1
 
 [node name="item" parent="." instance=ExtResource("1_olevu")]
+position = Vector2(0, -11)
 item_type = 25
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(1, 0)
+position = Vector2(1, -11)
 sprite_frames = SubResource("SpriteFrames_u8er4")
 autoplay = "default"
 offset = Vector2(-1, 0)

@@ -1165,3 +1165,20 @@ func _on_quartz_spike_spawn_timer_timeout():
 
 func room_cleared():
 	can_spawn_quartz_spike = false
+
+func remove_item_from_inventory(item : ItemType.type):
+	remove_item_from_items_collected(item, false)
+	hud.remove_item_from_ui(item)
+
+func remove_pet_from_inventory(item : ItemType.type):
+	remove_item_from_items_collected(item, false)
+	hud.remove_item_from_ui(item)
+	# remove the pet and the pet's item
+	current_pet.kill_pet()
+
+func set_player_position(new_pos):
+	position = new_pos - animated_sprite.position
+	if shadow_heart:
+		animated_sprite.play("idle_down_dark")
+	else:
+		animated_sprite.play("idle_down")

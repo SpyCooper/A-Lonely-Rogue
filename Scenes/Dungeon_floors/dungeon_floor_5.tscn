@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://dxreyo0ai8tju"]
+[gd_scene load_steps=32 format=3 uid="uid://dxreyo0ai8tju"]
 
 [ext_resource type="Script" path="res://Scripts/map/dungeon_floor.gd" id="1_ygtwv"]
 [ext_resource type="PackedScene" uid="uid://duv7i8yak343i" path="res://Scenes/menus/HUD.tscn" id="2_ta3sb"]
@@ -18,6 +18,13 @@
 [ext_resource type="PackedScene" uid="uid://be4pn2ua63aka" path="res://Scenes/map/rooms/1_door_room_down.tscn" id="17_eo8ie"]
 [ext_resource type="PackedScene" uid="uid://bwwi5pgmppd0k" path="res://Scenes/Dungeon_floors/portal.tscn" id="17_etrge"]
 [ext_resource type="PackedScene" uid="uid://b4cnunbg2k46x" path="res://Scenes/items/sapphire_horn_item.tscn" id="18_illt0"]
+[ext_resource type="PackedScene" uid="uid://diniyh12sau3t" path="res://Scenes/items/emerald_skull_item.tscn" id="18_rctnv"]
+[ext_resource type="PackedScene" uid="uid://c0lcs25l84nbh" path="res://Scenes/items/onyx_hand_item.tscn" id="19_uk2cp"]
+[ext_resource type="PackedScene" uid="uid://blvggw68r8qxa" path="res://Scenes/items/quartz_boots_item.tscn" id="20_dk2i0"]
+[ext_resource type="PackedScene" uid="uid://duu1fv8fg83r6" path="res://Scenes/map/rooms/3_door_room_no_right.tscn" id="22_ioxex"]
+[ext_resource type="PackedScene" uid="uid://cbg5wdbuh0hhw" path="res://Scenes/map/rooms/1_door_room_right.tscn" id="23_bhy51"]
+[ext_resource type="PackedScene" uid="uid://qyr2qfjn2oql" path="res://Scenes/map/forge.tscn" id="24_4md02"]
+[ext_resource type="PackedScene" uid="uid://bm2weyo3kc8c" path="res://Scenes/map/forge_room_icon.tscn" id="25_uoprr"]
 
 [sub_resource type="Animation" id="Animation_27xwy"]
 length = 0.001
@@ -148,7 +155,7 @@ layer_0/tile_data = PackedInt32Array(-4456529, 65536, 2, -4390993, 65536, 2, -43
 
 [node name="Player" parent="." instance=ExtResource("9_kpeox")]
 unique_name_in_owner = true
-position = Vector2(0, 4)
+position = Vector2(25, -887)
 
 [node name="1_door_up" parent="." instance=ExtResource("15_21r3c")]
 
@@ -161,11 +168,17 @@ position = Vector2(0, -448)
 [node name="2_door_up_down3" parent="." instance=ExtResource("16_7t14g")]
 position = Vector2(0, -672)
 
-[node name="2_door_up_down4" parent="." instance=ExtResource("16_7t14g")]
-position = Vector2(0, -896)
-
 [node name="2_door_up_down5" parent="." instance=ExtResource("16_7t14g")]
 position = Vector2(0, -1120)
+
+[node name="3_door_no_right" parent="." instance=ExtResource("22_ioxex")]
+position = Vector2(0, -896)
+
+[node name="1_door_right" parent="." instance=ExtResource("23_bhy51")]
+position = Vector2(-384, -896)
+
+[node name="forge" parent="1_door_right" instance=ExtResource("24_4md02")]
+position = Vector2(0, 30)
 
 [node name="2_door_up_down6" parent="." instance=ExtResource("16_7t14g")]
 position = Vector2(0, -1344)
@@ -224,13 +237,25 @@ autowrap_mode = 2
 [node name="Boss_door_sprite" parent="Floor Text" instance=ExtResource("15_whw35")]
 position = Vector2(-5, -755)
 
+[node name="ForgeRoomIcon" parent="Floor Text" instance=ExtResource("25_uoprr")]
+position = Vector2(-159, -456)
+
 [node name="portal" parent="." instance=ExtResource("17_etrge")]
 position = Vector2(0, -1609)
 
 [node name="morphed_shade" parent="." instance=ExtResource("16_r660b")]
 position = Vector2(0, -1360)
 
-[node name="sapphire_horn_item" parent="." instance=ExtResource("18_illt0")]
-position = Vector2(-11, -911)
+[node name="emerald_skull_item" parent="." instance=ExtResource("18_rctnv")]
+position = Vector2(-98, -935)
+
+[node name="onyx_hand_item" parent="." instance=ExtResource("19_uk2cp")]
+position = Vector2(-76, -889)
+
+[node name="quartz_boots_item" parent="." instance=ExtResource("20_dk2i0")]
+position = Vector2(-125, -862)
+
+[node name="sapphire_horn_item2" parent="." instance=ExtResource("18_illt0")]
+position = Vector2(-78, -837)
 
 [connection signal="timeout" from="CanvasLayer/Fade_color/Fade_timer" to="." method="_on_fade_timer_timeout"]

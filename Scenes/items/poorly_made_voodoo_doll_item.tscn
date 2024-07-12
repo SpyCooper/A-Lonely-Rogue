@@ -19,12 +19,12 @@ animations = [{
 }]
 
 [node name="poorly_made_voodoo_doll_item" type="Node2D"]
-z_index = 1
 
 [node name="item" parent="." instance=ExtResource("1_q7a1x")]
+position = Vector2(0, -7)
 item_type = 14
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(1, 0)
+position = Vector2(1, -7)
 sprite_frames = SubResource("SpriteFrames_oaxmr")
 offset = Vector2(-1, 0)

@@ -33,13 +33,13 @@ animations = [{
 }]
 
 [node name="shadow_flame_item" type="Node2D"]
-z_index = 1
 
 [node name="item" parent="." instance=ExtResource("1_bdl36")]
+position = Vector2(0, -8)
 item_type = 6
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(1, 0)
+position = Vector2(1, -8)
 sprite_frames = SubResource("SpriteFrames_oaxmr")
 animation = &"new_animation"
 autoplay = "new_animation"

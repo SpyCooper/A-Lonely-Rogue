@@ -26,13 +26,13 @@ animations = [{
 }]
 
 [node name="emerald_skull_item" type="Node2D"]
-z_index = 1
 
 [node name="item" parent="." instance=ExtResource("1_bd2bh")]
+position = Vector2(0, -13)
 item_type = 26
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(1, 0)
+position = Vector2(1, -13)
 sprite_frames = SubResource("SpriteFrames_u8er4")
 autoplay = "default"
 frame = 1

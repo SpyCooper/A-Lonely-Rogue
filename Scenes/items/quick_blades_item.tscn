@@ -3,7 +3,6 @@
 [ext_resource type="PackedScene" uid="uid://jtiqth444hdl" path="res://Scenes/item.tscn" id="1_yb2aj"]
 [ext_resource type="Texture2D" uid="uid://dh85ichhvi5y2" path="res://Assets/Sprites/items/Items.png" id="2_e661w"]
 
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_0gbwg"]
 atlas = ExtResource("2_e661w")
 region = Rect2(144, 32, 16, 16)
@@ -27,13 +26,13 @@ animations = [{
 }]
 
 [node name="quick_blades_item" type="Node2D"]
-z_index = 1
 
 [node name="item" parent="." instance=ExtResource("1_yb2aj")]
+position = Vector2(0, -7)
 item_type = 5
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(1, 0)
+position = Vector2(1, -7)
 sprite_frames = SubResource("SpriteFrames_oaxmr")
 autoplay = "default"
 frame_progress = 0.128774

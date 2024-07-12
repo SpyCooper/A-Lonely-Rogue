@@ -26,13 +26,13 @@ animations = [{
 }]
 
 [node name="poison_gas_item" type="Node2D"]
-z_index = 1
 
 [node name="item" parent="." instance=ExtResource("1_rsct0")]
+position = Vector2(0, -7)
 item_type = 19
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(1, 0)
+position = Vector2(1, -7)
 sprite_frames = SubResource("SpriteFrames_0b68u")
 autoplay = "default"
 offset = Vector2(-1, 0)
