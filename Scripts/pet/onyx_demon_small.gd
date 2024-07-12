@@ -34,17 +34,18 @@ func _ready():
 
 # called on set intervals
 func _physics_process(_delta):
-	# circles around the player
-	angle += speed
-	global_position = Events.player.get_player_position() + Vector2.RIGHT.rotated(angle) * distance_from_player
-	## does not look at the player like the charms do
-	# if the player is in a room
-	if room_ref != null:
-		# if the room has enemies
-		if room_ref.is_enemies():
-			# if the rogue can throw
-			if can_throw:
-				attack()
+	if Engine.time_scale != 0.0:
+		# circles around the player
+		angle += speed
+		global_position = Events.player.get_player_position() + Vector2.RIGHT.rotated(angle) * distance_from_player
+		## does not look at the player like the charms do
+		# if the player is in a room
+		if room_ref != null:
+			# if the room has enemies
+			if room_ref.is_enemies():
+				# if the rogue can throw
+				if can_throw:
+					attack()
 
 # when the pet takes damage
 func take_damage(damage):

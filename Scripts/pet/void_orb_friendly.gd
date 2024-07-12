@@ -18,13 +18,13 @@ var spawn_friendly = false
 # runs on every frame
 func _process(delta):
 	# check if the shadow ball is_spawned
-	if is_spawned:
+	if is_spawned && Engine.time_scale != 0.0:
 		# moves the shadow ball based on the thrown direction
 		position += move_direction * speed * delta
 
 func _physics_process(delta):
 	# check if the shadow ball is_spawned
-	if is_spawned:
+	if is_spawned && Engine.time_scale != 0.0:
 		rotation += 0.15
 
 # this is called when a Lich spawns a shadow ball

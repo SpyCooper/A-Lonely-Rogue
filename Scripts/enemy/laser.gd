@@ -13,8 +13,9 @@ func spawned(target_direction):
 
 # runs on every frame
 func _process(delta):
-	# moves the laser based on the thrown direction
-	position += move_direction * speed * delta
+	if Engine.time_scale != 0.0:
+		# moves the laser based on the thrown direction
+		position += move_direction * speed * delta
 
 # when the laser hits something
 func _on_body_entered(body):

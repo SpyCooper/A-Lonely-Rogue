@@ -17,8 +17,9 @@ func spawned(target_direction, direction):
 
 # runs on every frane
 func _process(delta):
-	# moves the rock based on the thrown direction
-	position += move_direction * speed * delta
+	if Engine.time_scale != 0.0:
+		# moves the rock based on the thrown direction
+		position += move_direction * speed * delta
 
 # when the rock hits something
 func _on_body_entered(body):

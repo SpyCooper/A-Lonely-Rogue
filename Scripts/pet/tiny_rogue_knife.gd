@@ -15,7 +15,7 @@ func spawned_tiny_knife(click_position):
 
 # runs on every frane
 func _process(delta):
-	if spawned_tiny_knife_bool:
+	if spawned_tiny_knife_bool && Engine.time_scale != 0.0:
 		# moves the knife based on the thrown direction
 		position += move_direction * speed * delta
 		# start the life_time_timer if it hasn't been started

@@ -158,7 +158,7 @@ func _process(delta):
 # runs on a set interval (fixed_update)
 func _physics_process(_delta):
 	# if the player is not dying and can move
-	if !dying && player_can_move:
+	if !dying && player_can_move && Engine.time_scale != 0.0:
 		# controls player movement and normalizes the vector
 		var direction = Input.get_vector("MoveLeft", "MoveRight", "MoveUp", "MoveDown")
 		direction.normalized()

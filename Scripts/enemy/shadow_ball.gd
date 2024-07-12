@@ -12,7 +12,7 @@ var is_spawned = false
 # runs on every frame
 func _process(delta):
 	# check if the shadow ball is_spawned
-	if is_spawned:
+	if is_spawned && Engine.time_scale != 0.0:
 		# look at and follow the player
 		var player_position = player.get_player_position()
 		move_direction = (player_position - global_position).normalized()

@@ -17,8 +17,9 @@ func spawned(target_direction):
 
 # runs on every frane
 func _process(delta):
-	# moves the slash based on the thrown direction
-	position += move_direction * speed * delta
+	if  Engine.time_scale != 0.0:
+		# moves the slash based on the thrown direction
+		position += move_direction * speed * delta
 
 # when the slash hits something
 func _on_body_entered(body):

@@ -33,33 +33,34 @@ func _ready():
 
 # called on set intervals
 func _physics_process(_delta):
-	# circles around the player
-	angle += speed
-	global_position = Events.player.get_player_position() + Vector2.RIGHT.rotated(angle) * distance_from_player
-	## does not look at the player like the charms do
-	# if the player is in a room
-	if room_ref != null:
-		# if the room has enemies
-		if room_ref.is_enemies():
-			# if the rogue can throw
-			if can_throw:
-				# throw a knife at an enemy
-				var blade_instance = TINY_ROGUE_KNIFE.instantiate()
-				blade_instance.position = self.global_position
-				var target = room_ref.get_enemies_in_room()[0]
-				for enemy in room_ref.get_enemies_in_room():
-					if enemy != null:
-						target = enemy
-				var direction = target.get_animated_sprite().global_position - blade_instance.global_position
-				direction = direction.normalized()
-				blade_instance.spawned_tiny_knife(direction)
-				get_tree().current_scene.add_child(blade_instance)
-				# disable can spawn
-				can_throw = false
-				# start the attack timer
-				attack_timer.start()
-				# play the attack sound
-				woosh_sound.play()
+	if Engine.time_scale != 0.0:
+		# circles around the player
+		angle += speed
+		global_position = Events.player.get_player_position() + Vector2.RIGHT.rotated(angle) * distance_from_player
+		## does not look at the player like the charms do
+		# if the player is in a room
+		if room_ref != null:
+			# if the room has enemies
+			if room_ref.is_enemies():
+				# if the rogue can throw
+				if can_throw:
+					# throw a knife at an enemy
+					var blade_instance = TINY_ROGUE_KNIFE.instantiate()
+					blade_instance.position = self.global_position
+					var target = room_ref.get_enemies_in_room()[0]
+					for enemy in room_ref.get_enemies_in_room():
+						if enemy != null:
+							target = enemy
+					var direction = target.get_animated_sprite().global_position - blade_instance.global_position
+					direction = direction.normalized()
+					blade_instance.spawned_tiny_knife(direction)
+					get_tree().current_scene.add_child(blade_instance)
+					# disable can spawn
+					can_throw = false
+					# start the attack timer
+					attack_timer.start()
+					# play the attack sound
+					woosh_sound.play()
 
 # when the pet takes damage
 func take_damage(_damage):

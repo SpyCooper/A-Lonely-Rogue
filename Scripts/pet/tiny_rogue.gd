@@ -23,21 +23,22 @@ func spawned():
 	life_time_timer.start()
 
 func _physics_process(_delta):
-	# circle around the tiny rogue
-	angle += 0.10
-	# if the tiny rogue can spawn a knife and can throw a knife
-	if can_spawn_knife && can_throw_knives:
-		# spawn a knife
-		var direction = Vector2(cos(angle), sin(angle))
-		var direction_normalized = direction.normalized()
-		var blade_instance = TINY_ROGUE_KNIFE.instantiate()
-		blade_instance.global_position = animated_sprite.global_position
-		blade_instance.spawned_tiny_knife(direction_normalized)
-		get_parent().add_child(blade_instance)
-		# disable can spawn
-		can_spawn_knife = false
-		# play the woosh sound
-		woosh_sound.play()
+	if Engine.time_scale != 0.0:
+		# circle around the tiny rogue
+		angle += 0.10
+		# if the tiny rogue can spawn a knife and can throw a knife
+		if can_spawn_knife && can_throw_knives:
+			# spawn a knife
+			var direction = Vector2(cos(angle), sin(angle))
+			var direction_normalized = direction.normalized()
+			var blade_instance = TINY_ROGUE_KNIFE.instantiate()
+			blade_instance.global_position = animated_sprite.global_position
+			blade_instance.spawned_tiny_knife(direction_normalized)
+			get_parent().add_child(blade_instance)
+			# disable can spawn
+			can_spawn_knife = false
+			# play the woosh sound
+			woosh_sound.play()
 
 # when the knife throws timer ends
 func _on_time_between_knife_throws_timer_timeout():

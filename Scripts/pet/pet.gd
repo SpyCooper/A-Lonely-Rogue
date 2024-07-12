@@ -20,10 +20,11 @@ func _ready():
 
 # called on set intervals
 func _physics_process(_delta):
-	# circles around the player
-	angle += speed
-	global_position = Events.player.get_player_position() + Vector2.RIGHT.rotated(angle) * distance_from_player
-	look_at(Events.player.position)
+	if Engine.time_scale != 0.0:
+		# circles around the player
+		angle += speed
+		global_position = Events.player.get_player_position() + Vector2.RIGHT.rotated(angle) * distance_from_player
+		look_at(Events.player.position)
 
 # basic damage function
 func take_damage(damage):

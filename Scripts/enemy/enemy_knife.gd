@@ -30,13 +30,14 @@ func spawned(click_position, dust_blade_active, current_attack_identifier, knife
 
 # runs on every frane
 func _process(delta):
-	# moves the knife based on the thrown direction
-	position += move_direction * speed * delta
-	# starts the lifetime timer if it hasn't started
-	if !timer_started:
-		# starts the lifetime timer
-		lifetime_timer.start()
-		timer_started = true
+	if Engine.time_scale != 0.0:
+		# moves the knife based on the thrown direction
+		position += move_direction * speed * delta
+		# starts the lifetime timer if it hasn't started
+		if !timer_started:
+			# starts the lifetime timer
+			lifetime_timer.start()
+			timer_started = true
 
 # runs when a object enters the Area2D's collider
 func _on_body_entered(body):

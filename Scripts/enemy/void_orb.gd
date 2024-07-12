@@ -17,13 +17,13 @@ var can_split = true
 # runs on every frame
 func _process(delta):
 	# check if the void orb is_spawned
-	if is_spawned:
+	if is_spawned && Engine.time_scale != 0.0:
 		# moves the void orb based on the thrown direction
 		position += move_direction * speed * delta
 
 func _physics_process(delta):
 	# check if the void orb is_spawned
-	if is_spawned:
+	if is_spawned && Engine.time_scale != 0.0:
 		# rotates the orb
 		rotation += 0.15
 
