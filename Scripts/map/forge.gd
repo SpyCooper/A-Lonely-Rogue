@@ -13,7 +13,7 @@ extends Node2D
 @onready var glow_timer = $glow_timer
 @onready var spawn_circle_sprite = $spawn_circle_sprite
 @onready var player_move_offset_timer = $player_move_offset_timer
-
+const CHROMATIC_ORB_ITEM = preload("res://Scenes/items/chromatic_orb_item.tscn")
 
 var has_sapphire = false
 var has_quartz = false
@@ -108,6 +108,10 @@ func _on_glow_timer_timeout():
 	create_crystal_beast_item()
 
 func create_crystal_beast_item():
+	var orb = CHROMATIC_ORB_ITEM.instantiate()
+	get_tree().current_scene.add_child(orb)
+	orb.global_position = spawn_circle_sprite.global_position
+	
 	player_move_offset_timer.start()
 
 

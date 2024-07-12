@@ -83,6 +83,7 @@ var quartz_boots = false
 var can_spawn_quartz_spike = false
 const QUARTZ_SPIKE_FRIENDLY = preload("res://Scenes/player/quartz_spike_friendly.tscn")
 const ONYX_DEMON_SMALL = preload("res://Scenes/pets/onyx_demon_small.tscn")
+var chromatic_orb = false
 
 # pet variables
 var current_pet = null
@@ -886,6 +887,17 @@ func picked_up_item(item, display_text = true, sound = true, add_to_items_used =
 		# display the item text
 		if display_text:
 			hud.display_text("Aquired the Onyx Hand", "Strange how much smaller he is now...")
+		# adds the pet item and spawns in the pet to the player based on the item
+		add_pet(item)
+		# check if the item needs to be added to items used
+		if add_to_items_used:
+			# add item to the items used
+			PlayerData.items_used += [item]
+	elif item == ItemType.type.chromatic_orb:
+		chromatic_orb = true
+		# display the item text
+		if display_text:
+			hud.display_text("Aquired the Chromatic Orb", "The ultimate crystal...")
 		# adds the pet item and spawns in the pet to the player based on the item
 		add_pet(item)
 		# check if the item needs to be added to items used

@@ -33,6 +33,7 @@ enum type
 	sapphire_horn,
 	quartz_boots,
 	onyx_hand,
+	chromatic_orb,
 }
 
 # sets the various item types

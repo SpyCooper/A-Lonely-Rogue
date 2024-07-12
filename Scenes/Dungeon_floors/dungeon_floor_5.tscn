@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://dxreyo0ai8tju"]
+[gd_scene load_steps=33 format=3 uid="uid://dxreyo0ai8tju"]
 
 [ext_resource type="Script" path="res://Scripts/map/dungeon_floor.gd" id="1_ygtwv"]
 [ext_resource type="PackedScene" uid="uid://duv7i8yak343i" path="res://Scenes/menus/HUD.tscn" id="2_ta3sb"]
@@ -25,6 +25,7 @@
 [ext_resource type="PackedScene" uid="uid://cbg5wdbuh0hhw" path="res://Scenes/map/rooms/1_door_room_right.tscn" id="23_bhy51"]
 [ext_resource type="PackedScene" uid="uid://qyr2qfjn2oql" path="res://Scenes/map/forge.tscn" id="24_4md02"]
 [ext_resource type="PackedScene" uid="uid://bm2weyo3kc8c" path="res://Scenes/map/forge_room_icon.tscn" id="25_uoprr"]
+[ext_resource type="PackedScene" uid="uid://cuk2p5ohuumje" path="res://Scenes/items/chromatic_orb_item.tscn" id="26_guegl"]
 
 [sub_resource type="Animation" id="Animation_27xwy"]
 length = 0.001
@@ -257,5 +258,8 @@ position = Vector2(-125, -862)
 
 [node name="sapphire_horn_item2" parent="." instance=ExtResource("18_illt0")]
 position = Vector2(-78, -837)
+
+[node name="chromatic_orb_item" parent="." instance=ExtResource("26_guegl")]
+position = Vector2(140, -881)
 
 [connection signal="timeout" from="CanvasLayer/Fade_color/Fade_timer" to="." method="_on_fade_timer_timeout"]
