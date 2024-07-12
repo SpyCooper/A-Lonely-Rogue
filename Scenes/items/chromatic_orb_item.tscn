@@ -1,6 +1,7 @@
-[gd_scene load_steps=27 format=3 uid="uid://cuk2p5ohuumje"]
+[gd_scene load_steps=33 format=3 uid="uid://cuk2p5ohuumje"]
 
 [ext_resource type="PackedScene" uid="uid://jtiqth444hdl" path="res://Scenes/item.tscn" id="1_eye3h"]
+[ext_resource type="Script" path="res://Scripts/items and weapons/chromatic_orb_item.gd" id="1_ln3nm"]
 [ext_resource type="Texture2D" uid="uid://dx04igmaduqyq" path="res://Assets/Sprites/items/chromatic_orb.png" id="2_nuy5f"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jeviq"]
@@ -95,6 +96,26 @@ region = Rect2(336, 96, 16, 32)
 atlas = ExtResource("2_nuy5f")
 region = Rect2(352, 96, 16, 32)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_ofh8x"]
+atlas = ExtResource("2_nuy5f")
+region = Rect2(384, 96, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gu5sq"]
+atlas = ExtResource("2_nuy5f")
+region = Rect2(416, 96, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_suhri"]
+atlas = ExtResource("2_nuy5f")
+region = Rect2(448, 96, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1nn42"]
+atlas = ExtResource("2_nuy5f")
+region = Rect2(480, 96, 32, 48)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_h20un"]
+atlas = ExtResource("2_nuy5f")
+region = Rect2(512, 96, 32, 48)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_l67ps"]
 animations = [{
 "frames": [{
@@ -170,16 +191,38 @@ animations = [{
 "loop": true,
 "name": &"default",
 "speed": 10.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ofh8x")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gu5sq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_suhri")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1nn42")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_h20un")
+}],
+"loop": false,
+"name": &"smoke",
+"speed": 5.0
 }]
 
 [node name="chromatic_orb_item" type="Node2D"]
+script = ExtResource("1_ln3nm")
 
 [node name="item" parent="." instance=ExtResource("1_eye3h")]
 position = Vector2(0, -13)
 item_type = 30
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(1, -13)
+position = Vector2(1, -15)
 sprite_frames = SubResource("SpriteFrames_l67ps")
-autoplay = "default"
+animation = &"smoke"
+autoplay = "smoke"
 offset = Vector2(-1, 0)

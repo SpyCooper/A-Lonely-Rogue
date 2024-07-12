@@ -111,7 +111,7 @@ func create_crystal_beast_item():
 	var orb = CHROMATIC_ORB_ITEM.instantiate()
 	get_tree().current_scene.add_child(orb)
 	orb.global_position = spawn_circle_sprite.global_position
-	
+	orb.spawned()
 	player_move_offset_timer.start()
 
 
