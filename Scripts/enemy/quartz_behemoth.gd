@@ -63,7 +63,7 @@ func _ready():
 	# disables the enemy
 	sleep()
 
-# defines the wake_up function needed for the golem
+# defines the wake_up function needed for the quartz behemoth
 ## this is called by the rooms when a player enters it
 func wake_up():
 	player_in_room = true
@@ -81,30 +81,34 @@ func _physics_process(_delta):
 			# gets the player's position and looks toward it
 			player_position = player.get_player_position()
 			target_position = (player_position - animated_sprite.global_position).normalized()
-			# if the golem can attack
+			# if the quartz behemoth can attack
 			if can_attack:
 				# do a random attack
 				random_attack()
+			# if the current state is dashing
 			elif current_state == state.dashing:
+				# play the correct animation based on the dash direction
 				current_direction = get_left_right_look_direction(dash_direction)
-				
 				if current_direction == look_direction.right:
 					animated_sprite.play("dash_right")
 				elif current_direction == look_direction.left:
 					animated_sprite.play("dash_left")
-				
+				# if the quartz behemoth is far enough from the player
 				if animated_sprite.global_position.distance_to(player_position) > 40:
+					# continue moving
 					var collision = move_and_collide(dash_direction * get_speed())
-					#print(collision)
+					# if there is a collision, get a new dash direction
 					if collision != null:
 						random_dash_direction(true)
+				# if the quartz behemoth is too close to the player
 				else:
+					# move backwards
 					dash_direction = (Vector2(0 - target_position.x, 0 -  target_position.y)).normalized()
 					move_and_collide(dash_direction * get_speed())
-			# if the enemy can move
+			# if the quartz behemoth is idle
 			elif current_state == state.idle:
+				# play the look animation
 				current_direction = get_left_right_look_direction(target_position)
-				# flips the direction of the golem based on the current_direction
 				## NOTE: all these checks are identical but change the directions they look at
 				## Move left
 				if current_direction == look_direction.left :
@@ -113,11 +117,6 @@ func _physics_process(_delta):
 				## Move right
 				elif current_direction == look_direction.right:
 					animated_sprite.play("look_right")
-				### NOTE: the golem cannot move currently but this is here just in case this is changes
-				## moves the golem to a distance of 15 to the player
-				#if position.distance_to(player_position) > 15:
-					### has to use get_speed() to move based on dusted effect
-					#move_and_collide(target_position.normalized() * get_speed())
 
 # runs when a knife (or other weapon) hits the enemy
 func take_damage(damage, attack_identifer, is_effect):
@@ -183,7 +182,7 @@ func _on_death_timer_timeout():
 
 # when spawning in
 func spawn_in():
-	# set the golem state to spawning
+	# set the quartz behemoth state to spawning
 	spawning = true
 	# play spawning animation
 	animated_sprite.play("spawning")
@@ -196,15 +195,15 @@ func spawn_in():
 func _on_spawn_timer_timeout():
 	# the state is no longer spawning
 	spawning = false
-	# show the golem's health bar in the HUD
+	# show the quartz behemoth's health bar in the HUD
 	hud.set_health_bar(max_health, "Quartz Behemoth")
 
 # when the attack timer ends
 func _on_attack_timer_timeout():
-	# allow the golem to attack
+	# allow the quartz behemoth to attack
 	can_attack = true
 
-# when the golem is doing a random attack
+# when the quartz behemoth is doing a random attack
 func random_attack():
 	# checks to make sure the character isn't dying
 	if !dying:
@@ -218,14 +217,17 @@ func random_attack():
 
 # when the attacks end
 func attack_end():
-	# allow the golem to move
+	# allow the quartz behemoth to move
 	can_move = true
-	
+	# if spikes are atice
 	if spikes_active:
-		# start the attack timer
+		# start the attack timer for a random time
 		attack_timer.start(rng.randf_range(0.7, 3.0))
+	# if spikes are not active
 	else:
+		# set longer attack timer 
 		attack_timer.start(4)
+	# set the state to idle
 	current_state = state.idle
 
 # when the hit flash animation timer ends
@@ -250,7 +252,7 @@ func dash():
 		current_state = state.dashing
 		# start the after image spawn timer
 		after_image_spawn_timer.start()
-		
+		# play the dash sound
 		dash_sound.play()
 
 # set a new random direction
@@ -314,6 +316,7 @@ func random_dash_direction(hit_object : bool):
 func _on_after_image_spawn_timer_timeout():
 	# checks to make sure the character isn't dying
 	if !dying:
+		# if the current state is dashing
 		if current_state == state.dashing:
 			# spawn an after image
 			var after_image = QUARTZ_BEHEMOTH_AFTER_IMAGE.instantiate()
@@ -330,44 +333,57 @@ func _on_after_image_spawn_timer_timeout():
 func _on_dash_timer_timeout():
 	attack_end()
 
+# does a spike attack
 func spike_attack():
 	# checks to make sure the character isn't dying
 	if !dying:
+		# sets that spikes are active
 		spikes_active = true
-		
+		# set the current state as spawning spikes
 		current_state = state.spawning_spikes
-		
+		# play the correct attack animation
 		if current_direction == look_direction.right:
 			animated_sprite.play("attack_right")
 		elif current_direction == look_direction.left:
 			animated_sprite.play("attack_left")
-		
+		# start the attack timer
 		spike_attack_animation_timer.start()
 		spikes_spawn_start_offset_timer.start()
-		
+		# play the attack sound
 		attack_sound.play()
 
+# when the spike attack duration timer ends
 func _on_spike_attack_duration_timeout():
+	# set the attack bools
 	spikes_active = false
 	can_attack = false
-	
+	# end the attack
 	attack_end()
 
+# when the spike attack animation timer ends
 func _on_spike_attack_animation_timer_timeout():
+	# end the attack
 	attack_end()
 
+# when the spawn spike start offset timer ends
 func _on_spikes_spawn_start_offset_timer_timeout():
+	# start the spike attack duration timer
 	spike_attack_duration.start()
+	# spawn a spike
 	spawn_spike()
+	# start the sapwn spikes timer
 	spawn_spikes_timer.start()
 
+# start the sapwn spikes timer
 func _on_spawn_spikes_timer_timeout():
 	# checks to make sure the character isn't dying
 	if !dying:
 		spawn_spike()
+		# if spikes are active, set the spawn spikes timer
 		if spikes_active:
 			spawn_spikes_timer.start()
 
+# spawns a spike
 func spawn_spike():
 	# checks to make sure the character isn't dying
 	if !dying:

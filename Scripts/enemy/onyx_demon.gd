@@ -1,5 +1,6 @@
 extends Enemy
 
+# sets the enemies state
 enum state
 {
 	attacking,
@@ -51,7 +52,7 @@ func _ready():
 	# disables the enemy
 	sleep()
 
-# defines the wake_up function needed for the golem
+# defines the wake_up function needed for the onyx demon
 ## this is called by the rooms when a player enters it
 func wake_up():
 	player_in_room = true
@@ -69,13 +70,13 @@ func _physics_process(_delta):
 			# gets the player's position and looks toward it
 			player_position = player.get_player_position()
 			target_position = (player_position - animated_sprite.global_position).normalized()
-			# if the golem can attack
+			# if the onyx demon can attack
 			if can_attack:
-				# do a random attack
+				# does an attack
 				attack()
 			elif current_state == state.idle:
 				current_direction = get_left_right_look_direction(target_position)
-				# flips the direction of the golem based on the current_direction
+				# flips the direction of the onyx demon based on the current_direction
 				## NOTE: all these checks are identical but change the directions they look at
 				## Move left
 				if current_direction == look_direction.left :
@@ -85,8 +86,8 @@ func _physics_process(_delta):
 				elif current_direction == look_direction.right:
 					animated_sprite.play("idle_right")
 				
-				### NOTE: the golem cannot move currently but this is here just in case this is changes
-				## moves the golem to a distance of 15 to the player
+				### NOTE: the onyx demon cannot move currently but this is here just in case this is changes
+				## moves the onyx demon to a distance of 15 to the player
 				#if position.distance_to(player_position) > 15:
 					### has to use get_speed() to move based on dusted effect
 					#move_and_collide(target_position.normalized() * get_speed())
@@ -158,7 +159,7 @@ func _on_death_timer_timeout():
 
 # when spawning in
 func spawn_in():
-	# set the golem state to spawning
+	# set the onyx demon state to spawning
 	spawning = true
 	# play spawning animation
 	animated_sprite.play("spawning")
@@ -171,15 +172,15 @@ func spawn_in():
 func _on_spawn_timer_timeout():
 	# the state is no longer spawning
 	spawning = false
-	# show the golem's health bar in the HUD
+	# show the onyx demon's health bar in the HUD
 	hud.set_health_bar(max_health, "Onyx Demon")
 
 # when the attack timer ends
 func _on_attack_timer_timeout():
-	# allow the golem to attack
+	# allow the onyx demon to attack
 	can_attack = true
 
-# when the golem is doing a random attack
+# when the onyx demon is doing a random attack
 func attack():
 	# checks to make sure the character isn't dying
 	if !dying:
@@ -187,12 +188,16 @@ func attack():
 			animated_sprite.play("attack_right")
 		if current_direction == look_direction.left:
 			animated_sprite.play("attack_left")
+		# start the void orb spawn timer
 		void_orb_spawn_timer.start()
+		# disable attacks
 		can_attack = false
+		# set the current state to attacking
 		current_state = state.attacking
 
 # when the attacks end
 func attack_end():
+	# set the state to idle and start the attack timer
 	current_state = state.idle
 	attack_timer.start()
 
@@ -201,11 +206,16 @@ func _on_hit_flash_animation_timer_timeout():
 	# remove the hit flash shader
 	animated_sprite.material.shader = null
 
+# when the attack animation timer ends
 func _on_attack_animation_timer_timeout():
+	# end the attack
 	attack_end()
 
+# spawn the void orb
 func spawn_void_orb():
+	# if the enemy is not dying
 	if !dying:
+		# play the attack sound
 		attack_sound.play()
 		# get the player's position
 		player_position = player.get_player_position()
@@ -215,21 +225,30 @@ func spawn_void_orb():
 		get_tree().current_scene.add_child(void_orb)
 		void_orb.global_position = animated_sprite.global_position
 		void_orb.spawned(projectile_direction, true, true)
+		# increase the void spawn
 		void_orb_spawns += 1
-		
+		# if the spawned void orbs is 3
 		if void_orb_spawns == 3:
+			# play the attack end animation
 			if animated_sprite.animation == "attack_left":
 				animated_sprite.play("attack_left_end")
 			if animated_sprite.animation == "attack_right":
 				animated_sprite.play("attack_right_end")
+			# start the animation timer
 			attack_animation_timer.start()
+			# reset the void orbs
 			void_orb_spawns = 0
+		# if the spawned void orbs is < 3
 		else:
+			# start the orb spawn interval timer
 			void_orb_spawn_interval.start()
 
+# when the orb spawn interval timer ends
 func _on_void_orb_spawn_timer_timeout():
-	# checks to make sure the character isn't dying
+	# spawn another void orb
 	spawn_void_orb()
 
+# when the orb spawn interval timer ends
 func _on_void_orb_spawn_interval_timeout():
+	# spawn another void orb
 	spawn_void_orb()

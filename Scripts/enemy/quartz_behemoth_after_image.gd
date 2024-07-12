@@ -5,6 +5,7 @@ extends Node2D
 
 # when spawned
 func spawned(direction):
+	# plays the correct animation based on current movement
 	if direction == "right":
 		animated_sprite.play("move_right")
 	elif direction == "left":

@@ -5,7 +5,7 @@ extends skeleton_warrior
 const LARGE_SLASH_PROJECTILE = preload("res://Scenes/enemies/slash_projectile/large_slash_projectile.tscn")
 const EMERALD_SKULL_ITEM = preload("res://Scenes/items/emerald_skull_item.tscn")
 
-# attack variables
+# attack sound variables
 @onready var slash_1 = $slash_1
 @onready var slash_2 = $slash_2
 
@@ -52,6 +52,7 @@ func _physics_process(_delta):
 				elif current_direction == look_direction.right:
 					animated_sprite.play("move_right")
 					is_idle = false
+				# move the enemy
 				if animated_sprite.global_position.distance_to(player_position) > 8:
 					## has to use get_speed() to move based on dusted effect
 					move_and_collide(target_position.normalized() * get_speed())
@@ -118,7 +119,7 @@ func _on_death_timer_timeout():
 # when spawn timer ends
 func _on_spawn_timer_timeout():
 	spawning = false
-	# show the lich's health bar in the HUD
+	# show the emerald skeleton's health bar in the HUD
 	hud.set_health_bar(max_health, "Emerald Skeleton")
 
 # when the enemy attacks
@@ -145,7 +146,9 @@ func attack():
 func _on_slash_projection_spawn_timer_timeout():
 	# checks to make sure the character isn't dying
 	if !dying:
+		# if there can be another slash
 		if slash_count < slash_count_max:
+			# play the correct slash
 			if slash_count == 0:
 				slash_1.play()
 			elif slash_count == 1:
@@ -160,13 +163,18 @@ func _on_slash_projection_spawn_timer_timeout():
 			slash.global_position = animated_sprite.global_position
 			# tell the slash that it spawned
 			slash.spawned(target_position)
+			# add a slash to the counter
 			slash_count += 1
+			# start the slash projection timer
 			slash_projection_spawn_timer.start()
+			# set the corect direction
 			if current_direction == look_direction.right:
 				if slash_count == 2:
 					slash.animated_sprite.flip_v = true
 			elif current_direction == look_direction.left:
 				if slash_count == 1:
 					slash.animated_sprite.flip_v = true
+		# if a slash cannot be done
 		else:
+			# reset the slash counter
 			slash_count = 0

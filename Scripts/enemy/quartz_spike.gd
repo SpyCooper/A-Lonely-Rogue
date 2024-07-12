@@ -22,7 +22,7 @@ func _ready():
 	animated_sprite.play("enter")
 	# adjusts the scene's position
 	position -= animated_sprite.position
-	
+	# play the enter sound
 	enter_sound.play()
 
 
@@ -36,7 +36,6 @@ func _on_enter_animation_timer_timeout():
 	attack_sound.play()
 	# spawns the damage area
 	damage_area_scene = QUARTZ_SPIKE_DAMAGE_AREA.instantiate()
-	#damage_area_scene = VINE_SPIN_DAMAGE_PLAYER.instantiate()
 	damage_player.add_child(damage_area_scene)
 	damage_area_scene.position = damage_player.position
 
@@ -54,5 +53,6 @@ func _on_exit_animation_timer_timeout():
 	# remove the scene
 	queue_free()
 
+# adjusts the position based on the new position
 func set_spawn_position(new_position):
 	global_position = new_position - animated_sprite.position

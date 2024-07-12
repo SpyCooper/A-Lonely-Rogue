@@ -1,5 +1,6 @@
 extends Enemy
 
+# sets the states for the enemy
 enum state
 {
 	grounded,
@@ -48,7 +49,7 @@ func _ready():
 	# disables the enemy
 	sleep()
 
-# defines the wake_up function needed for the mimic
+# defines the wake_up function needed for the sapphire pegasus
 ## this is called by the rooms when a player enters it
 func wake_up():
 	player_in_room = true
@@ -61,11 +62,11 @@ func _physics_process(_delta):
 	if player_in_room && !dying && !spawning:
 		# if the player is in the room, the enemy can move, and the game isn't paused
 		if player && can_move && Engine.time_scale != 0.0:
-			# if the mimic can attack
+			# if the sapphire pegasus can attack
 			if current_state == state.grounded && can_attack:
 				# do an attack
 				attack()
-			# if the mimic is attacking
+			# if the sapphire pegasus is attacking
 			elif current_state == state.attacking:
 				# if the distance to the attack position is greater than 3
 				if animated_sprite.global_position.distance_to(player_position) > 3:
@@ -83,13 +84,13 @@ func _physics_process(_delta):
 					land()
 			# if the current state is landing
 			elif current_state == state.landing:
-				# reduce the speed until the mimic stops
+				# reduce the speed until the sapphire pegasus stops
 				var temp = Vector2(abs(previous_speed.x), abs(previous_speed.y))
 				if temp > Vector2(.4 , .4):
 					previous_speed = previous_speed * 0.95
 					move_and_collide(previous_speed)
 				else:
-					# when the mimic lands, the state is grounded and start the attack timer
+					# when the sapphire pegasus lands, the state is grounded and start the attack timer
 					current_state = state.grounded
 					attack_timer.start()
 					# stop the attack sound
@@ -159,7 +160,7 @@ func _on_death_timer_timeout():
 
 # when spawning in
 func spawn_in():
-	# set the mimic state to spawning
+	# set the sapphire pegasus state to spawning
 	spawning = true
 	# play spawning animation
 	animated_sprite.play("spawning")
@@ -174,7 +175,7 @@ func _on_spawn_timer_timeout():
 	spawning = false
 	# sets the hud value (seems to not set the %HUD when spawned in)
 	hud = player.hud
-	# show the mimic's health bar in the HUD
+	# show the sapphire pegasus's health bar in the HUD
 	hud.set_health_bar(max_health, "Sapphire Pegasus")
 	# starts the attack timer
 	attack_timer.start()
@@ -197,19 +198,21 @@ func attack():
 		# plays the attack sound
 		attack_sound.play()
 
-# lands the mimic after an attack
+# lands the sapphire pegasus after an attack
 func land():
+	# if the sapphire pegasus is not dying
 	if !dying:
+		# set the state to landing
 		current_state = state.landing
 
 # when the attack timer ends
 func _on_attack_timer_timeout():
-	# allow the mimic to attack
+	# allow the sapphire pegasus to attack
 	can_attack = true
 
 # when the attacks end
 func attack_end():
-	# allow the mimic to move
+	# allow the sapphire pegasus to move
 	can_move = true
 	# start the attack timer
 	attack_timer.start()
