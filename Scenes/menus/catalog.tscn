@@ -1,4 +1,4 @@
-[gd_scene load_steps=99 format=3 uid="uid://dc0xlg20ucy3n"]
+[gd_scene load_steps=104 format=3 uid="uid://dc0xlg20ucy3n"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Catalog.gd" id="1_mndmm"]
 [ext_resource type="Theme" uid="uid://pv4evjjac8wt" path="res://Assets/general_theme.tres" id="2_umit2"]
@@ -38,8 +38,10 @@
 [ext_resource type="Texture2D" uid="uid://bxhnibool8yuh" path="res://Assets/Sprites/catalog_icons/sleek_blades_icon.png" id="30_608bm"]
 [ext_resource type="Texture2D" uid="uid://dyur5ubofnvf6" path="res://Assets/Sprites/catalog_icons/dash_boots_icon.png" id="31_pitxh"]
 [ext_resource type="Texture2D" uid="uid://bma80of11bg2d" path="res://Assets/Sprites/catalog_icons/onyx_hand_icon.png" id="31_uw1jy"]
+[ext_resource type="Texture2D" uid="uid://c8j55kpi7y0ha" path="res://Assets/Sprites/catalog_icons/chromatic_orb_icon.png" id="32_aexym"]
 [ext_resource type="Texture2D" uid="uid://cmwm5gbdg4wt3" path="res://Assets/Sprites/catalog_icons/poison_gas_icon.png" id="32_vadho"]
 [ext_resource type="Texture2D" uid="uid://nd1033fxydae" path="res://Assets/Sprites/catalog_icons/protective_charm_icon.png" id="33_8oaud"]
+[ext_resource type="Texture2D" uid="uid://dx04igmaduqyq" path="res://Assets/Sprites/items/chromatic_orb.png" id="33_lgp7s"]
 [ext_resource type="Texture2D" uid="uid://dgasd5e1e6oro" path="res://Assets/Sprites/catalog_icons/rogue_in_a_bottle_icon.png" id="34_ej8l2"]
 [ext_resource type="Texture2D" uid="uid://cxdp1ww8okfv2" path="res://Assets/Sprites/catalog_icons/hurtful_charm_icon.png" id="35_jwmjl"]
 [ext_resource type="Texture2D" uid="uid://bl7r5tr8dsooy" path="res://Assets/Sprites/catalog_icons/magically_trapped_rogue_icon.png" id="36_ekr3x"]
@@ -137,7 +139,25 @@ shader = ExtResource("3_qa2dv")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_0slmp"]
 shader = ExtResource("3_qa2dv")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_1mb0k"]
+shader = ExtResource("3_qa2dv")
+
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wrmxr"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hw23c"]
+atlas = ExtResource("33_lgp7s")
+region = Rect2(0, 80, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hr686"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hw23c")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_ck2s6"]
 shader = ExtResource("3_qa2dv")
@@ -669,6 +689,21 @@ offset_right = 93.0
 offset_bottom = 85.0
 theme_override_constants/icon_max_width = 64
 icon = ExtResource("31_uw1jy")
+flat = true
+alignment = 2
+icon_alignment = 1
+expand_icon = true
+
+[node name="Spot29" type="Control" parent="TabContainer/Items/ScrollContainer/GridContainer"]
+layout_mode = 2
+
+[node name="chromatic_orb_button" type="Button" parent="TabContainer/Items/ScrollContainer/GridContainer/Spot29"]
+material = SubResource("ShaderMaterial_1mb0k")
+layout_mode = 0
+offset_right = 93.0
+offset_bottom = 85.0
+theme_override_constants/icon_max_width = 64
+icon = ExtResource("32_aexym")
 flat = true
 alignment = 2
 icon_alignment = 1
@@ -2374,6 +2409,7 @@ text = "- Why does it have an eye on it?"
 autowrap_mode = 2
 
 [node name="lady_lucks_key_panel" type="Panel" parent="TabContainer/Items/Panels"]
+visible = false
 layout_mode = 0
 offset_left = 11.0
 offset_right = 521.0
@@ -2747,6 +2783,90 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
 text = "- A special crystal object"
+autowrap_mode = 2
+
+[node name="chromatic_orb_panel" type="Panel" parent="TabContainer/Items/Panels"]
+layout_mode = 0
+offset_left = 11.0
+offset_right = 521.0
+offset_bottom = 513.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_wrmxr")
+
+[node name="chromatic_orb_animated_sprite" type="AnimatedSprite2D" parent="TabContainer/Items/Panels/chromatic_orb_panel"]
+position = Vector2(86.5, 87.5)
+scale = Vector2(9.063, 9.063)
+sprite_frames = SubResource("SpriteFrames_hr686")
+
+[node name="Title" type="Label" parent="TabContainer/Items/Panels/chromatic_orb_panel"]
+layout_mode = 0
+offset_left = 159.0
+offset_top = 15.0
+offset_right = 489.0
+offset_bottom = 156.0
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 48
+text = "Chromatic Orb"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="Type" type="Label" parent="TabContainer/Items/Panels/chromatic_orb_panel"]
+layout_mode = 0
+offset_left = 159.0
+offset_top = 69.0
+offset_right = 489.0
+offset_bottom = 114.0
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "Type: Pet"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Items/Panels/chromatic_orb_panel"]
+layout_mode = 0
+offset_left = 22.5
+offset_top = 165.5
+offset_right = 443.5
+offset_bottom = 496.5
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Bio" type="Label" parent="TabContainer/Items/Panels/chromatic_orb_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- Spawns the crystal beast to fight when it's needed"
+autowrap_mode = 2
+
+[node name="Bio3" type="Label" parent="TabContainer/Items/Panels/chromatic_orb_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- Cannot be hurt by any attack"
+autowrap_mode = 2
+
+[node name="Bio5" type="Label" parent="TabContainer/Items/Panels/chromatic_orb_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- Only one pet can be active"
+autowrap_mode = 2
+
+[node name="Bio6" type="Label" parent="TabContainer/Items/Panels/chromatic_orb_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- Create at the forge using  the four crystal items"
+autowrap_mode = 2
+
+[node name="Bio4" type="Label" parent="TabContainer/Items/Panels/chromatic_orb_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- An otherworldly crystal"
 autowrap_mode = 2
 
 [node name="Monsters" type="TabBar" parent="TabContainer"]
@@ -4494,6 +4614,7 @@ text = "X"
 [connection signal="pressed" from="TabContainer/Items/ScrollContainer/GridContainer/Spot27/quartz_boots_button" to="." method="_on_quartz_boots_button_pressed"]
 [connection signal="pressed" from="TabContainer/Items/ScrollContainer/GridContainer/Spot25/emerald_skull_button" to="." method="_on_emerald_skull_button_pressed"]
 [connection signal="pressed" from="TabContainer/Items/ScrollContainer/GridContainer/Spot28/onyx_hand_button" to="." method="_on_onyx_hand_button_pressed"]
+[connection signal="pressed" from="TabContainer/Items/ScrollContainer/GridContainer/Spot29/chromatic_orb_button" to="." method="_on_chromatic_orb_button_pressed"]
 [connection signal="pressed" from="TabContainer/Monsters/ScrollContainer/GridContainer/Spot/Blue_slime" to="." method="_on_blue_slime_pressed"]
 [connection signal="pressed" from="TabContainer/Monsters/ScrollContainer/GridContainer/Spot2/Green_slime" to="." method="_on_green_slime_pressed"]
 [connection signal="pressed" from="TabContainer/Monsters/ScrollContainer/GridContainer/Spot3/earth_elemental_button" to="." method="_on_earth_elemental_button_pressed"]

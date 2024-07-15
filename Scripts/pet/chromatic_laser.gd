@@ -4,7 +4,7 @@ extends Area2D
 var life_time_timer_started = false
 var spawned_laser = true
 var move_direction
-var speed = 175
+var speed = 200
 
 # this is called when the player is clicks
 func spawned(target_position):
@@ -30,7 +30,7 @@ func _on_body_entered(body):
 	# if the object has the method take_damage(), it will run it
 	if body is Enemy && !body.is_spawning() && !body.is_dying():
 		# the knife deals damage to the enemies hit
-		body.take_damage(1, 0, true)
+		body.take_damage(2, 0, true)
 	if body != Player:
 		# plays the knife hit sound
 		#var knife_hit_sound = KNIFE_HIT.instantiate()

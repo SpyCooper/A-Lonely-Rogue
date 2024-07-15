@@ -24,7 +24,7 @@ animations = [{
 
 [node name="chromatic_laser" type="Area2D"]
 collision_layer = 12
-collision_mask = 13
+collision_mask = 12
 script = ExtResource("1_eoi02")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
@@ -35,7 +35,7 @@ shape = SubResource("CapsuleShape2D_x78cu")
 sprite_frames = SubResource("SpriteFrames_pjo8d")
 
 [node name="life_time_timer" type="Timer" parent="."]
-wait_time = 7.0
+wait_time = 5.0
 one_shot = true
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

@@ -1,4 +1,4 @@
-extends Pet
+extends StaticBody2D
 
 enum state
 {
@@ -20,27 +20,29 @@ enum direction
 @onready var attack_timer = $attack_timer
 @onready var chromatic_orb_sprite = $chromatic_orb_sprite
 @onready var spawn_timer = $spawn_timer
-const HIT_SHADER = preload("res://Scripts/shaders/enemy_hit_shader.gdshader")
 @onready var attack_start_timer = $attack_start_timer
 @onready var attack_end_timer = $attack_end_timer
 @onready var attack_after_spawning = $attack_after_spawning
-const CHROMATIC_LASER = preload("res://Scenes/pets/chromatic_laser.tscn")
 @onready var laser_spawn_left = $laser_spawn_left
 @onready var laser_spawn_right = $laser_spawn_right
+const CHROMATIC_LASER = preload("res://Scenes/pets/chromatic_laser.tscn")
+const HIT_SHADER = preload("res://Scripts/shaders/enemy_hit_shader.gdshader")
 
 var room_ref = null
 var can_attack = false
 var current_look_direction = direction.left
 var current_state = state.spawning
 var target = null
+# pet variables
+var angle = 0.0
+var max_health = 1
+var health = 1
+var speed = 0.10
+
 
 func _ready():
 	# sets the pet variables
-	max_health = 3
-	health = max_health
-	distance_from_player = 15
 	speed = .05
-	position += Vector2(0, distance_from_player)
 	# when the room_entered signal is sent
 	Events.room_entered.connect(func(room):
 		# track the current_room
@@ -162,6 +164,7 @@ func spawn_projectile():
 	
 	move_direction = move_direction.normalized()
 	laser.spawned(move_direction)
+
 func _on_attack_end_timer_timeout():
 	# start the attack timer
 	attack_timer.start()
@@ -169,3 +172,15 @@ func _on_attack_end_timer_timeout():
 
 func _on_attack_after_spawning_timeout():
 	can_attack = true
+
+# resets the pet's hp
+func reset_hp():
+	health = max_health
+
+# sets the pet's hp
+func set_pet_hp(hp):
+	health = hp
+
+# melee damage for a pet
+func _on_body_entered(_body):
+	pass

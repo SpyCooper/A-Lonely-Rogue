@@ -227,6 +227,13 @@ func add_item_to_items_used(item : ItemType.type):
 					item_ui.set_item_type(ItemType.type.onyx_hand)
 				else:
 					item_ui.queue_free()
+			elif item == ItemType.type.chromatic_orb:
+				if !check_if_item_exists(item):
+					item_ui.get_animated_sprite().play("chromatic_orb")
+					# sets the item's type
+					item_ui.set_item_type(ItemType.type.chromatic_orb)
+				else:
+					item_ui.queue_free()
 			else:
 				item_ui.queue_free()
 		else:

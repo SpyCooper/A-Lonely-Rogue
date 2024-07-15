@@ -1,7 +1,9 @@
-[gd_scene load_steps=64 format=3 uid="uid://b4bblq36xwgwq"]
+[gd_scene load_steps=66 format=3 uid="uid://b4bblq36xwgwq"]
 
 [ext_resource type="Script" path="res://Scripts/pet/crystal_beast.gd" id="1_7b3xg"]
 [ext_resource type="Texture2D" uid="uid://v1hapkw27a8l" path="res://Assets/Sprites/pets/crystal_beast.png" id="2_md5mh"]
+[ext_resource type="AudioStream" uid="uid://sygvuyqpqyhj" path="res://Assets/Audio/pets/crystal_beast/scifi-anime-whoosh-39-205026.mp3" id="3_0yyin"]
+[ext_resource type="AudioStream" uid="uid://cta0kji1d50gp" path="res://Assets/Audio/pets/crystal_beast/laser-gun-81720.mp3" id="4_bkakw"]
 [ext_resource type="Texture2D" uid="uid://dx04igmaduqyq" path="res://Assets/Sprites/items/chromatic_orb.png" id="5_ldie5"]
 
 [sub_resource type="VisualShaderNodeColorParameter" id="VisualShaderNodeColorParameter_1usde"]
@@ -285,8 +287,8 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_7uyc8"]
-radius = 6.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rhplj"]
+size = Vector2(21, 22)
 
 [sub_resource type="Animation" id="Animation_ly7xv"]
 length = 0.001
@@ -494,9 +496,7 @@ animations = [{
 "speed": 10.0
 }]
 
-[node name="crystal_beast" type="Area2D"]
-collision_layer = 6
-collision_mask = 6
+[node name="crystal_beast" type="StaticBody2D"]
 script = ExtResource("1_7b3xg")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -507,24 +507,23 @@ animation = &"attack_right"
 frame = 3
 
 [node name="HitBox" type="CollisionShape2D" parent="."]
-position = Vector2(0, -13)
-shape = SubResource("CircleShape2D_7uyc8")
+position = Vector2(0.5, -12)
+shape = SubResource("RectangleShape2D_rhplj")
 
 [node name="enter_sound" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(0, -13)
-bus = &"Sound Effect"
-
-[node name="hit_sound" type="AudioStreamPlayer2D" parent="."]
-position = Vector2(0, -13)
-volume_db = 5.0
+stream = ExtResource("3_0yyin")
+volume_db = -3.0
 bus = &"Sound Effect"
 
 [node name="attack_timer" type="Timer" parent="."]
-wait_time = 2.0
+wait_time = 1.75
 one_shot = true
 
 [node name="attack_sound" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(0, -17)
+stream = ExtResource("4_bkakw")
+volume_db = -3.0
 bus = &"Sound Effect"
 
 [node name="Hit_Flash_animation_player" type="AnimationPlayer" parent="."]
@@ -561,7 +560,6 @@ position = Vector2(-8, -22)
 [node name="laser_spawn_right" type="Marker2D" parent="."]
 position = Vector2(7, -22)
 
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="attack_timer" to="." method="_on_attack_timer_timeout"]
 [connection signal="timeout" from="Hit_Flash_animation_player/hit_flash_animation_timer" to="." method="_on_hit_flash_animation_timer_timeout"]
 [connection signal="timeout" from="spawn_timer" to="." method="_on_spawn_timer_timeout"]

@@ -262,4 +262,7 @@ position = Vector2(-78, -837)
 [node name="chromatic_orb_item" parent="." instance=ExtResource("26_guegl")]
 position = Vector2(140, -881)
 
+[node name="portal2" parent="." instance=ExtResource("17_etrge")]
+position = Vector2(102, -935)
+
 [connection signal="timeout" from="CanvasLayer/Fade_color/Fade_timer" to="." method="_on_fade_timer_timeout"]

@@ -179,6 +179,9 @@ var quartz_boots_unlocked = false
 @onready var onyx_hand_button = $TabContainer/Items/ScrollContainer/GridContainer/Spot28/onyx_hand_button
 @onready var onyx_hand_panel = $TabContainer/Items/Panels/onyx_hand_panel
 var onyx_hand_unlocked = false
+@onready var chromatic_orb_button = $TabContainer/Items/ScrollContainer/GridContainer/Spot29/chromatic_orb_button
+@onready var chromatic_orb_panel = $TabContainer/Items/Panels/chromatic_orb_panel
+var chromatic_orb_unlocked = false
 
 # on start
 func _ready():
@@ -475,6 +478,11 @@ func load_data():
 					onyx_hand_unlocked = data["onyx_hand_unlocked"]
 					if onyx_hand_unlocked:
 						onyx_hand_button.material.shader = null
+				elif item == "chromatic_orb_unlocked":
+					# onyx_hand check
+					chromatic_orb_unlocked = data["chromatic_orb_unlocked"]
+					if chromatic_orb_unlocked:
+						chromatic_orb_button.material.shader = null
 		save_items()
 
 # goes through all the panels and hides all of them
@@ -530,6 +538,7 @@ func clear_panel():
 	sapphire_horn_panel.hide()
 	quartz_boots_panel.hide()
 	onyx_hand_panel.hide()
+	chromatic_orb_panel.hide()
 	
 ## ---------------------------------- Enemies --------------------------------------------------------
 
@@ -1134,6 +1143,13 @@ func unlock_item(item):
 			onyx_hand_button.material.shader = null
 			# set the item to be unlocked
 			onyx_hand_unlocked = true
+	elif item == ItemType.type.chromatic_orb:
+		# if the item is locked
+		if !chromatic_orb_unlocked:
+			# remove the locked shader
+			chromatic_orb_button.material.shader = null
+			# set the item to be unlocked
+			chromatic_orb_unlocked = true
 	save_items()
 
 # saves the items found to "itemsfound.save"
@@ -1173,6 +1189,7 @@ func found_items():
 		"sapphire_horn_unlocked" : sapphire_horn_unlocked,
 		"quartz_boots_unlocked" : quartz_boots_unlocked,
 		"onyx_hand_unlocked" : onyx_hand_unlocked,
+		"chromatic_orb_unlocked" : chromatic_orb_unlocked,
 	}
 	return data
 
@@ -1427,3 +1444,12 @@ func _on_lady_lucks_key_button_pressed():
 	if lady_lucks_key_unlocked:
 		# show the item's info panel
 		lady_lucks_key_panel.show()
+
+# when chromatic_orb button is pressed
+func _on_chromatic_orb_button_pressed():
+	# clear the into panel
+	clear_panel()
+	# if the item is unlocked
+	if chromatic_orb_unlocked:
+		# show the item's info panel
+		chromatic_orb_panel.show()
