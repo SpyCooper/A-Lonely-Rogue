@@ -154,7 +154,7 @@ func _on_death_timer_timeout():
 	# spawn the item for the mini boss the mini boss dies
 	var item = SAPPHIRE_HORN_ITEM.instantiate()
 	item.position = position
-	get_parent().add_child(item)
+	get_tree().current_scene.add_child(item)
 	# call enemy_slain()
 	enemy_slain()
 

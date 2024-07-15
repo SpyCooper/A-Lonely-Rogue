@@ -200,7 +200,7 @@ func spawn_shadow_bolt():
 			shadow_bolt.global_position = shadow_bolt_spawn_left.global_position
 		elif current_direction == look_direction.right:
 			shadow_bolt.global_position = shadow_bolt_spawn_right.global_position
-		get_parent().add_child(shadow_bolt)
+		get_tree().current_scene.add_child(shadow_bolt)
 		# tell the shadow bolt that it spawned
 		shadow_bolt.spawned(self, false)
 		# start the time between shadow bolts burst timer

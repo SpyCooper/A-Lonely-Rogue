@@ -172,7 +172,7 @@ func throw_rock():
 		target_position = (player_position - animated_sprite.global_position).normalized()
 		# create and spawn the rock to move toward the player's direction
 		var rolling_rock = ROLLING_ROCK.instantiate()
-		get_parent().add_child(rolling_rock)
+		get_tree().current_scene.add_child(rolling_rock)
 		if current_direction == look_direction.up:
 			rolling_rock.global_position = rock_spawner_up.global_position
 		elif current_direction == look_direction.down:

@@ -161,7 +161,7 @@ func throw_tornado():
 		target_position = (player_position - animated_sprite.global_position).normalized()
 		# create and spawn the tornado to move toward the player's direction
 		var tornado = TORNADO.instantiate()
-		get_parent().add_child(tornado)
+		get_tree().current_scene.add_child(tornado)
 		tornado.global_position = animated_sprite.global_position
 		tornado.spawned(target_position, current_direction)
 		# increase the amount of tornados in this throw

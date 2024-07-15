@@ -111,7 +111,7 @@ func _on_death_timer_timeout():
 	catalog.unlock_enemy(EnemyTypes.enemy.emerald_skeleton)
 	# spawn a boss's item when the emerald skeleton dies
 	var item = EMERALD_SKULL_ITEM.instantiate()
-	get_parent().add_child(item)
+	get_tree().current_scene.add_child(item)
 	item.global_position = animated_sprite.global_position
 	# call enemy slain
 	enemy_slain()
@@ -158,7 +158,7 @@ func _on_slash_projection_spawn_timer_timeout():
 			target_position = (player_position - animated_sprite.global_position).normalized()
 			# spawn the clash projectile
 			var slash = LARGE_SLASH_PROJECTILE.instantiate()
-			get_parent().add_child(slash)
+			get_tree().current_scene.add_child(slash)
 			# set the slash position
 			slash.global_position = animated_sprite.global_position
 			# tell the slash that it spawned

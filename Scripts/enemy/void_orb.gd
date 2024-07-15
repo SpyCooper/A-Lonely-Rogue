@@ -81,7 +81,7 @@ func split():
 	var projectile_direction = new_direction.normalized()
 	# create and spawn the void_orb to move in that direction
 	var void_orb = VOID_ORB.instantiate()
-	get_parent().add_child(void_orb)
+	get_tree().current_scene.add_child(void_orb)
 	void_orb.global_position = global_position
 	void_orb.spawned(projectile_direction, false)
 	# spawn bottom
@@ -91,7 +91,7 @@ func split():
 	rad_added_bottom = rad_added_bottom.normalized()
 	# create and spawn the void_orb to move in that direction
 	var void_orb_2 = VOID_ORB.instantiate()
-	get_parent().add_child(void_orb_2)
+	get_tree().current_scene.add_child(void_orb_2)
 	void_orb_2.global_position = global_position
 	void_orb_2.spawned(rad_added_bottom, false)
 	# spawn top
@@ -100,12 +100,12 @@ func split():
 	rad_added_top = rad_added_top.normalized()
 	# create and spawn the void_orb to move in that direction
 	var void_orb_3 = VOID_ORB.instantiate()
-	get_parent().add_child(void_orb_3)
+	get_tree().current_scene.add_child(void_orb_3)
 	void_orb_3.global_position = global_position
 	void_orb_3.spawned(rad_added_top, false)
 	# plays the destruction sound
 	var split_sound = VOID_ORB_SPLIT_SOUND.instantiate()
-	get_parent().add_child(split_sound)
+	get_tree().current_scene.add_child(split_sound)
 	split_sound.global_position = animated_sprite.global_position
 	split_sound.spawned()
 

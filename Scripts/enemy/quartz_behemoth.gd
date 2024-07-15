@@ -175,7 +175,7 @@ func _on_death_timer_timeout():
 	catalog.unlock_enemy(EnemyTypes.enemy.quartz_behemoth)
 	# spawn the item for the mini boss the mini boss dies
 	var item = QUARTZ_BOOTS_ITEM.instantiate()
-	get_parent().add_child(item)
+	get_tree().current_scene.add_child(item)
 	item.global_position = animated_sprite.global_position
 	# call enemy_slain()
 	enemy_slain()
@@ -320,7 +320,7 @@ func _on_after_image_spawn_timer_timeout():
 		if current_state == state.dashing:
 			# spawn an after image
 			var after_image = QUARTZ_BEHEMOTH_AFTER_IMAGE.instantiate()
-			get_parent().add_child(after_image)
+			get_tree().current_scene.add_child(after_image)
 			after_image.global_position = get_animated_sprite().global_position
 			if animated_sprite.animation == "dash_right":
 				after_image.spawned("right")
@@ -389,6 +389,6 @@ func spawn_spike():
 	if !dying:
 		# spawns the vine spin
 		var spike = QUARTZ_SPIKE.instantiate()
-		get_parent().add_child(spike)
+		get_tree().current_scene.add_child(spike)
 		spike.set_spawn_position(player.get_player_position())
 

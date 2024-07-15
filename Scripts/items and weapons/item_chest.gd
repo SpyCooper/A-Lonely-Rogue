@@ -63,7 +63,7 @@ func spawn_mimic():
 	# spawn in a mimic
 	var mimic = MIMIC.instantiate()
 	add_child(mimic)
-	mimic.reparent(get_parent())
+	mimic.reparent(get_tree().current_scene)
 	mimic.global_position = Vector2(global_position.x, global_position.y + 5)
 	mimic.wake_up()
 	# let the room know a mimic has spawned

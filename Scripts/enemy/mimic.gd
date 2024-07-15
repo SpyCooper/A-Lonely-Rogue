@@ -152,7 +152,7 @@ func _on_death_timer_timeout():
 	var random_item = RANDOM_ITEM_SPAWNER.instantiate()
 	random_item.position = position
 	var item = random_item
-	get_parent().add_child(random_item)
+	get_tree().current_scene.add_child(random_item)
 	item.spawn_item()
 	# call enemy_slain()
 	enemy_slain()

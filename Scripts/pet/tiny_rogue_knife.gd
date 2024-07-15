@@ -33,7 +33,7 @@ func _on_body_entered(body):
 		# plays the knife hit sound
 		var knife_hit_sound = KNIFE_HIT.instantiate()
 		knife_hit_sound.position = position
-		get_parent().add_child(knife_hit_sound)
+		get_tree().current_scene.add_child(knife_hit_sound)
 		# removes the knife from the screen
 		queue_free()
 

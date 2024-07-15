@@ -105,7 +105,7 @@ one_shot = true
 stream = ExtResource("5_xlvnq")
 bus = &"Sound Effect"
 
-[connection signal="timeout" from="time_between_knife_throws_timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="time_between_knife_throws_timer" to="." method="_on_time_between_knife_throws_timer_timeout"]
+[connection signal="timeout" from="time_between_knife_throws_timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="life_time_timer" to="." method="_on_life_time_timer_timeout"]
 [connection signal="timeout" from="leave_animation_timer" to="." method="_on_leave_animation_timer_timeout"]

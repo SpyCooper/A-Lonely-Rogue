@@ -71,7 +71,7 @@ func wake_up():
 	# starts the attack timer
 	attack_timer.start()
 	# stops the background music on the floor
-	get_parent().stop_bg_music()
+	get_tree().current_scene.stop_bg_music()
 
 # runs on every frame
 func _process(delta):
@@ -120,7 +120,7 @@ func _physics_process(_delta):
 					var blade_instance = ENEMY_KNIFE.instantiate()
 					blade_instance.global_position = animated_sprite.global_position
 					blade_instance.spawned(target_position, dust_blade, current_attack_identifer, knife_speed_bonus)
-					get_parent().add_child(blade_instance)
+					get_tree().current_scene.add_child(blade_instance)
 					# plays the knife throw sound when the blade is spawned
 					woosh_sound.play()
 					# if the player has triple blades, spawn the two other blades
@@ -132,14 +132,14 @@ func _physics_process(_delta):
 						var blade_instance_2 = ENEMY_KNIFE.instantiate()
 						blade_instance_2.global_position =  animated_sprite.global_position
 						blade_instance_2.spawned(rad_added_bottom, dust_blade, current_attack_identifer, knife_speed_bonus)
-						get_parent().add_child(blade_instance_2)
+						get_tree().current_scene.add_child(blade_instance_2)
 						# top blade
 						var rad_added_top = Vector2(cos(radians - 0.25), sin(radians - 0.25))
 						rad_added_top = rad_added_top.normalized()
 						var blade_instance_3 = ENEMY_KNIFE.instantiate()
 						blade_instance_3.global_position =  animated_sprite.global_position
 						blade_instance_3.spawned(rad_added_top, dust_blade, current_attack_identifer, knife_speed_bonus)
-						get_parent().add_child(blade_instance_3)
+						get_tree().current_scene.add_child(blade_instance_3)
 					# resets the time to fire
 					time_to_fire = time_to_fire_max
 					current_attack_identifer += 1

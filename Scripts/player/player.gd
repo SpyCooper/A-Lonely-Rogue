@@ -225,7 +225,7 @@ func _physics_process(_delta):
 				# spawns a knife at that position
 				blade_instance.position = position + click_position_normalized*3
 				blade_instance.spawned(click_position_normalized, current_type, self, current_attack_identifier, knife_speed_bonus)
-				get_parent().add_child(blade_instance)
+				get_tree().current_scene.add_child(blade_instance)
 				blade_instance.global_position = get_player_position()
 				# plays the knife throw sound when the blade is spawned
 				woosh_sound.play()
@@ -237,14 +237,14 @@ func _physics_process(_delta):
 					rad_added_bottom = rad_added_bottom.normalized()
 					var blade_instance_2 = knife_scene.instantiate()
 					blade_instance_2.spawned(rad_added_bottom, current_type, self, current_attack_identifier, knife_speed_bonus)
-					get_parent().add_child(blade_instance_2)
+					get_tree().current_scene.add_child(blade_instance_2)
 					blade_instance_2.global_position = get_player_position()
 					# top blade
 					var rad_added_top = Vector2(cos(radians - 0.25), sin(radians - 0.25))
 					rad_added_top = rad_added_top.normalized()
 					var blade_instance_3 = knife_scene.instantiate()
 					blade_instance_3.spawned(rad_added_top, current_type, self, current_attack_identifier, knife_speed_bonus)
-					get_parent().add_child(blade_instance_3)
+					get_tree().current_scene.add_child(blade_instance_3)
 					blade_instance_3.global_position = get_player_position()
 				# resets the time to fire
 				time_to_fire = time_to_fire_max
@@ -285,7 +285,7 @@ func _on_stand_up_timer_timeout():
 	# hide the stand up music
 	stand_up_sprite.hide()
 	# play the backgound music for the floor
-	get_parent().play_bg_music()
+	get_tree().current_scene.play_bg_music()
 	# allow the player to move
 	player_can_move = true
 	# show the hud
@@ -982,7 +982,7 @@ func use_usable_item():
 			# spawn the poison gas
 			var bomb_instance = BOMB.instantiate()
 			bomb_instance.global_position = global_position
-			get_parent().add_child(bomb_instance)
+			get_tree().current_scene.add_child(bomb_instance)
 			bomb_instance.spawned()
 			# remove 1 from the stack amount
 			usable_item_stack_amount -= 1
@@ -1083,7 +1083,7 @@ func _on_after_image_spawn_timer_timeout():
 	if is_dashing:
 		# spawn an after image
 		var after_image = PLAYER_AFTER_IMAGE.instantiate()
-		get_parent().add_child(after_image)
+		get_tree().current_scene.add_child(after_image)
 		after_image.global_position = get_player_position()
 		after_image.spawned()
 		# start the after image spawn timer
@@ -1180,7 +1180,7 @@ func _on_quartz_spike_spawn_timer_timeout():
 	if !dying && can_spawn_quartz_spike:
 		# spawns the vine spin
 		var spike = QUARTZ_SPIKE_FRIENDLY.instantiate()
-		get_parent().add_child(spike)
+		get_tree().current_scene.add_child(spike)
 		spike.set_spawn_position(get_player_position())
 
 func room_cleared():

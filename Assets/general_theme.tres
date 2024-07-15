@@ -19,7 +19,7 @@ corner_detail = 1
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_k3pxd"]
 texture = ExtResource("3_k5jpe")
-modulate_color = Color(0.878431, 0.243137, 0.235294, 1)
+modulate_color = Color(0.352276, 0.372146, 0.651239, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4mfu3"]
 texture = ExtResource("3_k5jpe")

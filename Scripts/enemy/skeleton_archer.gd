@@ -193,7 +193,7 @@ func _on_arrow_spawn_timer_timeout():
 		target_position = (player_position - animated_sprite.global_position).normalized()
 		# spawn the arrow
 		var arrow = ARROW.instantiate()
-		get_parent().add_child(arrow)
+		get_tree().current_scene.add_child(arrow)
 		# set the arrow's position
 		arrow.global_position = animated_sprite.global_position
 		# tell the arrow that it's spawned

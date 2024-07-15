@@ -197,7 +197,7 @@ func _on_slash_projection_spawn_timer_timeout():
 		target_position = (player_position - animated_sprite.global_position).normalized()
 		# spawn the clash projectile
 		var slash = SLASH_PROJECTILE.instantiate()
-		get_parent().add_child(slash)
+		get_tree().current_scene.add_child(slash)
 		# set the slash position
 		slash.global_position = animated_sprite.global_position
 		# tell the slash that it spawned

@@ -267,7 +267,7 @@ func _on_spawn_freeze_timer_timeout():
 			var green_slime = GREEN_SLIME.instantiate()
 			# make the green slime a child of the scene and not the gel cube
 			add_child(green_slime)
-			green_slime.reparent(get_parent())
+			green_slime.reparent(get_tree().current_scene)
 			# tell the green slime they spawned in the room
 			green_slime.spawned_in_room()
 			# set the position of the green slime

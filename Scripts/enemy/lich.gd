@@ -291,7 +291,7 @@ func spawn_skeletons():
 			# spawns the skeleton for this iteration
 			var skel = random_skel.instantiate()
 			add_child(skel)
-			skel.reparent(get_parent())
+			skel.reparent(get_tree().current_scene)
 			skel.spawned_in_room()
 			# set the skeleton's position
 			skel.global_position = spawn_location.global_position
@@ -335,7 +335,7 @@ func spawn_shadow_ball():
 		# spawns the shadow ball at the correct position
 		var shadow_ball = SHADOW_BALL.instantiate()
 		shadow_ball.global_position = spawn_location.global_position
-		get_parent().add_child(shadow_ball)
+		get_tree().current_scene.add_child(shadow_ball)
 		# tell the shadow ball that it spawned
 		shadow_ball.spawned()
 
@@ -428,7 +428,7 @@ func spawn_unarmed_skeleton():
 		# spawn the skeleton
 		var skel = SKELETON_UNARMED.instantiate()
 		add_child(skel)
-		skel.reparent(get_parent())
+		skel.reparent(get_tree().current_scene)
 		skel.spawned_in_room()
 		# set the skeleton's position
 		skel.global_position = spawn_location.global_position

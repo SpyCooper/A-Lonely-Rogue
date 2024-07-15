@@ -133,7 +133,7 @@ func take_damage(damage, attack_identifer, is_effect):
 			animated_sprite.play("dying")
 			# plays the death sound
 			var death_sound = ONYX_DEMON_DEATH.instantiate()
-			get_parent().add_child(death_sound)
+			get_tree().current_scene.add_child(death_sound)
 			death_sound.global_position = animated_sprite.global_position
 			death_sound.spawned()
 			# remove the damage player hitbox
@@ -152,7 +152,7 @@ func _on_death_timer_timeout():
 	catalog.unlock_enemy(EnemyTypes.enemy.onyx_demon)
 	# spawn the item for the mini boss the mini boss dies
 	var item = ONYX_HAND_ITEM.instantiate()
-	get_parent().add_child(item)
+	get_tree().current_scene.add_child(item)
 	item.global_position = animated_sprite.global_position
 	# call enemy_slain()
 	enemy_slain()

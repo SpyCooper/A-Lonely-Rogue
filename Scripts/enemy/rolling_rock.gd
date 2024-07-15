@@ -35,7 +35,7 @@ func _on_body_entered(body):
 		# instatiate the rock break scene
 		var rock_break = ROCK_BREAK.instantiate()
 		rock_break.global_position = global_position
-		get_parent().add_child(rock_break)
+		get_tree().current_scene.add_child(rock_break)
 		# remove the rock
 		queue_free()
 
@@ -47,7 +47,7 @@ func _on_area_entered(area):
 		# instatiate the rock break scene
 		var rock_break = ROCK_BREAK.instantiate()
 		rock_break.global_position = global_position
-		get_parent().add_child(rock_break)
+		get_tree().current_scene.add_child(rock_break)
 		# remove the rock
 		queue_free()
 

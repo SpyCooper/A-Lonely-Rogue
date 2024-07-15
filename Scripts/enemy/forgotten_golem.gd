@@ -239,7 +239,7 @@ func _on_laser_spawn_timer_timeout():
 		target_position = (player_position - laser_spawn_location.global_position).normalized()
 		# spawn the laser
 		var laser = LASER.instantiate()
-		get_parent().add_child(laser)
+		get_tree().current_scene.add_child(laser)
 		# set the laser's position
 		laser.global_position = laser_spawn_location.global_position
 		# tell the laser that it's spawned
@@ -283,7 +283,7 @@ func _on_summon_vines_spawn_timer_timeout():
 	if !dying:
 		# spawn the vine area
 		var vine_area = VINE_AREA.instantiate()
-		get_parent().add_child(vine_area)
+		get_tree().current_scene.add_child(vine_area)
 		# tell the vine area that it's spawned
 		vine_area.spawned(self, summon_vines_temp_pos)
 		# set the active vines to true
@@ -325,7 +325,7 @@ func _on_vine_spin_summon_timer_timeout():
 	if !dying:
 		# spawns the vine spin
 		var vine_spin_scene = VINE_SPIN.instantiate()
-		get_parent().add_child(vine_spin_scene)
+		get_tree().current_scene.add_child(vine_spin_scene)
 		vine_spin_scene.global_position = player.get_player_position()
 
 # when the attacks end

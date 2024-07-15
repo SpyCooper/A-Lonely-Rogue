@@ -77,14 +77,14 @@ func _on_body_entered(body):
 	# plays the knife hit sound
 	var knife_hit_sound = KNIFE_HIT.instantiate()
 	knife_hit_sound.position = position
-	get_parent().add_child(knife_hit_sound)
+	get_tree().current_scene.add_child(knife_hit_sound)
 	# if the player has glass blade
 	for blade_type in player_ref.get_current_weapons():
 		if blade_type == BladeType.blade_type.glass:
 			# spawn the glass blade explosion at the position of the knife
 			var glass_explosion_spawn = GLASS_SHRAPNEL.instantiate()
 			glass_explosion_spawn.position = position
-			get_parent().add_child(glass_explosion_spawn)
+			get_tree().current_scene.add_child(glass_explosion_spawn)
 			glass_explosion_spawn.emitting = true
 	# removes the knife from the screen
 	queue_free()
