@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://bsgca2ryt6hhk"]
+[gd_scene load_steps=33 format=3 uid="uid://bsgca2ryt6hhk"]
 
 [ext_resource type="Script" path="res://Scripts/map/dungeon_floor.gd" id="1_e1kxb"]
 [ext_resource type="PackedScene" uid="uid://duv7i8yak343i" path="res://Scenes/menus/HUD.tscn" id="2_182ru"]
@@ -25,6 +25,7 @@
 [ext_resource type="PackedScene" uid="uid://b1opxnh484w82" path="res://Scenes/enemies/skeleton_warrior.tscn" id="24_cxygx"]
 [ext_resource type="PackedScene" uid="uid://bmcwy07w158r4" path="res://Scenes/map/mini_boss_door_icon.tscn" id="24_de35q"]
 [ext_resource type="PackedScene" uid="uid://e2kyf4akk1wn" path="res://Scenes/enemies/onyx_demon.tscn" id="25_th775"]
+[ext_resource type="PackedScene" uid="uid://besqcptnb8djo" path="res://Scenes/enemies/tiny_devil.tscn" id="26_22456"]
 
 [sub_resource type="Animation" id="Animation_27xwy"]
 length = 0.001
@@ -188,7 +189,7 @@ volume_db = -2.0
 bus = &"Music"
 
 [node name="shade" parent="." instance=ExtResource("13_5138j")]
-position = Vector2(0, 258)
+position = Vector2(-77, 431)
 
 [node name="heart_1_pickup" parent="." instance=ExtResource("20_54324")]
 position = Vector2(0, 485)
@@ -258,6 +259,9 @@ position = Vector2(-768, -224)
 
 [node name="onyx_demon" parent="." instance=ExtResource("25_th775")]
 position = Vector2(-767, -251)
+
+[node name="shade8" parent="." instance=ExtResource("26_22456")]
+position = Vector2(-68, 225)
 
 [connection signal="timeout" from="CanvasLayer/Fade_color/Fade_timer" to="." method="_on_fade_timer_timeout"]
 
