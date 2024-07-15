@@ -48,7 +48,7 @@ func _physics_process(_delta):
 					attack()
 
 # when the pet takes damage
-func take_damage(damage):
+func take_damage(_damage):
 	pass
 
 # when the attack timer ends

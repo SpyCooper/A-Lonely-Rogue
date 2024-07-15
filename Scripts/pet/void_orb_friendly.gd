@@ -22,19 +22,19 @@ func _process(delta):
 		# moves the shadow ball based on the thrown direction
 		position += move_direction * speed * delta
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	# check if the shadow ball is_spawned
 	if is_spawned && Engine.time_scale != 0.0:
 		rotation += 0.15
 
 # this is called when a Lich spawns a shadow ball
-func spawned(direction, split = false):
+func spawned(direction, should_split = false):
 	# set the player reference
 	player = Events.player
 	# set is_spawned to true
 	is_spawned = true
 	move_direction = direction
-	can_split = split
+	can_split = should_split
 	immunity = true
 	immunity_timer.start()
 	lifetime_timer.start()

@@ -301,7 +301,7 @@ func load_player_data():
 			attacks_per_second += ItemType.quick_blades_attack_speed_bonus
 		elif item == ItemType.type.speed_boots:
 			# increase the player's speed
-			speed = speed + (ItemType.speed_boots_movement_speed_bonus / 100)
+			speed = speed + (ItemType.speed_boots_movement_speed_bonus / 100.0)
 		elif item == ItemType.type.dust_blade:
 			# add dust blades to the player
 			dust_blade = true
@@ -310,7 +310,7 @@ func load_player_data():
 			knife_speed_bonus += ItemType.sleek_blade_speed_bonus
 		elif item == ItemType.type.sapphire_horn:
 			# increases knife movement speed
-			speed = speed + (ItemType.sapphire_horn_speed_boost / 100)
+			speed = speed + (ItemType.sapphire_horn_speed_boost / 100.0)
 	# recalculates the attack speed
 	calculate_attack_speed()
 

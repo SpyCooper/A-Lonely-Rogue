@@ -35,7 +35,7 @@ func _ready():
 	skull_item.hide()
 	hand_item.hide()
 
-func _physics_process(delta):
+func _physics_process(_delta):
 	if move_player_to_circle && player != null:
 		if magic_circle_sprite.global_position.distance_to(player.get_player_position()) > 1:
 			player.velocity = (magic_circle_sprite.global_position - player.get_player_position()).normalized() * (player.get_speed()/2)

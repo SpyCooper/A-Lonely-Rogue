@@ -84,6 +84,7 @@ var can_spawn_quartz_spike = false
 const QUARTZ_SPIKE_FRIENDLY = preload("res://Scenes/player/quartz_spike_friendly.tscn")
 const ONYX_DEMON_SMALL = preload("res://Scenes/pets/onyx_demon_small.tscn")
 var chromatic_orb = false
+const CRYSTAL_BEAST = preload("res://Scenes/pets/crystal_beast.tscn")
 
 # pet variables
 var current_pet = null
@@ -1114,11 +1115,18 @@ func add_pet(pet_item : ItemType.type):
 			spawn = DEAD_ROGUE.instantiate()
 		elif pet_item == ItemType.type.onyx_hand:
 			spawn = ONYX_DEMON_SMALL.instantiate()
+		elif pet_item == ItemType.type.chromatic_orb:
+			spawn = CRYSTAL_BEAST.instantiate()
 		# if there is a pet to be spawned
 		if spawn !=  null:
 			# spawn that pet
 			current_pet_item = pet_item
-			add_child(spawn)
+			if pet_item == ItemType.type.chromatic_orb:
+				get_tree().current_scene.add_child(spawn)
+				spawn.room_ref = current_room
+				spawn.spawn_in()
+			else:
+				add_child(spawn)
 			current_pet = spawn
 
 # when a pet dies

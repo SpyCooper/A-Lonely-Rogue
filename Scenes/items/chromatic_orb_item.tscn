@@ -223,6 +223,5 @@ item_type = 30
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(1, -15)
 sprite_frames = SubResource("SpriteFrames_l67ps")
-animation = &"smoke"
 autoplay = "smoke"
 offset = Vector2(-1, 0)
