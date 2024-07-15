@@ -1,8 +1,12 @@
-[gd_scene load_steps=95 format=3 uid="uid://qyr2qfjn2oql"]
+[gd_scene load_steps=99 format=3 uid="uid://qyr2qfjn2oql"]
 
 [ext_resource type="Texture2D" uid="uid://02pxg6gbm22r" path="res://Assets/Sprites/map/forge.png" id="1_52n26"]
 [ext_resource type="Script" path="res://Scripts/map/forge.gd" id="1_n4kbm"]
 [ext_resource type="Texture2D" uid="uid://dh85ichhvi5y2" path="res://Assets/Sprites/items/Items.png" id="3_mfxcx"]
+[ext_resource type="AudioStream" uid="uid://c5iehu552op6l" path="res://Assets/Audio/forge/crystal_sound_1.mp3" id="4_kpa0y"]
+[ext_resource type="AudioStream" uid="uid://bnkfugtopxu1u" path="res://Assets/Audio/forge/crystal_sound_2.mp3" id="5_ff5a6"]
+[ext_resource type="AudioStream" uid="uid://bp7pbyw6htiux" path="res://Assets/Audio/forge/teleport-90323.mp3" id="6_v3xwp"]
+[ext_resource type="AudioStream" uid="uid://b5r58keqdnure" path="res://Assets/Audio/forge/magic-charge-mana-2-186628.mp3" id="7_k3vxf"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_a3vwq"]
 atlas = ExtResource("1_52n26")
@@ -794,6 +798,39 @@ autoplay = "default"
 [node name="player_move_offset_timer" type="Timer" parent="."]
 wait_time = 0.7
 one_shot = true
+
+[node name="object_1" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(-49, -91)
+stream = ExtResource("4_kpa0y")
+volume_db = -5.0
+bus = &"Sound Effect"
+
+[node name="object_2" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(-16, -91)
+stream = ExtResource("4_kpa0y")
+volume_db = -5.0
+bus = &"Sound Effect"
+
+[node name="object_3" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(16, -90)
+stream = ExtResource("4_kpa0y")
+volume_db = -5.0
+bus = &"Sound Effect"
+
+[node name="object_4" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(48, -91)
+stream = ExtResource("5_ff5a6")
+volume_db = -5.0
+bus = &"Sound Effect"
+
+[node name="glowing_sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_v3xwp")
+volume_db = -2.0
+bus = &"Sound Effect"
+
+[node name="forge_active_sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_k3vxf")
+bus = &"Sound Effect"
 
 [connection signal="body_entered" from="magic_circle_area" to="." method="_on_magic_circle_area_body_entered"]
 [connection signal="timeout" from="item_destruction_timer" to="." method="_on_item_destruction_timer_timeout"]

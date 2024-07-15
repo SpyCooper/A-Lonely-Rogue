@@ -15,6 +15,14 @@ extends Node2D
 @onready var player_move_offset_timer = $player_move_offset_timer
 const CHROMATIC_ORB_ITEM = preload("res://Scenes/items/chromatic_orb_item.tscn")
 
+@onready var object_1 = $object_1
+@onready var object_2 = $object_2
+@onready var object_3 = $object_3
+@onready var object_4 = $object_4
+@onready var glowing_sound = $glowing_sound
+@onready var forge_active_sound = $forge_active_sound
+
+
 var has_sapphire = false
 var has_quartz = false
 var has_emerald = false
@@ -64,6 +72,7 @@ func check_items():
 	if has_emerald && has_onyx && has_quartz && has_sapphire:
 		magic_circle_sprite.play("enabled")
 		can_combine = true
+		forge_active_sound.play()
 
 
 func _on_magic_circle_area_body_entered(body):
@@ -80,21 +89,25 @@ func _on_item_destruction_timer_timeout():
 		horn_item.show()
 		items_destroyed += 1
 		item_destruction_timer.start()
+		object_1.play()
 	elif items_destroyed == 1:
 		player.remove_item_from_inventory(ItemType.type.quartz_boots)
 		boots_item.show()
 		items_destroyed += 1
 		item_destruction_timer.start()
+		object_2.play()
 	elif items_destroyed == 2:
 		player.remove_item_from_inventory(ItemType.type.emerald_skull)
 		skull_item.show()
 		items_destroyed += 1
 		item_destruction_timer.start()
+		object_3.play()
 	elif items_destroyed == 3:
 		player.remove_pet_from_inventory(ItemType.type.onyx_hand)
 		hand_item.show()
 		items_destroyed += 1
 		item_destruction_timer.start()
+		object_4.play()
 	elif items_destroyed == 4:
 		horn_item.play("light")
 		boots_item.play("light")
@@ -103,6 +116,7 @@ func _on_item_destruction_timer_timeout():
 		spawn_circle_sprite.play("glow")
 		magic_circle_sprite.play("final_glow")
 		glow_timer.start()
+		glowing_sound.play()
 
 func _on_glow_timer_timeout():
 	create_crystal_beast_item()
