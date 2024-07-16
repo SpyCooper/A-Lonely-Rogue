@@ -30,8 +30,6 @@ var rng = RandomNumberGenerator.new()
 # general enemy variables
 var target_position
 var current_direction : look_direction
-
-# variables
 var can_move = true
 
 # sets the enemy's stats and references
@@ -68,7 +66,7 @@ func _process(delta):
 
 # called every frame
 func _physics_process(_delta):
-	# if the player is in the room, the shade isn't dying, and isn't spawning
+	# if the player is in the room, the tiny_devil isn't dying, and isn't spawning
 	if player_in_room && !dying && !spawning:
 		# checks for a reference to the player and that the game isn't paused
 		# if the player is in the room, the enemy can move, and the game isn't paused
@@ -77,13 +75,13 @@ func _physics_process(_delta):
 			player_position = player.get_player_position()
 			target_position = (player_position - animated_sprite.global_position).normalized()
 			current_direction = get_left_right_look_direction(target_position)
-			# if the shade can attack and is further than 30 pixels
+			# if the tiny_devil can attack and is further than 30 pixels
 			if can_attack == true:
 				attack()
-			# else if the shade can move
+			# else if the tiny_devil can move
 			elif can_move:
 				# look in the direction of the player
-				# flips the direction of the shade based on the current_direction
+				# flips the direction of the tiny_devil based on the current_direction
 				## NOTE: all these checks are identical but change the directions they look at
 				## Move left
 				if current_direction == look_direction.left :
@@ -94,7 +92,9 @@ func _physics_process(_delta):
 				if animated_sprite.global_position.distance_to(player_position) > 5:
 					## has to use get_speed() to move based on dusted effect
 					move_and_collide(target_position.normalized() * get_speed())
+	# if the player is in the room
 	if player_in_room:
+		# play the flap sound on the correct frame of each animation
 		if animated_sprite.animation == "spawning":
 			if animated_sprite.frame == 2:
 				flap_sound.play()
@@ -151,7 +151,7 @@ func take_damage(damage, attack_identifer, is_effect):
 
 # when death timer ends
 func _on_death_timer_timeout():
-	# unlock the shade in the catalog
+	# unlock the tiny_devil in the catalog
 	catalog.unlock_enemy(EnemyTypes.enemy.tiny_devil)
 	# call enemy slain
 	enemy_slain()
@@ -159,49 +159,45 @@ func _on_death_timer_timeout():
 # when spawn timer ends
 func _on_spawn_timer_timeout():
 	spawning = false
-	restart_flap_sound()
 
 # returns the animated sprite
 func get_animated_sprite():
 	return animated_sprite
 
-# when the shade attacks
+# when the tiny_devil attacks
 func attack():
+	# play the correct animation for the attack
 	if current_direction == look_direction.right:
 		animated_sprite.play("attack_right")
 	else:
 		animated_sprite.play("attack_left")
+	# start the attack timers
 	attack_animation_timer.start()
 	fire_ball_offset.start()
+	# disable movement
 	can_move = false
-	restart_flap_sound()
 
 # when the hit flash animation timer ends
 func _on_hit_flash_animation_timer_timeout():
 	# remove the hit flash shader
 	animated_sprite.material.shader = null
 
+# when the attack animation timer ends
 func _on_attack_animation_timer_timeout():
+	# set a random value until the next attack
 	can_attack_timer = rng.randf_range(can_attack_timer_max - 0.5, can_attack_timer_max + 0.5)
+	# disable attacks
 	can_attack = false
+	# enable movement
 	can_move = true
-	restart_flap_sound()
 
+# when the fire ball offset timer ends
 func _on_fire_ball_offset_timeout():
+	# if the enemy is not dying
 	if !dying:
-		# spawn the shadow bolt
+		# spawn a fire ball
 		var fire_ball = FIRE_BALL.instantiate()
 		fire_ball.global_position = animated_sprite.global_position
 		get_tree().current_scene.add_child(fire_ball)
-		# tell the shadow bolt that it spawned
+		# tell the fire ball that it spawned
 		fire_ball.spawned((player.get_player_position() - animated_sprite.global_position).normalized())
-
-func restart_flap_sound():
-	#flap_sound.play()
-	#flap_sound_timer.start()
-	pass
-
-func _on_flap_sound_timer_timeout():
-	#flap_sound.play()
-	#flap_sound_timer.start()
-	pass

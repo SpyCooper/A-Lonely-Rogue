@@ -4,7 +4,7 @@ extends Area2D
 var move_direction
 var speed = 180
 
-# this is called when the forgotten golem spawns an laser
+# this is called when a tiny devil attacks
 func spawned(target_direction):
 	# sets the move direction to the target direction
 	move_direction = target_direction
@@ -14,10 +14,10 @@ func spawned(target_direction):
 # runs on every frame
 func _process(delta):
 	if Engine.time_scale != 0.0:
-		# moves the laser based on the thrown direction
+		# moves the fire ball based on the thrown direction
 		position += move_direction * speed * delta
 
-# when the laser hits something
+# when the fire ball hits something
 func _on_body_entered(body):
 	# if the object is a player
 	if body is Player:
@@ -25,10 +25,10 @@ func _on_body_entered(body):
 		body.player_take_damage(false, 0)
 	# if the body is not enemy or is a collisiong_with_player scene of an enemy
 	if body != Enemy && body.name != "collision_with_player":
-		# remove the laser
+		# remove the fire ball
 		queue_free()
 
-# when the laser hits something
+# when the fire ball hits something
 func _on_area_entered(area):
 	# if the body is a pet, deal damage to it
 	if area is Pet:
