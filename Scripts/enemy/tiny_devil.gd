@@ -37,7 +37,7 @@ var can_move = true
 # sets the enemy's stats and references
 func _ready():
 	speed = 0.6
-	health = 20
+	health = 25
 	sleep()
 	player = Events.player
 	max_health = health

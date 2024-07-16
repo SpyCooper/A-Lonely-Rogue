@@ -1,4 +1,4 @@
-[gd_scene load_steps=104 format=3 uid="uid://dc0xlg20ucy3n"]
+[gd_scene load_steps=106 format=3 uid="uid://dc0xlg20ucy3n"]
 
 [ext_resource type="Script" path="res://Scripts/UI/Catalog.gd" id="1_mndmm"]
 [ext_resource type="Theme" uid="uid://pv4evjjac8wt" path="res://Assets/general_theme.tres" id="2_umit2"]
@@ -49,6 +49,7 @@
 [ext_resource type="Texture2D" uid="uid://rfjsdx0wxqnq" path="res://Assets/Sprites/catalog_icons/bomb_icon.png" id="38_i5cay"]
 [ext_resource type="Texture2D" uid="uid://ftcqqrjklsx1" path="res://Assets/Sprites/catalog_icons/mimic_icon.png" id="39_lo8cp"]
 [ext_resource type="Texture2D" uid="uid://ds3kg5f48plbd" path="res://Assets/Sprites/catalog_icons/emerald_skeleton_icon.png" id="42_mkd7a"]
+[ext_resource type="Texture2D" uid="uid://dxi4xdfqxf18j" path="res://Assets/Sprites/catalog_icons/tiny_devil_icon.png" id="43_ngch1"]
 [ext_resource type="Texture2D" uid="uid://v203n41vooxl" path="res://Assets/Sprites/catalog_icons/sapphire_pegasus_icon.png" id="44_2k7x8"]
 [ext_resource type="Texture2D" uid="uid://c77ddb1nd1w47" path="res://Assets/Sprites/catalog_icons/quartz_behemoth_icon.png" id="45_5as8v"]
 [ext_resource type="Texture2D" uid="uid://bjp7i6m1vfjs0" path="res://Assets/Sprites/catalog_icons/Onyx_demon_icon.png" id="48_02rwa"]
@@ -186,6 +187,9 @@ shader = ExtResource("3_qa2dv")
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_tn7mc"]
 shader = ExtResource("3_qa2dv")
 
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_wwiv1"]
+shader = ExtResource("3_qa2dv")
+
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_114au"]
 resource_local_to_scene = true
 shader = ExtResource("3_qa2dv")
@@ -257,6 +261,7 @@ grow_vertical = 2
 theme = ExtResource("2_umit2")
 
 [node name="Items" type="TabBar" parent="TabContainer"]
+visible = false
 layout_mode = 2
 theme = ExtResource("2_umit2")
 
@@ -2870,7 +2875,6 @@ text = "- An otherworldly crystal"
 autowrap_mode = 2
 
 [node name="Monsters" type="TabBar" parent="TabContainer"]
-visible = false
 layout_mode = 2
 theme = ExtResource("2_umit2")
 
@@ -3019,6 +3023,21 @@ offset_right = 93.0
 offset_bottom = 85.0
 theme_override_constants/icon_max_width = 64
 icon = ExtResource("12_ibua7")
+flat = true
+alignment = 2
+icon_alignment = 1
+expand_icon = true
+
+[node name="Spot10" type="Control" parent="TabContainer/Monsters/ScrollContainer/GridContainer"]
+layout_mode = 2
+
+[node name="tiny_devil_button" type="Button" parent="TabContainer/Monsters/ScrollContainer/GridContainer/Spot10"]
+material = SubResource("ShaderMaterial_wwiv1")
+layout_mode = 0
+offset_right = 93.0
+offset_bottom = 85.0
+theme_override_constants/icon_max_width = 64
+icon = ExtResource("43_ngch1")
 flat = true
 alignment = 2
 icon_alignment = 1
@@ -3621,6 +3640,7 @@ text = "- Has no shadow"
 autowrap_mode = 2
 
 [node name="skeleton_panel" type="Panel" parent="TabContainer/Monsters/Panels"]
+visible = false
 layout_mode = 0
 offset_right = 510.0
 offset_bottom = 513.0
@@ -3685,6 +3705,89 @@ layout_mode = 2
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
 text = "- What an unforunate soul"
+autowrap_mode = 2
+
+[node name="tiny_devil_panel" type="Panel" parent="TabContainer/Monsters/Panels"]
+layout_mode = 0
+offset_right = 510.0
+offset_bottom = 513.0
+theme_override_styles/panel = SubResource("StyleBoxEmpty_wrmxr")
+
+[node name="Sprite2D" type="Sprite2D" parent="TabContainer/Monsters/Panels/tiny_devil_panel"]
+position = Vector2(102, 101)
+scale = Vector2(5.55259, 5.55259)
+texture = ExtResource("43_ngch1")
+
+[node name="Title" type="Label" parent="TabContainer/Monsters/Panels/tiny_devil_panel"]
+layout_mode = 0
+offset_left = 180.0
+offset_top = 34.0
+offset_right = 510.0
+offset_bottom = 79.0
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 48
+text = "Tiny Devil"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="KillCountLabel" type="Label" parent="TabContainer/Monsters/Panels/tiny_devil_panel"]
+layout_mode = 0
+offset_left = 180.0
+offset_top = 79.0
+offset_right = 510.0
+offset_bottom = 124.0
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "Killed: 1"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TabContainer/Monsters/Panels/tiny_devil_panel"]
+layout_mode = 0
+offset_left = 43.0
+offset_top = 174.0
+offset_right = 464.0
+offset_bottom = 505.0
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="Bio" type="Label" parent="TabContainer/Monsters/Panels/tiny_devil_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- A devil from another place"
+autowrap_mode = 2
+
+[node name="Bio2" type="Label" parent="TabContainer/Monsters/Panels/tiny_devil_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- Flies towards enemies"
+autowrap_mode = 2
+
+[node name="Bio4" type="Label" parent="TabContainer/Monsters/Panels/tiny_devil_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- Spits fire balls at enemies"
+autowrap_mode = 2
+
+[node name="Bio3" type="Label" parent="TabContainer/Monsters/Panels/tiny_devil_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- Slow but tanky"
+autowrap_mode = 2
+
+[node name="Bio5" type="Label" parent="TabContainer/Monsters/Panels/tiny_devil_panel/VBoxContainer"]
+custom_minimum_size = Vector2(1, 1)
+layout_mode = 2
+theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
+theme_override_font_sizes/font_size = 32
+text = "- There is nothing tiny about them"
 autowrap_mode = 2
 
 [node name="Bosses" type="TabBar" parent="TabContainer"]
@@ -4624,6 +4727,7 @@ text = "X"
 [connection signal="pressed" from="TabContainer/Monsters/ScrollContainer/GridContainer/Spot7/skeleton_mage_button" to="." method="_on_skeleton_mage_button_pressed"]
 [connection signal="pressed" from="TabContainer/Monsters/ScrollContainer/GridContainer/Spot8/shade_button" to="." method="_on_shade_button_pressed"]
 [connection signal="pressed" from="TabContainer/Monsters/ScrollContainer/GridContainer/Spot9/skeleton_button" to="." method="_on_skeleton_button_pressed"]
+[connection signal="pressed" from="TabContainer/Monsters/ScrollContainer/GridContainer/Spot10/tiny_devil_button" to="." method="_on_tiny_devil_button_pressed"]
 [connection signal="pressed" from="TabContainer/Bosses/ScrollContainer/GridContainer/Spot/Gelatinous_cube_button" to="." method="_on_gelatinous_cube_button_pressed"]
 [connection signal="pressed" from="TabContainer/Bosses/ScrollContainer/GridContainer/Spot2/Forgotten_Golem_button" to="." method="_on_forgotten_golem_pressed"]
 [connection signal="pressed" from="TabContainer/Bosses/ScrollContainer/GridContainer/Spot3/Lich_button" to="." method="_on_lich_button_pressed"]

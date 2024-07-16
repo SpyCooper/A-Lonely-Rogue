@@ -92,6 +92,11 @@ var quartz_behemoth_kill_count = 0
 @onready var onyx_demon_kill_count_label = $TabContainer/Bosses/Panels/onyx_demon_panel/KillCount
 var onyx_demon_unlocked = false
 var onyx_demon_kill_count = 0
+@onready var tiny_devil_button = $TabContainer/Monsters/ScrollContainer/GridContainer/Spot10/tiny_devil_button
+@onready var tiny_devil_panel = $TabContainer/Monsters/Panels/tiny_devil_panel
+@onready var tiny_devil_kill_count_label = $TabContainer/Monsters/Panels/tiny_devil_panel/KillCountLabel
+var tiny_devil_unlocked = false
+var tiny_devil_kill_count = 0
 
 # items variables
 # all enemy sections on the catalog need a reference to it's button, the panel, and a bool
@@ -316,11 +321,17 @@ func load_data():
 						quartz_behemoth_button.material.shader = null
 						quartz_behemoth_kill_count = data["quartz_behemoth_kill_count"]
 				elif enemy == "onyx_demon_unlocked":
-					# quartz_behemoth check
+					# onyx_demon check
 					onyx_demon_unlocked = data["onyx_demon_unlocked"]
 					if onyx_demon_unlocked:
 						onyx_demon_button.material.shader = null
 						onyx_demon_kill_count = data["onyx_demon_kill_count"]
+				elif enemy == "tiny_devil_unlocked":
+					# tiny_devil check
+					tiny_devil_unlocked = data["tiny_devil_unlocked"]
+					if tiny_devil_unlocked:
+						tiny_devil_button.material.shader = null
+						tiny_devil_kill_count = data["tiny_devil_kill_count"]
 			# update the kill counts in the catalog
 			update_kill_counts()
 		save_enemies()
@@ -497,6 +508,7 @@ func clear_panel():
 	skeleton_mage_panel.hide()
 	shade_panel.hide()
 	skeleton_panel.hide()
+	tiny_devil_panel.hide()
 	
 	# boss tab
 	gelatinous_cube_panel.hide()
@@ -707,6 +719,15 @@ func unlock_enemy(enemy):
 			onyx_demon_unlocked = true
 		# increase the kill count and update the counts in the catalog
 		onyx_demon_kill_count += 1
+	elif enemy == EnemyTypes.enemy.tiny_devil:
+		# if the enemy is locked
+		if !tiny_devil_unlocked:
+			# remove the locked shader
+			tiny_devil_button.material.shader = null
+			# set the enemy to be unlocked
+			tiny_devil_unlocked = true
+		# increase the kill count and update the counts in the catalog
+		tiny_devil_kill_count += 1
 	update_kill_counts()
 	# saves the enemies to the catalog file
 	save_enemies()
@@ -750,6 +771,8 @@ func found_enemies():
 		"quartz_behemoth_kill_count" : quartz_behemoth_kill_count,
 		"onyx_demon_unlocked" : onyx_demon_unlocked,
 		"onyx_demon_kill_count" : onyx_demon_kill_count,
+		"tiny_devil_unlocked" : tiny_devil_unlocked,
+		"tiny_devil_kill_count" : tiny_devil_kill_count,
 	}
 	return data
 
@@ -773,6 +796,7 @@ func update_kill_counts():
 	sapphire_pegasus_kill_count_label.text = "Killed: " + str(sapphire_pegasus_kill_count)
 	quartz_behemoth_kill_count_label.text = "Killed: " + str(quartz_behemoth_kill_count)
 	onyx_demon_kill_count_label.text = "Killed: " + str(onyx_demon_kill_count)
+	tiny_devil_kill_count_label.text = "Killed: " + str(tiny_devil_kill_count)
 
 # when the blue slime button is presed
 func _on_blue_slime_pressed():
@@ -936,11 +960,22 @@ func _on_onyx_demon_button_pressed():
 		# show the enemy's info panel
 		onyx_demon_panel.show()
 
+# when thetiny_devil button is presed
+func _on_tiny_devil_button_pressed():
+	# clear the info panel
+	clear_panel()
+	# if the enemy is unlocked
+	if tiny_devil_unlocked:
+		# show the enemy's info panel
+		tiny_devil_panel.show()
+
 # saves the enemy found to "enemiesfound.save"
 func save_enemies():
 	var save_data = FileAccess.open("user://enemiesfound.save", FileAccess.WRITE)
 	var json_string= JSON.stringify(found_enemies())
 	save_data.store_line(json_string)
+
+
 
 ## ---------------------------------- Items --------------------------------------------------------
 
