@@ -22,4 +22,6 @@ enum enemy
 	sapphire_pegasus,
 	quartz_behemoth,
 	onyx_demon,
+	tiny_devil,
+	minotaur,
 }

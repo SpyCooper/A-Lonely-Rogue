@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b8sbhvkionv3"
+path="res://.godot/imported/tiny_devil_flap.mp3-b3284c363ed9742086a39f9d0b8ceaad.mp3str"
+
+[deps]
+
+source_file="res://Assets/Audio/tiny devil/tiny_devil_flap.mp3"
+dest_files=["res://.godot/imported/tiny_devil_flap.mp3-b3284c363ed9742086a39f9d0b8ceaad.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=1.0
+bpm=0.0
+beat_count=0
+bar_beats=4

@@ -11,6 +11,11 @@ extends Enemy
 @onready var hit_flash_animation_timer = $Hit_Flash_animation_player/hit_flash_animation_timer
 const ENEMY_HIT_SHADER = preload("res://Scripts/shaders/enemy_hit_shader.gdshader")
 @onready var damage_player = $DamagePlayer
+const FIRE_BALL = preload("res://Scenes/enemies/fire_ball/fire_ball.tscn")
+@onready var attack_animation_timer = $attack_animation_timer
+@onready var fire_ball_offset = $fire_ball_offset
+@onready var flap_sound = $flap_sound
+@onready var flap_sound_timer = $flap_sound_timer
 
 # attack variables
 var can_attack = false
@@ -18,7 +23,9 @@ var can_attack_timer_max = 7
 var can_attack_timer_range = 2.0
 var can_attack_timer = can_attack_timer_max
 var attacking = false
-@onready var attack_sound = $attack_sound
+
+# defines a random number generator
+var rng = RandomNumberGenerator.new()
 
 # general enemy variables
 var target_position
@@ -87,6 +94,16 @@ func _physics_process(_delta):
 				if animated_sprite.global_position.distance_to(player_position) > 5:
 					## has to use get_speed() to move based on dusted effect
 					move_and_collide(target_position.normalized() * get_speed())
+	if player_in_room:
+		if animated_sprite.animation == "spawning":
+			if animated_sprite.frame == 2:
+				flap_sound.play()
+		elif animated_sprite.animation == "move_left" || animated_sprite.animation == "move_right":
+			if animated_sprite.frame == 1:
+				flap_sound.play()
+		elif animated_sprite.animation == "attack_left" || animated_sprite.animation == "attack_right":
+			if animated_sprite.frame == 0 || animated_sprite.frame == 4:
+				flap_sound.play()
 
 # runs when a knife (or other weapon) hits the enemy
 func take_damage(damage, attack_identifer, is_effect):
@@ -135,13 +152,14 @@ func take_damage(damage, attack_identifer, is_effect):
 # when death timer ends
 func _on_death_timer_timeout():
 	# unlock the shade in the catalog
-	catalog.unlock_enemy(EnemyTypes.enemy.shade)
+	catalog.unlock_enemy(EnemyTypes.enemy.tiny_devil)
 	# call enemy slain
 	enemy_slain()
 
 # when spawn timer ends
 func _on_spawn_timer_timeout():
 	spawning = false
+	restart_flap_sound()
 
 # returns the animated sprite
 func get_animated_sprite():
@@ -149,9 +167,41 @@ func get_animated_sprite():
 
 # when the shade attacks
 func attack():
-	pass
+	if current_direction == look_direction.right:
+		animated_sprite.play("attack_right")
+	else:
+		animated_sprite.play("attack_left")
+	attack_animation_timer.start()
+	fire_ball_offset.start()
+	can_move = false
+	restart_flap_sound()
 
 # when the hit flash animation timer ends
 func _on_hit_flash_animation_timer_timeout():
 	# remove the hit flash shader
 	animated_sprite.material.shader = null
+
+func _on_attack_animation_timer_timeout():
+	can_attack_timer = rng.randf_range(can_attack_timer_max - 0.5, can_attack_timer_max + 0.5)
+	can_attack = false
+	can_move = true
+	restart_flap_sound()
+
+func _on_fire_ball_offset_timeout():
+	if !dying:
+		# spawn the shadow bolt
+		var fire_ball = FIRE_BALL.instantiate()
+		fire_ball.global_position = animated_sprite.global_position
+		get_tree().current_scene.add_child(fire_ball)
+		# tell the shadow bolt that it spawned
+		fire_ball.spawned((player.get_player_position() - animated_sprite.global_position).normalized())
+
+func restart_flap_sound():
+	#flap_sound.play()
+	#flap_sound_timer.start()
+	pass
+
+func _on_flap_sound_timer_timeout():
+	#flap_sound.play()
+	#flap_sound_timer.start()
+	pass
