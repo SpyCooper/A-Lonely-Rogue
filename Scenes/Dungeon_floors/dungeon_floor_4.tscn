@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://bsgca2ryt6hhk"]
+[gd_scene load_steps=32 format=3 uid="uid://bsgca2ryt6hhk"]
 
 [ext_resource type="Script" path="res://Scripts/map/dungeon_floor.gd" id="1_e1kxb"]
 [ext_resource type="PackedScene" uid="uid://duv7i8yak343i" path="res://Scenes/menus/HUD.tscn" id="2_182ru"]
@@ -19,7 +19,6 @@
 [ext_resource type="PackedScene" uid="uid://cfta80h76u0k2" path="res://Scenes/item_chest.tscn" id="21_guaou"]
 [ext_resource type="PackedScene" uid="uid://dp3cijhg2nws2" path="res://Scenes/map/rooms/2_door_room_up_left.tscn" id="22_qqloo"]
 [ext_resource type="PackedScene" uid="uid://dy8i23c2qb18k" path="res://Scenes/enemies/skeleton_archer.tscn" id="22_us74r"]
-[ext_resource type="PackedScene" uid="uid://dvwf7rte2gvv2" path="res://Scenes/enemies/skeleton_mage.tscn" id="23_17vag"]
 [ext_resource type="PackedScene" uid="uid://nl45rowphdwa" path="res://Scenes/map/rooms/3_door_room_no_left.tscn" id="23_dvpuq"]
 [ext_resource type="PackedScene" uid="uid://01wblyc3frib" path="res://Scenes/map/rooms/2_door_up_down.tscn" id="23_n8bam"]
 [ext_resource type="PackedScene" uid="uid://b1opxnh484w82" path="res://Scenes/enemies/skeleton_warrior.tscn" id="24_cxygx"]
@@ -120,6 +119,7 @@ y_sort_enabled = true
 script = ExtResource("1_e1kxb")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
 
 [node name="Fade_color" type="ColorRect" parent="CanvasLayer"]
 offset_right = 1280.0
@@ -189,7 +189,7 @@ volume_db = -2.0
 bus = &"Music"
 
 [node name="shade" parent="." instance=ExtResource("13_5138j")]
-position = Vector2(-77, 431)
+position = Vector2(80, 280)
 
 [node name="heart_1_pickup" parent="." instance=ExtResource("20_54324")]
 position = Vector2(0, 485)
@@ -208,15 +208,6 @@ position = Vector2(-670, 266)
 
 [node name="skeleton_archer" parent="." instance=ExtResource("22_us74r")]
 position = Vector2(-855, 187)
-
-[node name="skeleton_mage" parent="." instance=ExtResource("23_17vag")]
-position = Vector2(-855, 275)
-
-[node name="skeleton_archer2" parent="." instance=ExtResource("22_us74r")]
-position = Vector2(768, 291)
-
-[node name="skeleton_archer3" parent="." instance=ExtResource("22_us74r")]
-position = Vector2(286, 177)
 
 [node name="skeleton_warrior" parent="." instance=ExtResource("24_cxygx")]
 position = Vector2(387, 291)
@@ -262,6 +253,21 @@ position = Vector2(-767, -251)
 
 [node name="shade8" parent="." instance=ExtResource("26_22456")]
 position = Vector2(-68, 225)
+
+[node name="tiny_devil" parent="." instance=ExtResource("26_22456")]
+position = Vector2(-860, 272)
+
+[node name="tiny_devil2" parent="." instance=ExtResource("26_22456")]
+position = Vector2(-486, 277)
+
+[node name="tiny_devil3" parent="." instance=ExtResource("26_22456")]
+position = Vector2(277, 176)
+
+[node name="tiny_devil4" parent="." instance=ExtResource("26_22456")]
+position = Vector2(673, 285)
+
+[node name="tiny_devil5" parent="." instance=ExtResource("26_22456")]
+position = Vector2(893, 275)
 
 [connection signal="timeout" from="CanvasLayer/Fade_color/Fade_timer" to="." method="_on_fade_timer_timeout"]
 
