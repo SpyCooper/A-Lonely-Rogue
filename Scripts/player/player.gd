@@ -26,6 +26,8 @@ const HIT_SHADER = preload("res://Scripts/shaders/enemy_hit_shader.gdshader")
 @onready var player_fall_sound_timer = $player_fall_sound/player_fall_sound_timer
 @onready var falling_sprite_dark = $falling_sprite_dark
 @onready var falling_dark_animation_player = $falling_sprite_dark/falling_dark_AnimationPlayer
+@onready var marker_left = $marker_left
+@onready var marker_right = $marker_right
 
 # constants
 const KNIFE_SPEED = 150.0
@@ -1202,3 +1204,9 @@ func set_player_position(new_pos):
 		animated_sprite.play("idle_down_dark")
 	else:
 		animated_sprite.play("idle_down")
+
+func get_marker_left():
+	return marker_left.global_position
+
+func get_marker_right():
+	return marker_right.global_position

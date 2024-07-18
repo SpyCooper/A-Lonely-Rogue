@@ -23,5 +23,5 @@ enum enemy
 	quartz_behemoth,
 	onyx_demon,
 	tiny_devil,
-	minotaur,
+	lost_knight,
 }

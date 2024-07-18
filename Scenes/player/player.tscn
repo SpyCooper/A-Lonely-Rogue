@@ -870,6 +870,12 @@ bus = &"Sound Effect"
 [node name="quartz_spike_spawn_timer" type="Timer" parent="."]
 wait_time = 0.5
 
+[node name="marker_left" type="Marker2D" parent="."]
+position = Vector2(-17, -7)
+
+[node name="marker_right" type="Marker2D" parent="."]
+position = Vector2(17, -7)
+
 [connection signal="timeout" from="DeathTimer" to="." method="_on_death_timer_timeout"]
 [connection signal="timeout" from="Hit_Flash_animation_player/hit_flash_animation_timer" to="." method="_on_hit_flash_animation_timer_timeout"]
 [connection signal="timeout" from="fall_timer" to="." method="_on_fall_timer_timeout"]
