@@ -8,6 +8,7 @@ enum state
 	jump,
 	jump_attack,
 	rolling,
+	running,
 	idle,
 }
 
@@ -57,7 +58,18 @@ var roll_direction = Vector2(0,0)
 @onready var roll_timer = $roll_timer
 @onready var body_damage_hb = $DamagePlayer/body_damage_hb
 @onready var player_collision_box = $collision_with_player/player_collision_box
+@onready var extend_hitbox = $extend_hitbox
+var can_roll = true
 
+# jump attack variables
+@onready var jump_timer = $jump_timer
+@onready var fall_timer = $fall_timer
+@onready var landing_timer = $landing_timer
+var running_near_player = false
+@onready var land_hit_area = $DamagePlayer/land_hit_area
+var jump_landing_direction = Vector2(0,0)
+@onready var jump_attack_timer = $jump_attack_timer
+@onready var wait_after_jump_attack = $wait_after_jump_attack
 
 
 # defines a random number generator
@@ -109,6 +121,8 @@ func _physics_process(_delta):
 			
 			if current_state == state.rolling:
 				move_and_collide(roll_direction.normalized() * get_speed())
+			elif current_state == state.jump:
+				move_and_collide(jump_landing_direction.normalized() * get_speed())
 			elif can_attack:
 				# does an attack
 				attack()
@@ -133,6 +147,26 @@ func _physics_process(_delta):
 				else:
 					running_to_player = false
 					quad_attack()
+			elif running_near_player:
+				# gets the player's position and looks toward it
+				if current_direction == look_direction.left :
+					# plays the basic move animation and sets the playing_hit_animation to false
+					animated_sprite.play("run_left")
+				## Move right
+				else:
+					animated_sprite.play("run_right")
+				player_position = player.global_position
+				target_position = (player_position - global_position).normalized()
+				
+				if global_position.distance_to(player_position) > 40:
+					### has to use get_speed() to move based on dusted effect
+					var collision = move_and_collide(target_position.normalized() * get_speed())
+					if collision != null:
+						running_near_player = false
+						jump_attack()
+				else:
+					running_near_player = false
+					jump_attack()
 			elif current_state == state.idle:
 				# flips the direction of the onyx demon based on the current_direction
 				## NOTE: all these checks are identical but change the directions they look at
@@ -238,15 +272,17 @@ func _on_spawn_timer_timeout():
 func _on_attack_timer_timeout():
 	# allow the onyx demon to attack
 	can_attack = true
+	
+	can_roll = true
 
 # when the onyx demon is doing a random attack
 func attack():
 	# checks to make sure the character isn't dying
 	if !dying:
 		can_attack = false
-		
 		#run_to_player()
-		roll()
+		#roll()
+		run_near_player()
 
 # when the attacks end
 func attack_end():
@@ -275,6 +311,7 @@ func _on_heal_timer_timeout():
 
 func run_to_player():
 	running_to_player = true
+	current_state = state.running
 
 func quad_attack():
 	current_state = state.attack
@@ -356,7 +393,14 @@ func _on_attack_4_hitbox_timer_timeout():
 	else:
 		attack_4_hitbox_left.set_deferred("disabled", true)
 
+func _on_knife_detection_area_entered(area):
+	if area is Knife:
+		if current_state == state.idle && can_roll:
+			roll()
+
 func roll():
+	can_roll = false
+	
 	## x direction
 	var vec_x = rng.randf_range(0.1, 1)
 	var pos_or_neg = rng.randi_range(-1, 1)
@@ -379,9 +423,51 @@ func roll():
 	roll_timer.start()
 	body_damage_hb.set_deferred("disabled", true)
 	player_collision_box.set_deferred("disabled", true)
+	extend_hitbox.set_deferred("disabled", true)
 
 func _on_roll_timer_timeout():
 	current_state = state.idle
 	body_damage_hb.set_deferred("disabled", false)
 	player_collision_box.set_deferred("disabled", false)
+	extend_hitbox.set_deferred("disabled", false)
 	attack_end()
+
+func run_near_player():
+	running_near_player = true
+	current_state = state.running
+
+func jump_attack():
+	jump_landing_direction = target_position.normalized()
+	current_state = state.jump
+	animated_sprite.play("jump_attack_right")
+	
+	jump_timer.start()
+	landing_timer.start()
+	fall_timer.start()
+	jump_attack_timer.start()
+	body_damage_hb.set_deferred("disabled", true)
+	player_collision_box.set_deferred("disabled", true)
+
+func _on_jump_timer_timeout():
+	hitbox.set_deferred("disabled", true)
+	
+	current_state = state.jump_attack
+	can_move = false
+
+func _on_fall_timer_timeout():
+	pass
+
+func _on_landing_timer_timeout():
+	land_hit_area.set_deferred("disabled", false)
+
+func _on_jump_attack_timer_timeout():
+	hitbox.set_deferred("disabled", false)
+	wait_after_jump_attack.start()
+	attack_end()
+
+
+func _on_wait_after_jump_attack_timeout():
+	
+	body_damage_hb.set_deferred("disabled", false)
+	player_collision_box.set_deferred("disabled", false)
+	land_hit_area.set_deferred("disabled", true)
