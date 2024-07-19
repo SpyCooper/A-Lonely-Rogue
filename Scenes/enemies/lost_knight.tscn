@@ -1,8 +1,18 @@
-[gd_scene load_steps=148 format=3 uid="uid://dcthuh3uix6il"]
+[gd_scene load_steps=173 format=3 uid="uid://dcthuh3uix6il"]
 
 [ext_resource type="Script" path="res://Scripts/enemy/lost_knight.gd" id="1_br7av"]
 [ext_resource type="Texture2D" uid="uid://b5nj83ihdckgi" path="res://Assets/Sprites/enemies/lost_knight.png" id="2_edgqm"]
 [ext_resource type="PackedScene" uid="uid://q3bng0o4u44l" path="res://Scenes/enemies/damage_player.tscn" id="3_jtg53"]
+[ext_resource type="AudioStream" uid="uid://e8xcxn6my4hm" path="res://Assets/Audio/lost_knight/knight_hit.mp3" id="4_n4tlo"]
+[ext_resource type="AudioStream" uid="uid://g7qgkyrvipiw" path="res://Assets/Audio/lost_knight/heal.mp3" id="4_qqd87"]
+[ext_resource type="AudioStream" uid="uid://byyn4f064hs0j" path="res://Assets/Audio/lost_knight/sword_attack_1.mp3" id="4_umdtn"]
+[ext_resource type="AudioStream" uid="uid://dwuu7s2jdts1r" path="res://Assets/Audio/lost_knight/sword_attack_2.mp3" id="5_1mvgh"]
+[ext_resource type="AudioStream" uid="uid://cnuomqsw6vffb" path="res://Assets/Audio/lost_knight/knight_death.mp3" id="5_24of3"]
+[ext_resource type="AudioStream" uid="uid://ceb68jcdu1rt6" path="res://Assets/Audio/lost_knight/knight_spawn.mp3" id="5_x7hf8"]
+[ext_resource type="AudioStream" uid="uid://diemk7stvjdvf" path="res://Assets/Audio/lost_knight/sword_attack_3.mp3" id="6_dtcjj"]
+[ext_resource type="AudioStream" uid="uid://cdi0db5ueh6r6" path="res://Assets/Audio/lost_knight/sword_attack_4.mp3" id="7_yrwgc"]
+[ext_resource type="AudioStream" uid="uid://t8mcd3yhmwrr" path="res://Assets/Audio/lost_knight/jump_attack.mp3" id="12_onoud"]
+[ext_resource type="AudioStream" uid="uid://c6no0sgq3d728" path="res://Assets/Audio/lost_knight/knight_roll.mp3" id="12_vn774"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nyloe"]
 radius = 4.79893
@@ -14,6 +24,26 @@ height = 38.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6k7h3"]
 resource_local_to_scene = true
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1vdlt"]
+atlas = ExtResource("2_edgqm")
+region = Rect2(0, 64, 128, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_usgxr"]
+atlas = ExtResource("2_edgqm")
+region = Rect2(512, 768, 128, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x1q6l"]
+atlas = ExtResource("2_edgqm")
+region = Rect2(640, 768, 128, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ktquj"]
+atlas = ExtResource("2_edgqm")
+region = Rect2(768, 768, 128, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mfb5m"]
+atlas = ExtResource("2_edgqm")
+region = Rect2(896, 768, 128, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_cnan3"]
 atlas = ExtResource("2_edgqm")
@@ -162,6 +192,46 @@ region = Rect2(768, 0, 128, 64)
 [sub_resource type="AtlasTexture" id="AtlasTexture_hoig6"]
 atlas = ExtResource("2_edgqm")
 region = Rect2(896, 0, 128, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ryc26"]
+atlas = ExtResource("2_edgqm")
+region = Rect2(0, 1024, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kl0df"]
+atlas = ExtResource("2_edgqm")
+region = Rect2(128, 1024, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w3oqv"]
+atlas = ExtResource("2_edgqm")
+region = Rect2(256, 1024, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l48po"]
+atlas = ExtResource("2_edgqm")
+region = Rect2(384, 1024, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_2yo0h"]
+atlas = ExtResource("2_edgqm")
+region = Rect2(512, 1024, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3aup4"]
+atlas = ExtResource("2_edgqm")
+region = Rect2(640, 1024, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nuigk"]
+atlas = ExtResource("2_edgqm")
+region = Rect2(768, 1024, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mjgll"]
+atlas = ExtResource("2_edgqm")
+region = Rect2(896, 1024, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g1kqq"]
+atlas = ExtResource("2_edgqm")
+region = Rect2(1024, 1024, 128, 128)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1rrti"]
+atlas = ExtResource("2_edgqm")
+region = Rect2(1152, 1024, 128, 128)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_0fv6n"]
 atlas = ExtResource("2_edgqm")
@@ -539,6 +609,26 @@ region = Rect2(0, 0, 128, 64)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_1vdlt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_usgxr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x1q6l")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ktquj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mfb5m")
+}],
+"loop": false,
+"name": &"dying_left",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_cnan3")
 }, {
 "duration": 1.0,
@@ -554,7 +644,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_8n14u")
 }],
 "loop": false,
-"name": &"dying",
+"name": &"dying_right",
 "speed": 8.0
 }, {
 "frames": [{
@@ -671,6 +761,41 @@ animations = [{
 }],
 "loop": true,
 "name": &"idle_right",
+"speed": 8.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ryc26")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kl0df")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w3oqv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l48po")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_2yo0h")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3aup4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nuigk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mjgll")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g1kqq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1rrti")
+}],
+"loop": false,
+"name": &"jump_attack_left",
 "speed": 8.0
 }, {
 "frames": [{
@@ -1009,8 +1134,7 @@ radius = 20.0
 height = 46.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_btxch"]
-radius = 6.0
-height = 66.0
+height = 78.0
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_84dmf"]
 radius = 3.0
@@ -1061,13 +1185,16 @@ collision_layer = 12
 collision_mask = 9
 script = ExtResource("1_br7av")
 
+[node name="center_marker" type="Marker2D" parent="."]
+position = Vector2(0, -25)
+
 [node name="hitbox" type="CollisionShape2D" parent="."]
 position = Vector2(-1.92593e-34, -11)
 scale = Vector2(2.36147, 2.50056)
 shape = SubResource("CapsuleShape2D_nyloe")
 
 [node name="extend_hitbox" type="CollisionShape2D" parent="."]
-position = Vector2(0, -28)
+position = Vector2(0, -25)
 shape = SubResource("CapsuleShape2D_six1t")
 disabled = true
 
@@ -1075,14 +1202,13 @@ disabled = true
 material = SubResource("ShaderMaterial_6k7h3")
 position = Vector2(0, -24)
 sprite_frames = SubResource("SpriteFrames_7k1ry")
-animation = &"quad_attack_left"
-autoplay = "dying"
-frame = 19
-frame_progress = 1.0
+animation = &"jump_attack_left"
+autoplay = "dying_right"
+frame = 7
 
 [node name="DamagePlayer" parent="." instance=ExtResource("3_jtg53")]
 position = Vector2(0, -34)
-collision_mask = 3
+collision_layer = 0
 
 [node name="body_damage_hb" type="CollisionShape2D" parent="DamagePlayer"]
 position = Vector2(0, 10)
@@ -1123,7 +1249,7 @@ shape = SubResource("CapsuleShape2D_4eeiw")
 disabled = true
 
 [node name="land_hit_area" type="CollisionShape2D" parent="DamagePlayer"]
-position = Vector2(0, 28)
+position = Vector2(0, 30)
 rotation = 1.5708
 shape = SubResource("CapsuleShape2D_btxch")
 disabled = true
@@ -1132,8 +1258,16 @@ disabled = true
 wait_time = 4.0
 one_shot = true
 
+[node name="short_attack_timer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
 [node name="Death_timer" type="Timer" parent="."]
 wait_time = 1.3
+one_shot = true
+
+[node name="Death_sound_timer" type="Timer" parent="."]
+wait_time = 0.5
 one_shot = true
 
 [node name="Spawn_timer" type="Timer" parent="."]
@@ -1152,16 +1286,18 @@ shape = SubResource("CapsuleShape2D_84dmf")
 
 [node name="HitSound" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(0, -21)
+stream = ExtResource("4_n4tlo")
 bus = &"Sound Effect"
 
 [node name="SpawnSound" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(0, -21)
-bus = &"Sound Effect"
-
-[node name="attack_sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_x7hf8")
+volume_db = -5.0
 bus = &"Sound Effect"
 
 [node name="death_sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_24of3")
+volume_db = 5.0
 bus = &"Sound Effect"
 
 [node name="Hit_Flash_animation_player" type="AnimationPlayer" parent="."]
@@ -1176,6 +1312,18 @@ one_shot = true
 [node name="heal_timer" type="Timer" parent="."]
 wait_time = 1.1
 one_shot = true
+
+[node name="idle_until_heal" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="heal_sound_timer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="heal_sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_qqd87")
+bus = &"Sound Effect"
 
 [node name="quad_attack_timer" type="Timer" parent="."]
 wait_time = 2.5
@@ -1212,12 +1360,38 @@ one_shot = true
 wait_time = 0.375
 one_shot = true
 
-[node name="center_marker" type="Marker2D" parent="."]
-position = Vector2(0, -25)
+[node name="sword_swing_1" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("4_umdtn")
+bus = &"Sound Effect"
+
+[node name="sword_swing_2" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_1mvgh")
+bus = &"Sound Effect"
+
+[node name="sword_swing_3" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_dtcjj")
+bus = &"Sound Effect"
+
+[node name="sword_swing_4" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_yrwgc")
+bus = &"Sound Effect"
+
+[node name="knife_detection" type="Area2D" parent="."]
+position = Vector2(0, -24)
+disable_mode = 2
+collision_layer = 0
+collision_mask = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="knife_detection"]
+shape = SubResource("CircleShape2D_sjijc")
 
 [node name="roll_timer" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
+
+[node name="rolling_sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("12_vn774")
+bus = &"Sound Effect"
 
 [node name="jump_timer" type="Timer" parent="."]
 wait_time = 0.375
@@ -1235,24 +1409,23 @@ one_shot = true
 wait_time = 1.13
 one_shot = true
 
-[node name="knife_detection" type="Area2D" parent="."]
-position = Vector2(0, -24)
-disable_mode = 2
-collision_layer = 0
-collision_mask = 4
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="knife_detection"]
-shape = SubResource("CircleShape2D_sjijc")
-
 [node name="wait_after_jump_attack" type="Timer" parent="."]
 wait_time = 0.5
 one_shot = true
 
+[node name="jump_attack_sound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("12_onoud")
+bus = &"Sound Effect"
+
 [connection signal="timeout" from="Attack_timer" to="." method="_on_attack_timer_timeout"]
+[connection signal="timeout" from="short_attack_timer" to="." method="_on_short_attack_timer_timeout"]
 [connection signal="timeout" from="Death_timer" to="." method="_on_death_timer_timeout"]
+[connection signal="timeout" from="Death_sound_timer" to="." method="_on_death_sound_timer_timeout"]
 [connection signal="timeout" from="Spawn_timer" to="." method="_on_spawn_timer_timeout"]
 [connection signal="timeout" from="Hit_Flash_animation_player/hit_flash_animation_timer" to="." method="_on_hit_flash_animation_timer_timeout"]
 [connection signal="timeout" from="heal_timer" to="." method="_on_heal_timer_timeout"]
+[connection signal="timeout" from="idle_until_heal" to="." method="_on_idle_until_heal_timeout"]
+[connection signal="timeout" from="heal_sound_timer" to="." method="_on_heal_sound_timer_timeout"]
 [connection signal="timeout" from="quad_attack_timer" to="." method="_on_quad_attack_timer_timeout"]
 [connection signal="timeout" from="attack_1_timer" to="." method="_on_attack_1_timer_timeout"]
 [connection signal="timeout" from="attack_1_hitbox_timer" to="." method="_on_attack_1_hitbox_timer_timeout"]
@@ -1262,10 +1435,10 @@ one_shot = true
 [connection signal="timeout" from="attack_3_hitbox_timer" to="." method="_on_attack_3_hitbox_timer_timeout"]
 [connection signal="timeout" from="attack_4_timer" to="." method="_on_attack_4_timer_timeout"]
 [connection signal="timeout" from="attack_4_hitbox_timer" to="." method="_on_attack_4_hitbox_timer_timeout"]
+[connection signal="area_entered" from="knife_detection" to="." method="_on_knife_detection_area_entered"]
 [connection signal="timeout" from="roll_timer" to="." method="_on_roll_timer_timeout"]
 [connection signal="timeout" from="jump_timer" to="." method="_on_jump_timer_timeout"]
 [connection signal="timeout" from="fall_timer" to="." method="_on_fall_timer_timeout"]
 [connection signal="timeout" from="landing_timer" to="." method="_on_landing_timer_timeout"]
 [connection signal="timeout" from="jump_attack_timer" to="." method="_on_jump_attack_timer_timeout"]
-[connection signal="area_entered" from="knife_detection" to="." method="_on_knife_detection_area_entered"]
 [connection signal="timeout" from="wait_after_jump_attack" to="." method="_on_wait_after_jump_attack_timeout"]

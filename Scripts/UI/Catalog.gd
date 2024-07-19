@@ -97,6 +97,11 @@ var onyx_demon_kill_count = 0
 @onready var tiny_devil_kill_count_label = $TabContainer/Monsters/Panels/tiny_devil_panel/KillCountLabel
 var tiny_devil_unlocked = false
 var tiny_devil_kill_count = 0
+@onready var lost_knight_button = $TabContainer/Bosses/ScrollContainer/GridContainer/Spot10/Lost_knight_button
+@onready var lost_knight_panel = $TabContainer/Bosses/Panels/Lost_knight_panel
+@onready var lost_knight_kill_count_label = $TabContainer/Bosses/Panels/onyx_demon_panel/KillCount
+var lost_knight_unlocked = false
+var lost_knight_kill_count = 0
 
 # items variables
 # all enemy sections on the catalog need a reference to it's button, the panel, and a bool
@@ -332,6 +337,12 @@ func load_data():
 					if tiny_devil_unlocked:
 						tiny_devil_button.material.shader = null
 						tiny_devil_kill_count = data["tiny_devil_kill_count"]
+				elif enemy == "lost_knight_unlocked":
+					# tiny_devil check
+					lost_knight_unlocked = data["lost_knight_unlocked"]
+					if lost_knight_unlocked:
+						lost_knight_button.material.shader = null
+						lost_knight_kill_count = data["lost_knight_kill_count"]
 			# update the kill counts in the catalog
 			update_kill_counts()
 		save_enemies()
@@ -520,6 +531,7 @@ func clear_panel():
 	sapphire_pegasus_panel.hide()
 	quartz_behemoth_panel.hide()
 	onyx_demon_panel.hide()
+	lost_knight_panel.hide()
 	
 	# items tab
 	speed_boots_panel.hide()
@@ -728,6 +740,15 @@ func unlock_enemy(enemy):
 			tiny_devil_unlocked = true
 		# increase the kill count and update the counts in the catalog
 		tiny_devil_kill_count += 1
+	elif enemy == EnemyTypes.enemy.lost_knight:
+		# if the enemy is locked
+		if !lost_knight_unlocked:
+			# remove the locked shader
+			lost_knight_button.material.shader = null
+			# set the enemy to be unlocked
+			lost_knight_unlocked = true
+		# increase the kill count and update the counts in the catalog
+		lost_knight_kill_count += 1
 	update_kill_counts()
 	# saves the enemies to the catalog file
 	save_enemies()
@@ -773,6 +794,8 @@ func found_enemies():
 		"onyx_demon_kill_count" : onyx_demon_kill_count,
 		"tiny_devil_unlocked" : tiny_devil_unlocked,
 		"tiny_devil_kill_count" : tiny_devil_kill_count,
+		"lost_knight_unlocked" : lost_knight_unlocked,
+		"lost_knight_kill_count" : lost_knight_kill_count,
 	}
 	return data
 
@@ -797,6 +820,7 @@ func update_kill_counts():
 	quartz_behemoth_kill_count_label.text = "Killed: " + str(quartz_behemoth_kill_count)
 	onyx_demon_kill_count_label.text = "Killed: " + str(onyx_demon_kill_count)
 	tiny_devil_kill_count_label.text = "Killed: " + str(tiny_devil_kill_count)
+	lost_knight_kill_count_label.text = "Killed: " + str(lost_knight_kill_count)
 
 # when the blue slime button is presed
 func _on_blue_slime_pressed():
@@ -960,7 +984,7 @@ func _on_onyx_demon_button_pressed():
 		# show the enemy's info panel
 		onyx_demon_panel.show()
 
-# when thetiny_devil button is presed
+# when the tiny_devil button is presed
 func _on_tiny_devil_button_pressed():
 	# clear the info panel
 	clear_panel()
@@ -968,6 +992,15 @@ func _on_tiny_devil_button_pressed():
 	if tiny_devil_unlocked:
 		# show the enemy's info panel
 		tiny_devil_panel.show()
+
+# when the lost_knight button is presed
+func _on_lost_knight_button_pressed():
+	# clear the info panel
+	clear_panel()
+	# if the enemy is unlocked
+	if lost_knight_unlocked:
+		# show the enemy's info panel
+		lost_knight_panel.show()
 
 # saves the enemy found to "enemiesfound.save"
 func save_enemies():

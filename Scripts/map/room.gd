@@ -56,16 +56,17 @@ func _on_enemy_detector_body_entered(body):
 func _on_enemy_detector_body_exited(body):
 	# if the body is an enemy
 	if body is Enemy:
-		# remove a enemy from the count
-		enemies_spawned.remove_at(enemies_spawned.find(body))
-		# if all enemies are gone, disable the doors
-		if enemies_spawned.size() == 0:
-			open_all_doors()
-			# check the lock status when the player enters the room and there are no enemies
-			if Events.player.has_keys():
-				key_checks.locks_changed(true)
-			else:
-				key_checks.locks_changed(false)
+		if enemies_spawned[enemies_spawned.find(body)].dying:
+			# remove a enemy from the count
+			enemies_spawned.remove_at(enemies_spawned.find(body))
+			# if all enemies are gone, disable the doors
+			if enemies_spawned.size() == 0:
+				open_all_doors()
+				# check the lock status when the player enters the room and there are no enemies
+				if Events.player.has_keys():
+					key_checks.locks_changed(true)
+				else:
+					key_checks.locks_changed(false)
 
 # closes all doors
 func close_all_doors():
