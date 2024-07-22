@@ -99,11 +99,12 @@ var can_attack = false
 var can_move = true
 var current_state = state.idle
 var next_attack = attack.quad
+var room = null
 
 # on start
 func _ready():
 	# basic enemy stats
-	speed = 1.5
+	speed = 1.7
 	health = 65
 	max_health = health
 	# sets references to the player and catalog
@@ -287,6 +288,8 @@ func _on_death_timer_timeout():
 	hud.hide_health_bar()
 	# unlock the enemy in the catalog
 	catalog.unlock_enemy(EnemyTypes.enemy.lost_knight)
+	# clears the room (this is a fix to a bug with the lost knight
+	player.cleared_room_called_from_enemy()
 	# call enemy_slain()
 	enemy_slain()
 

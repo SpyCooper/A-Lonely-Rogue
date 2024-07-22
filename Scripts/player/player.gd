@@ -1210,3 +1210,6 @@ func get_marker_left():
 
 func get_marker_right():
 	return marker_right.global_position
+
+func cleared_room_called_from_enemy():
+	current_room.cleared()

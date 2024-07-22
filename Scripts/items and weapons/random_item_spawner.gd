@@ -170,6 +170,13 @@ func spawn_item():
 			item_can_spawn = false
 		else:
 			item_can_spawn = true
+	# checks if the item type is a cursed_key
+	elif item_types_array[random_item_key] == ItemType.type.cursed_key:
+		# only allow the spawn of cursed_key on floors other than 1
+		if Events.current_floor == "Floor1":
+			item_can_spawn = false
+		else:
+			item_can_spawn = true
 	
 	# if the item is not spawned and can spawned
 	if item_has_spawned == false && item_can_spawn == true:

@@ -244,9 +244,6 @@ position = Vector2(0, -163)
 [node name="emerald_skeleton" parent="." instance=ExtResource("32_34jc5")]
 position = Vector2(-857, -655)
 
-[node name="heart_2_pickup" parent="." instance=ExtResource("23_vpsya")]
-position = Vector2(1090, -225)
-
 [node name="heart_1_pickup" parent="." instance=ExtResource("26_tdym4")]
 position = Vector2(384, -449)
 

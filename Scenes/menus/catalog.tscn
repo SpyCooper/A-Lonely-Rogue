@@ -265,7 +265,6 @@ grow_vertical = 2
 theme = ExtResource("2_umit2")
 
 [node name="Items" type="TabBar" parent="TabContainer"]
-visible = false
 layout_mode = 2
 theme = ExtResource("2_umit2")
 
@@ -2103,7 +2102,6 @@ text = "- How'd he get in there?"
 autowrap_mode = 2
 
 [node name="hurtful_charm_panel" type="Panel" parent="TabContainer/Items/Panels"]
-visible = false
 layout_mode = 0
 offset_right = 510.0
 offset_bottom = 513.0
@@ -2187,11 +2185,11 @@ text = "- Who would find this comfortable?"
 autowrap_mode = 2
 
 [node name="magically_trapped_rogue_panel" type="Panel" parent="TabContainer/Items/Panels"]
-visible = false
 layout_mode = 0
-offset_left = 11.0
-offset_right = 521.0
-offset_bottom = 513.0
+offset_left = 5.0
+offset_top = 15.0
+offset_right = 515.0
+offset_bottom = 528.0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_wrmxr")
 
 [node name="Sprite2D" type="Sprite2D" parent="TabContainer/Items/Panels/magically_trapped_rogue_panel"]
@@ -2264,11 +2262,11 @@ text = "- How does he float there?"
 autowrap_mode = 2
 
 [node name="dead_rogues_head_panel" type="Panel" parent="TabContainer/Items/Panels"]
-visible = false
 layout_mode = 0
-offset_left = 11.0
-offset_right = 521.0
-offset_bottom = 513.0
+offset_left = 5.0
+offset_top = 15.0
+offset_right = 515.0
+offset_bottom = 528.0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_wrmxr")
 
 [node name="Sprite2D" type="Sprite2D" parent="TabContainer/Items/Panels/dead_rogues_head_panel"]
@@ -2341,11 +2339,11 @@ text = "- His journey must continue, but this is gross"
 autowrap_mode = 2
 
 [node name="cursed_key_panel" type="Panel" parent="TabContainer/Items/Panels"]
-visible = false
 layout_mode = 0
-offset_left = 11.0
-offset_right = 521.0
-offset_bottom = 513.0
+offset_left = 5.0
+offset_top = 15.0
+offset_right = 515.0
+offset_bottom = 528.0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_wrmxr")
 
 [node name="Sprite2D" type="Sprite2D" parent="TabContainer/Items/Panels/cursed_key_panel"]
@@ -2418,11 +2416,11 @@ text = "- Why does it have an eye on it?"
 autowrap_mode = 2
 
 [node name="lady_lucks_key_panel" type="Panel" parent="TabContainer/Items/Panels"]
-visible = false
 layout_mode = 0
-offset_left = 11.0
-offset_right = 521.0
-offset_bottom = 513.0
+offset_left = 5.0
+offset_top = 15.0
+offset_right = 515.0
+offset_bottom = 528.0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_wrmxr")
 
 [node name="Sprite2D" type="Sprite2D" parent="TabContainer/Items/Panels/lady_lucks_key_panel"]
@@ -2495,11 +2493,11 @@ text = "- How do you hold this with the wings there?"
 autowrap_mode = 2
 
 [node name="sapphire_horn_panel" type="Panel" parent="TabContainer/Items/Panels"]
-visible = false
 layout_mode = 0
-offset_left = 11.0
-offset_right = 521.0
-offset_bottom = 513.0
+offset_left = 5.0
+offset_top = 15.0
+offset_right = 515.0
+offset_bottom = 528.0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_wrmxr")
 
 [node name="Sprite2D" type="Sprite2D" parent="TabContainer/Items/Panels/sapphire_horn_panel"]
@@ -2564,11 +2562,11 @@ text = "- A special crystal object"
 autowrap_mode = 2
 
 [node name="quartz_boots_panel" type="Panel" parent="TabContainer/Items/Panels"]
-visible = false
 layout_mode = 0
-offset_left = 11.0
-offset_right = 521.0
-offset_bottom = 513.0
+offset_left = 5.0
+offset_top = 15.0
+offset_right = 515.0
+offset_bottom = 528.0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_wrmxr")
 
 [node name="Sprite2D" type="Sprite2D" parent="TabContainer/Items/Panels/quartz_boots_panel"]
@@ -2641,11 +2639,11 @@ text = "- A special crystal object"
 autowrap_mode = 2
 
 [node name="emerald_skull_panel" type="Panel" parent="TabContainer/Items/Panels"]
-visible = false
 layout_mode = 0
-offset_left = 11.0
-offset_right = 521.0
-offset_bottom = 513.0
+offset_left = 5.0
+offset_top = 15.0
+offset_right = 515.0
+offset_bottom = 528.0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_wrmxr")
 
 [node name="Sprite2D" type="Sprite2D" parent="TabContainer/Items/Panels/emerald_skull_panel"]
@@ -2718,11 +2716,11 @@ text = "- A special crystal object"
 autowrap_mode = 2
 
 [node name="onyx_hand_panel" type="Panel" parent="TabContainer/Items/Panels"]
-visible = false
 layout_mode = 0
-offset_left = 11.0
-offset_right = 521.0
-offset_bottom = 513.0
+offset_left = 5.0
+offset_top = 15.0
+offset_right = 515.0
+offset_bottom = 528.0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_wrmxr")
 
 [node name="Sprite2D" type="Sprite2D" parent="TabContainer/Items/Panels/onyx_hand_panel"]
@@ -2796,9 +2794,10 @@ autowrap_mode = 2
 
 [node name="chromatic_orb_panel" type="Panel" parent="TabContainer/Items/Panels"]
 layout_mode = 0
-offset_left = 11.0
-offset_right = 521.0
-offset_bottom = 513.0
+offset_left = 5.0
+offset_top = 15.0
+offset_right = 515.0
+offset_bottom = 528.0
 theme_override_styles/panel = SubResource("StyleBoxEmpty_wrmxr")
 
 [node name="chromatic_orb_animated_sprite" type="AnimatedSprite2D" parent="TabContainer/Items/Panels/chromatic_orb_panel"]
@@ -3796,6 +3795,7 @@ text = "- There is nothing tiny about them"
 autowrap_mode = 2
 
 [node name="Bosses" type="TabBar" parent="TabContainer"]
+visible = false
 layout_mode = 2
 theme = ExtResource("2_umit2")
 

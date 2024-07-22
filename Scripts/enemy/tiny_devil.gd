@@ -19,9 +19,9 @@ const FIRE_BALL = preload("res://Scenes/enemies/fire_ball/fire_ball.tscn")
 
 # attack variables
 var can_attack = false
-var can_attack_timer_max = 7
-var can_attack_timer_range = 2.0
-var can_attack_timer = can_attack_timer_max
+var can_attack_timer_max = 5
+var can_attack_timer_range = 1.5
+var can_attack_timer = can_attack_timer_max - can_attack_timer_range
 var attacking = false
 
 # defines a random number generator

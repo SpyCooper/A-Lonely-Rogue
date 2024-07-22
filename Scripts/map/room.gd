@@ -42,7 +42,7 @@ func _on_player_detector_body_entered(body):
 				enemy.wake_up()
 			# check the lock status when the player enters the room
 			key_checks.locks_changed(false)
-			
+			# lets the player know the room has enemies
 			Events.player.room_has_enemies()
 
 # when an body enters
@@ -144,3 +144,7 @@ func enemy_spawned_in_room():
 	# check the lock status when the player enters the room
 	key_checks.locks_changed(false)
 	Events.player.room_has_enemies()
+
+func cleared():
+	enemies_spawned = []
+	open_all_doors()

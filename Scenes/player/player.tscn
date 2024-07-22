@@ -854,11 +854,11 @@ wait_time = 3.0
 one_shot = true
 
 [node name="Dash_timer" type="Timer" parent="."]
-wait_time = 0.1
+wait_time = 0.11
 one_shot = true
 
 [node name="after_image_spawn_timer" type="Timer" parent="."]
-wait_time = 0.05
+wait_time = 0.03
 one_shot = true
 
 [node name="item_break_sound" type="AudioStreamPlayer2D" parent="."]

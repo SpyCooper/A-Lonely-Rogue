@@ -15,7 +15,7 @@
 [ext_resource type="AudioStream" uid="uid://c6no0sgq3d728" path="res://Assets/Audio/lost_knight/knight_roll.mp3" id="12_vn774"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nyloe"]
-radius = 4.79893
+radius = 4.79892
 height = 9.59785
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_six1t"]
