@@ -6,6 +6,7 @@ extends Node2D
 @onready var fade_timer = $CanvasLayer/Fade_color/Fade_timer
 @onready var player = %Player
 @onready var bg_music = $"BG music"
+@onready var randomizer = $randomizer
 
 # variables
 var fade_out = false
@@ -34,6 +35,8 @@ func _ready():
 	)
 	# sets the current floor
 	Events.current_floor = name
+	
+	randomizer.start()
 
 # when the fade timer ends
 func _on_fade_timer_timeout():

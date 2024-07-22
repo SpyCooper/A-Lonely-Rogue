@@ -1,5 +1,10 @@
 extends Node2D
 
+var top_room = null
+var bottom_room = null
+var left_room = null
+var right_room = null
+
 # references to the door visuals
 @onready var door_sound = $door_sound
 @onready var top_door = $top_door
@@ -148,3 +153,31 @@ func enemy_spawned_in_room():
 func cleared():
 	enemies_spawned = []
 	open_all_doors()
+
+func get_connected_rooms():
+	var connections = []
+	if top_door != null:
+		connections += [top_room]
+	if bottom_door != null:
+		connections += [bottom_room]
+	if left_door != null:
+		connections += [left_room]
+	if right_door != null:
+		connections += [right_room]
+	return connections
+
+func set_connected_room_right(room):
+	if room != null:
+		right_room = room
+
+func set_connected_room_left(room):
+	if room != null:
+		left_room = room
+
+func set_connected_room_top(room):
+	if room != null:
+		top_room = room
+
+func set_connected_room_bottom(room):
+	if room != null:
+		bottom_room = room
