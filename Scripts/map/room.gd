@@ -155,16 +155,7 @@ func cleared():
 	open_all_doors()
 
 func get_connected_rooms():
-	var connections = []
-	if top_door != null:
-		connections += [top_room]
-	if bottom_door != null:
-		connections += [bottom_room]
-	if left_door != null:
-		connections += [left_room]
-	if right_door != null:
-		connections += [right_room]
-	return connections
+	return [top_room, bottom_room, left_room, right_room]
 
 func set_connected_room_right(room):
 	if room != null:
@@ -181,3 +172,51 @@ func set_connected_room_top(room):
 func set_connected_room_bottom(room):
 	if room != null:
 		bottom_room = room
+
+func has_door_top():
+	if top_door != null:
+		return true
+	else:
+		return false
+
+func has_door_bottom():
+	if bottom_door != null:
+		return true
+	else:
+		return false
+
+func has_door_right():
+	if right_door != null:
+		return true
+	else:
+		return false
+
+func has_door_left():
+	if left_door != null:
+		return true
+	else:
+		return false
+
+func has_connection_top():
+	if top_room != null:
+		return true
+	else:
+		return false
+
+func has_connection_bottom():
+	if bottom_room != null:
+		return true
+	else:
+		return false
+
+func has_connection_left():
+	if left_room != null:
+		return true
+	else:
+		return false
+
+func has_connection_right():
+	if right_room != null:
+		return true
+	else:
+		return false
