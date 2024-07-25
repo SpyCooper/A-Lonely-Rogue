@@ -1,5 +1,6 @@
 extends Node2D
 
+# references to the adjacent rooms
 var top_room = null
 var bottom_room = null
 var left_room = null
@@ -17,6 +18,10 @@ var right_room = null
 var enemies_spawned = []
 var can_play_sound = false
 
+# saves the room's data type
+var room_type = RoomData.room_types.no_type
+
+
 #func _ready():
 	## set if the doors are locked, etc
 	#top_door.lock()
@@ -27,6 +32,9 @@ func _on_player_detector_body_entered(body):
 	if body is Player:
 		# emit the signal room_entered
 		Events.room_entered.emit(self)
+		
+		print(room_type)
+		
 		# if there are no enemies in the room
 		if enemies_spawned.size() == 0:
 			# disable the doors
@@ -220,3 +228,9 @@ func has_connection_right():
 		return true
 	else:
 		return false
+
+func set_room_type(type : RoomData.room_types):
+	room_type = type
+
+func get_room_type():
+	return room_type 

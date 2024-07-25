@@ -27,6 +27,7 @@ ItemType="*res://Scripts/items and weapons/item_type.gd"
 EnemyTypes="*res://Scripts/enemy/enemy_types.gd"
 ConfigFileManager="*res://Scripts/ConfigFileManager.gd"
 PlayerData="*res://Scripts/player/player_data.gd"
+RoomData="*res://Scripts/map/room_data.gd"
 
 [display]
 
