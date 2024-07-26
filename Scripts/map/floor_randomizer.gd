@@ -119,7 +119,7 @@ var maximum_chest_rooms = 3
 var current_chest_rooms = 0
 
 var minimum_locked_rooms = 1
-var maximum_locked_rooms = 4
+var maximum_locked_rooms = 3
 var current_locked_rooms = 0
 
 var minimum_monster_rooms = 3
@@ -144,16 +144,16 @@ func start():
 func minimum_requirements_met():
 	var item_room_met = false
 	var monster_room_met = false
+	var locked_rooms_met = false
 	if current_item_rooms >= minimum_item_rooms:
 		item_room_met = true
 	if current_monster_rooms >= minimum_monster_rooms:
 		monster_room_met = true
-	#if current_locked_rooms >= minimum_locked_rooms:
-		#print(" minimum locked rooms met")
-		#checks += 1
+	if current_locked_rooms >= minimum_locked_rooms:
+		locked_rooms_met = true
 	#if current_chest_rooms >= 0:
 		#checks += 1
-	return item_room_met && monster_room_met
+	return item_room_met && monster_room_met && locked_rooms_met
 
 func spawn_starting_room():
 	var random_starting_room = rng.randi_range(0,all_rooms.size()-1)
@@ -188,46 +188,32 @@ func spawn_adjacent_rooms(room):
 							new_room = _4_DOOR_ROOM.instantiate()
 						# needs to connect on the top and right sides (down is implied)
 						elif top_connection != null && right_connection != null && left_connection == null:
-							if close_rooms:
+							if close_rooms || type == RoomData.room_types.locked_item:
 								new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
 							elif get_room_at_position(target_room_position + Vector2(-384, 0)) == null:
 								# get either room
-								var temp_room = rng.randi_range(0,1)
-								if temp_room == 0:
-									new_room = _4_DOOR_ROOM.instantiate()
-								elif temp_room == 1:
-									new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
+								new_room = _4_DOOR_ROOM.instantiate()
 							else:
 								new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
 						# needs to connect on the top and left sides (down is implied)
 						elif top_connection != null && right_connection == null && left_connection != null:
-							if close_rooms:
+							if close_rooms || type == RoomData.room_types.locked_item:
 								new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
 							elif get_room_at_position(target_room_position + Vector2(384, 0)) == null:
-								# get either room
-								var temp_room = rng.randi_range(0,1)
-								if temp_room == 0:
-									new_room = _4_DOOR_ROOM.instantiate()
-								elif temp_room == 1:
-									new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
+								new_room = _4_DOOR_ROOM.instantiate()
 							else:
 								new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
 						# needs to connect on the left and right sides (down is implied)
 						elif top_connection == null && right_connection != null && left_connection != null:
-							if close_rooms:
+							if close_rooms || type == RoomData.room_types.locked_item:
 								new_room = _3_DOOR_ROOM_NO_UP.instantiate()
 							elif get_room_at_position(target_room_position + Vector2(0, -224)) == null:
-								# get either room
-								var temp_room = rng.randi_range(0,1)
-								if temp_room == 0:
-									new_room = _4_DOOR_ROOM.instantiate()
-								elif temp_room == 1:
-									new_room = _3_DOOR_ROOM_NO_UP.instantiate()
+								new_room = _4_DOOR_ROOM.instantiate()
 							else:
 								new_room = _3_DOOR_ROOM_NO_UP.instantiate()
 						# needs to connect on the top side (down is implied)
 						elif top_connection != null && right_connection == null && left_connection == null:
-							if close_rooms:
+							if close_rooms || type == RoomData.room_types.locked_item:
 								new_room = _2_DOOR_UP_DOWN.instantiate()
 							else:
 								var can_have_left = false
@@ -239,34 +225,22 @@ func spawn_adjacent_rooms(room):
 								
 								if can_have_left && can_have_right:
 									# get any room
-									var temp_room = rng.randi_range(0,3)
+									var temp_room = rng.randi_range(0,2)
 									if temp_room == 0:
 										new_room = _4_DOOR_ROOM.instantiate()
 									elif temp_room == 1:
 										new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
 									elif temp_room == 2:
 										new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
-									elif temp_room == 3:
-										new_room = _2_DOOR_UP_DOWN.instantiate()
 								elif can_have_left && !can_have_right:
-									# get any room
-									var temp_room = rng.randi_range(1,2)
-									if temp_room == 1:
-										new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
-									elif temp_room == 2:
-										new_room = _2_DOOR_UP_DOWN.instantiate()
+									new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
 								elif !can_have_left && can_have_right:
-									# get any room
-									var temp_room = rng.randi_range(1,2)
-									if temp_room == 1:
-										new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
-									elif temp_room == 2:
-										new_room = _2_DOOR_UP_DOWN.instantiate()
+									new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
 								else:
 									new_room = _2_DOOR_UP_DOWN.instantiate()
 						# needs to connect on the right side (down is implied)
 						elif top_connection == null && right_connection != null && left_connection == null:
-							if close_rooms:
+							if close_rooms || type == RoomData.room_types.locked_item:
 								new_room = _2_DOOR_DOWN_RIGHT.instantiate()
 							else:
 								var can_have_left = false
@@ -278,34 +252,22 @@ func spawn_adjacent_rooms(room):
 								
 								if can_have_left && can_have_top:
 									# get any room
-									var temp_room = rng.randi_range(0,3)
+									var temp_room = rng.randi_range(0,2)
 									if temp_room == 0:
 										new_room = _4_DOOR_ROOM.instantiate()
 									elif temp_room == 1:
 										new_room = _3_DOOR_ROOM_NO_UP.instantiate()
 									elif temp_room == 2:
 										new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
-									elif temp_room == 3:
-										new_room = _2_DOOR_DOWN_RIGHT.instantiate()
 								elif can_have_left && !can_have_top:
-									# get any room
-									var temp_room = rng.randi_range(1,2)
-									if temp_room == 1:
-										new_room = _3_DOOR_ROOM_NO_UP.instantiate()
-									elif temp_room == 2:
-										new_room = _2_DOOR_DOWN_RIGHT.instantiate()
+									new_room = _3_DOOR_ROOM_NO_UP.instantiate()
 								elif !can_have_left && can_have_top:
-									# get any room
-									var temp_room = rng.randi_range(1,2)
-									if temp_room == 1:
-										new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
-									elif temp_room == 2:
-										new_room = _2_DOOR_DOWN_RIGHT.instantiate()
+									new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
 								else:
 									new_room = _2_DOOR_DOWN_RIGHT.instantiate()
 						# needs to connect on the left side (down is implied)
 						elif top_connection == null && right_connection == null && left_connection != null:
-							if close_rooms:
+							if close_rooms || type == RoomData.room_types.locked_item:
 								new_room = _2_DOOR_DOWN_LEFT.instantiate()
 							else:
 								var can_have_right = false
@@ -317,34 +279,22 @@ func spawn_adjacent_rooms(room):
 								
 								if can_have_right && can_have_top:
 									# get any room
-									var temp_room = rng.randi_range(0,3)
+									var temp_room = rng.randi_range(0,2)
 									if temp_room == 0:
 										new_room = _4_DOOR_ROOM.instantiate()
 									elif temp_room == 1:
 										new_room = _3_DOOR_ROOM_NO_UP.instantiate()
 									elif temp_room == 2:
 										new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
-									elif temp_room == 3:
-										new_room = _2_DOOR_DOWN_LEFT.instantiate()
 								elif can_have_right && !can_have_top:
-									# get any room
-									var temp_room = rng.randi_range(1,2)
-									if temp_room == 1:
-										new_room = _3_DOOR_ROOM_NO_UP.instantiate()
-									elif temp_room == 2:
-										new_room = _2_DOOR_DOWN_LEFT.instantiate()
+									new_room = _3_DOOR_ROOM_NO_UP.instantiate()
 								elif !can_have_right && can_have_top:
-									# get any room
-									var temp_room = rng.randi_range(1,2)
-									if temp_room == 1:
-										new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
-									elif temp_room == 2:
-										new_room = _2_DOOR_DOWN_LEFT.instantiate()
+									new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
 								else:
 									new_room = _2_DOOR_DOWN_LEFT.instantiate()
 						# does not need to connect to any other sides (down is implied)
 						else:
-							if close_rooms:
+							if close_rooms || type == RoomData.room_types.locked_item:
 								new_room = _1_DOOR_ROOM_DOWN.instantiate()
 							else:
 								var can_have_right = false
@@ -361,53 +311,35 @@ func spawn_adjacent_rooms(room):
 									var random_room = rooms_that_can_connect_to_top[rng.randi_range(0,rooms_that_can_connect_to_top.size()-1)]
 									new_room = random_room.instantiate()
 								elif can_have_left && can_have_right && !can_have_top:
-									var temp_room = rng.randi_range(0,3)
+									var temp_room = rng.randi_range(0,2)
 									if temp_room == 0:
 										new_room = _3_DOOR_ROOM_NO_UP.instantiate()
 									elif temp_room == 1:
 										new_room = _2_DOOR_DOWN_LEFT.instantiate()
 									elif temp_room == 2:
 										new_room = _2_DOOR_DOWN_RIGHT.instantiate()
-									elif temp_room == 3:
-										new_room = _1_DOOR_ROOM_DOWN.instantiate()
 								elif can_have_left && !can_have_right && can_have_top:
-									var temp_room = rng.randi_range(0,3)
+									var temp_room = rng.randi_range(0,2)
 									if temp_room == 0:
 										new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
 									elif temp_room == 1:
 										new_room = _2_DOOR_DOWN_LEFT.instantiate()
 									elif temp_room == 2:
 										new_room = _2_DOOR_UP_DOWN.instantiate()
-									elif temp_room == 3:
-										new_room = _1_DOOR_ROOM_DOWN.instantiate()
 								elif !can_have_left && can_have_right && can_have_top:
-									var temp_room = rng.randi_range(0,3)
+									var temp_room = rng.randi_range(0,2)
 									if temp_room == 0:
 										new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
 									elif temp_room == 1:
 										new_room = _2_DOOR_DOWN_RIGHT.instantiate()
 									elif temp_room == 2:
 										new_room = _2_DOOR_UP_DOWN.instantiate()
-									elif temp_room == 3:
-										new_room = _1_DOOR_ROOM_DOWN.instantiate()
 								elif can_have_left && !can_have_right && !can_have_top:
-									var temp_room = rng.randi_range(0,1)
-									if temp_room == 0:
-										new_room = _2_DOOR_DOWN_LEFT.instantiate()
-									elif temp_room == 1:
-										new_room = _1_DOOR_ROOM_DOWN.instantiate()
+									new_room = _2_DOOR_DOWN_LEFT.instantiate()
 								elif !can_have_left && !can_have_right && can_have_top:
-									var temp_room = rng.randi_range(0,1)
-									if temp_room == 0:
-										new_room = _2_DOOR_UP_DOWN.instantiate()
-									elif temp_room == 1:
-										new_room = _1_DOOR_ROOM_DOWN.instantiate()
+									new_room = _2_DOOR_UP_DOWN.instantiate()
 								elif !can_have_left && can_have_right && !can_have_top:
-									var temp_room = rng.randi_range(0,1)
-									if temp_room == 0:
-										new_room = _2_DOOR_DOWN_RIGHT.instantiate()
-									elif temp_room == 1:
-										new_room = _1_DOOR_ROOM_DOWN.instantiate()
+									new_room = _2_DOOR_DOWN_RIGHT.instantiate()
 								else:
 									new_room = _1_DOOR_ROOM_DOWN.instantiate()
 						
@@ -438,46 +370,31 @@ func spawn_adjacent_rooms(room):
 						if bottom_connection != null && right_connection != null && left_connection != null:
 							new_room = _4_DOOR_ROOM.instantiate()
 						elif bottom_connection != null && right_connection != null && left_connection == null:
-							if close_rooms:
+							if close_rooms || type == RoomData.room_types.locked_item:
 								new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
 							else:
 								if get_room_at_position(target_room_position + Vector2(-384, 0)) == null:
-									# get either room
-									var temp_room = rng.randi_range(0,1)
-									if temp_room == 0:
-										new_room = _4_DOOR_ROOM.instantiate()
-									elif temp_room == 1:
-										new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
+									new_room = _4_DOOR_ROOM.instantiate()
 								else:
 									new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
 						elif bottom_connection != null && right_connection == null && left_connection != null:
-							if close_rooms:
+							if close_rooms || type == RoomData.room_types.locked_item:
 								new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
 							else:
 								if get_room_at_position(target_room_position + Vector2(384, 0)) == null:
-									# get either room
-									var temp_room = rng.randi_range(0,1)
-									if temp_room == 0:
-										new_room = _4_DOOR_ROOM.instantiate()
-									elif temp_room == 1:
-										new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
+									new_room = _4_DOOR_ROOM.instantiate()
 								else:
 									new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
 						elif bottom_connection == null && right_connection != null && left_connection != null:
-							if close_rooms:
+							if close_rooms || type == RoomData.room_types.locked_item:
 								new_room = _3_DOOR_ROOM_NO_DOWN.instantiate()
 							else:
 								if get_room_at_position(target_room_position + Vector2(0, 224)) == null:
-									# get either room
-									var temp_room = rng.randi_range(0,1)
-									if temp_room == 0:
-										new_room = _4_DOOR_ROOM.instantiate()
-									elif temp_room == 1:
-										new_room = _3_DOOR_ROOM_NO_DOWN.instantiate()
+									new_room = _4_DOOR_ROOM.instantiate()
 								else:
 									new_room = _3_DOOR_ROOM_NO_DOWN.instantiate()
 						elif bottom_connection != null && right_connection == null && left_connection == null:
-							if close_rooms:
+							if close_rooms || type == RoomData.room_types.locked_item:
 								new_room = _2_DOOR_UP_DOWN.instantiate()
 							else:
 								var can_have_left = false
@@ -489,33 +406,21 @@ func spawn_adjacent_rooms(room):
 								
 								if can_have_left && can_have_right:
 									# get any room
-									var temp_room = rng.randi_range(0,3)
+									var temp_room = rng.randi_range(0,2)
 									if temp_room == 0:
 										new_room = _4_DOOR_ROOM.instantiate()
 									elif temp_room == 1:
 										new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
 									elif temp_room == 2:
 										new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
-									elif temp_room == 3:
-										new_room = _2_DOOR_UP_DOWN.instantiate()
 								elif can_have_left && !can_have_right:
-									# get any room
-									var temp_room = rng.randi_range(1,2)
-									if temp_room == 1:
-										new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
-									elif temp_room == 2:
-										new_room = _2_DOOR_UP_DOWN.instantiate()
+									new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
 								elif !can_have_left && can_have_right:
-									# get any room
-									var temp_room = rng.randi_range(1,2)
-									if temp_room == 1:
-										new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
-									elif temp_room == 2:
-										new_room = _2_DOOR_UP_DOWN.instantiate()
+									new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
 								else:
 									new_room = _2_DOOR_UP_DOWN.instantiate()
 						elif bottom_connection == null && right_connection != null && left_connection == null:
-							if close_rooms:
+							if close_rooms || type == RoomData.room_types.locked_item:
 								new_room = _2_DOOR_ROOM_UP_RIGHT.instantiate()
 							else:
 								var can_have_left = false
@@ -527,33 +432,21 @@ func spawn_adjacent_rooms(room):
 								
 								if can_have_left && can_have_bottom:
 									# get any room
-									var temp_room = rng.randi_range(0,3)
+									var temp_room = rng.randi_range(0,2)
 									if temp_room == 0:
 										new_room = _4_DOOR_ROOM.instantiate()
 									elif temp_room == 1:
 										new_room = _3_DOOR_ROOM_NO_UP.instantiate()
 									elif temp_room == 2:
 										new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
-									elif temp_room == 3:
-										new_room = _2_DOOR_ROOM_UP_RIGHT.instantiate()
 								elif can_have_left && !can_have_bottom:
-									# get any room
-									var temp_room = rng.randi_range(1,2)
-									if temp_room == 1:
-										new_room = _3_DOOR_ROOM_NO_UP.instantiate()
-									elif temp_room == 2:
-										new_room = _2_DOOR_ROOM_UP_RIGHT.instantiate()
+									new_room = _3_DOOR_ROOM_NO_UP.instantiate()
 								elif !can_have_left && can_have_bottom:
-									# get any room
-									var temp_room = rng.randi_range(1,2)
-									if temp_room == 1:
-										new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
-									elif temp_room == 2:
-										new_room = _2_DOOR_ROOM_UP_RIGHT.instantiate()
+									new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
 								else:
 									new_room = _2_DOOR_ROOM_UP_RIGHT.instantiate()
 						elif bottom_connection == null && right_connection == null && left_connection != null:
-							if close_rooms:
+							if close_rooms || type == RoomData.room_types.locked_item:
 								new_room = _2_DOOR_ROOM_UP_LEFT.instantiate()
 							else:
 								var can_have_right = false
@@ -565,33 +458,21 @@ func spawn_adjacent_rooms(room):
 								
 								if can_have_right && can_have_bottom:
 									# get any room
-									var temp_room = rng.randi_range(0,3)
+									var temp_room = rng.randi_range(0,2)
 									if temp_room == 0:
 										new_room = _4_DOOR_ROOM.instantiate()
 									elif temp_room == 1:
 										new_room = _3_DOOR_ROOM_NO_UP.instantiate()
 									elif temp_room == 2:
 										new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
-									elif temp_room == 3:
-										new_room = _2_DOOR_ROOM_UP_LEFT.instantiate()
 								elif can_have_right && !can_have_bottom:
-									# get any room
-									var temp_room = rng.randi_range(1,2)
-									if temp_room == 1:
-										new_room = _3_DOOR_ROOM_NO_UP.instantiate()
-									elif temp_room == 2:
-										new_room = _2_DOOR_ROOM_UP_LEFT.instantiate()
+									new_room = _3_DOOR_ROOM_NO_UP.instantiate()
 								elif !can_have_right && can_have_bottom:
-									# get any room
-									var temp_room = rng.randi_range(1,2)
-									if temp_room == 1:
-										new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
-									elif temp_room == 2:
-										new_room = _2_DOOR_ROOM_UP_LEFT.instantiate()
+									new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
 								else:
 									new_room = _2_DOOR_ROOM_UP_LEFT.instantiate()
 						else:
-							if close_rooms:
+							if close_rooms || type == RoomData.room_types.locked_item:
 								new_room = _1_DOOR_ROOM_UP.instantiate()
 							else:
 								var can_have_left = false
@@ -608,53 +489,35 @@ func spawn_adjacent_rooms(room):
 									var random_room = rooms_that_can_connect_to_bottom[rng.randi_range(0,rooms_that_can_connect_to_bottom.size()-1)]
 									new_room = random_room.instantiate()
 								elif can_have_left && can_have_right && !can_have_bottom:
-									var temp_room = rng.randi_range(0,3)
+									var temp_room = rng.randi_range(0,2)
 									if temp_room == 0:
 										new_room = _3_DOOR_ROOM_NO_DOWN.instantiate()
 									elif temp_room == 1:
 										new_room = _2_DOOR_ROOM_UP_RIGHT.instantiate()
 									elif temp_room == 2:
 										new_room = _2_DOOR_ROOM_UP_LEFT.instantiate()
-									elif temp_room == 3:
-										new_room = _1_DOOR_ROOM_UP.instantiate()
 								elif can_have_left && !can_have_right && can_have_bottom:
-									var temp_room = rng.randi_range(0,3)
+									var temp_room = rng.randi_range(0,2)
 									if temp_room == 0:
 										new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
 									elif temp_room == 1:
 										new_room = _2_DOOR_UP_DOWN.instantiate()
 									elif temp_room == 2:
 										new_room = _2_DOOR_ROOM_UP_LEFT.instantiate()
-									elif temp_room == 3:
-										new_room = _1_DOOR_ROOM_UP.instantiate()
 								elif !can_have_left && can_have_right && can_have_bottom:
-									var temp_room = rng.randi_range(0,3)
+									var temp_room = rng.randi_range(0,2)
 									if temp_room == 0:
 										new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
 									elif temp_room == 1:
 										new_room = _2_DOOR_UP_DOWN.instantiate()
 									elif temp_room == 2:
 										new_room = _2_DOOR_ROOM_UP_RIGHT.instantiate()
-									elif temp_room == 3:
-										new_room = _1_DOOR_ROOM_UP.instantiate()
 								elif can_have_left && !can_have_right && !can_have_bottom:
-									var temp_room = rng.randi_range(0,1)
-									if temp_room == 0:
-										new_room = _2_DOOR_ROOM_UP_LEFT.instantiate()
-									elif temp_room == 1:
-										new_room = _1_DOOR_ROOM_UP.instantiate()
+									new_room = _2_DOOR_ROOM_UP_LEFT.instantiate()
 								elif !can_have_left && !can_have_right && can_have_bottom:
-									var temp_room = rng.randi_range(0,1)
-									if temp_room == 0:
-										new_room = _2_DOOR_UP_DOWN.instantiate()
-									elif temp_room == 1:
-										new_room = _1_DOOR_ROOM_UP.instantiate()
+									new_room = _2_DOOR_UP_DOWN.instantiate()
 								elif !can_have_left && can_have_right && !can_have_bottom:
-									var temp_room = rng.randi_range(0,1)
-									if temp_room == 0:
-										new_room = _2_DOOR_ROOM_UP_RIGHT.instantiate()
-									elif temp_room == 1:
-										new_room = _1_DOOR_ROOM_UP.instantiate()
+									new_room = _2_DOOR_ROOM_UP_RIGHT.instantiate()
 								else:
 									new_room = _1_DOOR_ROOM_UP.instantiate()
 							
@@ -685,46 +548,31 @@ func spawn_adjacent_rooms(room):
 						if top_connection != null && bottom_connection != null && left_connection != null:
 							new_room = _4_DOOR_ROOM.instantiate()
 						elif top_connection != null && bottom_connection != null && left_connection == null:
-							if close_rooms:
+							if close_rooms || type == RoomData.room_types.locked_item:
 								new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
 							else:
 								if get_room_at_position(target_room_position + Vector2(-384, 0)) == null:
-									# get either room
-									var temp_room = rng.randi_range(0,1)
-									if temp_room == 0:
-										new_room = _4_DOOR_ROOM.instantiate()
-									elif temp_room == 1:
-										new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
+									new_room = _4_DOOR_ROOM.instantiate()
 								else:
 									new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
 						elif top_connection != null && bottom_connection == null && left_connection != null:
-							if close_rooms:
+							if close_rooms || type == RoomData.room_types.locked_item:
 								new_room = _3_DOOR_ROOM_NO_DOWN.instantiate()
 							else:
 								if get_room_at_position(target_room_position + Vector2(0, 224)) == null:
-									# get either room
-									var temp_room = rng.randi_range(0,1)
-									if temp_room == 0:
-										new_room = _4_DOOR_ROOM.instantiate()
-									elif temp_room == 1:
-										new_room = _3_DOOR_ROOM_NO_DOWN.instantiate()
+									new_room = _4_DOOR_ROOM.instantiate()
 								else:
 									new_room = _3_DOOR_ROOM_NO_DOWN.instantiate()
 						elif top_connection == null && bottom_connection != null && left_connection != null:
-							if close_rooms:
+							if close_rooms || type == RoomData.room_types.locked_item:
 								new_room = _3_DOOR_ROOM_NO_UP.instantiate()
 							else:
 								if get_room_at_position(target_room_position + Vector2(0, -224)) == null:
-									# get either room
-									var temp_room = rng.randi_range(0,1)
-									if temp_room == 0:
-										new_room = _4_DOOR_ROOM.instantiate()
-									elif temp_room == 1:
-										new_room = _3_DOOR_ROOM_NO_UP.instantiate()
+									new_room = _4_DOOR_ROOM.instantiate()
 								else:
 									new_room = _3_DOOR_ROOM_NO_UP.instantiate()
 						elif top_connection != null && bottom_connection == null && left_connection == null:
-							if close_rooms:
+							if close_rooms || type == RoomData.room_types.locked_item:
 								new_room = _2_DOOR_ROOM_UP_RIGHT.instantiate()
 							else:
 								var can_have_left = false
@@ -736,33 +584,21 @@ func spawn_adjacent_rooms(room):
 								
 								if can_have_left && can_have_bottom:
 									# get any room
-									var temp_room = rng.randi_range(0,3)
+									var temp_room = rng.randi_range(0,2)
 									if temp_room == 0:
 										new_room = _4_DOOR_ROOM.instantiate()
 									elif temp_room == 1:
 										new_room = _3_DOOR_ROOM_NO_DOWN.instantiate()
 									elif temp_room == 2:
 										new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
-									elif temp_room == 3:
-										new_room = _2_DOOR_ROOM_UP_RIGHT.instantiate()
 								elif can_have_left && !can_have_bottom:
-									# get any room
-									var temp_room = rng.randi_range(1,2)
-									if temp_room == 1:
-										new_room = _3_DOOR_ROOM_NO_DOWN.instantiate()
-									elif temp_room == 2:
-										new_room = _2_DOOR_ROOM_UP_RIGHT.instantiate()
+									new_room = _3_DOOR_ROOM_NO_DOWN.instantiate()
 								elif !can_have_left && can_have_bottom:
-									# get any room
-									var temp_room = rng.randi_range(1,2)
-									if temp_room == 1:
-										new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
-									elif temp_room == 2:
-										new_room = _2_DOOR_ROOM_UP_RIGHT.instantiate()
+									new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
 								else:
 									new_room = _2_DOOR_ROOM_UP_RIGHT.instantiate()
 						elif top_connection == null && bottom_connection != null && left_connection == null:
-							if close_rooms:
+							if close_rooms || type == RoomData.room_types.locked_item:
 								new_room = _2_DOOR_DOWN_RIGHT.instantiate()
 							else:
 								var can_have_left = false
@@ -774,33 +610,21 @@ func spawn_adjacent_rooms(room):
 								
 								if can_have_left && can_have_top:
 									# get any room
-									var temp_room = rng.randi_range(0,3)
+									var temp_room = rng.randi_range(0,2)
 									if temp_room == 0:
 										new_room = _4_DOOR_ROOM.instantiate()
 									elif temp_room == 1:
 										new_room = _3_DOOR_ROOM_NO_UP.instantiate()
 									elif temp_room == 2:
 										new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
-									elif temp_room == 3:
-										new_room = _2_DOOR_DOWN_RIGHT.instantiate()
 								elif can_have_left && !can_have_top:
-									# get any room
-									var temp_room = rng.randi_range(1,2)
-									if temp_room == 1:
-										new_room = _3_DOOR_ROOM_NO_UP.instantiate()
-									elif temp_room == 2:
-										new_room = _2_DOOR_DOWN_RIGHT.instantiate()
+									new_room = _3_DOOR_ROOM_NO_UP.instantiate()
 								elif !can_have_left && can_have_top:
-									# get any room
-									var temp_room = rng.randi_range(1,2)
-									if temp_room == 1:
-										new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
-									elif temp_room == 2:
-										new_room = _2_DOOR_DOWN_RIGHT.instantiate()
+									new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
 								else:
 									new_room = _2_DOOR_DOWN_RIGHT.instantiate()
 						elif top_connection == null && bottom_connection == null && left_connection != null:
-							if close_rooms:
+							if close_rooms || type == RoomData.room_types.locked_item:
 								new_room = _2_DOOR_LEFT_RIGHT.instantiate()
 							else:
 								var can_have_top = false
@@ -812,33 +636,21 @@ func spawn_adjacent_rooms(room):
 								
 								if can_have_bottom && can_have_top:
 									# get any room
-									var temp_room = rng.randi_range(0,3)
+									var temp_room = rng.randi_range(0,2)
 									if temp_room == 0:
 										new_room = _4_DOOR_ROOM.instantiate()
 									elif temp_room == 1:
 										new_room = _3_DOOR_ROOM_NO_UP.instantiate()
 									elif temp_room == 2:
 										new_room = _3_DOOR_ROOM_NO_DOWN.instantiate()
-									elif temp_room == 3:
-										new_room = _2_DOOR_LEFT_RIGHT.instantiate()
 								elif can_have_bottom && !can_have_top:
-									# get any room
-									var temp_room = rng.randi_range(1,2)
-									if temp_room == 1:
-										new_room = _3_DOOR_ROOM_NO_UP.instantiate()
-									elif temp_room == 2:
-										new_room = _2_DOOR_LEFT_RIGHT.instantiate()
+									new_room = _3_DOOR_ROOM_NO_UP.instantiate()
 								elif !can_have_bottom && can_have_top:
-									# get any room
-									var temp_room = rng.randi_range(1,2)
-									if temp_room == 1:
-										new_room = _3_DOOR_ROOM_NO_DOWN.instantiate()
-									elif temp_room == 2:
-										new_room = _2_DOOR_LEFT_RIGHT.instantiate()
+									new_room = _3_DOOR_ROOM_NO_DOWN.instantiate()
 								else:
 									new_room = _2_DOOR_LEFT_RIGHT.instantiate()
 						else:
-							if close_rooms:
+							if close_rooms || type == RoomData.room_types.locked_item:
 								new_room = _1_DOOR_ROOM_RIGHT.instantiate()
 							else:
 								var can_have_left = false
@@ -855,53 +667,35 @@ func spawn_adjacent_rooms(room):
 									var random_room = rooms_that_can_connect_to_left[rng.randi_range(0,rooms_that_can_connect_to_left.size()-1)]
 									new_room = random_room.instantiate()
 								elif can_have_left && can_have_top && !can_have_bottom:
-									var temp_room = rng.randi_range(0,3)
+									var temp_room = rng.randi_range(0,2)
 									if temp_room == 0:
 										new_room = _3_DOOR_ROOM_NO_DOWN.instantiate()
 									elif temp_room == 1:
 										new_room = _2_DOOR_LEFT_RIGHT.instantiate()
 									elif temp_room == 2:
 										new_room = _2_DOOR_ROOM_UP_RIGHT.instantiate()
-									elif temp_room == 3:
-										new_room = _1_DOOR_ROOM_RIGHT.instantiate()
 								elif can_have_left && !can_have_top && can_have_bottom:
-									var temp_room = rng.randi_range(0,3)
+									var temp_room = rng.randi_range(0,2)
 									if temp_room == 0:
 										new_room = _3_DOOR_ROOM_NO_UP.instantiate()
 									elif temp_room == 1:
 										new_room = _2_DOOR_LEFT_RIGHT.instantiate()
 									elif temp_room == 2:
 										new_room = _2_DOOR_DOWN_RIGHT.instantiate()
-									elif temp_room == 3:
-										new_room = _1_DOOR_ROOM_RIGHT.instantiate()
 								elif !can_have_left && can_have_top && can_have_bottom:
-									var temp_room = rng.randi_range(0,3)
+									var temp_room = rng.randi_range(0,2)
 									if temp_room == 0:
 										new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
 									elif temp_room == 1:
 										new_room = _2_DOOR_ROOM_UP_RIGHT.instantiate()
 									elif temp_room == 2:
 										new_room = _2_DOOR_DOWN_RIGHT.instantiate()
-									elif temp_room == 3:
-										new_room = _1_DOOR_ROOM_RIGHT.instantiate()
 								elif can_have_left && !can_have_top && !can_have_bottom:
-									var temp_room = rng.randi_range(0,1)
-									if temp_room == 0:
-										new_room = _2_DOOR_LEFT_RIGHT.instantiate()
-									elif temp_room == 1:
-										new_room = _1_DOOR_ROOM_RIGHT.instantiate()
+									new_room = _2_DOOR_LEFT_RIGHT.instantiate()
 								elif !can_have_left && !can_have_top && can_have_bottom:
-									var temp_room = rng.randi_range(0,1)
-									if temp_room == 0:
-										new_room = _2_DOOR_DOWN_RIGHT.instantiate()
-									elif temp_room == 1:
-										new_room = _1_DOOR_ROOM_RIGHT.instantiate()
+									new_room = _2_DOOR_DOWN_RIGHT.instantiate()
 								elif !can_have_left && can_have_top && !can_have_bottom:
-									var temp_room = rng.randi_range(0,1)
-									if temp_room == 0:
-										new_room = _2_DOOR_ROOM_UP_RIGHT.instantiate()
-									elif temp_room == 1:
-										new_room = _1_DOOR_ROOM_RIGHT.instantiate()
+									new_room = _2_DOOR_ROOM_UP_RIGHT.instantiate()
 								else:
 									new_room = _1_DOOR_ROOM_RIGHT.instantiate()
 						
@@ -932,46 +726,31 @@ func spawn_adjacent_rooms(room):
 						if top_connection != null && bottom_connection != null && right_connection != null:
 							new_room = _4_DOOR_ROOM.instantiate()
 						elif top_connection != null && bottom_connection != null && right_connection == null:
-							if close_rooms:
+							if close_rooms || type == RoomData.room_types.locked_item:
 								new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
 							else:
 								if get_room_at_position(target_room_position + Vector2(384, 0)) == null:
-									# get either room
-									var temp_room = rng.randi_range(0,1)
-									if temp_room == 0:
-										new_room = _4_DOOR_ROOM.instantiate()
-									elif temp_room == 1:
-										new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
+									new_room = _4_DOOR_ROOM.instantiate()
 								else:
 									new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
 						elif top_connection != null && bottom_connection == null && right_connection != null:
-							if close_rooms:
+							if close_rooms || type == RoomData.room_types.locked_item:
 								new_room = _3_DOOR_ROOM_NO_DOWN.instantiate()
 							else:
 								if get_room_at_position(target_room_position + Vector2(0, 224)) == null:
-									# get either room
-									var temp_room = rng.randi_range(0,1)
-									if temp_room == 0:
-										new_room = _4_DOOR_ROOM.instantiate()
-									elif temp_room == 1:
-										new_room = _3_DOOR_ROOM_NO_DOWN.instantiate()
+									new_room = _4_DOOR_ROOM.instantiate()
 								else:
 									new_room = _3_DOOR_ROOM_NO_DOWN.instantiate()
 						elif top_connection == null && bottom_connection != null && right_connection != null:
-							if close_rooms:
+							if close_rooms || type == RoomData.room_types.locked_item:
 								new_room = _3_DOOR_ROOM_NO_UP.instantiate()
 							else:
 								if get_room_at_position(target_room_position + Vector2(0, -224)) == null:
-									# get either room
-									var temp_room = rng.randi_range(0,1)
-									if temp_room == 0:
-										new_room = _4_DOOR_ROOM.instantiate()
-									elif temp_room == 1:
-										new_room = _3_DOOR_ROOM_NO_UP.instantiate()
+									new_room = _4_DOOR_ROOM.instantiate()
 								else:
 									new_room = _3_DOOR_ROOM_NO_UP.instantiate()
 						elif top_connection != null && bottom_connection == null && right_connection == null:
-							if close_rooms:
+							if close_rooms || type == RoomData.room_types.locked_item:
 								new_room = _2_DOOR_ROOM_UP_LEFT.instantiate()
 							else:
 								var can_have_right = false
@@ -983,33 +762,21 @@ func spawn_adjacent_rooms(room):
 								
 								if can_have_right && can_have_bottom:
 									# get any room
-									var temp_room = rng.randi_range(0,3)
+									var temp_room = rng.randi_range(0,2)
 									if temp_room == 0:
 										new_room = _4_DOOR_ROOM.instantiate()
 									elif temp_room == 1:
 										new_room = _3_DOOR_ROOM_NO_DOWN.instantiate()
 									elif temp_room == 2:
 										new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
-									elif temp_room == 3:
-										new_room = _2_DOOR_ROOM_UP_LEFT.instantiate()
 								elif can_have_right && !can_have_bottom:
-									# get any room
-									var temp_room = rng.randi_range(1,2)
-									if temp_room == 1:
-										new_room = _3_DOOR_ROOM_NO_DOWN.instantiate()
-									elif temp_room == 2:
-										new_room = _2_DOOR_ROOM_UP_LEFT.instantiate()
+									new_room = _3_DOOR_ROOM_NO_DOWN.instantiate()
 								elif !can_have_right && can_have_bottom:
-									# get any room
-									var temp_room = rng.randi_range(1,2)
-									if temp_room == 1:
-										new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
-									elif temp_room == 2:
-										new_room = _2_DOOR_ROOM_UP_LEFT.instantiate()
+									new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
 								else:
 									new_room = _2_DOOR_ROOM_UP_LEFT.instantiate()
 						elif top_connection == null && bottom_connection != null && right_connection == null:
-							if close_rooms:
+							if close_rooms || type == RoomData.room_types.locked_item:
 								new_room = _2_DOOR_DOWN_LEFT.instantiate()
 							else:
 								var can_have_right = false
@@ -1021,33 +788,21 @@ func spawn_adjacent_rooms(room):
 								
 								if can_have_right && can_have_top:
 									# get any room
-									var temp_room = rng.randi_range(0,3)
+									var temp_room = rng.randi_range(0,2)
 									if temp_room == 0:
 										new_room = _4_DOOR_ROOM.instantiate()
 									elif temp_room == 1:
 										new_room = _3_DOOR_ROOM_NO_UP.instantiate()
 									elif temp_room == 2:
 										new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
-									elif temp_room == 3:
-										new_room = _2_DOOR_DOWN_LEFT.instantiate()
 								elif can_have_right && !can_have_top:
-									# get any room
-									var temp_room = rng.randi_range(1,2)
-									if temp_room == 1:
-										new_room = _3_DOOR_ROOM_NO_UP.instantiate()
-									elif temp_room == 2:
-										new_room = _2_DOOR_DOWN_LEFT.instantiate()
+									new_room = _3_DOOR_ROOM_NO_UP.instantiate()
 								elif !can_have_right && can_have_top:
-									# get any room
-									var temp_room = rng.randi_range(1,2)
-									if temp_room == 1:
-										new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
-									elif temp_room == 2:
-										new_room = _2_DOOR_DOWN_LEFT.instantiate()
+									new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
 								else:
 									new_room = _2_DOOR_DOWN_LEFT.instantiate()
 						elif top_connection == null && bottom_connection == null && right_connection != null:
-							if close_rooms:
+							if close_rooms || type == RoomData.room_types.locked_item:
 								new_room = _2_DOOR_LEFT_RIGHT.instantiate()
 							else:
 								var can_have_top = false
@@ -1059,33 +814,21 @@ func spawn_adjacent_rooms(room):
 								
 								if can_have_bottom && can_have_top:
 									# get any room
-									var temp_room = rng.randi_range(0,3)
+									var temp_room = rng.randi_range(0,2)
 									if temp_room == 0:
 										new_room = _4_DOOR_ROOM.instantiate()
 									elif temp_room == 1:
 										new_room = _3_DOOR_ROOM_NO_UP.instantiate()
 									elif temp_room == 2:
 										new_room = _3_DOOR_ROOM_NO_DOWN.instantiate()
-									elif temp_room == 3:
-										new_room = _2_DOOR_LEFT_RIGHT.instantiate()
 								elif can_have_bottom && !can_have_top:
-									# get any room
-									var temp_room = rng.randi_range(1,2)
-									if temp_room == 1:
-										new_room = _3_DOOR_ROOM_NO_UP.instantiate()
-									elif temp_room == 2:
-										new_room = _2_DOOR_LEFT_RIGHT.instantiate()
+									new_room = _3_DOOR_ROOM_NO_UP.instantiate()
 								elif !can_have_bottom && can_have_top:
-									# get any room
-									var temp_room = rng.randi_range(1,2)
-									if temp_room == 1:
-										new_room = _3_DOOR_ROOM_NO_DOWN.instantiate()
-									elif temp_room == 2:
-										new_room = _2_DOOR_LEFT_RIGHT.instantiate()
+									new_room = _3_DOOR_ROOM_NO_DOWN.instantiate()
 								else:
 									new_room = _2_DOOR_LEFT_RIGHT.instantiate()
 						else:
-							if close_rooms:
+							if close_rooms || type == RoomData.room_types.locked_item:
 								new_room = _1_DOOR_ROOM_LEFT.instantiate()
 							else:
 								var can_have_right = false
@@ -1102,53 +845,35 @@ func spawn_adjacent_rooms(room):
 									var random_room = rooms_that_can_connect_to_right[rng.randi_range(0,rooms_that_can_connect_to_right.size()-1)]
 									new_room = random_room.instantiate()
 								elif can_have_right && can_have_top && !can_have_bottom:
-									var temp_room = rng.randi_range(0,3)
+									var temp_room = rng.randi_range(0,2)
 									if temp_room == 0:
 										new_room = _3_DOOR_ROOM_NO_DOWN.instantiate()
 									elif temp_room == 1:
 										new_room = _2_DOOR_LEFT_RIGHT.instantiate()
 									elif temp_room == 2:
 										new_room = _2_DOOR_ROOM_UP_LEFT.instantiate()
-									elif temp_room == 3:
-										new_room = _1_DOOR_ROOM_LEFT.instantiate()
 								elif can_have_right && !can_have_top && can_have_bottom:
-									var temp_room = rng.randi_range(0,3)
+									var temp_room = rng.randi_range(0,2)
 									if temp_room == 0:
 										new_room = _3_DOOR_ROOM_NO_UP.instantiate()
 									elif temp_room == 1:
 										new_room = _2_DOOR_LEFT_RIGHT.instantiate()
 									elif temp_room == 2:
 										new_room = _2_DOOR_DOWN_LEFT.instantiate()
-									elif temp_room == 3:
-										new_room = _1_DOOR_ROOM_LEFT.instantiate()
 								elif !can_have_right && can_have_top && can_have_bottom:
-									var temp_room = rng.randi_range(0,3)
+									var temp_room = rng.randi_range(0,2)
 									if temp_room == 0:
 										new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
 									elif temp_room == 1:
 										new_room = _2_DOOR_ROOM_UP_LEFT.instantiate()
 									elif temp_room == 2:
 										new_room = _2_DOOR_DOWN_LEFT.instantiate()
-									elif temp_room == 3:
-										new_room = _1_DOOR_ROOM_LEFT.instantiate()
 								elif can_have_right && !can_have_top && !can_have_bottom:
-									var temp_room = rng.randi_range(0,1)
-									if temp_room == 0:
-										new_room = _2_DOOR_LEFT_RIGHT.instantiate()
-									elif temp_room == 1:
-										new_room = _1_DOOR_ROOM_LEFT.instantiate()
+									new_room = _2_DOOR_LEFT_RIGHT.instantiate()
 								elif !can_have_right && !can_have_top && can_have_bottom:
-									var temp_room = rng.randi_range(0,1)
-									if temp_room == 0:
-										new_room = _2_DOOR_DOWN_LEFT.instantiate()
-									elif temp_room == 1:
-										new_room = _1_DOOR_ROOM_LEFT.instantiate()
+									new_room = _2_DOOR_DOWN_LEFT.instantiate()
 								elif !can_have_right && can_have_top && !can_have_bottom:
-									var temp_room = rng.randi_range(0,1)
-									if temp_room == 0:
-										new_room = _2_DOOR_ROOM_UP_LEFT.instantiate()
-									elif temp_room == 1:
-										new_room = _1_DOOR_ROOM_LEFT.instantiate()
+									new_room = _2_DOOR_ROOM_UP_LEFT.instantiate()
 								else:
 									new_room = _1_DOOR_ROOM_LEFT.instantiate()
 						
@@ -1186,509 +911,21 @@ func random_room_type():
 			#return type
 		#else:
 			#current_chest_rooms += 1
-	#elif type == RoomData.room_types.locked_item:
-		#if current_locked_rooms == maximum_locked_rooms:
-			#spawnable_room_types.remove_at(spawnable_room_types.find(RoomData.room_types.locked_item))
-			#type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
-			#if type == RoomData.room_types.monster:
-				#current_monster_rooms += 1
-			#return type
-		#else:
-			#current_locked_rooms += 1
-			#return type
+	elif type == RoomData.room_types.locked_item:
+		if current_locked_rooms == maximum_locked_rooms:
+			spawnable_room_types.remove_at(spawnable_room_types.find(RoomData.room_types.locked_item))
+			type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
+			if type == RoomData.room_types.monster:
+				current_monster_rooms += 1
+			return type
+		else:
+			current_locked_rooms += 1
+			return type
 	else:
 		type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
 		if type == RoomData.room_types.monster:
 			current_monster_rooms += 1
 		return type
-
-#func spawn_required_rooms():
-	#while !minimum_requirements_met():
-		#var random_room_type = spawnable_room_types[rng.randi_range(0,spawnable_room_types.size()-1)]
-		#if random_room_type == RoomData.room_types.random_item:
-			#if current_item_rooms == maximum_item_rooms:
-				#spawnable_room_types.remove_at(spawnable_room_types.find(RoomData.room_types.random_item))
-				#random_room_type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
-				#add_new_room_at_random_position(random_room_type)
-				#if random_room_type == RoomData.room_types.monster:
-					#current_monster_rooms += 1
-			#else:
-				#add_new_room_at_random_position(random_room_type)
-				#current_item_rooms += 1
-		##elif random_room_type == RoomData.room_types.monster:
-			##add_new_room_at_random_position(RoomData.room_types.monster)
-			##current_monster_rooms += 1
-		#elif random_room_type == RoomData.room_types.chest:
-			#if current_chest_rooms == maximum_chest_rooms:
-				#spawnable_room_types.remove_at(spawnable_room_types.find(RoomData.room_types.chest))
-				#random_room_type = rng.randi_range(0,unlimited_room_types.size()-1)
-				#add_new_room_at_random_position(unlimited_room_types[random_room_type])
-			#else:
-				#add_new_room_at_random_position(random_room_type)
-				#current_chest_rooms += 1
-		#elif random_room_type == RoomData.room_types.locked_item:
-			#if current_locked_rooms == maximum_locked_rooms:
-				#spawnable_room_types.remove_at(spawnable_room_types.find(RoomData.room_types.locked_item))
-				#random_room_type = rng.randi_range(0,unlimited_room_types.size()-1)
-				#add_new_room_at_random_position(unlimited_room_types[random_room_type])
-			#else:
-				#add_new_room_at_random_position(random_room_type)
-				#current_chest_rooms += 1
-		##elif random_room_type == RoomData.room_types.starting:
-			##add_new_room_at_random_position(RoomData.room_types.monster)
-			##current_monster_rooms += 1
-		#else:
-			##print(random_room_type)
-			#pass
-#
-#func add_new_room_at_random_position(type : RoomData.room_types):
-	#var random_room = rng.randi_range(0,rooms.size()-1)
-	#var has_not_random_connection = true
-	#var new_room_direction
-	#while has_not_random_connection:
-		#var random_direction = rng.randi_range(0,directions.size()-1)
-		#if random_direction == direction.top:
-			#if rooms[random_room].has_door_top() && !rooms[random_room].has_connection_top():
-				#new_room_direction = random_direction
-				#has_not_random_connection = false
-		#elif random_direction == direction.bottom:
-			#if rooms[random_room].has_door_bottom() && !rooms[random_room].has_connection_bottom():
-				#new_room_direction = random_direction
-				#has_not_random_connection = false
-		#elif random_direction == direction.left:
-			#if rooms[random_room].has_door_left() && !rooms[random_room].has_connection_left():
-				#new_room_direction = random_direction
-				#has_not_random_connection = false
-		#elif random_direction == direction.right:
-			#if rooms[random_room].has_door_right() && !rooms[random_room].has_connection_right():
-				#new_room_direction = random_direction
-				#has_not_random_connection = false
-	#
-	#if new_room_direction == direction.top:
-		#var target_room_position = rooms[random_room].global_position + Vector2(0, -224)
-		#
-		#if get_room_at_position(target_room_position) == null:
-			#var new_room = rooms_that_can_connect_to_top[rng.randi_range(0,rooms_that_can_connect_to_top.size()-1)].instantiate()
-			#
-			#var top_connection = get_connection_top(target_room_position)
-			#var left_connection = get_connection_left(target_room_position)
-			#var right_connection = get_connection_right(target_room_position)
-			#
-			## needs to connect on all sides (down is implied)
-			#if top_connection != null && right_connection != null && left_connection != null:
-				#new_room = _4_DOOR_ROOM.instantiate()
-			## needs to connect on the top and right sides (down is implied)
-			#elif top_connection != null && right_connection != null && left_connection == null:
-				#if get_room_at_position(target_room_position + Vector2(-384, 0)) == null:
-					## get either room
-					#var temp_room = rng.randi_range(0,1)
-					#if temp_room == 0:
-						#new_room = _4_DOOR_ROOM.instantiate()
-					#elif temp_room == 1:
-						#new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
-				#else:
-					#new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
-			## needs to connect on the top and left sides (down is implied)
-			#elif top_connection != null && right_connection == null && left_connection != null:
-				#if get_room_at_position(target_room_position + Vector2(384, 0)) == null:
-					## get either room
-					#var temp_room = rng.randi_range(0,1)
-					#if temp_room == 0:
-						#new_room = _4_DOOR_ROOM.instantiate()
-					#elif temp_room == 1:
-						#new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
-				#else:
-					#new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
-			## needs to connect on the left and right sides (down is implied)
-			#elif top_connection == null && right_connection != null && left_connection != null:
-				#if get_room_at_position(target_room_position + Vector2(0, -224)) == null:
-					## get either room
-					#var temp_room = rng.randi_range(0,1)
-					#if temp_room == 0:
-						#new_room = _4_DOOR_ROOM.instantiate()
-					#elif temp_room == 1:
-						#new_room = _3_DOOR_ROOM_NO_UP.instantiate()
-				#else:
-					#new_room = _3_DOOR_ROOM_NO_UP.instantiate()
-			## needs to connect on the top side (down is implied)
-			#elif top_connection != null && right_connection == null && left_connection == null:
-				#var can_have_left = false
-				#if get_room_at_position(target_room_position + Vector2(-384, 0)) == null:
-					#can_have_left = true
-				#var can_have_right = false
-				#if get_room_at_position(target_room_position + Vector2(384, 0)) == null:
-					#can_have_right = true
-				#
-				#if can_have_left && can_have_right:
-					## get any room
-					#var temp_room = rng.randi_range(0,3)
-					#if temp_room == 0:
-						#new_room = _4_DOOR_ROOM.instantiate()
-					#elif temp_room == 1:
-						#new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
-					#elif temp_room == 2:
-						#new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
-					#elif temp_room == 3:
-						#new_room = _2_DOOR_UP_DOWN.instantiate()
-				#elif can_have_left && !can_have_right:
-					## get any room
-					#var temp_room = rng.randi_range(0,2)
-					#if temp_room == 0:
-						#new_room = _4_DOOR_ROOM.instantiate()
-					#elif temp_room == 1:
-						#new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
-					#elif temp_room == 2:
-						#new_room = _2_DOOR_UP_DOWN.instantiate()
-				#elif !can_have_left && can_have_right:
-					## get any room
-					#var temp_room = rng.randi_range(0,2)
-					#if temp_room == 0:
-						#new_room = _4_DOOR_ROOM.instantiate()
-					#elif temp_room == 1:
-						#new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
-					#elif temp_room == 2:
-						#new_room = _2_DOOR_UP_DOWN.instantiate()
-				#else:
-					#new_room = _2_DOOR_UP_DOWN.instantiate()
-			## needs to connect on the right side (down is implied)
-			#elif top_connection == null && right_connection != null && left_connection == null:
-				#var can_have_left = false
-				#if get_room_at_position(target_room_position + Vector2(-384, 0)) == null:
-					#can_have_left = true
-				#var can_have_top = false
-				#if get_room_at_position(target_room_position + Vector2(0, -224)) == null:
-					#can_have_top = true
-				#
-				#if can_have_left && can_have_top:
-					## get any room
-					#var temp_room = rng.randi_range(0,3)
-					#if temp_room == 0:
-						#new_room = _4_DOOR_ROOM.instantiate()
-					#elif temp_room == 1:
-						#new_room = _3_DOOR_ROOM_NO_UP.instantiate()
-					#elif temp_room == 2:
-						#new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
-					#elif temp_room == 3:
-						#new_room = _2_DOOR_DOWN_RIGHT.instantiate()
-				#elif can_have_left && !can_have_top:
-					## get any room
-					#var temp_room = rng.randi_range(0,2)
-					#if temp_room == 0:
-						#new_room = _4_DOOR_ROOM.instantiate()
-					#elif temp_room == 1:
-						#new_room = _3_DOOR_ROOM_NO_UP.instantiate()
-					#elif temp_room == 2:
-						#new_room = _2_DOOR_DOWN_RIGHT.instantiate()
-				#elif !can_have_left && can_have_top:
-					## get any room
-					#var temp_room = rng.randi_range(0,2)
-					#if temp_room == 0:
-						#new_room = _4_DOOR_ROOM.instantiate()
-					#elif temp_room == 1:
-						#new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
-					#elif temp_room == 2:
-						#new_room = _2_DOOR_DOWN_RIGHT.instantiate()
-				#else:
-					#new_room = _2_DOOR_DOWN_RIGHT.instantiate()
-			## needs to connect on the left side (down is implied)
-			#elif top_connection == null && right_connection == null && left_connection != null:
-				#var can_have_right = false
-				#if get_room_at_position(target_room_position + Vector2(384, 0)) == null:
-					#can_have_right = true
-				#var can_have_top = false
-				#if get_room_at_position(target_room_position + Vector2(0, -224)) == null:
-					#can_have_top = true
-				#
-				#if can_have_right && can_have_top:
-					## get any room
-					#var temp_room = rng.randi_range(0,3)
-					#if temp_room == 0:
-						#new_room = _4_DOOR_ROOM.instantiate()
-					#elif temp_room == 1:
-						#new_room = _3_DOOR_ROOM_NO_UP.instantiate()
-					#elif temp_room == 2:
-						#new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
-					#elif temp_room == 3:
-						#new_room = _2_DOOR_DOWN_LEFT.instantiate()
-				#elif can_have_right && !can_have_top:
-					## get any room
-					#var temp_room = rng.randi_range(0,2)
-					#if temp_room == 0:
-						#new_room = _4_DOOR_ROOM.instantiate()
-					#elif temp_room == 1:
-						#new_room = _3_DOOR_ROOM_NO_UP.instantiate()
-					#elif temp_room == 2:
-						#new_room = _2_DOOR_DOWN_LEFT.instantiate()
-				#elif !can_have_right && can_have_top:
-					## get any room
-					#var temp_room = rng.randi_range(0,2)
-					#if temp_room == 0:
-						#new_room = _4_DOOR_ROOM.instantiate()
-					#elif temp_room == 1:
-						#new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
-					#elif temp_room == 2:
-						#new_room = _2_DOOR_DOWN_LEFT.instantiate()
-				#else:
-					#new_room = _2_DOOR_DOWN_LEFT.instantiate()
-			## does not need to connect to any other sides (down is implied)
-			#else:
-				#new_room = _1_DOOR_ROOM_DOWN.instantiate()
-			#
-			#get_tree().current_scene.add_child(new_room)
-			#new_room.global_position = target_room_position
-			#new_room.set_connected_room_top(top_connection)
-			#new_room.set_connected_room_bottom(rooms[random_room])
-			#new_room.set_connected_room_left(left_connection)
-			#new_room.set_connected_room_right(right_connection)
-			#rooms += [new_room]
-			#rooms[random_room].set_connected_room_top(new_room)
-			#
-			#new_room.set_room_type(type)
-	#elif new_room_direction == direction.bottom:
-		#var new_room = rooms_that_can_connect_to_bottom[rng.randi_range(0,rooms_that_can_connect_to_bottom.size()-1)].instantiate()
-		#var target_room_position = rooms[random_room].global_position + Vector2(0, 224)
-		#
-		#if get_room_at_position(target_room_position) == null:
-			#var bottom_connection = get_connection_bottom(target_room_position)
-			#var left_connection = get_connection_left(target_room_position)
-			#var right_connection = get_connection_right(target_room_position)
-			#
-			#get_tree().current_scene.add_child(new_room)
-			#new_room.global_position = target_room_position
-			#new_room.set_connected_room_top(rooms[random_room])
-			#new_room.set_connected_room_bottom(bottom_connection)
-			#new_room.set_connected_room_left(left_connection)
-			#new_room.set_connected_room_right(right_connection)
-			#rooms += [new_room]
-			#rooms[random_room].set_connected_room_bottom(new_room)
-			#
-			#new_room.set_room_type(type)
-	#elif new_room_direction == direction.left:
-		#var new_room = rooms_that_can_connect_to_left[rng.randi_range(0,rooms_that_can_connect_to_left.size()-1)].instantiate()
-		#var target_room_position = rooms[random_room].global_position + Vector2(-384, 0)
-		#
-		#if get_room_at_position(target_room_position) == null:
-			#var top_connection = get_connection_top(target_room_position)
-			#var bottom_connection = get_connection_bottom(target_room_position)
-			#var left_connection = get_connection_left(target_room_position)
-			#
-			#get_tree().current_scene.add_child(new_room)
-			#new_room.global_position = target_room_position
-			#new_room.set_connected_room_top(top_connection)
-			#new_room.set_connected_room_bottom(bottom_connection)
-			#new_room.set_connected_room_left(left_connection)
-			#new_room.set_connected_room_right(rooms[random_room])
-			#rooms += [new_room]
-			#rooms[random_room].set_connected_room_left(new_room)
-			#
-			#new_room.set_room_type(type)
-	#elif new_room_direction == direction.right:
-		#var new_room = rooms_that_can_connect_to_right[rng.randi_range(0,rooms_that_can_connect_to_right.size()-1)].instantiate()
-		#var target_room_position = rooms[random_room].global_position + Vector2(384, 0)
-		#
-		#if get_room_at_position(target_room_position) == null:
-			#var top_connection = get_connection_top(target_room_position)
-			#var bottom_connection = get_connection_bottom(target_room_position)
-			#var right_connection = get_connection_right(target_room_position)
-			#
-			#get_tree().current_scene.add_child(new_room)
-			#new_room.global_position = target_room_position
-			#new_room.set_connected_room_top(top_connection)
-			#new_room.set_connected_room_bottom(bottom_connection)
-			#new_room.set_connected_room_left(rooms[random_room])
-			#new_room.set_connected_room_right(right_connection)
-			#rooms += [new_room]
-			#rooms[random_room].set_connected_room_right(new_room)
-			#
-			#new_room.set_room_type(type)
-
-#func finish_connecting_rooms():
-	#for room in rooms:
-		#var connected_rooms = room.get_connected_rooms()
-		#var iteration = 0
-		#for connected_room in connected_rooms:
-			#iteration += 1
-			#if connected_room == null:
-				## add a room to the top of the current room
-				#if iteration == 1:
-					#if room.has_door_top() && !room.has_connection_top():
-						#var new_room
-						#var target_room_position = room.global_position + Vector2(0, -224)
-						#
-						#if get_room_at_position(target_room_position) == null:
-							##var random_room = rng.randi_range(0,3)
-							##if random_room == 2:
-								##new_room = _4_DOOR_ROOM.instantiate()
-							#
-							#var top_connection = get_connection_top(target_room_position)
-							#var left_connection = get_connection_left(target_room_position)
-							#var right_connection = get_connection_right(target_room_position)
-							#
-							#if top_connection != null && right_connection != null && left_connection != null:
-								#new_room = _4_DOOR_ROOM.instantiate()
-							#elif top_connection != null && right_connection != null && left_connection == null:
-								#new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
-							#elif top_connection != null && right_connection == null && left_connection != null:
-								#new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
-							#elif top_connection == null && right_connection != null && left_connection != null:
-								#new_room = _3_DOOR_ROOM_NO_UP.instantiate()
-							#elif top_connection != null && right_connection == null && left_connection == null:
-								#new_room = _2_DOOR_UP_DOWN.instantiate()
-							#elif top_connection == null && right_connection != null && left_connection == null:
-								#new_room = _2_DOOR_DOWN_RIGHT.instantiate()
-							#elif top_connection == null && right_connection == null && left_connection != null:
-								#new_room = _2_DOOR_DOWN_LEFT.instantiate()
-							#else:
-								#new_room = _1_DOOR_ROOM_DOWN.instantiate()
-							#
-							#get_tree().current_scene.add_child(new_room)
-							#new_room.global_position = target_room_position
-							#new_room.set_connected_room_top(top_connection)
-							#new_room.set_connected_room_bottom(room)
-							#new_room.set_connected_room_left(left_connection)
-							#new_room.set_connected_room_right(right_connection)
-							#rooms += [new_room]
-							#room.set_connected_room_top(new_room)
-							#
-							#var random_type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
-							#new_room.set_room_type(random_type)
-							#
-							#new_room.refresh_type_text()
-				## add a room to the bottom of the current room
-				#elif iteration == 2:
-					#if room.has_door_bottom() && !room.has_connection_bottom():
-						#var new_room
-						#var target_room_position = room.global_position + Vector2(0, 224)
-						#
-						#if get_room_at_position(target_room_position) == null:
-								##var random_room = rng.randi_range(0,3)
-								##if random_room == 2:
-									##new_room = _4_DOOR_ROOM.instantiate()
-								#
-							#var bottom_connection = get_connection_bottom(target_room_position)
-							#var left_connection = get_connection_left(target_room_position)
-							#var right_connection = get_connection_right(target_room_position)
-							#
-							#if bottom_connection != null && right_connection != null && left_connection != null:
-								#new_room = _4_DOOR_ROOM.instantiate()
-							#elif bottom_connection != null && right_connection != null && left_connection == null:
-								#new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
-							#elif bottom_connection != null && right_connection == null && left_connection != null:
-								#new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
-							#elif bottom_connection == null && right_connection != null && left_connection != null:
-								#new_room = _3_DOOR_ROOM_NO_DOWN.instantiate()
-							#elif bottom_connection != null && right_connection == null && left_connection == null:
-								#new_room = _2_DOOR_UP_DOWN.instantiate()
-							#elif bottom_connection == null && right_connection != null && left_connection == null:
-								#new_room = _2_DOOR_ROOM_UP_RIGHT.instantiate()
-							#elif bottom_connection == null && right_connection == null && left_connection != null:
-								#new_room = _2_DOOR_ROOM_UP_LEFT.instantiate()
-							#else:
-								#new_room = _1_DOOR_ROOM_UP.instantiate()
-							#
-							#get_tree().current_scene.add_child(new_room)
-							#new_room.global_position = target_room_position
-							#new_room.set_connected_room_top(room)
-							#new_room.set_connected_room_bottom(bottom_connection)
-							#new_room.set_connected_room_left(left_connection)
-							#new_room.set_connected_room_right(right_connection)
-							#rooms += [new_room]
-							#room.set_connected_room_bottom(new_room)
-							#
-							#var random_type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
-							#new_room.set_room_type(random_type)
-							#
-							#new_room.refresh_type_text()
-					## add a room to the left of the current room
-				#elif iteration == 3:
-					#if room.has_door_left() && !room.has_connection_left():
-						#var new_room
-						#var target_room_position = room.global_position + Vector2(-384, 0)
-						#
-						#if get_room_at_position(target_room_position) == null:
-							##var random_room = rng.randi_range(0,3)
-							##if random_room == 2:
-								##new_room = _4_DOOR_ROOM.instantiate()
-							#
-							#var top_connection = get_connection_top(target_room_position)
-							#var bottom_connection = get_connection_bottom(target_room_position)
-							#var left_connection = get_connection_left(target_room_position)
-							#
-							#if top_connection != null && bottom_connection != null && left_connection != null:
-								#new_room = _4_DOOR_ROOM.instantiate()
-							#elif top_connection != null && bottom_connection != null && left_connection == null:
-								#new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
-							#elif top_connection != null && bottom_connection == null && left_connection != null:
-								#new_room = _3_DOOR_ROOM_NO_DOWN.instantiate()
-							#elif top_connection == null && bottom_connection != null && left_connection != null:
-								#new_room = _3_DOOR_ROOM_NO_UP.instantiate()
-							#elif top_connection != null && bottom_connection == null && left_connection == null:
-								#new_room = _2_DOOR_ROOM_UP_RIGHT.instantiate()
-							#elif top_connection == null && bottom_connection != null && left_connection == null:
-								#new_room = _2_DOOR_DOWN_RIGHT.instantiate()
-							#elif top_connection == null && bottom_connection == null && left_connection != null:
-								#new_room = _2_DOOR_LEFT_RIGHT.instantiate()
-							#else:
-								#new_room = _1_DOOR_ROOM_RIGHT.instantiate()
-							#
-							#get_tree().current_scene.add_child(new_room)
-							#new_room.global_position = target_room_position
-							#new_room.set_connected_room_top(top_connection)
-							#new_room.set_connected_room_bottom(bottom_connection)
-							#new_room.set_connected_room_left(left_connection)
-							#new_room.set_connected_room_right(room)
-							#rooms += [new_room]
-							#room.set_connected_room_left(new_room)
-							#
-							#var random_type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
-							#new_room.set_room_type(random_type)
-							#
-							#new_room.refresh_type_text()
-				## add a room to the right of the current room
-				#elif iteration == 4:
-					#if room.has_door_right() && !room.has_connection_right():
-						#var new_room
-						#var target_room_position = room.global_position + Vector2(384, 0)
-						#
-						#if get_room_at_position(target_room_position) == null:
-							##var random_room = rng.randi_range(0,3)
-							##if random_room == 2:
-								##new_room = _4_DOOR_ROOM.instantiate()
-							#
-							#var top_connection = get_connection_top(target_room_position)
-							#var bottom_connection = get_connection_bottom(target_room_position)
-							#var right_connection = get_connection_right(target_room_position)
-							#
-							#if top_connection != null && bottom_connection != null && right_connection != null:
-								#new_room = _4_DOOR_ROOM.instantiate()
-							#elif top_connection != null && bottom_connection != null && right_connection == null:
-								#new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
-							#elif top_connection != null && bottom_connection == null && right_connection != null:
-								#new_room = _3_DOOR_ROOM_NO_DOWN.instantiate()
-							#elif top_connection == null && bottom_connection != null && right_connection != null:
-								#new_room = _3_DOOR_ROOM_NO_UP.instantiate()
-							#elif top_connection != null && bottom_connection == null && right_connection == null:
-								#new_room = _2_DOOR_ROOM_UP_LEFT.instantiate()
-							#elif top_connection == null && bottom_connection != null && right_connection == null:
-								#new_room = _2_DOOR_DOWN_LEFT.instantiate()
-							#elif top_connection == null && bottom_connection == null && right_connection != null:
-								#new_room = _2_DOOR_LEFT_RIGHT.instantiate()
-							#elif top_connection == null && bottom_connection == null && right_connection == null:
-								#new_room = _1_DOOR_ROOM_LEFT.instantiate()
-							#
-							#get_tree().current_scene.add_child(new_room)
-							#new_room.global_position = target_room_position
-							#new_room.set_connected_room_top(top_connection)
-							#new_room.set_connected_room_bottom(bottom_connection)
-							#new_room.set_connected_room_left(room)
-							#new_room.set_connected_room_right(right_connection)
-							#rooms += [new_room]
-							#room.set_connected_room_right(new_room)
-							#
-							#var random_type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
-							#new_room.set_room_type(random_type)
-							#
-							#new_room.refresh_type_text()
 
 func get_connection_top(room_location):
 	for adj_room in rooms:
