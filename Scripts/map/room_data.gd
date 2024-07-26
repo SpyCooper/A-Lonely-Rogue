@@ -14,3 +14,5 @@ enum room_types
 }
 
 var floor_1_mobs = []
+
+var current_room = null

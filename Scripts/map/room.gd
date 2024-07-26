@@ -5,6 +5,7 @@ var top_room = null
 var bottom_room = null
 var left_room = null
 var right_room = null
+@onready var label = $Label
 
 # references to the door visuals
 @onready var door_sound = $door_sound
@@ -22,9 +23,13 @@ var can_play_sound = false
 var room_type = RoomData.room_types.no_type
 
 
-#func _ready():
+func _ready():
 	## set if the doors are locked, etc
 	#top_door.lock()
+	pass
+
+func refresh_type_text():
+	label.text = "Type: " + str(room_type)
 
 # when a body enters the player_detector
 func _on_player_detector_body_entered(body):
@@ -32,8 +37,7 @@ func _on_player_detector_body_entered(body):
 	if body is Player:
 		# emit the signal room_entered
 		Events.room_entered.emit(self)
-		
-		print(room_type)
+		RoomData.current_room = self
 		
 		# if there are no enemies in the room
 		if enemies_spawned.size() == 0:

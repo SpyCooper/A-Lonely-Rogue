@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://kbe2aiqeulfc"]
+[gd_scene load_steps=14 format=3 uid="uid://kbe2aiqeulfc"]
 
 [ext_resource type="Script" path="res://Scripts/map/room.gd" id="1_i4jav"]
 [ext_resource type="Texture2D" uid="uid://q8u3vcegdeyf" path="res://Assets/Sprites/map/rooms/3_door_no_up.png" id="2_wcpmw"]
@@ -10,6 +10,7 @@
 [ext_resource type="PackedScene" uid="uid://c8gymm5o5gc4r" path="res://Scenes/map/room_components/top_bottom_door.tscn" id="9_fxnqy"]
 [ext_resource type="PackedScene" uid="uid://bog8apffuihdu" path="res://Scenes/map/room_components/left_right_door.tscn" id="10_x0jwg"]
 [ext_resource type="PackedScene" uid="uid://ci4t04cng0qhi" path="res://Scenes/map/key_checks.tscn" id="11_0gigj"]
+[ext_resource type="PackedScene" uid="uid://cwl3212lssvcl" path="res://Scenes/map/room_components/label.tscn" id="11_83jkx"]
 [ext_resource type="PackedScene" uid="uid://b10n6gh82eb6t" path="res://Scenes/map/room_components/door_sound.tscn" id="12_bcxtp"]
 [ext_resource type="PackedScene" uid="uid://dgoivmdbub18f" path="res://Scenes/map/room_components/wall colliders/top_bottom_wall_collider.tscn" id="12_sieds"]
 
@@ -61,6 +62,8 @@ position = Vector2(0, 91)
 
 [node name="left_door" parent="." instance=ExtResource("10_x0jwg")]
 position = Vector2(-165, -3)
+
+[node name="Label" parent="." instance=ExtResource("11_83jkx")]
 
 [node name="right_door" parent="." instance=ExtResource("10_x0jwg")]
 position = Vector2(166, -3)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://duu1fv8fg83r6"]
+[gd_scene load_steps=15 format=3 uid="uid://duu1fv8fg83r6"]
 
 [ext_resource type="Script" path="res://Scripts/map/room.gd" id="1_p611i"]
 [ext_resource type="Texture2D" uid="uid://e2ft1stpxaio" path="res://Assets/Sprites/map/rooms/3_door_no_right.png" id="2_tuy24"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://bog8apffuihdu" path="res://Scenes/map/room_components/left_right_door.tscn" id="10_ngwt6"]
 [ext_resource type="PackedScene" uid="uid://ci4t04cng0qhi" path="res://Scenes/map/key_checks.tscn" id="11_y6ao7"]
 [ext_resource type="PackedScene" uid="uid://b10n6gh82eb6t" path="res://Scenes/map/room_components/door_sound.tscn" id="12_f0crf"]
+[ext_resource type="PackedScene" uid="uid://cwl3212lssvcl" path="res://Scenes/map/room_components/label.tscn" id="14_3l47u"]
 
 [node name="3_door_no_right" type="Node2D"]
 z_index = -1
@@ -67,6 +68,11 @@ position = Vector2(-165, -3)
 [node name="key_checks" parent="." instance=ExtResource("11_y6ao7")]
 
 [node name="door_sound" parent="." instance=ExtResource("12_f0crf")]
+
+[node name="Label" parent="." instance=ExtResource("14_3l47u")]
+offset_top = -96.0
+offset_right = 46.0
+offset_bottom = -73.0
 
 [connection signal="body_entered" from="player detector" to="." method="_on_player_detector_body_entered"]
 [connection signal="body_entered" from="enemy detector" to="." method="_on_enemy_detector_body_entered"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://dktq14smf6rpt"]
+[gd_scene load_steps=12 format=3 uid="uid://dktq14smf6rpt"]
 
 [ext_resource type="Script" path="res://Scripts/map/room.gd" id="1_r7227"]
 [ext_resource type="Texture2D" uid="uid://jj7bkb8gvvc1" path="res://Assets/Sprites/map/rooms/2_door_left_right.png" id="2_cb3r1"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://bog8apffuihdu" path="res://Scenes/map/room_components/left_right_door.tscn" id="10_kkf05"]
 [ext_resource type="PackedScene" uid="uid://dgoivmdbub18f" path="res://Scenes/map/room_components/wall colliders/top_bottom_wall_collider.tscn" id="10_ymalj"]
 [ext_resource type="PackedScene" uid="uid://ci4t04cng0qhi" path="res://Scenes/map/key_checks.tscn" id="11_3bwec"]
+[ext_resource type="PackedScene" uid="uid://cwl3212lssvcl" path="res://Scenes/map/room_components/label.tscn" id="11_urrdc"]
 [ext_resource type="PackedScene" uid="uid://b10n6gh82eb6t" path="res://Scenes/map/room_components/door_sound.tscn" id="12_wryu5"]
 
 [node name="2_door_left_right" type="Node2D"]
@@ -57,6 +58,8 @@ position = Vector2(-1, 96)
 
 [node name="top_wall_collider" parent="." instance=ExtResource("10_ymalj")]
 position = Vector2(0, -99)
+
+[node name="Label" parent="." instance=ExtResource("11_urrdc")]
 
 [connection signal="body_entered" from="player detector" to="." method="_on_player_detector_body_entered"]
 [connection signal="body_entered" from="enemy detector" to="." method="_on_enemy_detector_body_entered"]
