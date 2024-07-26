@@ -163,7 +163,7 @@ func minimum_requirements_met():
 		locked_rooms_met = true
 	if current_chest_rooms >= minimum_chest_rooms:
 		chest_rooms_met = true
-	return item_room_met && monster_room_met && locked_rooms_met && chest_rooms_met && crystal_boss_room_spawned
+	return item_room_met && monster_room_met && locked_rooms_met && chest_rooms_met && crystal_boss_room_spawned && boss_room_spawned
 
 func random_room_type():
 	var type
@@ -192,6 +192,12 @@ func spawned_room_type(type : RoomData.room_types):
 	elif type == RoomData.room_types.crystal_boss:
 		spawnable_room_types.remove_at(spawnable_room_types.find(RoomData.room_types.crystal_boss))
 		crystal_boss_room_spawned = true
+	elif type == RoomData.room_types.boss:
+		spawnable_room_types.remove_at(spawnable_room_types.find(RoomData.room_types.boss))
+		boss_room_spawned = true
+	
+	if spawnable_room_types.size() == 1 && spawnable_room_types[0] == RoomData.room_types.monster:
+		spawnable_room_types.remove_at(0)
 
 func random_room_type_near_spawn():
 	var type
@@ -260,8 +266,9 @@ func spawn_adjacent_rooms(room):
 					
 					if get_room_at_position(target_room_position) == null:
 						
-						if !check_for_other_empty_doors(target_room_position):
-							type = RoomData.room_types.monster
+						if type == RoomData.room_types.locked_item:
+							if !check_for_other_empty_doors(target_room_position):
+								type = RoomData.room_types.monster
 						
 						var top_connection = get_connection_top(target_room_position)
 						var left_connection = get_connection_left(target_room_position)
@@ -269,6 +276,8 @@ func spawn_adjacent_rooms(room):
 						
 						# needs to connect on all sides (down is implied)
 						if top_connection != null && right_connection != null && left_connection != null:
+							if type == RoomData.room_types.boss:
+								type = RoomData.room_types.no_type
 							new_room = _4_DOOR_ROOM.instantiate()
 						# needs to connect on the top and right sides (down is implied)
 						elif top_connection != null && right_connection != null && left_connection == null:
@@ -278,6 +287,8 @@ func spawn_adjacent_rooms(room):
 								# get either room
 								new_room = _4_DOOR_ROOM.instantiate()
 							else:
+								if type == RoomData.room_types.boss:
+									type = RoomData.room_types.no_type
 								new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
 						# needs to connect on the top and left sides (down is implied)
 						elif top_connection != null && right_connection == null && left_connection != null:
@@ -286,6 +297,8 @@ func spawn_adjacent_rooms(room):
 							elif get_room_at_position(target_room_position + Vector2(384, 0)) == null:
 								new_room = _4_DOOR_ROOM.instantiate()
 							else:
+								if type == RoomData.room_types.boss:
+									type = RoomData.room_types.no_type
 								new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
 						# needs to connect on the left and right sides (down is implied)
 						elif top_connection == null && right_connection != null && left_connection != null:
@@ -294,6 +307,8 @@ func spawn_adjacent_rooms(room):
 							elif get_room_at_position(target_room_position + Vector2(0, -224)) == null:
 								new_room = _4_DOOR_ROOM.instantiate()
 							else:
+								if type == RoomData.room_types.boss:
+									type = RoomData.room_types.no_type
 								new_room = _3_DOOR_ROOM_NO_UP.instantiate()
 						# needs to connect on the top side (down is implied)
 						elif top_connection != null && right_connection == null && left_connection == null:
@@ -321,6 +336,8 @@ func spawn_adjacent_rooms(room):
 								elif !can_have_left && can_have_right:
 									new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
 								else:
+									if type == RoomData.room_types.boss:
+										type = RoomData.room_types.no_type
 									new_room = _2_DOOR_UP_DOWN.instantiate()
 						# needs to connect on the right side (down is implied)
 						elif top_connection == null && right_connection != null && left_connection == null:
@@ -348,6 +365,8 @@ func spawn_adjacent_rooms(room):
 								elif !can_have_left && can_have_top:
 									new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
 								else:
+									if type == RoomData.room_types.boss:
+										type = RoomData.room_types.no_type
 									new_room = _2_DOOR_DOWN_RIGHT.instantiate()
 						# needs to connect on the left side (down is implied)
 						elif top_connection == null && right_connection == null && left_connection != null:
@@ -375,6 +394,8 @@ func spawn_adjacent_rooms(room):
 								elif !can_have_right && can_have_top:
 									new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
 								else:
+									if type == RoomData.room_types.boss:
+										type = RoomData.room_types.no_type
 									new_room = _2_DOOR_DOWN_LEFT.instantiate()
 						# does not need to connect to any other sides (down is implied)
 						else:
@@ -425,6 +446,8 @@ func spawn_adjacent_rooms(room):
 								elif !can_have_left && can_have_right && !can_have_top:
 									new_room = _2_DOOR_DOWN_RIGHT.instantiate()
 								else:
+									if type == RoomData.room_types.boss:
+										type = RoomData.room_types.no_type
 									new_room = _1_DOOR_ROOM_DOWN.instantiate()
 						
 						get_tree().current_scene.add_child(new_room)
@@ -446,14 +469,17 @@ func spawn_adjacent_rooms(room):
 					
 					if get_room_at_position(target_room_position) == null:
 						
-						if !check_for_other_empty_doors(target_room_position):
-							type = RoomData.room_types.monster
+						if type == RoomData.room_types.locked_item:
+							if !check_for_other_empty_doors(target_room_position):
+								type = RoomData.room_types.monster
 						
 						var bottom_connection = get_connection_bottom(target_room_position)
 						var left_connection = get_connection_left(target_room_position)
 						var right_connection = get_connection_right(target_room_position)
 						
 						if bottom_connection != null && right_connection != null && left_connection != null:
+							if type == RoomData.room_types.boss:
+								type = RoomData.room_types.no_type
 							new_room = _4_DOOR_ROOM.instantiate()
 						elif bottom_connection != null && right_connection != null && left_connection == null:
 							if close_rooms || type == RoomData.room_types.locked_item:
@@ -462,6 +488,8 @@ func spawn_adjacent_rooms(room):
 								if get_room_at_position(target_room_position + Vector2(-384, 0)) == null:
 									new_room = _4_DOOR_ROOM.instantiate()
 								else:
+									if type == RoomData.room_types.boss:
+										type = RoomData.room_types.no_type
 									new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
 						elif bottom_connection != null && right_connection == null && left_connection != null:
 							if close_rooms || type == RoomData.room_types.locked_item:
@@ -470,6 +498,8 @@ func spawn_adjacent_rooms(room):
 								if get_room_at_position(target_room_position + Vector2(384, 0)) == null:
 									new_room = _4_DOOR_ROOM.instantiate()
 								else:
+									if type == RoomData.room_types.boss:
+										type = RoomData.room_types.no_type
 									new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
 						elif bottom_connection == null && right_connection != null && left_connection != null:
 							if close_rooms || type == RoomData.room_types.locked_item:
@@ -478,6 +508,8 @@ func spawn_adjacent_rooms(room):
 								if get_room_at_position(target_room_position + Vector2(0, 224)) == null:
 									new_room = _4_DOOR_ROOM.instantiate()
 								else:
+									if type == RoomData.room_types.boss:
+										type = RoomData.room_types.no_type
 									new_room = _3_DOOR_ROOM_NO_DOWN.instantiate()
 						elif bottom_connection != null && right_connection == null && left_connection == null:
 							if close_rooms || type == RoomData.room_types.locked_item:
@@ -504,6 +536,8 @@ func spawn_adjacent_rooms(room):
 								elif !can_have_left && can_have_right:
 									new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
 								else:
+									if type == RoomData.room_types.boss:
+										type = RoomData.room_types.no_type
 									new_room = _2_DOOR_UP_DOWN.instantiate()
 						elif bottom_connection == null && right_connection != null && left_connection == null:
 							if close_rooms || type == RoomData.room_types.locked_item:
@@ -530,6 +564,8 @@ func spawn_adjacent_rooms(room):
 								elif !can_have_left && can_have_bottom:
 									new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
 								else:
+									if type == RoomData.room_types.boss:
+										type = RoomData.room_types.no_type
 									new_room = _2_DOOR_ROOM_UP_RIGHT.instantiate()
 						elif bottom_connection == null && right_connection == null && left_connection != null:
 							if close_rooms || type == RoomData.room_types.locked_item:
@@ -556,6 +592,8 @@ func spawn_adjacent_rooms(room):
 								elif !can_have_right && can_have_bottom:
 									new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
 								else:
+									if type == RoomData.room_types.boss:
+										type = RoomData.room_types.no_type
 									new_room = _2_DOOR_ROOM_UP_LEFT.instantiate()
 						else:
 							if close_rooms || type == RoomData.room_types.locked_item:
@@ -605,6 +643,8 @@ func spawn_adjacent_rooms(room):
 								elif !can_have_left && can_have_right && !can_have_bottom:
 									new_room = _2_DOOR_ROOM_UP_RIGHT.instantiate()
 								else:
+									if type == RoomData.room_types.boss:
+										type = RoomData.room_types.no_type
 									new_room = _1_DOOR_ROOM_UP.instantiate()
 							
 						get_tree().current_scene.add_child(new_room)
@@ -626,14 +666,17 @@ func spawn_adjacent_rooms(room):
 					
 					if get_room_at_position(target_room_position) == null:
 						
-						if !check_for_other_empty_doors(target_room_position):
-							type = RoomData.room_types.monster
+						if type == RoomData.room_types.locked_item:
+							if !check_for_other_empty_doors(target_room_position):
+								type = RoomData.room_types.monster
 						
 						var top_connection = get_connection_top(target_room_position)
 						var bottom_connection = get_connection_bottom(target_room_position)
 						var left_connection = get_connection_left(target_room_position)
 						
 						if top_connection != null && bottom_connection != null && left_connection != null:
+							if type == RoomData.room_types.boss:
+								type = RoomData.room_types.no_type
 							new_room = _4_DOOR_ROOM.instantiate()
 						elif top_connection != null && bottom_connection != null && left_connection == null:
 							if close_rooms || type == RoomData.room_types.locked_item:
@@ -642,6 +685,8 @@ func spawn_adjacent_rooms(room):
 								if get_room_at_position(target_room_position + Vector2(-384, 0)) == null:
 									new_room = _4_DOOR_ROOM.instantiate()
 								else:
+									if type == RoomData.room_types.boss:
+										type = RoomData.room_types.no_type
 									new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
 						elif top_connection != null && bottom_connection == null && left_connection != null:
 							if close_rooms || type == RoomData.room_types.locked_item:
@@ -650,6 +695,8 @@ func spawn_adjacent_rooms(room):
 								if get_room_at_position(target_room_position + Vector2(0, 224)) == null:
 									new_room = _4_DOOR_ROOM.instantiate()
 								else:
+									if type == RoomData.room_types.boss:
+										type = RoomData.room_types.no_type
 									new_room = _3_DOOR_ROOM_NO_DOWN.instantiate()
 						elif top_connection == null && bottom_connection != null && left_connection != null:
 							if close_rooms || type == RoomData.room_types.locked_item:
@@ -658,6 +705,8 @@ func spawn_adjacent_rooms(room):
 								if get_room_at_position(target_room_position + Vector2(0, -224)) == null:
 									new_room = _4_DOOR_ROOM.instantiate()
 								else:
+									if type == RoomData.room_types.boss:
+										type = RoomData.room_types.no_type
 									new_room = _3_DOOR_ROOM_NO_UP.instantiate()
 						elif top_connection != null && bottom_connection == null && left_connection == null:
 							if close_rooms || type == RoomData.room_types.locked_item:
@@ -684,6 +733,8 @@ func spawn_adjacent_rooms(room):
 								elif !can_have_left && can_have_bottom:
 									new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
 								else:
+									if type == RoomData.room_types.boss:
+										type = RoomData.room_types.no_type
 									new_room = _2_DOOR_ROOM_UP_RIGHT.instantiate()
 						elif top_connection == null && bottom_connection != null && left_connection == null:
 							if close_rooms || type == RoomData.room_types.locked_item:
@@ -710,6 +761,8 @@ func spawn_adjacent_rooms(room):
 								elif !can_have_left && can_have_top:
 									new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
 								else:
+									if type == RoomData.room_types.boss:
+										type = RoomData.room_types.no_type
 									new_room = _2_DOOR_DOWN_RIGHT.instantiate()
 						elif top_connection == null && bottom_connection == null && left_connection != null:
 							if close_rooms || type == RoomData.room_types.locked_item:
@@ -736,6 +789,8 @@ func spawn_adjacent_rooms(room):
 								elif !can_have_bottom && can_have_top:
 									new_room = _3_DOOR_ROOM_NO_DOWN.instantiate()
 								else:
+									if type == RoomData.room_types.boss:
+										type = RoomData.room_types.no_type
 									new_room = _2_DOOR_LEFT_RIGHT.instantiate()
 						else:
 							if close_rooms || type == RoomData.room_types.locked_item:
@@ -785,6 +840,8 @@ func spawn_adjacent_rooms(room):
 								elif !can_have_left && can_have_top && !can_have_bottom:
 									new_room = _2_DOOR_ROOM_UP_RIGHT.instantiate()
 								else:
+									if type == RoomData.room_types.boss:
+										type = RoomData.room_types.no_type
 									new_room = _1_DOOR_ROOM_RIGHT.instantiate()
 						
 						get_tree().current_scene.add_child(new_room)
@@ -806,14 +863,17 @@ func spawn_adjacent_rooms(room):
 					
 					if get_room_at_position(target_room_position) == null:
 						
-						if !check_for_other_empty_doors(target_room_position):
-							type = RoomData.room_types.monster
+						if type == RoomData.room_types.locked_item:
+							if !check_for_other_empty_doors(target_room_position):
+								type = RoomData.room_types.monster
 						
 						var top_connection = get_connection_top(target_room_position)
 						var bottom_connection = get_connection_bottom(target_room_position)
 						var right_connection = get_connection_right(target_room_position)
 						
 						if top_connection != null && bottom_connection != null && right_connection != null:
+							if type == RoomData.room_types.boss:
+								type = RoomData.room_types.no_type
 							new_room = _4_DOOR_ROOM.instantiate()
 						elif top_connection != null && bottom_connection != null && right_connection == null:
 							if close_rooms || type == RoomData.room_types.locked_item:
@@ -822,6 +882,8 @@ func spawn_adjacent_rooms(room):
 								if get_room_at_position(target_room_position + Vector2(384, 0)) == null:
 									new_room = _4_DOOR_ROOM.instantiate()
 								else:
+									if type == RoomData.room_types.boss:
+										type = RoomData.room_types.no_type
 									new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
 						elif top_connection != null && bottom_connection == null && right_connection != null:
 							if close_rooms || type == RoomData.room_types.locked_item:
@@ -830,6 +892,8 @@ func spawn_adjacent_rooms(room):
 								if get_room_at_position(target_room_position + Vector2(0, 224)) == null:
 									new_room = _4_DOOR_ROOM.instantiate()
 								else:
+									if type == RoomData.room_types.boss:
+										type = RoomData.room_types.no_type
 									new_room = _3_DOOR_ROOM_NO_DOWN.instantiate()
 						elif top_connection == null && bottom_connection != null && right_connection != null:
 							if close_rooms || type == RoomData.room_types.locked_item:
@@ -838,6 +902,8 @@ func spawn_adjacent_rooms(room):
 								if get_room_at_position(target_room_position + Vector2(0, -224)) == null:
 									new_room = _4_DOOR_ROOM.instantiate()
 								else:
+									if type == RoomData.room_types.boss:
+										type = RoomData.room_types.no_type
 									new_room = _3_DOOR_ROOM_NO_UP.instantiate()
 						elif top_connection != null && bottom_connection == null && right_connection == null:
 							if close_rooms || type == RoomData.room_types.locked_item:
@@ -864,6 +930,8 @@ func spawn_adjacent_rooms(room):
 								elif !can_have_right && can_have_bottom:
 									new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
 								else:
+									if type == RoomData.room_types.boss:
+										type = RoomData.room_types.no_type
 									new_room = _2_DOOR_ROOM_UP_LEFT.instantiate()
 						elif top_connection == null && bottom_connection != null && right_connection == null:
 							if close_rooms || type == RoomData.room_types.locked_item:
@@ -890,6 +958,8 @@ func spawn_adjacent_rooms(room):
 								elif !can_have_right && can_have_top:
 									new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
 								else:
+									if type == RoomData.room_types.boss:
+										type = RoomData.room_types.no_type
 									new_room = _2_DOOR_DOWN_LEFT.instantiate()
 						elif top_connection == null && bottom_connection == null && right_connection != null:
 							if close_rooms || type == RoomData.room_types.locked_item:
@@ -916,6 +986,8 @@ func spawn_adjacent_rooms(room):
 								elif !can_have_bottom && can_have_top:
 									new_room = _3_DOOR_ROOM_NO_DOWN.instantiate()
 								else:
+									if type == RoomData.room_types.boss:
+										type = RoomData.room_types.no_type
 									new_room = _2_DOOR_LEFT_RIGHT.instantiate()
 						else:
 							if close_rooms || type == RoomData.room_types.locked_item:
@@ -965,6 +1037,8 @@ func spawn_adjacent_rooms(room):
 								elif !can_have_right && can_have_top && !can_have_bottom:
 									new_room = _2_DOOR_ROOM_UP_LEFT.instantiate()
 								else:
+									if type == RoomData.room_types.boss:
+										type = RoomData.room_types.no_type
 									new_room = _1_DOOR_ROOM_LEFT.instantiate()
 						
 						get_tree().current_scene.add_child(new_room)
