@@ -163,7 +163,7 @@ func minimum_requirements_met():
 		locked_rooms_met = true
 	if current_chest_rooms >= minimum_chest_rooms:
 		chest_rooms_met = true
-	return item_room_met && monster_room_met && locked_rooms_met && chest_rooms_met && crystal_boss_room_spawned && boss_room_spawned
+	return item_room_met && monster_room_met && locked_rooms_met && chest_rooms_met && crystal_boss_room_spawned && boss_room_spawned && ending_room_spawned
 
 func random_room_type():
 	var type
@@ -266,7 +266,7 @@ func spawn_adjacent_rooms(room):
 					
 					if get_room_at_position(target_room_position) == null:
 						
-						if type == RoomData.room_types.locked_item:
+						if type == RoomData.room_types.locked_item || type == RoomData.room_types.boss:
 							if !check_for_other_empty_doors(target_room_position):
 								type = RoomData.room_types.monster
 						
@@ -469,7 +469,7 @@ func spawn_adjacent_rooms(room):
 					
 					if get_room_at_position(target_room_position) == null:
 						
-						if type == RoomData.room_types.locked_item:
+						if type == RoomData.room_types.locked_item || type == RoomData.room_types.boss:
 							if !check_for_other_empty_doors(target_room_position):
 								type = RoomData.room_types.monster
 						
@@ -666,7 +666,7 @@ func spawn_adjacent_rooms(room):
 					
 					if get_room_at_position(target_room_position) == null:
 						
-						if type == RoomData.room_types.locked_item:
+						if type == RoomData.room_types.locked_item || type == RoomData.room_types.boss:
 							if !check_for_other_empty_doors(target_room_position):
 								type = RoomData.room_types.monster
 						
@@ -863,7 +863,7 @@ func spawn_adjacent_rooms(room):
 					
 					if get_room_at_position(target_room_position) == null:
 						
-						if type == RoomData.room_types.locked_item:
+						if type == RoomData.room_types.locked_item || type == RoomData.room_types.boss:
 							if !check_for_other_empty_doors(target_room_position):
 								type = RoomData.room_types.monster
 						
@@ -1056,6 +1056,100 @@ func spawn_adjacent_rooms(room):
 			
 			if new_room != null:
 				spawned_room_type(type)
+				if type ==  RoomData.room_types.boss:
+					spawn_ending_room(new_room)
+
+func spawn_ending_room(boss_room):
+	var top_connection = get_connection_top(boss_room.global_position)
+	var bottom_connection = get_connection_bottom(boss_room.global_position)
+	var left_connection = get_connection_left(boss_room.global_position)
+	var right_connection = get_connection_right(boss_room.global_position)
+	
+	var new_room
+	var has_spawned_room = false
+	
+	if top_connection == null && !has_spawned_room:
+		var target_room_position = boss_room.global_position + Vector2(0, -224)
+		if get_room_at_position(target_room_position) == null && boss_room.has_door_top():
+			new_room = _1_DOOR_ROOM_DOWN.instantiate()
+			
+			get_tree().current_scene.add_child(new_room)
+			new_room.global_position = target_room_position
+			new_room.set_connected_room_top(top_connection)
+			new_room.set_connected_room_bottom(boss_room)
+			new_room.set_connected_room_left(left_connection)
+			new_room.set_connected_room_right(right_connection)
+			rooms += [new_room]
+			boss_room.set_connected_room_top(new_room)
+			
+			new_room.set_room_type(RoomData.room_types.ending)
+			
+			new_room.refresh_type_text()
+			
+			has_spawned_room = true
+	if bottom_connection == null && !has_spawned_room:
+		var target_room_position = boss_room.global_position + Vector2(0, 224)
+		if get_room_at_position(target_room_position) == null && boss_room.has_door_bottom():
+			new_room = _1_DOOR_ROOM_UP.instantiate()
+			
+			get_tree().current_scene.add_child(new_room)
+			new_room.global_position = target_room_position
+			new_room.set_connected_room_top(boss_room)
+			new_room.set_connected_room_bottom(bottom_connection)
+			new_room.set_connected_room_left(left_connection)
+			new_room.set_connected_room_right(right_connection)
+			rooms += [new_room]
+			boss_room.set_connected_room_bottom(new_room)
+			
+			new_room.set_room_type(RoomData.room_types.ending)
+			
+			new_room.refresh_type_text()
+			
+			has_spawned_room = true
+	if left_connection == null && !has_spawned_room:
+		var target_room_position = boss_room.global_position + Vector2(-384, 0)
+		if get_room_at_position(target_room_position) == null && boss_room.has_door_left():
+			new_room = _1_DOOR_ROOM_RIGHT.instantiate()
+			
+			get_tree().current_scene.add_child(new_room)
+			new_room.global_position = target_room_position
+			new_room.set_connected_room_top(top_connection)
+			new_room.set_connected_room_bottom(bottom_connection)
+			new_room.set_connected_room_left(left_connection)
+			new_room.set_connected_room_right(boss_room)
+			rooms += [new_room]
+			boss_room.set_connected_room_left(new_room)
+			
+			new_room.set_room_type(RoomData.room_types.ending)
+			
+			new_room.refresh_type_text()
+			
+			has_spawned_room = true
+	if right_connection == null && !has_spawned_room:
+		var target_room_position = boss_room.global_position + Vector2(384, 0)
+		if get_room_at_position(target_room_position) == null && boss_room.has_door_right():
+			new_room = _1_DOOR_ROOM_LEFT.instantiate()
+			
+			get_tree().current_scene.add_child(new_room)
+			new_room.global_position = target_room_position
+			new_room.set_connected_room_top(top_connection)
+			new_room.set_connected_room_bottom(bottom_connection)
+			new_room.set_connected_room_left(boss_room)
+			new_room.set_connected_room_right(right_connection)
+			rooms += [new_room]
+			boss_room.set_connected_room_right(new_room)
+			
+			new_room.set_room_type(RoomData.room_types.ending)
+			
+			new_room.refresh_type_text()
+			
+			has_spawned_room = true
+	
+	if new_room != null:
+		ending_room_spawned = true
+	else:
+		print("ending room didn't spawn")
+		#get_tree().reload_current_scene()
 
 func check_for_other_empty_doors(current_position : Vector2):
 	var number_of_empty_doorways = 0
