@@ -130,7 +130,7 @@ var minimum_locked_rooms = 1
 var maximum_locked_rooms = 3
 var current_locked_rooms = 0
 
-var minimum_monster_rooms = 3
+var minimum_monster_rooms = 4
 var current_monster_rooms = 0
 
 var rng = RandomNumberGenerator.new()
@@ -142,6 +142,7 @@ func _ready():
 	# when the room_entered signal is sent
 	Events.room_entered.connect(func(room):
 		if minimum_requirements_met():
+			print("requirements_met")
 			close_rooms = true
 		spawn_adjacent_rooms(room)
 	)
@@ -168,41 +169,29 @@ func random_room_type():
 	var type
 	if spawnable_room_types.size() != 0:
 		type = spawnable_room_types[rng.randi_range(0,spawnable_room_types.size()-1)]
-		if type == RoomData.room_types.random_item:
-			if current_item_rooms == maximum_item_rooms:
-				spawnable_room_types.remove_at(spawnable_room_types.find(RoomData.room_types.random_item))
-				type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
-				if type == RoomData.room_types.monster:
-					current_monster_rooms += 1
-			else:
-				current_item_rooms += 1
-		elif type == RoomData.room_types.chest:
-			if current_chest_rooms == maximum_chest_rooms:
-				spawnable_room_types.remove_at(spawnable_room_types.find(RoomData.room_types.chest))
-				type = rng.randi_range(0,unlimited_room_types.size()-1)
-				if type == RoomData.room_types.monster:
-					current_monster_rooms += 1
-			else:
-				current_chest_rooms += 1
-		elif type == RoomData.room_types.locked_item:
-			if current_locked_rooms == maximum_locked_rooms:
-				spawnable_room_types.remove_at(spawnable_room_types.find(RoomData.room_types.locked_item))
-				type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
-				if type == RoomData.room_types.monster:
-					current_monster_rooms += 1
-			else:
-				current_locked_rooms += 1
-		elif type == RoomData.room_types.crystal_boss:
-			spawnable_room_types.remove_at(spawnable_room_types.find(RoomData.room_types.crystal_boss))
-			crystal_boss_room_spawned = true
-		else:
-			type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
-			if type == RoomData.room_types.monster:
-				current_monster_rooms += 1
 	if type != null:
 		return type
 	else:
-		return RoomData.room_types.no_type
+		return unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
+
+func spawned_room_type(type : RoomData.room_types):
+	if type == RoomData.room_types.random_item:
+		current_item_rooms += 1
+		if current_item_rooms == maximum_item_rooms:
+			spawnable_room_types.remove_at(spawnable_room_types.find(RoomData.room_types.random_item))
+	elif type == RoomData.room_types.chest:
+		current_chest_rooms += 1
+		if current_chest_rooms == maximum_chest_rooms:
+			spawnable_room_types.remove_at(spawnable_room_types.find(RoomData.room_types.chest))
+	elif type == RoomData.room_types.locked_item:
+		current_locked_rooms += 1
+		if current_locked_rooms == maximum_locked_rooms:
+			spawnable_room_types.remove_at(spawnable_room_types.find(RoomData.room_types.locked_item))
+	elif type == RoomData.room_types.monster:
+		current_monster_rooms += 1
+	elif type == RoomData.room_types.crystal_boss:
+		spawnable_room_types.remove_at(spawnable_room_types.find(RoomData.room_types.crystal_boss))
+		crystal_boss_room_spawned = true
 
 func random_room_type_near_spawn():
 	var type
@@ -255,20 +244,25 @@ func spawn_adjacent_rooms(room):
 	var connected_rooms = room.get_connected_rooms()
 	var iteration = 0
 	for connected_room in connected_rooms:
+		var new_room
+		var type
+		if room == starting_room:
+			type = random_room_type_near_spawn()
+		else:
+			type = random_room_type()
+			
 		iteration += 1
 		if connected_room == null:
 			# add a room to the top of the current room
 			if iteration == 1:
 				if room.has_door_top() && !room.has_connection_top():
-					var type
-					if room == starting_room:
-						type = random_room_type_near_spawn()
-					else:
-						type = random_room_type()
-					var new_room
 					var target_room_position = room.global_position + Vector2(0, -224)
-						
+					
 					if get_room_at_position(target_room_position) == null:
+						
+						if !check_for_other_empty_doors(target_room_position):
+							type = RoomData.room_types.monster
+						
 						var top_connection = get_connection_top(target_room_position)
 						var left_connection = get_connection_left(target_room_position)
 						var right_connection = get_connection_right(target_room_position)
@@ -448,15 +442,13 @@ func spawn_adjacent_rooms(room):
 			# add a room to the bottom of the current room
 			elif iteration == 2:
 				if room.has_door_bottom() && !room.has_connection_bottom():
-					var type
-					if room == starting_room:
-						type = random_room_type_near_spawn()
-					else:
-						type = random_room_type()
-					var new_room
 					var target_room_position = room.global_position + Vector2(0, 224)
 					
 					if get_room_at_position(target_room_position) == null:
+						
+						if !check_for_other_empty_doors(target_room_position):
+							type = RoomData.room_types.monster
+						
 						var bottom_connection = get_connection_bottom(target_room_position)
 						var left_connection = get_connection_left(target_room_position)
 						var right_connection = get_connection_right(target_room_position)
@@ -630,15 +622,13 @@ func spawn_adjacent_rooms(room):
 			# add a room to the left of the current room
 			elif iteration == 3:
 				if room.has_door_left() && !room.has_connection_left():
-					var type
-					if room == starting_room:
-						type = random_room_type_near_spawn()
-					else:
-						type = random_room_type()
-					var new_room
 					var target_room_position = room.global_position + Vector2(-384, 0)
 					
 					if get_room_at_position(target_room_position) == null:
+						
+						if !check_for_other_empty_doors(target_room_position):
+							type = RoomData.room_types.monster
+						
 						var top_connection = get_connection_top(target_room_position)
 						var bottom_connection = get_connection_bottom(target_room_position)
 						var left_connection = get_connection_left(target_room_position)
@@ -812,15 +802,13 @@ func spawn_adjacent_rooms(room):
 			# add a room to the right of the current room
 			elif iteration == 4:
 				if room.has_door_right() && !room.has_connection_right():
-					var type
-					if room == starting_room:
-						type = random_room_type_near_spawn()
-					else:
-						type = random_room_type()
-					var new_room
 					var target_room_position = room.global_position + Vector2(384, 0)
 					
 					if get_room_at_position(target_room_position) == null:
+						
+						if !check_for_other_empty_doors(target_room_position):
+							type = RoomData.room_types.monster
+						
 						var top_connection = get_connection_top(target_room_position)
 						var bottom_connection = get_connection_bottom(target_room_position)
 						var right_connection = get_connection_right(target_room_position)
@@ -991,6 +979,46 @@ func spawn_adjacent_rooms(room):
 						new_room.set_room_type(type)
 						
 						new_room.refresh_type_text()
+			
+			if new_room != null:
+				spawned_room_type(type)
+
+func check_for_other_empty_doors(current_position : Vector2):
+	var number_of_empty_doorways = 0
+	for room in rooms:
+		var connected_rooms = room.get_connected_rooms()
+		var iteration = 0
+		for connected_room in connected_rooms:
+			iteration += 1
+			if connected_room == null:
+				# the top of the current room
+				if iteration == 1:
+					if room.has_door_top() && !room.has_connection_top():
+						var target_room_position = room.global_position + Vector2(0, -224)
+						if current_position != target_room_position && get_room_at_position(target_room_position) == null:
+							number_of_empty_doorways += 1
+				# bottom of the current room
+				elif iteration == 2:
+					if room.has_door_bottom() && !room.has_connection_bottom():
+						var target_room_position = room.global_position + Vector2(0, 224)
+						if current_position != target_room_position && get_room_at_position(target_room_position) == null:
+							number_of_empty_doorways += 1
+				# left of the current room
+				elif iteration == 3:
+					if room.has_door_left() && !room.has_connection_left():
+						var target_room_position = room.global_position + Vector2(-384, 0)
+						if current_position != target_room_position && get_room_at_position(target_room_position) == null:
+							number_of_empty_doorways += 1
+				# right of the current room
+				elif iteration == 4:
+					if room.has_door_right() && !room.has_connection_right():
+						var target_room_position = room.global_position + Vector2(384, 0)
+						if current_position != target_room_position && get_room_at_position(target_room_position) == null:
+							number_of_empty_doorways += 1
+	if number_of_empty_doorways > 0:
+		return true
+	else:
+		return false
 
 func get_connection_top(room_location):
 	for adj_room in rooms:
