@@ -101,6 +101,13 @@ var spawnable_room_types = [
 	RoomData.room_types.monster,
 ]
 
+var spawnable_room_types_near_spawn = [
+	RoomData.room_types.random_item,
+	RoomData.room_types.locked_item,
+	RoomData.room_types.chest,
+	RoomData.room_types.monster,
+]
+
 var unlimited_room_types = [
 	RoomData.room_types.monster,
 	RoomData.room_types.no_type,
@@ -115,6 +122,7 @@ var minimum_item_rooms = 2
 var maximum_item_rooms = 4
 var current_item_rooms = 0
 
+var minimum_chest_rooms = 1
 var maximum_chest_rooms = 3
 var current_chest_rooms = 0
 
@@ -126,7 +134,7 @@ var minimum_monster_rooms = 3
 var current_monster_rooms = 0
 
 var rng = RandomNumberGenerator.new()
-
+var starting_room
 var close_rooms = false
 
 func _ready():
@@ -145,19 +153,97 @@ func minimum_requirements_met():
 	var item_room_met = false
 	var monster_room_met = false
 	var locked_rooms_met = false
+	var chest_rooms_met = false
 	if current_item_rooms >= minimum_item_rooms:
 		item_room_met = true
 	if current_monster_rooms >= minimum_monster_rooms:
 		monster_room_met = true
 	if current_locked_rooms >= minimum_locked_rooms:
 		locked_rooms_met = true
-	#if current_chest_rooms >= 0:
-		#checks += 1
-	return item_room_met && monster_room_met && locked_rooms_met
+	if current_chest_rooms >= minimum_chest_rooms:
+		chest_rooms_met = true
+	return item_room_met && monster_room_met && locked_rooms_met && chest_rooms_met && crystal_boss_room_spawned
+
+func random_room_type():
+	var type
+	if spawnable_room_types.size() != 0:
+		type = spawnable_room_types[rng.randi_range(0,spawnable_room_types.size()-1)]
+		if type == RoomData.room_types.random_item:
+			if current_item_rooms == maximum_item_rooms:
+				spawnable_room_types.remove_at(spawnable_room_types.find(RoomData.room_types.random_item))
+				type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
+				if type == RoomData.room_types.monster:
+					current_monster_rooms += 1
+			else:
+				current_item_rooms += 1
+		elif type == RoomData.room_types.chest:
+			if current_chest_rooms == maximum_chest_rooms:
+				spawnable_room_types.remove_at(spawnable_room_types.find(RoomData.room_types.chest))
+				type = rng.randi_range(0,unlimited_room_types.size()-1)
+				if type == RoomData.room_types.monster:
+					current_monster_rooms += 1
+			else:
+				current_chest_rooms += 1
+		elif type == RoomData.room_types.locked_item:
+			if current_locked_rooms == maximum_locked_rooms:
+				spawnable_room_types.remove_at(spawnable_room_types.find(RoomData.room_types.locked_item))
+				type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
+				if type == RoomData.room_types.monster:
+					current_monster_rooms += 1
+			else:
+				current_locked_rooms += 1
+		elif type == RoomData.room_types.crystal_boss:
+			spawnable_room_types.remove_at(spawnable_room_types.find(RoomData.room_types.crystal_boss))
+			crystal_boss_room_spawned = true
+		else:
+			type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
+			if type == RoomData.room_types.monster:
+				current_monster_rooms += 1
+	if type != null:
+		return type
+	else:
+		return RoomData.room_types.no_type
+
+func random_room_type_near_spawn():
+	var type
+	if spawnable_room_types_near_spawn.size() != 0:
+		type = spawnable_room_types_near_spawn[rng.randi_range(0,spawnable_room_types_near_spawn.size()-1)]
+		if type == RoomData.room_types.random_item:
+			if current_item_rooms == maximum_item_rooms:
+				spawnable_room_types.remove_at(spawnable_room_types.find(RoomData.room_types.random_item))
+				type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
+				if type == RoomData.room_types.monster:
+					current_monster_rooms += 1
+			else:
+				current_item_rooms += 1
+		elif type == RoomData.room_types.chest:
+			if current_chest_rooms == maximum_chest_rooms:
+				spawnable_room_types.remove_at(spawnable_room_types.find(RoomData.room_types.chest))
+				type = rng.randi_range(0,unlimited_room_types.size()-1)
+				if type == RoomData.room_types.monster:
+					current_monster_rooms += 1
+			else:
+				current_chest_rooms += 1
+		elif type == RoomData.room_types.locked_item:
+			if current_locked_rooms == maximum_locked_rooms:
+				spawnable_room_types.remove_at(spawnable_room_types.find(RoomData.room_types.locked_item))
+				type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
+				if type == RoomData.room_types.monster:
+					current_monster_rooms += 1
+			else:
+				current_locked_rooms += 1
+		else:
+			type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
+			if type == RoomData.room_types.monster:
+				current_monster_rooms += 1
+	if type != null:
+		return type
+	else:
+		return RoomData.room_types.no_type
 
 func spawn_starting_room():
 	var random_starting_room = rng.randi_range(0,all_rooms.size()-1)
-	var starting_room = all_rooms[random_starting_room].instantiate()
+	starting_room = all_rooms[random_starting_room].instantiate()
 	starting_room.global_position = Vector2(0, 0)
 	get_tree().current_scene.add_child(starting_room)
 	starting_room.set_room_type(RoomData.room_types.starting)
@@ -174,7 +260,11 @@ func spawn_adjacent_rooms(room):
 			# add a room to the top of the current room
 			if iteration == 1:
 				if room.has_door_top() && !room.has_connection_top():
-					var type = random_room_type()
+					var type
+					if room == starting_room:
+						type = random_room_type_near_spawn()
+					else:
+						type = random_room_type()
 					var new_room
 					var target_room_position = room.global_position + Vector2(0, -224)
 						
@@ -358,7 +448,11 @@ func spawn_adjacent_rooms(room):
 			# add a room to the bottom of the current room
 			elif iteration == 2:
 				if room.has_door_bottom() && !room.has_connection_bottom():
-					var type = random_room_type()
+					var type
+					if room == starting_room:
+						type = random_room_type_near_spawn()
+					else:
+						type = random_room_type()
 					var new_room
 					var target_room_position = room.global_position + Vector2(0, 224)
 					
@@ -536,7 +630,11 @@ func spawn_adjacent_rooms(room):
 			# add a room to the left of the current room
 			elif iteration == 3:
 				if room.has_door_left() && !room.has_connection_left():
-					var type = random_room_type()
+					var type
+					if room == starting_room:
+						type = random_room_type_near_spawn()
+					else:
+						type = random_room_type()
 					var new_room
 					var target_room_position = room.global_position + Vector2(-384, 0)
 					
@@ -714,7 +812,11 @@ func spawn_adjacent_rooms(room):
 			# add a room to the right of the current room
 			elif iteration == 4:
 				if room.has_door_right() && !room.has_connection_right():
-					var type = random_room_type()
+					var type
+					if room == starting_room:
+						type = random_room_type_near_spawn()
+					else:
+						type = random_room_type()
 					var new_room
 					var target_room_position = room.global_position + Vector2(384, 0)
 					
@@ -889,43 +991,6 @@ func spawn_adjacent_rooms(room):
 						new_room.set_room_type(type)
 						
 						new_room.refresh_type_text()
-
-func random_room_type():
-	var type = spawnable_room_types[rng.randi_range(0,spawnable_room_types.size()-1)]
-	if type == RoomData.room_types.random_item:
-		if current_item_rooms == maximum_item_rooms:
-			spawnable_room_types.remove_at(spawnable_room_types.find(RoomData.room_types.random_item))
-			type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
-			if type == RoomData.room_types.monster:
-				current_monster_rooms += 1
-			return type
-		else:
-			current_item_rooms += 1
-			return RoomData.room_types.random_item
-	#elif type == RoomData.room_types.chest:
-		#if current_chest_rooms == maximum_chest_rooms:
-			#spawnable_room_types.remove_at(spawnable_room_types.find(RoomData.room_types.chest))
-			#type = rng.randi_range(0,unlimited_room_types.size()-1)
-			#if type == RoomData.room_types.monster:
-				#current_monster_rooms += 1
-			#return type
-		#else:
-			#current_chest_rooms += 1
-	elif type == RoomData.room_types.locked_item:
-		if current_locked_rooms == maximum_locked_rooms:
-			spawnable_room_types.remove_at(spawnable_room_types.find(RoomData.room_types.locked_item))
-			type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
-			if type == RoomData.room_types.monster:
-				current_monster_rooms += 1
-			return type
-		else:
-			current_locked_rooms += 1
-			return type
-	else:
-		type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
-		if type == RoomData.room_types.monster:
-			current_monster_rooms += 1
-		return type
 
 func get_connection_top(room_location):
 	for adj_room in rooms:
