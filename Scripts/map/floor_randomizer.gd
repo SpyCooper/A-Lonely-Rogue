@@ -459,6 +459,9 @@ func spawn_adjacent_rooms(room):
 						rooms += [new_room]
 						room.set_connected_room_top(new_room)
 						
+						if type == RoomData.room_types.boss && check_if_ending_room_can_spawn(new_room) == false:
+							type = RoomData.room_types.no_type
+						
 						new_room.set_room_type(type)
 						
 						new_room.refresh_type_text()
@@ -655,6 +658,9 @@ func spawn_adjacent_rooms(room):
 						new_room.set_connected_room_right(right_connection)
 						rooms += [new_room]
 						room.set_connected_room_bottom(new_room)
+						
+						if type == RoomData.room_types.boss && check_if_ending_room_can_spawn(new_room) == false:
+							type = RoomData.room_types.no_type
 						
 						new_room.set_room_type(type)
 						
@@ -853,6 +859,9 @@ func spawn_adjacent_rooms(room):
 						rooms += [new_room]
 						room.set_connected_room_left(new_room)
 						
+						if type == RoomData.room_types.boss && check_if_ending_room_can_spawn(new_room) == false:
+							type = RoomData.room_types.no_type
+						
 						new_room.set_room_type(type)
 						
 						new_room.refresh_type_text()
@@ -1050,6 +1059,9 @@ func spawn_adjacent_rooms(room):
 						rooms += [new_room]
 						room.set_connected_room_right(new_room)
 						
+						if type == RoomData.room_types.boss && check_if_ending_room_can_spawn(new_room) == false:
+							type = RoomData.room_types.no_type
+						
 						new_room.set_room_type(type)
 						
 						new_room.refresh_type_text()
@@ -1237,3 +1249,88 @@ func get_room_at_position(room_location):
 
 func populate_rooms():
 	pass
+
+func check_if_ending_room_can_spawn(boss_room):
+	var top_connection = get_connection_top(boss_room.global_position)
+	var bottom_connection = get_connection_bottom(boss_room.global_position)
+	var left_connection = get_connection_left(boss_room.global_position)
+	var right_connection = get_connection_right(boss_room.global_position)
+	
+	var new_room
+	var can_spawn = false
+	
+	
+	if top_connection == null:
+		var target_ending_room_position = boss_room.global_position + Vector2(0, -224)
+		if get_room_at_position(target_ending_room_position) == null && boss_room.has_door_top():
+			var top_position_allowed = true
+			for adj_room in rooms:
+				if adj_room.global_position == target_ending_room_position + Vector2(0, -224):
+					if adj_room.has_door_bottom():
+						if !adj_room.has_connection_bottom():
+							top_position_allowed = false
+				elif adj_room.global_position == target_ending_room_position + Vector2(384, 0):
+					if adj_room.has_door_left():
+						if !adj_room.has_connection_left():
+							top_position_allowed = false
+				elif adj_room.global_position == target_ending_room_position + Vector2(-384, 0):
+					if adj_room.has_door_right():
+						if !adj_room.has_connection_right():
+							top_position_allowed = false
+			can_spawn = top_position_allowed
+	if bottom_connection == null && !can_spawn:
+		var target_ending_room_position = boss_room.global_position + Vector2(0, 224)
+		if get_room_at_position(target_ending_room_position) == null && boss_room.has_door_bottom():
+			var bottom_position_allowed = true
+			for adj_room in rooms:
+				if adj_room.global_position == target_ending_room_position + Vector2(0, 224):
+					if adj_room.has_door_top():
+						if !adj_room.has_connection_top():
+							bottom_position_allowed = false
+				elif adj_room.global_position == target_ending_room_position + Vector2(384, 0):
+					if adj_room.has_door_left():
+						if !adj_room.has_connection_left():
+							bottom_position_allowed = false
+				elif adj_room.global_position == target_ending_room_position + Vector2(-384, 0):
+					if adj_room.has_door_right():
+						if !adj_room.has_connection_right():
+							bottom_position_allowed = false
+			can_spawn = bottom_position_allowed
+	if left_connection == null && !can_spawn:
+		var target_ending_room_position = boss_room.global_position + Vector2(-384, 0)
+		if get_room_at_position(target_ending_room_position) == null && boss_room.has_door_left():
+			var left_position_allowed = true
+			for adj_room in rooms:
+				if adj_room.global_position == target_ending_room_position + Vector2(0, 224):
+					if adj_room.has_door_top():
+						if !adj_room.has_connection_top():
+							left_position_allowed = false
+				elif adj_room.global_position == target_ending_room_position + Vector2(0, -224):
+					if adj_room.has_door_bottom():
+						if !adj_room.has_connection_bottom():
+							left_position_allowed = false
+				elif adj_room.global_position == target_ending_room_position + Vector2(-384, 0):
+					if adj_room.has_door_right():
+						if !adj_room.has_connection_right():
+							left_position_allowed = false
+			can_spawn = left_position_allowed
+	if right_connection == null && !can_spawn:
+		var target_ending_room_position = boss_room.global_position + Vector2(384, 0)
+		if get_room_at_position(target_ending_room_position) == null && boss_room.has_door_right():
+			var right_position_allowed = true
+			for adj_room in rooms:
+				if adj_room.global_position == target_ending_room_position + Vector2(0, 224):
+					if adj_room.has_door_top():
+						if !adj_room.has_connection_top():
+							right_position_allowed = false
+				elif adj_room.global_position == target_ending_room_position + Vector2(0, -224):
+					if adj_room.has_door_bottom():
+						if !adj_room.has_connection_bottom():
+							right_position_allowed = false
+				elif adj_room.global_position == target_ending_room_position + Vector2(384, 0):
+					if adj_room.has_door_left():
+						if !adj_room.has_connection_left():
+							right_position_allowed = false
+			can_spawn = right_position_allowed
+	
+	return can_spawn
