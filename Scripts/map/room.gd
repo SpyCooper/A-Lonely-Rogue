@@ -16,6 +16,8 @@ var left_room = null
 var right_room = null
 @onready var label = $Label
 
+var unlocked = false
+
 # defines a random number generator
 var rng = RandomNumberGenerator.new()
 var spawn_x = 322/2
@@ -45,7 +47,7 @@ func _on_player_detector_body_entered(body):
 		Events.room_entered.emit(self)
 		RoomData.current_room = self
 		
-		if room_type == RoomData.room_types.locked_item:
+		if room_type == RoomData.room_types.locked_item && unlocked == false:
 			unlock_adjacent_rooms()
 		
 		# if there are no enemies in the room
@@ -490,3 +492,4 @@ func unlock_adjacent_rooms():
 	if left_room != null:
 		left_room.unlock_right_door()
 		left_room.refresh_key_icons()
+	unlocked = true
