@@ -255,10 +255,10 @@ func populate_room():
 			instance.global_position = Vector2(0,226)
 			get_tree().current_scene.add_child(instance)
 	elif room_type == RoomData.room_types.random_item:
-		print(name)
 		var amount_of_items = rng.randi_range(0, 10)
 		if amount_of_items == 0:
-			print("no items spawned")
+			# spawn obstacles
+			pass
 		else:
 			var instance = RoomData.RANDOM_ITEM_SPAWNER.instantiate()
 			add_child(instance)
@@ -272,7 +272,20 @@ func populate_room():
 			var spawn_vector = Vector2(vec_x, vec_y)
 			instance.position = spawn_vector
 	elif room_type == RoomData.room_types.locked_item:
-		pass
+		var instance = RoomData.RANDOM_ITEM_SPAWNER.instantiate()
+		add_child(instance)
+		var vec_x = rng.randi_range(-spawn_x + 50, spawn_x-50)
+		var pos_or_neg = rng.randi_range(-1, 1)
+		vec_x = pos_or_neg * vec_x
+		## y direction
+		var vec_y = rng.randi_range(-spawn_y + 50, spawn_y-50)
+		pos_or_neg = rng.randi_range(-1, 1)
+		vec_y = pos_or_neg * vec_y
+		var spawn_vector = Vector2(vec_x, vec_y)
+		instance.position = spawn_vector
+		
+		# set locks on adjacent rooms
+		lock_adjacent_rooms()
 	elif room_type == RoomData.room_types.chest:
 		var vec_x = rng.randi_range(-spawn_x + 40, spawn_x-40)
 		var pos_or_neg = rng.randi_range(-1, 1)
@@ -321,6 +334,8 @@ func populate_room():
 		if instance != null:
 			get_tree().current_scene.add_child(instance)
 			instance.global_position = position + spawn_vector
+			
+			# set icons on adjacent rooms
 	elif room_type == RoomData.room_types.boss:
 		var spawn_vector = Vector2(0, 0)
 		if top_door != null &&  bottom_door != null &&  right_door != null &&  left_door != null:
@@ -356,6 +371,8 @@ func populate_room():
 		if instance != null:
 			get_tree().current_scene.add_child(instance)
 			instance.global_position = position + spawn_vector
+			
+			# set icons on adjacent rooms
 	elif room_type == RoomData.room_types.ending:
 		var items = []
 		
@@ -392,3 +409,51 @@ func populate_room():
 					spawn_vector = Vector2(-item.position.x, -item.position.y)
 			instance.position = spawn_vector
 			items += [instance]
+
+func lock_adjacent_rooms():
+	if top_room != null:
+		top_room.lock_bottom_door()
+		top_room.refresh_key_icons()
+	if bottom_room != null:
+		bottom_room.lock_top_door()
+		bottom_room.refresh_key_icons()
+	if right_room != null:
+		right_room.lock_left_door()
+		right_room.refresh_key_icons()
+	if left_room != null:
+		left_room.lock_right_door()
+		left_room.refresh_key_icons()
+
+func get_top_door():
+	return top_door
+
+func get_bottom_door():
+	return bottom_door
+
+func get_left_door():
+	return left_door
+
+func get_right_door():
+	return right_door
+
+func lock_top_door():
+	top_door.locked = true
+	top_door.lock()
+
+func lock_bottom_door():
+	bottom_door.locked = true
+	bottom_door.lock()
+
+func lock_left_door():
+	left_door.locked = true
+	left_door.lock()
+
+func lock_right_door():
+	right_door.locked = true
+	right_door.lock()
+
+func refresh_key_icons():
+	if Events.player.has_keys():
+		key_checks.locks_changed(true)
+	else:
+		key_checks.locks_changed(false)

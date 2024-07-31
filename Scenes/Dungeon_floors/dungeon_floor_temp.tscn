@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://f60vqhrifhvo"]
+[gd_scene load_steps=18 format=3 uid="uid://f60vqhrifhvo"]
 
 [ext_resource type="Script" path="res://Scripts/map/dungeon_floor.gd" id="1_2bdxt"]
 [ext_resource type="PackedScene" uid="uid://duv7i8yak343i" path="res://Scenes/menus/HUD.tscn" id="2_0gt8c"]
@@ -9,6 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://dxlj826ndney4" path="res://Scenes/map/transition_camera.tscn" id="7_sxsuq"]
 [ext_resource type="PackedScene" uid="uid://dahgvmrgtix2i" path="res://Scenes/player/player.tscn" id="8_yojfq"]
 [ext_resource type="PackedScene" uid="uid://ck8e6woekdesa" path="res://Scenes/map/randomizer.tscn" id="10_801pm"]
+[ext_resource type="PackedScene" uid="uid://dfctt8og03c2e" path="res://Scenes/items/key_item.tscn" id="11_srknw"]
 [ext_resource type="AudioStream" uid="uid://ciw6spax0xy06" path="res://Assets/Audio/background music/8bit-mix-56351.mp3" id="25_6u5ig"]
 
 [sub_resource type="Animation" id="Animation_27xwy"]
@@ -149,5 +150,8 @@ volume_db = -2.0
 bus = &"Music"
 
 [node name="randomizer" parent="." instance=ExtResource("10_801pm")]
+
+[node name="key_pickup" parent="." instance=ExtResource("11_srknw")]
+position = Vector2(-71, -38)
 
 [connection signal="timeout" from="CanvasLayer/Fade_color/Fade_timer" to="." method="_on_fade_timer_timeout"]

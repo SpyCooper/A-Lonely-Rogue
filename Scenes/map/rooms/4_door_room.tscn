@@ -72,10 +72,10 @@ position = Vector2(0, 91)
 [node name="left_door" parent="." instance=ExtResource("12_rd2s8")]
 position = Vector2(-165, -3)
 
-[node name="Label" parent="." instance=ExtResource("11_x1slc")]
-
 [node name="right_door" parent="." instance=ExtResource("12_rd2s8")]
 position = Vector2(166, -3)
+
+[node name="Label" parent="." instance=ExtResource("11_x1slc")]
 
 [node name="key_checks" parent="." instance=ExtResource("6_h81v2")]
 

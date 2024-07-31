@@ -91,12 +91,20 @@ func locks_changed(can_use_keys = false):
 	# if the door visual exists, the lock status is set to the door locked status
 	if top_door != null:
 		top_door_locked = top_door.is_locked()
+		if top_door_locked:
+			print("top_door_locked")
 	if bottom_door != null:
 		bottom_door_locked = bottom_door.is_locked()
+		if bottom_door_locked:
+			print("bottom_door_locked")
 	if left_door != null:
 		left_door_locked = left_door.is_locked()
+		if left_door_locked:
+			print("left_door_locked")
 	if right_door != null:
 		right_door_locked = right_door.is_locked()
+		if right_door_locked:
+			print("right door locked")
 	# resets the floor key sprites
 	reset_key_sprites(can_use_keys)
 
