@@ -134,6 +134,7 @@ var minimum_monster_rooms = 4
 var current_monster_rooms = 0
 
 var rng = RandomNumberGenerator.new()
+
 var starting_room
 var close_rooms = false
 
@@ -245,6 +246,8 @@ func spawn_starting_room():
 	rooms += [starting_room]
 	
 	starting_room.refresh_type_text()
+	
+	starting_room.populate_room()
 
 func spawn_adjacent_rooms(room):
 	var connected_rooms = room.get_connected_rooms()
@@ -1070,6 +1073,7 @@ func spawn_adjacent_rooms(room):
 				spawned_room_type(type)
 				if type ==  RoomData.room_types.boss:
 					spawn_ending_room(new_room)
+				new_room.populate_room()
 
 func spawn_ending_room(boss_room):
 	var top_connection = get_connection_top(boss_room.global_position)
@@ -1159,6 +1163,7 @@ func spawn_ending_room(boss_room):
 	
 	if new_room != null:
 		ending_room_spawned = true
+		new_room.populate_room()
 	else:
 		print("ending room didn't spawn")
 		#get_tree().reload_current_scene()
@@ -1246,9 +1251,6 @@ func get_room_at_position(room_location):
 			if adj_room.global_position == room_location:
 				return adj_room
 	return null
-
-func populate_rooms():
-	pass
 
 func check_if_ending_room_can_spawn(boss_room):
 	var top_connection = get_connection_top(boss_room.global_position)

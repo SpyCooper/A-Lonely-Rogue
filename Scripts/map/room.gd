@@ -1,11 +1,5 @@
 extends Node2D
 
-# references to the adjacent rooms
-var top_room = null
-var bottom_room = null
-var left_room = null
-var right_room = null
-@onready var label = $Label
 
 # references to the door visuals
 @onready var door_sound = $door_sound
@@ -15,10 +9,22 @@ var right_room = null
 @onready var right_door = $right_door
 @onready var key_checks = $key_checks
 
+# references to the adjacent rooms
+var top_room = null
+var bottom_room = null
+var left_room = null
+var right_room = null
+@onready var label = $Label
+
+# defines a random number generator
+var rng = RandomNumberGenerator.new()
+var spawn_x = 322/2
+var spawn_y = 164/2
+
+
 # sets up the number of enemies
 var enemies_spawned = []
 var can_play_sound = false
-
 # saves the room's data type
 var room_type = RoomData.room_types.no_type
 
@@ -238,3 +244,32 @@ func set_room_type(type : RoomData.room_types):
 
 func get_room_type():
 	return room_type 
+
+func populate_room():
+	if room_type == RoomData.room_types.starting:
+		var instance = RoomData.TUTORIAL.instantiate()
+		instance.global_position = Vector2(0,226)
+		get_tree().current_scene.add_child(instance)
+	elif room_type == RoomData.room_types.random_item:
+		pass
+	elif room_type == RoomData.room_types.locked_item:
+		pass
+	elif room_type == RoomData.room_types.chest:
+		var vec_x = rng.randi_range(-spawn_x + 40, spawn_x-40)
+		var pos_or_neg = rng.randi_range(-1, 1)
+		vec_x = pos_or_neg * vec_x
+		## y direction
+		var vec_y = rng.randi_range(-spawn_y + 40, spawn_y-40)
+		pos_or_neg = rng.randi_range(-1, 1)
+		vec_y = pos_or_neg * vec_y
+		var instance = RoomData.ITEM_CHEST.instantiate()
+		instance.position = Vector2(global_position.x + vec_x, global_position.y + vec_y)
+		get_tree().current_scene.add_child(instance)
+	elif room_type == RoomData.room_types.monster:
+		pass
+	elif room_type == RoomData.room_types.crystal_boss:
+		pass
+	elif room_type == RoomData.room_types.boss:
+		pass
+	elif room_type == RoomData.room_types.ending:
+		pass

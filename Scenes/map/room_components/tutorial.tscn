@@ -1,0 +1,67 @@
+[gd_scene load_steps=3 format=3 uid="uid://j1jsxcu3yfyv"]
+
+[ext_resource type="Script" path="res://Scripts/map/Tutorial.gd" id="1_uxapp"]
+[ext_resource type="Theme" uid="uid://pv4evjjac8wt" path="res://Assets/general_theme.tres" id="2_fy70c"]
+
+[node name="Tutorial" type="Node2D"]
+script = ExtResource("1_uxapp")
+
+[node name="Move_label" type="Label" parent="."]
+z_index = -1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -84.0
+offset_top = -294.0
+offset_right = 89.0
+offset_bottom = -256.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_fy70c")
+theme_override_colors/font_color = Color(0.376471, 0.231373, 0.227451, 1)
+theme_override_font_sizes/font_size = 16
+text = "Press W, A, S, D to move"
+autowrap_mode = 2
+
+[node name="Shoot_label" type="Label" parent="."]
+z_index = -1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -84.0
+offset_top = -193.0
+offset_right = 93.0
+offset_bottom = -160.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme = ExtResource("2_fy70c")
+theme_override_colors/font_color = Color(0.376471, 0.231373, 0.227451, 1)
+text = "Press Left Mouse Button to throw knives"
+horizontal_alignment = 1
+autowrap_mode = 2
+
+[node name="active_items_label" type="Label" parent="."]
+visible = false
+z_index = -1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -71.0
+offset_top = -41.0
+offset_right = 73.0
+offset_bottom = -8.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+theme = ExtResource("2_fy70c")
+theme_override_colors/font_color = Color(0.376471, 0.231373, 0.227451, 1)
+text = "Press Space to use active items"
+horizontal_alignment = 1
+autowrap_mode = 2
