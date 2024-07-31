@@ -119,7 +119,7 @@ texture = ExtResource("7_cdgba")
 [sub_resource type="TileSet" id="TileSet_pnge6"]
 sources/0 = SubResource("TileSetAtlasSource_a4f5t")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_67u7i"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7i4a1"]
 resource_local_to_scene = true
 
 [node name="Floor1" type="Node2D"]
@@ -216,6 +216,7 @@ position = Vector2(-384, -448)
 position = Vector2(-384, -672)
 
 [node name="Random Item Spawner" parent="1_door_down3" instance=ExtResource("15_vmcx5")]
+position = Vector2(0, -22)
 
 [node name="2_door_left_right2" parent="." instance=ExtResource("29_tb2c2")]
 position = Vector2(-384, 0)
@@ -256,7 +257,7 @@ position = Vector2(459, 44)
 position = Vector2(447, -47)
 
 [node name="gelatinous_cube" parent="." instance=ExtResource("13_axlkh")]
-material = SubResource("ShaderMaterial_67u7i")
+material = SubResource("ShaderMaterial_7i4a1")
 position = Vector2(-768, -33)
 
 [node name="slime4" parent="." instance=ExtResource("10_rrme3")]

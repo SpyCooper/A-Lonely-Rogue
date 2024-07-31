@@ -1269,16 +1269,13 @@ func check_if_ending_room_can_spawn(boss_room):
 			for adj_room in rooms:
 				if adj_room.global_position == target_ending_room_position + Vector2(0, -224):
 					if adj_room.has_door_bottom():
-						if !adj_room.has_connection_bottom():
-							top_position_allowed = false
+						top_position_allowed = false
 				elif adj_room.global_position == target_ending_room_position + Vector2(384, 0):
 					if adj_room.has_door_left():
-						if !adj_room.has_connection_left():
-							top_position_allowed = false
+						top_position_allowed = false
 				elif adj_room.global_position == target_ending_room_position + Vector2(-384, 0):
 					if adj_room.has_door_right():
-						if !adj_room.has_connection_right():
-							top_position_allowed = false
+						top_position_allowed = false
 			can_spawn = top_position_allowed
 	if bottom_connection == null && !can_spawn:
 		var target_ending_room_position = boss_room.global_position + Vector2(0, 224)
@@ -1287,16 +1284,13 @@ func check_if_ending_room_can_spawn(boss_room):
 			for adj_room in rooms:
 				if adj_room.global_position == target_ending_room_position + Vector2(0, 224):
 					if adj_room.has_door_top():
-						if !adj_room.has_connection_top():
-							bottom_position_allowed = false
+						bottom_position_allowed = false
 				elif adj_room.global_position == target_ending_room_position + Vector2(384, 0):
 					if adj_room.has_door_left():
-						if !adj_room.has_connection_left():
-							bottom_position_allowed = false
+						bottom_position_allowed = false
 				elif adj_room.global_position == target_ending_room_position + Vector2(-384, 0):
 					if adj_room.has_door_right():
-						if !adj_room.has_connection_right():
-							bottom_position_allowed = false
+						bottom_position_allowed = false
 			can_spawn = bottom_position_allowed
 	if left_connection == null && !can_spawn:
 		var target_ending_room_position = boss_room.global_position + Vector2(-384, 0)
@@ -1305,16 +1299,13 @@ func check_if_ending_room_can_spawn(boss_room):
 			for adj_room in rooms:
 				if adj_room.global_position == target_ending_room_position + Vector2(0, 224):
 					if adj_room.has_door_top():
-						if !adj_room.has_connection_top():
-							left_position_allowed = false
+						left_position_allowed = false
 				elif adj_room.global_position == target_ending_room_position + Vector2(0, -224):
 					if adj_room.has_door_bottom():
-						if !adj_room.has_connection_bottom():
-							left_position_allowed = false
+						left_position_allowed = false
 				elif adj_room.global_position == target_ending_room_position + Vector2(-384, 0):
 					if adj_room.has_door_right():
-						if !adj_room.has_connection_right():
-							left_position_allowed = false
+						left_position_allowed = false
 			can_spawn = left_position_allowed
 	if right_connection == null && !can_spawn:
 		var target_ending_room_position = boss_room.global_position + Vector2(384, 0)
@@ -1323,16 +1314,13 @@ func check_if_ending_room_can_spawn(boss_room):
 			for adj_room in rooms:
 				if adj_room.global_position == target_ending_room_position + Vector2(0, 224):
 					if adj_room.has_door_top():
-						if !adj_room.has_connection_top():
-							right_position_allowed = false
+						right_position_allowed = false
 				elif adj_room.global_position == target_ending_room_position + Vector2(0, -224):
 					if adj_room.has_door_bottom():
-						if !adj_room.has_connection_bottom():
-							right_position_allowed = false
+						right_position_allowed = false
 				elif adj_room.global_position == target_ending_room_position + Vector2(384, 0):
 					if adj_room.has_door_left():
-						if !adj_room.has_connection_left():
-							right_position_allowed = false
+						right_position_allowed = false
 			can_spawn = right_position_allowed
 	
 	return can_spawn

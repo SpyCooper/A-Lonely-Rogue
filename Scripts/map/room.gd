@@ -247,11 +247,27 @@ func get_room_type():
 
 func populate_room():
 	if room_type == RoomData.room_types.starting:
-		var instance = RoomData.TUTORIAL.instantiate()
-		instance.global_position = Vector2(0,226)
-		get_tree().current_scene.add_child(instance)
+		if get_tree().current_scene.name == "Floor1":
+			var instance = RoomData.TUTORIAL.instantiate()
+			instance.global_position = Vector2(0,226)
+			get_tree().current_scene.add_child(instance)
 	elif room_type == RoomData.room_types.random_item:
-		pass
+		print(name)
+		var amount_of_items = rng.randi_range(0, 10)
+		if amount_of_items == 0:
+			print("no items spawned")
+		else:
+			var instance = RoomData.RANDOM_ITEM_SPAWNER.instantiate()
+			add_child(instance)
+			var vec_x = rng.randi_range(-spawn_x + 50, spawn_x-50)
+			var pos_or_neg = rng.randi_range(-1, 1)
+			vec_x = pos_or_neg * vec_x
+			## y direction
+			var vec_y = rng.randi_range(-spawn_y + 50, spawn_y-50)
+			pos_or_neg = rng.randi_range(-1, 1)
+			vec_y = pos_or_neg * vec_y
+			var spawn_vector = Vector2(vec_x, vec_y)
+			instance.position = spawn_vector
 	elif room_type == RoomData.room_types.locked_item:
 		pass
 	elif room_type == RoomData.room_types.chest:
