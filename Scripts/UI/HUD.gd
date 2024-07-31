@@ -45,6 +45,7 @@ func _ready():
 	animation_player.play("RESET")
 	# hides the usable item slot
 	hide_usable_item()
+	Events.hud = self
 
 # show the corresponding hearts to the players HP and if the player collected a shadow heart
 func refresh_hearts(health, shadow_heart = false):

@@ -1,7 +1,6 @@
 extends skeleton_warrior
 
 # object references
-@onready var hud = %HUD
 const LARGE_SLASH_PROJECTILE = preload("res://Scenes/enemies/slash_projectile/large_slash_projectile.tscn")
 const EMERALD_SKULL_ITEM = preload("res://Scenes/items/emerald_skull_item.tscn")
 
@@ -76,7 +75,7 @@ func take_damage(damage, attack_identifer, is_effect):
 		# subtracts the health
 		health -= damage
 		# adjust the boss health bar in the HUD
-		hud.adjust_health_bar(health)
+		Events.hud.adjust_health_bar(health)
 		# add the damage to the player's stats
 		PlayerData.damage_dealt += damage
 		# if health is greater than 0
@@ -106,7 +105,7 @@ func take_damage(damage, attack_identifer, is_effect):
 # when death timer ends
 func _on_death_timer_timeout():
 	# hide the health bar
-	hud.hide_health_bar()
+	Events.hud.hide_health_bar()
 	# unlock the skeleton warrior in the catalog
 	catalog.unlock_enemy(EnemyTypes.enemy.emerald_skeleton)
 	# spawn a boss's item when the emerald skeleton dies
@@ -120,7 +119,7 @@ func _on_death_timer_timeout():
 func _on_spawn_timer_timeout():
 	spawning = false
 	# show the emerald skeleton's health bar in the HUD
-	hud.set_health_bar(max_health, "Emerald Skeleton")
+	Events.hud.set_health_bar(max_health, "Emerald Skeleton")
 
 # when the enemy attacks
 func attack():

@@ -6,7 +6,6 @@ extends Enemy
 @onready var attack_timer = $Attack_timer
 @onready var death_timer = $Death_timer
 @onready var spawn_timer = $Spawn_timer
-@onready var hud = %HUD
 @onready var direction_change_timer = $direction_change_timer
 @onready var hit_animation_timer = $AnimatedSprite2D/hit_animation_timer
 @onready var hit_flash_animation_player = $Hit_Flash_animation_player
@@ -165,7 +164,7 @@ func take_damage(damage, attack_identifer, is_effect):
 		# add the damage to the player's stats
 		PlayerData.damage_dealt += damage
 		# adjust the boss health bar in the HUD
-		hud.adjust_health_bar(health)
+		Events.hud.adjust_health_bar(health)
 		# plays the hit sound if the HP after damage is > 0
 		if health > 0:
 			# plays the hit animation
@@ -198,7 +197,7 @@ func get_animated_sprite():
 # when the death timer runs out
 func _on_death_timer_timeout():
 	# hide the health bar
-	hud.hide_health_bar()
+	Events.hud.hide_health_bar()
 	# unlock the enemy in the catalog
 	catalog.unlock_enemy(EnemyTypes.enemy.morphed_shade)
 	# call enemy_slain()
@@ -220,7 +219,7 @@ func _on_spawn_timer_timeout():
 	# the state is no longer spawning
 	spawning = false
 	# show the morphed shade's health bar in the HUD
-	hud.set_health_bar(max_health, "You?")
+	Events.hud.set_health_bar(max_health, "You?")
 	# set the morph shade to initially step backward
 	current_move_direction = Vector2(0, -1)
 	direction_change_timer.start(0.2)

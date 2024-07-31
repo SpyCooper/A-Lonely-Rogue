@@ -286,7 +286,40 @@ func populate_room():
 	elif room_type == RoomData.room_types.crystal_boss:
 		pass
 	elif room_type == RoomData.room_types.boss:
-		pass
+		var spawn_vector = Vector2(0, 0)
+		if top_door != null &&  bottom_door != null &&  right_door != null &&  left_door != null:
+			spawn_vector = Vector2(0, 0)
+		elif top_door == null:
+			spawn_vector = Vector2(0, -30)
+		elif bottom_door == null:
+			spawn_vector = Vector2(0, 50)
+		elif right_door == null:
+			spawn_vector = Vector2(110, 20)
+		elif left_door == null:
+			spawn_vector = Vector2(-110, 20)
+		else:
+			var vec_x = rng.randi_range(-spawn_x + 70, spawn_x-70)
+			var pos_or_neg = rng.randi_range(-1, 1)
+			vec_x = pos_or_neg * vec_x
+			## y direction
+			var vec_y = rng.randi_range(-spawn_y + 60, spawn_y-60)
+			pos_or_neg = rng.randi_range(-1, 1)
+			vec_y = pos_or_neg * vec_y
+			spawn_vector = Vector2(vec_x, vec_y)
+		
+		var instance
+		if get_tree().current_scene.name == "Floor1":
+			instance = RoomData.GELATINOUS_CUBE.instantiate()
+		elif get_tree().current_scene.name == "Floor2":
+			instance = RoomData.FORGOTTEN_GOLEM.instantiate()
+		elif get_tree().current_scene.name == "Floor3":
+			instance = RoomData.LICH.instantiate()
+		elif get_tree().current_scene.name == "Floor4":
+			instance = RoomData.LOST_KNIGHT.instantiate()
+		
+		if instance != null:
+			get_tree().current_scene.add_child(instance)
+			instance.global_position = position + spawn_vector
 	elif room_type == RoomData.room_types.ending:
 		var items = []
 		

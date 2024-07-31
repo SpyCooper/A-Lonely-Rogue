@@ -23,7 +23,6 @@ enum attack
 @onready var damage_player = $DamagePlayer
 @onready var attack_timer = $Attack_timer
 @onready var death_timer = $Death_timer
-@onready var hud = %HUD
 @onready var spawn_timer = $Spawn_timer
 @onready var hit_flash_animation_timer = $Hit_Flash_animation_player/hit_flash_animation_timer
 @onready var hit_flash_animation_player = $Hit_Flash_animation_player
@@ -128,7 +127,7 @@ func _process(delta):
 	if current_state == state.healing:
 		# increase the health bar
 		health += delta * max_health
-		hud.adjust_health_bar(health)
+		Events.hud.adjust_health_bar(health)
 
 # called every frame
 func _physics_process(_delta):
@@ -237,7 +236,7 @@ func take_damage(damage, attack_identifer, is_effect):
 			# add the damage to the player's stats
 			PlayerData.damage_dealt += damage
 			# adjust the boss health bar in the HUD
-			hud.adjust_health_bar(health)
+			Events.hud.adjust_health_bar(health)
 			# plays the hit sound if the HP after damage is > 0
 			if health > 0:
 				# plays the hit animation
@@ -285,7 +284,7 @@ func get_animated_sprite():
 # when the death timer runs out
 func _on_death_timer_timeout():
 	# hide the health bar
-	hud.hide_health_bar()
+	Events.hud.hide_health_bar()
 	# unlock the enemy in the catalog
 	catalog.unlock_enemy(EnemyTypes.enemy.lost_knight)
 	# clears the room (this is a fix to a bug with the lost knight
@@ -309,7 +308,7 @@ func _on_spawn_timer_timeout():
 	# the state is no longer spawning
 	spawning = false
 	# show the lost knight's health bar in the HUD
-	hud.set_health_bar(max_health, "Lost Knight")
+	Events.hud.set_health_bar(max_health, "Lost Knight")
 	# start the attack timer
 	attack_timer.start()
 
@@ -398,7 +397,7 @@ func _on_heal_sound_timer_timeout():
 func _on_heal_timer_timeout():
 	# set the health to max
 	health = max_health
-	hud.adjust_health_bar(health)
+	Events.hud.adjust_health_bar(health)
 	# disable healing
 	healing = false
 	# resets the states

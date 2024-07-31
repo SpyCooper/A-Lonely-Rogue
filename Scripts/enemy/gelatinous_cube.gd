@@ -16,7 +16,6 @@ enum spawn_location
 @onready var death_timer = $Death_timer
 @onready var spawn_timer = $Spawn_timer
 @onready var spawn_freeze_timer = $Spawn_freeze_timer
-@onready var hud = %HUD
 @onready var hit_flash_animation_player = $Hit_Flash_animation_player
 @onready var hit_flash_animation_timer = $Hit_Flash_animation_player/hit_flash_animation_timer
 const ENEMY_HIT_SHADER = preload("res://Scripts/shaders/enemy_hit_shader.gdshader")
@@ -131,7 +130,7 @@ func take_damage(damage, attack_identifer, is_effect):
 		# add the damage to the player's stats
 		PlayerData.damage_dealt += damage
 		# adjust the boss health bar in the HUD
-		hud.adjust_health_bar(health)
+		Events.hud.adjust_health_bar(health)
 		# if the HP after damage is > 0
 		if health > 0:
 			# plays the hit animation
@@ -229,7 +228,7 @@ func _on_attack_timer_timeout():
 # when the death timer runs out
 func _on_death_timer_timeout():
 	# hide the health bar
-	hud.hide_health_bar()
+	Events.hud.hide_health_bar()
 	# unlock the enemy in the catalog
 	catalog.unlock_enemy(EnemyTypes.enemy.gelatinous_cube)
 	# call enemy_slain()
@@ -254,7 +253,7 @@ func _on_spawn_timer_timeout():
 	# stops the spawn timer (just to make sure it doesn't loop)
 	spawn_timer.stop()
 	# show the gelatinous cube's health bar in the HUD
-	hud.set_health_bar(max_health, "Gelatinous Cube")
+	Events.hud.set_health_bar(max_health, "Gelatinous Cube")
 
 # when the spawn freeze timer ends
 # NOTE: this is for spawning in slime
