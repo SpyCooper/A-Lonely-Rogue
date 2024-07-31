@@ -137,13 +137,14 @@ var rng = RandomNumberGenerator.new()
 
 var starting_room
 var close_rooms = false
+var minimum_requirements_met = false
 
 func _ready():
 	#spawn_starting_room()
 	# when the room_entered signal is sent
 	Events.room_entered.connect(func(room):
-		if minimum_requirements_met():
-			print("requirements_met")
+		are_minimum_requirements_met()
+		if minimum_requirements_met:
 			close_rooms = true
 		spawn_adjacent_rooms(room)
 	)
@@ -151,20 +152,25 @@ func _ready():
 func start():
 	spawn_starting_room()
 
-func minimum_requirements_met():
-	var item_room_met = false
-	var monster_room_met = false
-	var locked_rooms_met = false
-	var chest_rooms_met = false
-	if current_item_rooms >= minimum_item_rooms:
-		item_room_met = true
-	if current_monster_rooms >= minimum_monster_rooms:
-		monster_room_met = true
-	if current_locked_rooms >= minimum_locked_rooms:
-		locked_rooms_met = true
-	if current_chest_rooms >= minimum_chest_rooms:
-		chest_rooms_met = true
-	return item_room_met && monster_room_met && locked_rooms_met && chest_rooms_met && crystal_boss_room_spawned && boss_room_spawned && ending_room_spawned
+func are_minimum_requirements_met():
+	if !minimum_requirements_met:
+		var item_room_met = false
+		var monster_room_met = false
+		var locked_rooms_met = false
+		var chest_rooms_met = false
+		if current_item_rooms >= minimum_item_rooms:
+			item_room_met = true
+		if current_monster_rooms >= minimum_monster_rooms:
+			monster_room_met = true
+		if current_locked_rooms >= minimum_locked_rooms:
+			locked_rooms_met = true
+		if current_chest_rooms >= minimum_chest_rooms:
+			chest_rooms_met = true
+		if item_room_met && monster_room_met && locked_rooms_met && chest_rooms_met && crystal_boss_room_spawned && boss_room_spawned && ending_room_spawned:
+			minimum_requirements_met = true
+			print("requirements_met")
+		else:
+			minimum_requirements_met = false
 
 func random_room_type():
 	var type
