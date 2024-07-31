@@ -288,4 +288,44 @@ func populate_room():
 	elif room_type == RoomData.room_types.boss:
 		pass
 	elif room_type == RoomData.room_types.ending:
-		pass
+		var items = []
+		
+		var floor_text = RoomData.FLOOR_TEXT.instantiate()
+		get_tree().current_scene.add_child(floor_text)
+		floor_text.global_position = Vector2(global_position.x, global_position.y+30)
+		
+		var trap_door
+		if top_door != null:
+			trap_door = RoomData.TRAPDOOR.instantiate()
+			floor_text.add_child(trap_door)
+			trap_door.position = Vector2(0, 58) + Vector2(0, -30)
+		elif bottom_door != null:
+			trap_door = RoomData.TRAPDOOR.instantiate()
+			floor_text.add_child(trap_door)
+			trap_door.position = Vector2(0, -58) + Vector2(0, -30)
+		elif right_door != null:
+			trap_door = RoomData.TRAPDOOR.instantiate()
+			floor_text.add_child(trap_door)
+			trap_door.position = Vector2(0, -135)
+		elif left_door != null:
+			trap_door = RoomData.TRAPDOOR.instantiate()
+			floor_text.add_child(trap_door)
+			trap_door.position = Vector2(0, 135)
+		
+		var amount_of_items = rng.randi_range(1, 2)
+		for i in range(amount_of_items):
+			var instance = RoomData.RANDOM_ITEM_SPAWNER.instantiate()
+			add_child(instance)
+			var vec_x = rng.randi_range(-spawn_x + 50, spawn_x-50)
+			var pos_or_neg = rng.randi_range(-1, 1)
+			vec_x = pos_or_neg * vec_x
+			## y direction
+			var vec_y = rng.randi_range(-spawn_y + 50, spawn_y-50)
+			pos_or_neg = rng.randi_range(-1, 1)
+			vec_y = pos_or_neg * vec_y
+			var spawn_vector = Vector2(vec_x, vec_y)
+			for item in items:
+				if spawn_vector.distance_to(item.position) < 20:
+					spawn_vector = Vector2(-item.position.x, -item.position.y)
+			instance.position = spawn_vector
+			items += [instance]

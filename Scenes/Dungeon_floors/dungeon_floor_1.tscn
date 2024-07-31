@@ -19,8 +19,8 @@
 [ext_resource type="PackedScene" uid="uid://k0t5cu3qhof5" path="res://Scenes/map/rooms/3_door_room_no_down.tscn" id="25_m2mvb"]
 [ext_resource type="PackedScene" uid="uid://dp3cijhg2nws2" path="res://Scenes/map/rooms/2_door_room_up_left.tscn" id="26_3lvu6"]
 [ext_resource type="AudioStream" uid="uid://ciw6spax0xy06" path="res://Assets/Audio/background music/8bit-mix-56351.mp3" id="27_26f5p"]
-[ext_resource type="PackedScene" uid="uid://5dt5o5bwrdc2" path="res://Scenes/map/boss_door_icon.tscn" id="27_fiseb"]
 [ext_resource type="PackedScene" uid="uid://duu1fv8fg83r6" path="res://Scenes/map/rooms/3_door_room_no_right.tscn" id="27_w4i8a"]
+[ext_resource type="PackedScene" uid="uid://io8wvnhx7eb4" path="res://Scenes/map/room_components/floor_text.tscn" id="28_ac4xo"]
 [ext_resource type="PackedScene" uid="uid://cbg5wdbuh0hhw" path="res://Scenes/map/rooms/1_door_room_right.tscn" id="28_cmtrx"]
 [ext_resource type="PackedScene" uid="uid://bmcwy07w158r4" path="res://Scenes/map/mini_boss_door_icon.tscn" id="28_dmkax"]
 [ext_resource type="PackedScene" uid="uid://p8b28nuu8aah" path="res://Scenes/map/rooms/1_door_room_left.tscn" id="28_ekw3m"]
@@ -119,7 +119,7 @@ texture = ExtResource("7_cdgba")
 [sub_resource type="TileSet" id="TileSet_pnge6"]
 sources/0 = SubResource("TileSetAtlasSource_a4f5t")
 
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_7i4a1"]
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_v7ip3"]
 resource_local_to_scene = true
 
 [node name="Floor1" type="Node2D"]
@@ -257,7 +257,7 @@ position = Vector2(459, 44)
 position = Vector2(447, -47)
 
 [node name="gelatinous_cube" parent="." instance=ExtResource("13_axlkh")]
-material = SubResource("ShaderMaterial_7i4a1")
+material = SubResource("ShaderMaterial_v7ip3")
 position = Vector2(-768, -33)
 
 [node name="slime4" parent="." instance=ExtResource("10_rrme3")]
@@ -293,13 +293,11 @@ position = Vector2(459, 461)
 [node name="key_pickup" parent="." instance=ExtResource("24_y83ib")]
 position = Vector2(-430, 454)
 
-[node name="Floor Text" type="Node2D" parent="."]
-position = Vector2(-538, 66)
+[node name="Floor Text" parent="." instance=ExtResource("28_ac4xo")]
+position = Vector2(-768, -224)
 
 [node name="Trapdoor" parent="Floor Text" instance=ExtResource("25_csphi")]
-position = Vector2(-230, -329)
-
-[node name="Boss_door_icon" parent="Floor Text" instance=ExtResource("27_fiseb")]
+position = Vector2(135, 0)
 
 [node name="Tutorial" parent="." instance=ExtResource("30_m5btb")]
 
