@@ -45,6 +45,9 @@ func _on_player_detector_body_entered(body):
 		Events.room_entered.emit(self)
 		RoomData.current_room = self
 		
+		if room_type == RoomData.room_types.locked_item:
+			unlock_adjacent_rooms()
+		
 		# if there are no enemies in the room
 		if enemies_spawned.size() == 0:
 			# disable the doors
@@ -452,8 +455,38 @@ func lock_right_door():
 	right_door.locked = true
 	right_door.lock()
 
+func unlock_top_door():
+	top_door.locked = false
+	top_door.unlock()
+
+func unlock_bottom_door():
+	bottom_door.locked = false
+	bottom_door.unlock()
+
+func unlock_left_door():
+	left_door.locked = false
+	left_door.unlock()
+
+func unlock_right_door():
+	right_door.locked = false
+	right_door.unlock()
+
 func refresh_key_icons():
 	if Events.player.has_keys():
 		key_checks.locks_changed(true)
 	else:
 		key_checks.locks_changed(false)
+
+func unlock_adjacent_rooms():
+	if top_room != null:
+		top_room.unlock_bottom_door()
+		top_room.refresh_key_icons()
+	if bottom_room != null:
+		bottom_room.unlock_top_door()
+		bottom_room.refresh_key_icons()
+	if right_room != null:
+		right_room.unlock_left_door()
+		right_room.refresh_key_icons()
+	if left_room != null:
+		left_room.unlock_right_door()
+		left_room.refresh_key_icons()
