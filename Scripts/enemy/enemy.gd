@@ -186,3 +186,4 @@ func is_dying():
 # removes the enemy's hitbox
 func remove_hitbox():
 	hitbox.queue_free()
+
