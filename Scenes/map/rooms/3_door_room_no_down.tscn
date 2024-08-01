@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://k0t5cu3qhof5"]
+[gd_scene load_steps=16 format=3 uid="uid://k0t5cu3qhof5"]
 
 [ext_resource type="Script" path="res://Scripts/map/room.gd" id="1_yp7ad"]
 [ext_resource type="Texture2D" uid="uid://l1ykrxq5bajh" path="res://Assets/Sprites/map/rooms/3_door_no_down.png" id="2_oxwc5"]
@@ -9,9 +9,11 @@
 [ext_resource type="PackedScene" uid="uid://besxs1hm25htm" path="res://Scenes/map/room_components/door_tp.tscn" id="8_4l48p"]
 [ext_resource type="PackedScene" uid="uid://c8gymm5o5gc4r" path="res://Scenes/map/room_components/top_bottom_door.tscn" id="9_kqndc"]
 [ext_resource type="PackedScene" uid="uid://bog8apffuihdu" path="res://Scenes/map/room_components/left_right_door.tscn" id="10_fnpxd"]
-[ext_resource type="PackedScene" uid="uid://ci4t04cng0qhi" path="res://Scenes/map/key_checks.tscn" id="11_a5wlx"]
+[ext_resource type="PackedScene" uid="uid://ci4t04cng0qhi" path="res://Scenes/map/room_components/key_checks.tscn" id="11_3w3t3"]
 [ext_resource type="PackedScene" uid="uid://b10n6gh82eb6t" path="res://Scenes/map/room_components/door_sound.tscn" id="12_2eotp"]
 [ext_resource type="PackedScene" uid="uid://dgoivmdbub18f" path="res://Scenes/map/room_components/wall colliders/top_bottom_wall_collider.tscn" id="12_2nie3"]
+[ext_resource type="PackedScene" uid="uid://detnpw7d2mf4g" path="res://Scenes/map/room_components/boss_icons.tscn" id="12_40634"]
+[ext_resource type="PackedScene" uid="uid://uinpix4fhx5q" path="res://Scenes/map/room_components/crystal_boss_icons.tscn" id="13_3uyiq"]
 [ext_resource type="PackedScene" uid="uid://cwl3212lssvcl" path="res://Scenes/map/room_components/label.tscn" id="13_v7pj8"]
 
 [node name="3_door_no_down" type="Node2D"]
@@ -66,7 +68,11 @@ position = Vector2(-165, -3)
 [node name="right_door" parent="." instance=ExtResource("10_fnpxd")]
 position = Vector2(166, -3)
 
-[node name="key_checks" parent="." instance=ExtResource("11_a5wlx")]
+[node name="key_checks" parent="." instance=ExtResource("11_3w3t3")]
+
+[node name="boss_icons" parent="." instance=ExtResource("12_40634")]
+
+[node name="crystal_boss_icons" parent="." instance=ExtResource("13_3uyiq")]
 
 [node name="door_sound" parent="." instance=ExtResource("12_2eotp")]
 

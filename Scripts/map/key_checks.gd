@@ -91,20 +91,12 @@ func locks_changed(can_use_keys = false):
 	# if the door visual exists, the lock status is set to the door locked status
 	if top_door != null:
 		top_door_locked = top_door.is_locked()
-		if top_door_locked:
-			print("top_door_locked")
 	if bottom_door != null:
 		bottom_door_locked = bottom_door.is_locked()
-		if bottom_door_locked:
-			print("bottom_door_locked")
 	if left_door != null:
 		left_door_locked = left_door.is_locked()
-		if left_door_locked:
-			print("left_door_locked")
 	if right_door != null:
 		right_door_locked = right_door.is_locked()
-		if right_door_locked:
-			print("right door locked")
 	# resets the floor key sprites
 	reset_key_sprites(can_use_keys)
 
@@ -123,24 +115,27 @@ func reset_key_sprites(key_can_be_used = false):
 		else:
 			# play the pulsing animated sprite
 			up_key_sprite.play("non_pulsing")
+	
 	if bottom_door_locked == false:
 		down_key_sprite.play("none")
 	else:
 		if key_can_be_used:
 			down_key_sprite.play("pulsing")
 		else:
-			down_key_sprite.play("default")
+			down_key_sprite.play("non_pulsing")
+	
 	if left_door_locked == false:
 		left_key_sprite.play("none")
 	else:
 		if key_can_be_used:
 			left_key_sprite.play("pulsing")
 		else:
-			left_key_sprite.play("default")
+			left_key_sprite.play("non_pulsing")
+	
 	if right_door_locked == false:
 		right_key_sprite.play("none")
 	else:
 		if key_can_be_used:
 			right_key_sprite.play("pulsing")
 		else:
-			right_key_sprite.play("default")
+			right_key_sprite.play("non_pulsing")

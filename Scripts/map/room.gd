@@ -8,6 +8,9 @@ extends Node2D
 @onready var left_door = $left_door
 @onready var right_door = $right_door
 @onready var key_checks = $key_checks
+@onready var boss_icons = $boss_icons
+@onready var crystal_boss_icons = $crystal_boss_icons
+
 
 # references to the adjacent rooms
 var top_room = null
@@ -17,6 +20,7 @@ var right_room = null
 @onready var label = $Label
 
 var unlocked = false
+var room_boss_cleared = false
 
 # defines a random number generator
 var rng = RandomNumberGenerator.new()
@@ -47,9 +51,6 @@ func _on_player_detector_body_entered(body):
 		Events.room_entered.emit(self)
 		RoomData.current_room = self
 		
-		if room_type == RoomData.room_types.locked_item && unlocked == false:
-			unlock_adjacent_rooms()
-		
 		# if there are no enemies in the room
 		if enemies_spawned.size() == 0:
 			# disable the doors
@@ -61,6 +62,8 @@ func _on_player_detector_body_entered(body):
 				key_checks.locks_changed(true)
 			else:
 				key_checks.locks_changed(false)
+			
+			boss_icon_logic(true)
 		# if there are enemies in the room
 		elif enemies_spawned.size() > 0:
 			# enable the doors
@@ -72,6 +75,8 @@ func _on_player_detector_body_entered(body):
 			key_checks.locks_changed(false)
 			# lets the player know the room has enemies
 			Events.player.room_has_enemies()
+			
+			boss_icon_logic(false)
 
 # when an body enters
 func _on_enemy_detector_body_entered(body):
@@ -98,6 +103,10 @@ func _on_enemy_detector_body_exited(body):
 						key_checks.locks_changed(true)
 					else:
 						key_checks.locks_changed(false)
+					
+					if room_type == RoomData.room_types.boss || room_type == RoomData.room_types.crystal_boss:
+						room_boss_cleared = true
+					boss_icon_logic(true)
 
 # closes all doors
 func close_all_doors():
@@ -143,15 +152,19 @@ func unlock_door(door):
 	if door == top_door:
 		if top_door != null:
 			top_door.open_door()
+			top_room.unlock_adjacent_rooms()
 	elif door == bottom_door:
 		if bottom_door != null:
 			bottom_door.open_door()
+			bottom_room.unlock_adjacent_rooms()
 	elif door == left_door:
 		if left_door != null:
 			left_door.open_door()
+			left_room.unlock_adjacent_rooms()
 	elif door == right_door:
 		if right_door != null:
 			right_door.open_door()
+			right_room.unlock_adjacent_rooms()
 	# plays the door sound
 	door_sound.play()
 
@@ -175,6 +188,7 @@ func enemy_spawned_in_room():
 	# check the lock status when the player enters the room
 	key_checks.locks_changed(false)
 	Events.player.room_has_enemies()
+	boss_icon_logic(false)
 
 func cleared():
 	enemies_spawned = []
@@ -493,3 +507,73 @@ func unlock_adjacent_rooms():
 		left_room.unlock_right_door()
 		left_room.refresh_key_icons()
 	unlocked = true
+
+
+func boss_icon_logic(sprites_pulsing : bool):
+	if top_room != null:
+		if top_room.room_type == RoomData.room_types.boss:
+			if sprites_pulsing && !top_room.room_boss_cleared:
+				boss_icons.show_sprite_top()
+			else:
+				boss_icons.inactive_sprite_top()
+		else:
+			boss_icons.hide_sprite_top()
+		
+		if top_room.room_type == RoomData.room_types.crystal_boss:
+			if sprites_pulsing && !top_room.room_boss_cleared:
+				crystal_boss_icons.show_sprite_top()
+			else:
+				crystal_boss_icons.inactive_sprite_top()
+		else:
+			crystal_boss_icons.hide_sprite_top()
+	
+	if bottom_room != null:
+		if bottom_room.room_type == RoomData.room_types.boss:
+			if sprites_pulsing && !bottom_room.room_boss_cleared:
+				boss_icons.show_sprite_bottom()
+			else:
+				boss_icons.inactive_sprite_bottom()
+		else:
+			boss_icons.hide_sprite_bottom()
+		
+		if bottom_room.room_type == RoomData.room_types.crystal_boss:
+			if sprites_pulsing && !bottom_room.room_boss_cleared:
+				crystal_boss_icons.show_sprite_bottom()
+			else:
+				crystal_boss_icons.inactive_sprite_bottom()
+		else:
+			crystal_boss_icons.hide_sprite_bottom()
+	
+	if right_room != null:
+		if right_room.room_type == RoomData.room_types.boss:
+			if sprites_pulsing && !right_room.room_boss_cleared:
+				boss_icons.show_sprite_right()
+			else:
+				boss_icons.inactive_sprite_right()
+		else:
+			boss_icons.hide_sprite_right()
+		
+		if right_room.room_type == RoomData.room_types.crystal_boss:
+			if sprites_pulsing && !right_room.room_boss_cleared:
+				crystal_boss_icons.show_sprite_right()
+			else:
+				crystal_boss_icons.inactive_sprite_right()
+		else:
+			crystal_boss_icons.hide_sprite_right()
+	
+	if left_room != null:
+		if left_room.room_type == RoomData.room_types.boss:
+			if sprites_pulsing && !left_room.room_boss_cleared:
+				boss_icons.show_sprite_left()
+			else:
+				boss_icons.inactive_sprite_left()
+		else:
+			boss_icons.hide_sprite_left()
+		
+		if left_room.room_type == RoomData.room_types.crystal_boss:
+			if sprites_pulsing && !left_room.room_boss_cleared:
+				crystal_boss_icons.show_sprite_left()
+			else:
+				crystal_boss_icons.inactive_sprite_left()
+		else:
+			crystal_boss_icons.hide_sprite_left()

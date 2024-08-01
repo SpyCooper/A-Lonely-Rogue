@@ -1,18 +1,20 @@
-[gd_scene load_steps=14 format=3 uid="uid://cj7h10qvuo84a"]
+[gd_scene load_steps=16 format=3 uid="uid://cj7h10qvuo84a"]
 
 [ext_resource type="Script" path="res://Scripts/map/room.gd" id="1_fwgbt"]
 [ext_resource type="Texture2D" uid="uid://dwf56wio5i6t5" path="res://Assets/Sprites/map/rooms/4_door_room.png" id="2_w2wb1"]
 [ext_resource type="PackedScene" uid="uid://c22lvxdmhbtwy" path="res://Scenes/map/room_components/player_detector.tscn" id="3_f275i"]
 [ext_resource type="PackedScene" uid="uid://bwb84wsvb077u" path="res://Scenes/map/room_components/enemy_detector.tscn" id="4_74bx6"]
 [ext_resource type="PackedScene" uid="uid://besxs1hm25htm" path="res://Scenes/map/room_components/door_tp.tscn" id="5_8jst5"]
-[ext_resource type="PackedScene" uid="uid://ci4t04cng0qhi" path="res://Scenes/map/key_checks.tscn" id="6_h81v2"]
 [ext_resource type="PackedScene" uid="uid://b10n6gh82eb6t" path="res://Scenes/map/room_components/door_sound.tscn" id="9_jajrt"]
 [ext_resource type="PackedScene" uid="uid://c4vjouafwpnyk" path="res://Scenes/map/room_components/wall colliders/top_wall_collider_with_door_hole.tscn" id="10_04cgn"]
 [ext_resource type="PackedScene" uid="uid://c8gymm5o5gc4r" path="res://Scenes/map/room_components/top_bottom_door.tscn" id="11_eskwl"]
 [ext_resource type="PackedScene" uid="uid://rgs46tyeih8y" path="res://Scenes/map/room_components/wall colliders/bottom_wall_collider_with_door.tscn" id="11_mc2j3"]
 [ext_resource type="PackedScene" uid="uid://cwl3212lssvcl" path="res://Scenes/map/room_components/label.tscn" id="11_x1slc"]
 [ext_resource type="PackedScene" uid="uid://bcifmje2xjvvb" path="res://Scenes/map/room_components/wall colliders/side_wall_collider_with_door.tscn" id="12_7otwq"]
+[ext_resource type="PackedScene" uid="uid://ci4t04cng0qhi" path="res://Scenes/map/room_components/key_checks.tscn" id="12_34wrv"]
 [ext_resource type="PackedScene" uid="uid://bog8apffuihdu" path="res://Scenes/map/room_components/left_right_door.tscn" id="12_rd2s8"]
+[ext_resource type="PackedScene" uid="uid://detnpw7d2mf4g" path="res://Scenes/map/room_components/boss_icons.tscn" id="13_rwglf"]
+[ext_resource type="PackedScene" uid="uid://uinpix4fhx5q" path="res://Scenes/map/room_components/crystal_boss_icons.tscn" id="14_67tar"]
 
 [node name="4_door_room" type="Node2D"]
 z_index = -1
@@ -77,7 +79,11 @@ position = Vector2(166, -3)
 
 [node name="Label" parent="." instance=ExtResource("11_x1slc")]
 
-[node name="key_checks" parent="." instance=ExtResource("6_h81v2")]
+[node name="key_checks" parent="." instance=ExtResource("12_34wrv")]
+
+[node name="boss_icons" parent="." instance=ExtResource("13_rwglf")]
+
+[node name="crystal_boss_icons" parent="." instance=ExtResource("14_67tar")]
 
 [node name="door_sound" parent="." instance=ExtResource("9_jajrt")]
 

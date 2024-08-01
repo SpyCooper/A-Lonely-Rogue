@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://01wblyc3frib"]
+[gd_scene load_steps=15 format=3 uid="uid://01wblyc3frib"]
 
 [ext_resource type="Script" path="res://Scripts/map/room.gd" id="1_aa1w4"]
 [ext_resource type="Texture2D" uid="uid://dp60irl07ga30" path="res://Assets/Sprites/map/rooms/2_door_up_down.png" id="2_r1ylj"]
@@ -8,10 +8,12 @@
 [ext_resource type="PackedScene" uid="uid://bwb84wsvb077u" path="res://Scenes/map/room_components/enemy_detector.tscn" id="7_e3h3f"]
 [ext_resource type="PackedScene" uid="uid://besxs1hm25htm" path="res://Scenes/map/room_components/door_tp.tscn" id="8_lolal"]
 [ext_resource type="PackedScene" uid="uid://c8gymm5o5gc4r" path="res://Scenes/map/room_components/top_bottom_door.tscn" id="9_1vdyh"]
-[ext_resource type="PackedScene" uid="uid://ci4t04cng0qhi" path="res://Scenes/map/key_checks.tscn" id="11_mc3g1"]
+[ext_resource type="PackedScene" uid="uid://ci4t04cng0qhi" path="res://Scenes/map/room_components/key_checks.tscn" id="9_trghw"]
 [ext_resource type="PackedScene" uid="uid://0nvhh6eh4tsv" path="res://Scenes/map/room_components/wall colliders/right_left_wall_collider.tscn" id="11_obisk"]
 [ext_resource type="PackedScene" uid="uid://cwl3212lssvcl" path="res://Scenes/map/room_components/label.tscn" id="12_pb124"]
 [ext_resource type="PackedScene" uid="uid://b10n6gh82eb6t" path="res://Scenes/map/room_components/door_sound.tscn" id="12_ttv2g"]
+[ext_resource type="PackedScene" uid="uid://detnpw7d2mf4g" path="res://Scenes/map/room_components/boss_icons.tscn" id="12_wbayc"]
+[ext_resource type="PackedScene" uid="uid://uinpix4fhx5q" path="res://Scenes/map/room_components/crystal_boss_icons.tscn" id="13_doawp"]
 
 [node name="2_door_up_down" type="Node2D"]
 z_index = -1
@@ -49,7 +51,7 @@ position = Vector2(0, -96)
 [node name="bottom_door" parent="." instance=ExtResource("9_1vdyh")]
 position = Vector2(0, 91)
 
-[node name="key_checks" parent="." instance=ExtResource("11_mc3g1")]
+[node name="key_checks" parent="." instance=ExtResource("9_trghw")]
 
 [node name="door_sound" parent="." instance=ExtResource("12_ttv2g")]
 
@@ -57,6 +59,10 @@ position = Vector2(0, 91)
 
 [node name="left_wall_collider" parent="." instance=ExtResource("11_obisk")]
 position = Vector2(-177, 0)
+
+[node name="boss_icons" parent="." instance=ExtResource("12_wbayc")]
+
+[node name="crystal_boss_icons" parent="." instance=ExtResource("13_doawp")]
 
 [node name="Label" parent="." instance=ExtResource("12_pb124")]
 

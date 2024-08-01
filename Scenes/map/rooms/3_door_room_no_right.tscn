@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://duu1fv8fg83r6"]
+[gd_scene load_steps=17 format=3 uid="uid://duu1fv8fg83r6"]
 
 [ext_resource type="Script" path="res://Scripts/map/room.gd" id="1_p611i"]
 [ext_resource type="Texture2D" uid="uid://e2ft1stpxaio" path="res://Assets/Sprites/map/rooms/3_door_no_right.png" id="2_tuy24"]
@@ -11,9 +11,11 @@
 [ext_resource type="PackedScene" uid="uid://besxs1hm25htm" path="res://Scenes/map/room_components/door_tp.tscn" id="8_v6p6a"]
 [ext_resource type="PackedScene" uid="uid://c8gymm5o5gc4r" path="res://Scenes/map/room_components/top_bottom_door.tscn" id="9_7svcf"]
 [ext_resource type="PackedScene" uid="uid://bog8apffuihdu" path="res://Scenes/map/room_components/left_right_door.tscn" id="10_ngwt6"]
-[ext_resource type="PackedScene" uid="uid://ci4t04cng0qhi" path="res://Scenes/map/key_checks.tscn" id="11_y6ao7"]
+[ext_resource type="PackedScene" uid="uid://ci4t04cng0qhi" path="res://Scenes/map/room_components/key_checks.tscn" id="12_av6vr"]
 [ext_resource type="PackedScene" uid="uid://b10n6gh82eb6t" path="res://Scenes/map/room_components/door_sound.tscn" id="12_f0crf"]
+[ext_resource type="PackedScene" uid="uid://detnpw7d2mf4g" path="res://Scenes/map/room_components/boss_icons.tscn" id="13_q6w8l"]
 [ext_resource type="PackedScene" uid="uid://cwl3212lssvcl" path="res://Scenes/map/room_components/label.tscn" id="14_3l47u"]
+[ext_resource type="PackedScene" uid="uid://uinpix4fhx5q" path="res://Scenes/map/room_components/crystal_boss_icons.tscn" id="14_31a1p"]
 
 [node name="3_door_no_right" type="Node2D"]
 z_index = -1
@@ -65,7 +67,11 @@ position = Vector2(0, 91)
 [node name="left_door" parent="." instance=ExtResource("10_ngwt6")]
 position = Vector2(-165, -3)
 
-[node name="key_checks" parent="." instance=ExtResource("11_y6ao7")]
+[node name="key_checks" parent="." instance=ExtResource("12_av6vr")]
+
+[node name="boss_icons" parent="." instance=ExtResource("13_q6w8l")]
+
+[node name="crystal_boss_icons" parent="." instance=ExtResource("14_31a1p")]
 
 [node name="door_sound" parent="." instance=ExtResource("12_f0crf")]
 

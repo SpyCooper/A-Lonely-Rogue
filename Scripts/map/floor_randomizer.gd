@@ -168,7 +168,6 @@ func are_minimum_requirements_met():
 			chest_rooms_met = true
 		if item_room_met && monster_room_met && locked_rooms_met && chest_rooms_met && crystal_boss_room_spawned && boss_room_spawned && ending_room_spawned:
 			minimum_requirements_met = true
-			print("requirements_met")
 		else:
 			minimum_requirements_met = false
 
@@ -1077,6 +1076,7 @@ func spawn_adjacent_rooms(room):
 			
 			if new_room != null:
 				spawned_room_type(type)
+				new_room.boss_icon_logic(false)
 				if type ==  RoomData.room_types.boss:
 					spawn_ending_room(new_room)
 				new_room.populate_room()

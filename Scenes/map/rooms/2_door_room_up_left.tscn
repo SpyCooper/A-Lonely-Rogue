@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dp3cijhg2nws2"]
+[gd_scene load_steps=17 format=3 uid="uid://dp3cijhg2nws2"]
 
 [ext_resource type="Script" path="res://Scripts/map/room.gd" id="1_we6dk"]
 [ext_resource type="Texture2D" uid="uid://byf11eaewbyq" path="res://Assets/Sprites/map/rooms/2_door_up_left.png" id="2_gal3l"]
@@ -9,11 +9,13 @@
 [ext_resource type="PackedScene" uid="uid://besxs1hm25htm" path="res://Scenes/map/room_components/door_tp.tscn" id="8_i423j"]
 [ext_resource type="PackedScene" uid="uid://c8gymm5o5gc4r" path="res://Scenes/map/room_components/top_bottom_door.tscn" id="9_aapx4"]
 [ext_resource type="PackedScene" uid="uid://bog8apffuihdu" path="res://Scenes/map/room_components/left_right_door.tscn" id="10_en46w"]
-[ext_resource type="PackedScene" uid="uid://ci4t04cng0qhi" path="res://Scenes/map/key_checks.tscn" id="11_q1v6p"]
+[ext_resource type="PackedScene" uid="uid://ci4t04cng0qhi" path="res://Scenes/map/room_components/key_checks.tscn" id="10_rdyfm"]
 [ext_resource type="PackedScene" uid="uid://0nvhh6eh4tsv" path="res://Scenes/map/room_components/wall colliders/right_left_wall_collider.tscn" id="12_0sevl"]
 [ext_resource type="PackedScene" uid="uid://b10n6gh82eb6t" path="res://Scenes/map/room_components/door_sound.tscn" id="12_1vedb"]
 [ext_resource type="PackedScene" uid="uid://dgoivmdbub18f" path="res://Scenes/map/room_components/wall colliders/top_bottom_wall_collider.tscn" id="13_qnnrw"]
+[ext_resource type="PackedScene" uid="uid://detnpw7d2mf4g" path="res://Scenes/map/room_components/boss_icons.tscn" id="14_raa0u"]
 [ext_resource type="PackedScene" uid="uid://cwl3212lssvcl" path="res://Scenes/map/room_components/label.tscn" id="14_wxddy"]
+[ext_resource type="PackedScene" uid="uid://uinpix4fhx5q" path="res://Scenes/map/room_components/crystal_boss_icons.tscn" id="15_lex0y"]
 
 [node name="2_door_up_left" type="Node2D"]
 z_index = -1
@@ -51,7 +53,7 @@ position = Vector2(0, -96)
 [node name="left_door" parent="." instance=ExtResource("10_en46w")]
 position = Vector2(-165, -3)
 
-[node name="key_checks" parent="." instance=ExtResource("11_q1v6p")]
+[node name="key_checks" parent="." instance=ExtResource("10_rdyfm")]
 
 [node name="door_sound" parent="." instance=ExtResource("12_1vedb")]
 
@@ -60,6 +62,10 @@ position = Vector2(176, 0)
 
 [node name="bottom_wall_collider" parent="." instance=ExtResource("13_qnnrw")]
 position = Vector2(0, 96)
+
+[node name="boss_icons" parent="." instance=ExtResource("14_raa0u")]
+
+[node name="crystal_boss_icons" parent="." instance=ExtResource("15_lex0y")]
 
 [node name="Label" parent="." instance=ExtResource("14_wxddy")]
 
