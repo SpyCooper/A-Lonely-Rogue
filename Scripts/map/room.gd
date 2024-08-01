@@ -400,9 +400,11 @@ func populate_room():
 		elif bottom_door != null:
 			trap_door.position = Vector2(0, -58) - Vector2(0, 30)
 		elif right_door != null:
-			trap_door.position = Vector2(-135, 0)
+			trap_door.position = Vector2(-135, 0)- Vector2(0, 30)
 		elif left_door != null:
-			trap_door.position = Vector2(135, 0)
+			trap_door.position = Vector2(135, 0)- Vector2(0, 30)
+		
+		items += [trap_door]
 		
 		var amount_of_items = rng.randi_range(1, 2)
 		for i in range(amount_of_items):
