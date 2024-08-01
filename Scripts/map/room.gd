@@ -24,9 +24,12 @@ var room_boss_cleared = false
 
 # defines a random number generator
 var rng = RandomNumberGenerator.new()
+# spawns in room size based on the enemy detected and the center of the room
 var spawn_x = 322/2
 var spawn_y = 164/2
-
+# monster spawn amounts
+var minimum_monster_spawns = 2
+var maximum_monster_spawns = 5
 
 # sets up the number of enemies
 var enemies_spawned = []
@@ -50,6 +53,9 @@ func _on_player_detector_body_entered(body):
 		# emit the signal room_entered
 		Events.room_entered.emit(self)
 		RoomData.current_room = self
+		
+		if room_type == RoomData.room_types.locked_item && unlocked == false:
+			unlock_adjacent_rooms()
 		
 		# if there are no enemies in the room
 		if enemies_spawned.size() == 0:
@@ -152,19 +158,15 @@ func unlock_door(door):
 	if door == top_door:
 		if top_door != null:
 			top_door.open_door()
-			top_room.unlock_adjacent_rooms()
 	elif door == bottom_door:
 		if bottom_door != null:
 			bottom_door.open_door()
-			bottom_room.unlock_adjacent_rooms()
 	elif door == left_door:
 		if left_door != null:
 			left_door.open_door()
-			left_room.unlock_adjacent_rooms()
 	elif door == right_door:
 		if right_door != null:
 			right_door.open_door()
-			right_room.unlock_adjacent_rooms()
 	# plays the door sound
 	door_sound.play()
 
@@ -281,43 +283,48 @@ func populate_room():
 		else:
 			var instance = RoomData.RANDOM_ITEM_SPAWNER.instantiate()
 			add_child(instance)
-			var vec_x = rng.randi_range(-spawn_x + 50, spawn_x-50)
-			var pos_or_neg = rng.randi_range(-1, 1)
-			vec_x = pos_or_neg * vec_x
-			## y direction
-			var vec_y = rng.randi_range(-spawn_y + 50, spawn_y-50)
-			pos_or_neg = rng.randi_range(-1, 1)
-			vec_y = pos_or_neg * vec_y
-			var spawn_vector = Vector2(vec_x, vec_y)
+			var spawn_vector = get_random_position(50)
 			instance.position = spawn_vector
 	elif room_type == RoomData.room_types.locked_item:
 		var instance = RoomData.RANDOM_ITEM_SPAWNER.instantiate()
 		add_child(instance)
-		var vec_x = rng.randi_range(-spawn_x + 50, spawn_x-50)
-		var pos_or_neg = rng.randi_range(-1, 1)
-		vec_x = pos_or_neg * vec_x
-		## y direction
-		var vec_y = rng.randi_range(-spawn_y + 50, spawn_y-50)
-		pos_or_neg = rng.randi_range(-1, 1)
-		vec_y = pos_or_neg * vec_y
-		var spawn_vector = Vector2(vec_x, vec_y)
+		var spawn_vector = get_random_position(50)
 		instance.position = spawn_vector
 		
 		# set locks on adjacent rooms
 		lock_adjacent_rooms()
 	elif room_type == RoomData.room_types.chest:
-		var vec_x = rng.randi_range(-spawn_x + 40, spawn_x-40)
-		var pos_or_neg = rng.randi_range(-1, 1)
-		vec_x = pos_or_neg * vec_x
-		## y direction
-		var vec_y = rng.randi_range(-spawn_y + 40, spawn_y-40)
-		pos_or_neg = rng.randi_range(-1, 1)
-		vec_y = pos_or_neg * vec_y
+		var vect = get_random_position(40)
 		var instance = RoomData.ITEM_CHEST.instantiate()
-		instance.position = Vector2(global_position.x + vec_x, global_position.y + vec_y)
+		instance.position = Vector2(global_position.x + vect.x, global_position.y + vect.y)
 		get_tree().current_scene.add_child(instance)
 	elif room_type == RoomData.room_types.monster:
-		pass
+		var amount_of_mobs = rng.randi_range(minimum_monster_spawns, maximum_monster_spawns)
+		var possible_mobs
+		if get_tree().current_scene.name == "Floor1":
+			possible_mobs = RoomData.floor_1_mobs
+		elif get_tree().current_scene.name == "Floor2":
+			possible_mobs = RoomData.floor_2_mobs
+		elif get_tree().current_scene.name == "Floor3":
+			possible_mobs = RoomData.floor_3_mobs
+		elif get_tree().current_scene.name == "Floor4":
+			possible_mobs = RoomData.floor_4_mobs
+		var mobs = []
+		for i in range(amount_of_mobs):
+			var random_mob = possible_mobs[rng.randi_range(0, possible_mobs.size()-1)]
+			var instance = random_mob.instantiate()
+			add_child(instance)
+			var spawn_vector
+			var matches_position = true
+			while matches_position:
+				matches_position = false
+				spawn_vector = get_random_position(45)
+				for mob in mobs:
+					if spawn_vector.distance_to(mob.position) < 30:
+						spawn_vector = Vector2(-mob.position.x, -mob.position.y)
+						matches_position = true
+			instance.position = spawn_vector
+			mobs += [instance]
 	elif room_type == RoomData.room_types.crystal_boss:
 		var spawn_vector = Vector2(0, 0)
 		if top_door != null &&  bottom_door != null &&  right_door != null &&  left_door != null:
@@ -331,14 +338,7 @@ func populate_room():
 		elif left_door == null:
 			spawn_vector = Vector2(-110, 20)
 		else:
-			var vec_x = rng.randi_range(-spawn_x + 70, spawn_x-70)
-			var pos_or_neg = rng.randi_range(-1, 1)
-			vec_x = pos_or_neg * vec_x
-			## y direction
-			var vec_y = rng.randi_range(-spawn_y + 60, spawn_y-60)
-			pos_or_neg = rng.randi_range(-1, 1)
-			vec_y = pos_or_neg * vec_y
-			spawn_vector = Vector2(vec_x, vec_y)
+			spawn_vector = get_random_position(60)
 		
 		var instance
 		if get_tree().current_scene.name == "Floor1":
@@ -368,14 +368,7 @@ func populate_room():
 		elif left_door == null:
 			spawn_vector = Vector2(-110, 20)
 		else:
-			var vec_x = rng.randi_range(-spawn_x + 70, spawn_x-70)
-			var pos_or_neg = rng.randi_range(-1, 1)
-			vec_x = pos_or_neg * vec_x
-			## y direction
-			var vec_y = rng.randi_range(-spawn_y + 60, spawn_y-60)
-			pos_or_neg = rng.randi_range(-1, 1)
-			vec_y = pos_or_neg * vec_y
-			spawn_vector = Vector2(vec_x, vec_y)
+			spawn_vector = get_random_position(60)
 		
 		var instance
 		if get_tree().current_scene.name == "Floor1":
@@ -415,17 +408,15 @@ func populate_room():
 		for i in range(amount_of_items):
 			var instance = RoomData.RANDOM_ITEM_SPAWNER.instantiate()
 			add_child(instance)
-			var vec_x = rng.randi_range(-spawn_x + 50, spawn_x-50)
-			var pos_or_neg = rng.randi_range(-1, 1)
-			vec_x = pos_or_neg * vec_x
-			## y direction
-			var vec_y = rng.randi_range(-spawn_y + 50, spawn_y-50)
-			pos_or_neg = rng.randi_range(-1, 1)
-			vec_y = pos_or_neg * vec_y
-			var spawn_vector = Vector2(vec_x, vec_y)
-			for item in items:
-				if spawn_vector.distance_to(item.position) < 20:
-					spawn_vector = Vector2(-item.position.x, -item.position.y)
+			var spawn_vector
+			var matches_position = true
+			while matches_position:
+				matches_position = false
+				spawn_vector = get_random_position(50)
+				for item in items:
+					if spawn_vector.distance_to(item.position) < 20:
+						spawn_vector = Vector2(-item.position.x, -item.position.y)
+						matches_position = true
 			instance.position = spawn_vector
 			items += [instance]
 
@@ -508,7 +499,6 @@ func unlock_adjacent_rooms():
 		left_room.refresh_key_icons()
 	unlocked = true
 
-
 func boss_icon_logic(sprites_pulsing : bool):
 	if top_room != null:
 		if top_room.room_type == RoomData.room_types.boss:
@@ -577,3 +567,23 @@ func boss_icon_logic(sprites_pulsing : bool):
 				crystal_boss_icons.inactive_sprite_left()
 		else:
 			crystal_boss_icons.hide_sprite_left()
+
+
+func get_random_position(offset : int):
+	# direction
+	var vec_x = rng.randi_range(-spawn_x + offset, spawn_x-offset)
+	var pos_or_neg = rng.randi_range(-10, 10)
+	if pos_or_neg > 0:
+		pos_or_neg = 1
+	elif pos_or_neg < 0:
+		pos_or_neg = -1
+	vec_x = pos_or_neg * vec_x
+	## y direction
+	var vec_y = rng.randi_range(-spawn_y + offset, spawn_y-offset)
+	pos_or_neg = rng.randi_range(-10, 10)
+	if pos_or_neg > 0:
+		pos_or_neg = 1
+	elif pos_or_neg < 0:
+		pos_or_neg = -1
+	vec_y = pos_or_neg * vec_y
+	return Vector2(vec_x, vec_y)

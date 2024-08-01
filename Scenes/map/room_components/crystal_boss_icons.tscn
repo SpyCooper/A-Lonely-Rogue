@@ -138,7 +138,7 @@ animations = [{
 script = ExtResource("1_nnuxr")
 
 [node name="icon_up" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -76)
+position = Vector2(0, -72)
 sprite_frames = SubResource("SpriteFrames_sj45s")
 animation = &"pulsing"
 autoplay = "none"
@@ -150,13 +150,13 @@ animation = &"none"
 autoplay = "none"
 
 [node name="icon_left" type="AnimatedSprite2D" parent="."]
-position = Vector2(-154, 0)
+position = Vector2(-150, 0)
 sprite_frames = SubResource("SpriteFrames_sj45s")
 animation = &"none"
 autoplay = "none"
 
 [node name="icon_right" type="AnimatedSprite2D" parent="."]
-position = Vector2(154, 0)
+position = Vector2(150, 0)
 sprite_frames = SubResource("SpriteFrames_sj45s")
 animation = &"none"
 autoplay = "none"

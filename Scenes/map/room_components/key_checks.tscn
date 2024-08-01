@@ -139,7 +139,7 @@ animations = [{
 script = ExtResource("1_53vjw")
 
 [node name="Key_check_up" type="Area2D" parent="."]
-position = Vector2(0, -76)
+position = Vector2(0, -72)
 collision_layer = 2
 collision_mask = 2
 
@@ -152,7 +152,7 @@ animation = &"non_pulsing"
 autoplay = "non_pulsing"
 
 [node name="Key_check_down" type="Area2D" parent="."]
-position = Vector2(0, 76)
+position = Vector2(0, 72)
 collision_layer = 2
 collision_mask = 2
 
@@ -165,7 +165,7 @@ animation = &"non_pulsing"
 autoplay = "non_pulsing"
 
 [node name="Key_check_left" type="Area2D" parent="."]
-position = Vector2(-154, 0)
+position = Vector2(-150, 0)
 collision_layer = 2
 collision_mask = 2
 
@@ -178,7 +178,7 @@ animation = &"non_pulsing"
 autoplay = "non_pulsing"
 
 [node name="Key_check_right" type="Area2D" parent="."]
-position = Vector2(154, 0)
+position = Vector2(150, 0)
 collision_layer = 2
 collision_mask = 2
 

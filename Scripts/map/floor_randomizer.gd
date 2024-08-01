@@ -31,7 +31,6 @@ const _3_DOOR_ROOM_NO_UP = preload("res://Scenes/map/rooms/3_door_room_no_up.tsc
 const _4_DOOR_ROOM = preload("res://Scenes/map/rooms/4_door_room.tscn")
 
 var rooms_that_can_connect_to_top = [
-	_1_DOOR_ROOM_DOWN,
 	_2_DOOR_DOWN_LEFT,
 	_2_DOOR_DOWN_RIGHT,
 	_2_DOOR_UP_DOWN,
@@ -39,10 +38,10 @@ var rooms_that_can_connect_to_top = [
 	_3_DOOR_ROOM_NO_RIGHT,
 	_3_DOOR_ROOM_NO_UP,
 	_4_DOOR_ROOM,
+	_1_DOOR_ROOM_DOWN,
 ]
 
 var rooms_that_can_connect_to_bottom = [
-	_1_DOOR_ROOM_UP,
 	_2_DOOR_ROOM_UP_LEFT,
 	_2_DOOR_ROOM_UP_RIGHT,
 	_2_DOOR_UP_DOWN,
@@ -50,10 +49,10 @@ var rooms_that_can_connect_to_bottom = [
 	_3_DOOR_ROOM_NO_RIGHT,
 	_3_DOOR_ROOM_NO_DOWN,
 	_4_DOOR_ROOM,
+	_1_DOOR_ROOM_UP,
 ]
 
 var rooms_that_can_connect_to_right = [
-	_1_DOOR_ROOM_LEFT,
 	_2_DOOR_DOWN_LEFT,
 	_2_DOOR_LEFT_RIGHT,
 	_2_DOOR_ROOM_UP_LEFT,
@@ -61,10 +60,10 @@ var rooms_that_can_connect_to_right = [
 	_3_DOOR_ROOM_NO_RIGHT,
 	_3_DOOR_ROOM_NO_UP,
 	_4_DOOR_ROOM,
+	_1_DOOR_ROOM_LEFT,
 ]
 
 var rooms_that_can_connect_to_left = [
-	_1_DOOR_ROOM_RIGHT,
 	_2_DOOR_DOWN_RIGHT,
 	_2_DOOR_LEFT_RIGHT,
 	_2_DOOR_ROOM_UP_RIGHT,
@@ -72,6 +71,7 @@ var rooms_that_can_connect_to_left = [
 	_3_DOOR_ROOM_NO_LEFT,
 	_3_DOOR_ROOM_NO_UP,
 	_4_DOOR_ROOM,
+	_1_DOOR_ROOM_RIGHT,
 ]
 
 var all_rooms = [
@@ -118,16 +118,16 @@ var boss_room_spawned = false
 var ending_room_spawned = false
 var crystal_boss_room_spawned = false
 
-var minimum_item_rooms = 2
-var maximum_item_rooms = 4
+var minimum_item_rooms = 1
+var maximum_item_rooms = 3
 var current_item_rooms = 0
 
 var minimum_chest_rooms = 1
-var maximum_chest_rooms = 3
+var maximum_chest_rooms = 2
 var current_chest_rooms = 0
 
 var minimum_locked_rooms = 1
-var maximum_locked_rooms = 3
+var maximum_locked_rooms = 2
 var current_locked_rooms = 0
 
 var minimum_monster_rooms = 4
@@ -170,6 +170,7 @@ func are_minimum_requirements_met():
 			minimum_requirements_met = true
 		else:
 			minimum_requirements_met = false
+		print(minimum_requirements_met)
 
 func random_room_type():
 	var type
@@ -209,38 +210,10 @@ func random_room_type_near_spawn():
 	var type
 	if spawnable_room_types_near_spawn.size() != 0:
 		type = spawnable_room_types_near_spawn[rng.randi_range(0,spawnable_room_types_near_spawn.size()-1)]
-		if type == RoomData.room_types.random_item:
-			if current_item_rooms == maximum_item_rooms:
-				spawnable_room_types.remove_at(spawnable_room_types.find(RoomData.room_types.random_item))
-				type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
-				if type == RoomData.room_types.monster:
-					current_monster_rooms += 1
-			else:
-				current_item_rooms += 1
-		elif type == RoomData.room_types.chest:
-			if current_chest_rooms == maximum_chest_rooms:
-				spawnable_room_types.remove_at(spawnable_room_types.find(RoomData.room_types.chest))
-				type = rng.randi_range(0,unlimited_room_types.size()-1)
-				if type == RoomData.room_types.monster:
-					current_monster_rooms += 1
-			else:
-				current_chest_rooms += 1
-		elif type == RoomData.room_types.locked_item:
-			if current_locked_rooms == maximum_locked_rooms:
-				spawnable_room_types.remove_at(spawnable_room_types.find(RoomData.room_types.locked_item))
-				type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
-				if type == RoomData.room_types.monster:
-					current_monster_rooms += 1
-			else:
-				current_locked_rooms += 1
-		else:
-			type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
-			if type == RoomData.room_types.monster:
-				current_monster_rooms += 1
 	if type != null:
 		return type
 	else:
-		return RoomData.room_types.no_type
+		return unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
 
 func spawn_starting_room():
 	var random_starting_room = rng.randi_range(0,all_rooms.size()-1)
@@ -264,7 +237,9 @@ func spawn_adjacent_rooms(room):
 			type = random_room_type_near_spawn()
 		else:
 			type = random_room_type()
-			
+		var can_spawn_single_door_room = false
+		if minimum_requirements_met:
+			can_spawn_single_door_room = true
 		iteration += 1
 		if connected_room == null:
 			# add a room to the top of the current room
@@ -274,9 +249,9 @@ func spawn_adjacent_rooms(room):
 					
 					if get_room_at_position(target_room_position) == null:
 						
-						if type == RoomData.room_types.locked_item || type == RoomData.room_types.boss:
+						if type == RoomData.room_types.locked_item || type == RoomData.room_types.boss || type == RoomData.room_types.crystal_boss:
 							if !check_for_other_empty_doors(target_room_position):
-								type = RoomData.room_types.monster
+								type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
 						
 						var top_connection = get_connection_top(target_room_position)
 						var left_connection = get_connection_left(target_room_position)
@@ -285,42 +260,42 @@ func spawn_adjacent_rooms(room):
 						# needs to connect on all sides (down is implied)
 						if top_connection != null && right_connection != null && left_connection != null:
 							if type == RoomData.room_types.boss:
-								type = RoomData.room_types.no_type
+								type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
 							new_room = _4_DOOR_ROOM.instantiate()
 						# needs to connect on the top and right sides (down is implied)
 						elif top_connection != null && right_connection != null && left_connection == null:
-							if close_rooms || type == RoomData.room_types.locked_item:
+							if close_rooms || type == RoomData.room_types.locked_item || type == RoomData.room_types.crystal_boss:
 								new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
 							elif get_room_at_position(target_room_position + Vector2(-384, 0)) == null:
 								# get either room
 								new_room = _4_DOOR_ROOM.instantiate()
 							else:
 								if type == RoomData.room_types.boss:
-									type = RoomData.room_types.no_type
+									type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
 								new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
 						# needs to connect on the top and left sides (down is implied)
 						elif top_connection != null && right_connection == null && left_connection != null:
-							if close_rooms || type == RoomData.room_types.locked_item:
+							if close_rooms || type == RoomData.room_types.locked_item || type == RoomData.room_types.crystal_boss:
 								new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
 							elif get_room_at_position(target_room_position + Vector2(384, 0)) == null:
 								new_room = _4_DOOR_ROOM.instantiate()
 							else:
 								if type == RoomData.room_types.boss:
-									type = RoomData.room_types.no_type
+									type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
 								new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
 						# needs to connect on the left and right sides (down is implied)
 						elif top_connection == null && right_connection != null && left_connection != null:
-							if close_rooms || type == RoomData.room_types.locked_item:
+							if close_rooms || type == RoomData.room_types.locked_item || type == RoomData.room_types.crystal_boss:
 								new_room = _3_DOOR_ROOM_NO_UP.instantiate()
 							elif get_room_at_position(target_room_position + Vector2(0, -224)) == null:
 								new_room = _4_DOOR_ROOM.instantiate()
 							else:
 								if type == RoomData.room_types.boss:
-									type = RoomData.room_types.no_type
+									type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
 								new_room = _3_DOOR_ROOM_NO_UP.instantiate()
 						# needs to connect on the top side (down is implied)
 						elif top_connection != null && right_connection == null && left_connection == null:
-							if close_rooms || type == RoomData.room_types.locked_item:
+							if close_rooms || type == RoomData.room_types.locked_item || type == RoomData.room_types.crystal_boss:
 								new_room = _2_DOOR_UP_DOWN.instantiate()
 							else:
 								var can_have_left = false
@@ -345,11 +320,11 @@ func spawn_adjacent_rooms(room):
 									new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
 								else:
 									if type == RoomData.room_types.boss:
-										type = RoomData.room_types.no_type
+										type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
 									new_room = _2_DOOR_UP_DOWN.instantiate()
 						# needs to connect on the right side (down is implied)
 						elif top_connection == null && right_connection != null && left_connection == null:
-							if close_rooms || type == RoomData.room_types.locked_item:
+							if close_rooms || type == RoomData.room_types.locked_item || type == RoomData.room_types.crystal_boss:
 								new_room = _2_DOOR_DOWN_RIGHT.instantiate()
 							else:
 								var can_have_left = false
@@ -374,11 +349,11 @@ func spawn_adjacent_rooms(room):
 									new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
 								else:
 									if type == RoomData.room_types.boss:
-										type = RoomData.room_types.no_type
+										type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
 									new_room = _2_DOOR_DOWN_RIGHT.instantiate()
 						# needs to connect on the left side (down is implied)
 						elif top_connection == null && right_connection == null && left_connection != null:
-							if close_rooms || type == RoomData.room_types.locked_item:
+							if close_rooms || type == RoomData.room_types.locked_item || type == RoomData.room_types.crystal_boss:
 								new_room = _2_DOOR_DOWN_LEFT.instantiate()
 							else:
 								var can_have_right = false
@@ -403,11 +378,11 @@ func spawn_adjacent_rooms(room):
 									new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
 								else:
 									if type == RoomData.room_types.boss:
-										type = RoomData.room_types.no_type
+										type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
 									new_room = _2_DOOR_DOWN_LEFT.instantiate()
 						# does not need to connect to any other sides (down is implied)
 						else:
-							if close_rooms || type == RoomData.room_types.locked_item:
+							if close_rooms || type == RoomData.room_types.locked_item || type == RoomData.room_types.crystal_boss:
 								new_room = _1_DOOR_ROOM_DOWN.instantiate()
 							else:
 								var can_have_right = false
@@ -421,7 +396,11 @@ func spawn_adjacent_rooms(room):
 									can_have_left = true
 								
 								if can_have_left && can_have_right && can_have_top:
-									var random_room = rooms_that_can_connect_to_top[rng.randi_range(0,rooms_that_can_connect_to_top.size()-1)]
+									var random_number = rng.randi_range(0,rooms_that_can_connect_to_top.size()-1)
+									if random_number == rooms_that_can_connect_to_top.size()-1:
+										if !can_spawn_single_door_room:
+											random_number = rng.randi_range(0,rooms_that_can_connect_to_top.size()-2)
+									var random_room = rooms_that_can_connect_to_top[random_number]
 									new_room = random_room.instantiate()
 								elif can_have_left && can_have_right && !can_have_top:
 									var temp_room = rng.randi_range(0,2)
@@ -453,9 +432,9 @@ func spawn_adjacent_rooms(room):
 									new_room = _2_DOOR_UP_DOWN.instantiate()
 								elif !can_have_left && can_have_right && !can_have_top:
 									new_room = _2_DOOR_DOWN_RIGHT.instantiate()
-								else:
+								elif !can_have_left && !can_have_right && !can_have_top:
 									if type == RoomData.room_types.boss:
-										type = RoomData.room_types.no_type
+										type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
 									new_room = _1_DOOR_ROOM_DOWN.instantiate()
 						
 						get_tree().current_scene.add_child(new_room)
@@ -468,7 +447,7 @@ func spawn_adjacent_rooms(room):
 						room.set_connected_room_top(new_room)
 						
 						if type == RoomData.room_types.boss && check_if_ending_room_can_spawn(new_room) == false:
-							type = RoomData.room_types.no_type
+							type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
 						
 						new_room.set_room_type(type)
 						
@@ -480,9 +459,9 @@ func spawn_adjacent_rooms(room):
 					
 					if get_room_at_position(target_room_position) == null:
 						
-						if type == RoomData.room_types.locked_item || type == RoomData.room_types.boss:
+						if type == RoomData.room_types.locked_item || type == RoomData.room_types.boss || type == RoomData.room_types.crystal_boss:
 							if !check_for_other_empty_doors(target_room_position):
-								type = RoomData.room_types.monster
+								type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
 						
 						var bottom_connection = get_connection_bottom(target_room_position)
 						var left_connection = get_connection_left(target_room_position)
@@ -490,40 +469,40 @@ func spawn_adjacent_rooms(room):
 						
 						if bottom_connection != null && right_connection != null && left_connection != null:
 							if type == RoomData.room_types.boss:
-								type = RoomData.room_types.no_type
+								type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
 							new_room = _4_DOOR_ROOM.instantiate()
 						elif bottom_connection != null && right_connection != null && left_connection == null:
-							if close_rooms || type == RoomData.room_types.locked_item:
+							if close_rooms || type == RoomData.room_types.locked_item || type == RoomData.room_types.crystal_boss:
 								new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
 							else:
 								if get_room_at_position(target_room_position + Vector2(-384, 0)) == null:
 									new_room = _4_DOOR_ROOM.instantiate()
 								else:
 									if type == RoomData.room_types.boss:
-										type = RoomData.room_types.no_type
+										type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
 									new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
 						elif bottom_connection != null && right_connection == null && left_connection != null:
-							if close_rooms || type == RoomData.room_types.locked_item:
+							if close_rooms || type == RoomData.room_types.locked_item || type == RoomData.room_types.crystal_boss:
 								new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
 							else:
 								if get_room_at_position(target_room_position + Vector2(384, 0)) == null:
 									new_room = _4_DOOR_ROOM.instantiate()
 								else:
 									if type == RoomData.room_types.boss:
-										type = RoomData.room_types.no_type
+										type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
 									new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
 						elif bottom_connection == null && right_connection != null && left_connection != null:
-							if close_rooms || type == RoomData.room_types.locked_item:
+							if close_rooms || type == RoomData.room_types.locked_item || type == RoomData.room_types.crystal_boss:
 								new_room = _3_DOOR_ROOM_NO_DOWN.instantiate()
 							else:
 								if get_room_at_position(target_room_position + Vector2(0, 224)) == null:
 									new_room = _4_DOOR_ROOM.instantiate()
 								else:
 									if type == RoomData.room_types.boss:
-										type = RoomData.room_types.no_type
+										type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
 									new_room = _3_DOOR_ROOM_NO_DOWN.instantiate()
 						elif bottom_connection != null && right_connection == null && left_connection == null:
-							if close_rooms || type == RoomData.room_types.locked_item:
+							if close_rooms || type == RoomData.room_types.locked_item || type == RoomData.room_types.crystal_boss:
 								new_room = _2_DOOR_UP_DOWN.instantiate()
 							else:
 								var can_have_left = false
@@ -548,10 +527,10 @@ func spawn_adjacent_rooms(room):
 									new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
 								else:
 									if type == RoomData.room_types.boss:
-										type = RoomData.room_types.no_type
+										type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
 									new_room = _2_DOOR_UP_DOWN.instantiate()
 						elif bottom_connection == null && right_connection != null && left_connection == null:
-							if close_rooms || type == RoomData.room_types.locked_item:
+							if close_rooms || type == RoomData.room_types.locked_item || type == RoomData.room_types.crystal_boss:
 								new_room = _2_DOOR_ROOM_UP_RIGHT.instantiate()
 							else:
 								var can_have_left = false
@@ -576,10 +555,10 @@ func spawn_adjacent_rooms(room):
 									new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
 								else:
 									if type == RoomData.room_types.boss:
-										type = RoomData.room_types.no_type
+										type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
 									new_room = _2_DOOR_ROOM_UP_RIGHT.instantiate()
 						elif bottom_connection == null && right_connection == null && left_connection != null:
-							if close_rooms || type == RoomData.room_types.locked_item:
+							if close_rooms || type == RoomData.room_types.locked_item || type == RoomData.room_types.crystal_boss:
 								new_room = _2_DOOR_ROOM_UP_LEFT.instantiate()
 							else:
 								var can_have_right = false
@@ -604,10 +583,10 @@ func spawn_adjacent_rooms(room):
 									new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
 								else:
 									if type == RoomData.room_types.boss:
-										type = RoomData.room_types.no_type
+										type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
 									new_room = _2_DOOR_ROOM_UP_LEFT.instantiate()
 						else:
-							if close_rooms || type == RoomData.room_types.locked_item:
+							if close_rooms || type == RoomData.room_types.locked_item || type == RoomData.room_types.crystal_boss:
 								new_room = _1_DOOR_ROOM_UP.instantiate()
 							else:
 								var can_have_left = false
@@ -621,7 +600,11 @@ func spawn_adjacent_rooms(room):
 									can_have_bottom = true
 								
 								if can_have_left && can_have_right && can_have_bottom:
-									var random_room = rooms_that_can_connect_to_bottom[rng.randi_range(0,rooms_that_can_connect_to_bottom.size()-1)]
+									var random_number = rng.randi_range(0,rooms_that_can_connect_to_bottom.size()-1)
+									if random_number == rooms_that_can_connect_to_bottom.size()-1:
+										if !can_spawn_single_door_room:
+											random_number = rng.randi_range(0,rooms_that_can_connect_to_bottom.size()-2)
+									var random_room = rooms_that_can_connect_to_bottom[random_number]
 									new_room = random_room.instantiate()
 								elif can_have_left && can_have_right && !can_have_bottom:
 									var temp_room = rng.randi_range(0,2)
@@ -653,9 +636,9 @@ func spawn_adjacent_rooms(room):
 									new_room = _2_DOOR_UP_DOWN.instantiate()
 								elif !can_have_left && can_have_right && !can_have_bottom:
 									new_room = _2_DOOR_ROOM_UP_RIGHT.instantiate()
-								else:
+								elif !can_have_left && !can_have_right && !can_have_bottom:
 									if type == RoomData.room_types.boss:
-										type = RoomData.room_types.no_type
+										type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
 									new_room = _1_DOOR_ROOM_UP.instantiate()
 							
 						get_tree().current_scene.add_child(new_room)
@@ -668,7 +651,7 @@ func spawn_adjacent_rooms(room):
 						room.set_connected_room_bottom(new_room)
 						
 						if type == RoomData.room_types.boss && check_if_ending_room_can_spawn(new_room) == false:
-							type = RoomData.room_types.no_type
+							type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
 						
 						new_room.set_room_type(type)
 						
@@ -680,9 +663,9 @@ func spawn_adjacent_rooms(room):
 					
 					if get_room_at_position(target_room_position) == null:
 						
-						if type == RoomData.room_types.locked_item || type == RoomData.room_types.boss:
+						if type == RoomData.room_types.locked_item || type == RoomData.room_types.boss || type == RoomData.room_types.crystal_boss:
 							if !check_for_other_empty_doors(target_room_position):
-								type = RoomData.room_types.monster
+								type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
 						
 						var top_connection = get_connection_top(target_room_position)
 						var bottom_connection = get_connection_bottom(target_room_position)
@@ -690,40 +673,40 @@ func spawn_adjacent_rooms(room):
 						
 						if top_connection != null && bottom_connection != null && left_connection != null:
 							if type == RoomData.room_types.boss:
-								type = RoomData.room_types.no_type
+								type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
 							new_room = _4_DOOR_ROOM.instantiate()
 						elif top_connection != null && bottom_connection != null && left_connection == null:
-							if close_rooms || type == RoomData.room_types.locked_item:
+							if close_rooms || type == RoomData.room_types.locked_item || type == RoomData.room_types.crystal_boss:
 								new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
 							else:
 								if get_room_at_position(target_room_position + Vector2(-384, 0)) == null:
 									new_room = _4_DOOR_ROOM.instantiate()
 								else:
 									if type == RoomData.room_types.boss:
-										type = RoomData.room_types.no_type
+										type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
 									new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
 						elif top_connection != null && bottom_connection == null && left_connection != null:
-							if close_rooms || type == RoomData.room_types.locked_item:
+							if close_rooms || type == RoomData.room_types.locked_item || type == RoomData.room_types.crystal_boss:
 								new_room = _3_DOOR_ROOM_NO_DOWN.instantiate()
 							else:
 								if get_room_at_position(target_room_position + Vector2(0, 224)) == null:
 									new_room = _4_DOOR_ROOM.instantiate()
 								else:
 									if type == RoomData.room_types.boss:
-										type = RoomData.room_types.no_type
+										type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
 									new_room = _3_DOOR_ROOM_NO_DOWN.instantiate()
 						elif top_connection == null && bottom_connection != null && left_connection != null:
-							if close_rooms || type == RoomData.room_types.locked_item:
+							if close_rooms || type == RoomData.room_types.locked_item || type == RoomData.room_types.crystal_boss:
 								new_room = _3_DOOR_ROOM_NO_UP.instantiate()
 							else:
 								if get_room_at_position(target_room_position + Vector2(0, -224)) == null:
 									new_room = _4_DOOR_ROOM.instantiate()
 								else:
 									if type == RoomData.room_types.boss:
-										type = RoomData.room_types.no_type
+										type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
 									new_room = _3_DOOR_ROOM_NO_UP.instantiate()
 						elif top_connection != null && bottom_connection == null && left_connection == null:
-							if close_rooms || type == RoomData.room_types.locked_item:
+							if close_rooms || type == RoomData.room_types.locked_item || type == RoomData.room_types.crystal_boss:
 								new_room = _2_DOOR_ROOM_UP_RIGHT.instantiate()
 							else:
 								var can_have_left = false
@@ -748,10 +731,10 @@ func spawn_adjacent_rooms(room):
 									new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
 								else:
 									if type == RoomData.room_types.boss:
-										type = RoomData.room_types.no_type
+										type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
 									new_room = _2_DOOR_ROOM_UP_RIGHT.instantiate()
 						elif top_connection == null && bottom_connection != null && left_connection == null:
-							if close_rooms || type == RoomData.room_types.locked_item:
+							if close_rooms || type == RoomData.room_types.locked_item || type == RoomData.room_types.crystal_boss:
 								new_room = _2_DOOR_DOWN_RIGHT.instantiate()
 							else:
 								var can_have_left = false
@@ -776,10 +759,10 @@ func spawn_adjacent_rooms(room):
 									new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
 								else:
 									if type == RoomData.room_types.boss:
-										type = RoomData.room_types.no_type
+										type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
 									new_room = _2_DOOR_DOWN_RIGHT.instantiate()
 						elif top_connection == null && bottom_connection == null && left_connection != null:
-							if close_rooms || type == RoomData.room_types.locked_item:
+							if close_rooms || type == RoomData.room_types.locked_item || type == RoomData.room_types.crystal_boss:
 								new_room = _2_DOOR_LEFT_RIGHT.instantiate()
 							else:
 								var can_have_top = false
@@ -804,10 +787,10 @@ func spawn_adjacent_rooms(room):
 									new_room = _3_DOOR_ROOM_NO_DOWN.instantiate()
 								else:
 									if type == RoomData.room_types.boss:
-										type = RoomData.room_types.no_type
+										type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
 									new_room = _2_DOOR_LEFT_RIGHT.instantiate()
 						else:
-							if close_rooms || type == RoomData.room_types.locked_item:
+							if close_rooms || type == RoomData.room_types.locked_item || type == RoomData.room_types.crystal_boss:
 								new_room = _1_DOOR_ROOM_RIGHT.instantiate()
 							else:
 								var can_have_left = false
@@ -821,7 +804,11 @@ func spawn_adjacent_rooms(room):
 									can_have_bottom = true
 								
 								if can_have_left && can_have_top && can_have_bottom:
-									var random_room = rooms_that_can_connect_to_left[rng.randi_range(0,rooms_that_can_connect_to_left.size()-1)]
+									var random_number = rng.randi_range(0,rooms_that_can_connect_to_left.size()-1)
+									if random_number == rooms_that_can_connect_to_left.size()-1:
+										if !can_spawn_single_door_room:
+											random_number = rng.randi_range(0,rooms_that_can_connect_to_left.size()-2)
+									var random_room = rooms_that_can_connect_to_left[random_number]
 									new_room = random_room.instantiate()
 								elif can_have_left && can_have_top && !can_have_bottom:
 									var temp_room = rng.randi_range(0,2)
@@ -853,9 +840,9 @@ func spawn_adjacent_rooms(room):
 									new_room = _2_DOOR_DOWN_RIGHT.instantiate()
 								elif !can_have_left && can_have_top && !can_have_bottom:
 									new_room = _2_DOOR_ROOM_UP_RIGHT.instantiate()
-								else:
+								elif !can_have_left && !can_have_top && !can_have_bottom:
 									if type == RoomData.room_types.boss:
-										type = RoomData.room_types.no_type
+										type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
 									new_room = _1_DOOR_ROOM_RIGHT.instantiate()
 						
 						get_tree().current_scene.add_child(new_room)
@@ -868,7 +855,7 @@ func spawn_adjacent_rooms(room):
 						room.set_connected_room_left(new_room)
 						
 						if type == RoomData.room_types.boss && check_if_ending_room_can_spawn(new_room) == false:
-							type = RoomData.room_types.no_type
+							type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
 						
 						new_room.set_room_type(type)
 						
@@ -880,9 +867,9 @@ func spawn_adjacent_rooms(room):
 					
 					if get_room_at_position(target_room_position) == null:
 						
-						if type == RoomData.room_types.locked_item || type == RoomData.room_types.boss:
+						if type == RoomData.room_types.locked_item || type == RoomData.room_types.boss || type == RoomData.room_types.crystal_boss:
 							if !check_for_other_empty_doors(target_room_position):
-								type = RoomData.room_types.monster
+								type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
 						
 						var top_connection = get_connection_top(target_room_position)
 						var bottom_connection = get_connection_bottom(target_room_position)
@@ -890,40 +877,40 @@ func spawn_adjacent_rooms(room):
 						
 						if top_connection != null && bottom_connection != null && right_connection != null:
 							if type == RoomData.room_types.boss:
-								type = RoomData.room_types.no_type
+								type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
 							new_room = _4_DOOR_ROOM.instantiate()
 						elif top_connection != null && bottom_connection != null && right_connection == null:
-							if close_rooms || type == RoomData.room_types.locked_item:
+							if close_rooms || type == RoomData.room_types.locked_item || type == RoomData.room_types.crystal_boss:
 								new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
 							else:
 								if get_room_at_position(target_room_position + Vector2(384, 0)) == null:
 									new_room = _4_DOOR_ROOM.instantiate()
 								else:
 									if type == RoomData.room_types.boss:
-										type = RoomData.room_types.no_type
+										type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
 									new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
 						elif top_connection != null && bottom_connection == null && right_connection != null:
-							if close_rooms || type == RoomData.room_types.locked_item:
+							if close_rooms || type == RoomData.room_types.locked_item || type == RoomData.room_types.crystal_boss:
 								new_room = _3_DOOR_ROOM_NO_DOWN.instantiate()
 							else:
 								if get_room_at_position(target_room_position + Vector2(0, 224)) == null:
 									new_room = _4_DOOR_ROOM.instantiate()
 								else:
 									if type == RoomData.room_types.boss:
-										type = RoomData.room_types.no_type
+										type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
 									new_room = _3_DOOR_ROOM_NO_DOWN.instantiate()
 						elif top_connection == null && bottom_connection != null && right_connection != null:
-							if close_rooms || type == RoomData.room_types.locked_item:
+							if close_rooms || type == RoomData.room_types.locked_item || type == RoomData.room_types.crystal_boss:
 								new_room = _3_DOOR_ROOM_NO_UP.instantiate()
 							else:
 								if get_room_at_position(target_room_position + Vector2(0, -224)) == null:
 									new_room = _4_DOOR_ROOM.instantiate()
 								else:
 									if type == RoomData.room_types.boss:
-										type = RoomData.room_types.no_type
+										type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
 									new_room = _3_DOOR_ROOM_NO_UP.instantiate()
 						elif top_connection != null && bottom_connection == null && right_connection == null:
-							if close_rooms || type == RoomData.room_types.locked_item:
+							if close_rooms || type == RoomData.room_types.locked_item || type == RoomData.room_types.crystal_boss:
 								new_room = _2_DOOR_ROOM_UP_LEFT.instantiate()
 							else:
 								var can_have_right = false
@@ -948,10 +935,10 @@ func spawn_adjacent_rooms(room):
 									new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
 								else:
 									if type == RoomData.room_types.boss:
-										type = RoomData.room_types.no_type
+										type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
 									new_room = _2_DOOR_ROOM_UP_LEFT.instantiate()
 						elif top_connection == null && bottom_connection != null && right_connection == null:
-							if close_rooms || type == RoomData.room_types.locked_item:
+							if close_rooms || type == RoomData.room_types.locked_item || type == RoomData.room_types.crystal_boss:
 								new_room = _2_DOOR_DOWN_LEFT.instantiate()
 							else:
 								var can_have_right = false
@@ -976,10 +963,10 @@ func spawn_adjacent_rooms(room):
 									new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
 								else:
 									if type == RoomData.room_types.boss:
-										type = RoomData.room_types.no_type
+										type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
 									new_room = _2_DOOR_DOWN_LEFT.instantiate()
 						elif top_connection == null && bottom_connection == null && right_connection != null:
-							if close_rooms || type == RoomData.room_types.locked_item:
+							if close_rooms || type == RoomData.room_types.locked_item || type == RoomData.room_types.crystal_boss:
 								new_room = _2_DOOR_LEFT_RIGHT.instantiate()
 							else:
 								var can_have_top = false
@@ -1004,10 +991,10 @@ func spawn_adjacent_rooms(room):
 									new_room = _3_DOOR_ROOM_NO_DOWN.instantiate()
 								else:
 									if type == RoomData.room_types.boss:
-										type = RoomData.room_types.no_type
+										type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
 									new_room = _2_DOOR_LEFT_RIGHT.instantiate()
 						else:
-							if close_rooms || type == RoomData.room_types.locked_item:
+							if close_rooms || type == RoomData.room_types.locked_item || type == RoomData.room_types.crystal_boss:
 								new_room = _1_DOOR_ROOM_LEFT.instantiate()
 							else:
 								var can_have_right = false
@@ -1021,7 +1008,11 @@ func spawn_adjacent_rooms(room):
 									can_have_bottom = true
 								
 								if can_have_right && can_have_top && can_have_bottom:
-									var random_room = rooms_that_can_connect_to_right[rng.randi_range(0,rooms_that_can_connect_to_right.size()-1)]
+									var random_number = rng.randi_range(0,rooms_that_can_connect_to_right.size()-1)
+									if random_number == rooms_that_can_connect_to_right.size()-1:
+										if !can_spawn_single_door_room:
+											random_number = rng.randi_range(0,rooms_that_can_connect_to_right.size()-2)
+									var random_room = rooms_that_can_connect_to_right[random_number]
 									new_room = random_room.instantiate()
 								elif can_have_right && can_have_top && !can_have_bottom:
 									var temp_room = rng.randi_range(0,2)
@@ -1053,9 +1044,9 @@ func spawn_adjacent_rooms(room):
 									new_room = _2_DOOR_DOWN_LEFT.instantiate()
 								elif !can_have_right && can_have_top && !can_have_bottom:
 									new_room = _2_DOOR_ROOM_UP_LEFT.instantiate()
-								else:
+								elif !can_have_right && !can_have_top && !can_have_bottom:
 									if type == RoomData.room_types.boss:
-										type = RoomData.room_types.no_type
+										type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
 									new_room = _1_DOOR_ROOM_LEFT.instantiate()
 						
 						get_tree().current_scene.add_child(new_room)
@@ -1068,7 +1059,7 @@ func spawn_adjacent_rooms(room):
 						room.set_connected_room_right(new_room)
 						
 						if type == RoomData.room_types.boss && check_if_ending_room_can_spawn(new_room) == false:
-							type = RoomData.room_types.no_type
+							type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
 						
 						new_room.set_room_type(type)
 						
