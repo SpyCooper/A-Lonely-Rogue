@@ -71,3 +71,13 @@ var floor_4_mobs = [
 	SHADE,
 	TINY_DEVIL,
 ]
+
+# obstacles
+const SMALL_OBSTACLE = preload("res://Scenes/map/room_components/obstacles/small_obstacle.tscn")
+const MEDIUM_OBSTACLE = preload("res://Scenes/map/room_components/obstacles/medium_obstacle.tscn")
+const LARGE_OBSTACLE = preload("res://Scenes/map/room_components/obstacles/large_obstacle.tscn")
+var obstacles = [
+	SMALL_OBSTACLE,
+	MEDIUM_OBSTACLE,
+	#LARGE_OBSTACLE,
+]

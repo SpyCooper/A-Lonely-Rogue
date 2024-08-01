@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://c1mwqde6r5fyf"]
+
+[ext_resource type="Texture2D" uid="uid://bw66uq3oetad7" path="res://Assets/Sprites/map/obstacles.png" id="1_nqglo"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_own21"]
+size = Vector2(27, 31)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jsscr"]
+atlas = ExtResource("1_nqglo")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bhqv1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jsscr")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Bottom_wall_collider_with_door" type="StaticBody2D"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.5, -1.5)
+shape = SubResource("RectangleShape2D_own21")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_bhqv1")
