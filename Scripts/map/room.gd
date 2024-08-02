@@ -278,7 +278,7 @@ func populate_room():
 	elif room_type == RoomData.room_types.random_item:
 		var amount_of_items = rng.randi_range(0, 10)
 		if amount_of_items == 0:
-			var amount_of_obstacles = rng.randi_range(1, 2)
+			var amount_of_obstacles = rng.randi_range(0, 3)
 			var obstacles = []
 			for i in range(amount_of_obstacles):
 				var random_obstacle = RoomData.obstacles[rng.randi_range(0, RoomData.obstacles.size()-1)]
@@ -288,9 +288,9 @@ func populate_room():
 				var matches_position = true
 				while matches_position:
 					matches_position = false
-					spawn_vector = get_random_position(30)
+					spawn_vector = get_random_position(40)
 					for obst in obstacles:
-						if spawn_vector.distance_to(obst.position) < 80:
+						if obst.global_position.distance_to(spawn_vector + global_position) <= 60:
 							matches_position = true
 				obstacle.global_position = spawn_vector + global_position
 				obstacles += [obstacle]
@@ -314,6 +314,7 @@ func populate_room():
 		get_tree().current_scene.add_child(instance)
 	elif room_type == RoomData.room_types.monster:
 		var amount_of_obstacles = rng.randi_range(0, 2)
+		#var amount_of_obstacles = 0
 		var obstacles = []
 		for i in range(amount_of_obstacles):
 			var random_obstacle = RoomData.obstacles[rng.randi_range(0, RoomData.obstacles.size()-1)]
@@ -323,14 +324,15 @@ func populate_room():
 			var matches_position = true
 			while matches_position:
 				matches_position = false
-				spawn_vector = get_random_position(30)
+				spawn_vector = get_random_position(40)
 				for obst in obstacles:
-					if spawn_vector.distance_to(obst.position) < 80:
+					if obst.global_position.distance_to(spawn_vector + global_position) <= 60:
 						matches_position = true
 			obstacle.global_position = spawn_vector + global_position
 			obstacles += [obstacle]
 		
 		var amount_of_mobs = rng.randi_range(minimum_monster_spawns, maximum_monster_spawns)
+		#var amount_of_mobs = 1
 		var possible_mobs
 		if get_tree().current_scene.name == "Floor1":
 			possible_mobs = RoomData.floor_1_mobs
@@ -345,20 +347,21 @@ func populate_room():
 		for i in range(amount_of_mobs):
 			var random_mob = possible_mobs[rng.randi_range(0, possible_mobs.size()-1)]
 			var instance = random_mob.instantiate()
-			add_child(instance)
+			get_tree().current_scene.add_child(instance)
 			var spawn_vector
 			var matches_position = true
 			while matches_position:
 				matches_position = false
-				spawn_vector = get_random_position(50)
+				spawn_vector = get_random_position(55)
 				for mob in spawned_mobs:
-					if spawn_vector.distance_to(mob.position) < 60:
+					if mob.global_position.distance_to(spawn_vector + global_position) <= 40:
 						matches_position = true
 				for obst in obstacles:
-					if spawn_vector.distance_to(obst.position) < 80:
+					if obst.global_position.distance_to(spawn_vector + global_position) <= 40:
 						matches_position = true
-			instance.position = spawn_vector
-			var collision = instance.move_and_collide(Vector2(0,0))
+			instance.global_position = spawn_vector + global_position
+			var collision = instance.move_and_collide(Vector2(0.0,0.0))
+			# if there is a collision at the location, despawn the mob
 			if collision != null:
 				instance.despawn()
 			
@@ -465,7 +468,7 @@ func populate_room():
 				instance.position = spawn_vector
 				items += [instance]
 	elif room_type == RoomData.room_types.no_type:
-		var amount_of_obstacles = rng.randi_range(0, 2)
+		var amount_of_obstacles = rng.randi_range(0, 3)
 		var obstacles = []
 		for i in range(amount_of_obstacles):
 			var random_obstacle = RoomData.obstacles[rng.randi_range(0, RoomData.obstacles.size()-1)]
@@ -475,9 +478,9 @@ func populate_room():
 			var matches_position = true
 			while matches_position:
 				matches_position = false
-				spawn_vector = get_random_position(30)
+				spawn_vector = get_random_position(40)
 				for obst in obstacles:
-					if spawn_vector.distance_to(obst.position) < 80:
+					if obst.global_position.distance_to(spawn_vector + global_position) <= 60:
 						matches_position = true
 			obstacle.global_position = spawn_vector + global_position
 			obstacles += [obstacle]

@@ -3,7 +3,6 @@
 [ext_resource type="Script" path="res://Scripts/map/Transition Camera.gd" id="1_lpjdb"]
 
 [node name="Transition Camera" type="Camera2D"]
-zoom = Vector2(3, 3)
 position_smoothing_enabled = true
 position_smoothing_speed = 10.0
 script = ExtResource("1_lpjdb")

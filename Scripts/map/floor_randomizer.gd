@@ -237,6 +237,9 @@ func spawn_adjacent_rooms(room):
 			type = random_room_type_near_spawn()
 		else:
 			type = random_room_type()
+		
+		print(type)
+		
 		var can_spawn_single_door_room = false
 		if minimum_requirements_met:
 			can_spawn_single_door_room = true
