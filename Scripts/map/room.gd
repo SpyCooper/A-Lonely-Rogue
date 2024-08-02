@@ -350,7 +350,8 @@ func populate_room():
 			get_tree().current_scene.add_child(instance)
 			var spawn_vector
 			var matches_position = true
-			while matches_position:
+			var iterations = 0
+			while matches_position && iterations <= 25:
 				matches_position = false
 				spawn_vector = get_random_position(55)
 				for mob in spawned_mobs:
@@ -359,14 +360,17 @@ func populate_room():
 				for obst in obstacles:
 					if obst.global_position.distance_to(spawn_vector + global_position) <= 40:
 						matches_position = true
-			instance.global_position = spawn_vector + global_position
-			var collision = instance.move_and_collide(Vector2(0.0,0.0))
-			# if there is a collision at the location, despawn the mob
-			if collision != null:
+				iterations += 1
+			if iterations < 25:
+				instance.global_position = spawn_vector + global_position
+				var collision = instance.move_and_collide(Vector2(0.0,0.0))
+				# if there is a collision at the location, despawn the mob
+				if collision != null:
+					instance.despawn()
+				if instance != null:
+					spawned_mobs += [instance]
+			else:
 				instance.despawn()
-			
-			if instance != null:
-				spawned_mobs += [instance]
 	elif room_type == RoomData.room_types.crystal_boss:
 		var spawn_vector = Vector2(0, 0)
 		if top_door != null &&  bottom_door != null &&  right_door != null &&  left_door != null:
