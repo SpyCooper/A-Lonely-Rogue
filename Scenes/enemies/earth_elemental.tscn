@@ -508,9 +508,11 @@ position = Vector2(0, -13)
 shape = SubResource("CapsuleShape2D_m4p3k")
 
 [node name="Spawn_timer" type="Timer" parent="."]
+one_shot = true
 
 [node name="death_timer" type="Timer" parent="."]
 wait_time = 0.8
+one_shot = true
 
 [node name="collision_with_player" type="CharacterBody2D" parent="."]
 position = Vector2(-1, -2)

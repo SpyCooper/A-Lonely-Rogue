@@ -100,7 +100,7 @@ texture = ExtResource("6_ws3qk")
 [sub_resource type="TileSet" id="TileSet_pnge6"]
 sources/0 = SubResource("TileSetAtlasSource_a4f5t")
 
-[node name="Floor1" type="Node2D"]
+[node name="Floor2" type="Node2D"]
 y_sort_enabled = true
 script = ExtResource("1_2bdxt")
 

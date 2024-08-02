@@ -82,7 +82,7 @@ func _physics_process(_delta):
 			elif current_direction == look_direction.right:
 				animated_sprite.play("move_right")
 			# if the air elemental can throw tornados
-			if can_throw && position.distance_to(player_position) < 80:
+			if can_throw:
 				# reset the throw
 				can_throw = false
 				# reset the throw timer
@@ -90,7 +90,7 @@ func _physics_process(_delta):
 				# throw the first tornado
 				throw_tornado()
 			# if the enemy is not within 60 pixels of the player
-			elif position.distance_to(player_position) > 60:
+			elif animated_sprite.global_position.distance_to(player_position) > 60:
 				move_and_collide(target_position.normalized() * get_speed())
 
 # runs when a knife (or other weapon) hits the enemy

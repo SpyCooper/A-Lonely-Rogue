@@ -170,7 +170,7 @@ func are_minimum_requirements_met():
 			minimum_requirements_met = true
 		else:
 			minimum_requirements_met = false
-		print(minimum_requirements_met)
+		#print(minimum_requirements_met)
 
 func random_room_type():
 	var type
@@ -1140,7 +1140,7 @@ func spawn_ending_room(boss_room):
 		ending_room_spawned = true
 		new_room.populate_room()
 	else:
-		print("ending room didn't spawn")
+		pass
 
 func check_for_other_empty_doors(current_position : Vector2):
 	var number_of_empty_doorways = 0
