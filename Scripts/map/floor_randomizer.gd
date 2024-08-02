@@ -440,9 +440,15 @@ func spawn_adjacent_rooms(room):
 						get_tree().current_scene.add_child(new_room)
 						new_room.global_position = target_room_position
 						new_room.set_connected_room_top(top_connection)
+						if top_connection != null:
+							top_connection.set_connected_room_bottom(new_room)
 						new_room.set_connected_room_bottom(room)
 						new_room.set_connected_room_left(left_connection)
+						if left_connection != null:
+							left_connection.set_connected_room_right(new_room)
 						new_room.set_connected_room_right(right_connection)
+						if right_connection != null:
+							right_connection.set_connected_room_left(new_room)
 						rooms += [new_room]
 						room.set_connected_room_top(new_room)
 						
@@ -645,8 +651,14 @@ func spawn_adjacent_rooms(room):
 						new_room.global_position = target_room_position
 						new_room.set_connected_room_top(room)
 						new_room.set_connected_room_bottom(bottom_connection)
+						if bottom_connection != null:
+							bottom_connection.set_connected_room_top(new_room)
 						new_room.set_connected_room_left(left_connection)
+						if left_connection != null:
+							left_connection.set_connected_room_right(new_room)
 						new_room.set_connected_room_right(right_connection)
+						if right_connection != null:
+							right_connection.set_connected_room_left(new_room)
 						rooms += [new_room]
 						room.set_connected_room_bottom(new_room)
 						
@@ -654,7 +666,6 @@ func spawn_adjacent_rooms(room):
 							type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
 						
 						new_room.set_room_type(type)
-						
 						new_room.refresh_type_text()
 			# add a room to the left of the current room
 			elif iteration == 3:
@@ -848,8 +859,14 @@ func spawn_adjacent_rooms(room):
 						get_tree().current_scene.add_child(new_room)
 						new_room.global_position = target_room_position
 						new_room.set_connected_room_top(top_connection)
+						if top_connection != null:
+							top_connection.set_connected_room_bottom(new_room)
 						new_room.set_connected_room_bottom(bottom_connection)
+						if bottom_connection != null:
+							bottom_connection.set_connected_room_top(new_room)
 						new_room.set_connected_room_left(left_connection)
+						if left_connection != null:
+							left_connection.set_connected_room_right(new_room)
 						new_room.set_connected_room_right(room)
 						rooms += [new_room]
 						room.set_connected_room_left(new_room)
@@ -858,7 +875,6 @@ func spawn_adjacent_rooms(room):
 							type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
 						
 						new_room.set_room_type(type)
-						
 						new_room.refresh_type_text()
 			# add a room to the right of the current room
 			elif iteration == 4:
@@ -1052,9 +1068,15 @@ func spawn_adjacent_rooms(room):
 						get_tree().current_scene.add_child(new_room)
 						new_room.global_position = target_room_position
 						new_room.set_connected_room_top(top_connection)
+						if top_connection != null:
+							top_connection.set_connected_room_bottom(new_room)
 						new_room.set_connected_room_bottom(bottom_connection)
+						if bottom_connection != null:
+							bottom_connection.set_connected_room_top(new_room)
 						new_room.set_connected_room_left(room)
 						new_room.set_connected_room_right(right_connection)
+						if right_connection != null:
+							right_connection.set_connected_room_left(new_room)
 						rooms += [new_room]
 						room.set_connected_room_right(new_room)
 						
@@ -1062,7 +1084,6 @@ func spawn_adjacent_rooms(room):
 							type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
 						
 						new_room.set_room_type(type)
-						
 						new_room.refresh_type_text()
 			
 			if new_room != null:

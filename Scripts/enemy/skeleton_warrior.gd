@@ -79,11 +79,11 @@ func _physics_process(_delta):
 			target_position = (player_position - animated_sprite.global_position).normalized()
 			current_direction = get_left_right_look_direction(target_position)
 			# if the enemy can attack and is less than 50 pixels away from the player
-			if can_attack && animated_sprite.global_position.distance_to(player_position) < 50:
+			if can_attack && animated_sprite.global_position.distance_to(player_position) < 70:
 				# attack
 				attack()
 			# if the enemy is further than 50 pixels
-			elif animated_sprite.global_position.distance_to(player_position) >= 50:
+			elif animated_sprite.global_position.distance_to(player_position) >= 60:
 				# look in the direction of the player
 				# flips the direction of the skeleton warrior based on the current_direction
 				## NOTE: all these checks are identical but change the directions they look at

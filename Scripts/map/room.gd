@@ -632,6 +632,15 @@ func boss_icon_logic(sprites_pulsing : bool):
 		else:
 			crystal_boss_icons.hide_sprite_left()
 
+func adjacent_rooms_boss_icon_logic():
+	if top_room != null:
+		top_room.boss_icon_logic(false)
+	if bottom_room != null:
+		bottom_room.boss_icon_logic(false)
+	if left_room != null:
+		left_room.boss_icon_logic(false)
+	if right_room != null:
+		right_room.boss_icon_logic(false)
 
 func get_random_position(offset : int):
 	# direction
