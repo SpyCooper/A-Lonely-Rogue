@@ -290,7 +290,7 @@ func populate_room():
 					matches_position = false
 					spawn_vector = get_random_position(30)
 					for obst in obstacles:
-						if spawn_vector.distance_to(obst.position) < 60:
+						if spawn_vector.distance_to(obst.position) < 80:
 							spawn_vector = Vector2(-obst.position.x, -obst.position.y)
 							matches_position = true
 				obstacle.global_position = spawn_vector + global_position
@@ -326,7 +326,7 @@ func populate_room():
 				matches_position = false
 				spawn_vector = get_random_position(30)
 				for obst in obstacles:
-					if spawn_vector.distance_to(obst.position) < 60:
+					if spawn_vector.distance_to(obst.position) < 80:
 						spawn_vector = Vector2(-obst.position.x, -obst.position.y)
 						matches_position = true
 			obstacle.global_position = spawn_vector + global_position
@@ -353,11 +353,11 @@ func populate_room():
 				matches_position = false
 				spawn_vector = get_random_position(45)
 				for mob in mobs:
-					if spawn_vector.distance_to(mob.position) < 30:
+					if spawn_vector.distance_to(mob.position) < 60:
 						spawn_vector = Vector2(-mob.position.x, -mob.position.y)
 						matches_position = true
 				for obst in obstacles:
-					if spawn_vector.distance_to(obst.position) < 40:
+					if spawn_vector.distance_to(obst.position) < 80:
 						spawn_vector = Vector2(-obst.position.x, -obst.position.y)
 						matches_position = true
 			instance.position = spawn_vector
@@ -448,7 +448,11 @@ func populate_room():
 		
 		var amount_of_items = rng.randi_range(1, 2)
 		for i in range(amount_of_items):
-			var instance = RoomData.RANDOM_ITEM_SPAWNER.instantiate()
+			var instance
+			if i == 1:
+				instance = RoomData.RANDOM_HEALTH_SPAWNER.instantiate()
+			else:
+				instance = RoomData.RANDOM_ITEM_SPAWNER.instantiate()
 			add_child(instance)
 			var spawn_vector
 			var matches_position = true
@@ -461,6 +465,24 @@ func populate_room():
 						matches_position = true
 			instance.position = spawn_vector
 			items += [instance]
+	elif room_type == RoomData.room_types.no_type:
+		var amount_of_obstacles = rng.randi_range(0, 2)
+		var obstacles = []
+		for i in range(amount_of_obstacles):
+			var random_obstacle = RoomData.obstacles[rng.randi_range(0, RoomData.obstacles.size()-1)]
+			var obstacle = random_obstacle.instantiate()
+			get_tree().current_scene.add_child(obstacle)
+			var spawn_vector
+			var matches_position = true
+			while matches_position:
+				matches_position = false
+				spawn_vector = get_random_position(30)
+				for obst in obstacles:
+					if spawn_vector.distance_to(obst.position) < 80:
+						spawn_vector = Vector2(-obst.position.x, -obst.position.y)
+						matches_position = true
+			obstacle.global_position = spawn_vector + global_position
+			obstacles += [obstacle]
 
 func lock_adjacent_rooms():
 	if top_room != null:

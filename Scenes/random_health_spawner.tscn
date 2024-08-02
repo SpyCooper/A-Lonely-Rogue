@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://d1am2toic78i6"]
+
+[ext_resource type="Script" path="res://Scripts/items and weapons/random_health_spawner.gd" id="1_lo3m7"]
+
+[sub_resource type="Gradient" id="Gradient_i3vg1"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_cehdc"]
+gradient = SubResource("Gradient_i3vg1")
+
+[node name="Random Health Spawner" type="Node2D"]
+script = ExtResource("1_lo3m7")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(4.76837e-07, 0)
+scale = Vector2(0.265625, 0.265625)
+texture = SubResource("GradientTexture2D_cehdc")

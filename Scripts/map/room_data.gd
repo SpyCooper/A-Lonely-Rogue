@@ -25,6 +25,7 @@ const TUTORIAL = preload("res://Scenes/map/room_components/tutorial.tscn")
 # item spawners
 const ITEM_CHEST = preload("res://Scenes/item_chest.tscn")
 const RANDOM_ITEM_SPAWNER = preload("res://Scenes/random_item_spawner.tscn")
+const RANDOM_HEALTH_SPAWNER = preload("res://Scenes/random_health_spawner.tscn")
 # teleporters between floors
 const TRAPDOOR = preload("res://Scenes/Dungeon_floors/trapdoor.tscn")
 
