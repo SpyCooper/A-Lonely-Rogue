@@ -27,6 +27,11 @@ const ARROW = preload("res://Scenes/enemies/arrow/arrow.tscn")
 var target_position
 var current_direction : look_direction
 
+# defines a random number generator
+var rng = RandomNumberGenerator.new()
+var attack_range = 100
+var attack_range_range = 20
+
 # variables
 var can_move = true
 
@@ -73,10 +78,10 @@ func _physics_process(_delta):
 			target_position = (player_position - animated_sprite.global_position).normalized()
 			current_direction = get_left_right_look_direction(target_position)
 			# if the enemy can attack and is less than 100 pixels away from the player
-			if can_attack && animated_sprite.global_position.distance_to(player_position) < 100:
+			if can_attack && animated_sprite.global_position.distance_to(player_position) < attack_range:
 				attack()
 			# if the enemy is further than 100 pixels
-			elif animated_sprite.global_position.distance_to(player_position) >= 100:
+			elif animated_sprite.global_position.distance_to(player_position) >= attack_range:
 				# look in the direction of the player
 				# flips the direction of the skeleton archer based on the current_direction
 				## NOTE: all these checks are identical but change the directions they look at
@@ -153,6 +158,8 @@ func _on_death_timer_timeout():
 # when spawn timer ends
 func _on_spawn_timer_timeout():
 	spawning = false
+	# sets a random attack range
+	attack_range = rng.randi_range(attack_range-attack_range_range, attack_range+attack_range_range)
 
 # when the enemy attacking
 func attack():

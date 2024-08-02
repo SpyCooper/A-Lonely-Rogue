@@ -12,8 +12,9 @@ extends Enemy
 # throw rocks variables
 var can_throw = false
 var thrown = false
-var throw_timer_max = 5.0
+var throw_timer_max = 4.0
 var throw_timer = throw_timer_max
+var throw_timer_range = 2.0
 const ROLLING_ROCK = preload("res://Scenes/enemies/rolling_rock/rolling_rock.tscn")
 @onready var throw_animation_timer = $"throw animation timer"
 @onready var rock_spawner_up = $rock_spawner_up
@@ -27,6 +28,9 @@ const ENEMY_HIT_SHADER = preload("res://Scripts/shaders/enemy_hit_shader.gdshade
 # general enemy variables
 var target_position
 var current_direction : look_direction
+
+# defines a random number generator
+var rng = RandomNumberGenerator.new()
 
 # variables
 var can_move = true
@@ -73,7 +77,7 @@ func _physics_process(_delta):
 			if can_throw && position.distance_to(player_position) < 120 && position.distance_to(player_position) > 70:
 				# reset the throw
 				can_throw = false
-				throw_timer = throw_timer_max
+				throw_timer = rng.randf_range(throw_timer_max-throw_timer_range, throw_timer_max+throw_timer_range)
 				# stop the elemental
 				can_move = false
 				# start the animation timer to match the throw
@@ -162,6 +166,8 @@ func _on_death_timer_timeout():
 # when spawn timer ends
 func _on_spawn_timer_timeout():
 	spawning = false
+	# sets a random range for the throw timer
+	throw_timer = rng.randf_range(throw_timer_max-throw_timer_range, throw_timer_max+throw_timer_range)
 
 # throw a rock at the player's current position
 func throw_rock():

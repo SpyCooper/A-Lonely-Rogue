@@ -159,6 +159,8 @@ func _on_death_timer_timeout():
 # when spawn timer ends
 func _on_spawn_timer_timeout():
 	spawning = false
+	# set a random value until the next attack
+	can_attack_timer = rng.randf_range(can_attack_timer_max - 0.5, can_attack_timer_max + 0.5)
 
 # returns the animated sprite
 func get_animated_sprite():

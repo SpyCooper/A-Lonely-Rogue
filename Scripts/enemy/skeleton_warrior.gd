@@ -16,8 +16,9 @@ const ENEMY_HIT_SHADER = preload("res://Scripts/shaders/enemy_hit_shader.gdshade
 
 # attack variables
 var can_attack = false
-var can_attack_timer_max = 1.5
+var can_attack_timer_max = 1.8
 var can_attack_timer = can_attack_timer_max
+var can_attack_timer_range = 0.5
 var attacking = false
 @onready var attack_animation_timer = $attack_animation_timer
 const SLASH_PROJECTILE = preload("res://Scenes/enemies/slash_projectile/slash_projectile.tscn")
@@ -27,6 +28,9 @@ const SLASH_PROJECTILE = preload("res://Scenes/enemies/slash_projectile/slash_pr
 # general enemy variables
 var target_position
 var current_direction : look_direction
+
+# defines a random number generator
+var rng = RandomNumberGenerator.new()
 
 # variables
 var can_move = true
@@ -168,7 +172,7 @@ func attack():
 		can_move = false
 		attacking = true
 		# reset the can attack timer
-		can_attack_timer = can_attack_timer_max
+		can_attack_timer = rng.randf_range(can_attack_timer_max-can_attack_timer_range, can_attack_timer_max+can_attack_timer_range)
 		# play the attack left or right animation
 		if current_direction == Enemy.look_direction.right:
 			animated_sprite.play("attack_right")

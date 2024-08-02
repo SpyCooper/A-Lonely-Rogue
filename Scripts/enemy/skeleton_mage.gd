@@ -25,6 +25,11 @@ const SHADOW_BOLT = preload("res://Scenes/enemies/shadow_bolt/shadow_bolt.tscn")
 var target_position
 var current_direction : look_direction
 
+# defines a random number generator
+var rng = RandomNumberGenerator.new()
+var attack_wait_timer_duration = 1.0
+var attack_wait_timer_duration_range = 0.5
+
 # variables
 var can_move = true
 
@@ -47,8 +52,6 @@ func wake_up():
 	spawn_timer.start()
 	# the spawn sound in played
 	spawn_sound.play()
-	# starts the attack wait timer
-	attack_wait_timer.start()
 
 # called every frame
 func _physics_process(_delta):
@@ -134,6 +137,8 @@ func _on_spawn_timer_timeout():
 	spawning = false
 	# show the summoning circle animated sprite
 	summoning_circle_animated_sprite.show()
+	# start the attack wait timer
+	attack_wait_timer.start(rng.randf_range(attack_wait_timer_duration-attack_wait_timer_duration_range, attack_wait_timer_duration+attack_wait_timer_duration_range))
 
 # when the enemy attacks
 func attack():
@@ -153,7 +158,7 @@ func attack():
 # when shadow bolt gone is called by a shadow bolt
 func shadow_bolt_gone():
 	# play attack wait timer
-	attack_wait_timer.start()
+	attack_wait_timer.start(rng.randf_range(attack_wait_timer_duration-attack_wait_timer_duration_range, attack_wait_timer_duration+attack_wait_timer_duration_range))
 
 # when attack wait timer ends
 func _on_attack_wait_timer_timeout():
@@ -168,7 +173,7 @@ func get_animated_sprite():
 func spawned_in_room():
 	# show the summoning circle animated sprite
 	summoning_circle_animated_sprite.show()
-	attack_wait_timer.start()
+	attack_wait_timer.start(rng.randf_range(attack_wait_timer_duration-attack_wait_timer_duration_range, attack_wait_timer_duration+attack_wait_timer_duration_range))
 	player_in_room = true
 	spawning = false
 

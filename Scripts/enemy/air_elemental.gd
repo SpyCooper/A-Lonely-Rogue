@@ -151,6 +151,8 @@ func _on_spawn_timer_timeout():
 	spawning = false
 	# play the sound of the air elemental exising
 	exist_sound.play()
+	# set a random throw timer
+	throw_timer = rng.randf_range(throw_timer_max-throw_timer_range, throw_timer_max+throw_timer_range)
 
 # throw a tornado at the player
 func throw_tornado():
