@@ -81,7 +81,7 @@ func _physics_process(_delta):
 			if can_attack && animated_sprite.global_position.distance_to(player_position) < attack_range:
 				attack()
 			# if the enemy is further than 100 pixels
-			elif animated_sprite.global_position.distance_to(player_position) >= attack_range:
+			elif animated_sprite.global_position.distance_to(player_position) >= attack_range && !player_in_damage_area:
 				# look in the direction of the player
 				# flips the direction of the skeleton archer based on the current_direction
 				## NOTE: all these checks are identical but change the directions they look at

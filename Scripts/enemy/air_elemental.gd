@@ -90,7 +90,7 @@ func _physics_process(_delta):
 				# throw the first tornado
 				throw_tornado()
 			# if the enemy is not within 60 pixels of the player
-			elif animated_sprite.global_position.distance_to(player_position) > 60:
+			elif animated_sprite.global_position.distance_to(player_position) > 60 && !player_in_damage_area:
 				move_and_collide(target_position.normalized() * get_speed())
 
 # runs when a knife (or other weapon) hits the enemy

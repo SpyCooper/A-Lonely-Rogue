@@ -105,7 +105,7 @@ func _physics_process(_delta):
 			elif current_direction == look_direction.down:
 				animated_sprite.play("move_down")
 			# moves the gelatinous cube to a distance of 8 to the player
-			if animated_sprite.global_position.distance_to(player_position) > 15:
+			if animated_sprite.global_position.distance_to(player_position) > 15 && !player_in_damage_area:
 				## has to use get_speed() to move based on dusted effect
 				move_and_collide(target_position.normalized() * get_speed())
 

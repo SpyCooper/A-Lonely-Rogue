@@ -27,6 +27,7 @@ var shadow_flamed = false
 var dusted = false
 var dusted_slow = 0.35
 var dusted_stack = 0
+var player_in_damage_area = false
 
 # object references
 var player

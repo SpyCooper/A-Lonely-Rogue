@@ -113,7 +113,7 @@ func _physics_process(_delta):
 				elif current_direction == look_direction.right:
 					animated_sprite.play("move_right")
 				# moves the lich to a distance of 15 to the player
-				if animated_sprite.global_position.distance_to(player_position) > 8:
+				if animated_sprite.global_position.distance_to(player_position) > 8 && !player_in_damage_area:
 					## has to use get_speed() to move based on dusted effect
 					move_and_collide(target_position.normalized() * get_speed())
 
