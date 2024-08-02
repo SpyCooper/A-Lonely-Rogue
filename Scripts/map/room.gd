@@ -278,7 +278,7 @@ func populate_room():
 	elif room_type == RoomData.room_types.random_item:
 		var amount_of_items = rng.randi_range(0, 10)
 		if amount_of_items == 0:
-			var amount_of_obstacles = rng.randi_range(0, 2)
+			var amount_of_obstacles = rng.randi_range(1, 2)
 			var obstacles = []
 			for i in range(amount_of_obstacles):
 				var random_obstacle = RoomData.obstacles[rng.randi_range(0, RoomData.obstacles.size()-1)]
@@ -291,7 +291,6 @@ func populate_room():
 					spawn_vector = get_random_position(30)
 					for obst in obstacles:
 						if spawn_vector.distance_to(obst.position) < 80:
-							spawn_vector = Vector2(-obst.position.x, -obst.position.y)
 							matches_position = true
 				obstacle.global_position = spawn_vector + global_position
 				obstacles += [obstacle]
@@ -327,7 +326,6 @@ func populate_room():
 				spawn_vector = get_random_position(30)
 				for obst in obstacles:
 					if spawn_vector.distance_to(obst.position) < 80:
-						spawn_vector = Vector2(-obst.position.x, -obst.position.y)
 						matches_position = true
 			obstacle.global_position = spawn_vector + global_position
 			obstacles += [obstacle]
@@ -342,7 +340,8 @@ func populate_room():
 			possible_mobs = RoomData.floor_3_mobs
 		elif get_tree().current_scene.name == "Floor4":
 			possible_mobs = RoomData.floor_4_mobs
-		var mobs = []
+		
+		var spawned_mobs = []
 		for i in range(amount_of_mobs):
 			var random_mob = possible_mobs[rng.randi_range(0, possible_mobs.size()-1)]
 			var instance = random_mob.instantiate()
@@ -351,20 +350,20 @@ func populate_room():
 			var matches_position = true
 			while matches_position:
 				matches_position = false
-				spawn_vector = get_random_position(45)
-				for mob in mobs:
-					if spawn_vector.distance_to(mob.position) < 70:
-						spawn_vector = Vector2(-mob.position.x, -mob.position.y)
+				spawn_vector = get_random_position(50)
+				for mob in spawned_mobs:
+					if spawn_vector.distance_to(mob.position) < 60:
 						matches_position = true
 				for obst in obstacles:
-					if spawn_vector.distance_to(obst.position) < 90:
-						spawn_vector = Vector2(-obst.position.x, -obst.position.y)
+					if spawn_vector.distance_to(obst.position) < 80:
 						matches_position = true
 			instance.position = spawn_vector
 			var collision = instance.move_and_collide(Vector2(0,0))
 			if collision != null:
 				instance.despawn()
-			mobs += [instance]
+			
+			if instance != null:
+				spawned_mobs += [instance]
 	elif room_type == RoomData.room_types.crystal_boss:
 		var spawn_vector = Vector2(0, 0)
 		if top_door != null &&  bottom_door != null &&  right_door != null &&  left_door != null:
@@ -461,10 +460,10 @@ func populate_room():
 				spawn_vector = get_random_position(50)
 				for item in items:
 					if spawn_vector.distance_to(item.position) < 20:
-						spawn_vector = Vector2(-item.position.x, -item.position.y)
 						matches_position = true
-			instance.position = spawn_vector
-			items += [instance]
+			if instance != null:
+				instance.position = spawn_vector
+				items += [instance]
 	elif room_type == RoomData.room_types.no_type:
 		var amount_of_obstacles = rng.randi_range(0, 2)
 		var obstacles = []
@@ -479,7 +478,6 @@ func populate_room():
 				spawn_vector = get_random_position(30)
 				for obst in obstacles:
 					if spawn_vector.distance_to(obst.position) < 80:
-						spawn_vector = Vector2(-obst.position.x, -obst.position.y)
 						matches_position = true
 			obstacle.global_position = spawn_vector + global_position
 			obstacles += [obstacle]

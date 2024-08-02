@@ -19,13 +19,14 @@ func _ready():
 # spawns a random item
 func spawn_item():
 	# get a random item from the item_array
-	var random_health = rng.randi_range(0, 1)
+	var random_health = rng.randi_range(0, 2)
 	
 	var spawned_item
-	if random_health == 0:
-		spawned_item = HEART_1_PICKUP.instantiate()
-	elif random_health == 1:
+	
+	if random_health == 1:
 		spawned_item = HEART_2_PICKUP.instantiate()
+	else:
+		spawned_item = HEART_1_PICKUP.instantiate()
 	get_tree().current_scene.add_child(spawned_item)
 	spawned_item.global_position = global_position
 	# remove the item spawner
