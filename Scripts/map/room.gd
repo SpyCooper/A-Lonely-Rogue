@@ -353,11 +353,11 @@ func populate_room():
 				matches_position = false
 				spawn_vector = get_random_position(45)
 				for mob in mobs:
-					if spawn_vector.distance_to(mob.position) < 60:
+					if spawn_vector.distance_to(mob.position) < 70:
 						spawn_vector = Vector2(-mob.position.x, -mob.position.y)
 						matches_position = true
 				for obst in obstacles:
-					if spawn_vector.distance_to(obst.position) < 80:
+					if spawn_vector.distance_to(obst.position) < 90:
 						spawn_vector = Vector2(-obst.position.x, -obst.position.y)
 						matches_position = true
 			instance.position = spawn_vector

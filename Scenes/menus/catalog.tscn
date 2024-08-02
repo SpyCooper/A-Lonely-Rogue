@@ -265,6 +265,7 @@ grow_vertical = 2
 theme = ExtResource("2_umit2")
 
 [node name="Items" type="TabBar" parent="TabContainer"]
+visible = false
 layout_mode = 2
 theme = ExtResource("2_umit2")
 
@@ -2878,7 +2879,6 @@ text = "- An otherworldly crystal"
 autowrap_mode = 2
 
 [node name="Monsters" type="TabBar" parent="TabContainer"]
-visible = false
 layout_mode = 2
 theme = ExtResource("2_umit2")
 
@@ -3196,7 +3196,6 @@ text = "- Does a color change make them stronger?"
 autowrap_mode = 2
 
 [node name="Earth_elemental_panel" type="Panel" parent="TabContainer/Monsters/Panels"]
-visible = false
 layout_mode = 0
 offset_right = 510.0
 offset_bottom = 513.0
@@ -3244,7 +3243,7 @@ custom_minimum_size = Vector2(1, 1)
 layout_mode = 2
 theme_override_colors/font_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 theme_override_font_sizes/font_size = 32
-text = "- Attacks through melee at close range and throws fast moving rocks at mid range"
+text = "- Attacks through melee at close range and throws fast moving rocks at mid and long ranges"
 autowrap_mode = 2
 
 [node name="Bio3" type="Label" parent="TabContainer/Monsters/Panels/Earth_elemental_panel/VBoxContainer"]

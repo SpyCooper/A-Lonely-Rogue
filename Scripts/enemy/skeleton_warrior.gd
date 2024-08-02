@@ -16,7 +16,7 @@ const ENEMY_HIT_SHADER = preload("res://Scripts/shaders/enemy_hit_shader.gdshade
 
 # attack variables
 var can_attack = false
-var can_attack_timer_max = 1.8
+var can_attack_timer_max = 2.0
 var can_attack_timer = can_attack_timer_max
 var can_attack_timer_range = 0.5
 var attacking = false
