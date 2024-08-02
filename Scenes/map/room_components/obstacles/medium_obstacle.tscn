@@ -2,8 +2,8 @@
 
 [ext_resource type="Texture2D" uid="uid://bw66uq3oetad7" path="res://Assets/Sprites/map/obstacles.png" id="1_nqglo"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_own21"]
-size = Vector2(27, 31)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ygybe"]
+size = Vector2(29, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_jsscr"]
 atlas = ExtResource("1_nqglo")
@@ -23,8 +23,8 @@ animations = [{
 [node name="medium_obstacle" type="StaticBody2D"]
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.5, -1.5)
-shape = SubResource("RectangleShape2D_own21")
+position = Vector2(0.5, -3)
+shape = SubResource("RectangleShape2D_ygybe")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_bhqv1")
