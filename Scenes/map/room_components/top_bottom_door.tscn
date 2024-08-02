@@ -4,7 +4,7 @@
 [ext_resource type="Script" path="res://Scripts/map/door.gd" id="1_wmfd6"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_j4ndf"]
-size = Vector2(34, 21)
+size = Vector2(34, 25)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_vlun3"]
 atlas = ExtResource("1_fu0s1")
@@ -112,7 +112,7 @@ animations = [{
 script = ExtResource("1_wmfd6")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 0.5)
+position = Vector2(0, -1.5)
 shape = SubResource("RectangleShape2D_j4ndf")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

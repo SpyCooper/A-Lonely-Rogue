@@ -351,7 +351,7 @@ func populate_room():
 			var spawn_vector
 			var matches_position = true
 			var iterations = 0
-			while matches_position && iterations <= 25:
+			while matches_position && iterations <= 30:
 				matches_position = false
 				spawn_vector = get_random_position(55)
 				for mob in spawned_mobs:
@@ -361,7 +361,7 @@ func populate_room():
 					if obst.global_position.distance_to(spawn_vector + global_position) <= 40:
 						matches_position = true
 				iterations += 1
-			if iterations < 25:
+			if iterations < 30:
 				instance.global_position = spawn_vector + global_position
 				var collision = instance.move_and_collide(Vector2(0.0,0.0))
 				# if there is a collision at the location, despawn the mob
