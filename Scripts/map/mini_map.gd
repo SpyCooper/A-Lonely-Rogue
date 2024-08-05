@@ -1,4 +1,4 @@
-extends ColorRect
+extends Panel
 
 @onready var icons = $SubViewportContainer/SubViewport/icons
 @onready var sub_viewport = $SubViewportContainer/SubViewport
@@ -11,11 +11,11 @@ var size_x = 810/2
 var size_y = 540/2
 
 func _ready():
+	hide()
+	
 	Events.room_entered.connect(func(room):
 		map_logic(room)
 	)
-	
-	hide()
 
 func _process(_delta):
 	if Input.is_action_just_pressed("Map"):

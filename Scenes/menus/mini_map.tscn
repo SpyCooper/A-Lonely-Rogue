@@ -1,9 +1,17 @@
-[gd_scene load_steps=15 format=3 uid="uid://dytp7nrk2cvpl"]
+[gd_scene load_steps=16 format=3 uid="uid://dytp7nrk2cvpl"]
 
 [ext_resource type="Script" path="res://Scripts/map/mini_map.gd" id="1_nkclw"]
 [ext_resource type="Theme" uid="uid://pv4evjjac8wt" path="res://Assets/general_theme.tres" id="2_hnqe1"]
 [ext_resource type="Texture2D" uid="uid://7iuf6dj4apqr" path="res://Assets/Sprites/map/map_icons.png" id="3_4m8ie"]
 [ext_resource type="Texture2D" uid="uid://btvi05ibabltp" path="res://Assets/Sprites/UI/rounded_corners_square.png" id="4_tadxg"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l1kv4"]
+bg_color = Color(0.517647, 0.509804, 0.380392, 0.67451)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0.0901961, 0.054902, 0.0980392, 1)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_136nt"]
 atlas = ExtResource("3_4m8ie")
@@ -205,7 +213,7 @@ texture_margin_right = 8.0
 texture_margin_bottom = 8.0
 modulate_color = Color(0.896648, 0.20457, 0.27785, 1)
 
-[node name="Map" type="ColorRect"]
+[node name="Map" type="Panel"]
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
@@ -217,13 +225,16 @@ offset_right = 405.0
 offset_bottom = 273.5
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0.101961, 0.101961, 0.101961, 0.611765)
+theme_override_styles/panel = SubResource("StyleBoxFlat_l1kv4")
 script = ExtResource("1_nkclw")
 
 [node name="SubViewportContainer" type="SubViewportContainer" parent="."]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 808.0
+offset_bottom = 538.0
+stretch = true
 
 [node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
 disable_3d = true
@@ -232,7 +243,7 @@ handle_input_locally = false
 snap_2d_transforms_to_pixel = true
 snap_2d_vertices_to_pixel = true
 canvas_item_default_texture_filter = 0
-size = Vector2i(810, 540)
+size = Vector2i(806, 536)
 render_target_update_mode = 4
 
 [node name="Camera2D" type="Camera2D" parent="SubViewportContainer/SubViewport"]
