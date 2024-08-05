@@ -68,3 +68,6 @@ func _on_mouse_entered():
 
 func _on_mouse_exited():
 	can_move_map = false
+
+func _on_close_button_pressed():
+	open_or_close()

@@ -1,8 +1,9 @@
-[gd_scene load_steps=13 format=3 uid="uid://dytp7nrk2cvpl"]
+[gd_scene load_steps=15 format=3 uid="uid://dytp7nrk2cvpl"]
 
 [ext_resource type="Script" path="res://Scripts/map/mini_map.gd" id="1_nkclw"]
 [ext_resource type="Theme" uid="uid://pv4evjjac8wt" path="res://Assets/general_theme.tres" id="2_hnqe1"]
 [ext_resource type="Texture2D" uid="uid://7iuf6dj4apqr" path="res://Assets/Sprites/map/map_icons.png" id="3_4m8ie"]
+[ext_resource type="Texture2D" uid="uid://btvi05ibabltp" path="res://Assets/Sprites/UI/rounded_corners_square.png" id="4_tadxg"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_136nt"]
 atlas = ExtResource("3_4m8ie")
@@ -196,6 +197,14 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vv6r5"]
+texture = ExtResource("4_tadxg")
+texture_margin_left = 8.0
+texture_margin_top = 8.0
+texture_margin_right = 8.0
+texture_margin_bottom = 8.0
+modulate_color = Color(0.896648, 0.20457, 0.27785, 1)
+
 [node name="Map" type="ColorRect"]
 anchors_preset = 8
 anchor_left = 0.5
@@ -323,13 +332,27 @@ autoplay = "locked"
 
 [node name="Reset_map_button" type="Button" parent="."]
 layout_mode = 0
-offset_left = 695.0
-offset_top = 12.5
-offset_right = 799.0
-offset_bottom = 42.5
+offset_left = 682.0
+offset_top = 20.5
+offset_right = 786.0
+offset_bottom = 50.5
 theme = ExtResource("2_hnqe1")
 text = "Reset Map"
+
+[node name="Close_button" type="Button" parent="."]
+offset_left = 791.0
+offset_top = -13.5
+offset_right = 825.0
+offset_bottom = 17.5
+theme = ExtResource("2_hnqe1")
+theme_override_styles/normal = SubResource("StyleBoxTexture_vv6r5")
+theme_override_styles/hover = SubResource("StyleBoxTexture_vv6r5")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_vv6r5")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_vv6r5")
+theme_override_styles/focus = SubResource("StyleBoxTexture_vv6r5")
+text = "X"
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
 [connection signal="pressed" from="Reset_map_button" to="." method="_on_reset_map_button_pressed"]
+[connection signal="pressed" from="Close_button" to="." method="_on_close_button_pressed"]

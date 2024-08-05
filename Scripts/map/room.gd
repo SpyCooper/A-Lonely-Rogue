@@ -40,9 +40,7 @@ var can_play_sound = false
 
 
 func _ready():
-	## set if the doors are locked, etc
-	#top_door.lock()
-	pass
+	label.hide()
 
 func refresh_type_text():
 	label.text = "Type: " + str(room_type)
