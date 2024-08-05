@@ -222,6 +222,7 @@ func _physics_process(_delta):
 		move_and_slide()
 		# controls throwing knives
 		if Input.is_action_pressed("Attack"):
+			# do not allow attacks in the map is visible
 			if !map.visible:
 				# checks to see if the player can fire
 				if time_to_fire <= 0:
@@ -1177,44 +1178,56 @@ func get_lady_lucks_key_status():
 func has_emerald_skull():
 	return emerald_skull
 
+# let the player know the room has enemies
 func room_has_enemies():
+	# allows the player to spawn quartz spikes
 	if quartz_boots:
 		can_spawn_quartz_spike = true
 		quartz_spike_spawn_timer.start()
 
+# when the quartz spike timer ends
 func _on_quartz_spike_spawn_timer_timeout():
-	# checks to make sure the character isn't dying
+	# checks to make sure the character isn't dying and the player can spawn spikes
 	if !dying && can_spawn_quartz_spike:
-		# spawns the vine spin
+		# spawns the quartz spike
 		var spike = QUARTZ_SPIKE_FRIENDLY.instantiate()
 		get_tree().current_scene.add_child(spike)
 		spike.set_spawn_position(get_player_position())
 
+# tells the player the room is cleared
 func room_cleared():
+	# does not allow the player to spawn quartz spikes
 	can_spawn_quartz_spike = false
 
+# removes an item from inventory without sound (used for the forge)
 func remove_item_from_inventory(item : ItemType.type):
 	remove_item_from_items_collected(item, false)
 	hud.remove_item_from_ui(item)
 
+# removes an pet from inventory without sound (used for the forge)
 func remove_pet_from_inventory(item : ItemType.type):
 	remove_item_from_items_collected(item, false)
 	hud.remove_item_from_ui(item)
 	# remove the pet and the pet's item
 	current_pet.kill_pet()
 
+# set the player's position to the new position
 func set_player_position(new_pos):
 	position = new_pos - animated_sprite.position
+	# plays the correct idle down animation
 	if shadow_heart:
 		animated_sprite.play("idle_down_dark")
 	else:
 		animated_sprite.play("idle_down")
 
+# returns the marker left position
 func get_marker_left():
 	return marker_left.global_position
 
+# returns the marker right position
 func get_marker_right():
 	return marker_right.global_position
 
+# clears the room called from the enemy (fixes the lost knight boss fight)
 func cleared_room_called_from_enemy():
 	current_room.cleared()
