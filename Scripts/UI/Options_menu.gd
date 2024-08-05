@@ -17,6 +17,7 @@ extends Control
 @onready var throw_button = $Panel/KeyBinds/Throw/throw_button
 @onready var use_item_button = $"Panel/KeyBinds/Use Item/Use_item_button"
 @onready var close_input_screen_text = $Panel/Awaiting_input/sub_text
+@onready var map_button = $Panel/KeyBinds/Map/Map_button
 
 # other object references
 @onready var window_mode_label = $Panel/Screen_mode/window_mode_label
@@ -113,6 +114,10 @@ func _on_use_item_button_pressed():
 	action_queued = "UseItem"
 	input_screen_open()
 
+func _on_map_button_pressed():
+	action_queued = "Map"
+	input_screen_open()
+
 # when an input is detected
 func _input(event):
 	# if the program is checking input
@@ -146,6 +151,7 @@ func check_button_inputs():
 	right_button.text = "%s" % InputMap.action_get_events("MoveRight")[0].as_text()
 	throw_button.text = "%s" % InputMap.action_get_events("Attack")[0].as_text()
 	use_item_button.text = "%s" % InputMap.action_get_events("UseItem")[0].as_text()
+	map_button.text = "%s" % InputMap.action_get_events("Map")[0].as_text()
 
 # loads the keybindings from the settings
 func load_keybindings_from_settings():
