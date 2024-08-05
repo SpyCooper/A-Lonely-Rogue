@@ -29,6 +29,10 @@ const HIT_SHADER = preload("res://Scripts/shaders/enemy_hit_shader.gdshader")
 @onready var marker_left = $marker_left
 @onready var marker_right = $marker_right
 
+# reference to the map
+@onready var map = $"../CanvasLayer/Map"
+
+
 # constants
 const KNIFE_SPEED = 150.0
 const PLAYER_HEALTH_MAX = 10
@@ -218,40 +222,41 @@ func _physics_process(_delta):
 		move_and_slide()
 		# controls throwing knives
 		if Input.is_action_pressed("Attack"):
-			# checks to see if the player can fire
-			if time_to_fire <= 0:
-				# checks to see which direction is the click was 
-				var click_position = get_global_mouse_position() - position
-				var click_position_normalized = click_position.normalized()
-				var blade_instance = knife_scene.instantiate()
-				# spawns a knife at that position
-				blade_instance.position = position + click_position_normalized*3
-				blade_instance.spawned(click_position_normalized, current_type, self, current_attack_identifier, knife_speed_bonus)
-				get_tree().current_scene.add_child(blade_instance)
-				blade_instance.global_position = get_player_position()
-				# plays the knife throw sound when the blade is spawned
-				woosh_sound.play()
-				# if the player has triple blades, spawn the two other blades
-				if triple_blades == true:
-					# bottom blade
-					var radians = click_position_normalized.angle()
-					var rad_added_bottom = Vector2(cos(radians + 0.25), sin(radians + 0.25))
-					rad_added_bottom = rad_added_bottom.normalized()
-					var blade_instance_2 = knife_scene.instantiate()
-					blade_instance_2.spawned(rad_added_bottom, current_type, self, current_attack_identifier, knife_speed_bonus)
-					get_tree().current_scene.add_child(blade_instance_2)
-					blade_instance_2.global_position = get_player_position()
-					# top blade
-					var rad_added_top = Vector2(cos(radians - 0.25), sin(radians - 0.25))
-					rad_added_top = rad_added_top.normalized()
-					var blade_instance_3 = knife_scene.instantiate()
-					blade_instance_3.spawned(rad_added_top, current_type, self, current_attack_identifier, knife_speed_bonus)
-					get_tree().current_scene.add_child(blade_instance_3)
-					blade_instance_3.global_position = get_player_position()
-				# resets the time to fire
-				time_to_fire = time_to_fire_max
-				# increments the attack identifier
-				current_attack_identifier = current_attack_identifier + 1
+			if !map.visible:
+				# checks to see if the player can fire
+				if time_to_fire <= 0:
+					# checks to see which direction is the click was 
+					var click_position = get_global_mouse_position() - position
+					var click_position_normalized = click_position.normalized()
+					var blade_instance = knife_scene.instantiate()
+					# spawns a knife at that position
+					blade_instance.position = position + click_position_normalized*3
+					blade_instance.spawned(click_position_normalized, current_type, self, current_attack_identifier, knife_speed_bonus)
+					get_tree().current_scene.add_child(blade_instance)
+					blade_instance.global_position = get_player_position()
+					# plays the knife throw sound when the blade is spawned
+					woosh_sound.play()
+					# if the player has triple blades, spawn the two other blades
+					if triple_blades == true:
+						# bottom blade
+						var radians = click_position_normalized.angle()
+						var rad_added_bottom = Vector2(cos(radians + 0.25), sin(radians + 0.25))
+						rad_added_bottom = rad_added_bottom.normalized()
+						var blade_instance_2 = knife_scene.instantiate()
+						blade_instance_2.spawned(rad_added_bottom, current_type, self, current_attack_identifier, knife_speed_bonus)
+						get_tree().current_scene.add_child(blade_instance_2)
+						blade_instance_2.global_position = get_player_position()
+						# top blade
+						var rad_added_top = Vector2(cos(radians - 0.25), sin(radians - 0.25))
+						rad_added_top = rad_added_top.normalized()
+						var blade_instance_3 = knife_scene.instantiate()
+						blade_instance_3.spawned(rad_added_top, current_type, self, current_attack_identifier, knife_speed_bonus)
+						get_tree().current_scene.add_child(blade_instance_3)
+						blade_instance_3.global_position = get_player_position()
+					# resets the time to fire
+					time_to_fire = time_to_fire_max
+					# increments the attack identifier
+					current_attack_identifier = current_attack_identifier + 1
 		# if use item is pressed
 		if Input.is_action_pressed("UseItem") && can_use_item:
 			# use a usable item

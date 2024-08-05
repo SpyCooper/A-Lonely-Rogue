@@ -12,6 +12,27 @@ enum room_types
 	crystal_boss,
 	boss,
 	ending,
+	forge,
+}
+
+# types of room doors
+enum door_type
+{
+	four_doors,
+	three_doors_no_up,
+	three_doors_no_left,
+	three_doors_no_right,
+	three_doors_no_down,
+	two_doors_up_right,
+	two_doors_up_left,
+	two_doors_up_down,
+	two_doors_down_right,
+	two_doors_down_left,
+	two_doors_left_right,
+	one_doors_up,
+	one_doors_down,
+	one_doors_left,
+	one_doors_right,
 }
 
 # current room

@@ -1,10 +1,11 @@
-[gd_scene load_steps=15 format=3 uid="uid://bs0rdltsmfopr"]
+[gd_scene load_steps=16 format=3 uid="uid://bs0rdltsmfopr"]
 
 [ext_resource type="Script" path="res://Scripts/map/dungeon_floor.gd" id="1_xbvmb"]
 [ext_resource type="PackedScene" uid="uid://duv7i8yak343i" path="res://Scenes/menus/HUD.tscn" id="2_1h1xt"]
 [ext_resource type="PackedScene" uid="uid://b52og3hhvj0k3" path="res://Scenes/menus/pause_menu.tscn" id="3_ckbd4"]
 [ext_resource type="PackedScene" uid="uid://bigg81dibglne" path="res://Scenes/menus/options_menu.tscn" id="5_qo0qe"]
 [ext_resource type="PackedScene" uid="uid://dc0xlg20ucy3n" path="res://Scenes/menus/catalog.tscn" id="6_dlfuy"]
+[ext_resource type="PackedScene" uid="uid://dytp7nrk2cvpl" path="res://Scenes/menus/mini_map.tscn" id="6_mtsv3"]
 [ext_resource type="PackedScene" uid="uid://dxlj826ndney4" path="res://Scenes/map/transition_camera.tscn" id="6_r7rvd"]
 [ext_resource type="PackedScene" uid="uid://fyrmm4483e1a" path="res://Scenes/map/room_components/void_background.tscn" id="7_i637v"]
 [ext_resource type="PackedScene" uid="uid://dahgvmrgtix2i" path="res://Scenes/player/player.tscn" id="9_j4ic3"]
@@ -95,6 +96,8 @@ visible = false
 
 [node name="Catalog" parent="CanvasLayer" instance=ExtResource("6_dlfuy")]
 visible = false
+
+[node name="Map" parent="CanvasLayer" instance=ExtResource("6_mtsv3")]
 
 [node name="Transition Camera" parent="." instance=ExtResource("6_r7rvd")]
 

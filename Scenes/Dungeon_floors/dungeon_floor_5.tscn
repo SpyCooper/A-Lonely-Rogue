@@ -7,12 +7,12 @@
 [ext_resource type="PackedScene" uid="uid://bigg81dibglne" path="res://Scenes/menus/options_menu.tscn" id="5_60ylx"]
 [ext_resource type="PackedScene" uid="uid://dc0xlg20ucy3n" path="res://Scenes/menus/catalog.tscn" id="6_6xsaq"]
 [ext_resource type="PackedScene" uid="uid://dxlj826ndney4" path="res://Scenes/map/transition_camera.tscn" id="6_8b26c"]
+[ext_resource type="PackedScene" uid="uid://dytp7nrk2cvpl" path="res://Scenes/menus/mini_map.tscn" id="6_p6y6y"]
 [ext_resource type="Texture2D" uid="uid://drktqhtj5vluu" path="res://Assets/Sprites/map/TileSet.png" id="8_fhr48"]
 [ext_resource type="PackedScene" uid="uid://dahgvmrgtix2i" path="res://Scenes/player/player.tscn" id="9_kpeox"]
 [ext_resource type="AudioStream" uid="uid://de1jje6nelok4" path="res://Assets/Audio/background music/bgm029-dark-fantasy-horror-mystery-horror-148349.mp3" id="10_arma7"]
 [ext_resource type="PackedScene" uid="uid://bycygvf0dkbr1" path="res://Scenes/items/heart_2_pickup.tscn" id="15_5jcnp"]
 [ext_resource type="PackedScene" uid="uid://dojypve83qk4b" path="res://Scenes/map/rooms/1_door_room_up.tscn" id="15_21r3c"]
-[ext_resource type="PackedScene" uid="uid://5dt5o5bwrdc2" path="res://Scenes/map/boss_door_icon.tscn" id="15_whw35"]
 [ext_resource type="PackedScene" uid="uid://01wblyc3frib" path="res://Scenes/map/rooms/2_door_up_down.tscn" id="16_7t14g"]
 [ext_resource type="PackedScene" uid="uid://lnvy0o75ud8f" path="res://Scenes/enemies/morphed_shade.tscn" id="16_r660b"]
 [ext_resource type="PackedScene" uid="uid://be4pn2ua63aka" path="res://Scenes/map/rooms/1_door_room_down.tscn" id="17_eo8ie"]
@@ -141,6 +141,8 @@ visible = false
 [node name="Catalog" parent="CanvasLayer" instance=ExtResource("6_6xsaq")]
 visible = false
 
+[node name="Map" parent="CanvasLayer" instance=ExtResource("6_p6y6y")]
+
 [node name="Transition Camera" parent="." instance=ExtResource("6_8b26c")]
 
 [node name="void_background" type="TileMap" parent="."]
@@ -171,12 +173,14 @@ position = Vector2(0, -896)
 
 [node name="1_door_right" parent="." instance=ExtResource("23_bhy51")]
 position = Vector2(-384, -896)
+room_type = 9
 
 [node name="forge" parent="1_door_right" instance=ExtResource("24_4md02")]
 position = Vector2(0, 30)
 
 [node name="2_door_up_down6" parent="." instance=ExtResource("16_7t14g")]
 position = Vector2(0, -1344)
+room_type = 7
 
 [node name="1_door_down" parent="." instance=ExtResource("17_eo8ie")]
 position = Vector2(0, -1568)
@@ -228,9 +232,6 @@ theme_override_colors/font_color = Color(0.376471, 0.231373, 0.227451, 1)
 text = "Good luck"
 horizontal_alignment = 1
 autowrap_mode = 2
-
-[node name="Boss_door_sprite" parent="Floor Text" instance=ExtResource("15_whw35")]
-position = Vector2(-5, -755)
 
 [node name="ForgeRoomIcon" parent="Floor Text" instance=ExtResource("25_uoprr")]
 position = Vector2(-159, -456)

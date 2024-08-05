@@ -31,6 +31,9 @@ const ITEM_UI_SLOT = preload("res://Scenes/menus/item_ui_slot.tscn")
 @onready var usable_item_ui_slot = $Usable_item/usable_items_ui_container/Usable_Item_UI_slot
 @onready var active_item_text = $"Usable_item/active_item text"
 
+# map reference
+@onready var map = $"../Map"
+
 
 # on start
 func _ready():
@@ -470,3 +473,6 @@ func hide_usable_item():
 
 func adjust_usable_item_stack_amount(stack_amount : int):
 	usable_item_ui_slot.adjust_stack(stack_amount)
+
+func _on_button_pressed():
+	map.open_or_close()

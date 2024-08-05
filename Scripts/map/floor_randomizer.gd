@@ -170,7 +170,6 @@ func are_minimum_requirements_met():
 			minimum_requirements_met = true
 		else:
 			minimum_requirements_met = false
-		#print(minimum_requirements_met)
 
 func random_room_type():
 	var type
@@ -237,8 +236,6 @@ func spawn_adjacent_rooms(room):
 			type = random_room_type_near_spawn()
 		else:
 			type = random_room_type()
-		
-		print(type)
 		
 		var can_spawn_single_door_room = false
 		if minimum_requirements_met:

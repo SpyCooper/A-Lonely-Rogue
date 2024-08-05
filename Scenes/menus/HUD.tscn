@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://duv7i8yak343i"]
+[gd_scene load_steps=29 format=3 uid="uid://duv7i8yak343i"]
 
 [ext_resource type="Texture2D" uid="uid://dh85ichhvi5y2" path="res://Assets/Sprites/items/Items.png" id="1_bp31y"]
 [ext_resource type="Script" path="res://Scripts/UI/HUD.gd" id="1_slvuw"]
@@ -7,6 +7,7 @@
 [ext_resource type="Theme" uid="uid://pv4evjjac8wt" path="res://Assets/general_theme.tres" id="5_6yeb1"]
 [ext_resource type="StyleBox" uid="uid://dwunugjfj6x3g" path="res://Assets/boss_bar_style.tres" id="6_oonku"]
 [ext_resource type="PackedScene" uid="uid://edhqnytou7yt" path="res://Scenes/menus/item_ui_slot.tscn" id="7_63oe1"]
+[ext_resource type="Texture2D" uid="uid://8udxggxpdjrk" path="res://Assets/Sprites/map/map_ui_icons.png" id="8_my24e"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_hawcc"]
 atlas = ExtResource("1_bp31y")
@@ -151,6 +152,16 @@ animations = [{
 "name": &"default",
 "speed": 5.0
 }]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ychdq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_t16f4"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_o01a6"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_gahg7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_4rkni"]
 
 [node name="HUD" type="Control"]
 top_level = true
@@ -329,4 +340,22 @@ theme_override_constants/separation = 16
 [node name="Usable_Item_UI_slot" parent="Usable_item/usable_items_ui_container" instance=ExtResource("7_63oe1")]
 layout_mode = 2
 
+[node name="Map" type="Node2D" parent="."]
+position = Vector2(5.33333, 37.3333)
+
+[node name="Button" type="Button" parent="Map"]
+offset_left = -1.33333
+offset_top = -1.33334
+offset_right = 22.6667
+offset_bottom = 22.6667
+theme = ExtResource("5_6yeb1")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_ychdq")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_t16f4")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_o01a6")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_gahg7")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_4rkni")
+icon = ExtResource("8_my24e")
+flat = true
+
 [connection signal="timeout" from="TextBoxTimer" to="." method="_on_text_box_timer_timeout"]
+[connection signal="pressed" from="Map/Button" to="." method="_on_button_pressed"]

@@ -11,6 +11,7 @@ extends Node2D
 @onready var boss_icons = $boss_icons
 @onready var crystal_boss_icons = $crystal_boss_icons
 
+@export var room_door_type = RoomData.door_type.four_doors
 
 # references to the adjacent rooms
 var top_room = null
@@ -35,7 +36,7 @@ var maximum_monster_spawns = 5
 var enemies_spawned = []
 var can_play_sound = false
 # saves the room's data type
-var room_type = RoomData.room_types.no_type
+@export var room_type = RoomData.room_types.no_type
 
 
 func _ready():
@@ -268,6 +269,9 @@ func set_room_type(type : RoomData.room_types):
 
 func get_room_type():
 	return room_type 
+
+func get_door_type():
+	return room_door_type 
 
 func populate_room():
 	if room_type == RoomData.room_types.starting:

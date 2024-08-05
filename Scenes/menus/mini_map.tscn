@@ -1,0 +1,335 @@
+[gd_scene load_steps=13 format=3 uid="uid://dytp7nrk2cvpl"]
+
+[ext_resource type="Script" path="res://Scripts/map/mini_map.gd" id="1_nkclw"]
+[ext_resource type="Theme" uid="uid://pv4evjjac8wt" path="res://Assets/general_theme.tres" id="2_hnqe1"]
+[ext_resource type="Texture2D" uid="uid://7iuf6dj4apqr" path="res://Assets/Sprites/map/map_icons.png" id="3_4m8ie"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_136nt"]
+atlas = ExtResource("3_4m8ie")
+region = Rect2(0, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hqh1c"]
+atlas = ExtResource("3_4m8ie")
+region = Rect2(16, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5dydh"]
+atlas = ExtResource("3_4m8ie")
+region = Rect2(32, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_l4guk"]
+atlas = ExtResource("3_4m8ie")
+region = Rect2(0, 48, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s7jdb"]
+atlas = ExtResource("3_4m8ie")
+region = Rect2(48, 32, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1o51t"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_136nt")
+}],
+"loop": false,
+"name": &"boss",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hqh1c")
+}],
+"loop": false,
+"name": &"crystal_boss",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5dydh")
+}],
+"loop": false,
+"name": &"locked",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l4guk")
+}],
+"loop": false,
+"name": &"none",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s7jdb")
+}],
+"loop": false,
+"name": &"player",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_cwdxh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_136nt")
+}],
+"loop": false,
+"name": &"boss",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hqh1c")
+}],
+"loop": false,
+"name": &"crystal_boss",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5dydh")
+}],
+"loop": false,
+"name": &"locked",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l4guk")
+}],
+"loop": false,
+"name": &"none",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s7jdb")
+}],
+"loop": false,
+"name": &"player",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_5pl7h"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_136nt")
+}],
+"loop": false,
+"name": &"boss",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hqh1c")
+}],
+"loop": false,
+"name": &"crystal_boss",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5dydh")
+}],
+"loop": false,
+"name": &"locked",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l4guk")
+}],
+"loop": false,
+"name": &"none",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s7jdb")
+}],
+"loop": false,
+"name": &"player",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_y3hbc"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_136nt")
+}],
+"loop": false,
+"name": &"boss",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hqh1c")
+}],
+"loop": false,
+"name": &"crystal_boss",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5dydh")
+}],
+"loop": false,
+"name": &"locked",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l4guk")
+}],
+"loop": false,
+"name": &"none",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s7jdb")
+}],
+"loop": false,
+"name": &"player",
+"speed": 5.0
+}]
+
+[node name="Map" type="ColorRect"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -405.0
+offset_top = -266.5
+offset_right = 405.0
+offset_bottom = 273.5
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.101961, 0.101961, 0.101961, 0.611765)
+script = ExtResource("1_nkclw")
+
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+disable_3d = true
+transparent_bg = true
+handle_input_locally = false
+snap_2d_transforms_to_pixel = true
+snap_2d_vertices_to_pixel = true
+canvas_item_default_texture_filter = 0
+size = Vector2i(810, 540)
+render_target_update_mode = 4
+
+[node name="Camera2D" type="Camera2D" parent="SubViewportContainer/SubViewport"]
+zoom = Vector2(2, 2)
+
+[node name="icons" type="Node2D" parent="SubViewportContainer/SubViewport"]
+
+[node name="Key" type="Control" parent="."]
+layout_mode = 2
+anchors_preset = 0
+offset_left = 731.0
+offset_top = 462.5
+offset_right = 731.0
+offset_bottom = 462.5
+
+[node name="Panel" type="Panel" parent="Key"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -66.5
+offset_top = -71.5
+offset_right = 66.5
+offset_bottom = 71.5
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(1, 0.960005)
+
+[node name="Title" type="Label" parent="Key"]
+layout_mode = 2
+offset_left = -63.0
+offset_top = -67.0
+offset_right = 61.0
+offset_bottom = -52.0
+theme = ExtResource("2_hnqe1")
+text = "Key"
+horizontal_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Key"]
+layout_mode = 0
+offset_left = -31.0
+offset_top = -42.0
+offset_right = 56.0
+offset_bottom = 57.0
+theme_override_constants/separation = 13
+
+[node name="Player" type="Label" parent="Key/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_hnqe1")
+text = "Player"
+
+[node name="Boss" type="Label" parent="Key/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_hnqe1")
+text = "Boss"
+
+[node name="Crystal Boss" type="Label" parent="Key/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_hnqe1")
+text = "Crystal Boss
+"
+
+[node name="Locked" type="Label" parent="Key/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_hnqe1")
+text = "Locked"
+
+[node name="Player_icon" type="AnimatedSprite2D" parent="Key"]
+position = Vector2(-51, -36)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_1o51t")
+animation = &"player"
+autoplay = "player"
+
+[node name="Boss_icon" type="AnimatedSprite2D" parent="Key"]
+position = Vector2(-51, -8)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_cwdxh")
+animation = &"boss"
+autoplay = "boss"
+
+[node name="Crystal_icon" type="AnimatedSprite2D" parent="Key"]
+position = Vector2(-51, 20)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_5pl7h")
+animation = &"crystal_boss"
+autoplay = "crystal_boss"
+
+[node name="Locked_icon" type="AnimatedSprite2D" parent="Key"]
+position = Vector2(-51, 48)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_y3hbc")
+animation = &"locked"
+autoplay = "locked"
+
+[node name="Reset_map_button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 695.0
+offset_top = 12.5
+offset_right = 799.0
+offset_bottom = 42.5
+theme = ExtResource("2_hnqe1")
+text = "Reset Map"
+
+[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
+[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]
+[connection signal="pressed" from="Reset_map_button" to="." method="_on_reset_map_button_pressed"]

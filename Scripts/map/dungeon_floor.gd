@@ -36,7 +36,8 @@ func _ready():
 	# sets the current floor
 	Events.current_floor = name
 	
-	randomizer.start()
+	if name != "Floor5":
+		randomizer.start()
 
 # when the fade timer ends
 func _on_fade_timer_timeout():

@@ -20,6 +20,7 @@
 [node name="3_door_no_left" type="Node2D"]
 z_index = -1
 script = ExtResource("1_tq6b7")
+room_door_type = 2
 
 [node name="Floor_sprite" type="Sprite2D" parent="."]
 texture = ExtResource("2_dmpsl")

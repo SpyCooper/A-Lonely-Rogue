@@ -265,7 +265,6 @@ grow_vertical = 2
 theme = ExtResource("2_umit2")
 
 [node name="Items" type="TabBar" parent="TabContainer"]
-visible = false
 layout_mode = 2
 theme = ExtResource("2_umit2")
 
@@ -2879,6 +2878,7 @@ text = "- An otherworldly crystal"
 autowrap_mode = 2
 
 [node name="Monsters" type="TabBar" parent="TabContainer"]
+visible = false
 layout_mode = 2
 theme = ExtResource("2_umit2")
 
