@@ -88,6 +88,8 @@ wait_time = 2.5
 [node name="HUD" parent="CanvasLayer" instance=ExtResource("2_1h1xt")]
 unique_name_in_owner = true
 
+[node name="Map" parent="CanvasLayer" instance=ExtResource("6_mtsv3")]
+
 [node name="Pause_menu" parent="CanvasLayer" instance=ExtResource("3_ckbd4")]
 visible = false
 
@@ -96,8 +98,6 @@ visible = false
 
 [node name="Catalog" parent="CanvasLayer" instance=ExtResource("6_dlfuy")]
 visible = false
-
-[node name="Map" parent="CanvasLayer" instance=ExtResource("6_mtsv3")]
 
 [node name="Transition Camera" parent="." instance=ExtResource("6_r7rvd")]
 

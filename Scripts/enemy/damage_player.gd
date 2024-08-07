@@ -32,7 +32,6 @@ func _process(delta):
 		if player_in_damage && !player.get_is_dying():
 			# damage player (it is not a morphed_shade attack, attack_identifer doesn't matter so 0)
 			player.player_take_damage(false, 0)
-			print(get_parent())
 			damage_timer = damage_timer_max
 	elif damage_timer > 0:
 		damage_timer -= delta
@@ -57,5 +56,4 @@ func _on_timer_timeout():
 	if player_in_damage && !player.get_is_dying():
 		# damage player (it is not a morphed_shade attack, attack_identifer doesn't matter so 0)
 		player.player_take_damage(false, 0)
-		print(get_parent())
 		timer.start()

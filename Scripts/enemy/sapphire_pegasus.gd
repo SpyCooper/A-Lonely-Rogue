@@ -76,6 +76,7 @@ func _physics_process(_delta):
 					previous_speed = jump_direction.normalized() * get_speed()
 					# if there was a collision
 					if collision != null:
+						print(collision.get_collider())
 						# land
 						land()
 				else:
