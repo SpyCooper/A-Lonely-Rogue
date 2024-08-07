@@ -317,7 +317,7 @@ func spawn_adjacent_rooms(room):
 		# if the connect room is nothing (meaning there is no connected room)
 		if connected_room == null:
 			## add a room to the top of the current room
-			# iterations 1 = top connection
+			# iteration 1 = top connection
 			if iteration == 1:
 				# if there is a door to the rop and the room doesn not have a connect to the top
 				if room.has_door_top() && !room.has_connection_top():
@@ -615,77 +615,111 @@ func spawn_adjacent_rooms(room):
 						rooms += [new_room]
 						# sets the current room's top connection to the new room
 						room.set_connected_room_top(new_room)
-						# if the type is boss room and the ending room cannot spawn
+						# if the type is boss room and the ending room cannot spawn, change the type to an unlimited type
 						if type == RoomData.room_types.boss && check_if_ending_room_can_spawn(new_room) == false:
-							# the type cannot be a boss toom
 							type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
 						# sets the type for the room
 						new_room.set_room_type(type)
-						# refreshed the floor text of the room (used for testing
+						# refreshed the floor text of the room (used for testing)
 						new_room.refresh_type_text()
 			## add a room to the bottom of the current room
 			# iterations 2 = bottom connection
 			elif iteration == 2:
+				# if there is a door to the bottom and the room doesn not have a connect to the bottom
 				if room.has_door_bottom() && !room.has_connection_bottom():
+					# set the target position
 					var target_room_position = room.global_position + Vector2(0, 224)
-					
+					# check that there isn't a room at the target position
 					if get_room_at_position(target_room_position) == null:
-						
+						# if the room type is locked door, boss, or crystal boss
 						if type == RoomData.room_types.locked_item || type == RoomData.room_types.boss || type == RoomData.room_types.crystal_boss:
+							# check if there are no other empty doorways
 							if !check_for_other_empty_doors(target_room_position):
+								# if there are no other empty doorways, change the type to an unlimited type
 								type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
-						
+						# get the connected rooms
 						var bottom_connection = get_connection_bottom(target_room_position)
 						var left_connection = get_connection_left(target_room_position)
 						var right_connection = get_connection_right(target_room_position)
-						
+						# if there are all connections (top is implied)
 						if bottom_connection != null && right_connection != null && left_connection != null:
+							# if the room type is boss, change it to an umlimited type
 							if type == RoomData.room_types.boss:
 								type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
+							# set the room to a 4 door room
 							new_room = _4_DOOR_ROOM.instantiate()
+						# if there is a bottom and right connection but not a left connection (top is implied)
 						elif bottom_connection != null && right_connection != null && left_connection == null:
+							# if the rooms are closing, the type is locked, or the type is crystal boss
 							if close_rooms || type == RoomData.room_types.locked_item || type == RoomData.room_types.crystal_boss:
+								# pick the minimum amount of doors for the room
 								new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
 							else:
+								# if here is not a room to the left the target position
 								if get_room_at_position(target_room_position + Vector2(-384, 0)) == null:
+									# pick the most amount of doors possible
 									new_room = _4_DOOR_ROOM.instantiate()
+								# if here is a room to the left the target position
 								else:
+									# if the room type is boss, change it to an unlimited room type
 									if type == RoomData.room_types.boss:
 										type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
+									# spawn the minimum amount of doors possible
 									new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
+						# if there is a bottom and left connection but not a right connection (top is implied)
 						elif bottom_connection != null && right_connection == null && left_connection != null:
+							# if the rooms are closing, the type is locked, or the type is crystal boss
 							if close_rooms || type == RoomData.room_types.locked_item || type == RoomData.room_types.crystal_boss:
+								# pick the minimum amount of doors for the room
 								new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
 							else:
+								# if here is not a room to the right the target position
 								if get_room_at_position(target_room_position + Vector2(384, 0)) == null:
+									# pick the most amount of doors possible
 									new_room = _4_DOOR_ROOM.instantiate()
+								# if here is a room to the right the target position
 								else:
+									# if the room type is boss, change it to an unlimited room type
 									if type == RoomData.room_types.boss:
 										type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
+									# spawn the minimum amount of doors possible
 									new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
+						# if there is a left and right connection but not a bottom connection (top is implied)
 						elif bottom_connection == null && right_connection != null && left_connection != null:
+							# if the rooms are closing, the type is locked, or the type is crystal boss
 							if close_rooms || type == RoomData.room_types.locked_item || type == RoomData.room_types.crystal_boss:
+								# pick the minimum amount of doors for the room
 								new_room = _3_DOOR_ROOM_NO_DOWN.instantiate()
 							else:
+								# if here is not a room above the target position
 								if get_room_at_position(target_room_position + Vector2(0, 224)) == null:
+									# pick the most amount of doors possible
 									new_room = _4_DOOR_ROOM.instantiate()
+								# if here is a room above the target position
 								else:
+									# if the room type is boss, change it to an unlimited room type
 									if type == RoomData.room_types.boss:
 										type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
+									# spawn the minimum amount of doors possible
 									new_room = _3_DOOR_ROOM_NO_DOWN.instantiate()
+						# if there is a bottom connection but not a left or right connection (top is implied)
 						elif bottom_connection != null && right_connection == null && left_connection == null:
+							# if the rooms are closing, the type is locked, or the type is crystal boss
 							if close_rooms || type == RoomData.room_types.locked_item || type == RoomData.room_types.crystal_boss:
+								# pick the minimum amount of doors for the room
 								new_room = _2_DOOR_UP_DOWN.instantiate()
 							else:
+								# determine if the room can have a room to the left of the target position
 								var can_have_left = false
 								if get_room_at_position(target_room_position + Vector2(-384, 0)) == null:
 									can_have_left = true
+								# determine if the room can have a room to the right of the target position
 								var can_have_right = false
 								if get_room_at_position(target_room_position + Vector2(384, 0)) == null:
 									can_have_right = true
-								
+								# if the new room can have a left and a right
 								if can_have_left && can_have_right:
-									# get any room
+									# get any room that adds a new door
 									var temp_room = rng.randi_range(0,2)
 									if temp_room == 0:
 										new_room = _4_DOOR_ROOM.instantiate()
@@ -693,27 +727,39 @@ func spawn_adjacent_rooms(room):
 										new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
 									elif temp_room == 2:
 										new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
+								# if the new room can have a left but not a right
 								elif can_have_left && !can_have_right:
+									# spawn a room with an empty doorway
 									new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
+								# if the new room can have a right but not a left
 								elif !can_have_left && can_have_right:
+									# spawn a room with an empty doorway
 									new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
+								# if the new room cannot have either doorway
 								else:
+									# if the type is boss, change it to an unlimited type
 									if type == RoomData.room_types.boss:
 										type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
+									# add the minimum required doors
 									new_room = _2_DOOR_UP_DOWN.instantiate()
+						# if there is a right connection but not a left or bottom connection (top is implied)
 						elif bottom_connection == null && right_connection != null && left_connection == null:
+							# if the rooms are closing, the type is locked, or the type is crystal boss
 							if close_rooms || type == RoomData.room_types.locked_item || type == RoomData.room_types.crystal_boss:
+								# pick the minimum amount of doors for the room
 								new_room = _2_DOOR_ROOM_UP_RIGHT.instantiate()
 							else:
+								# determine if the room can have a room to the left of the target position
 								var can_have_left = false
 								if get_room_at_position(target_room_position + Vector2(-384, 0)) == null:
 									can_have_left = true
+								# determine if the room can have a room to the bottom of the target position
 								var can_have_bottom = false
 								if get_room_at_position(target_room_position + Vector2(0, 224)) == null:
 									can_have_bottom = true
-								
+								# if the new room can have a left and a bottom
 								if can_have_left && can_have_bottom:
-									# get any room
+									# get any room that adds a new door
 									var temp_room = rng.randi_range(0,2)
 									if temp_room == 0:
 										new_room = _4_DOOR_ROOM.instantiate()
@@ -721,27 +767,39 @@ func spawn_adjacent_rooms(room):
 										new_room = _3_DOOR_ROOM_NO_UP.instantiate()
 									elif temp_room == 2:
 										new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
+								# if the new room can have a left but not a bottom
 								elif can_have_left && !can_have_bottom:
+									# spawn a room with an empty doorway
 									new_room = _3_DOOR_ROOM_NO_UP.instantiate()
+								# if the new room can have a bottom but not a left
 								elif !can_have_left && can_have_bottom:
+									# spawn a room with an empty doorway
 									new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
+								# if the new room cannot have either doorway
 								else:
+									# if the type is boss, change it to an unlimited type
 									if type == RoomData.room_types.boss:
 										type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
+									# add the minimum required doors
 									new_room = _2_DOOR_ROOM_UP_RIGHT.instantiate()
+						# if there is a left connection but not a bottom or right connection (top is implied)
 						elif bottom_connection == null && right_connection == null && left_connection != null:
+							# if the rooms are closing, the type is locked, or the type is crystal boss
 							if close_rooms || type == RoomData.room_types.locked_item || type == RoomData.room_types.crystal_boss:
+								# pick the minimum amount of doors for the room
 								new_room = _2_DOOR_ROOM_UP_LEFT.instantiate()
 							else:
+								# determine if the room can have a room to the right of the target position
 								var can_have_right = false
 								if get_room_at_position(target_room_position + Vector2(384, 0)) == null:
 									can_have_right = true
+								# determine if the room can have a room to the bottom of the target position
 								var can_have_bottom = false
 								if get_room_at_position(target_room_position + Vector2(0, 224)) == null:
 									can_have_bottom = true
-								
+								# if the new room can have a bottom and a right
 								if can_have_right && can_have_bottom:
-									# get any room
+									# get any room that adds a new door
 									var temp_room = rng.randi_range(0,2)
 									if temp_room == 0:
 										new_room = _4_DOOR_ROOM.instantiate()
@@ -749,36 +807,56 @@ func spawn_adjacent_rooms(room):
 										new_room = _3_DOOR_ROOM_NO_UP.instantiate()
 									elif temp_room == 2:
 										new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
+								# if the new room can have a right but not a bottom
 								elif can_have_right && !can_have_bottom:
+									# spawn a room with an empty doorway
 									new_room = _3_DOOR_ROOM_NO_UP.instantiate()
+								# if the new room can have a bottom but not a right
 								elif !can_have_right && can_have_bottom:
+									# spawn a room with an empty doorway
 									new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
+								# if the new room cannot have either doorway
 								else:
+									# if the type is boss, change it to an unlimited type
 									if type == RoomData.room_types.boss:
 										type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
+									# add the minimum required doors
 									new_room = _2_DOOR_ROOM_UP_LEFT.instantiate()
+						# if there are not connections (top is implied)
 						else:
+							# if the rooms are closing, the type is locked, or the type is crystal boss
 							if close_rooms || type == RoomData.room_types.locked_item || type == RoomData.room_types.crystal_boss:
+								# pick the minimum amount of doors for the room
 								new_room = _1_DOOR_ROOM_UP.instantiate()
 							else:
+								# determine if the room can have a room to the left of the target position
 								var can_have_left = false
 								if get_room_at_position(target_room_position + Vector2(-384, 0)) == null:
 									can_have_left = true
+								# determine if the room can have a room to the right of the target position
 								var can_have_right = false
 								if get_room_at_position(target_room_position + Vector2(384, 0)) == null:
 									can_have_right = true
+								# determine if the room can have a room to the bottom of the target position
 								var can_have_bottom = false
 								if get_room_at_position(target_room_position + Vector2(0, 224)) == null:
 									can_have_bottom = true
-								
+								# if the new room can have a left, a right, and a bottom
 								if can_have_left && can_have_right && can_have_bottom:
+									# get a random room that can connect to the bottom a room
 									var random_number = rng.randi_range(0,rooms_that_can_connect_to_bottom.size()-1)
+									# if the random room is a single door room
 									if random_number == rooms_that_can_connect_to_bottom.size()-1:
+										# check if the single doors cannot spawn
 										if !can_spawn_single_door_room:
+											# get a room that isn't a single door room
 											random_number = rng.randi_range(0,rooms_that_can_connect_to_bottom.size()-2)
+									# spawn that room
 									var random_room = rooms_that_can_connect_to_bottom[random_number]
 									new_room = random_room.instantiate()
+								# if the new room can have a left, a right, but not a bottom
 								elif can_have_left && can_have_right && !can_have_bottom:
+									# get a room that adds more empty doorways
 									var temp_room = rng.randi_range(0,2)
 									if temp_room == 0:
 										new_room = _3_DOOR_ROOM_NO_DOWN.instantiate()
@@ -786,7 +864,9 @@ func spawn_adjacent_rooms(room):
 										new_room = _2_DOOR_ROOM_UP_RIGHT.instantiate()
 									elif temp_room == 2:
 										new_room = _2_DOOR_ROOM_UP_LEFT.instantiate()
+								# if the new room can have a bottom, a right, but not a left
 								elif can_have_left && !can_have_right && can_have_bottom:
+									# get a room that adds more empty doorways
 									var temp_room = rng.randi_range(0,2)
 									if temp_room == 0:
 										new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
@@ -794,7 +874,9 @@ func spawn_adjacent_rooms(room):
 										new_room = _2_DOOR_UP_DOWN.instantiate()
 									elif temp_room == 2:
 										new_room = _2_DOOR_ROOM_UP_LEFT.instantiate()
+								# if the new room can have a left, a bottom, but not a right
 								elif !can_have_left && can_have_right && can_have_bottom:
+									# get a room that adds more empty doorways
 									var temp_room = rng.randi_range(0,2)
 									if temp_room == 0:
 										new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
@@ -802,100 +884,151 @@ func spawn_adjacent_rooms(room):
 										new_room = _2_DOOR_UP_DOWN.instantiate()
 									elif temp_room == 2:
 										new_room = _2_DOOR_ROOM_UP_RIGHT.instantiate()
+								# if the new room can have a left, but not a right or a bottom
 								elif can_have_left && !can_have_right && !can_have_bottom:
+									# get a room that has more empty doorways
 									new_room = _2_DOOR_ROOM_UP_LEFT.instantiate()
+								# if the new room can have a bottom, but not a right or a left
 								elif !can_have_left && !can_have_right && can_have_bottom:
+									# get a room that has more empty doorways
 									new_room = _2_DOOR_UP_DOWN.instantiate()
+								# if the new room can have a right, but not a left or a bottom
 								elif !can_have_left && can_have_right && !can_have_bottom:
+									# get a room that has more empty doorways
 									new_room = _2_DOOR_ROOM_UP_RIGHT.instantiate()
+								# if the new room cannot have any additional doors
 								elif !can_have_left && !can_have_right && !can_have_bottom:
+									# if the type is boss, change it to an unlimited room type
 									if type == RoomData.room_types.boss:
 										type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
+									# spawn the minimum required doorways
 									new_room = _1_DOOR_ROOM_UP.instantiate()
-							
+						# spawns the new room
 						get_tree().current_scene.add_child(new_room)
 						new_room.global_position = target_room_position
+						# sets the top connection for the new room
 						new_room.set_connected_room_top(room)
+						# sets the bottom connection for the new room
 						new_room.set_connected_room_bottom(bottom_connection)
 						if bottom_connection != null:
 							bottom_connection.set_connected_room_top(new_room)
+						# sets the left connection for the new room
 						new_room.set_connected_room_left(left_connection)
 						if left_connection != null:
 							left_connection.set_connected_room_right(new_room)
+						# sets the right connection for the new room
 						new_room.set_connected_room_right(right_connection)
 						if right_connection != null:
 							right_connection.set_connected_room_left(new_room)
+						# adds the new room to the list of rooms
 						rooms += [new_room]
+						# sets the current room's bottom connection to the new room
 						room.set_connected_room_bottom(new_room)
-						
+						# if the type is boss room and the ending room cannot spawn, change the type to an unlimited type
 						if type == RoomData.room_types.boss &&  check_if_ending_room_can_spawn(new_room) == false:
 							type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
-						
+						# sets the type for the room
 						new_room.set_room_type(type)
+						# refreshed the floor text of the room (used for testing)
 						new_room.refresh_type_text()
-			# add a room to the left of the current room
+			## add a room to the left of the current room
 			# iterations 3 = left connection
 			elif iteration == 3:
+				# if there is a door to the left and the room doesn not have a connect to the left
 				if room.has_door_left() && !room.has_connection_left():
+					# set the target position
 					var target_room_position = room.global_position + Vector2(-384, 0)
-					
+					# check that there isn't a room at the target position
 					if get_room_at_position(target_room_position) == null:
-						
+						# if the room type is locked door, boss, or crystal boss
 						if type == RoomData.room_types.locked_item || type == RoomData.room_types.boss || type == RoomData.room_types.crystal_boss:
+							# checks if there are no other empty doors
 							if !check_for_other_empty_doors(target_room_position):
+								# change the type to an unlimited
 								type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
-						
+						# get the connections for the new room position
 						var top_connection = get_connection_top(target_room_position)
 						var bottom_connection = get_connection_bottom(target_room_position)
 						var left_connection = get_connection_left(target_room_position)
-						
+						# if the room has a top, bottom, and left connection (right is implied)
 						if top_connection != null && bottom_connection != null && left_connection != null:
+							# the room type cannot be a boss room, change it to an unlimited room
 							if type == RoomData.room_types.boss:
 								type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
+							# spawn the minimum doors required for the connections
 							new_room = _4_DOOR_ROOM.instantiate()
+						# if the room has a top, bottom, but not a left connection (right is implied)
 						elif top_connection != null && bottom_connection != null && left_connection == null:
+							# if the rooms are closing, or the type is ether a locked item or a crystal boss
 							if close_rooms || type == RoomData.room_types.locked_item || type == RoomData.room_types.crystal_boss:
+								# spawn the minimum doors required for the connection
 								new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
 							else:
+								# check if there is a room to the spot where there isn't a connection
 								if get_room_at_position(target_room_position + Vector2(-384, 0)) == null:
+									# a room doesn't exist there, spawn a room with an additional doorway
 									new_room = _4_DOOR_ROOM.instantiate()
+								# check if there isn't a room at the spot where there isn't a connection
 								else:
+									# the room type cannot be a boss room, change it to an unlimited room
 									if type == RoomData.room_types.boss:
 										type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
+									# spawn the minimum doors required for the connections
 									new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
+						# if the room has a top, left, but not a bottom connection (right is implied)
 						elif top_connection != null && bottom_connection == null && left_connection != null:
+							# if the rooms are closing, or the type is ether a locked item or a crystal boss
 							if close_rooms || type == RoomData.room_types.locked_item || type == RoomData.room_types.crystal_boss:
+								# spawn the minimum doors required for the connection
 								new_room = _3_DOOR_ROOM_NO_DOWN.instantiate()
 							else:
+								# check if there is a room to the spot where there isn't a connection
 								if get_room_at_position(target_room_position + Vector2(0, 224)) == null:
+									# a room doesn't exist there, spawn a room with an additional doorway
 									new_room = _4_DOOR_ROOM.instantiate()
+								# check if there isn't a room at the spot where there isn't a connection
 								else:
+									# the room type cannot be a boss room, change it to an unlimited room
 									if type == RoomData.room_types.boss:
 										type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
+									# spawn the minimum doors required for the connections
 									new_room = _3_DOOR_ROOM_NO_DOWN.instantiate()
+						# if the room has a left, bottom, but not a top connection (right is implied)
 						elif top_connection == null && bottom_connection != null && left_connection != null:
+							# if the rooms are closing, or the type is ether a locked item or a crystal boss
 							if close_rooms || type == RoomData.room_types.locked_item || type == RoomData.room_types.crystal_boss:
+								# spawn the minimum doors required for the connection
 								new_room = _3_DOOR_ROOM_NO_UP.instantiate()
 							else:
+								# check if there is a room to the spot where there isn't a connection
 								if get_room_at_position(target_room_position + Vector2(0, -224)) == null:
+									# a room doesn't exist there, spawn a room with an additional doorway
 									new_room = _4_DOOR_ROOM.instantiate()
+								# check if there isn't a room at the spot where there isn't a connection
 								else:
+									# the room type cannot be a boss room, change it to an unlimited room
 									if type == RoomData.room_types.boss:
 										type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
+									# spawn the minimum doors required for the connections
 									new_room = _3_DOOR_ROOM_NO_UP.instantiate()
+						# if the room has a top, but not a bottom or a left connection (right is implied)
 						elif top_connection != null && bottom_connection == null && left_connection == null:
+							# if the rooms are closing, or the type is ether a locked item or a crystal boss
 							if close_rooms || type == RoomData.room_types.locked_item || type == RoomData.room_types.crystal_boss:
+								# spawn the minimum doors required for the connection
 								new_room = _2_DOOR_ROOM_UP_RIGHT.instantiate()
 							else:
+								# if there can be a room to the left of the new room
 								var can_have_left = false
 								if get_room_at_position(target_room_position + Vector2(-384, 0)) == null:
 									can_have_left = true
+								# if there can be a room to the bottom of the new room
 								var can_have_bottom = false
 								if get_room_at_position(target_room_position + Vector2(0, 224)) == null:
 									can_have_bottom = true
-								
+								# if there can be a left and a bottom connection
 								if can_have_left && can_have_bottom:
-									# get any room
+									# get any room that adds a new door way
 									var temp_room = rng.randi_range(0,2)
 									if temp_room == 0:
 										new_room = _4_DOOR_ROOM.instantiate()
@@ -903,27 +1036,39 @@ func spawn_adjacent_rooms(room):
 										new_room = _3_DOOR_ROOM_NO_DOWN.instantiate()
 									elif temp_room == 2:
 										new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
+								# if there can be a left but not a bottom connection
 								elif can_have_left && !can_have_bottom:
+									# get a room that adds a new doorway
 									new_room = _3_DOOR_ROOM_NO_DOWN.instantiate()
+								# if there can be a bottom but not a left connection
 								elif !can_have_left && can_have_bottom:
+									# get a room that adds a new doorway
 									new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
+								# if the new room cannot have any new connections
 								else:
+									# the room type cannot be a boss room, change it to an unlimited room
 									if type == RoomData.room_types.boss:
 										type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
+									# spawn the minimum doors required for the connections
 									new_room = _2_DOOR_ROOM_UP_RIGHT.instantiate()
+						# if the room has a bottom, but not a top or a left connection (right is implied)
 						elif top_connection == null && bottom_connection != null && left_connection == null:
+							# if the rooms are closing, or the type is ether a locked item or a crystal boss
 							if close_rooms || type == RoomData.room_types.locked_item || type == RoomData.room_types.crystal_boss:
+								# spawn the minimum doors required for the connection
 								new_room = _2_DOOR_DOWN_RIGHT.instantiate()
 							else:
+								# if there can be a room to the left of the new room
 								var can_have_left = false
 								if get_room_at_position(target_room_position + Vector2(-384, 0)) == null:
 									can_have_left = true
+								# if there can be a room to the top of the new room
 								var can_have_top = false
 								if get_room_at_position(target_room_position + Vector2(0, -224)) == null:
 									can_have_top = true
-								
+								# if there can be a left and a top connection
 								if can_have_left && can_have_top:
-									# get any room
+									# get any room that adds a new door way
 									var temp_room = rng.randi_range(0,2)
 									if temp_room == 0:
 										new_room = _4_DOOR_ROOM.instantiate()
@@ -931,27 +1076,39 @@ func spawn_adjacent_rooms(room):
 										new_room = _3_DOOR_ROOM_NO_UP.instantiate()
 									elif temp_room == 2:
 										new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
+								# if there can be a left but not a top connection
 								elif can_have_left && !can_have_top:
+									# get a room that adds a new doorway
 									new_room = _3_DOOR_ROOM_NO_UP.instantiate()
+								# if there can be a top but not a left connection
 								elif !can_have_left && can_have_top:
+									# get a room that adds a new doorway
 									new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
+								# if the new room cannot have any new connections
 								else:
+									# the room type cannot be a boss room, change it to an unlimited room
 									if type == RoomData.room_types.boss:
 										type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
+									# spawn the minimum doors required for the connections
 									new_room = _2_DOOR_DOWN_RIGHT.instantiate()
+						# if the room has a left, but not a bottom or a top connection (right is implied)
 						elif top_connection == null && bottom_connection == null && left_connection != null:
+							# if the rooms are closing, or the type is ether a locked item or a crystal boss
 							if close_rooms || type == RoomData.room_types.locked_item || type == RoomData.room_types.crystal_boss:
+								# spawn the minimum doors required for the connection
 								new_room = _2_DOOR_LEFT_RIGHT.instantiate()
 							else:
+								# if there can be a room to the top of the new room
 								var can_have_top = false
 								if get_room_at_position(target_room_position + Vector2(0, -224)) == null:
 									can_have_top = true
+								# if there can be a room to the bottom of the new room
 								var can_have_bottom = false
 								if get_room_at_position(target_room_position + Vector2(0, 224)) == null:
 									can_have_bottom = true
-								
+								# if there can be a bottom and a top connection
 								if can_have_bottom && can_have_top:
-									# get any room
+									# get any room that adds a new door way
 									var temp_room = rng.randi_range(0,2)
 									if temp_room == 0:
 										new_room = _4_DOOR_ROOM.instantiate()
@@ -959,28 +1116,41 @@ func spawn_adjacent_rooms(room):
 										new_room = _3_DOOR_ROOM_NO_UP.instantiate()
 									elif temp_room == 2:
 										new_room = _3_DOOR_ROOM_NO_DOWN.instantiate()
+								# if there can be a bottom but not a top connection
 								elif can_have_bottom && !can_have_top:
+									# get a room that adds a new doorway
 									new_room = _3_DOOR_ROOM_NO_UP.instantiate()
+								# if there can be a top but not a bottom connection
 								elif !can_have_bottom && can_have_top:
+									# get a room that adds a new doorway
 									new_room = _3_DOOR_ROOM_NO_DOWN.instantiate()
+								# if the new room cannot have any new connections
 								else:
+									# the room type cannot be a boss room, change it to an unlimited room
 									if type == RoomData.room_types.boss:
 										type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
+									# spawn the minimum doors required for the connections
 									new_room = _2_DOOR_LEFT_RIGHT.instantiate()
+						# if the room does not have any connections (right is implied)
 						else:
+							# if the rooms are closing, or the type is ether a locked item or a crystal boss
 							if close_rooms || type == RoomData.room_types.locked_item || type == RoomData.room_types.crystal_boss:
+								# spawn the minimum doors required for the connection
 								new_room = _1_DOOR_ROOM_RIGHT.instantiate()
 							else:
+								# check if the room can have a left connection
 								var can_have_left = false
 								if get_room_at_position(target_room_position + Vector2(-384, 0)) == null:
 									can_have_left = true
+								# check if the room can have a top connection
 								var can_have_top = false
 								if get_room_at_position(target_room_position + Vector2(0, -224)) == null:
 									can_have_top = true
+								# check if the room can have a bottom connection
 								var can_have_bottom = false
 								if get_room_at_position(target_room_position + Vector2(0, 224)) == null:
 									can_have_bottom = true
-								
+								# if the room can gave a left, top, and bottom
 								if can_have_left && can_have_top && can_have_bottom:
 									var random_number = rng.randi_range(0,rooms_that_can_connect_to_left.size()-1)
 									if random_number == rooms_that_can_connect_to_left.size()-1:
@@ -988,7 +1158,9 @@ func spawn_adjacent_rooms(room):
 											random_number = rng.randi_range(0,rooms_that_can_connect_to_left.size()-2)
 									var random_room = rooms_that_can_connect_to_left[random_number]
 									new_room = random_room.instantiate()
+								# if the room can gave a left and top, but not a bottom
 								elif can_have_left && can_have_top && !can_have_bottom:
+									# spawn any room that adds new doors
 									var temp_room = rng.randi_range(0,2)
 									if temp_room == 0:
 										new_room = _3_DOOR_ROOM_NO_DOWN.instantiate()
@@ -996,7 +1168,9 @@ func spawn_adjacent_rooms(room):
 										new_room = _2_DOOR_LEFT_RIGHT.instantiate()
 									elif temp_room == 2:
 										new_room = _2_DOOR_ROOM_UP_RIGHT.instantiate()
+								# if the room can gave a left and bottom, but not a top
 								elif can_have_left && !can_have_top && can_have_bottom:
+									# spawn any room that adds new doors
 									var temp_room = rng.randi_range(0,2)
 									if temp_room == 0:
 										new_room = _3_DOOR_ROOM_NO_UP.instantiate()
@@ -1004,7 +1178,9 @@ func spawn_adjacent_rooms(room):
 										new_room = _2_DOOR_LEFT_RIGHT.instantiate()
 									elif temp_room == 2:
 										new_room = _2_DOOR_DOWN_RIGHT.instantiate()
+								# if the room can gave a top and bottom, but not a left
 								elif !can_have_left && can_have_top && can_have_bottom:
+									# spawn any room that adds new doors
 									var temp_room = rng.randi_range(0,2)
 									if temp_room == 0:
 										new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
@@ -1012,100 +1188,148 @@ func spawn_adjacent_rooms(room):
 										new_room = _2_DOOR_ROOM_UP_RIGHT.instantiate()
 									elif temp_room == 2:
 										new_room = _2_DOOR_DOWN_RIGHT.instantiate()
+								# if the room can gave a left, but not a top or a bottom
 								elif can_have_left && !can_have_top && !can_have_bottom:
+									# spawn the room that adds a new doorway
 									new_room = _2_DOOR_LEFT_RIGHT.instantiate()
+								# if the room can gave a bottom, but not a top or a left
 								elif !can_have_left && !can_have_top && can_have_bottom:
+									# spawn the room that adds a new doorway
 									new_room = _2_DOOR_DOWN_RIGHT.instantiate()
+								# if the room can gave a top, but not a left or a bottom
 								elif !can_have_left && can_have_top && !can_have_bottom:
+									# spawn the room that adds a new doorway
 									new_room = _2_DOOR_ROOM_UP_RIGHT.instantiate()
+								# if the new room cannot have any new doors
 								elif !can_have_left && !can_have_top && !can_have_bottom:
+									# the room type cannot be a boss room, change it to an unlimited room
 									if type == RoomData.room_types.boss:
 										type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
+									# spawn the minimum doors required for the connections
 									new_room = _1_DOOR_ROOM_RIGHT.instantiate()
-						
+						# spawns the new room
 						get_tree().current_scene.add_child(new_room)
 						new_room.global_position = target_room_position
+						# sets the top connection for the new room
 						new_room.set_connected_room_top(top_connection)
 						if top_connection != null:
 							top_connection.set_connected_room_bottom(new_room)
+						# sets the bottom connection for the new room
 						new_room.set_connected_room_bottom(bottom_connection)
 						if bottom_connection != null:
 							bottom_connection.set_connected_room_top(new_room)
+						# sets the left connection for the new room
 						new_room.set_connected_room_left(left_connection)
 						if left_connection != null:
 							left_connection.set_connected_room_right(new_room)
+						# sets the right connection for the new room
 						new_room.set_connected_room_right(room)
+						# adds the new room to the list of rooms
 						rooms += [new_room]
+						# sets the currnt room's left connection
 						room.set_connected_room_left(new_room)
-						
+						# if the room type cannot be a boss room and the ending room cannot spawn
 						if type == RoomData.room_types.boss &&  check_if_ending_room_can_spawn(new_room) == false:
+							# change it to an unlimited room
 							type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
-						
+						# sets the type of the room
 						new_room.set_room_type(type)
+						# refreshed the floor text of the room (used for testing)
 						new_room.refresh_type_text()
-			# add a room to the right of the current room
+			## add a room to the right of the current room
 			# iterations 4 = right connection
 			elif iteration == 4:
+				# if there is a door to the right and the room doesn not have a connect to the right
 				if room.has_door_right() && !room.has_connection_right():
+					# set the target position
 					var target_room_position = room.global_position + Vector2(384, 0)
-					
+					# if there is not already a room at the target position
 					if get_room_at_position(target_room_position) == null:
-						
+						# if the room type is locked door, boss, or crystal boss
 						if type == RoomData.room_types.locked_item || type == RoomData.room_types.boss || type == RoomData.room_types.crystal_boss:
+							# checks if there are no other empty doors, set the type to an unlimited room type
 							if !check_for_other_empty_doors(target_room_position):
 								type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
-						
+						# get the connections to the new room position
 						var top_connection = get_connection_top(target_room_position)
 						var bottom_connection = get_connection_bottom(target_room_position)
 						var right_connection = get_connection_right(target_room_position)
-						
+						# if the room has a top, bottom, and right connection (left is implied)
 						if top_connection != null && bottom_connection != null && right_connection != null:
+							# if the room type is boss, change it to an unlimited room type
 							if type == RoomData.room_types.boss:
 								type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
+							# spawn the minimum required doorways
 							new_room = _4_DOOR_ROOM.instantiate()
+						# if the room has a top and bottom, but not a right connection (left is implied)
 						elif top_connection != null && bottom_connection != null && right_connection == null:
+							# if the rooms are closing or the type is locked item or a crystal boss
 							if close_rooms || type == RoomData.room_types.locked_item || type == RoomData.room_types.crystal_boss:
+								# spawn the minimum required doorways
 								new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
 							else:
+								# if there is a no room at the position of the no connection
 								if get_room_at_position(target_room_position + Vector2(384, 0)) == null:
+									# spawn the room that adds a new doorway
 									new_room = _4_DOOR_ROOM.instantiate()
 								else:
+									# if the room type is boss, change it to an unlimited room type
 									if type == RoomData.room_types.boss:
 										type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
+									# spawn the minimum required doorways
 									new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
+						# if the room has a top and right, but not a bottom connection (left is implied)
 						elif top_connection != null && bottom_connection == null && right_connection != null:
+							# if the rooms are closing or the type is locked item or a crystal boss
 							if close_rooms || type == RoomData.room_types.locked_item || type == RoomData.room_types.crystal_boss:
+								# spawn the minimum required doorways
 								new_room = _3_DOOR_ROOM_NO_DOWN.instantiate()
 							else:
+								# if there is a no room at the position of the no connection
 								if get_room_at_position(target_room_position + Vector2(0, 224)) == null:
+									# spawn the room that adds a new doorway
 									new_room = _4_DOOR_ROOM.instantiate()
 								else:
+									# if the room type is boss, change it to an unlimited room type
 									if type == RoomData.room_types.boss:
 										type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
+									# spawn the minimum required doorways
 									new_room = _3_DOOR_ROOM_NO_DOWN.instantiate()
+						# if the room has a right and bottom, but not a top connection (left is implied)
 						elif top_connection == null && bottom_connection != null && right_connection != null:
+							# if the rooms are closing or the type is locked item or a crystal boss
 							if close_rooms || type == RoomData.room_types.locked_item || type == RoomData.room_types.crystal_boss:
+								# spawn the minimum required doorways
 								new_room = _3_DOOR_ROOM_NO_UP.instantiate()
 							else:
+								# if there is a no room at the position of the no connection
 								if get_room_at_position(target_room_position + Vector2(0, -224)) == null:
+									# spawn the room that adds a new doorway
 									new_room = _4_DOOR_ROOM.instantiate()
 								else:
+									# if the room type is boss, change it to an unlimited room type
 									if type == RoomData.room_types.boss:
 										type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
+									# spawn the minimum required doorways
 									new_room = _3_DOOR_ROOM_NO_UP.instantiate()
+						# if the room has a top but not a bottom or a right connection (left is implied)
 						elif top_connection != null && bottom_connection == null && right_connection == null:
+							# if the rooms are closing or the type is locked item or a crystal boss
 							if close_rooms || type == RoomData.room_types.locked_item || type == RoomData.room_types.crystal_boss:
+								# spawn the minimum required doorways
 								new_room = _2_DOOR_ROOM_UP_LEFT.instantiate()
 							else:
+								# check if the room can have a right connection
 								var can_have_right = false
 								if get_room_at_position(target_room_position + Vector2(384, 0)) == null:
 									can_have_right = true
+								# check if the room can have a bottom connection
 								var can_have_bottom = false
 								if get_room_at_position(target_room_position + Vector2(0, 224)) == null:
 									can_have_bottom = true
-								
+								# if the room can have a right and bottom connection
 								if can_have_right && can_have_bottom:
-									# get any room
+									# get any room that adds a new doorway
 									var temp_room = rng.randi_range(0,2)
 									if temp_room == 0:
 										new_room = _4_DOOR_ROOM.instantiate()
@@ -1113,27 +1337,39 @@ func spawn_adjacent_rooms(room):
 										new_room = _3_DOOR_ROOM_NO_DOWN.instantiate()
 									elif temp_room == 2:
 										new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
+								# if the room can have a right but not a bottom connection
 								elif can_have_right && !can_have_bottom:
+									# spawn the room that adds a new doorway
 									new_room = _3_DOOR_ROOM_NO_DOWN.instantiate()
+								# if the room can have a bottom but not a right connection
 								elif !can_have_right && can_have_bottom:
+									# spawn the room that adds a new doorway
 									new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
+								# if the room cannot have either connection
 								else:
+									# if the room type is boss, change it to an unlimited room type
 									if type == RoomData.room_types.boss:
 										type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
+									# spawn the minimum required doorways
 									new_room = _2_DOOR_ROOM_UP_LEFT.instantiate()
+						# if the room has a bottom but not a top or a right connection (left is implied)
 						elif top_connection == null && bottom_connection != null && right_connection == null:
+							# if the rooms are closing or the type is locked item or a crystal boss
 							if close_rooms || type == RoomData.room_types.locked_item || type == RoomData.room_types.crystal_boss:
+								# spawn the minimum required doorways
 								new_room = _2_DOOR_DOWN_LEFT.instantiate()
 							else:
+								# check if the room can have a right connection
 								var can_have_right = false
 								if get_room_at_position(target_room_position + Vector2(384, 0)) == null:
 									can_have_right = true
+								# check if the room can have a top connection
 								var can_have_top = false
 								if get_room_at_position(target_room_position + Vector2(0, -224)) == null:
 									can_have_top = true
-								
+								# if the room can have a right and top connection
 								if can_have_right && can_have_top:
-									# get any room
+									# get any room that adds a new doorway
 									var temp_room = rng.randi_range(0,2)
 									if temp_room == 0:
 										new_room = _4_DOOR_ROOM.instantiate()
@@ -1141,27 +1377,39 @@ func spawn_adjacent_rooms(room):
 										new_room = _3_DOOR_ROOM_NO_UP.instantiate()
 									elif temp_room == 2:
 										new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
+								# if the room can have a right but not a top connection
 								elif can_have_right && !can_have_top:
+									# spawn the room that adds a new doorway
 									new_room = _3_DOOR_ROOM_NO_UP.instantiate()
+								# if the room can have a top but not a right connection
 								elif !can_have_right && can_have_top:
+									# spawn the room that adds a new doorway
 									new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
+								# if the room cannot have either connection
 								else:
+									# if the room type is boss, change it to an unlimited room type
 									if type == RoomData.room_types.boss:
 										type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
+									# spawn the minimum required doorways
 									new_room = _2_DOOR_DOWN_LEFT.instantiate()
+						# if the room has a right but not a bottom or a top connection (left is implied)
 						elif top_connection == null && bottom_connection == null && right_connection != null:
+							# if the rooms are closing or the type is locked item or a crystal boss
 							if close_rooms || type == RoomData.room_types.locked_item || type == RoomData.room_types.crystal_boss:
+								# spawn the minimum required doorways
 								new_room = _2_DOOR_LEFT_RIGHT.instantiate()
 							else:
+								# check if the room can have a top connection
 								var can_have_top = false
 								if get_room_at_position(target_room_position + Vector2(0, -224)) == null:
 									can_have_top = true
+								# check if the room can have a bottom connection
 								var can_have_bottom = false
 								if get_room_at_position(target_room_position + Vector2(0, 224)) == null:
 									can_have_bottom = true
-								
+								# if the room can have a top and bottom connection
 								if can_have_bottom && can_have_top:
-									# get any room
+									# get any room that adds a new doorway
 									var temp_room = rng.randi_range(0,2)
 									if temp_room == 0:
 										new_room = _4_DOOR_ROOM.instantiate()
@@ -1169,36 +1417,56 @@ func spawn_adjacent_rooms(room):
 										new_room = _3_DOOR_ROOM_NO_UP.instantiate()
 									elif temp_room == 2:
 										new_room = _3_DOOR_ROOM_NO_DOWN.instantiate()
+								# if the room can have a bottom but not a top connection
 								elif can_have_bottom && !can_have_top:
+									# spawn the room that adds a new doorway
 									new_room = _3_DOOR_ROOM_NO_UP.instantiate()
+								# if the room can have a top but not a bottom connection
 								elif !can_have_bottom && can_have_top:
+									# spawn the room that adds a new doorway
 									new_room = _3_DOOR_ROOM_NO_DOWN.instantiate()
+								# if the room cannot have either connection
 								else:
+									# if the room type is boss, change it to an unlimited room type
 									if type == RoomData.room_types.boss:
 										type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
+									# spawn the minimum required doorways
 									new_room = _2_DOOR_LEFT_RIGHT.instantiate()
+						# if the room does not have any connections (left is implied)
 						else:
+							# if the rooms are closing or the type is locked item or a crystal boss
 							if close_rooms || type == RoomData.room_types.locked_item || type == RoomData.room_types.crystal_boss:
+								# spawn the minimum required doorways
 								new_room = _1_DOOR_ROOM_LEFT.instantiate()
 							else:
+								# check if the room can have a right connection
 								var can_have_right = false
 								if get_room_at_position(target_room_position + Vector2(384, 0)) == null:
 									can_have_right = true
+								# check if the room can have a top connection
 								var can_have_top = false
 								if get_room_at_position(target_room_position + Vector2(0, -224)) == null:
 									can_have_top = true
+								# check if the room can have a bottom connection
 								var can_have_bottom = false
 								if get_room_at_position(target_room_position + Vector2(0, 224)) == null:
 									can_have_bottom = true
-								
+								# if the room can have all connections
 								if can_have_right && can_have_top && can_have_bottom:
+									# get any room that can connect to the right
 									var random_number = rng.randi_range(0,rooms_that_can_connect_to_right.size()-1)
+									# if the room is a single door room
 									if random_number == rooms_that_can_connect_to_right.size()-1:
+										# check if single door rooms can't spawn
 										if !can_spawn_single_door_room:
+											# choose a different room that doesn't connect to the right
 											random_number = rng.randi_range(0,rooms_that_can_connect_to_right.size()-2)
+									# spawn the room
 									var random_room = rooms_that_can_connect_to_right[random_number]
 									new_room = random_room.instantiate()
+								# if the room can have a right and a top but not a bottom connection
 								elif can_have_right && can_have_top && !can_have_bottom:
+									# get any room that adds a new doorway
 									var temp_room = rng.randi_range(0,2)
 									if temp_room == 0:
 										new_room = _3_DOOR_ROOM_NO_DOWN.instantiate()
@@ -1206,7 +1474,9 @@ func spawn_adjacent_rooms(room):
 										new_room = _2_DOOR_LEFT_RIGHT.instantiate()
 									elif temp_room == 2:
 										new_room = _2_DOOR_ROOM_UP_LEFT.instantiate()
+								# if the room can have a right and a bottom but not a top connection
 								elif can_have_right && !can_have_top && can_have_bottom:
+									# get any room that adds a new doorway
 									var temp_room = rng.randi_range(0,2)
 									if temp_room == 0:
 										new_room = _3_DOOR_ROOM_NO_UP.instantiate()
@@ -1214,7 +1484,9 @@ func spawn_adjacent_rooms(room):
 										new_room = _2_DOOR_LEFT_RIGHT.instantiate()
 									elif temp_room == 2:
 										new_room = _2_DOOR_DOWN_LEFT.instantiate()
+								# if the room can have a bottom and a top but not a top connection
 								elif !can_have_right && can_have_top && can_have_bottom:
+									# get any room that adds a new doorway
 									var temp_room = rng.randi_range(0,2)
 									if temp_room == 0:
 										new_room = _3_DOOR_ROOM_NO_RIGHT.instantiate()
@@ -1222,36 +1494,127 @@ func spawn_adjacent_rooms(room):
 										new_room = _2_DOOR_ROOM_UP_LEFT.instantiate()
 									elif temp_room == 2:
 										new_room = _2_DOOR_DOWN_LEFT.instantiate()
+								# if the room can have a right but not a bottom or top connection
 								elif can_have_right && !can_have_top && !can_have_bottom:
+									# spawn the room that adds a new doorway
 									new_room = _2_DOOR_LEFT_RIGHT.instantiate()
+								# if the room can have a bottom but not a right or top connection
 								elif !can_have_right && !can_have_top && can_have_bottom:
+									# spawn the room that adds a new doorway
 									new_room = _2_DOOR_DOWN_LEFT.instantiate()
+								# if the room can have a top but not a right or bottom connection
 								elif !can_have_right && can_have_top && !can_have_bottom:
+									# spawn the room that adds a new doorway
 									new_room = _2_DOOR_ROOM_UP_LEFT.instantiate()
 								elif !can_have_right && !can_have_top && !can_have_bottom:
+									# if the room type is boss, change it to an unlimited room type
 									if type == RoomData.room_types.boss:
 										type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
+									# spawn the minimum required doorways
 									new_room = _1_DOOR_ROOM_LEFT.instantiate()
 						
+							# if the rooms are closing, or the type is ether a locked item or a crystal boss
+							if close_rooms || type == RoomData.room_types.locked_item || type == RoomData.room_types.crystal_boss:
+								# spawn the minimum doors required for the connection
+								new_room = _1_DOOR_ROOM_RIGHT.instantiate()
+							else:
+								# check if the room can have a left connection
+								var can_have_left = false
+								if get_room_at_position(target_room_position + Vector2(-384, 0)) == null:
+									can_have_left = true
+								# check if the room can have a top connection
+								var can_have_top = false
+								if get_room_at_position(target_room_position + Vector2(0, -224)) == null:
+									can_have_top = true
+								# check if the room can have a bottom connection
+								var can_have_bottom = false
+								if get_room_at_position(target_room_position + Vector2(0, 224)) == null:
+									can_have_bottom = true
+								# if the room can gave a left, top, and bottom
+								if can_have_left && can_have_top && can_have_bottom:
+									var random_number = rng.randi_range(0,rooms_that_can_connect_to_left.size()-1)
+									if random_number == rooms_that_can_connect_to_left.size()-1:
+										if !can_spawn_single_door_room:
+											random_number = rng.randi_range(0,rooms_that_can_connect_to_left.size()-2)
+									var random_room = rooms_that_can_connect_to_left[random_number]
+									new_room = random_room.instantiate()
+								# if the room can gave a left and top, but not a bottom
+								elif can_have_left && can_have_top && !can_have_bottom:
+									# spawn any room that adds new doors
+									var temp_room = rng.randi_range(0,2)
+									if temp_room == 0:
+										new_room = _3_DOOR_ROOM_NO_DOWN.instantiate()
+									elif temp_room == 1:
+										new_room = _2_DOOR_LEFT_RIGHT.instantiate()
+									elif temp_room == 2:
+										new_room = _2_DOOR_ROOM_UP_RIGHT.instantiate()
+								# if the room can gave a left and bottom, but not a top
+								elif can_have_left && !can_have_top && can_have_bottom:
+									# spawn any room that adds new doors
+									var temp_room = rng.randi_range(0,2)
+									if temp_room == 0:
+										new_room = _3_DOOR_ROOM_NO_UP.instantiate()
+									elif temp_room == 1:
+										new_room = _2_DOOR_LEFT_RIGHT.instantiate()
+									elif temp_room == 2:
+										new_room = _2_DOOR_DOWN_RIGHT.instantiate()
+								# if the room can gave a top and bottom, but not a left
+								elif !can_have_left && can_have_top && can_have_bottom:
+									# spawn any room that adds new doors
+									var temp_room = rng.randi_range(0,2)
+									if temp_room == 0:
+										new_room = _3_DOOR_ROOM_NO_LEFT.instantiate()
+									elif temp_room == 1:
+										new_room = _2_DOOR_ROOM_UP_RIGHT.instantiate()
+									elif temp_room == 2:
+										new_room = _2_DOOR_DOWN_RIGHT.instantiate()
+								# if the room can gave a left, but not a top or a bottom
+								elif can_have_left && !can_have_top && !can_have_bottom:
+									# spawn the room that adds a new doorway
+									new_room = _2_DOOR_LEFT_RIGHT.instantiate()
+								# if the room can gave a bottom, but not a top or a left
+								elif !can_have_left && !can_have_top && can_have_bottom:
+									# spawn the room that adds a new doorway
+									new_room = _2_DOOR_DOWN_RIGHT.instantiate()
+								# if the room can gave a top, but not a left or a bottom
+								elif !can_have_left && can_have_top && !can_have_bottom:
+									# spawn the room that adds a new doorway
+									new_room = _2_DOOR_ROOM_UP_RIGHT.instantiate()
+								# if the new room cannot have any new doors
+								elif !can_have_left && !can_have_top && !can_have_bottom:
+									# the room type cannot be a boss room, change it to an unlimited room
+									if type == RoomData.room_types.boss:
+										type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
+									# spawn the minimum doors required for the connections
+									new_room = _1_DOOR_ROOM_RIGHT.instantiate()
+						# spawns the new room
 						get_tree().current_scene.add_child(new_room)
 						new_room.global_position = target_room_position
+						# sets the top connection for the new room
 						new_room.set_connected_room_top(top_connection)
 						if top_connection != null:
 							top_connection.set_connected_room_bottom(new_room)
+						# sets the bottom connection for the new room
 						new_room.set_connected_room_bottom(bottom_connection)
 						if bottom_connection != null:
 							bottom_connection.set_connected_room_top(new_room)
+						# sets the left connection for the new room
 						new_room.set_connected_room_left(room)
+						# sets the right connection for the new room
 						new_room.set_connected_room_right(right_connection)
 						if right_connection != null:
 							right_connection.set_connected_room_left(new_room)
+						# adds the new room to the list of rooms
 						rooms += [new_room]
+						# sets the current room's right connection
 						room.set_connected_room_right(new_room)
-						
+						# if the room type cannot be a boss room and the ending room cannot spawn
 						if type == RoomData.room_types.boss &&  check_if_ending_room_can_spawn(new_room) == false:
+							# change it to an unlimited room
 							type = unlimited_room_types[rng.randi_range(0,unlimited_room_types.size()-1)]
-						
+						# sets the type of the room
 						new_room.set_room_type(type)
+						# refreshed the floor text of the room (used for testing)
 						new_room.refresh_type_text()
 			# if a new room spawned
 			if new_room != null:
