@@ -39,7 +39,7 @@ animations = [{
 radius = 21.0238
 
 [node name="bomb_explosion" type="Area2D"]
-y_sort_enabled = true
+z_index = 1
 collision_layer = 4
 collision_mask = 4
 script = ExtResource("1_02mvt")

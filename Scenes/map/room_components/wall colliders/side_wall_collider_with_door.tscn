@@ -1,10 +1,14 @@
-[gd_scene load_steps=2 format=3 uid="uid://bcifmje2xjvvb"]
+[gd_scene load_steps=3 format=3 uid="uid://bcifmje2xjvvb"]
+
+[ext_resource type="Script" path="res://Scripts/map/wall_collider.gd" id="1_npb5h"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qb187"]
 size = Vector2(30.5, 66)
 
 [node name="Left_wall_collider_with_door" type="StaticBody2D"]
 position = Vector2(-176, 0)
+script = ExtResource("1_npb5h")
+type_of_wall = 2
 
 [node name="top" type="CollisionShape2D" parent="."]
 position = Vector2(-0.25, -52)

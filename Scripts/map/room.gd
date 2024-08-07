@@ -59,7 +59,7 @@ func _on_player_detector_body_entered(body):
 		# emit the signal room_entered
 		Events.room_entered.emit(self)
 		RoomData.current_room = self
-		
+		Events.current_room = self
 		# if the room type is a locked item and is not unlocked, unlock the adjacent room's doors
 		if room_type == RoomData.room_types.locked_item && unlocked == false:
 			unlock_adjacent_rooms()

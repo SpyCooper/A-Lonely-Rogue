@@ -33,6 +33,7 @@ var current_direction : look_direction
 var can_attack = false
 var can_move = true
 var attacking = false
+var next_attack_use_object_position = false
 var current_state = state.grounded
 
 # on start
@@ -75,6 +76,8 @@ func _physics_process(_delta):
 					previous_speed = jump_direction.normalized() * get_speed()
 					# if there was a collision
 					if collision != null:
+						if collision.get_collider() is wall_collider:
+							next_attack_use_object_position = true
 						# land
 						land()
 				else:
@@ -181,6 +184,9 @@ func attack():
 	if !dying:
 		# gets the player's position
 		player_position = player.get_player_position()
+		if next_attack_use_object_position:
+			player_position = Events.current_room.global_position
+			next_attack_use_object_position = false
 		jump_direction = (player_position - animated_sprite.global_position).normalized()
 		current_direction = get_left_right_look_direction(jump_direction)
 		# plays the correct attack animation

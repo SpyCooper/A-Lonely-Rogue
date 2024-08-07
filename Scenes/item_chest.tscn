@@ -47,17 +47,19 @@ collision_mask = 6
 script = ExtResource("1_5q0v8")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(0, -8)
+position = Vector2(0, -13)
 sprite_frames = SubResource("SpriteFrames_tm31y")
 frame_progress = 0.840089
 
 [node name="hitbox" type="CollisionShape2D" parent="."]
+position = Vector2(0, -5)
 shape = SubResource("CircleShape2D_7tw3e")
 
 [node name="Timer" type="Timer" parent="."]
 one_shot = true
 
 [node name="open_sound" type="AudioStreamPlayer2D" parent="."]
+position = Vector2(0, -5)
 stream = ExtResource("3_3eu4e")
 bus = &"Sound Effect"
 

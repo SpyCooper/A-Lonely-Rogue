@@ -35,6 +35,14 @@ enum door_type
 	one_doors_right,
 }
 
+enum wall_direction
+{
+	top,
+	bottom,
+	left,
+	right,
+}
+
 # current room
 var current_room = null
 
