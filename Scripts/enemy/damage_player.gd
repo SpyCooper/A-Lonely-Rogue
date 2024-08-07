@@ -18,7 +18,7 @@ func _on_body_entered(body):
 	if body is Player && !body.get_is_dying():
 		if damage_timer > 0:
 			# damage player (it is not a morphed_shade attack, attack_identifer doesn't matter so 0)
-			body.player_take_damage(false, 0)
+			deal_damage(body)
 			damage_timer = damage_timer_max
 		# starts the timer for the player staying in the damage field
 		player_in_damage = true
@@ -31,7 +31,7 @@ func _process(delta):
 	if damage_timer <= 0:
 		if player_in_damage && !player.get_is_dying():
 			# damage player (it is not a morphed_shade attack, attack_identifer doesn't matter so 0)
-			player.player_take_damage(false, 0)
+			deal_damage(player)
 			damage_timer = damage_timer_max
 	elif damage_timer > 0:
 		damage_timer -= delta
@@ -55,5 +55,10 @@ func _on_timer_timeout():
 	# damages the player if they are still in the field and are not dead and restarts the timer
 	if player_in_damage && !player.get_is_dying():
 		# damage player (it is not a morphed_shade attack, attack_identifer doesn't matter so 0)
-		player.player_take_damage(false, 0)
+		deal_damage(player)
 		timer.start()
+
+# deals damage to the player
+func deal_damage(body):
+	if !get_parent().spawning:
+		player.player_take_damage(false, 0)
