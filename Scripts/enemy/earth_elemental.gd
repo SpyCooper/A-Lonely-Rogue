@@ -75,7 +75,6 @@ func _physics_process(_delta):
 			current_direction = get_look_direction(target_position)
 			# if a rock can be thrown in mid range
 			if can_throw && animated_sprite.global_position.distance_to(player_position) > 70:
-				print("can throw")
 				# reset the throw
 				can_throw = false
 				throw_timer = rng.randf_range(throw_timer_max-throw_timer_range, throw_timer_max+throw_timer_range)
@@ -174,7 +173,6 @@ func _on_spawn_timer_timeout():
 func throw_rock():
 	# checks to make sure the character isn't dying
 	if !dying:
-		print("throwing rock")
 		# gets the player's position and looks toward it
 		player_position = player.get_player_position()
 		target_position = (player_position - animated_sprite.global_position).normalized()

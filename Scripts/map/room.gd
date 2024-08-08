@@ -536,12 +536,16 @@ func populate_room():
 			trap_door.position = Vector2(135, 0)- Vector2(0, 30)
 		# adds the trapdoor to the items in the room
 		items += [trap_door]
+		# defines the iterations for the items
+		var iteration = 0
 		# gets a random amount of items
 		var amount_of_items = rng.randi_range(1, 2)
 		for i in range(amount_of_items):
 			var instance
+			# increment the iterations
+			iteration += 1
 			# the first item spawned is always a health item
-			if i == 1:
+			if iteration == 1:
 				instance = RoomData.RANDOM_HEALTH_SPAWNER.instantiate()
 			else:
 				instance = RoomData.RANDOM_ITEM_SPAWNER.instantiate()

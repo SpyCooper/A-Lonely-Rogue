@@ -7,7 +7,7 @@ extends Area2D
 var life_time_timer_started = false
 var spawned_laser = true
 var move_direction
-var speed = 200
+var speed = 235
 
 # this is called when the player is clicks
 func spawned(target_position):

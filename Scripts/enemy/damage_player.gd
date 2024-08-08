@@ -37,7 +37,8 @@ func _process(delta):
 		damage_timer -= delta
 	
 	if player_in_damage && wait_timer <= 0:
-		get_parent().player_in_damage_area = true
+		if get_parent() is Enemy:
+			get_parent().player_in_damage_area = true
 	else:
 		wait_timer -= delta
 
@@ -60,5 +61,8 @@ func _on_timer_timeout():
 
 # deals damage to the player
 func deal_damage(body):
-	if !get_parent().spawning:
+	if get_parent() is Enemy:
+		if !get_parent().spawning:
+			player.player_take_damage(false, 0)
+	else:
 		player.player_take_damage(false, 0)

@@ -226,11 +226,11 @@ func _physics_process(_delta):
 				# checks to see if the player can fire
 				if time_to_fire <= 0:
 					# checks to see which direction is the click was 
-					var click_position = get_global_mouse_position() - position
+					var click_position = get_global_mouse_position() - get_player_position()
 					var click_position_normalized = click_position.normalized()
 					var blade_instance = knife_scene.instantiate()
 					# spawns a knife at that position
-					blade_instance.position = position + click_position_normalized*3
+					blade_instance.position = get_player_position() + click_position_normalized*3
 					blade_instance.spawned(click_position_normalized, current_type, self, current_attack_identifier, knife_speed_bonus)
 					get_tree().current_scene.add_child(blade_instance)
 					blade_instance.global_position = get_player_position()
@@ -969,6 +969,7 @@ func use_usable_item():
 			# spawn the poison gas
 			var poison_gas = PLAYER_FRIENDLY_POISON_AREA.instantiate()
 			add_child(poison_gas)
+			poison_gas.global_position = get_player_position()
 			# set the usable item to temp (nothing)
 			current_usable_item = ItemType.type.temp
 			remove_item_from_items_collected(ItemType.type.poison_gas)

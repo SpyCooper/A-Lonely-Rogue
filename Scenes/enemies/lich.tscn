@@ -1480,7 +1480,7 @@ wait_time = 0.625
 one_shot = true
 
 [node name="delay_player_pos_timer" type="Timer" parent="."]
-wait_time = 0.4
+wait_time = 0.35
 one_shot = true
 
 [node name="summon_one_lighning_timer" type="Timer" parent="."]

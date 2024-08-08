@@ -283,19 +283,17 @@ func _on_spawn_freeze_timer_timeout():
 			# if there is a collision at the location, despawn the slime
 			if collision != null:
 				green_slime.despawn()
-		
-		# hide all the spawning sprites
-		animated_bottom.hide()
-		animated_left.hide()
-		animated_right.hide()
-		animated_top.hide()
-		
 		# reset the slime_to_be_spawned
 		slime_to_be_spawned = []
 		# stop the spawn_freeze_timer
 		spawn_freeze_timer.stop()
 		# start the wait after spawn timer
 		wait_after_spawn_timer.start()
+	# hide all the spawning sprites
+	animated_bottom.hide()
+	animated_left.hide()
+	animated_right.hide()
+	animated_top.hide()
 
 # when the wait after spawn timer ends, the gel_cube can move again
 func _on_wait_after_spawn_timer_timeout():
