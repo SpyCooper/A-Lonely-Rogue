@@ -15,10 +15,11 @@ extends Node2D
 @export var room_door_type = RoomData.door_type.four_doors
 
 # references to the adjacent rooms
-var top_room = null
-var bottom_room = null
-var left_room = null
-var right_room = null
+# these need to be exports so that floor 5 works properly because it is always the same
+@export var top_room : Node2D = null
+@export var bottom_room : Node2D = null
+@export var left_room : Node2D = null
+@export var right_room : Node2D = null
 @onready var label = $Label
 
 # variables for adjacent rooms
@@ -64,8 +65,9 @@ func _on_player_detector_body_entered(body):
 		# if the room type is a locked item and is not unlocked, unlock the adjacent room's doors
 		if room_type == RoomData.room_types.locked_item && unlocked == false:
 			unlock_adjacent_rooms()
-		
-		if room_type == RoomData.room_types.boss:
+		# if the room type is boss or the floor is floor 5 (because floor 5 is preset)
+		if room_type == RoomData.room_types.boss || get_tree().current_scene.name == "Floor5":
+			# do room logic on all adjacent rooms
 			if top_room != null:
 				Events.map.map_logic(top_room)
 			if bottom_room != null:

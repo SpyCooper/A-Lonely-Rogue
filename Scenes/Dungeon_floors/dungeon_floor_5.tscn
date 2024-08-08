@@ -154,22 +154,34 @@ layer_0/tile_data = PackedInt32Array(-4456529, 65536, 2, -4390993, 65536, 2, -43
 [node name="Player" parent="." instance=ExtResource("9_kpeox")]
 unique_name_in_owner = true
 
-[node name="1_door_up" parent="." instance=ExtResource("15_21r3c")]
+[node name="1_door_up" parent="." node_paths=PackedStringArray("top_room") instance=ExtResource("15_21r3c")]
+top_room = NodePath("../2_door_up_down")
 
-[node name="2_door_up_down" parent="." instance=ExtResource("16_7t14g")]
+[node name="2_door_up_down" parent="." node_paths=PackedStringArray("top_room", "bottom_room") instance=ExtResource("16_7t14g")]
 position = Vector2(0, -224)
+top_room = NodePath("../2_door_up_down2")
+bottom_room = NodePath("../1_door_up")
 
-[node name="2_door_up_down2" parent="." instance=ExtResource("16_7t14g")]
+[node name="2_door_up_down2" parent="." node_paths=PackedStringArray("top_room", "bottom_room") instance=ExtResource("16_7t14g")]
 position = Vector2(0, -448)
+top_room = NodePath("../2_door_up_down3")
+bottom_room = NodePath("../2_door_up_down")
 
-[node name="2_door_up_down3" parent="." instance=ExtResource("16_7t14g")]
+[node name="2_door_up_down3" parent="." node_paths=PackedStringArray("top_room", "bottom_room") instance=ExtResource("16_7t14g")]
 position = Vector2(0, -672)
+top_room = NodePath("../3_door_no_right")
+bottom_room = NodePath("../2_door_up_down2")
 
-[node name="2_door_up_down5" parent="." instance=ExtResource("16_7t14g")]
-position = Vector2(0, -1120)
-
-[node name="3_door_no_right" parent="." instance=ExtResource("22_ioxex")]
+[node name="3_door_no_right" parent="." node_paths=PackedStringArray("top_room", "bottom_room", "left_room") instance=ExtResource("22_ioxex")]
 position = Vector2(0, -896)
+top_room = NodePath("../2_door_up_down5")
+bottom_room = NodePath("../2_door_up_down3")
+left_room = NodePath("../1_door_right")
+
+[node name="2_door_up_down5" parent="." node_paths=PackedStringArray("top_room", "bottom_room") instance=ExtResource("16_7t14g")]
+position = Vector2(0, -1120)
+top_room = NodePath("../2_door_up_down6")
+bottom_room = NodePath("../3_door_no_right")
 
 [node name="1_door_right" parent="." instance=ExtResource("23_bhy51")]
 position = Vector2(-384, -896)
@@ -178,12 +190,15 @@ room_type = 9
 [node name="forge" parent="1_door_right" instance=ExtResource("24_4md02")]
 position = Vector2(0, 30)
 
-[node name="2_door_up_down6" parent="." instance=ExtResource("16_7t14g")]
+[node name="2_door_up_down6" parent="." node_paths=PackedStringArray("top_room", "bottom_room") instance=ExtResource("16_7t14g")]
 position = Vector2(0, -1344)
+top_room = NodePath("../1_door_down")
+bottom_room = NodePath("../2_door_up_down5")
 room_type = 7
 
-[node name="1_door_down" parent="." instance=ExtResource("17_eo8ie")]
+[node name="1_door_down" parent="." node_paths=PackedStringArray("bottom_room") instance=ExtResource("17_eo8ie")]
 position = Vector2(0, -1568)
+bottom_room = NodePath("../2_door_up_down6")
 
 [node name="BG music" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("10_arma7")

@@ -481,7 +481,7 @@ position = Vector2(-51, 48)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_bfot1")
 animation = &"ending"
-autoplay = "forge"
+autoplay = "ending"
 
 [node name="Reset_map_button" type="Button" parent="."]
 layout_mode = 0
