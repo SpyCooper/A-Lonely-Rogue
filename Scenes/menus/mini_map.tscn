@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://dytp7nrk2cvpl"]
+[gd_scene load_steps=20 format=3 uid="uid://dytp7nrk2cvpl"]
 
 [ext_resource type="Script" path="res://Scripts/map/mini_map.gd" id="1_nkclw"]
 [ext_resource type="Theme" uid="uid://pv4evjjac8wt" path="res://Assets/general_theme.tres" id="2_hnqe1"]
@@ -205,6 +205,124 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_7i4d7"]
+atlas = ExtResource("3_4m8ie")
+region = Rect2(48, 48, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mcrjo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_136nt")
+}],
+"loop": false,
+"name": &"boss",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hqh1c")
+}],
+"loop": false,
+"name": &"crystal_boss",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7i4d7")
+}],
+"loop": false,
+"name": &"forge",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5dydh")
+}],
+"loop": false,
+"name": &"locked",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l4guk")
+}],
+"loop": false,
+"name": &"none",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s7jdb")
+}],
+"loop": false,
+"name": &"player",
+"speed": 5.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4nuw7"]
+atlas = ExtResource("3_4m8ie")
+region = Rect2(32, 48, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bfot1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_136nt")
+}],
+"loop": false,
+"name": &"boss",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hqh1c")
+}],
+"loop": false,
+"name": &"crystal_boss",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_4nuw7")
+}],
+"loop": false,
+"name": &"ending",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_7i4d7")
+}],
+"loop": false,
+"name": &"forge",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5dydh")
+}],
+"loop": false,
+"name": &"locked",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_l4guk")
+}],
+"loop": false,
+"name": &"none",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s7jdb")
+}],
+"loop": false,
+"name": &"player",
+"speed": 5.0
+}]
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vv6r5"]
 texture = ExtResource("4_tadxg")
 texture_margin_left = 8.0
@@ -266,10 +384,10 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -66.5
-offset_top = -71.5
-offset_right = 66.5
-offset_bottom = 71.5
+offset_left = -66.0
+offset_top = -125.0
+offset_right = 67.0
+offset_bottom = 74.0
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(1, 0.960005)
@@ -277,9 +395,9 @@ scale = Vector2(1, 0.960005)
 [node name="Title" type="Label" parent="Key"]
 layout_mode = 2
 offset_left = -63.0
-offset_top = -67.0
+offset_top = -120.0
 offset_right = 61.0
-offset_bottom = -52.0
+offset_bottom = -105.0
 theme = ExtResource("2_hnqe1")
 text = "Key"
 horizontal_alignment = 1
@@ -287,7 +405,7 @@ horizontal_alignment = 1
 [node name="VBoxContainer" type="VBoxContainer" parent="Key"]
 layout_mode = 0
 offset_left = -31.0
-offset_top = -42.0
+offset_top = -98.0
 offset_right = 56.0
 offset_bottom = 57.0
 theme_override_constants/separation = 13
@@ -313,33 +431,57 @@ layout_mode = 2
 theme = ExtResource("2_hnqe1")
 text = "Locked"
 
+[node name="Forge" type="Label" parent="Key/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_hnqe1")
+text = "Forge"
+
+[node name="Floor Exit" type="Label" parent="Key/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_hnqe1")
+text = "Floor Exit"
+
 [node name="Player_icon" type="AnimatedSprite2D" parent="Key"]
-position = Vector2(-51, -36)
+position = Vector2(-51, -92)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_1o51t")
 animation = &"player"
 autoplay = "player"
 
 [node name="Boss_icon" type="AnimatedSprite2D" parent="Key"]
-position = Vector2(-51, -8)
+position = Vector2(-51, -64)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_cwdxh")
 animation = &"boss"
 autoplay = "boss"
 
 [node name="Crystal_icon" type="AnimatedSprite2D" parent="Key"]
-position = Vector2(-51, 20)
+position = Vector2(-51, -36)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_5pl7h")
 animation = &"crystal_boss"
 autoplay = "crystal_boss"
 
 [node name="Locked_icon" type="AnimatedSprite2D" parent="Key"]
-position = Vector2(-51, 48)
+position = Vector2(-51, -8)
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_y3hbc")
 animation = &"locked"
 autoplay = "locked"
+
+[node name="Forge_icon" type="AnimatedSprite2D" parent="Key"]
+position = Vector2(-51, 20)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_mcrjo")
+animation = &"forge"
+autoplay = "forge"
+
+[node name="ending_icon" type="AnimatedSprite2D" parent="Key"]
+position = Vector2(-51, 48)
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_bfot1")
+animation = &"ending"
+autoplay = "forge"
 
 [node name="Reset_map_button" type="Button" parent="."]
 layout_mode = 0
@@ -351,6 +493,7 @@ theme = ExtResource("2_hnqe1")
 text = "Reset Map"
 
 [node name="Close_button" type="Button" parent="."]
+layout_mode = 0
 offset_left = 791.0
 offset_top = -13.5
 offset_right = 825.0

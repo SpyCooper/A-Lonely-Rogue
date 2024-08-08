@@ -288,6 +288,8 @@ func spawn_starting_room():
 	starting_room.refresh_type_text()
 	# populates the starting room
 	starting_room.populate_room()
+	# do the map logic for the starting room
+	Events.map.map_logic(starting_room)
 
 # spawns rooms adjacent to the current room
 func spawn_adjacent_rooms(room):
@@ -1627,6 +1629,8 @@ func spawn_adjacent_rooms(room):
 					spawn_ending_room(new_room)
 				# populate the new room
 				new_room.populate_room()
+				# do the map logic for the new room
+				Events.map.map_logic(new_room)
 
 # spawns the ending room based on the boss room location
 func spawn_ending_room(boss_room):
@@ -1647,12 +1651,6 @@ func spawn_ending_room(boss_room):
 			# set the connection for the boss room and the ending room
 			new_room.set_connected_room_bottom(boss_room)
 			boss_room.set_connected_room_top(new_room)
-			# adds the new room to the list rooms
-			rooms += [new_room]
-			# sets the room type to ending
-			new_room.set_room_type(RoomData.room_types.ending)
-			# refreshes the floor text of the room (used for testing)
-			new_room.refresh_type_text()
 	# if the ending room direction is bottom
 	elif ending_room_direction == direction.bottom:
 		# set the ending room location
@@ -1666,12 +1664,6 @@ func spawn_ending_room(boss_room):
 			# set the connection for the boss room and the ending room
 			new_room.set_connected_room_top(boss_room)
 			boss_room.set_connected_room_bottom(new_room)
-			# adds the new room to the list rooms
-			rooms += [new_room]
-			# sets the room type to ending
-			new_room.set_room_type(RoomData.room_types.ending)
-			# refreshes the floor text of the room (used for testing)
-			new_room.refresh_type_text()
 	# if the ending room direction is left
 	elif ending_room_direction == direction.left:
 		# set the ending room location
@@ -1685,12 +1677,6 @@ func spawn_ending_room(boss_room):
 			# set the connection for the boss room and the ending room
 			new_room.set_connected_room_right(boss_room)
 			boss_room.set_connected_room_left(new_room)
-			# adds the new room to the list rooms
-			rooms += [new_room]
-			# sets the room type to ending
-			new_room.set_room_type(RoomData.room_types.ending)
-			# refreshes the floor text of the room (used for testing)
-			new_room.refresh_type_text()
 	# if the ending room direction is right
 	elif ending_room_direction == direction.right:
 		# set the ending room location
@@ -1704,14 +1690,14 @@ func spawn_ending_room(boss_room):
 			# set the connection for the boss room and the ending room
 			new_room.set_connected_room_left(boss_room)
 			boss_room.set_connected_room_right(new_room)
-			# adds the new room to the list rooms
-			rooms += [new_room]
-			# sets the room type to ending
-			new_room.set_room_type(RoomData.room_types.ending)
-			# refreshes the floor text of the room (used for testing)
-			new_room.refresh_type_text()
 	# if a new room was spawned
 	if new_room != null:
+		# adds the new room to the list rooms
+		rooms += [new_room]
+		# sets the room type to ending
+		new_room.set_room_type(RoomData.room_types.ending)
+		# refreshes the floor text of the room (used for testing)
+		new_room.refresh_type_text()
 		# mark the ending room as spawned
 		ending_room_spawned = true
 		# populate the ending room

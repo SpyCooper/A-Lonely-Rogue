@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://c38qw7rct2yvw"]
+[gd_scene load_steps=28 format=3 uid="uid://c38qw7rct2yvw"]
 
 [ext_resource type="Texture2D" uid="uid://7iuf6dj4apqr" path="res://Assets/Sprites/map/map_icons.png" id="1_m5wde"]
 [ext_resource type="Script" path="res://Scripts/map/mini_map_room_icon.gd" id="2_coktr"]
@@ -62,6 +62,10 @@ region = Rect2(32, 0, 32, 32)
 [sub_resource type="AtlasTexture" id="AtlasTexture_3bj61"]
 atlas = ExtResource("1_m5wde")
 region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fe0vk"]
+atlas = ExtResource("1_m5wde")
+region = Rect2(64, 32, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_jjhbc"]
 animations = [{
@@ -184,6 +188,14 @@ animations = [{
 "loop": false,
 "name": &"4_door",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fe0vk")
+}],
+"loop": false,
+"name": &"undiscovered",
+"speed": 5.0
 }]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_136nt"]
@@ -209,6 +221,10 @@ region = Rect2(0, 48, 16, 16)
 [sub_resource type="AtlasTexture" id="AtlasTexture_s7jdb"]
 atlas = ExtResource("1_m5wde")
 region = Rect2(48, 32, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i7wqu"]
+atlas = ExtResource("1_m5wde")
+region = Rect2(32, 48, 16, 16)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_jah3w"]
 animations = [{
@@ -259,14 +275,23 @@ animations = [{
 "loop": false,
 "name": &"player",
 "speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i7wqu")
+}],
+"loop": false,
+"name": &"trapdoor",
+"speed": 5.0
 }]
 
 [node name="Map_room_icon" type="AnimatedSprite2D"]
 sprite_frames = SubResource("SpriteFrames_jjhbc")
-animation = &"1_door_up"
+animation = &"undiscovered"
+autoplay = "undiscovered"
 script = ExtResource("2_coktr")
 
 [node name="in_room_icon" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_jah3w")
-animation = &"forge"
+animation = &"trapdoor"
 autoplay = "player"

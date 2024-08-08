@@ -24,6 +24,7 @@ var right_room = null
 # variables for adjacent rooms
 var unlocked = false
 var room_boss_cleared = false
+var visited = false
 
 # defines a random number generator
 var rng = RandomNumberGenerator.new()
@@ -64,6 +65,23 @@ func _on_player_detector_body_entered(body):
 		if room_type == RoomData.room_types.locked_item && unlocked == false:
 			unlock_adjacent_rooms()
 		
+		if room_type == RoomData.room_types.boss:
+			if top_room != null:
+				Events.map.map_logic(top_room)
+			if bottom_room != null:
+				Events.map.map_logic(bottom_room)
+			if right_room != null:
+				Events.map.map_logic(right_room)
+			if left_room != null:
+				Events.map.map_logic(left_room)
+		# if the room has not been visited
+		if !visited:
+			# set the room as visited
+			visited = true
+			# reset the map logic for the room
+			Events.map.map_logic(self)
+		# tell the map that the player entered this room
+		Events.map.player_entered_room(self)
 		# if there are no enemies in the room
 		if enemies_spawned.size() == 0:
 			# disable the doors
@@ -796,3 +814,7 @@ func get_random_position(offset : int):
 		pos_or_neg = -1
 	vec_y = pos_or_neg * vec_y
 	return Vector2(vec_x, vec_y)
+
+# returns the visited status
+func get_visited():
+	return visited

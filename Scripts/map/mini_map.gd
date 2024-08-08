@@ -14,11 +14,8 @@ var rooms = []
 func _ready():
 	# hide the map
 	hide()
-	# when the player enters a room
-	Events.room_entered.connect(func(room):
-		# do logic on the map
-		map_logic(room)
-	)
+	# sets the map to itself
+	Events.map = self
 
 # every frame
 func _process(_delta):
@@ -68,21 +65,19 @@ func map_logic(room):
 			# the room has spawned the icon that matches is the temp room
 			has_spawned = true
 			icon_that_matches = temp_room
-		# if the room position doesn't matches the relative position of the current room
-		else:
-			# tell the room the player left it
-			temp_room.player_left_room()
+		
 	# if the room has not spawned
 	if !has_spawned:
 		# spawn the room with the relavent data
 		var instance = MAP_ROOM_ICON.instantiate()
 		icons.add_child(instance)
 		instance.position = relative_position
-		instance.set_icons(room.get_door_type(), room.get_room_type())
-		instance.player_entered_room()
+		instance.set_icons(room.get_door_type(), room.get_room_type(), room.get_visited())
 		rooms += [instance]
 	# if the room has spawned
 	else:
+		# changes the icon that matches
+		icon_that_matches.set_icons(room.get_door_type(), room.get_room_type(), room.get_visited())
 		# tell the room that player is in it
 		icon_that_matches.player_entered_room()
 
@@ -106,3 +101,18 @@ func _on_mouse_exited():
 # when the close button is pressed, toggle the map
 func _on_close_button_pressed():
 	open_or_close()
+
+# when the player enters a room
+func player_entered_room(room):
+	if room != null:
+		# find the relative position of the room
+		var relative_position = Vector2(room.global_position.x/384*32, room.global_position.y/224*32)
+		# go through every room
+		for temp_room in rooms:
+		# if the room position matches the relative position of the current room
+			if temp_room.position == relative_position:
+				# sets the room as the player is in there
+				temp_room.player_entered_room()
+			else:
+				# sets the room as the player is not in the room
+				temp_room.player_left_room()
