@@ -436,10 +436,10 @@ func populate_room():
 				matches_position = false
 				spawn_vector = get_random_position(55)
 				for mob in spawned_mobs:
-					if mob.global_position.distance_to(spawn_vector + global_position) <= 40:
+					if mob.global_position.distance_to(spawn_vector + global_position) <= 45:
 						matches_position = true
 				for obst in obstacles:
-					if obst.global_position.distance_to(spawn_vector + global_position) <= 40:
+					if obst.global_position.distance_to(spawn_vector + global_position) <= 45:
 						matches_position = true
 				iterations += 1
 			# if the iterations aren't maxed out, spawn the mob at the position
@@ -537,11 +537,11 @@ func populate_room():
 		# adds the trapdoor to the items in the room
 		items += [trap_door]
 		# gets a random amount of items
-		var amount_of_items = rng.randi_range(0, 1)
+		var amount_of_items = rng.randi_range(1, 2)
 		for i in range(amount_of_items):
 			var instance
 			# the first item spawned is always a health item
-			if i == 0:
+			if i == 1:
 				instance = RoomData.RANDOM_HEALTH_SPAWNER.instantiate()
 			else:
 				instance = RoomData.RANDOM_ITEM_SPAWNER.instantiate()
@@ -553,7 +553,7 @@ func populate_room():
 				matches_position = false
 				spawn_vector = get_random_position(50)
 				for item in items:
-					if spawn_vector.distance_to(item.position) < 20:
+					if spawn_vector.distance_to(item.position) < 30:
 						matches_position = true
 			# something spawened, change the instance position
 			if instance != null:
