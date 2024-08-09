@@ -10,7 +10,7 @@
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_yuh82"]
 radius = 8.0
-height = 28.0
+height = 26.0
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_6k7h3"]
 resource_local_to_scene = true
@@ -232,7 +232,7 @@ animations = [{
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_cagpp"]
 radius = 8.0
-height = 22.0
+height = 20.0
 
 [sub_resource type="Animation" id="Animation_ly7xv"]
 length = 0.001

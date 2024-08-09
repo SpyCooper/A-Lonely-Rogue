@@ -47,7 +47,7 @@ func _physics_process(_delta):
 					# throw a knife at an enemy
 					var blade_instance = TINY_ROGUE_KNIFE.instantiate()
 					blade_instance.position = self.global_position
-					if room_ref.get_enemies_in_room().size > 0
+					if room_ref.get_enemies_in_room().size > 0:
 						var target = room_ref.get_enemies_in_room()[0]
 						for enemy in room_ref.get_enemies_in_room():
 							if enemy != null:

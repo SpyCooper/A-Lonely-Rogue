@@ -69,11 +69,11 @@ func _physics_process(_delta):
 			elif current_state == state.attacking:
 				# if the distance to the attack position is greater than 3
 				if animated_sprite.global_position.distance_to(player_position) > 3:
-					## has to use get_speed() to move based on dusted effect
+					## uses speed to move so dusted does not affect the mimic's attack speed
 					# check for a collision
-					var collision = move_and_collide(jump_direction.normalized() * get_speed())
+					var collision = move_and_collide(jump_direction.normalized() * speed)
 					# set the previous speed
-					previous_speed = jump_direction.normalized() * get_speed()
+					previous_speed = jump_direction.normalized() * speed
 					# if there was a collision
 					if collision != null:
 						if collision.get_collider() is wall_collider:

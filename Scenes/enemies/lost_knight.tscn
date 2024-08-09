@@ -1255,11 +1255,10 @@ shape = SubResource("CapsuleShape2D_btxch")
 disabled = true
 
 [node name="Attack_timer" type="Timer" parent="."]
-wait_time = 4.0
+wait_time = 3.0
 one_shot = true
 
 [node name="short_attack_timer" type="Timer" parent="."]
-wait_time = 2.0
 one_shot = true
 
 [node name="Death_timer" type="Timer" parent="."]

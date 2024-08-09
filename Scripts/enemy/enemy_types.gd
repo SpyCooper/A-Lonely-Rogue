@@ -1,7 +1,5 @@
 extends Node
 
-## possible enemy ideas: flying skulls, gnome wizard, dwarf warrior, hydra alternative final boss, additional demons
-
 # defines the types of enemies
 # mainly used for the catalog
 enum enemy

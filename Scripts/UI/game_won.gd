@@ -67,7 +67,7 @@ func load_stats():
 	# sets the enemies killed
 	enemies_killed.text = "Enemies Killed: " + str(PlayerData.enemies_killed)
 	# sets the damage dealt
-	damage_dealt.text = "Damage Dealth: " + str(PlayerData.damage_dealt)
+	damage_dealt.text = "Damage Dealt: " + str(PlayerData.damage_dealt)
 	
 	# sets the items used
 	# if no items were used, show the no items used text

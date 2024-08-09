@@ -1491,7 +1491,7 @@ one_shot = true
 one_shot = true
 
 [node name="time_before_heal_timer" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 4.5
 one_shot = true
 
 [node name="heal_animation_timer" type="Timer" parent="."]
