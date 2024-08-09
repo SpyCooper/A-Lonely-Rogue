@@ -54,10 +54,15 @@ func _ready():
 func refresh_type_text():
 	label.text = "Type: " + str(room_type)
 
+# on every frame
 func _process(delta):
+	# if the player is in the room
 	if Events.current_room == self:
+		# if there are enemies in the room
 		if enemies_spawned.size() > 0:
+			# make sure every enemy is in the area of the room
 			for enemy in enemies_spawned:
+				# if the enemy leaves the room, despawn them (should fix a bug where mimics are thrown out of the room for some reason)
 				if enemy.global_position.x < global_position.x-(spawn_x+10) || enemy.global_position.x > global_position.x+(spawn_x+10) || enemy.global_position.y < global_position.y-(spawn_y+10) || enemy.global_position.y > global_position.y+(spawn_y+10):
 					enemy.despawn()
 					enemies_spawned.remove_at(enemies_spawned.find(enemy))
