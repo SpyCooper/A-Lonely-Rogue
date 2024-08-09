@@ -166,7 +166,7 @@ func spawn_projectile():
 	# spawns the laster in the correct location
 	var laser = CHROMATIC_LASER.instantiate()
 	laser.position = self.global_position
-	if  room_ref.get_enemies_in_room().size() > 0:
+	if room_ref.get_enemies_in_room().size() > 0:
 		target = room_ref.get_enemies_in_room()[0]
 		for enemy in room_ref.get_enemies_in_room():
 			if enemy != null:

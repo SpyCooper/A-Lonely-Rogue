@@ -138,7 +138,17 @@ func _physics_process(_delta):
 			# gets the player's position and looks toward it
 			player_position = player.get_player_position()
 			target_position = (player_position - center_marker.global_position).normalized()
+			var previous_direction = current_direction
 			current_direction = get_left_right_look_direction(target_position)
+			# if the player is directly above or below the knight
+			if player.get_player_position().x == global_position.x:
+				# if the knight is running at the player
+				if running_to_player || running_near_player:
+					# flip the direction the knight is chasing them from
+					if previous_direction == look_direction.right:
+						current_direction == look_direction.left
+					else:
+						current_direction == look_direction.right
 			# if the current state is rolling
 			if current_state == state.rolling:
 				# roll in the rolling direction
@@ -165,7 +175,7 @@ func _physics_process(_delta):
 				# set the target position
 				target_position = (player_position - center_marker.global_position).normalized()
 				# is the knight is not close enough to the player to attack
-				if center_marker.global_position.distance_to(player_position) > 18 && global_position.distance_to(player_position) > 10:
+				if center_marker.global_position.distance_to(player_position) > 22 && global_position.distance_to(player_position) > 14:
 					### has to use get_speed() to move based on dusted effect
 					# move the knight towards the player
 					velocity = target_position.normalized() * get_speed() * 80
