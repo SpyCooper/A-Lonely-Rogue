@@ -18,7 +18,6 @@ enum direction
 # object references
 @onready var animated_sprite = $AnimatedSprite2D
 @onready var enter_sound = $enter_sound
-@onready var hit_sound = $hit_sound
 @onready var attack_sound = $attack_sound
 @onready var attack_timer = $attack_timer
 @onready var chromatic_orb_sprite = $chromatic_orb_sprite
@@ -167,22 +166,23 @@ func spawn_projectile():
 	# spawns the laster in the correct location
 	var laser = CHROMATIC_LASER.instantiate()
 	laser.position = self.global_position
-	target = room_ref.get_enemies_in_room()[0]
-	for enemy in room_ref.get_enemies_in_room():
-		if enemy != null:
-			target = enemy
-	get_tree().current_scene.add_child(laser)
-	# sets the move direction
-	var move_direction = target.get_animated_sprite().global_position - laser.global_position
-	if current_look_direction == direction.right:
-		laser.global_position = laser_spawn_left.global_position
-		move_direction = target.get_animated_sprite().global_position - laser_spawn_left.global_position
-	else:
-		laser.global_position = laser_spawn_right.global_position
-		move_direction = target.get_animated_sprite().global_position - laser_spawn_right.global_position
-	move_direction = move_direction.normalized()
-	# tells the laser it's been spawned
-	laser.spawned(move_direction)
+	if  room_ref.get_enemies_in_room().size() > 0:
+		target = room_ref.get_enemies_in_room()[0]
+		for enemy in room_ref.get_enemies_in_room():
+			if enemy != null:
+				target = enemy
+		get_tree().current_scene.add_child(laser)
+		# sets the move direction
+		var move_direction = target.get_animated_sprite().global_position - laser.global_position
+		if current_look_direction == direction.right:
+			laser.global_position = laser_spawn_left.global_position
+			move_direction = target.get_animated_sprite().global_position - laser_spawn_left.global_position
+		else:
+			laser.global_position = laser_spawn_right.global_position
+			move_direction = target.get_animated_sprite().global_position - laser_spawn_right.global_position
+		move_direction = move_direction.normalized()
+		# tells the laser it's been spawned
+		laser.spawned(move_direction)
 
 # when the attack end timer ends
 func _on_attack_end_timer_timeout():

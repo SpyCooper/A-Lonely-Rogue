@@ -47,20 +47,21 @@ func _physics_process(_delta):
 					# throw a knife at an enemy
 					var blade_instance = TINY_ROGUE_KNIFE.instantiate()
 					blade_instance.position = self.global_position
-					var target = room_ref.get_enemies_in_room()[0]
-					for enemy in room_ref.get_enemies_in_room():
-						if enemy != null:
-							target = enemy
-					var direction = target.get_animated_sprite().global_position - blade_instance.global_position
-					direction = direction.normalized()
-					blade_instance.spawned_tiny_knife(direction)
-					get_tree().current_scene.add_child(blade_instance)
-					# disable can spawn
-					can_throw = false
-					# start the attack timer
-					attack_timer.start()
-					# play the attack sound
-					woosh_sound.play()
+					if room_ref.get_enemies_in_room().size > 0
+						var target = room_ref.get_enemies_in_room()[0]
+						for enemy in room_ref.get_enemies_in_room():
+							if enemy != null:
+								target = enemy
+						var direction = target.get_animated_sprite().global_position - blade_instance.global_position
+						direction = direction.normalized()
+						blade_instance.spawned_tiny_knife(direction)
+						get_tree().current_scene.add_child(blade_instance)
+						# disable can spawn
+						can_throw = false
+						# start the attack timer
+						attack_timer.start()
+						# play the attack sound
+						woosh_sound.play()
 
 # when the pet takes damage
 func take_damage(_damage):

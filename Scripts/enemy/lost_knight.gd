@@ -104,7 +104,7 @@ var room = null
 func _ready():
 	# basic enemy stats
 	speed = 1.7
-	health = 65
+	health = 80
 	max_health = health
 	# sets references to the player and catalog
 	catalog = Events.catalog

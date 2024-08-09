@@ -41,7 +41,7 @@ var current_state = state.grounded
 func _ready():
 	# basic enemy stats
 	speed = 2.9
-	health = 45
+	health = 50
 	max_health = health
 	# sets references to the player and catalog
 	catalog = Events.catalog

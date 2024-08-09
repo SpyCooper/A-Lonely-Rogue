@@ -54,7 +54,7 @@ var slime_to_be_spawned = []
 func _ready():
 	# basic enemy stats
 	speed = 0.25
-	health = 60
+	health = 65
 	max_health = health
 	# sets references to the player and catalog
 	catalog = Events.catalog

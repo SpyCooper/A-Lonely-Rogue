@@ -54,6 +54,14 @@ func _ready():
 func refresh_type_text():
 	label.text = "Type: " + str(room_type)
 
+func _process(delta):
+	if Events.current_room == self:
+		if enemies_spawned.size() > 0:
+			for enemy in enemies_spawned:
+				if enemy.global_position.x < global_position.x-(spawn_x+10) || enemy.global_position.x > global_position.x+(spawn_x+10) || enemy.global_position.y < global_position.y-(spawn_y+10) || enemy.global_position.y > global_position.y+(spawn_y+10):
+					enemy.despawn()
+					enemies_spawned.remove_at(enemies_spawned.find(enemy))
+
 # when a body enters the player_detector
 func _on_player_detector_body_entered(body):
 	# if the body is the player

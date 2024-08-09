@@ -45,7 +45,7 @@ const ENEMY_KNIFE = preload("res://Scenes/enemy_knife.tscn")
 func _ready():
 	# basic enemy stats
 	speed = 1.1
-	max_health = 100
+	max_health = 120
 	health = max_health
 	# sets references to the player and catalog
 	catalog = Events.catalog

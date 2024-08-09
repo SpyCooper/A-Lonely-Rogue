@@ -51,7 +51,7 @@ var can_move = true
 func _ready():
 	# basic enemy stats
 	speed = 0.0
-	health = 100
+	health = 110
 	max_health = health
 	# sets references to the player and catalog
 	catalog = Events.catalog

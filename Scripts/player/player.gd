@@ -641,11 +641,11 @@ func picked_up_item(item, display_text = true, sound = true, add_to_items_used =
 			if add_to_items_used:
 				# add item to the items used
 				PlayerData.items_used += [item]
+				# display the item text
+				if display_text:
+					hud.display_text("Aquired the Shadow Heart!", "You follow the path of darkness now...")
 		# refresh the player's HP, and send that shadow_heart is active
 		hud.refresh_hearts(player_health, shadow_heart)
-		# display the item text
-		if display_text:
-			hud.display_text("Aquired the Shadow Heart!", "You follow the path of darkness now...")
 		# add the item to the collected items in player data
 		items_collected += [item]
 		# mark that the shadow_heart has been collected (used for holy heart)
