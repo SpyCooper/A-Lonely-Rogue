@@ -5,4 +5,3 @@ Ideas for the future:
 - new bosses: gnome wizard, dwarf warrior
 - alt final bosss: hydra
 - make bombs open locked doors
-

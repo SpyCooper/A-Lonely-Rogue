@@ -126,6 +126,7 @@ func get_animated_sprite():
 
 # when called, the player and the enemy are considered to be in the same room
 func spawned_in_room():
+	Events.current_room.add_enemy_to_room(self)
 	player_in_room = true
 	spawning = false
 

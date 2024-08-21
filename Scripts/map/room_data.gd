@@ -63,6 +63,7 @@ const GELATINOUS_CUBE = preload("res://Scenes/enemies/gelatinous_cube.tscn")
 const FORGOTTEN_GOLEM = preload("res://Scenes/enemies/forgotten_golem.tscn")
 const LICH = preload("res://Scenes/enemies/lich.tscn")
 const LOST_KNIGHT = preload("res://Scenes/enemies/lost_knight.tscn")
+const MORPHED_SHADE = preload("res://Scenes/enemies/morphed_shade.tscn")
 
 # crystal bosses
 const SAPPHIRE_PEGASUS = preload("res://Scenes/enemies/sapphire_pegasus.tscn")

@@ -55,17 +55,20 @@ func refresh_type_text():
 	label.text = "Type: " + str(room_type)
 
 # on every frame
-func _process(delta):
+func _process(_delta):
 	# if the player is in the room
 	if Events.current_room == self:
 		# if there are enemies in the room
 		if enemies_spawned.size() > 0:
 			# make sure every enemy is in the area of the room
 			for enemy in enemies_spawned:
-				# if the enemy leaves the room, despawn them (should fix a bug where mimics are thrown out of the room for some reason)
-				if enemy.global_position.x < global_position.x-(spawn_x+10) || enemy.global_position.x > global_position.x+(spawn_x+10) || enemy.global_position.y < global_position.y-(spawn_y+10) || enemy.global_position.y > global_position.y+(spawn_y+10):
-					enemy.despawn()
-					enemies_spawned.remove_at(enemies_spawned.find(enemy))
+				if enemy != null:
+					# if the enemy leaves the room, despawn them (should fix a bug where mimics are thrown out of the room for some reason)
+					if enemy.global_position.x < global_position.x-(spawn_x+2) || enemy.global_position.x > global_position.x+(spawn_x+2) || enemy.global_position.y < global_position.y-(spawn_y+2) || enemy.global_position.y > global_position.y+(spawn_y+2):
+						enemy.despawn()
+						enemies_spawned.remove_at(enemies_spawned.find(enemy))
+				else:
+					remove_enemy_from_room(enemy)
 
 # when a body enters the player_detector
 func _on_player_detector_body_entered(body):
@@ -95,6 +98,11 @@ func _on_player_detector_body_entered(body):
 			visited = true
 			# reset the map logic for the room
 			Events.map.map_logic(self)
+		# if the current floor is 5
+		if get_tree().current_scene.name == "Floor5":
+			# check if the top room is a boss room, if it is, populate the room
+			if top_room != null && top_room.get_room_type() == RoomData.room_types.boss:
+				top_room.populate_room()
 		# tell the map that the player entered this room
 		Events.map.player_entered_room(self)
 		# if there are no enemies in the room
@@ -126,35 +134,37 @@ func _on_player_detector_body_entered(body):
 
 # when an body enters
 func _on_enemy_detector_body_entered(body):
-	# if the body is an enemy
-	if room_type != RoomData.room_types.starting:
-		if body is Enemy:
-			# adds an enemy to the count and a refernce to the enemy
-			enemies_spawned = enemies_spawned + [body]
+	## if the body is an enemy
+	#if room_type != RoomData.room_types.starting:
+		#if body is Enemy:
+			## adds an enemy to the count and a refernce to the enemy
+			#enemies_spawned = enemies_spawned + [body]
+	pass
 
 # when a body exits the enemy detector
 func _on_enemy_detector_body_exited(body):
 	# if the body is an enemy
-	if room_type != RoomData.room_types.starting:
-		# if the body is an enemy
-		if body is Enemy:
-			if enemies_spawned[enemies_spawned.find(body)].dying:
-				# remove a enemy from the count
-				enemies_spawned.remove_at(enemies_spawned.find(body))
-				# if all enemies are gone, disable the doors
-				if enemies_spawned.size() == 0:
-					open_all_doors()
-					# check the lock status when the player enters the room and there are no enemies
-					if Events.player.has_keys():
-						key_checks.locks_changed(true)
-					else:
-						key_checks.locks_changed(false)
-					# if the room is cleared and the room type is a type of boss room
-					if room_type == RoomData.room_types.boss || room_type == RoomData.room_types.crystal_boss:
-						# mark the room as cleared
-						room_boss_cleared = true
-					# do the boss icon logic (pulsing is allowed)
-					boss_icon_logic(true)
+	#if room_type != RoomData.room_types.starting:
+		## if the body is an enemy
+		#if body is Enemy:
+			#if enemies_spawned[enemies_spawned.find(body)].dying:
+				## remove a enemy from the count
+				#enemies_spawned.remove_at(enemies_spawned.find(body))
+				## if all enemies are gone, disable the doors
+				#if enemies_spawned.size() == 0:
+					#open_all_doors()
+					## check the lock status when the player enters the room and there are no enemies
+					#if Events.player.has_keys():
+						#key_checks.locks_changed(true)
+					#else:
+						#key_checks.locks_changed(false)
+					## if the room is cleared and the room type is a type of boss room
+					#if room_type == RoomData.room_types.boss || room_type == RoomData.room_types.crystal_boss:
+						## mark the room as cleared
+						#room_boss_cleared = true
+					## do the boss icon logic (pulsing is allowed)
+					#boss_icon_logic(true)
+	pass
 
 # closes all doors
 func close_all_doors():
@@ -237,6 +247,7 @@ func enemy_spawned_in_room():
 	Events.player.room_has_enemies()
 	# do the boss icon logic (pulsing not allowed)
 	boss_icon_logic(false)
+	
 
 # when the room is cleared
 func cleared():
@@ -461,12 +472,13 @@ func populate_room():
 				var collision = instance.move_and_collide(Vector2(0.0,0.0))
 				# if there is a collision at the location, despawn the mob
 				if collision != null:
-					instance.despawn()
+					instance.despawn_without_calling_current_room()
 				if instance != null:
 					spawned_mobs += [instance]
+					add_enemy_to_room(instance)
 			# if max iterations were reached, despawn the mob
 			else:
-				instance.despawn()
+				instance.despawn_without_calling_current_room()
 	# if the room type is crystal boss room
 	elif room_type == RoomData.room_types.crystal_boss:
 		# sets the spawn position based on which wall does not have a door
@@ -497,6 +509,7 @@ func populate_room():
 		if instance != null:
 			get_tree().current_scene.add_child(instance)
 			instance.global_position = position + spawn_vector
+			add_enemy_to_room(instance)
 	# if the room type is boss room
 	elif room_type == RoomData.room_types.boss:
 		# sets the spawn position based on which wall does not have a door
@@ -513,6 +526,9 @@ func populate_room():
 			spawn_vector = Vector2(-110, 20)
 		else:
 			spawn_vector = get_random_position(60)
+		
+		if get_tree().current_scene.name == "Floor5":
+			spawn_vector = Vector2(0, -35)
 		# spawns the correct crystal boss based on the current floor
 		var instance
 		if get_tree().current_scene.name == "Floor1":
@@ -523,10 +539,13 @@ func populate_room():
 			instance = RoomData.LICH.instantiate()
 		elif get_tree().current_scene.name == "Floor4":
 			instance = RoomData.LOST_KNIGHT.instantiate()
+		elif get_tree().current_scene.name == "Floor5":
+			instance = RoomData.MORPHED_SHADE.instantiate()
 		# if there is a boss spawned, spawn it and set the position of the boss
 		if instance != null:
 			get_tree().current_scene.add_child(instance)
 			instance.global_position = position + spawn_vector
+			add_enemy_to_room(instance)
 	# if the room type is ending room
 	elif room_type == RoomData.room_types.ending:
 		# sets the array of items
@@ -837,3 +856,34 @@ func get_random_position(offset : int):
 # returns the visited status
 func get_visited():
 	return visited
+
+func add_enemy_to_room(instance):
+	enemies_spawned = enemies_spawned + [instance]
+
+func remove_enemy_from_room(instance):
+	# if the instance is an enemy
+	if room_type != RoomData.room_types.starting:
+		# if the instance is an enemy
+		if instance != null && instance is Enemy:
+			print("enemies before kill: " + str(enemies_spawned))
+			# remove a enemy from the count
+			enemies_spawned.remove_at(enemies_spawned.find(instance))
+			print("enemies after kill: " + str(enemies_spawned))
+	# check if there are any enemies  that have been freed but not removed from the room
+	for enemy in enemies_spawned:
+		if enemy == null:
+			enemies_spawned.remove_at(enemies_spawned.find(instance))
+	# if all enemies are gone, disable the doors
+	if enemies_spawned.size() == 0:
+		open_all_doors()
+		# check the lock status when the player enters the room and there are no enemies
+		if Events.player.has_keys():
+			key_checks.locks_changed(true)
+		else:
+			key_checks.locks_changed(false)
+		# if the room is cleared and the room type is a type of boss room
+		if room_type == RoomData.room_types.boss || room_type == RoomData.room_types.crystal_boss:
+			# mark the room as cleared
+			room_boss_cleared = true
+		# do the boss icon logic (pulsing is allowed)
+		boss_icon_logic(true)

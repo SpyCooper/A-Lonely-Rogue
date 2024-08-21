@@ -214,6 +214,7 @@ func get_animated_sprite():
 func spawned_in_room():
 	player_in_room = true
 	spawning = false
+	Events.current_room.add_enemy_to_room(self)
 
 # when the hit flash animation timer ends
 func _on_hit_flash_animation_timer_timeout():

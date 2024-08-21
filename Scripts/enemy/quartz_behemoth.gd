@@ -390,4 +390,3 @@ func spawn_spike():
 		var spike = QUARTZ_SPIKE.instantiate()
 		get_tree().current_scene.add_child(spike)
 		spike.set_spawn_position(player.get_player_position())
-

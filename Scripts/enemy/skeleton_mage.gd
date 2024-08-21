@@ -176,6 +176,7 @@ func spawned_in_room():
 	attack_wait_timer.start(rng.randf_range(attack_wait_timer_duration-attack_wait_timer_duration_range, attack_wait_timer_duration+attack_wait_timer_duration_range))
 	player_in_room = true
 	spawning = false
+	Events.current_room.add_enemy_to_room(self)
 
 # when the hit flash animation timer ends
 func _on_hit_flash_animation_timer_timeout():

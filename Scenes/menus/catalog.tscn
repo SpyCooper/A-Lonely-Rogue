@@ -263,10 +263,12 @@ offset_bottom = 299.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_umit2")
+current_tab = 0
 
 [node name="Items" type="TabBar" parent="TabContainer"]
 layout_mode = 2
 theme = ExtResource("2_umit2")
+metadata/_tab_index = 0
 
 [node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Items"]
 layout_mode = 0
@@ -2881,6 +2883,7 @@ autowrap_mode = 2
 visible = false
 layout_mode = 2
 theme = ExtResource("2_umit2")
+metadata/_tab_index = 1
 
 [node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Monsters"]
 layout_mode = 0
@@ -3798,6 +3801,7 @@ autowrap_mode = 2
 visible = false
 layout_mode = 2
 theme = ExtResource("2_umit2")
+metadata/_tab_index = 2
 
 [node name="ScrollContainer" type="ScrollContainer" parent="TabContainer/Bosses"]
 layout_mode = 0
@@ -4787,11 +4791,11 @@ offset_top = -249.0
 offset_right = 367.0
 offset_bottom = -218.0
 theme = ExtResource("2_umit2")
-theme_override_styles/normal = SubResource("StyleBoxTexture_rrvjp")
+theme_override_styles/focus = SubResource("StyleBoxTexture_rrvjp")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_rrvjp")
 theme_override_styles/hover = SubResource("StyleBoxTexture_rrvjp")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_rrvjp")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_rrvjp")
-theme_override_styles/focus = SubResource("StyleBoxTexture_rrvjp")
+theme_override_styles/normal = SubResource("StyleBoxTexture_rrvjp")
 text = "X"
 
 [connection signal="pressed" from="TabContainer/Items/ScrollContainer/GridContainer/Spot4/Heart_button" to="." method="_on_heart_button_pressed"]

@@ -88,7 +88,7 @@ func take_damage(damage, attack_identifer, is_effect):
 ## NOTE: this can change between enemies for animations
 func enemy_slain():
 	player.killed_enemy()
-	queue_free()
+	despawn()
 
 # returns the most important direction based on the target location
 # mainly used for animations for bosses
@@ -169,11 +169,18 @@ func get_animated_sprite():
 
 # used to spawn enemies in the room and allows them to move right away
 func spawned_in_room():
+	# this is not called on enemies that extend other enemies (ex: greenslime does not inherit enemy since it extends slime)
+	print(self)
+	Events.current_room.add_enemy_to_room(self)
 	player_in_room = true
 
 # despawns the enemy
-# mainly used for bosses
 func despawn():
+	Events.current_room.remove_enemy_from_room(self)
+	queue_free()
+
+# despawns the enemy without calling the room
+func despawn_without_calling_current_room():
 	queue_free()
 
 # returns if the enemy is currently going through a spawn animation
@@ -187,4 +194,3 @@ func is_dying():
 # removes the enemy's hitbox
 func remove_hitbox():
 	hitbox.queue_free()
-
