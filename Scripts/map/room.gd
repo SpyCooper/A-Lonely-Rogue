@@ -865,10 +865,8 @@ func remove_enemy_from_room(instance):
 	if room_type != RoomData.room_types.starting:
 		# if the instance is an enemy
 		if instance != null && instance is Enemy:
-			print("enemies before kill: " + str(enemies_spawned))
 			# remove a enemy from the count
 			enemies_spawned.remove_at(enemies_spawned.find(instance))
-			print("enemies after kill: " + str(enemies_spawned))
 	# check if there are any enemies  that have been freed but not removed from the room
 	for enemy in enemies_spawned:
 		if enemy == null:
