@@ -39,6 +39,7 @@ func _on_open_timer_timeout():
 
 func close_door():
 	animated_sprite.play("close")
+	# if the door is locked, skip to the end of the close animation (makes it look like the door was already closed)
 	if locked:
 		animated_sprite.frame = 4
 	collision_shape.set_deferred("disabled", false)
